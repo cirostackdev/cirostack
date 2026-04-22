@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── Surfaces ── */
+    --background: 33 100% 98%;
+    --foreground: 20 14% 15%;
+
+    --card: 33 100% 99%;
+    --card-foreground: 20 14% 15%;
+
+    --popover: 33 100% 99%;
+    --popover-foreground: 20 14% 15%;
+
+    /* ── Brand: CiroStack red (#E53935) ── */
+    --primary: 1 77% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 33 50% 91%;
+    --secondary-foreground: 20 14% 15%;
+
+    --muted: 33 40% 93%;
+    --muted-foreground: 20 10% 40%;
+
+    /* ── Accent: AI purple (#7C3AED) ── */
+    --accent: 263 84% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 33 30% 88%;
+    --input: 33 30% 88%;
+    --ring: 1 77% 55%;
+
+    --radius: 0.75rem;
+
+    /* ── Sidebar ── */
+    --sidebar-background: 33 40% 95%;
+    --sidebar-foreground: 20 14% 15%;
+    --sidebar-primary: 1 77% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 33 40% 90%;
+    --sidebar-accent-foreground: 20 14% 15%;
+    --sidebar-border: 33 30% 88%;
+    --sidebar-ring: 1 77% 55%;
+
+    /* ── Custom tokens ── */
+    --glow: 1 77% 55%;
+    --surface: 33 40% 95%;
+    --surface-hover: 33 30% 90%;
+    --trust: 152 60% 40%;
+    --trust-foreground: 152 60% 15%;
+    --gradient-start: 1 77% 55%;
+    --gradient-end: 263 84% 58%;
+
+    /* ── Semantic (mapped to CSS vars for direct use) ── */
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-danger: #EF4444;
+    --color-info: #4FA3FF;
+
+    /* ── Legacy compat tokens (used by UI components via var()) ── */
+    --color-bg: #FFFAF5;
+    --color-surface: #FFFBF8;
+    --color-surface-2: #F7F1E8;
+    --color-border: #EDE5D8;
+    --color-border-2: #D9CBBC;
+    --color-text: #2A2420;
+    --color-text-muted: #6B6560;
+    --color-text-subtle: #6B7B8D;
+    --color-brand: #E53935;
+    --color-ai: #7C3AED;
+    --color-code-bg: #0D1117;
+    --color-code-line: #161B22;
+  }
+
+  .dark {
+    --background: 220 30% 6%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 25% 8%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 25% 8%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 1 77% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 13%;
+    --secondary-foreground: 210 20% 95%;
+
+    --muted: 220 15% 12%;
+    --muted-foreground: 215 16% 57%;
+
+    --accent: 263 70% 68%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 16%;
+    --input: 220 15% 16%;
+    --ring: 1 77% 55%;
+
+    --sidebar-background: 220 25% 7%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 1 77% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 13%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 220 15% 16%;
+    --sidebar-ring: 1 77% 55%;
+
+    /* Custom tokens */
+    --glow: 1 77% 55%;
+    --surface: 220 15% 10%;
+    --surface-hover: 220 15% 14%;
+    --trust: 152 60% 40%;
+    --trust-foreground: 152 60% 90%;
+    --gradient-start: 1 77% 55%;
+    --gradient-end: 263 70% 68%;
+
+    /* Legacy compat tokens */
+    --color-bg: #0A0E1A;
+    --color-surface: #0F1629;
+    --color-surface-2: #141E35;
+    --color-border: #1E2A45;
+    --color-border-2: #2A3A58;
+    --color-text: #F1F5F9;
+    --color-text-muted: #94A3B8;
+    --color-text-subtle: #64748B;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+  }
+
+  .glow-border {
+    box-shadow: 0 0 20px -5px hsl(var(--glow) / 0.3);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 30px hsl(var(--glow) / 0.5);
+  }
+
+  .surface-glass {
+    @apply bg-card border border-border/50;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  /* Soft alternate section — warm gray in light, deeper dark in dark mode */
+  .section-alt {
+    --background: 33 30% 92%;
+    --foreground: 20 14% 15%;
+    --card: 33 30% 95%;
+    --card-foreground: 20 14% 15%;
+    --muted: 33 25% 88%;
+    --muted-foreground: 20 10% 45%;
+    --secondary: 33 25% 89%;
+    --secondary-foreground: 20 14% 15%;
+    --border: 33 25% 82%;
+    @apply bg-background text-foreground;
+  }
+
+  :is(.dark) .section-alt {
+    --background: 220 30% 4%;
+    --foreground: 210 20% 95%;
+    --card: 220 25% 6%;
+    --card-foreground: 210 20% 95%;
+    --muted: 220 15% 8%;
+    --muted-foreground: 215 16% 52%;
+    --secondary: 220 15% 6%;
+    --secondary-foreground: 210 20% 95%;
+    --border: 220 15% 11%;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 60s) linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

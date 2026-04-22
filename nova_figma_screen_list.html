@@ -1,0 +1,630 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:20px 0}
+.section{margin-bottom:28px}
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-title{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-secondary)}
+.sec-count{font-size:11px;color:var(--color-text-secondary);background:var(--color-background-secondary);padding:2px 8px;border-radius:10px}
+.screen-list{display:flex;flex-direction:column;gap:6px}
+.screen{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px}
+.screen.priority{border-left:2px solid #1A6FE8;border-radius:0 8px 8px 0}
+.screen-num{font-size:11px;color:var(--color-text-secondary);min-width:26px;padding-top:1px;font-variant-numeric:tabular-nums}
+.screen-info{flex:1}
+.screen-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.screen-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.5}
+.tags{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.tag{font-size:10px;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.tag-mobile{background:#EEEDFE;color:#3C3489}
+.tag-state{background:#E1F5EE;color:#085041}
+.tag-new{background:#E6F1FB;color:#0C447C}
+.tag-component{background:#FAEEDA;color:#633806}
+.tag-admin{background:#FAECE7;color:#712B13}
+.priority-note{font-size:10px;color:#185FA5;font-weight:500;white-space:nowrap;margin-top:1px}
+.total-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--color-background-secondary);border-radius:8px;margin-top:8px}
+.total-label{font-size:12px;color:var(--color-text-secondary)}
+.total-num{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary)}
+.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+</style>
+
+<h2 class="sr-only">Nova Figma screen list for CiroStack Academy — 58 screens across 9 sections</h2>
+
+<div class="wrap">
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#1A6FE8"></div> Launch priority</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#EEEDFE;border:0.5px solid #AFA9EC"></div> Mobile variant needed</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#E1F5EE;border:0.5px solid #5DCAA5"></div> Multiple states</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#FAEEDA;border:0.5px solid #EF9F27"></div> Component/reusable</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#FAECE7;border:0.5px solid #F0997B"></div> Admin/instructor only</div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">1 — Public marketing</span><span class="sec-count">7 screens</span></div>
+  <div class="screen-list">
+
+    <div class="screen priority">
+      <span class="screen-num">01</span>
+      <div class="screen-info">
+        <div class="screen-name">Homepage</div>
+        <div class="screen-desc">Hero, stats bar, featured courses, category chips, AI-assisted coding value proposition section, testimonials, pricing teaser, footer</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-mobile">Mobile variant</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">02</span>
+      <div class="screen-info">
+        <div class="screen-name">Course catalog</div>
+        <div class="screen-desc">Filter sidebar (category, level, price, duration), sort controls, course card grid, active filter pills, empty state</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-mobile">Mobile variant</span><span class="tag tag-state">3 states</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">03</span>
+      <div class="screen-info">
+        <div class="screen-name">Course landing page</div>
+        <div class="screen-desc">Course hero with trailer embed, what you'll learn, curriculum accordion, instructor bio, reviews, sticky enrol CTA sidebar, free preview badge</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-mobile">Mobile variant</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">04</span>
+      <div class="screen-info">
+        <div class="screen-name">Learning paths page</div>
+        <div class="screen-desc">Curated multi-course tracks (e.g. "Full-stack AI developer"), path card with course sequence visualisation, estimated time, outcome statement</div>
+        <div class="tags"><span class="tag tag-mobile">Mobile variant</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">05</span>
+      <div class="screen-info">
+        <div class="screen-name">Pricing page</div>
+        <div class="screen-desc">Per-course vs subscription toggle (NGN/USD), plan comparison table, FAQ accordion, social proof strip, currency auto-detection note</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-mobile">Mobile variant</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">06</span>
+      <div class="screen-info">
+        <div class="screen-name">About / why CiroStack Academy</div>
+        <div class="screen-desc">Origin story, CiroStack agency connection, instructors section, AI-assisted coding philosophy manifesto, talent pipeline explainer</div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">07</span>
+      <div class="screen-info">
+        <div class="screen-name">Public student profile</div>
+        <div class="screen-desc">academy.cirostack.com/u/username — completed courses, deployed capstone projects with live links, certificates, XP score, cohort badges</div>
+        <div class="tags"><span class="tag tag-mobile">Mobile variant</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">2 — Auth flow</span><span class="sec-count">5 screens</span></div>
+  <div class="screen-list">
+
+    <div class="screen priority">
+      <span class="screen-num">08</span>
+      <div class="screen-info">
+        <div class="screen-name">Sign up</div>
+        <div class="screen-desc">Name, email, password, country selector (NGN vs USD auto-selects), Google OAuth option, terms checkbox</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-state">Error + success states</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">09</span>
+      <div class="screen-info">
+        <div class="screen-name">Sign in</div>
+        <div class="screen-desc">Email + password, Google OAuth, forgot password link, "remember me"</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-state">Error state</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">10</span>
+      <div class="screen-info">
+        <div class="screen-name">Forgot password</div>
+        <div class="screen-desc">Email input → confirmation sent state → reset password form → success state</div>
+        <div class="tags"><span class="tag tag-state">4 states</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">11</span>
+      <div class="screen-info">
+        <div class="screen-name">Onboarding quiz (post-signup)</div>
+        <div class="screen-desc">3-step: current skill level, learning goal, topics of interest — feeds personalised course recommendations on first dashboard load</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">12</span>
+      <div class="screen-info">
+        <div class="screen-name">Email verification</div>
+        <div class="screen-desc">Pending verification banner + resend option, verified success redirect</div>
+        <div class="tags"><span class="tag tag-state">2 states</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">3 — Student dashboard</span><span class="sec-count">7 screens</span></div>
+  <div class="screen-list">
+
+    <div class="screen priority">
+      <span class="screen-num">13</span>
+      <div class="screen-info">
+        <div class="screen-name">Dashboard home</div>
+        <div class="screen-desc">Resume learning CTA, streak tracker, XP progress bar, in-progress courses, recommended next courses, upcoming live session banner, Launchpad WhatsApp link</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-mobile">Mobile variant</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">14</span>
+      <div class="screen-info">
+        <div class="screen-name">My learning</div>
+        <div class="screen-desc">All enrolled courses with progress bars, filter by status (in progress / completed / not started), sort by recent activity</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-state">Empty state</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">15</span>
+      <div class="screen-info">
+        <div class="screen-name">My certificates</div>
+        <div class="screen-desc">Certificate gallery, download PDF button, share to LinkedIn button, certificate detail modal with verification URL</div>
+        <div class="tags"><span class="tag tag-state">Empty state</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">16</span>
+      <div class="screen-info">
+        <div class="screen-name">My projects (Ship It)</div>
+        <div class="screen-desc">Deployed capstone project cards with live URL, GitHub link, course it belongs to, submission date, instructor score</div>
+        <div class="tags"><span class="tag tag-state">Empty state</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">17</span>
+      <div class="screen-info">
+        <div class="screen-name">Prompt library</div>
+        <div class="screen-desc">Personal collection of prompts saved from "Steal the Prompt" feature, organised by tag, searchable, copy-to-clipboard, edit and fork</div>
+        <div class="tags"><span class="tag tag-new">Unique feature</span><span class="tag tag-state">Empty state</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">18</span>
+      <div class="screen-info">
+        <div class="screen-name">Leaderboard</div>
+        <div class="screen-desc">XP rankings within cohort and globally, Prompt Lab scores, AI Debugging Arena times, filter by course/track/all-time</div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">19</span>
+      <div class="screen-info">
+        <div class="screen-name">Account settings</div>
+        <div class="screen-desc">Profile info, password change, notification preferences (email, WhatsApp), language preference (English / Pidgin), timezone, danger zone (delete account)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">4 — Course player</span><span class="sec-count">9 screens</span></div>
+  <div class="screen-list">
+
+    <div class="screen priority">
+      <span class="screen-num">20</span>
+      <div class="screen-info">
+        <div class="screen-name">Player — video tab</div>
+        <div class="screen-desc">Video pane (16:9), playback controls, lesson sidebar with chapter list + completion checks, progress bar, note-taking panel toggle, Cipher AI tutor drawer</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-mobile">Mobile variant</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">21</span>
+      <div class="screen-info">
+        <div class="screen-name">Player — written guide tab</div>
+        <div class="screen-desc">Markdown-rendered lesson content, inline code blocks, "explain this line" highlight interaction, image lightbox, reading progress indicator</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">22</span>
+      <div class="screen-info">
+        <div class="screen-name">Player — code sandbox tab</div>
+        <div class="screen-desc">Monaco editor (left), output console (right), AI vs Manual toggle, run button, reset to starter code, Cipher hint button, language selector, "Steal the Prompt" panel</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-state">Running / error / success states</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">23</span>
+      <div class="screen-info">
+        <div class="screen-name">Player — quiz tab</div>
+        <div class="screen-desc">Question card, multiple choice / code challenge / short answer types, progress indicator (Q3 of 8), timer if timed, submit and next flow</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-state">Per question type variant</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">24</span>
+      <div class="screen-info">
+        <div class="screen-name">Cipher AI tutor drawer</div>
+        <div class="screen-desc">Chat interface anchored to the right of the player, message history, context-aware (knows current lesson), multi-model selector, clear chat</div>
+        <div class="tags"><span class="tag tag-component">Reusable component</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">25</span>
+      <div class="screen-info">
+        <div class="screen-name">AI vs Manual split view</div>
+        <div class="screen-desc">Two-pane layout — left is manual approach editor, right is AI-assisted editor with prompt input. Diff highlight showing what AI changed. Toggle to compare.</div>
+        <div class="tags"><span class="tag tag-new">Unique feature</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">26</span>
+      <div class="screen-info">
+        <div class="screen-name">Prompt Lab screen</div>
+        <div class="screen-desc">Prompt input, target task description, model selector, run output, Prompt Quality Score breakdown (precision / efficiency / task completion), history panel</div>
+        <div class="tags"><span class="tag tag-new">Unique feature</span><span class="tag tag-state">Scored / unscored states</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">27</span>
+      <div class="screen-info">
+        <div class="screen-name">Code diff viewer</div>
+        <div class="screen-desc">Before/after diff with colour-coded additions and deletions, step-through timeline of intermediate AI edits, instructor annotation callouts</div>
+        <div class="tags"><span class="tag tag-new">Unique feature</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">28</span>
+      <div class="screen-info">
+        <div class="screen-name">Lesson complete modal</div>
+        <div class="screen-desc">XP earned, lesson summary, next lesson CTA, notes summary, option to revisit quiz, course completion % updated</div>
+        <div class="tags"><span class="tag tag-component">Reusable component</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">5 — Assessments & gamification</span><span class="sec-count">6 screens</span></div>
+  <div class="screen-list">
+
+    <div class="screen priority">
+      <span class="screen-num">29</span>
+      <div class="screen-info">
+        <div class="screen-name">Quiz results screen</div>
+        <div class="screen-desc">Score percentage, pass/fail state, question-by-question breakdown, correct answer explanations, retry or next lesson CTA</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-state">Pass / fail variants</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">30</span>
+      <div class="screen-info">
+        <div class="screen-name">Certificate screen</div>
+        <div class="screen-desc">Full certificate render, student name, course name, date, CiroStack Academy seal, verification ID, download PDF, share to LinkedIn, copy link</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">31</span>
+      <div class="screen-info">
+        <div class="screen-name">AI Debugging Arena</div>
+        <div class="screen-desc">Timer display, broken code presented, student fixes using AI tools in sandbox, submit for scoring, solution reveal after submission, leaderboard position</div>
+        <div class="tags"><span class="tag tag-new">Unique feature</span><span class="tag tag-state">Active / submitted / revealed states</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">32</span>
+      <div class="screen-info">
+        <div class="screen-name">Client brief simulator</div>
+        <div class="screen-desc">Brief document view (like a real CiroStack brief), scope breakdown, deliverables checklist, sandbox to build, submission form, AI evaluation rubric display</div>
+        <div class="tags"><span class="tag tag-new">Unique feature</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">33</span>
+      <div class="screen-info">
+        <div class="screen-name">Ship It capstone submission</div>
+        <div class="screen-desc">Project name, live URL, GitHub repo link, description, screenshot upload, tech stack tags, "make public on profile" toggle, submit for review</div>
+        <div class="tags"><span class="tag tag-new">Unique feature</span><span class="tag tag-state">Pending / approved / rejected states</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">34</span>
+      <div class="screen-info">
+        <div class="screen-name">XP & streak dashboard widget</div>
+        <div class="screen-desc">Streak calendar (GitHub-style heatmap), current streak count, XP level and progress to next, badge collection, rank change indicator</div>
+        <div class="tags"><span class="tag tag-component">Reusable component</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">6 — Billing & subscription</span><span class="sec-count">5 screens</span></div>
+  <div class="screen-list">
+
+    <div class="screen priority">
+      <span class="screen-num">35</span>
+      <div class="screen-info">
+        <div class="screen-name">Checkout — course purchase</div>
+        <div class="screen-desc">Course summary, price in NGN or USD, Paystack / Stripe payment widget, promo code input, order total breakdown, security badges</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span><span class="tag tag-state">Processing / success / error states</span></div>
+      </div>
+    </div>
+
+    <div class="screen priority">
+      <span class="screen-num">36</span>
+      <div class="screen-info">
+        <div class="screen-name">Checkout — subscription</div>
+        <div class="screen-desc">Plan selection (monthly / annual), currency toggle (NGN/USD), payment form, trial period note if applicable, cancel anytime reassurance</div>
+        <div class="tags"><span class="tag tag-new">Launch priority</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">37</span>
+      <div class="screen-info">
+        <div class="screen-name">Purchase success / enrolment confirmed</div>
+        <div class="screen-desc">Confirmation, receipt details, CTA to start course, WhatsApp community invite link for that course's Launchpad group</div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">38</span>
+      <div class="screen-info">
+        <div class="screen-name">Billing management</div>
+        <div class="screen-desc">Active subscription details, next billing date, payment method on file (card last 4), invoice history table, cancel subscription flow</div>
+        <div class="tags"><span class="tag tag-state">Active / cancelled / past due states</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">39</span>
+      <div class="screen-info">
+        <div class="screen-name">Cancel subscription flow</div>
+        <div class="screen-desc">Reason selector, offer to pause instead, final confirm screen, post-cancellation state showing access end date</div>
+        <div class="tags"><span class="tag tag-state">3-step flow</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">7 — Instructor dashboard</span><span class="sec-count">8 screens</span></div>
+  <div class="screen-list">
+
+    <div class="screen">
+      <span class="screen-num">40</span>
+      <div class="screen-info">
+        <div class="screen-name">Instructor home</div>
+        <div class="screen-desc">Revenue this month, total students, active courses, completion rates, recent reviews, quick actions</div>
+        <div class="tags"><span class="tag tag-admin">Instructor only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">41</span>
+      <div class="screen-info">
+        <div class="screen-name">Course builder — structure</div>
+        <div class="screen-desc">Section and lesson tree (drag to reorder), add section / lesson / quiz buttons, publish status per section, estimated duration</div>
+        <div class="tags"><span class="tag tag-admin">Instructor only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">42</span>
+      <div class="screen-info">
+        <div class="screen-name">Lesson editor — video</div>
+        <div class="screen-desc">Video upload / Mux integration, title, transcript (auto-generated + editable), chapter markers, free preview toggle</div>
+        <div class="tags"><span class="tag tag-admin">Instructor only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">43</span>
+      <div class="screen-info">
+        <div class="screen-name">Lesson editor — written guide</div>
+        <div class="screen-desc">Rich markdown editor with code block support, image upload, lesson summary field, Pidgin English toggle for alternative content</div>
+        <div class="tags"><span class="tag tag-admin">Instructor only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">44</span>
+      <div class="screen-info">
+        <div class="screen-name">Prompt editor</div>
+        <div class="screen-desc">Add prompts used in this lesson to the "Steal the Prompt" panel — prompt text, model used, context note, tag (architecture / debugging / refactor / etc.)</div>
+        <div class="tags"><span class="tag tag-admin">Instructor only</span><span class="tag tag-new">Unique feature</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">45</span>
+      <div class="screen-info">
+        <div class="screen-name">Quiz builder</div>
+        <div class="screen-desc">Add questions (multiple choice / code challenge / open answer), set correct answers, configure pass threshold, enable/disable timer, preview mode</div>
+        <div class="tags"><span class="tag tag-admin">Instructor only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">46</span>
+      <div class="screen-info">
+        <div class="screen-name">Ship It submissions review</div>
+        <div class="screen-desc">Student project submissions list, project preview, scoring rubric form, approve / request revision / reject with comment, mark for Talent Pipeline flag</div>
+        <div class="tags"><span class="tag tag-admin">Instructor only</span><span class="tag tag-new">Unique feature</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">47</span>
+      <div class="screen-info">
+        <div class="screen-name">Student analytics</div>
+        <div class="screen-desc">Per-course: drop-off by lesson, average quiz scores, Prompt Lab score distribution, completion funnel, Cipher question frequency (shows where students get confused)</div>
+        <div class="tags"><span class="tag tag-admin">Instructor only</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">8 — Admin panel</span><span class="sec-count">5 screens</span></div>
+  <div class="screen-list">
+
+    <div class="screen">
+      <span class="screen-num">48</span>
+      <div class="screen-info">
+        <div class="screen-name">Admin overview</div>
+        <div class="screen-desc">Platform-wide stats: MRR, total students, active subscriptions, course enrolments breakdown, new signups chart, churn rate</div>
+        <div class="tags"><span class="tag tag-admin">Admin only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">49</span>
+      <div class="screen-info">
+        <div class="screen-name">User management</div>
+        <div class="screen-desc">Student list with search and filters, role assignment, subscription status, manual enrolment, suspend/ban, Talent Pipeline flagged students view</div>
+        <div class="tags"><span class="tag tag-admin">Admin only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">50</span>
+      <div class="screen-info">
+        <div class="screen-name">Course management</div>
+        <div class="screen-desc">All courses table, publish/unpublish toggle, featured toggle, pricing override, enrolment count, revenue per course, bulk actions</div>
+        <div class="tags"><span class="tag tag-admin">Admin only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">51</span>
+      <div class="screen-info">
+        <div class="screen-name">Promo codes</div>
+        <div class="screen-desc">Create / manage discount codes, percentage or fixed, per-course or global, expiry date, usage limit, usage report</div>
+        <div class="tags"><span class="tag tag-admin">Admin only</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">52</span>
+      <div class="screen-info">
+        <div class="screen-name">Talent pipeline board</div>
+        <div class="screen-desc">Flagged graduates from Ship It reviews, skill tags, course track, capstone project link, "refer to Orion" button that fires an Armory event to CiroStack's project matching system</div>
+        <div class="tags"><span class="tag tag-admin">Admin only</span><span class="tag tag-new">Unique feature</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-header"><span class="sec-title">9 — Component library (design system)</span><span class="sec-count">6 sheets</span></div>
+  <div class="screen-list">
+
+    <div class="screen">
+      <span class="screen-num">C1</span>
+      <div class="screen-info">
+        <div class="screen-name">Foundations</div>
+        <div class="screen-desc">Colour tokens (brand + semantic), typography scale, spacing system, icon set, elevation (border-based, no shadows)</div>
+        <div class="tags"><span class="tag tag-component">Design system</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">C2</span>
+      <div class="screen-info">
+        <div class="screen-name">Course card variants</div>
+        <div class="screen-desc">Default, hover, enrolled, completed, free preview, featured — all sizes (grid card, list row, mini widget)</div>
+        <div class="tags"><span class="tag tag-component">Design system</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">C3</span>
+      <div class="screen-info">
+        <div class="screen-name">Buttons, inputs & forms</div>
+        <div class="screen-desc">Primary, outline, ghost, destructive — all states (default, hover, loading, disabled). All input types. Checkbox, radio, toggle, select.</div>
+        <div class="tags"><span class="tag tag-component">Design system</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">C4</span>
+      <div class="screen-info">
+        <div class="screen-name">Badges, tags & pills</div>
+        <div class="screen-desc">Level badges (beginner / intermediate / advanced), category chips, status pills (enrolled / completed / new / live), XP badges, Talent Pipeline flag</div>
+        <div class="tags"><span class="tag tag-component">Design system</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">C5</span>
+      <div class="screen-info">
+        <div class="screen-name">Navigation components</div>
+        <div class="screen-desc">Top nav (logged out / logged in), sidebar (student / instructor / admin), breadcrumb, mobile bottom tab bar, player lesson sidebar</div>
+        <div class="tags"><span class="tag tag-component">Design system</span></div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <span class="screen-num">C6</span>
+      <div class="screen-info">
+        <div class="screen-name">Modals, toasts & empty states</div>
+        <div class="screen-desc">Confirm modal, info modal, success/error/warning toasts, skeleton loaders for each major screen, all empty states (no courses, no certificates, etc.)</div>
+        <div class="tags"><span class="tag tag-component">Design system</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="total-row">
+  <span class="total-label">Total screens for Nova to design</span>
+  <span class="total-num">52 screens + 6 component sheets</span>
+</div>
+
+</div>
