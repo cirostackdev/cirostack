@@ -13,13 +13,11 @@ import {
   Laptop,
   Building2,
   Truck,
-  Globe,
-  Smartphone,
-  Bot,
   DollarSign,
   Users,
   Zap,
   Shield,
+  Sparkles,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
@@ -29,27 +27,20 @@ import imgShoplocal from "@/assets/portfolio-shoplocal.jpg";
 import imgAutotask from "@/assets/portfolio-autotask.jpg";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { allTestimonials } from "@/data/testimonials";
-
-/* ─── animation (hero only) ─── */
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.08, ease: [0.25, 0.4, 0.25, 1] },
-  }),
-};
+import HeroVisualStack from "@/components/home/HeroVisualStack";
+import LifecycleTimeline from "@/components/home/LifecycleTimeline";
+import BentoProjects from "@/components/home/BentoProjects";
 
 /* ─── data ─── */
 const industries = [
-  { icon: HeartPulse, title: "Healthcare & Medical", tagline: "HIPAA-compliant platforms for better patient outcomes", href: "/industries/healthcare-and-medical" },
-  { icon: Landmark, title: "Financial Services", tagline: "Secure, real-time systems for modern finance", href: "/industries/financial-services" },
-  { icon: ShoppingCart, title: "Retail & E-Commerce", tagline: "Conversion-optimized storefronts and marketplaces", href: "/industries/retail-and-e-commerce" },
-  { icon: GraduationCap, title: "Education & E-Learning", tagline: "Scalable LMS platforms for 50K+ concurrent learners", href: "/industries/education-and-e-learning" },
-  { icon: Factory, title: "Manufacturing", tagline: "IoT dashboards and predictive maintenance systems", href: "/industries/manufacturing-and-industrial" },
-  { icon: Laptop, title: "Technology & Startups", tagline: "From MVP to scale — engineering velocity for founders", href: "/industries/technology-and-startups" },
-  { icon: Building2, title: "Real Estate", tagline: "PropTech platforms for listings, tours, and transactions", href: "/industries/real-estate-and-property" },
-  { icon: Truck, title: "Logistics", tagline: "Real-time tracking and supply chain intelligence", href: "/industries/transportation-and-logistics" },
+  { icon: HeartPulse, title: "Healthcare & Medical", tagline: "HIPAA-compliant platforms for better patient outcomes", href: "/industries/healthcare-and-medical", image: imgHealthflow },
+  { icon: Landmark, title: "Financial Services", tagline: "Secure, real-time systems for modern finance", href: "/industries/financial-services", image: imgAutotask },
+  { icon: ShoppingCart, title: "Retail & E-Commerce", tagline: "Conversion-optimized storefronts and marketplaces", href: "/industries/retail-and-e-commerce", image: imgShoplocal },
+  { icon: GraduationCap, title: "Education & E-Learning", tagline: "Scalable LMS for 50K+ concurrent learners", href: "/industries/education-and-e-learning", image: imgHealthflow },
+  { icon: Factory, title: "Manufacturing", tagline: "IoT dashboards and predictive maintenance", href: "/industries/manufacturing-and-industrial", image: imgAutotask },
+  { icon: Laptop, title: "Technology & Startups", tagline: "From MVP to scale — engineering velocity for founders", href: "/industries/technology-and-startups", image: imgShoplocal },
+  { icon: Building2, title: "Real Estate", tagline: "PropTech platforms for listings, tours, transactions", href: "/industries/real-estate-and-property", image: imgHealthflow },
+  { icon: Truck, title: "Logistics", tagline: "Real-time tracking and supply chain intelligence", href: "/industries/transportation-and-logistics", image: imgAutotask },
 ];
 
 const phases = [
@@ -96,43 +87,29 @@ const phases = [
 ];
 
 const projects = [
-  {
-    title: "HealthFlow Dashboard",
-    client: "MedTech Startup",
-    industry: "Healthcare",
-    metric: "60% less admin time",
-    tags: ["Web App", "AI"],
-    image: imgHealthflow,
-  },
-  {
-    title: "ShopLocal Marketplace",
-    client: "Retail Collective",
-    industry: "Retail",
-    metric: "₦60M in 90-day GMV",
-    tags: ["E-commerce", "Marketplace"],
-    image: imgShoplocal,
-  },
-  {
-    title: "AutoTask AI",
-    client: "Operations Corp",
-    industry: "Enterprise",
-    metric: "75% less manual work",
-    tags: ["AI", "Automation"],
-    image: imgAutotask,
-  },
+  { title: "HealthFlow Dashboard", client: "MedTech Startup", industry: "Healthcare", metric: "60% less admin time", tags: ["Web App", "AI"], image: imgHealthflow },
+  { title: "ShopLocal Marketplace", client: "Retail Collective", industry: "Retail", metric: "₦60M in 90-day GMV", tags: ["E-commerce"], image: imgShoplocal },
+  { title: "AutoTask AI", client: "Operations Corp", industry: "Enterprise", metric: "75% less manual work", tags: ["AI"], image: imgAutotask },
 ];
 
 const values = [
   { icon: DollarSign, title: "Fixed Price", line: "The quote is the price. Period." },
-  { icon: Users, title: "Senior Engineers", line: "The team you meet builds your product. No handoffs to juniors." },
-  { icon: Zap, title: "Weeks, Not Months", line: "Most projects ship in 4–8 weeks. We move fast without cutting corners." },
-  { icon: Shield, title: "You Own Everything", line: "Code, designs, IP — all yours from day one. No lock-in." },
+  { icon: Users, title: "Senior Engineers", line: "The team you meet builds your product. No handoffs." },
+  { icon: Zap, title: "Weeks, Not Months", line: "Most projects ship in 4–8 weeks." },
+  { icon: Shield, title: "You Own Everything", line: "Code, designs, IP — yours from day one." },
 ];
 
 const alsoServe = [
   "Legal", "Government", "Agriculture", "Construction", "Media",
   "Hospitality", "Sports", "Beauty", "Automotive", "Non-Profit",
   "Professional Services", "Small Business",
+];
+
+/* Marquee strip — industry names scrolling */
+const marqueeWords = [
+  "Healthcare", "Fintech", "Retail", "Logistics", "Manufacturing",
+  "EdTech", "PropTech", "SaaS", "Hospitality", "Legal",
+  "Government", "Media", "Agriculture", "Automotive", "Sports",
 ];
 
 /* ─── page ─── */
@@ -142,144 +119,214 @@ const Index = () => {
       <SEO />
 
       {/* ══════════════════════════════════════════════
-          SECTION 1 — HERO
+          SECTION 1 — SPLIT EDITORIAL HERO
           ══════════════════════════════════════════════ */}
-      <section className="relative min-h-[100dvh] flex items-center justify-center pt-20 md:pt-24 pb-16">
+      <section className="relative overflow-hidden pt-28 md:pt-32 pb-16 md:pb-20">
+        {/* Ambient backdrop */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-[28rem] h-[28rem] rounded-full bg-accent/10 blur-3xl" />
+        </div>
+
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Eyebrow */}
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-              <span className="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-widest uppercase rounded-full bg-primary/8 text-primary border border-primary/15">
-                Software Agency for Growing Businesses
+          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-20 items-center">
+            {/* LEFT — text */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex items-center gap-2 mb-6"
+              >
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 text-[11px] font-semibold tracking-widest uppercase rounded-full bg-primary/10 text-primary border border-primary/20">
+                  <Sparkles className="w-3 h-3" />
+                  Software Agency for Growing Businesses
+                </span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.05 }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95] tracking-tight mb-6"
+              >
+                Software,
+                <br />
+                <span className="text-gradient italic">engineered</span>
+                <br />
+                for your industry.
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                className="text-base md:text-lg text-muted-foreground mb-8 max-w-xl leading-relaxed"
+              >
+                Fixed price. Senior engineers. Shipped in weeks.
+                From websites to AI — across 20+ industries.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="flex flex-wrap gap-4 mb-10"
+              >
+                <Link href="/contact">
+                  <Button size="lg" className="rounded-full text-base px-8 group">
+                    Start Your Project
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+                <Link href="#featured-work">
+                  <Button size="lg" variant="outline" className="rounded-full text-base px-8">
+                    See Our Work
+                  </Button>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex items-center gap-6 text-sm"
+              >
+                {[
+                  { value: "50+", label: "Projects" },
+                  { value: "20+", label: "Industries" },
+                  { value: "5", label: "Countries" },
+                ].map((s, i) => (
+                  <div key={s.label} className="flex items-center gap-6">
+                    <div>
+                      <p className="text-2xl md:text-3xl font-display font-bold text-foreground tabular-nums">
+                        {s.value}
+                      </p>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                        {s.label}
+                      </p>
+                    </div>
+                    {i < 2 && <span className="h-8 w-px bg-border" />}
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* RIGHT — visual stack */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <HeroVisualStack image={imgHealthflow} />
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Scrolling marquee */}
+        <div className="mt-16 md:mt-20 border-y border-border/60 bg-card/40 backdrop-blur-sm py-5 overflow-hidden">
+          <div className="flex animate-marquee whitespace-nowrap" style={{ "--marquee-duration": "45s" } as React.CSSProperties}>
+            {[...marqueeWords, ...marqueeWords].map((w, i) => (
+              <span key={i} className="inline-flex items-center mx-8 text-2xl md:text-3xl font-display font-semibold text-muted-foreground/70 hover:text-foreground transition-colors">
+                {w}
+                <span className="ml-8 text-primary text-3xl">·</span>
               </span>
-            </motion.div>
-
-            {/* H1 */}
-            <motion.h1
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold text-foreground leading-[1.08] tracking-tight mb-6"
-            >
-              We design, build, and scale
-              <br />
-              <span className="text-gradient">software for your industry.</span>
-            </motion.h1>
-
-            {/* Subtext */}
-            <motion.p
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              custom={2}
-              className="text-base md:text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed"
-            >
-              Fixed price. Senior engineers. Shipped in weeks.
-              <br className="hidden sm:block" />
-              From websites to AI — across 20+ industries.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              custom={3}
-              className="flex flex-wrap justify-center gap-4 mb-12"
-            >
-              <Link href="/contact">
-                <Button size="lg" className="rounded-full text-base px-8 group">
-                  Start Your Project
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-              <Link href="#featured-work">
-                <Button size="lg" variant="outline" className="rounded-full text-base px-8">
-                  See Our Work
-                </Button>
-              </Link>
-            </motion.div>
-
-            {/* Stat pills */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              custom={4}
-              className="flex flex-wrap justify-center gap-3 md:gap-4"
-            >
-              {[
-                { value: "50+", label: "Projects" },
-                { value: "20+", label: "Industries" },
-                { value: "5", label: "Countries" },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-muted/60 border border-border/60"
-                >
-                  <span className="text-primary font-display font-bold text-lg">{stat.value}</span>
-                  <span className="text-muted-foreground text-sm">{stat.label}</span>
-                </div>
-              ))}
-            </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 2 — INDUSTRIES
+          SECTION 2 — INDUSTRIES (horizontal showcase)
           ══════════════════════════════════════════════ */}
       <section className="section-padding section-alt">
         <div className="container mx-auto px-4 md:px-6">
-          <SectionHeading
-            badge="Industries We Serve"
-            title="Built for your world, not ours."
-            description="We don't just write code — we learn your regulations, your users, your market dynamics. Then we build software that fits."
-          />
-
-          {/* Industry grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-10">
-            {industries.map((ind) => (
-              <Link key={ind.title} href={ind.href} className="block group">
-                <div className="h-full p-5 md:p-6 rounded-xl surface-glass hover-lift">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <ind.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-display font-semibold text-foreground text-sm md:text-base mb-1.5">
-                    {ind.title}
-                  </h3>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-                    {ind.tagline}
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 mb-12">
+            {/* Big number */}
+            <div>
+              <span className="inline-block px-3 py-1 mb-5 text-xs font-medium tracking-wider uppercase rounded-full bg-muted text-muted-foreground border border-border">
+                Industries We Serve
+              </span>
+              <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
+                20+
+              </p>
+              <p className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-4 leading-tight">
+                Built for your world,
+                <br />
+                <span className="text-muted-foreground">not ours.</span>
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-md">
+                We learn your regulations, your users, your market — then build software that fits.
+              </p>
+              <Link
+                href="/industries"
+                className="text-primary text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all"
+              >
+                Explore all industries <ArrowRight className="w-4 h-4" />
               </Link>
-            ))}
+            </div>
+
+            {/* Horizontal scroll showcase */}
+            <div className="relative -mr-4 md:-mr-6 lg:-mr-12">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 scrollbar-thin">
+                {industries.map((ind, i) => (
+                  <Link
+                    key={ind.title}
+                    href={ind.href}
+                    className="group relative flex-none w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden snap-start bg-card border border-border"
+                  >
+                    <img
+                      src={ind.image}
+                      alt={ind.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                        <ind.icon className="w-5 h-5 text-white" />
+                      </div>
+                    </div>
+                    <div className="absolute top-4 right-4">
+                      <span className="text-[10px] font-mono text-white/60 tabular-nums">
+                        {String(i + 1).padStart(2, "0")} / {String(industries.length).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 p-5">
+                      <h3 className="font-display font-bold text-white text-lg md:text-xl mb-1 leading-tight">
+                        {ind.title}
+                      </h3>
+                      <p className="text-xs text-white/75 leading-relaxed line-clamp-2 max-h-0 group-hover:max-h-20 transition-all duration-500 overflow-hidden">
+                        {ind.tagline}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Also serve */}
-          <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-3">
-              We also serve:{" "}
-              {alsoServe.map((name, i) => (
-                <span key={name}>
+          {/* Also serve pill cloud */}
+          <div className="text-center pt-6 border-t border-border/60">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">
+              We also serve
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {alsoServe.map((name) => (
+                <span
+                  key={name}
+                  className="px-3 py-1.5 text-xs font-medium rounded-full bg-muted/80 border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+                >
                   {name}
-                  {i < alsoServe.length - 1 && <span className="mx-1">·</span>}
                 </span>
               ))}
-            </p>
-            <Link
-              href="/industries"
-              className="text-primary text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all"
-            >
-              Explore all industries <ArrowRight className="w-4 h-4" />
-            </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 3 — SERVICES (5-phase lifecycle)
+          SECTION 3 — SERVICES (lifecycle timeline)
           ══════════════════════════════════════════════ */}
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">
@@ -289,42 +336,9 @@ const Index = () => {
             description="19 services across 5 phases of the software lifecycle. Whatever stage you're at, we meet you there."
           />
 
-          {/* Gradient rail */}
-          <div className="hidden md:block h-1 rounded-full bg-gradient-to-r from-primary to-accent mb-10 max-w-4xl mx-auto" />
+          <LifecycleTimeline phases={phases} />
 
-          {/* Phases grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 md:gap-4 lg:gap-6 mb-10">
-            {phases.map((phase, pi) => (
-              <div key={phase.name} className="relative">
-                {/* Phase circle + name (desktop) */}
-                <div className="flex md:flex-col items-center md:items-start gap-3 md:gap-0 mb-4 md:mb-5">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xs font-bold shrink-0">
-                    {pi + 1}
-                  </div>
-                  <h3 className="text-lg md:text-xl font-display font-bold text-foreground md:mt-3">
-                    {phase.name}
-                  </h3>
-                </div>
-                {/* Service links */}
-                <ul className="space-y-2 pl-12 md:pl-0">
-                  {phase.services.map((svc) => (
-                    <li key={svc.label}>
-                      <Link
-                        href={svc.href}
-                        className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group/svc"
-                      >
-                        {svc.label}
-                        <ArrowRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover/svc:opacity-100 group-hover/svc:translate-x-0 transition-all" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Pricing teaser */}
-          <p className="text-center text-sm text-muted-foreground">
+          <p className="text-center text-sm text-muted-foreground mt-16">
             Starting from <span className="text-foreground font-semibold">$2,500</span> · Fixed-price packages for every service.{" "}
             <Link href="/pricing" className="text-primary hover:underline font-medium">
               View pricing →
@@ -334,59 +348,19 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 4 — FEATURED WORK
+          SECTION 4 — FEATURED WORK (bento)
           ══════════════════════════════════════════════ */}
       <section id="featured-work" className="section-padding section-alt">
         <div className="container mx-auto px-4 md:px-6">
           <SectionHeading
             badge="Our Work"
             title="Results that speak for themselves."
+            description="A small sample. The full portfolio has 25 case studies."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <Link key={project.title} href="/portfolio" className="block group">
-                <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
-                  {/* Image */}
-                  <div className="relative h-52 md:h-48 lg:h-56 overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    {/* Industry badge */}
-                    <span className="absolute top-3 right-3 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-black/60 text-white backdrop-blur-sm">
-                      {project.industry}
-                    </span>
-                  </div>
+          <BentoProjects projects={projects} />
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <p className="text-xs text-muted-foreground font-medium mb-1">{project.client}</p>
-                    <h3 className="font-display font-semibold text-foreground text-lg mb-3">{project.title}</h3>
-
-                    {/* Metric badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[hsl(var(--trust)/0.1)] text-[hsl(var(--trust))] text-xs font-semibold mb-4">
-                      <Zap className="w-3 h-3" />
-                      {project.metric}
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex gap-2">
-                      {project.tags.map((tag) => (
-                        <span key={tag} className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="text-center mt-8">
+          <div className="text-center mt-10">
             <Link
               href="/portfolio"
               className="text-primary text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all"
@@ -415,45 +389,71 @@ const Index = () => {
                 <br />
                 No excuses.
               </h2>
-              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-10">
                 Most agencies bill by the hour — which means the longer your project takes,
                 the more they earn. We flipped that. You get a fixed price before we write
                 a single line of code. If we go over, that's on us. Not you.
               </p>
 
-              {/* Payment steps */}
-              <div className="flex items-center gap-0">
-                {[
-                  { pct: "30%", label: "Upfront" },
-                  { pct: "30%", label: "Design OK" },
-                  { pct: "30%", label: "Dev done" },
-                  { pct: "10%", label: "Launch" },
-                ].map((step, i) => (
-                  <div key={step.label} className="flex items-center">
-                    <div className="text-center">
-                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center mx-auto mb-1">
-                        <span className="text-primary text-[10px] md:text-xs font-bold">{step.pct}</span>
-                      </div>
-                      <span className="text-[10px] md:text-xs text-muted-foreground">{step.label}</span>
-                    </div>
-                    {i < 3 && (
-                      <div className="w-6 md:w-10 h-0.5 bg-primary/20 mx-1" />
-                    )}
+              {/* Animated payment timeline */}
+              <div>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-5">
+                  Payment milestones
+                </p>
+                <div className="relative">
+                  {/* Background rail */}
+                  <div className="absolute top-5 left-5 right-5 h-1 rounded-full bg-muted overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "100%" }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 1.6, ease: [0.25, 0.4, 0.25, 1] }}
+                      className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
+                    />
                   </div>
-                ))}
+                  <div className="relative flex justify-between">
+                    {[
+                      { pct: "30%", label: "Upfront" },
+                      { pct: "30%", label: "Design OK" },
+                      { pct: "30%", label: "Dev done" },
+                      { pct: "10%", label: "Launch" },
+                    ].map((step, i) => (
+                      <motion.div
+                        key={step.label}
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.4, delay: 0.4 * i + 0.3 }}
+                        className="text-center"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-background border-2 border-primary flex items-center justify-center mx-auto mb-2 shadow-sm">
+                          <span className="text-primary text-[10px] font-bold">{step.pct}</span>
+                        </div>
+                        <span className="text-xs text-muted-foreground font-medium">{step.label}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Right — 4 value cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {values.map((v) => (
-                <div key={v.title} className="p-5 md:p-6 rounded-xl border border-border bg-card">
+              {values.map((v, i) => (
+                <motion.div
+                  key={v.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className="p-5 md:p-6 rounded-2xl border border-border bg-card hover-lift"
+                >
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     <v.icon className="w-5 h-5 text-primary" />
                   </div>
                   <h4 className="font-display font-semibold text-foreground text-sm md:text-base mb-1.5">{v.title}</h4>
                   <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{v.line}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -471,33 +471,46 @@ const Index = () => {
       />
 
       {/* ══════════════════════════════════════════════
-          SECTION 7 — FINAL CTA
+          SECTION 7 — FINAL CTA (gradient orb)
           ══════════════════════════════════════════════ */}
-      <section className="section-padding section-alt">
+      <section className="relative section-padding section-alt overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-primary/25 via-accent/15 to-transparent blur-3xl" />
+          <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-accent/15 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-primary/15 blur-3xl" />
+        </div>
+
         <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-4">
-              Let's build something that{" "}
-              <span className="text-gradient">matters.</span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-foreground mb-6 leading-[1.05] tracking-tight">
+              Let's build something
+              <br />
+              that <span className="text-gradient italic">matters.</span>
             </h2>
-            <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed">
+            <p className="text-muted-foreground text-base md:text-lg mb-10 leading-relaxed max-w-xl mx-auto">
               Tell us about your project. We respond within 24 hours with a free, no-obligation quote.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/contact">
-                <Button size="lg" className="rounded-full text-base px-8 group">
+                <Button size="lg" className="rounded-full text-base px-10 group">
                   Get a Free Quote
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
             </div>
-            <p className="text-sm text-muted-foreground mt-4">
+            <p className="text-sm text-muted-foreground mt-5">
               or email us at{" "}
               <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">
                 contact@cirostack.com
               </a>
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
     </Layout>
