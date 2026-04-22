@@ -91,7 +91,7 @@ const faqs = [
   {
     question: "Can you integrate with our existing industry tools?",
     answer:
-      "Yes. We routinely integrate with EHR systems (Epic, Cerner, FHIR), payment gateways (Stripe, Adyen), POS (Square, Clover, Shopify), CRMs (Salesforce, HubSpot), ERPs (SAP, NetSuite), and industry-specific APIs (MLS, HL7, EDI, ISO 20022). If it has an API, we can talk to it.";
+      "Yes. We routinely integrate with EHR systems (Epic, Cerner, FHIR), payment gateways (Stripe, Adyen), POS (Square, Clover, Shopify), CRMs (Salesforce, HubSpot), ERPs (SAP, NetSuite), and industry-specific APIs (MLS, HL7, EDI, ISO 20022). If it has an API, we can talk to it.",
   },
 ];
 
