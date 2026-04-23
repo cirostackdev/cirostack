@@ -29,9 +29,6 @@ export function RelatedCaseStudies({ industry }: RelatedCaseStudiesProps) {
             <div className="container mx-auto px-4 md:px-6 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
                     <div className="max-w-2xl">
-                        <span className="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-widest uppercase rounded-full bg-muted text-muted-foreground border border-border">
-                            Proven Results
-                        </span>
                         <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight">
                             See how we've helped companies like yours
                         </h2>

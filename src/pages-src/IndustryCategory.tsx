@@ -210,9 +210,6 @@ export default function IndustryCategory({ categoryId }: Props) {
               transition={{ duration: 0.5 }}
               className="lg:sticky lg:top-28"
             >
-              <span className="inline-block px-3 py-1 mb-5 text-xs font-medium tracking-wider uppercase rounded-full bg-muted text-muted-foreground border border-border">
-                Our Take
-              </span>
               <p className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-[1.1] tracking-tight">
                 <span className="text-primary">"</span>
                 {parent.introSummary}

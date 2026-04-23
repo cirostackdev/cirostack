@@ -136,14 +136,6 @@ const Industries = () => {
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-background/85 to-background" />
 
         <div className="container mx-auto px-4 md:px-6 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-block px-4 py-1.5 mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase rounded-full bg-primary/10 text-primary border border-primary/20"
-          >
-            Industries
-          </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -198,9 +190,6 @@ const Industries = () => {
       <section className="section-padding section-alt">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
           <div className="mb-12 md:mb-16">
-            <span className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider uppercase rounded-full bg-muted text-muted-foreground border border-border">
-              Pick your sector
-            </span>
             <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground leading-tight max-w-2xl">
               Hover. Explore. <span className="text-gradient">Find your fit.</span>
             </h2>
@@ -269,9 +258,6 @@ const Industries = () => {
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
           <div className="text-center mb-14">
-            <span className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider uppercase rounded-full bg-muted text-muted-foreground border border-border">
-              Our Approach
-            </span>
             <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground leading-tight">
               Domain knowledge meets <span className="text-gradient">engineering excellence.</span>
             </h2>

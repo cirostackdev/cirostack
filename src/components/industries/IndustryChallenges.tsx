@@ -27,9 +27,6 @@ export function IndustryChallenges({ industry }: IndustryChallengesProps) {
                         variants={fadeUp}
                         custom={0}
                     >
-                        <span className="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-widest uppercase rounded-full bg-muted text-muted-foreground border border-border">
-                            Industry Challenges
-                        </span>
                         <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-8 leading-tight">
                             We understand your unique pain points
                         </h2>

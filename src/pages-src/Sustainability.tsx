@@ -86,9 +86,6 @@ const Sustainability = () => {
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-                            <span className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider uppercase rounded-full bg-muted text-muted-foreground border border-border">
-                                Our Approach
-                            </span>
                             <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6">
                                 Sustainability is not a checkbox
                             </h2>

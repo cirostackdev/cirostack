@@ -18,9 +18,6 @@ export function IndustryValueProps({ industry }: IndustryValuePropsProps) {
         <section className="py-24 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <span className="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-widest uppercase rounded-full bg-muted text-muted-foreground border border-border">
-                        Why Partner With Us
-                    </span>
                     <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6 leading-tight">
                         The CiroStack Advantage for {industry.title}
                     </h2>
