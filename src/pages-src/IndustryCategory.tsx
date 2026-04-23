@@ -132,10 +132,10 @@ export default function IndustryCategory({ categoryId }: Props) {
                 transition={{ duration: 0.5 }}
                 className="inline-flex items-center gap-3 mb-6"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-xl bg-muted border border-border flex items-center justify-center">
+                  <Icon className="w-6 h-6 text-foreground" />
                 </div>
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   Industry Solutions
                 </span>
               </motion.div>
@@ -211,9 +211,9 @@ export default function IndustryCategory({ categoryId }: Props) {
               className="lg:sticky lg:top-28"
             >
               <p className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-[1.1] tracking-tight">
-                <span className="text-primary">"</span>
+                <span className="text-muted-foreground/50">"</span>
                 {parent.introSummary}
-                <span className="text-primary">"</span>
+                <span className="text-muted-foreground/50">"</span>
               </p>
             </motion.div>
             <motion.div
@@ -250,7 +250,7 @@ export default function IndustryCategory({ categoryId }: Props) {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   className="grid grid-cols-[auto_1fr] gap-6 md:gap-10 py-7 md:py-9 border-t border-border last:border-b group"
                 >
-                  <span className="text-5xl md:text-7xl font-display font-bold text-muted-foreground/30 group-hover:text-primary transition-colors tabular-nums leading-none">
+                  <span className="text-5xl md:text-7xl font-display font-bold text-muted-foreground/30 group-hover:text-foreground transition-colors tabular-nums leading-none">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="text-lg md:text-xl text-foreground leading-relaxed font-display">
@@ -289,14 +289,14 @@ export default function IndustryCategory({ categoryId }: Props) {
                   >
                     {/* Visual block */}
                     <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-border">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-accent/10 to-background" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-muted via-secondary to-background" />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-9xl md:text-[10rem] font-display font-bold text-gradient opacity-90 tabular-nums leading-none">
+                        <span className="text-9xl md:text-[10rem] font-display font-bold text-foreground/10 opacity-90 tabular-nums leading-none">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
                       <div className="absolute top-5 left-5">
-                        <Icon className="w-8 h-8 text-primary/70" />
+                        <Icon className="w-8 h-8 text-muted-foreground" />
                       </div>
                       <div className="absolute bottom-5 right-5">
                         <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -306,7 +306,7 @@ export default function IndustryCategory({ categoryId }: Props) {
                     </div>
                     {/* Text */}
                     <div>
-                      <span className="text-xs font-mono text-primary tabular-nums mb-3 block">
+                      <span className="text-xs font-mono text-muted-foreground tabular-nums mb-3 block">
                         Solution {String(i + 1).padStart(2, "0")}
                       </span>
                       <h3 className="text-2xl md:text-4xl font-display font-bold text-foreground mb-4 leading-tight">
@@ -331,8 +331,8 @@ export default function IndustryCategory({ categoryId }: Props) {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col md:flex-row md:items-center gap-8">
             <div className="flex items-center gap-4 shrink-0">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Shield className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 rounded-xl bg-[hsl(var(--trust)/0.1)] flex items-center justify-center">
+                <Shield className="w-6 h-6 text-[hsl(var(--trust))]" />
               </div>
               <div>
                 <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
@@ -377,20 +377,20 @@ export default function IndustryCategory({ categoryId }: Props) {
                   <Link
                     key={sub.id}
                     href={`/industries/${sub.id}`}
-                    className="group flex items-center gap-4 py-5 border-b border-border hover:border-primary/40 transition-colors"
+                    className="group flex items-center gap-4 py-5 border-b border-border hover:border-foreground/40 transition-colors"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      <SubIcon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+                    <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center shrink-0 group-hover:bg-foreground transition-colors">
+                      <SubIcon className="w-5 h-5 text-muted-foreground group-hover:text-background transition-colors" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h4 className="font-display font-semibold text-foreground text-base group-hover:text-primary transition-colors">
+                      <h4 className="font-display font-semibold text-foreground text-base group-hover:text-foreground transition-colors">
                         {sub.title}
                       </h4>
                       <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
                         {sub.tagline}
                       </p>
                     </div>
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0" />
+                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0" />
                   </Link>
                 );
               })}
@@ -447,7 +447,7 @@ export default function IndustryCategory({ categoryId }: Props) {
                       {related.project.metrics[0].value} {related.project.metrics[0].label}
                     </div>
                   )}
-                  <span className="text-primary text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  <span className="text-foreground text-sm font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                     Read the case study <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>
@@ -471,7 +471,7 @@ export default function IndustryCategory({ categoryId }: Props) {
           ══════════════════════════════════════════════ */}
       <section className="relative section-padding section-alt overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-primary/20 via-accent/15 to-transparent blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-primary/10 via-accent/5 to-transparent blur-3xl" />
         </div>
         <div className="container mx-auto px-4 md:px-6">
           <motion.div

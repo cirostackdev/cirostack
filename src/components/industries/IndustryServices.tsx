@@ -36,12 +36,12 @@ export function IndustryServices({ industry }: IndustryServicesProps) {
                             viewport={{ once: true }}
                             variants={fadeUp}
                             custom={i}
-                            className="p-8 rounded-3xl bg-background border border-border/50 hover:border-primary/50 transition-all hover:shadow-xl group flex flex-col h-full"
+                            className="p-8 rounded-3xl bg-background border border-border/50 hover:border-border transition-all hover:shadow-xl group flex flex-col h-full"
                         >
-                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Layers className="w-6 h-6 text-primary" />
+                            <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Layers className="w-6 h-6 text-foreground" />
                             </div>
-                            <h3 className="font-display font-bold text-foreground text-xl mb-3 group-hover:text-primary transition-colors">
+                            <h3 className="font-display font-bold text-foreground text-xl mb-3 group-hover:text-foreground transition-colors">
                                 {service.serviceName}
                             </h3>
                             <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-grow">
@@ -50,7 +50,7 @@ export function IndustryServices({ industry }: IndustryServicesProps) {
 
                             <Link
                                 href={`/services/${service.slug}`}
-                                className="inline-flex items-center text-sm font-semibold text-primary hover:underline mt-auto group/link"
+                                className="inline-flex items-center text-sm font-semibold text-foreground hover:text-primary mt-auto group/link"
                             >
                                 Explore Service <ArrowRight className="ml-1 w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                             </Link>

@@ -44,8 +44,8 @@ export default function CategoryPicker({ categories }: CategoryPickerProps) {
                   <span
                     className={`font-display font-bold text-2xl md:text-3xl lg:text-4xl tracking-tight leading-none transition-all duration-300 truncate ${
                       isActive
-                        ? "text-primary translate-x-2"
-                        : "text-foreground group-hover:text-primary"
+                        ? "text-foreground translate-x-2"
+                        : "text-muted-foreground group-hover:text-foreground"
                     }`}
                   >
                     {cat.title}
@@ -54,7 +54,7 @@ export default function CategoryPicker({ categories }: CategoryPickerProps) {
                 <ArrowUpRight
                   className={`w-5 h-5 shrink-0 transition-all duration-300 ${
                     isActive
-                      ? "text-primary opacity-100 -translate-y-0.5 translate-x-0.5"
+                      ? "text-foreground opacity-100 -translate-y-0.5 translate-x-0.5"
                       : "text-muted-foreground opacity-0 group-hover:opacity-100"
                   }`}
                 />

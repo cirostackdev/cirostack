@@ -35,10 +35,10 @@ export function IndustryValueProps({ industry }: IndustryValuePropsProps) {
                             viewport={{ once: true }}
                             variants={fadeUp}
                             custom={i}
-                            className="p-8 rounded-3xl surface-glass border border-border/50 text-center hover:border-primary/30 transition-colors"
+                            className="p-8 rounded-3xl surface-glass border border-border/50 text-center hover:border-foreground/20 transition-colors"
                         >
-                            <div className="w-14 h-14 mx-auto rounded-full bg-accent/10 flex items-center justify-center mb-6">
-                                <Zap className="w-7 h-7 text-accent" />
+                            <div className="w-14 h-14 mx-auto rounded-full bg-muted flex items-center justify-center mb-6">
+                                <Zap className="w-7 h-7 text-foreground" />
                             </div>
                             <h3 className="font-display font-bold text-foreground text-xl mb-4">
                                 {vp.title}
