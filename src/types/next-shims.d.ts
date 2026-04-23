@@ -1,13 +1,9 @@
-// Shadow Next.js's global image types module so its `interface StaticImageData`
-// declaration is replaced with our own that's assignable to string.
-// This file MUST be picked up before next-env.d.ts's `/// <reference types="next/image-types/global" />`.
-
-declare module "next/image-types/global" {
-  global {
-    // Override Next.js's StaticImageData to be a plain string.
-    // Matches the runtime behavior set up by next.config.ts (asset/resource loader).
-    type StaticImageData = string;
-  }
+// Shadow Next.js's StaticImageData type at its source so image imports become plain strings.
+// next/image-types/global re-exports from this path, so overriding it propagates everywhere.
+declare module "next/dist/shared/lib/image-external" {
+  export type StaticImageData = string;
+  export type StaticRequire = string;
+  export type StaticImport = string;
 }
 
 // Side-effect CSS imports
