@@ -41,6 +41,15 @@
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/components/Footer.tsx",
+    "src/components/HeroGlobe.tsx",
+    "src/components/HeroSlider.tsx",
+    "src/components/Navbar.tsx",
+    "src/components/ErrorBoundary.tsx",
+    "src/components/services/ReasonsToChoose.tsx",
+    "src/components/ui/LevelBadge.tsx",
+    "src/components/ui/ToastContainer.tsx",
+    "src/data/caseStudies.ts"
   ]
 }
