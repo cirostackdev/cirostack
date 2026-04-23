@@ -22,9 +22,6 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "next/dist/shared/lib/image-external": [
-        "./src/types/image-external-shim.ts"
       ]
     },
     "plugins": [
