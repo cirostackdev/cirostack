@@ -50,14 +50,14 @@ export function IndustryChallenges({ industry }: IndustryChallengesProps) {
                         viewport={{ once: true }}
                         variants={fadeUp}
                         custom={1}
-                        className="p-10 md:p-12 rounded-3xl surface-glass border border-border/50 relative overflow-hidden group hover:border-primary/30 transition-colors"
+                        className="p-10 md:p-12 rounded-3xl surface-glass border border-border/50 relative overflow-hidden group hover:border-foreground/20 transition-colors"
                     >
                         <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
-                            <Icon className="w-64 h-64 text-primary" />
+                            <Icon className="w-64 h-64 text-foreground" />
                         </div>
                         <div className="relative z-10">
-                            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 shadow-inner">
-                                <Icon className="w-8 h-8 text-primary" />
+                            <div className="w-16 h-16 rounded-2xl bg-muted flex items-center justify-center mb-8 shadow-inner">
+                                <Icon className="w-8 h-8 text-foreground" />
                             </div>
                             <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-6 leading-tight">
                                 {industry.tagline}
