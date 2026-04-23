@@ -51,13 +51,6 @@ const PageHero = ({
               </div>
             </motion.div>
           )}
-          {badge && !Icon && (
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-              <span className="inline-block px-4 py-1.5 mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase rounded-full bg-white/10 text-white/90 border border-white/15 backdrop-blur-sm">
-                {badge}
-              </span>
-            </motion.div>
-          )}
           <motion.h1
             initial="hidden"
             animate="visible"
