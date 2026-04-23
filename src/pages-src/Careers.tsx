@@ -244,7 +244,7 @@ const Careers = () => {
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
                         <div>
-                            <span className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider uppercase rounded-full bg-muted text-muted-foreground border border-border">Equal Opportunity</span>
+                            
                             <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">We hire on merit, period</h2>
                             <p className="text-muted-foreground leading-relaxed mb-4">CiroStack is an equal opportunity employer. We celebrate diversity and are committed to creating an inclusive environment for all team members regardless of background, identity, or experience.</p>
                             <p className="text-muted-foreground leading-relaxed">We strongly encourage applications from underrepresented groups in tech.</p>

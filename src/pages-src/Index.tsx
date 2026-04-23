@@ -132,17 +132,6 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-20 items-center">
             {/* LEFT — text */}
             <div>
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="flex items-center gap-2 mb-6"
-              >
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 text-[11px] font-semibold tracking-widest uppercase rounded-full bg-primary/10 text-primary border border-primary/20">
-                  <Sparkles className="w-3 h-3" />
-                  Software Agency for Growing Businesses
-                </span>
-              </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 24 }}
@@ -244,9 +233,6 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 mb-12">
             {/* Big number */}
             <div>
-              <span className="inline-block px-3 py-1 mb-5 text-xs font-medium tracking-wider uppercase rounded-full bg-muted text-muted-foreground border border-border">
-                Industries We Serve
-              </span>
               <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
                 20+
               </p>
@@ -379,9 +365,6 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             {/* Left — narrative */}
             <div>
-              <span className="inline-block px-3 py-1 mb-5 text-xs font-semibold tracking-widest uppercase rounded-full bg-muted text-muted-foreground border border-border">
-                Why CiroStack
-              </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-6">
                 No hourly billing.
                 <br />

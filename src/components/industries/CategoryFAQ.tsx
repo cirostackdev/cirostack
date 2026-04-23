@@ -34,9 +34,6 @@ export default function CategoryFAQ({
         transition={{ duration: 0.5 }}
         className="text-center mb-10"
       >
-        <span className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wider uppercase rounded-full bg-muted text-muted-foreground border border-border">
-          {badge}
-        </span>
         <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
           {title}
         </h2>
