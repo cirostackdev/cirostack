@@ -33,8 +33,8 @@ export function IndustryChallenges({ industry }: IndustryChallengesProps) {
                         <div className="space-y-6">
                             {industry.challenges.map((challenge, i) => (
                                 <div key={i} className="flex items-start gap-4 group">
-                                    <div className="mt-1 bg-emerald-500/10 p-1 rounded-full group-hover:bg-emerald-500/20 transition-colors">
-                                        <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
+                                    <div className="mt-1 bg-[hsl(var(--trust)/0.1)] p-1 rounded-full group-hover:bg-[hsl(var(--trust)/0.2)] transition-colors">
+                                        <CheckCircle className="w-5 h-5 text-[hsl(var(--trust))] shrink-0" />
                                     </div>
                                     <span className="text-lg text-muted-foreground leading-relaxed">
                                         {challenge}
