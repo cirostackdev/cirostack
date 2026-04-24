@@ -213,13 +213,59 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
                       }`}
                     />
                   </Link>
+
+                  {/* Mobile inline card — opens directly under the active service */}
+                  <AnimatePresence initial={false}>
+                    {isActive && (
+                      <motion.div
+                        key={`mobile-card-${item.slug}`}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="lg:hidden overflow-hidden pl-16 pr-4"
+                      >
+                        <Link
+                          href={item.href}
+                          className="group block mt-3 mb-2 rounded-2xl border border-border bg-card overflow-hidden shadow-sm"
+                        >
+                          {item.image && (
+                            <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                              <img
+                                src={item.image}
+                                alt={item.title}
+                                className="w-full h-full object-cover"
+                                loading="lazy"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                              <span className="absolute top-3 left-3 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-background/90 backdrop-blur border border-border text-foreground">
+                                {item.phaseName}
+                              </span>
+                            </div>
+                          )}
+                          <div className="p-5">
+                            <h4 className="text-lg font-display font-bold text-foreground mb-2">
+                              {item.title}
+                            </h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                              {item.blurb}
+                            </p>
+                            <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                              Explore {item.label}
+                              <ArrowRight className="w-4 h-4" />
+                            </span>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </li>
               );
             })}
           </ol>
         </div>
 
-        {/* ─── RIGHT: sticky card that swaps with active service ─── */}
+        {/* ─── RIGHT: sticky card that swaps with active service (desktop only) ─── */}
         <div className="hidden lg:block">
           <div className="sticky top-24">
             <AnimatePresence mode="wait">
