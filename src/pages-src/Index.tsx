@@ -383,9 +383,9 @@ const Index = () => {
                 <p className="text-xs uppercase tracking-widest text-muted-foreground mb-5">
                   Payment milestones
                 </p>
-                <div className="relative">
+                <div className="relative px-1">
                   {/* Background rail */}
-                  <div className="absolute top-5 left-5 right-5 h-1 rounded-full bg-muted overflow-hidden">
+                  <div className="absolute top-5 left-6 right-6 h-1 rounded-full bg-muted overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: "100%" }}
@@ -394,7 +394,7 @@ const Index = () => {
                       className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
                     />
                   </div>
-                  <div className="relative flex justify-between">
+                  <div className="relative flex justify-between gap-1">
                     {[
                       { pct: "30%", label: "Upfront" },
                       { pct: "30%", label: "Design OK" },
@@ -407,12 +407,12 @@ const Index = () => {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.4, delay: 0.4 * i + 0.3 }}
-                        className="text-center"
+                        className="flex-1 min-w-0 text-center"
                       >
                         <div className="w-10 h-10 rounded-full bg-background border-2 border-primary flex items-center justify-center mx-auto mb-2 shadow-sm">
                           <span className="text-primary text-[10px] font-bold">{step.pct}</span>
                         </div>
-                        <span className="text-xs text-muted-foreground font-medium">{step.label}</span>
+                        <span className="block text-[11px] md:text-xs text-muted-foreground font-medium leading-tight break-words">{step.label}</span>
                       </motion.div>
                     ))}
                   </div>
