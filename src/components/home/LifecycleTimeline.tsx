@@ -97,16 +97,17 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
     })
   );
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  /* Desktop active index (scroll-driven) and mobile active index (click-driven, defaults to first). */
+  const [desktopActiveIndex, setDesktopActiveIndex] = useState(0);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  /* Pick the service row whose center is closest to the viewport center.
-     Using direct geometry (rather than IntersectionObserver) guarantees the
-     active row always matches the visual scroll order. */
+  /* Desktop only: pick the service row whose center is closest to the viewport center. */
   useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
     let raf = 0;
     const update = () => {
+      if (!mq.matches) return;
       const viewportCenter = window.innerHeight / 2;
       let bestIdx = 0;
       let bestDist = Infinity;
@@ -120,7 +121,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
           bestIdx = i;
         }
       });
-      setActiveIndex(bestIdx);
+      setDesktopActiveIndex(bestIdx);
     };
     const onScroll = () => {
       if (raf) return;
@@ -139,7 +140,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
     };
   }, [items.length]);
 
-  const active = items[activeIndex] ?? items[0];
+  const active = items[desktopActiveIndex] ?? items[0];
 
   return (
     <div className="relative max-w-7xl mx-auto">
@@ -154,7 +155,8 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
               const isFirstOfPhase =
                 i === 0 || items[i - 1].phaseIndex !== item.phaseIndex;
               const Icon = phaseIcons[item.phaseIndex] ?? Lightbulb;
-              const isActive = i === activeIndex;
+              const isDesktopActive = i === desktopActiveIndex;
+              const isMobileActive = i === mobileActiveIndex;
 
               return (
                 <li
@@ -181,42 +183,61 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
                     </div>
                   )}
 
-                  {/* Service row */}
+                  {/* Service row — Link on desktop, click toggles card on mobile */}
                   <Link
                     href={item.href}
                     ref={(el) => {
                       itemRefs.current[i] = el;
                     }}
                     data-index={i}
+                    onClick={(e) => {
+                      if (
+                        typeof window !== "undefined" &&
+                        window.matchMedia("(max-width: 1023px)").matches
+                      ) {
+                        e.preventDefault();
+                        setMobileActiveIndex(i);
+                      }
+                    }}
                     className="group relative flex items-center gap-4 pl-16 pr-4 py-3 rounded-lg transition-colors hover:bg-muted/40"
                   >
                     {/* Node dot on rail */}
                     <span
                       className={`absolute left-6 -translate-x-1/2 w-2.5 h-2.5 rounded-full border transition-all ${
-                        isActive
+                        isMobileActive
                           ? "bg-foreground border-foreground scale-125"
                           : "bg-background border-border group-hover:border-foreground"
+                      } ${
+                        isDesktopActive
+                          ? "lg:bg-foreground lg:border-foreground lg:scale-125"
+                          : "lg:bg-background lg:border-border lg:scale-100"
                       }`}
                     />
                     <span
                       className={`flex-1 text-base md:text-lg font-medium transition-colors ${
-                        isActive ? "text-foreground" : "text-muted-foreground"
+                        isMobileActive ? "text-foreground" : "text-muted-foreground"
+                      } ${
+                        isDesktopActive ? "lg:text-foreground" : "lg:text-muted-foreground"
                       }`}
                     >
                       {item.label}
                     </span>
                     <ArrowRight
                       className={`w-4 h-4 transition-all ${
-                        isActive
-                          ? "opacity-100 translate-x-0 text-foreground"
-                          : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+                        isMobileActive
+                          ? "opacity-100 translate-x-0 text-foreground rotate-90 lg:rotate-0"
+                          : "opacity-60"
+                      } ${
+                        isDesktopActive
+                          ? "lg:opacity-100 lg:translate-x-0 lg:text-foreground"
+                          : "lg:opacity-0 lg:-translate-x-2 lg:group-hover:opacity-100 lg:group-hover:translate-x-0"
                       }`}
                     />
                   </Link>
 
                   {/* Mobile inline card — opens directly under the active service */}
                   <AnimatePresence initial={false}>
-                    {isActive && (
+                    {isMobileActive && (
                       <motion.div
                         key={`mobile-card-${item.slug}`}
                         initial={{ opacity: 0, height: 0 }}
