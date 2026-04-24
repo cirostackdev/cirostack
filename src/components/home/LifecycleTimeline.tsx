@@ -98,30 +98,45 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  /* Track which service row is in the viewport center */
+  /* Pick the service row whose center is closest to the viewport center.
+     Using direct geometry (rather than IntersectionObserver) guarantees the
+     active row always matches the visual scroll order. */
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Prefer the entry closest to the viewport center
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) {
-          const idx = Number((visible[0].target as HTMLElement).dataset.index);
-          if (!Number.isNaN(idx)) setActiveIndex(idx);
+    let raf = 0;
+    const update = () => {
+      const viewportCenter = window.innerHeight / 2;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      itemRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const dist = Math.abs(center - viewportCenter);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
         }
-      },
-      {
-        // A horizontal band roughly through the middle of the viewport
-        rootMargin: "-40% 0px -45% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      }
-    );
-
-    itemRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
+      });
+      setActiveIndex(bestIdx);
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, [items.length]);
 
   const active = items[activeIndex] ?? items[0];
