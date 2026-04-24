@@ -59,17 +59,8 @@ const phaseDescriptions = [
   "Teams, QA, audits — growing with confidence.",
 ];
 
-/* Eager-load the service hero images via Vite/webpack URL resolution */
-const serviceImages = import.meta.glob<string>(
-  "@/assets/reason-*-0.jpg",
-  { eager: true, query: "?url", import: "default" }
-) as Record<string, string>;
-
 function imageForSlug(slug: string): string | undefined {
-  const match = Object.entries(serviceImages).find(([path]) =>
-    path.endsWith(`/reason-${slug}-0.jpg`)
-  );
-  return match?.[1];
+  return SERVICE_IMAGES[slug];
 }
 
 function slugFromHref(href: string): string {
