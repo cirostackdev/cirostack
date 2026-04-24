@@ -242,28 +242,26 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-                    <span className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-background/90 backdrop-blur border border-border text-foreground">
-                      {active.phaseName}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                      <span className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-background/90 backdrop-blur border border-border text-foreground">
+                        {active.phaseName}
+                      </span>
+                    </div>
+                  )}
+                  <div className="p-6 md:p-8">
+                    <h4 className="text-xl md:text-2xl font-display font-bold text-foreground mb-3">
+                      {active?.title}
+                    </h4>
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
+                      {active?.blurb}
+                    </p>
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground group-hover:gap-3 transition-all">
+                      Explore {active?.label}
+                      <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>
-                )}
-                <div className="p-6 md:p-8">
-                  <h4 className="text-xl md:text-2xl font-display font-bold text-foreground mb-3">
-                    {active?.title}
-                  </h4>
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                    {active?.blurb}
-                  </p>
-                  <Link
-                    href={active?.href ?? "#"}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:gap-3 transition-all"
-                  >
-                    Explore {active?.label}
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.article>
+                </Link>
+              </motion.div>
             </AnimatePresence>
           </div>
         </div>
