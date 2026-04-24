@@ -237,7 +237,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
 
                   {/* Mobile inline card — opens directly under the active service */}
                   <AnimatePresence initial={false}>
-                    {isActive && (
+                    {isMobileActive && (
                       <motion.div
                         key={`mobile-card-${item.slug}`}
                         initial={{ opacity: 0, height: 0 }}
