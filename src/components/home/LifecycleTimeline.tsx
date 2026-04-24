@@ -98,30 +98,45 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  /* Track which service row is in the viewport center */
+  /* Pick the service row whose center is closest to the viewport center.
+     Using direct geometry (rather than IntersectionObserver) guarantees the
+     active row always matches the visual scroll order. */
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Prefer the entry closest to the viewport center
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) {
-          const idx = Number((visible[0].target as HTMLElement).dataset.index);
-          if (!Number.isNaN(idx)) setActiveIndex(idx);
+    let raf = 0;
+    const update = () => {
+      const viewportCenter = window.innerHeight / 2;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      itemRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const dist = Math.abs(center - viewportCenter);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
         }
-      },
-      {
-        // A horizontal band roughly through the middle of the viewport
-        rootMargin: "-40% 0px -45% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      }
-    );
-
-    itemRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
+      });
+      setActiveIndex(bestIdx);
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, [items.length]);
 
   const active = items[activeIndex] ?? items[0];
@@ -144,10 +159,6 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
               return (
                 <li
                   key={`${item.phaseIndex}-${item.slug}`}
-                  ref={(el) => {
-                    itemRefs.current[i] = el;
-                  }}
-                  data-index={i}
                   className="relative"
                 >
                   {/* Phase header — only on first service of the phase */}
@@ -173,6 +184,10 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
                   {/* Service row */}
                   <Link
                     href={item.href}
+                    ref={(el) => {
+                      itemRefs.current[i] = el;
+                    }}
+                    data-index={i}
                     className="group relative flex items-center gap-4 pl-16 pr-4 py-3 rounded-lg transition-colors hover:bg-muted/40"
                   >
                     {/* Node dot on rail */}
@@ -208,44 +223,45 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
         <div className="hidden lg:block">
           <div className="sticky top-24">
             <AnimatePresence mode="wait">
-              <motion.article
+              <motion.div
                 key={active?.slug}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm"
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
-                {active?.image && (
-                  <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-                    <img
-                      src={active.image}
-                      alt={active.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-                    <span className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-background/90 backdrop-blur border border-border text-foreground">
-                      {active.phaseName}
+                <Link
+                  href={active?.href ?? "#"}
+                  className="group block rounded-2xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-md hover:border-foreground/30 transition-all"
+                >
+                  {active?.image && (
+                    <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                      <img
+                        src={active.image}
+                        alt={active.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                      <span className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-background/90 backdrop-blur border border-border text-foreground">
+                        {active.phaseName}
+                      </span>
+                    </div>
+                  )}
+                  <div className="p-6 md:p-8">
+                    <h4 className="text-xl md:text-2xl font-display font-bold text-foreground mb-3">
+                      {active?.title}
+                    </h4>
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
+                      {active?.blurb}
+                    </p>
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground group-hover:gap-3 transition-all">
+                      Explore {active?.label}
+                      <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>
-                )}
-                <div className="p-6 md:p-8">
-                  <h4 className="text-xl md:text-2xl font-display font-bold text-foreground mb-3">
-                    {active?.title}
-                  </h4>
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                    {active?.blurb}
-                  </p>
-                  <Link
-                    href={active?.href ?? "#"}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:gap-3 transition-all"
-                  >
-                    Explore {active?.label}
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.article>
+                </Link>
+              </motion.div>
             </AnimatePresence>
           </div>
         </div>
