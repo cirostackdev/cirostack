@@ -97,16 +97,17 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
     })
   );
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  /* Desktop active index (scroll-driven) and mobile active index (click-driven, defaults to first). */
+  const [desktopActiveIndex, setDesktopActiveIndex] = useState(0);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  /* Pick the service row whose center is closest to the viewport center.
-     Using direct geometry (rather than IntersectionObserver) guarantees the
-     active row always matches the visual scroll order. */
+  /* Desktop only: pick the service row whose center is closest to the viewport center. */
   useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
     let raf = 0;
     const update = () => {
+      if (!mq.matches) return;
       const viewportCenter = window.innerHeight / 2;
       let bestIdx = 0;
       let bestDist = Infinity;
@@ -120,7 +121,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
           bestIdx = i;
         }
       });
-      setActiveIndex(bestIdx);
+      setDesktopActiveIndex(bestIdx);
     };
     const onScroll = () => {
       if (raf) return;
@@ -139,7 +140,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
     };
   }, [items.length]);
 
-  const active = items[activeIndex] ?? items[0];
+  const active = items[desktopActiveIndex] ?? items[0];
 
   return (
     <div className="relative max-w-7xl mx-auto">
