@@ -159,10 +159,6 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
               return (
                 <li
                   key={`${item.phaseIndex}-${item.slug}`}
-                  ref={(el) => {
-                    itemRefs.current[i] = el;
-                  }}
-                  data-index={i}
                   className="relative"
                 >
                   {/* Phase header — only on first service of the phase */}
@@ -188,6 +184,10 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
                   {/* Service row */}
                   <Link
                     href={item.href}
+                    ref={(el) => {
+                      itemRefs.current[i] = el;
+                    }}
+                    data-index={i}
                     className="group relative flex items-center gap-4 pl-16 pr-4 py-3 rounded-lg transition-colors hover:bg-muted/40"
                   >
                     {/* Node dot on rail */}
@@ -223,22 +223,25 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
         <div className="hidden lg:block">
           <div className="sticky top-24">
             <AnimatePresence mode="wait">
-              <motion.article
+              <motion.div
                 key={active?.slug}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm"
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
-                {active?.image && (
-                  <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-                    <img
-                      src={active.image}
-                      alt={active.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
+                <Link
+                  href={active?.href ?? "#"}
+                  className="group block rounded-2xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-md hover:border-foreground/30 transition-all"
+                >
+                  {active?.image && (
+                    <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                      <img
+                        src={active.image}
+                        alt={active.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                     <span className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-background/90 backdrop-blur border border-border text-foreground">
                       {active.phaseName}
