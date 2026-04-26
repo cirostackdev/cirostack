@@ -235,7 +235,7 @@ const Index = () => {
 
         {/* Scrolling marquee */}
         <div className="mt-10 lg:mt-0 border-y border-border/60 bg-card/40 backdrop-blur-sm py-4 overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap" style={{ "--marquee-duration": "20s" } as React.CSSProperties}>
+          <div className="flex animate-marquee whitespace-nowrap [--marquee-duration:7s] md:[--marquee-duration:20s]">
             {[...marqueeWords, ...marqueeWords].map((w, i) => (
               <Link
                 key={i}
