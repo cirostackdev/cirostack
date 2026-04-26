@@ -133,15 +133,15 @@ const Index = () => {
       {/* ══════════════════════════════════════════════
           SECTION 1 — SPLIT EDITORIAL HERO
           ══════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden pt-28 md:pt-32 pb-16 md:pb-20">
+      <section className="relative overflow-hidden pt-24 md:pt-28 pb-0 lg:h-screen lg:min-h-[700px] lg:flex lg:flex-col">
         {/* Ambient backdrop */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 w-[28rem] h-[28rem] rounded-full bg-accent/10 blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-20 items-center">
+        <div className="container mx-auto px-4 md:px-6 lg:flex-1 lg:flex lg:items-center lg:py-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-16 items-center w-full">
             {/* LEFT — text */}
             <div>
 
@@ -149,7 +149,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.05 }}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95] tracking-tight mb-6"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-8xl font-display font-bold text-foreground leading-[0.95] tracking-tight mb-5"
               >
                 Software,
                 <br />
@@ -162,7 +162,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="text-base md:text-lg text-muted-foreground mb-8 max-w-xl leading-relaxed"
+                className="text-base md:text-lg text-muted-foreground mb-6 max-w-xl leading-relaxed"
               >
                 Fixed price. Senior engineers. Shipped in weeks.
                 From websites to AI — across 20+ industries.
@@ -172,7 +172,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.25 }}
-                className="flex flex-wrap gap-4 mb-10"
+                className="flex flex-wrap gap-4 mb-8"
               >
                 <Link href="/contact">
                   <Button size="lg" className="rounded-full text-base px-8 group">
@@ -225,13 +225,17 @@ const Index = () => {
         </div>
 
         {/* Scrolling marquee */}
-        <div className="mt-16 md:mt-20 border-y border-border/60 bg-card/40 backdrop-blur-sm py-5 overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap" style={{ "--marquee-duration": "45s" } as React.CSSProperties}>
+        <div className="mt-10 lg:mt-0 border-y border-border/60 bg-card/40 backdrop-blur-sm py-4 overflow-hidden">
+          <div className="flex animate-marquee whitespace-nowrap" style={{ "--marquee-duration": "20s" } as React.CSSProperties}>
             {[...marqueeWords, ...marqueeWords].map((w, i) => (
-              <span key={i} className="inline-flex items-center mx-8 text-2xl md:text-3xl font-display font-semibold text-muted-foreground/70 hover:text-foreground transition-colors">
-                {w}
+              <Link
+                key={i}
+                href={w.href}
+                className="inline-flex items-center mx-8 text-2xl md:text-3xl font-display font-semibold text-muted-foreground/70 hover:text-foreground transition-colors"
+              >
+                {w.label}
                 <span className="ml-8 text-primary text-3xl">·</span>
-              </span>
+              </Link>
             ))}
           </div>
         </div>
