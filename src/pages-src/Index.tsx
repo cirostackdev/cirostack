@@ -105,11 +105,23 @@ const alsoServe = [
   "Professional Services", "Small Business",
 ];
 
-/* Marquee strip — industry names scrolling */
-const marqueeWords = [
-  "Healthcare", "Fintech", "Retail", "Logistics", "Manufacturing",
-  "EdTech", "PropTech", "SaaS", "Hospitality", "Legal",
-  "Government", "Media", "Agriculture", "Automotive", "Sports",
+/* Marquee strip — industry names scrolling (with links) */
+const marqueeWords: { label: string; href: string }[] = [
+  { label: "Healthcare", href: "/industries/healthcare-and-medical" },
+  { label: "Fintech", href: "/industries/financial-services" },
+  { label: "Retail", href: "/industries/retail-and-e-commerce" },
+  { label: "Logistics", href: "/industries/transportation-and-logistics" },
+  { label: "Manufacturing", href: "/industries/manufacturing-and-industrial" },
+  { label: "EdTech", href: "/industries/education-and-e-learning" },
+  { label: "PropTech", href: "/industries/real-estate-and-property" },
+  { label: "SaaS", href: "/industries/technology-and-startups" },
+  { label: "Hospitality", href: "/industries/hospitality-and-tourism" },
+  { label: "Legal", href: "/industries/legal-services" },
+  { label: "Government", href: "/industries/government-and-public-sector" },
+  { label: "Media", href: "/industries/media-and-entertainment" },
+  { label: "Agriculture", href: "/industries/agriculture-and-farming" },
+  { label: "Automotive", href: "/industries/automotive" },
+  { label: "Sports", href: "/industries/sports-and-recreation" },
 ];
 
 /* ─── page ─── */
