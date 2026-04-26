@@ -133,15 +133,15 @@ const Index = () => {
       {/* ══════════════════════════════════════════════
           SECTION 1 — SPLIT EDITORIAL HERO
           ══════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden pt-24 md:pt-28 pb-0 lg:h-screen lg:min-h-[700px] lg:flex lg:flex-col">
+      <section className="relative overflow-hidden pt-24 md:pt-24 pb-0 lg:h-screen lg:min-h-[760px] lg:flex lg:flex-col">
         {/* Ambient backdrop */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 w-[28rem] h-[28rem] rounded-full bg-accent/10 blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 lg:flex-1 lg:flex lg:items-center lg:py-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-16 items-center w-full">
+        <div className="container mx-auto px-4 md:px-6 lg:flex-1 lg:flex lg:items-center lg:min-h-0 lg:py-4">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-12 items-center w-full">
             {/* LEFT — text */}
             <div>
 
@@ -149,7 +149,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.05 }}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-8xl font-display font-bold text-foreground leading-[0.95] tracking-tight mb-5"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.5rem] font-display font-bold text-foreground leading-[0.95] tracking-tight mb-5"
               >
                 Software,
                 <br />
