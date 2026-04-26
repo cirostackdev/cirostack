@@ -13,22 +13,32 @@ import {
   Laptop,
 } from "lucide-react";
 
+import imgHealthcare from "@/assets/portfolio-healthflow.jpg";
+import imgFinance from "@/assets/portfolio-finguard.jpg";
+import imgRetail from "@/assets/portfolio-retailmax.jpg";
+import imgEducation from "@/assets/portfolio-eduspark.jpg";
+import imgManufacturing from "@/assets/portfolio-factoryiq.jpg";
+import imgLogistics from "@/assets/portfolio-logistrack.jpg";
+import imgRealEstate from "@/assets/portfolio-propview.jpg";
+import imgSaaS from "@/assets/portfolio-cloudops.jpg";
+
 const chips = [
-  { icon: HeartPulse, label: "Healthcare" },
-  { icon: Landmark, label: "Finance" },
-  { icon: ShoppingCart, label: "Retail" },
-  { icon: GraduationCap, label: "Education" },
-  { icon: Factory, label: "Manufacturing" },
-  { icon: Truck, label: "Logistics" },
-  { icon: Building2, label: "Real Estate" },
-  { icon: Laptop, label: "SaaS" },
+  { icon: HeartPulse, label: "Healthcare", image: imgHealthcare },
+  { icon: Landmark, label: "Finance", image: imgFinance },
+  { icon: ShoppingCart, label: "Retail", image: imgRetail },
+  { icon: GraduationCap, label: "Education", image: imgEducation },
+  { icon: Factory, label: "Manufacturing", image: imgManufacturing },
+  { icon: Truck, label: "Logistics", image: imgLogistics },
+  { icon: Building2, label: "Real Estate", image: imgRealEstate },
+  { icon: Laptop, label: "SaaS", image: imgSaaS },
 ];
 
 interface HeroVisualStackProps {
-  image: string;
+  /** Optional fallback image (kept for backwards compatibility). */
+  image?: string;
 }
 
-export default function HeroVisualStack({ image }: HeroVisualStackProps) {
+export default function HeroVisualStack({ image: _image }: HeroVisualStackProps) {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setIdx((i) => (i + 1) % chips.length), 1800);
@@ -36,6 +46,7 @@ export default function HeroVisualStack({ image }: HeroVisualStackProps) {
   }, []);
 
   const Active = chips[idx].icon;
+  const activeImage = chips[idx].image;
 
   return (
     <div className="relative w-full aspect-[4/5] md:aspect-square">
@@ -43,18 +54,25 @@ export default function HeroVisualStack({ image }: HeroVisualStackProps) {
       <div className="absolute -top-12 -right-12 w-72 h-72 rounded-full bg-primary/30 blur-3xl opacity-60" />
       <div className="absolute -bottom-16 -left-10 w-80 h-80 rounded-full bg-accent/30 blur-3xl opacity-50" />
 
-      {/* Featured screenshot */}
+      {/* Featured screenshot — swaps with active industry */}
       <motion.div
         initial={{ opacity: 0, y: 30, rotate: -3 }}
         animate={{ opacity: 1, y: 0, rotate: -2 }}
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         className="absolute inset-6 md:inset-8 rounded-2xl overflow-hidden shadow-2xl border border-border/50 bg-card"
       >
-        <img
-          src={image}
-          alt="Featured project"
-          className="w-full h-full object-cover"
-        />
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={idx}
+            src={activeImage}
+            alt={`${chips[idx].label} project`}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-tr from-foreground/20 via-transparent to-transparent" />
       </motion.div>
 
