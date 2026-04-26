@@ -99,10 +99,19 @@ const values = [
   { icon: Shield, title: "You Own Everything", line: "Code, designs, IP — yours from day one." },
 ];
 
-const alsoServe = [
-  "Legal", "Government", "Agriculture", "Construction", "Media",
-  "Hospitality", "Sports", "Beauty", "Automotive", "Non-Profit",
-  "Professional Services", "Small Business",
+const alsoServe: { label: string; href: string }[] = [
+  { label: "Legal", href: "/industries/legal-services" },
+  { label: "Government", href: "/industries/government-and-public-sector" },
+  { label: "Agriculture", href: "/industries/agriculture-and-farming" },
+  { label: "Construction", href: "/industries/construction-and-engineering" },
+  { label: "Media", href: "/industries/media-and-entertainment" },
+  { label: "Hospitality", href: "/industries/hospitality-and-tourism" },
+  { label: "Sports", href: "/industries/sports-and-recreation" },
+  { label: "Beauty", href: "/industries/beauty-and-personal-care" },
+  { label: "Automotive", href: "/industries/automotive" },
+  { label: "Non-Profit", href: "/industries/non-profit-and-social-enterprise" },
+  { label: "Professional Services", href: "/industries/professional-services" },
+  { label: "Small Business", href: "/industries/small-business" },
 ];
 
 /* Marquee strip — industry names scrolling (with links) */
@@ -314,13 +323,14 @@ const Index = () => {
               We also serve
             </p>
             <div className="flex flex-wrap justify-center gap-2">
-              {alsoServe.map((name) => (
-                <span
-                  key={name}
+              {alsoServe.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
                   className="px-3 py-1.5 text-xs font-medium rounded-full bg-muted/80 border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
                 >
-                  {name}
-                </span>
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>
