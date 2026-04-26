@@ -269,7 +269,7 @@ const Index = () => {
             </div>
 
             {/* Horizontal scroll showcase */}
-            <div className="relative -mr-4 md:-mr-6 lg:-mr-12">
+            <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 scrollbar-thin">
                 {industries.map((ind, i) => (
                   <Link
