@@ -96,13 +96,6 @@ const CaseStudySidebar = ({ project }: SidebarProps) => (
       </Link>
     </div>
 
-    {/* Pricing */}
-    <div className="surface-glass rounded-2xl p-6 text-center">
-      <p className="text-sm text-muted-foreground mb-3">Explore our transparent pricing</p>
-      <Link href="/pricing">
-        <Button variant="outline" className="w-full">View Packages</Button>
-      </Link>
-    </div>
   </motion.div>
 );
 
