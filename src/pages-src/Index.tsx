@@ -351,9 +351,9 @@ const Index = () => {
           <LifecycleTimeline phases={phases} />
 
           <p className="text-center text-sm text-muted-foreground mt-16">
-            Starting from <span className="text-foreground font-semibold">$2,500</span> · Fixed-price packages for every service.{" "}
-            <Link href="/pricing" className="text-primary hover:underline font-medium">
-              View pricing →
+            Fixed-price packages for every service.{" "}
+            <Link href="/contact" className="text-primary hover:underline font-medium">
+              Get a quote →
             </Link>
           </p>
         </div>
