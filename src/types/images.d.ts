@@ -6,7 +6,16 @@ declare module "next/image-types/global" {}
 
 // Force StaticImageData to be a plain string at the type level.
 // This makes <img src={importedImage}> typecheck everywhere.
-type StaticImageData = string;
+declare global {
+  type StaticImageData = string;
+}
+
+declare module "next/dist/shared/lib/get-img-props" {
+  type StaticImageData = string;
+}
+declare module "next/image" {
+  type StaticImageData = string;
+}
 
 declare module "*.jpg" {
   const src: string;
