@@ -4,8 +4,21 @@
 
 declare module "next/image-types/global" {}
 
-// Force StaticImageData to be a plain string at the type level.
-// This makes <img src={importedImage}> typecheck everywhere.
+// Force Next.js StaticImageData to be a plain string everywhere it's referenced.
+// The webpack config in next.config.ts replaces next-image-loader with asset/resource,
+// so image imports return string URLs at runtime.
+declare module "next/dist/shared/lib/get-img-props" {
+  type StaticImageData = string;
+  export type { StaticImageData };
+}
+declare module "next/dist/shared/lib/image-external" {
+  type StaticImageData = string;
+  export type { StaticImageData };
+}
+declare module "next/image" {
+  type StaticImageData = string;
+  export type { StaticImageData };
+}
 type StaticImageData = string;
 
 declare module "*.jpg" {
