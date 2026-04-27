@@ -32,7 +32,8 @@ import imgLaunchpad from "@/assets/portfolio-launchpad.jpg";
 import imgAgriconnect from "@/assets/portfolio-agriconnect.jpg";
 import imgBuildsite from "@/assets/portfolio-buildsite.jpg";
 import imgStreamdeck from "@/assets/portfolio-streamdeck.jpg";
-import imgHero from "@/assets/hero-industry.jpg";
+
+const imgHero = "/images/industries/hero-cat-all-industries.jpg";
 
 const entries = Object.values(industriesData);
 
@@ -115,9 +116,10 @@ const Industries = () => {
             src={imgHero}
             alt=""
             className="w-full h-full object-cover"
+            fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-background/75" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+          <div className="absolute inset-0 bg-background/55" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background" />
         </div>
 
         {/* Animated icon mosaic backdrop */}
