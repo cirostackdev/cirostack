@@ -32,6 +32,7 @@ import imgLaunchpad from "@/assets/portfolio-launchpad.jpg";
 import imgAgriconnect from "@/assets/portfolio-agriconnect.jpg";
 import imgBuildsite from "@/assets/portfolio-buildsite.jpg";
 import imgStreamdeck from "@/assets/portfolio-streamdeck.jpg";
+import imgHero from "@/assets/hero-industry.jpg";
 
 const entries = Object.values(industriesData);
 
@@ -108,6 +109,17 @@ const Industries = () => {
           MOSAIC HERO
           ══════════════════════════════════════════════ */}
       <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 overflow-hidden">
+        {/* Background image */}
+        <div className="absolute inset-0 -z-10">
+          <img
+            src={imgHero}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-background/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+        </div>
+
         {/* Animated icon mosaic backdrop */}
         <div className="absolute inset-0 -z-10 opacity-[0.07] dark:opacity-[0.12]">
           <div className="grid grid-cols-6 md:grid-cols-8 gap-4 p-6 h-full">
