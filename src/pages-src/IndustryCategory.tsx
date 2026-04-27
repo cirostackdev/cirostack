@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { industriesData } from "@/data/industries-generated";
 import { industriesData as parentData } from "@/data/industries";
 import { projects, projectImages } from "@/data/caseStudies";
-import imgDefault from "@/assets/hero-industry.jpg";
 import CountUp from "@/components/industries/CountUp";
 import CategoryFAQ from "@/components/industries/CategoryFAQ";
 
@@ -84,6 +83,7 @@ export default function IndustryCategory({ categoryId }: Props) {
   const compliance = complianceMap[parent.title] ?? defaultCompliance;
   const faqs = buildFaqs(parent.title);
   const related = findRelatedCaseStudy(parent.title);
+  const heroImage = `/images/industries/hero-cat-${categoryId}.jpg`;
 
   return (
     <Layout>
@@ -100,12 +100,13 @@ export default function IndustryCategory({ categoryId }: Props) {
         {/* Background image with readable overlay */}
         <div className="absolute inset-0 -z-10">
           <img
-            src={imgDefault}
+            src={heroImage}
             alt=""
             className="w-full h-full object-cover"
+            fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-background/70" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div className="absolute inset-0 bg-background/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
         </div>
 
         <div className="container mx-auto px-4 md:px-6">
