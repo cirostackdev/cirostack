@@ -32,7 +32,7 @@ const Terms = () => (
           <h2 className="text-xl font-display font-semibold text-foreground">3. Intellectual Property</h2>
           <p>Upon full payment, clients receive full ownership of all custom code and designs created for their project. We retain the right to showcase work in our portfolio unless otherwise agreed.</p>
           <h2 className="text-xl font-display font-semibold text-foreground">4. Contact</h2>
-          <p>For questions about these terms, please contact us at <a href="mailto:hello@cirostack.com" className="text-primary hover:underline">hello@cirostack.com</a>.</p>
+          <p>For questions about these terms, please contact us at <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">contact@cirostack.com</a>.</p>
         </div>
       </div>
     </section>

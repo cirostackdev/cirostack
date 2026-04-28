@@ -97,7 +97,7 @@ export default function IndustryCategory({ categoryId }: Props) {
           EDITORIAL HERO
           ══════════════════════════════════════════════ */}
       <section className="relative pt-28 md:pt-36 pb-20 md:pb-28 overflow-hidden">
-        {/* Background image with readable overlay */}
+        {/* Background image with readable overlay — theme-agnostic so image is visible in both modes */}
         <div className="absolute inset-0 -z-10">
           <img
             src={heroImage}
@@ -105,8 +105,10 @@ export default function IndustryCategory({ categoryId }: Props) {
             className="w-full h-full object-cover"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-background/55" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          {/* Dark tint for text legibility (both themes) */}
+          <div className="absolute inset-0 bg-black/45" />
+          {/* Fade to page background at the bottom for a clean transition */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         </div>
 
         <div className="container mx-auto px-4 md:px-6">

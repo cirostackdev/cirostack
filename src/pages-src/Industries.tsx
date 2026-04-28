@@ -118,8 +118,8 @@ const Industries = () => {
             className="w-full h-full object-cover"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-background/55" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background" />
+          <div className="absolute inset-0 bg-black/45" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         </div>
 
         {/* Animated icon mosaic backdrop */}
