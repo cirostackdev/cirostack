@@ -43,7 +43,7 @@ const Contact = () => {
         description="Tell us about your project and we'll get back to you with a free quote within 24 hours."
         image={heroContact}
         ctaText="Email Us"
-        ctaLink="mailto:hello@cirostack.com"
+        ctaLink="mailto:contact@cirostack.com"
       />
 
       <section className="section-padding">
@@ -59,7 +59,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Email us</h3>
-                    <a href="mailto:hello@cirostack.com" className="text-primary hover:underline">hello@cirostack.com</a>
+                    <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">contact@cirostack.com</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
