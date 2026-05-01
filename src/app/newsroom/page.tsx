@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     url: "https://cirostack.com/newsroom",
     title: "Newsroom | CiroStack",
     description: "CiroStack press releases, announcements, and media coverage.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-newsroom.jpg", width: 1200, height: 630, alt: "CiroStack Newsroom" }],
+    images: [{ url: "https://cirostack.com/og/pages/newsroom.jpg", width: 1200, height: 630, alt: "CiroStack Newsroom" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Newsroom | CiroStack",
     description: "CiroStack press releases, announcements, and media coverage.",
-    images: ["https://cirostack.com/images/pages/hero-newsroom.jpg"],
+    images: ["https://cirostack.com/og/pages/newsroom.jpg"],
   },
 };
 

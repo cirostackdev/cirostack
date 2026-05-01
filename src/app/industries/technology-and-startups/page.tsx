@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Technology & Startups Software Solutions | CiroStack",
     description:
       "Custom software for the Technology & Startups industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Technology And Startups" }],
+    images: [{ url: "https://cirostack.com/og/industries/technology-and-startups.jpg", width: 1200, height: 630, alt: "CiroStack Technology And Startups" }],
   },
 };
 

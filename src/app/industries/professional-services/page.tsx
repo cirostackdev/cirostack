@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Professional Services Software Solutions | CiroStack",
     description:
       "Custom software for the Professional Services industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Professional Services" }],
+    images: [{ url: "https://cirostack.com/og/industries/professional-services.jpg", width: 1200, height: 630, alt: "CiroStack Professional Services" }],
   },
 };
 

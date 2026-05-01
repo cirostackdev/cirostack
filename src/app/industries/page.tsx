@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Industries We Serve | CiroStack",
     description:
       "Custom software for healthcare, finance, retail, education, manufacturing, logistics, and 14 more industries. Fixed-price engagements with senior engineers.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Industries" }],
+    images: [{ url: "https://cirostack.com/og/pages/industries.jpg", width: 1200, height: 630, alt: "CiroStack Industries" }],
   },
 };
 

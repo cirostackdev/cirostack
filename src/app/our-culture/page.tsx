@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     url: "https://cirostack.com/our-culture",
     title: "Our Culture | CiroStack",
     description: "The values, rituals, and principles that make CiroStack a great place to build software.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-culture.jpg", width: 1200, height: 630, alt: "CiroStack Culture" }],
+    images: [{ url: "https://cirostack.com/og/pages/our-culture.jpg", width: 1200, height: 630, alt: "CiroStack Culture" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Our Culture | CiroStack",
     description: "The values, rituals, and principles that make CiroStack a great place to build software.",
-    images: ["https://cirostack.com/images/pages/hero-culture.jpg"],
+    images: ["https://cirostack.com/og/pages/our-culture.jpg"],
   },
 };
 

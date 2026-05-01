@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Real Estate & Property Software Solutions | CiroStack",
     description:
       "Custom software for the Real Estate & Property industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Real Estate And Property" }],
+    images: [{ url: "https://cirostack.com/og/industries/real-estate-and-property.jpg", width: 1200, height: 630, alt: "CiroStack Real Estate And Property" }],
   },
 };
 

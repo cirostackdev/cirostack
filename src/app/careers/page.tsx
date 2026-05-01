@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     url: "https://cirostack.com/careers",
     title: "Careers | CiroStack",
     description: "Join the CiroStack team. Open roles for engineers, designers, and product leaders.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-careers.jpg", width: 1200, height: 630, alt: "Careers at CiroStack" }],
+    images: [{ url: "https://cirostack.com/og/pages/careers.jpg", width: 1200, height: 630, alt: "Careers at CiroStack" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Careers | CiroStack",
     description: "Join the CiroStack team. Open roles for engineers, designers, and product leaders.",
-    images: ["https://cirostack.com/images/pages/hero-careers.jpg"],
+    images: ["https://cirostack.com/og/pages/careers.jpg"],
   },
 };
 

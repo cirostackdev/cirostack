@@ -5,7 +5,7 @@ import ServiceDetail from "@/pages-src/ServiceDetail";
 const slug = "ai";
 const service = servicesData[slug];
 
-const ogImageUrl = "https://cirostack.com/images/pages/hero-services.jpg";
+const ogImageUrl = "https://cirostack.com/og/services/ai.jpg";
 
 export const metadata: Metadata = {
   title: service ? `${service.title} | CiroStack` : "Service | CiroStack",

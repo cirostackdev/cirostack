@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Financial Services Software Solutions | CiroStack",
     description:
       "Custom software for the Financial Services industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Financial Services" }],
+    images: [{ url: "https://cirostack.com/og/industries/financial-services.jpg", width: 1200, height: 630, alt: "CiroStack Financial Services" }],
   },
 };
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Agriculture & Farming Software Solutions | CiroStack",
     description:
       "Custom software for the Agriculture & Farming industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Agriculture And Farming" }],
+    images: [{ url: "https://cirostack.com/og/industries/agriculture-and-farming.jpg", width: 1200, height: 630, alt: "CiroStack Agriculture And Farming" }],
   },
 };
 

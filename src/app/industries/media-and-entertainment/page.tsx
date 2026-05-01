@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Media & Entertainment Software Solutions | CiroStack",
     description:
       "Custom software for the Media & Entertainment industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Media And Entertainment" }],
+    images: [{ url: "https://cirostack.com/og/industries/media-and-entertainment.jpg", width: 1200, height: 630, alt: "CiroStack Media And Entertainment" }],
   },
 };
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Sports & Recreation Software Solutions | CiroStack",
     description:
       "Custom software for the Sports & Recreation industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Sports And Recreation" }],
+    images: [{ url: "https://cirostack.com/og/industries/sports-and-recreation.jpg", width: 1200, height: 630, alt: "CiroStack Sports And Recreation" }],
   },
 };
 
