@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Custom software development, mobile apps, AI automation, cloud engineering, UX/UI design, and dedicated engineering teams. Fixed-price. Senior engineers.",
   alternates: { canonical: "https://cirostack.com/services" },
   openGraph: {
-    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-services.jpg"Services | CiroStack")}&description=${encodeURIComponent("Custom software, mobile apps, AI automation, cloud engineering, and UX/UI design. Fixed-price engagements with senior engineers.")}&label=${encodeURIComponent("Services")}`, width: 1200, height: 630, alt: "CiroStack Services" }],
+    images: [{ url: "https://cirostack.com/api/og?bg=/images/pages/hero-services.jpg", width: 1200, height: 630, alt: "CiroStack Services" }],
     url: "https://cirostack.com/services",
     title: "Services | CiroStack",
     description:

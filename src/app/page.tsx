@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "CiroStack — Custom Software, Apps & AI for Growing Businesses",
     description:
       "We build websites, mobile apps, and AI automation solutions for growing businesses. Fixed-price engagements, senior engineers, delivery in weeks.",
-    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-bg.jpg"CiroStack — Custom Software, Apps & AI for Growing Businesses")}&description=${encodeURIComponent("We build websites, mobile apps, and AI automation for growing businesses. Fixed-price. Senior engineers. Delivery in weeks.")}`, width: 1200, height: 630, alt: "CiroStack" }],
+    images: [{ url: "https://cirostack.com/api/og?bg=/images/pages/hero-bg.jpg", width: 1200, height: 630, alt: "CiroStack" }],
   },
 };
 

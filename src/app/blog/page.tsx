@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Technical guides, case studies, and engineering insights from the CiroStack team — covering software architecture, AI, DevOps, and product development.",
   alternates: { canonical: "https://cirostack.com/blog" },
   openGraph: {
-    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-blog.jpg"Blog | CiroStack")}&description=${encodeURIComponent("Technical guides, case studies, and engineering insights — software architecture, AI, DevOps, and product development.")}&label=${encodeURIComponent("Blog")}`, width: 1200, height: 630, alt: "CiroStack Blog" }],
+    images: [{ url: "https://cirostack.com/api/og?bg=/images/pages/hero-blog.jpg", width: 1200, height: 630, alt: "CiroStack Blog" }],
     url: "https://cirostack.com/blog",
     title: "Blog | CiroStack",
     description:
