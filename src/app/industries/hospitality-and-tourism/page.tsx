@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Hospitality & Tourism Software Solutions | CiroStack",
     description:
       "Custom software for the Hospitality & Tourism industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/api/og?bg=/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Hospitality And Tourism" }],
+    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Hospitality And Tourism" }],
   },
 };
 

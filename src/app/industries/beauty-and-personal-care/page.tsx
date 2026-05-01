@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Beauty & Personal Care Software Solutions | CiroStack",
     description:
       "Custom software for the Beauty & Personal Care industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/api/og?bg=/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Beauty And Personal Care" }],
+    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Beauty And Personal Care" }],
   },
 };
 

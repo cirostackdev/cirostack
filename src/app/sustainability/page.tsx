@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     url: "https://cirostack.com/sustainability",
     title: "Sustainability | CiroStack",
     description: "CiroStack's commitment to sustainable software development and responsible tech.",
-    images: [{ url: "https://cirostack.com/api/og?bg=/images/pages/hero-sustainability.jpg", width: 1200, height: 630, alt: "CiroStack Sustainability" }],
+    images: [{ url: "https://cirostack.com/images/pages/hero-sustainability.jpg", width: 1200, height: 630, alt: "CiroStack Sustainability" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sustainability | CiroStack",
     description: "CiroStack's commitment to sustainable software development and responsible tech.",
-    images: ["https://cirostack.com/api/og?bg=/images/pages/hero-sustainability.jpg"],
+    images: ["https://cirostack.com/images/pages/hero-sustainability.jpg"],
   },
 };
 

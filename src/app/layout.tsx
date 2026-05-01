@@ -21,7 +21,7 @@ import { WhatsAppPopup } from "@/components/WhatsAppPopup";
 import { FacebookPixel } from "@/components/FacebookPixel";
 
 const SITE_URL = "https://cirostack.com";
-const OG_IMAGE = `${SITE_URL}/api/og?bg=/images/pages/hero-bg.jpg`;
+const OG_IMAGE = `${SITE_URL}/images/pages/hero-bg.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: "CiroStack — Custom Software, Apps & AI for Growing Businesses",
     description:
       "CiroStack builds custom websites, mobile apps, and AI automation solutions for growing businesses. Fixed-price engagements. Senior engineers. Delivery in weeks.",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "CiroStack — Software Development Agency", type: "image/png" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "CiroStack — Software Development Agency", type: "image/jpeg" }],
   },
   twitter: {
     card: "summary_large_image",
