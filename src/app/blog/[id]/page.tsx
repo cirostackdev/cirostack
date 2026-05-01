@@ -96,7 +96,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = POST_META[id];
   if (!post) return { title: "Blog | CiroStack" };
 
-  const ogImage = `https://cirostack.com${post.image}`;
+  const ogImage = `https://cirostack.com/api/og?post=${id}`;
 
   return {
     title: post.title,

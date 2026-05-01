@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     url: `https://cirostack.com/industries/business-coaching`,
     title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
     description: industry?.tagline ?? "",
-    images: [{ url: "https://cirostack.com/images/industries/hero-business-coaching.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
+    images: [{ url: "https://cirostack.com/api/og?industry=business-coaching", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["https://cirostack.com/images/industries/hero-business-coaching.jpg"],
+    images: ["https://cirostack.com/api/og?industry=business-coaching"],
   },
 };
 

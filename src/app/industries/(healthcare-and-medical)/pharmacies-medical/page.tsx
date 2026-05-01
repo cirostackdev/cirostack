@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     url: `https://cirostack.com/industries/pharmacies-medical`,
     title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
     description: industry?.tagline ?? "",
-    images: [{ url: "https://cirostack.com/images/industries/hero-pharmacies-medical.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
+    images: [{ url: "https://cirostack.com/api/og?industry=pharmacies-medical", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["https://cirostack.com/images/industries/hero-pharmacies-medical.jpg"],
+    images: ["https://cirostack.com/api/og?industry=pharmacies-medical"],
   },
 };
 

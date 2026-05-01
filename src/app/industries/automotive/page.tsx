@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Automotive Software Solutions | CiroStack",
     description:
       "Custom software for the Automotive industry. Fixed-price. Senior engineers. Shipped in weeks.",
-    images: [{ url: "https://cirostack.com/images/pages/hero-industry.jpg", width: 1200, height: 630, alt: "CiroStack Automotive" }],
+    images: [{ url: "https://cirostack.com/api/og?title=Automotive%20Software%20Solutions%20%7C%20CiroStack&description=Custom%20software%20for%20the%20Automotive%20industry.%20Fixed-price.%20Senior%20engineers.%20Shipped%20in%20weeks.&label=Industries", width: 1200, height: 630, alt: "CiroStack Automotive" }],
   },
 };
 
