@@ -21,7 +21,7 @@ import { WhatsAppPopup } from "@/components/WhatsAppPopup";
 import { FacebookPixel } from "@/components/FacebookPixel";
 
 const SITE_URL = "https://cirostack.com";
-const OG_IMAGE = `${SITE_URL}/api/og?title=${encodeURIComponent("CiroStack — Custom Software, Apps & AI for Growing Businesses")}&description=${encodeURIComponent("We build websites, mobile apps, and AI automation for growing businesses. Fixed-price. Senior engineers. Delivery in weeks.")}`;
+const OG_IMAGE = `${SITE_URL}/api/og?title=${encodeURIComponent("CiroStack — Custom Software, Apps & AI for Growing Businesses")}&description=${encodeURIComponent("We build websites, mobile apps, and AI automation for growing businesses. Fixed-price. Senior engineers. Delivery in weeks.")}&bg=/images/pages/hero-bg.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

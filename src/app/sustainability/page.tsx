@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     url: "https://cirostack.com/sustainability",
     title: "Sustainability | CiroStack",
     description: "CiroStack's commitment to sustainable software development and responsible tech.",
-    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent("Sustainability | CiroStack")}&description=${encodeURIComponent("Our commitment to sustainable software development and responsible tech.")}&label=${encodeURIComponent("Sustainability")}`, width: 1200, height: 630, alt: "CiroStack Sustainability" }],
+    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-sustainability.jpg"Sustainability | CiroStack")}&description=${encodeURIComponent("Our commitment to sustainable software development and responsible tech.")}&label=${encodeURIComponent("Sustainability")}`, width: 1200, height: 630, alt: "CiroStack Sustainability" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sustainability | CiroStack",
     description: "CiroStack's commitment to sustainable software development and responsible tech.",
-    images: [`https://cirostack.com/api/og?title=${encodeURIComponent("Sustainability | CiroStack")}&description=${encodeURIComponent("Our commitment to sustainable software development and responsible tech.")}&label=${encodeURIComponent("Sustainability")}`],
+    images: [`https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-sustainability.jpg"Sustainability | CiroStack")}&description=${encodeURIComponent("Our commitment to sustainable software development and responsible tech.")}&label=${encodeURIComponent("Sustainability")}`],
   },
 };
 

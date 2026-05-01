@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     url: "https://cirostack.com/newsletter",
     title: "Newsletter | CiroStack",
     description: "Subscribe to the CiroStack newsletter for software insights, case studies, and engineering updates.",
-    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent("Newsletter | CiroStack")}&description=${encodeURIComponent("Subscribe for software insights, case studies, and engineering updates from the CiroStack team.")}&label=${encodeURIComponent("Newsletter")}`, width: 1200, height: 630, alt: "CiroStack Newsletter" }],
+    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-newsletter.jpg"Newsletter | CiroStack")}&description=${encodeURIComponent("Subscribe for software insights, case studies, and engineering updates from the CiroStack team.")}&label=${encodeURIComponent("Newsletter")}`, width: 1200, height: 630, alt: "CiroStack Newsletter" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Newsletter | CiroStack",
     description: "Subscribe to the CiroStack newsletter for software insights, case studies, and engineering updates.",
-    images: [`https://cirostack.com/api/og?title=${encodeURIComponent("Newsletter | CiroStack")}&description=${encodeURIComponent("Subscribe for software insights, case studies, and engineering updates from the CiroStack team.")}&label=${encodeURIComponent("Newsletter")}`],
+    images: [`https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-newsletter.jpg"Newsletter | CiroStack")}&description=${encodeURIComponent("Subscribe for software insights, case studies, and engineering updates from the CiroStack team.")}&label=${encodeURIComponent("Newsletter")}`],
   },
 };
 

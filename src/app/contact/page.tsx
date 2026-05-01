@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Tell us about your project. We respond within 24 hours with a scoped proposal — no vague estimates, no bait-and-switch pricing.",
   alternates: { canonical: "https://cirostack.com/contact" },
   openGraph: {
-    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent("Contact CiroStack")}&description=${encodeURIComponent("Tell us about your project. We respond within 24 hours with a scoped proposal — no vague estimates, no bait-and-switch pricing.")}&label=${encodeURIComponent("Contact")}`, width: 1200, height: 630, alt: "Contact CiroStack" }],
+    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-contact.jpg"Contact CiroStack")}&description=${encodeURIComponent("Tell us about your project. We respond within 24 hours with a scoped proposal — no vague estimates, no bait-and-switch pricing.")}&label=${encodeURIComponent("Contact")}`, width: 1200, height: 630, alt: "Contact CiroStack" }],
     url: "https://cirostack.com/contact",
     title: "Contact CiroStack",
     description:

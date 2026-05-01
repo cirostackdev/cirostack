@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     url: "https://cirostack.com/our-culture",
     title: "Our Culture | CiroStack",
     description: "The values, rituals, and principles that make CiroStack a great place to build software.",
-    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent("Our Culture | CiroStack")}&description=${encodeURIComponent("The values, rituals, and principles that make CiroStack a great place to build software.")}&label=${encodeURIComponent("Culture")}`, width: 1200, height: 630, alt: "CiroStack Culture" }],
+    images: [{ url: `https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-culture.jpg"Our Culture | CiroStack")}&description=${encodeURIComponent("The values, rituals, and principles that make CiroStack a great place to build software.")}&label=${encodeURIComponent("Culture")}`, width: 1200, height: 630, alt: "CiroStack Culture" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Our Culture | CiroStack",
     description: "The values, rituals, and principles that make CiroStack a great place to build software.",
-    images: [`https://cirostack.com/api/og?title=${encodeURIComponent("Our Culture | CiroStack")}&description=${encodeURIComponent("The values, rituals, and principles that make CiroStack a great place to build software.")}&label=${encodeURIComponent("Culture")}`],
+    images: [`https://cirostack.com/api/og?title=${encodeURIComponent(&bg=%2Fimages%2Fpages%2Fhero-culture.jpg"Our Culture | CiroStack")}&description=${encodeURIComponent("The values, rituals, and principles that make CiroStack a great place to build software.")}&label=${encodeURIComponent("Culture")}`],
   },
 };
 
