@@ -9,7 +9,10 @@ const assetCache = new Map<string, string>();
 async function fetchAsDataUrl(url: string): Promise<string | null> {
   if (assetCache.has(url)) return assetCache.get(url)!;
   try {
-    const res = await fetch(url);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeout);
     if (!res.ok) return null;
     const buf = await res.arrayBuffer();
     const mime = url.endsWith(".png") ? "image/png" : "image/jpeg";
@@ -113,6 +116,14 @@ export async function GET(request: NextRequest) {
         ) : null}
       </div>
     ),
-    { width: 1200, height: 630 }
+    {
+      width: 1200,
+      height: 630,
+      headers: {
+        // Cache at CDN for 7 days — scrapers (WhatsApp, Twitter, etc.) get
+        // a near-instant response after the first hit warms the cache.
+        "Cache-Control": "public, max-age=604800, s-maxage=604800, stale-while-revalidate=86400",
+      },
+    }
   );
 }

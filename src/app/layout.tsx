@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: "CiroStack — Custom Software, Apps & AI for Growing Businesses",
     description:
       "CiroStack builds custom websites, mobile apps, and AI automation solutions for growing businesses. Fixed-price engagements. Senior engineers. Delivery in weeks.",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "CiroStack — Software Development Agency" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "CiroStack — Software Development Agency", type: "image/png" }],
   },
   twitter: {
     card: "summary_large_image",
