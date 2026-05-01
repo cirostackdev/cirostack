@@ -1,57 +1,56 @@
 import { ImageResponse } from "@vercel/og";
 import { type NextRequest } from "next/server";
-import { readFileSync } from "fs";
-import { join } from "path";
 
 export const runtime = "nodejs";
 
-// ── Image cache (warm across requests in same process instance) ──────────────
-const imageCache = new Map<string, string>();
+// ── Asset cache (warm across requests in same process instance) ──────────────
+const assetCache = new Map<string, string>();
 
-function loadPublicImage(publicPath: string): string | null {
-  if (imageCache.has(publicPath)) return imageCache.get(publicPath)!;
+async function fetchAsDataUrl(url: string): Promise<string | null> {
+  if (assetCache.has(url)) return assetCache.get(url)!;
   try {
-    const buf = readFileSync(join(process.cwd(), "public", publicPath));
-    const mime = publicPath.endsWith(".png") ? "image/png" : "image/jpeg";
-    const dataUrl = `data:${mime};base64,${buf.toString("base64")}`;
-    imageCache.set(publicPath, dataUrl);
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const buf = await res.arrayBuffer();
+    const mime = url.endsWith(".png") ? "image/png" : "image/jpeg";
+    const dataUrl = `data:${mime};base64,${Buffer.from(buf).toString("base64")}`;
+    assetCache.set(url, dataUrl);
     return dataUrl;
   } catch {
     return null;
   }
 }
 
-// ── Auto-derive background for slug-based lookups ────────────────────────────
-// Post slugs → blog image paths
+// ── Blog post → background image map ────────────────────────────────────────
 const POST_BG: Record<string, string> = {
-  "why-fixed-price":                 "/images/blog/blog-fixed-price.jpg",
-  "ai-automation-guide":             "/images/blog/blog-ai-automation.jpg",
-  "react-vs-nextjs":                 "/images/blog/blog-react-nextjs.jpg",
-  "web-design-trends":               "/images/blog/blog-design-trends.jpg",
-  "mvp-launch-checklist":            "/images/blog/blog-mvp-launch.jpg",
-  "langchain-tutorial":              "/images/blog/blog-langchain.jpg",
-  "cloud-migration-kubernetes":      "/images/blog/blog-cloud-migration.jpg",
+  "why-fixed-price":                  "/images/blog/blog-fixed-price.jpg",
+  "ai-automation-guide":              "/images/blog/blog-ai-automation.jpg",
+  "react-vs-nextjs":                  "/images/blog/blog-react-nextjs.jpg",
+  "web-design-trends":                "/images/blog/blog-design-trends.jpg",
+  "mvp-launch-checklist":             "/images/blog/blog-mvp-launch.jpg",
+  "langchain-tutorial":               "/images/blog/blog-langchain.jpg",
+  "cloud-migration-kubernetes":       "/images/blog/blog-cloud-migration.jpg",
   "healthcare-digital-transformation":"/images/blog/blog-healthcare-tech.jpg",
-  "cicd-devops-best-practices":      "/images/blog/blog-cicd-pipeline.jpg",
-  "fintech-security-architecture":   "/images/blog/blog-fintech-security.jpg",
-  "design-system-scale":             "/images/blog/blog-design-system.jpg",
-  "headless-ecommerce-architecture": "/images/blog/blog-ecommerce-headless.jpg",
-  "ml-models-production":            "/images/blog/blog-ml-production.jpg",
-  "outsourcing-vs-inhouse":          "/images/blog/blog-outsourcing-guide.jpg",
-  "real-time-data-pipelines":        "/images/blog/blog-data-pipeline.jpg",
-  "scaling-saas-post-funding":       "/images/blog/blog-scaling-startup.jpg",
+  "cicd-devops-best-practices":       "/images/blog/blog-cicd-pipeline.jpg",
+  "fintech-security-architecture":    "/images/blog/blog-fintech-security.jpg",
+  "design-system-scale":              "/images/blog/blog-design-system.jpg",
+  "headless-ecommerce-architecture":  "/images/blog/blog-ecommerce-headless.jpg",
+  "ml-models-production":             "/images/blog/blog-ml-production.jpg",
+  "outsourcing-vs-inhouse":           "/images/blog/blog-outsourcing-guide.jpg",
+  "real-time-data-pipelines":         "/images/blog/blog-data-pipeline.jpg",
+  "scaling-saas-post-funding":        "/images/blog/blog-scaling-startup.jpg",
 };
 
 // ── Route handler ─────────────────────────────────────────────────────────────
 export async function GET(request: NextRequest) {
-  const { searchParams } = request.nextUrl;
+  const { searchParams, origin } = new URL(request.url);
 
-  // Explicit background path (for static pages)
+  // Explicit background path
   let bgPath = searchParams.get("bg") ?? "";
 
   // Slug-based auto-derive
-  const postId      = searchParams.get("post");
-  const serviceSlug = searchParams.get("service");
+  const postId       = searchParams.get("post");
+  const serviceSlug  = searchParams.get("service");
   const industrySlug = searchParams.get("industry");
 
   if (postId && !bgPath) {
@@ -62,10 +61,11 @@ export async function GET(request: NextRequest) {
     bgPath = `/images/industries/hero-${industrySlug}.jpg`;
   }
 
-  // Load assets
-  const logoBuffer = readFileSync(join(process.cwd(), "src/assets/logo.png"));
-  const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
-  const bgSrc = bgPath ? loadPublicImage(bgPath) : null;
+  // Fetch assets in parallel
+  const [logoSrc, bgSrc] = await Promise.all([
+    fetchAsDataUrl(`${origin}/logo.png`),
+    bgPath ? fetchAsDataUrl(`${origin}${bgPath}`) : Promise.resolve(null),
+  ]);
 
   return new ImageResponse(
     (
@@ -97,18 +97,20 @@ export async function GET(request: NextRequest) {
         ) : null}
 
         {/* Logo — top-left, 96×96 */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={logoSrc}
-          alt=""
-          style={{
-            position: "absolute",
-            top: "36px",
-            left: "48px",
-            width: "96px",
-            height: "96px",
-          }}
-        />
+        {logoSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={logoSrc}
+            alt=""
+            style={{
+              position: "absolute",
+              top: "36px",
+              left: "48px",
+              width: "96px",
+              height: "96px",
+            }}
+          />
+        ) : null}
       </div>
     ),
     { width: 1200, height: 630 }
