@@ -13,7 +13,7 @@ const allChips = Object.values(subIndustries).map((ind) => {
   return {
     label: ind.title,
     icon: parent?.icon,
-    image: `/images/industries/hero-${ind.slug}.jpg`,
+    image: `/images/industries/hero-${ind.id}.jpg`,
   };
 });
 
