@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Shield, CheckCircle2, Zap } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
+import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { industriesData } from "@/data/industries-generated";
@@ -93,112 +94,37 @@ export default function IndustryCategory({ categoryId }: Props) {
         url={`/industries/${categoryId}`}
       />
 
-      {/* ══════════════════════════════════════════════
-          EDITORIAL HERO
-          ══════════════════════════════════════════════ */}
-      <section className="relative pt-28 md:pt-36 pb-20 md:pb-28 overflow-hidden">
-        {/* Background image with readable overlay — theme-agnostic so image is visible in both modes */}
-        <div className="absolute inset-0 -z-10">
-          <img
-            src={heroImage}
-            alt=""
-            className="w-full h-full object-cover"
-            fetchPriority="high"
-          />
-          {/* Dark tint for text legibility (both themes) */}
-          <div className="absolute inset-0 bg-black/45" />
-          {/* Fade to page background at the bottom for a clean transition */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
-        </div>
+      {/* Hero */}
+      <PageHero
+        icon={Icon}
+        title={parent.title}
+        description={parent.tagline}
+        image={heroImage}
+        ctaText="Start Your Project"
+        ctaLink="/contact"
+      />
 
-        <div className="container mx-auto px-4 md:px-6">
-          {/* Breadcrumb */}
-          <motion.nav
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="text-xs text-muted-foreground mb-6 flex items-center gap-2"
-          >
-            <Link href="/industries" className="hover:text-primary transition-colors">
-              Industries
-            </Link>
-            <span className="text-muted-foreground/50">/</span>
-            <span className="text-foreground">{parent.title}</span>
-          </motion.nav>
-
-          <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-end">
-            {/* Left — title block */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-3 mb-6"
-              >
-                <div className="w-12 h-12 rounded-xl bg-muted border border-border flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-foreground" />
-                </div>
-                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  Industry Solutions
-                </span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95] tracking-tight mb-6"
-              >
-                <span className="text-gradient italic">{parent.title}</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-                className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-8"
-              >
-                {parent.tagline}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-              >
-                <Link href="/contact">
-                  <Button size="lg" className="rounded-full text-base px-8 group">
-                    Start Your Project
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </Link>
-              </motion.div>
+      {/* Stats bar */}
+      {parent.stats.length > 0 && (
+        <section className="bg-card border-y border-border/40 py-14">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              {parent.stats.slice(0, 4).map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <p className="text-4xl lg:text-5xl font-display font-bold text-primary">{s.value}</p>
+                  <p className="mt-1 text-sm text-muted-foreground font-medium tracking-wide uppercase">{s.label}</p>
+                </motion.div>
+              ))}
             </div>
-
-            {/* Right — vertical stat stack */}
-            {parent.stats.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="grid grid-cols-2 gap-px bg-border rounded-2xl overflow-hidden border border-border"
-              >
-                {parent.stats.slice(0, 4).map((s) => (
-                  <div
-                    key={s.label}
-                    className="bg-card p-5 md:p-6"
-                  >
-                    <p className="text-3xl md:text-4xl font-display font-bold text-gradient mb-1 tabular-nums leading-none">
-                      {s.value}
-                    </p>
-                    <p className="text-xs text-muted-foreground leading-tight">{s.label}</p>
-                  </div>
-                ))}
-              </motion.div>
-            )}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ══════════════════════════════════════════════
           INTRO — pull-quote + body

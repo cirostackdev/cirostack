@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Factory } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
+import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { industriesData } from "@/data/industries";
@@ -106,95 +107,37 @@ const Industries = () => {
         url="/industries"
       />
 
-      {/* ══════════════════════════════════════════════
-          MOSAIC HERO
-          ══════════════════════════════════════════════ */}
-      <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0 -z-10">
-          <img
-            src={imgHero}
-            alt=""
-            className="w-full h-full object-cover"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-black/45" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
-        </div>
+      {/* Hero */}
+      <PageHero
+        icon={Factory}
+        title="Software built for your industry."
+        description="We don't just write code — we learn your regulations, your users, your market dynamics. Then we build software that fits."
+        image={imgHero}
+        ctaText="Start Your Project"
+        ctaLink="/contact"
+      />
 
-        {/* Animated icon mosaic backdrop */}
-        <div className="absolute inset-0 -z-10 opacity-[0.07] dark:opacity-[0.12]">
-          <div className="grid grid-cols-6 md:grid-cols-8 gap-4 p-6 h-full">
-            {entries.concat(entries).slice(0, 48).map((ind, i) => {
-              const Icon = ind.icon;
-              return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0.3, 1, 0.3] }}
-                  transition={{
-                    duration: 4 + (i % 3),
-                    repeat: Infinity,
-                    delay: (i * 0.15) % 3,
-                  }}
-                  className="aspect-square flex items-center justify-center"
-                >
-                  <Icon className="w-6 h-6 md:w-8 md:h-8 text-foreground" />
-                </motion.div>
-              );
-            })}
+      {/* Stats bar */}
+      <section className="bg-card border-y border-border/40 py-14">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-3 gap-8 text-center">
+            {[
+              { value: "20+", label: "Verticals" },
+              { value: "200+", label: "Specialties" },
+              { value: "5", label: "Countries" },
+            ].map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <p className="text-4xl lg:text-5xl font-display font-bold text-primary">{s.value}</p>
+                <p className="mt-1 text-sm text-muted-foreground font-medium tracking-wide uppercase">{s.label}</p>
+              </motion.div>
+            ))}
           </div>
-        </div>
-
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-background/85 to-background" />
-
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95] tracking-tight mb-6 max-w-5xl mx-auto"
-          >
-            Software built for
-            <br />
-            <span className="text-gradient italic">your industry.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-base md:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
-          >
-            We don't just write code — we learn your regulations, your users, your market dynamics. Then we build software that fits.
-          </motion.p>
-
-          {/* Inline counter */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-            className="flex flex-wrap items-baseline justify-center gap-x-6 gap-y-2 text-sm md:text-base text-muted-foreground mb-10"
-          >
-            <span><span className="text-2xl md:text-3xl font-display font-bold text-foreground tabular-nums">20+</span> verticals</span>
-            <span className="text-muted-foreground/40">·</span>
-            <span><span className="text-2xl md:text-3xl font-display font-bold text-foreground tabular-nums">200+</span> specialties</span>
-            <span className="text-muted-foreground/40">·</span>
-            <span><span className="text-2xl md:text-3xl font-display font-bold text-foreground tabular-nums">5</span> countries</span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Link href="/contact">
-              <Button size="lg" className="rounded-full text-base px-8 group">
-                Start Your Project
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </motion.div>
         </div>
       </section>
 
