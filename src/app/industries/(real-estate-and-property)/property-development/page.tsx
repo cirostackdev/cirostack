@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/property-development` },
   openGraph: {
     url: `https://cirostack.com/industries/property-development`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Property Development — CiroStack",
+    description: "We create project timeline dashboards, contractor coordination tools, and budget tracking systems for property developers managing builds from acquisition through handover.",
     images: [{ url: "https://cirostack.com/og/industry-pages/property-development.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

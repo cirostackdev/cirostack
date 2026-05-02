@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/mobile-app-developers` },
   openGraph: {
     url: `https://cirostack.com/industries/mobile-app-developers`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Mobile App Developers — CiroStack",
+    description: "CiroStack builds backend APIs, admin panels, and analytics dashboards for mobile app developers who need solid server-side infrastructure delivered by senior engineers.",
     images: [{ url: "https://cirostack.com/og/industry-pages/mobile-app-developers.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

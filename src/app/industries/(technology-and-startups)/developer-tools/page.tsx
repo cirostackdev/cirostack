@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/developer-tools` },
   openGraph: {
     url: `https://cirostack.com/industries/developer-tools`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Developer Tools — CiroStack",
+    description: "We create CLI interfaces, plugin ecosystems, and documentation portals for developer tool companies that know their users expect great tooling — because they build it too.",
     images: [{ url: "https://cirostack.com/og/industry-pages/developer-tools.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

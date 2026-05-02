@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/automotive" },
   openGraph: {
     url: "https://cirostack.com/industries/automotive",
-    title: "Automotive Software Solutions | CiroStack",
+    title: "Software for Automotive Businesses — CiroStack",
     description:
-      "Custom software for the Automotive industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Custom apps and software for dealerships, repair shops, fleet managers, and automotive retailers. We help automotive businesses sell more, service faster, and run leaner.",
     images: [{ url: "https://cirostack.com/og/industries/automotive.jpg", width: 1200, height: 630, alt: "CiroStack Automotive" }],
   },
 };

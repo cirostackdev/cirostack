@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/fitness-centers` },
   openGraph: {
     url: `https://cirostack.com/industries/fitness-centers`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Fitness Centers — CiroStack",
+    description: "CiroStack creates membership management platforms, workout tracking apps, and trainer scheduling systems for fitness centers scaling their operations and member base.",
     images: [{ url: "https://cirostack.com/og/industry-pages/fitness-centers.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

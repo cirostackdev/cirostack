@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/real-estate-investment-prop` },
   openGraph: {
     url: `https://cirostack.com/industries/real-estate-investment-prop`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Real Estate Investment — CiroStack",
+    description: "We build portfolio analytics dashboards, deal evaluation tools, and investor reporting platforms for real estate investment firms tracking returns across multiple properties.",
     images: [{ url: "https://cirostack.com/og/industry-pages/real-estate-investment-prop.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

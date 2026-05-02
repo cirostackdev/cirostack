@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/education-and-e-learning" },
   openGraph: {
     url: "https://cirostack.com/industries/education-and-e-learning",
-    title: "Education & E-Learning Software Solutions | CiroStack",
+    title: "Software for Education & E-Learning — CiroStack",
     description:
-      "Custom software for the Education & E-Learning industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Learning platforms, student portals, and course management tools for schools, bootcamps, and online educators. We build ed-tech that actually helps people learn and complete courses.",
     images: [{ url: "https://cirostack.com/og/industries/education-and-e-learning.jpg", width: 1200, height: 630, alt: "CiroStack Education And E Learning" }],
   },
 };

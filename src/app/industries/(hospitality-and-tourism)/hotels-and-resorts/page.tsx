@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/hotels-and-resorts` },
   openGraph: {
     url: `https://cirostack.com/industries/hotels-and-resorts`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Hotels & Resorts — CiroStack",
+    description: "We build direct booking platforms, guest request portals, and housekeeping coordination tools that help hotels and resorts deliver memorable stays while keeping operations tight.",
     images: [{ url: "https://cirostack.com/og/industry-pages/hotels-and-resorts.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

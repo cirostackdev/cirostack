@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/civil-engineering` },
   openGraph: {
     url: `https://cirostack.com/industries/civil-engineering`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Civil Engineering — CiroStack",
+    description: "We build project tracking platforms, permit management tools, and field inspection apps that help civil engineering firms stay on schedule and on budget across every job site.",
     images: [{ url: "https://cirostack.com/og/industry-pages/civil-engineering.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

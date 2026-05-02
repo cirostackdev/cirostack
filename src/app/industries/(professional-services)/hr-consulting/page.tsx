@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/hr-consulting` },
   openGraph: {
     url: `https://cirostack.com/industries/hr-consulting`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for HR Consulting — CiroStack",
+    description: "CiroStack builds candidate tracking systems, client reporting dashboards, and compliance audit tools for HR consulting firms handling sensitive people data across multiple clients.",
     images: [{ url: "https://cirostack.com/og/industry-pages/hr-consulting.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

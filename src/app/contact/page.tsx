@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: [{ url: "https://cirostack.com/og/pages/contact.jpg", width: 1200, height: 630, alt: "Contact CiroStack" }],
     url: "https://cirostack.com/contact",
-    title: "Contact CiroStack",
+    title: "Get in Touch — Tell Us What You're Building",
     description:
-      "Tell us about your project. We respond within 24 hours with a scoped proposal — no vague estimates, no bait-and-switch pricing.",
+      "Describe your project and we'll respond within 24 hours with a scoped proposal and a fixed price. No vague estimates, no bait-and-switch — just a clear plan to get you shipped.",
   },
 };
 

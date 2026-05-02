@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/immigration-law` },
   openGraph: {
     url: `https://cirostack.com/industries/immigration-law`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Immigration Law — CiroStack",
+    description: "Our senior engineers build visa application trackers, document checklist managers, and client communication portals that help immigration law firms guide applicants through every step of the process.",
     images: [{ url: "https://cirostack.com/og/industry-pages/immigration-law.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

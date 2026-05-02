@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/our-culture" },
   openGraph: {
     url: "https://cirostack.com/our-culture",
-    title: "Our Culture | CiroStack",
-    description: "The values, rituals, and principles that make CiroStack a great place to build software.",
+    title: "How We Work — Culture at CiroStack",
+    description: "Remote-first, quality-obsessed, and built around trust. Here's how we structure our team, make decisions, and deliver great software without the corporate overhead.",
     images: [{ url: "https://cirostack.com/og/pages/our-culture.jpg", width: 1200, height: 630, alt: "CiroStack Culture" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Our Culture | CiroStack",
-    description: "The values, rituals, and principles that make CiroStack a great place to build software.",
+    title: "How We Work — Culture at CiroStack",
+    description: "Remote-first, quality-obsessed, and built around trust. Here's how we structure our team, make decisions, and deliver great software without the corporate overhead.",
     images: ["https://cirostack.com/og/pages/our-culture.jpg"],
   },
 };

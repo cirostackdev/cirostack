@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/spas` },
   openGraph: {
     url: `https://cirostack.com/industries/spas`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Spas — CiroStack",
+    description: "We build room and therapist scheduling tools, package upsell flows, and guest experience portals that help spas fill every time slot and delight every visitor — fixed-price delivery.",
     images: [{ url: "https://cirostack.com/og/industry-pages/spas.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

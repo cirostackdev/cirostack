@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/retail-and-e-commerce" },
   openGraph: {
     url: "https://cirostack.com/industries/retail-and-e-commerce",
-    title: "Retail & E-Commerce Software Solutions | CiroStack",
+    title: "Software for Retail & E-Commerce — CiroStack",
     description:
-      "Custom software for the Retail & E-Commerce industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Online stores, POS systems, inventory management, and customer analytics for retailers. We build commerce software that sells more, tracks everything, and scales with your growth.",
     images: [{ url: "https://cirostack.com/og/industries/retail-and-e-commerce.jpg", width: 1200, height: 630, alt: "CiroStack Retail And E Commerce" }],
   },
 };

@@ -13,14 +13,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/services/${slug}` },
   openGraph: {
     url: `https://cirostack.com/services/${slug}`,
-    title: service ? `${service.title} | CiroStack` : "Service | CiroStack",
-    description: service?.tagline ?? service?.description ?? "",
+    title: "UX & UI Design That Converts — CiroStack",
+    description: "Interfaces designed to delight users and drive conversions. We craft wireframes, prototypes, and polished designs that make complex products feel simple and intuitive.",
     images: [{ url: ogImageUrl, width: 1200, height: 630, alt: service?.title ?? "CiroStack Service" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: service ? `${service.title} | CiroStack` : "Service | CiroStack",
-    description: service?.tagline ?? service?.description ?? "",
+    title: "UX & UI Design That Converts — CiroStack",
+    description: "Interfaces designed to delight users and drive conversions. We craft wireframes, prototypes, and polished designs that make complex products feel simple and intuitive.",
     images: [ogImageUrl],
   },
 };

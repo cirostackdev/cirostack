@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/forestry` },
   openGraph: {
     url: `https://cirostack.com/industries/forestry`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Forestry — CiroStack",
+    description: "Our team builds timber inventory systems, harvest planning tools, and environmental compliance dashboards tailored to forestry operations — scoped and priced before we write a line of code.",
     images: [{ url: "https://cirostack.com/og/industry-pages/forestry.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/delivery-services` },
   openGraph: {
     url: `https://cirostack.com/industries/delivery-services`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Delivery Services — CiroStack",
+    description: "We create order assignment systems, proof-of-delivery apps, and fleet tracking dashboards for delivery services scaling their operations without losing visibility.",
     images: [{ url: "https://cirostack.com/og/industry-pages/delivery-services.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

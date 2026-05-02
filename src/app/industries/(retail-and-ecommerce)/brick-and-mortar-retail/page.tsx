@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/brick-and-mortar-retail` },
   openGraph: {
     url: `https://cirostack.com/industries/brick-and-mortar-retail`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Brick & Mortar Retail — CiroStack",
+    description: "Our team builds POS integrations, loyalty program platforms, and foot traffic analytics dashboards for brick-and-mortar retailers bridging the gap between physical and digital.",
     images: [{ url: "https://cirostack.com/og/industry-pages/brick-and-mortar-retail.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

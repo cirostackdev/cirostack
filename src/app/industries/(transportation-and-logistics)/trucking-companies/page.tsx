@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/trucking-companies` },
   openGraph: {
     url: `https://cirostack.com/industries/trucking-companies`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Trucking Companies — CiroStack",
+    description: "We build load board integrations, driver compliance trackers, and dispatch management platforms for trucking companies that need their software to keep up with their fleet.",
     images: [{ url: "https://cirostack.com/og/industry-pages/trucking-companies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

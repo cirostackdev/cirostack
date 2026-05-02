@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/distribution` },
   openGraph: {
     url: `https://cirostack.com/industries/distribution`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Distribution — CiroStack",
+    description: "We design route optimization tools, order management platforms, and real-time shipment tracking systems that help distribution companies move product faster and cut waste.",
     images: [{ url: "https://cirostack.com/og/industry-pages/distribution.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/travel-agencies` },
   openGraph: {
     url: `https://cirostack.com/industries/travel-agencies`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Travel Agencies — CiroStack",
+    description: "We build itinerary builders, supplier booking integrations, and client portals that help travel agencies craft personalized trips and manage bookings without juggling a dozen browser tabs.",
     images: [{ url: "https://cirostack.com/og/industry-pages/travel-agencies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

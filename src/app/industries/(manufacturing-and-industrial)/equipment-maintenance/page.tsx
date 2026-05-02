@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/equipment-maintenance` },
   openGraph: {
     url: `https://cirostack.com/industries/equipment-maintenance`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Equipment Maintenance — CiroStack",
+    description: "Our senior engineers build preventive maintenance schedulers, work order systems, and asset lifecycle trackers so your equipment stays running and your team stays organized.",
     images: [{ url: "https://cirostack.com/og/industry-pages/equipment-maintenance.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

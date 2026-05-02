@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/co-working-spaces` },
   openGraph: {
     url: `https://cirostack.com/industries/co-working-spaces`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Co-working Spaces — CiroStack",
+    description: "Our senior engineers build membership management platforms, room booking systems, and billing dashboards for co-working spaces that need tools as flexible as their tenants.",
     images: [{ url: "https://cirostack.com/og/industry-pages/co-working-spaces.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

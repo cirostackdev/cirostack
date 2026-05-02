@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/event-venues` },
   openGraph: {
     url: `https://cirostack.com/industries/event-venues`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Event Venues — CiroStack",
+    description: "We build venue availability calendars, event configuration tools, and client proposal generators that help event venues book more dates and manage setup details without the back-and-forth.",
     images: [{ url: "https://cirostack.com/og/industry-pages/event-venues.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

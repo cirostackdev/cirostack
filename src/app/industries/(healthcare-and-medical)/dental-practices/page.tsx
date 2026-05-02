@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/dental-practices` },
   openGraph: {
     url: `https://cirostack.com/industries/dental-practices`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Dental Practices — CiroStack",
+    description: "We build patient scheduling tools, treatment plan presenters, and insurance verification workflows that help dental practices fill chairs and reduce no-shows every week.",
     images: [{ url: "https://cirostack.com/og/industry-pages/dental-practices.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

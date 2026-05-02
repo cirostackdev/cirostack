@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/yoga-studios` },
   openGraph: {
     url: `https://cirostack.com/industries/yoga-studios`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Yoga Studios — CiroStack",
+    description: "CiroStack builds class booking apps, membership management tools, and instructor scheduling systems for yoga studios that want a calm, reliable digital experience for their students.",
     images: [{ url: "https://cirostack.com/og/industry-pages/yoga-studios.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

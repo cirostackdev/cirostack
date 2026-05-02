@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/ngos` },
   openGraph: {
     url: `https://cirostack.com/industries/ngos`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for NGOs — CiroStack",
+    description: "We build field reporting systems, beneficiary tracking databases, and program dashboards for NGOs operating across regions — delivered at a fixed price with no scope surprises.",
     images: [{ url: "https://cirostack.com/og/industry-pages/ngos.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

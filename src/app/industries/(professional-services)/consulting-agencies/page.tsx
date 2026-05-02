@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/consulting-agencies` },
   openGraph: {
     url: `https://cirostack.com/industries/consulting-agencies`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Consulting Agencies — CiroStack",
+    description: "Our team creates engagement tracking systems, deliverable management platforms, and time-and-billing tools for consulting agencies that need clean operations at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/consulting-agencies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

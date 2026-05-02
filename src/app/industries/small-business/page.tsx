@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/small-business" },
   openGraph: {
     url: "https://cirostack.com/industries/small-business",
-    title: "Small Business Software Solutions | CiroStack",
+    title: "Software for Small Businesses — CiroStack",
     description:
-      "Custom software for the Small Business industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Websites, booking tools, and business apps built for small businesses that need professional-grade software without enterprise-grade budgets. Fixed-price builds with senior engineers.",
     images: [{ url: "https://cirostack.com/og/industries/small-business.jpg", width: 1200, height: 630, alt: "CiroStack Small Business" }],
   },
 };

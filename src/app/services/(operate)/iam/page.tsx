@@ -13,14 +13,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/services/${slug}` },
   openGraph: {
     url: `https://cirostack.com/services/${slug}`,
-    title: service ? `${service.title} | CiroStack` : "Service | CiroStack",
-    description: service?.tagline ?? service?.description ?? "",
+    title: "Identity & Access Management — CiroStack",
+    description: "Secure, seamless identity for every user. We implement SSO, MFA, role-based access, and automated provisioning so your team and customers can log in safely and painlessly.",
     images: [{ url: ogImageUrl, width: 1200, height: 630, alt: service?.title ?? "CiroStack Service" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: service ? `${service.title} | CiroStack` : "Service | CiroStack",
-    description: service?.tagline ?? service?.description ?? "",
+    title: "Identity & Access Management — CiroStack",
+    description: "Secure, seamless identity for every user. We implement SSO, MFA, role-based access, and automated provisioning so your team and customers can log in safely and painlessly.",
     images: [ogImageUrl],
   },
 };

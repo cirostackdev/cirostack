@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/ride-sharing` },
   openGraph: {
     url: `https://cirostack.com/industries/ride-sharing`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Ride Sharing — CiroStack",
+    description: "We build driver matching algorithms, fare calculation engines, and rider-facing apps for ride-sharing companies — built by senior engineers who handle the real-time complexity.",
     images: [{ url: "https://cirostack.com/og/industry-pages/ride-sharing.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

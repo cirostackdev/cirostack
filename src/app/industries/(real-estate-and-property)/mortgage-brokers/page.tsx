@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/mortgage-brokers` },
   openGraph: {
     url: `https://cirostack.com/industries/mortgage-brokers`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Mortgage Brokers — CiroStack",
+    description: "CiroStack builds application tracking systems, rate comparison tools, and client communication portals for mortgage brokers who want a smoother process from pre-approval to close.",
     images: [{ url: "https://cirostack.com/og/industry-pages/mortgage-brokers.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

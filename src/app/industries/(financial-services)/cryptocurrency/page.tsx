@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/cryptocurrency` },
   openGraph: {
     url: `https://cirostack.com/industries/cryptocurrency`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Cryptocurrency — CiroStack",
+    description: "We build portfolio tracking dashboards, transaction monitoring tools, and wallet integration platforms that help cryptocurrency businesses operate transparently and stay compliant.",
     images: [{ url: "https://cirostack.com/og/industry-pages/cryptocurrency.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

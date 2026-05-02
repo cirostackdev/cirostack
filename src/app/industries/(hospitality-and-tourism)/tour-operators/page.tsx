@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/tour-operators` },
   openGraph: {
     url: `https://cirostack.com/industries/tour-operators`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Tour Operators — CiroStack",
+    description: "Our team builds trip planning platforms, group booking tools, and guide scheduling systems that help tour operators sell more seats and deliver unforgettable experiences on the ground.",
     images: [{ url: "https://cirostack.com/og/industry-pages/tour-operators.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

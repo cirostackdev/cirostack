@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/public-safety` },
   openGraph: {
     url: `https://cirostack.com/industries/public-safety`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Public Safety — CiroStack",
+    description: "We build incident reporting tools, dispatch coordination dashboards, and community notification systems that help public safety agencies respond faster and keep residents informed.",
     images: [{ url: "https://cirostack.com/og/industry-pages/public-safety.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

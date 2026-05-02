@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/real-estate-agencies` },
   openGraph: {
     url: `https://cirostack.com/industries/real-estate-agencies`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Real Estate Agencies — CiroStack",
+    description: "We build listing management platforms, lead tracking tools, and agent performance dashboards for real estate agencies that want their own branded technology stack.",
     images: [{ url: "https://cirostack.com/og/industry-pages/real-estate-agencies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

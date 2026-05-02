@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/financial-services" },
   openGraph: {
     url: "https://cirostack.com/industries/financial-services",
-    title: "Financial Services Software Solutions | CiroStack",
+    title: "Software for Financial Services — CiroStack",
     description:
-      "Custom software for the Financial Services industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Secure, compliant software for banks, fintechs, insurance companies, and investment firms. We build platforms that handle real money with the security and reliability your clients expect.",
     images: [{ url: "https://cirostack.com/og/industries/financial-services.jpg", width: 1200, height: 630, alt: "CiroStack Financial Services" }],
   },
 };

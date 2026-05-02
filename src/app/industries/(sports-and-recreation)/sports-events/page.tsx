@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/sports-events` },
   openGraph: {
     url: `https://cirostack.com/industries/sports-events`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Sports Events — CiroStack",
+    description: "We build registration portals, heat and bracket management tools, and live results dashboards for sports events that need everything to run on time and without confusion.",
     images: [{ url: "https://cirostack.com/og/industry-pages/sports-events.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

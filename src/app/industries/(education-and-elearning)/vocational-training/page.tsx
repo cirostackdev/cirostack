@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/vocational-training` },
   openGraph: {
     url: `https://cirostack.com/industries/vocational-training`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Vocational Training — CiroStack",
+    description: "Our team builds skills assessment tools, certification tracking systems, and employer partnership portals that help vocational training programs connect graduates with real jobs.",
     images: [{ url: "https://cirostack.com/og/industry-pages/vocational-training.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

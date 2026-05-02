@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/transportation-and-logistics" },
   openGraph: {
     url: "https://cirostack.com/industries/transportation-and-logistics",
-    title: "Transportation & Logistics Software Solutions | CiroStack",
+    title: "Software for Transportation & Logistics — CiroStack",
     description:
-      "Custom software for the Transportation & Logistics industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Fleet tracking, route optimization, and warehouse management tools for trucking companies, couriers, and logistics providers. We build software that moves your business forward — literally.",
     images: [{ url: "https://cirostack.com/og/industries/transportation-and-logistics.jpg", width: 1200, height: 630, alt: "CiroStack Transportation And Logistics" }],
   },
 };

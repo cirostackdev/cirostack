@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/ai-companies` },
   openGraph: {
     url: `https://cirostack.com/industries/ai-companies`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for AI Companies — CiroStack",
+    description: "We build model monitoring dashboards, annotation pipeline tools, and customer-facing AI demos for AI companies that need production-grade interfaces, not just notebooks.",
     images: [{ url: "https://cirostack.com/og/industry-pages/ai-companies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

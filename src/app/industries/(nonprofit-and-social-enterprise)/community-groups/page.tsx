@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/community-groups` },
   openGraph: {
     url: `https://cirostack.com/industries/community-groups`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Community Groups — CiroStack",
+    description: "Our team builds member directories, event management tools, and communication platforms for community groups that have outgrown email chains and shared docs.",
     images: [{ url: "https://cirostack.com/og/industry-pages/community-groups.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

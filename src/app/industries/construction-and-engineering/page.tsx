@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/construction-and-engineering" },
   openGraph: {
     url: "https://cirostack.com/industries/construction-and-engineering",
-    title: "Construction & Engineering Software Solutions | CiroStack",
+    title: "Software for Construction & Engineering — CiroStack",
     description:
-      "Custom software for the Construction & Engineering industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Project management tools, bidding platforms, and field apps for contractors, construction companies, and engineering firms. We build software that keeps your projects on time and on budget.",
     images: [{ url: "https://cirostack.com/og/industries/construction-and-engineering.jpg", width: 1200, height: 630, alt: "CiroStack Construction And Engineering" }],
   },
 };

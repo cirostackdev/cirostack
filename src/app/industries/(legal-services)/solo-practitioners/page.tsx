@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/solo-practitioners` },
   openGraph: {
     url: `https://cirostack.com/industries/solo-practitioners`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Solo Practitioners — CiroStack",
+    description: "We build practice management dashboards, automated billing tools, and client communication portals that help solo practitioners run a one-person firm without feeling like they need a full staff.",
     images: [{ url: "https://cirostack.com/og/industry-pages/solo-practitioners.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

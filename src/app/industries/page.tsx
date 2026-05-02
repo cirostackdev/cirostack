@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries" },
   openGraph: {
     url: "https://cirostack.com/industries",
-    title: "Industries We Serve | CiroStack",
+    title: "Industries We Build For — CiroStack",
     description:
-      "Custom software for healthcare, finance, retail, education, manufacturing, logistics, and 14 more industries. Fixed-price engagements with senior engineers.",
+      "We build custom software for 20+ industries — healthcare, finance, retail, education, manufacturing, logistics, and more. Every project is fixed-price and built by senior engineers who understand your vertical.",
     images: [{ url: "https://cirostack.com/og/pages/industries.jpg", width: 1200, height: 630, alt: "CiroStack Industries" }],
   },
 };

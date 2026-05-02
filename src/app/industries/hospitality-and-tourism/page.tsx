@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/hospitality-and-tourism" },
   openGraph: {
     url: "https://cirostack.com/industries/hospitality-and-tourism",
-    title: "Hospitality & Tourism Software Solutions | CiroStack",
+    title: "Software for Hospitality & Tourism — CiroStack",
     description:
-      "Custom software for the Hospitality & Tourism industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Booking engines, guest management tools, and operations platforms for hotels, restaurants, travel agencies, and tour operators. We build hospitality software that creates memorable guest experiences.",
     images: [{ url: "https://cirostack.com/og/industries/hospitality-and-tourism.jpg", width: 1200, height: 630, alt: "CiroStack Hospitality And Tourism" }],
   },
 };

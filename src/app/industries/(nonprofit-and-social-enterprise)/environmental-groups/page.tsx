@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/environmental-groups` },
   openGraph: {
     url: `https://cirostack.com/industries/environmental-groups`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Environmental Groups — CiroStack",
+    description: "CiroStack builds field data collection apps, impact reporting dashboards, and volunteer management platforms for environmental organizations tracking real results on the ground.",
     images: [{ url: "https://cirostack.com/og/industry-pages/environmental-groups.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

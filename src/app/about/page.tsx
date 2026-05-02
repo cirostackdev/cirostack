@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: [{ url: "https://cirostack.com/og/pages/about.jpg", width: 1200, height: 630, alt: "About CiroStack" }],
     url: "https://cirostack.com/about",
-    title: "About CiroStack",
+    title: "About CiroStack — Senior Engineers, Fixed Prices, Real Results",
     description:
-      "Senior engineers, fixed-price engagements, and a track record across fintech, healthcare, e-commerce, and SaaS. Learn who we are and how we work.",
+      "We started CiroStack to bring senior engineering quality to growing businesses — without enterprise price tags or offshore gambles. Meet the team behind 50+ shipped projects across fintech, healthcare, and SaaS.",
   },
 };
 

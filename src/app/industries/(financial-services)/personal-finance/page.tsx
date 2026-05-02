@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/personal-finance` },
   openGraph: {
     url: `https://cirostack.com/industries/personal-finance`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Personal Finance — CiroStack",
+    description: "We build budgeting apps, savings goal trackers, and financial health dashboards that help personal finance companies give users clear, actionable insight into their money.",
     images: [{ url: "https://cirostack.com/og/industry-pages/personal-finance.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

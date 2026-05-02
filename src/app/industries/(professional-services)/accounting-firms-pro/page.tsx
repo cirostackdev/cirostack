@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/accounting-firms-pro` },
   openGraph: {
     url: `https://cirostack.com/industries/accounting-firms-pro`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Accounting Firms — CiroStack",
+    description: "We build client portals, document management systems, and workflow automation tools that help accounting firms handle tax season and year-round engagements without the chaos.",
     images: [{ url: "https://cirostack.com/og/industry-pages/accounting-firms-pro.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

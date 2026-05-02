@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/farms` },
   openGraph: {
     url: `https://cirostack.com/industries/farms`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Farms — CiroStack",
+    description: "From crop rotation planners to irrigation monitoring dashboards, we build the digital tools farms actually need — delivered by senior engineers at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/farms.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

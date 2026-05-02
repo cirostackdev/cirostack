@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/barber-shops` },
   openGraph: {
     url: `https://cirostack.com/industries/barber-shops`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Barber Shops — CiroStack",
+    description: "We build chair scheduling apps, walk-in queue managers, and loyalty reward systems that help barber shops cut wait times and keep regulars coming back every few weeks.",
     images: [{ url: "https://cirostack.com/og/industry-pages/barber-shops.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

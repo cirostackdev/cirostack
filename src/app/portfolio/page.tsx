@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: [{ url: "https://cirostack.com/og/pages/portfolio.jpg", width: 1200, height: 630, alt: "CiroStack Portfolio" }],
     url: "https://cirostack.com/portfolio",
-    title: "Portfolio | CiroStack",
+    title: "Our Work — Case Studies from CiroStack",
     description:
-      "Real projects, real results. Browse case studies across fintech, healthcare, SaaS, e-commerce, and more.",
+      "Real projects, real results. See how we've built dashboards, apps, AI tools, and platforms for clients across fintech, healthcare, e-commerce, SaaS, and more — all fixed-price.",
   },
 };
 

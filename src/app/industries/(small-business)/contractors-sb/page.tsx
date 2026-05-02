@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/contractors-sb` },
   openGraph: {
     url: `https://cirostack.com/industries/contractors-sb`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Contractors — CiroStack",
+    description: "We build estimate calculators, job scheduling apps, and invoicing tools for contractors who spend too much time on paperwork and not enough time on the job site.",
     images: [{ url: "https://cirostack.com/og/industry-pages/contractors-sb.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

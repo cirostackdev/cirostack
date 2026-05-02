@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/local-government` },
   openGraph: {
     url: `https://cirostack.com/industries/local-government`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Local Government — CiroStack",
+    description: "From permit applications to public records portals and council meeting tools, we build software that helps local governments run more transparently and respond to residents faster.",
     images: [{ url: "https://cirostack.com/og/industry-pages/local-government.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

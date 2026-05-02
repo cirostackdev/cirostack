@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/language-learning` },
   openGraph: {
     url: `https://cirostack.com/industries/language-learning`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Language Learning — CiroStack",
+    description: "We build spaced-repetition engines, pronunciation practice tools, and progress tracking dashboards that help language learning platforms keep students engaged and moving forward.",
     images: [{ url: "https://cirostack.com/og/industry-pages/language-learning.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

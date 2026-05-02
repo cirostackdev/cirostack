@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/transportation-departments` },
   openGraph: {
     url: `https://cirostack.com/industries/transportation-departments`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Transportation Departments — CiroStack",
+    description: "We build traffic monitoring dashboards, project tracking tools, and public transit planning systems that help transportation departments move people and freight more reliably.",
     images: [{ url: "https://cirostack.com/og/industry-pages/transportation-departments.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

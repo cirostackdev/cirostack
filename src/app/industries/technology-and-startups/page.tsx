@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/technology-and-startups" },
   openGraph: {
     url: "https://cirostack.com/industries/technology-and-startups",
-    title: "Technology & Startups Software Solutions | CiroStack",
+    title: "Software for Tech Companies & Startups — CiroStack",
     description:
-      "Custom software for the Technology & Startups industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "MVP development, platform engineering, and scale-up support for startups and tech companies. We help you go from idea to shipped product fast — then scale it without re-architecting.",
     images: [{ url: "https://cirostack.com/og/industries/technology-and-startups.jpg", width: 1200, height: 630, alt: "CiroStack Technology And Startups" }],
   },
 };

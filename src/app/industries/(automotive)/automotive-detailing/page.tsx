@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/automotive-detailing` },
   openGraph: {
     url: `https://cirostack.com/industries/automotive-detailing`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Automotive Detailing — CiroStack",
+    description: "We build booking platforms, package builders, and customer loyalty apps that help automotive detailing businesses fill their calendars and keep clients coming back.",
     images: [{ url: "https://cirostack.com/og/industry-pages/automotive-detailing.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

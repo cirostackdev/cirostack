@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/legal-services" },
   openGraph: {
     url: "https://cirostack.com/industries/legal-services",
-    title: "Legal Services Software Solutions | CiroStack",
+    title: "Software for Legal Services — CiroStack",
     description:
-      "Custom software for the Legal Services industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Case management, document automation, and client portals for law firms and legal practices. We build tools that help attorneys spend less time on admin and more time practicing law.",
     images: [{ url: "https://cirostack.com/og/industries/legal-services.jpg", width: 1200, height: 630, alt: "CiroStack Legal Services" }],
   },
 };

@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/government-and-public-sector" },
   openGraph: {
     url: "https://cirostack.com/industries/government-and-public-sector",
-    title: "Government & Public Sector Software Solutions | CiroStack",
+    title: "Software for Government & Public Sector — CiroStack",
     description:
-      "Custom software for the Government & Public Sector industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Citizen portals, case management systems, and public service platforms for government agencies. We build accessible, secure software that makes government services work better for everyone.",
     images: [{ url: "https://cirostack.com/og/industries/government-and-public-sector.jpg", width: 1200, height: 630, alt: "CiroStack Government And Public Sector" }],
   },
 };

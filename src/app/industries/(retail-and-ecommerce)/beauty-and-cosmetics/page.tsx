@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/beauty-and-cosmetics` },
   openGraph: {
     url: `https://cirostack.com/industries/beauty-and-cosmetics`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Beauty & Cosmetics — CiroStack",
+    description: "CiroStack creates shade-matching tools, subscription box platforms, and product recommendation engines for beauty and cosmetics brands ready to stand out online.",
     images: [{ url: "https://cirostack.com/og/industry-pages/beauty-and-cosmetics.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

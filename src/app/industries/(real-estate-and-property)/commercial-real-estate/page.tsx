@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/commercial-real-estate` },
   openGraph: {
     url: `https://cirostack.com/industries/commercial-real-estate`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Commercial Real Estate — CiroStack",
+    description: "We build deal pipeline trackers, tenant management portals, and lease analytics dashboards for commercial real estate firms managing large portfolios and complex transactions.",
     images: [{ url: "https://cirostack.com/og/industry-pages/commercial-real-estate.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

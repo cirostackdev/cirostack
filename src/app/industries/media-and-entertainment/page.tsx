@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/media-and-entertainment" },
   openGraph: {
     url: "https://cirostack.com/industries/media-and-entertainment",
-    title: "Media & Entertainment Software Solutions | CiroStack",
+    title: "Software for Media & Entertainment — CiroStack",
     description:
-      "Custom software for the Media & Entertainment industry. Fixed-price. Senior engineers. Shipped in weeks.",
+      "Content platforms, streaming tools, and audience management systems for publishers, studios, and creators. We build media software that helps you create, distribute, and monetize your content.",
     images: [{ url: "https://cirostack.com/og/industries/media-and-entertainment.jpg", width: 1200, height: 630, alt: "CiroStack Media And Entertainment" }],
   },
 };

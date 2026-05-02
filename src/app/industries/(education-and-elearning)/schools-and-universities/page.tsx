@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/schools-and-universities` },
   openGraph: {
     url: `https://cirostack.com/industries/schools-and-universities`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Schools & Universities — CiroStack",
+    description: "We build enrollment portals, grade management systems, and campus communication tools that help schools and universities serve students better without drowning in administrative work.",
     images: [{ url: "https://cirostack.com/og/industry-pages/schools-and-universities.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

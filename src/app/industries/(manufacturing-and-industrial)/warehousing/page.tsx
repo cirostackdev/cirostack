@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/warehousing` },
   openGraph: {
     url: `https://cirostack.com/industries/warehousing`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Warehousing — CiroStack",
+    description: "CiroStack builds warehouse management systems, pick-and-pack optimization tools, and real-time inventory dashboards that keep your warehouse floor running smoothly without guesswork.",
     images: [{ url: "https://cirostack.com/og/industry-pages/warehousing.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

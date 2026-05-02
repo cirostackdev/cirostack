@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/airlines` },
   openGraph: {
     url: `https://cirostack.com/industries/airlines`,
-    title: industry ? `${industry.title} | CiroStack` : "Industry | CiroStack",
-    description: industry?.tagline ?? "",
+    title: "Custom Software for Airlines — CiroStack",
+    description: "We build crew scheduling systems, passenger self-service tools, and operations dashboards that help airlines run on time and give travelers the information they need at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/airlines.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/events" },
   openGraph: {
     url: "https://cirostack.com/events",
-    title: "Events | CiroStack",
-    description: "CiroStack events, workshops, and meetups for software teams and founders.",
+    title: "Events & Workshops — CiroStack",
+    description: "Join our workshops, meetups, and live sessions for founders and software teams. Learn how we build, ship, and scale products — straight from the engineers who do it.",
     images: [{ url: "https://cirostack.com/og/pages/events.jpg", width: 1200, height: 630, alt: "CiroStack Events" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Events | CiroStack",
-    description: "CiroStack events, workshops, and meetups for software teams and founders.",
+    title: "Events & Workshops — CiroStack",
+    description: "Join our workshops, meetups, and live sessions for founders and software teams. Learn how we build, ship, and scale products — straight from the engineers who do it.",
     images: ["https://cirostack.com/og/pages/events.jpg"],
   },
 };
