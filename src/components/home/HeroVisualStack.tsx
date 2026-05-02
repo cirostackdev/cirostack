@@ -3,34 +3,48 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
+  ShoppingCart,
   HeartPulse,
   Landmark,
-  ShoppingCart,
-  GraduationCap,
-  Factory,
-  Truck,
   Building2,
+  GraduationCap,
+  Palmtree,
+  Factory,
+  Briefcase,
+  Film,
+  HeartHandshake,
   Laptop,
+  Sprout,
+  HardHat,
+  Truck,
+  Trophy,
+  Sparkles,
+  Car,
+  Scale,
+  Store,
 } from "lucide-react";
 
-import imgHealthcare from "@/assets/portfolio-healthflow.jpg";
-import imgFinance from "@/assets/portfolio-finguard.jpg";
-import imgRetail from "@/assets/portfolio-retailmax.jpg";
-import imgEducation from "@/assets/portfolio-eduspark.jpg";
-import imgManufacturing from "@/assets/portfolio-factoryiq.jpg";
-import imgLogistics from "@/assets/portfolio-logistrack.jpg";
-import imgRealEstate from "@/assets/portfolio-propview.jpg";
-import imgSaaS from "@/assets/portfolio-cloudops.jpg";
-
 const chips = [
-  { icon: HeartPulse, label: "Healthcare", image: imgHealthcare },
-  { icon: Landmark, label: "Finance", image: imgFinance },
-  { icon: ShoppingCart, label: "Retail", image: imgRetail },
-  { icon: GraduationCap, label: "Education", image: imgEducation },
-  { icon: Factory, label: "Manufacturing", image: imgManufacturing },
-  { icon: Truck, label: "Logistics", image: imgLogistics },
-  { icon: Building2, label: "Real Estate", image: imgRealEstate },
-  { icon: Laptop, label: "SaaS", image: imgSaaS },
+  { icon: ShoppingCart, label: "Retail", image: "/images/industries/hero-cat-retail-and-e-commerce.jpg" },
+  { icon: HeartPulse, label: "Healthcare", image: "/images/industries/hero-cat-healthcare-and-medical.jpg" },
+  { icon: Landmark, label: "Finance", image: "/images/industries/hero-cat-financial-services.jpg" },
+  { icon: Building2, label: "Real Estate", image: "/images/industries/hero-cat-real-estate-and-property.jpg" },
+  { icon: GraduationCap, label: "Education", image: "/images/industries/hero-cat-education-and-e-learning.jpg" },
+  { icon: Palmtree, label: "Hospitality", image: "/images/industries/hero-cat-hospitality-and-tourism.jpg" },
+  { icon: Factory, label: "Manufacturing", image: "/images/industries/hero-cat-manufacturing-and-industrial.jpg" },
+  { icon: Briefcase, label: "Professional", image: "/images/industries/hero-cat-professional-services.jpg" },
+  { icon: Film, label: "Media", image: "/images/industries/hero-cat-media-and-entertainment.jpg" },
+  { icon: HeartHandshake, label: "Non-Profit", image: "/images/industries/hero-cat-non-profit-and-social-enterprise.jpg" },
+  { icon: Laptop, label: "Tech & Startups", image: "/images/industries/hero-cat-technology-and-startups.jpg" },
+  { icon: Sprout, label: "Agriculture", image: "/images/industries/hero-cat-agriculture-and-farming.jpg" },
+  { icon: HardHat, label: "Construction", image: "/images/industries/hero-cat-construction-and-engineering.jpg" },
+  { icon: Truck, label: "Logistics", image: "/images/industries/hero-cat-transportation-and-logistics.jpg" },
+  { icon: Landmark, label: "Government", image: "/images/industries/hero-cat-government-and-public-sector.jpg" },
+  { icon: Trophy, label: "Sports", image: "/images/industries/hero-cat-sports-and-recreation.jpg" },
+  { icon: Sparkles, label: "Beauty", image: "/images/industries/hero-cat-beauty-and-personal-care.jpg" },
+  { icon: Car, label: "Automotive", image: "/images/industries/hero-cat-automotive.jpg" },
+  { icon: Scale, label: "Legal", image: "/images/industries/hero-cat-legal-services.jpg" },
+  { icon: Store, label: "Small Business", image: "/images/industries/hero-cat-small-business.jpg" },
 ];
 
 interface HeroVisualStackProps {
@@ -41,7 +55,7 @@ interface HeroVisualStackProps {
 export default function HeroVisualStack({ image: _image }: HeroVisualStackProps) {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setIdx((i) => (i + 1) % chips.length), 1800);
+    const id = setInterval(() => setIdx((i) => (i + 1) % chips.length), 3500);
     return () => clearInterval(id);
   }, []);
 
@@ -66,10 +80,10 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
             key={idx}
             src={activeImage}
             alt={`${chips[idx].label} project`}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full object-cover"
           />
         </AnimatePresence>
@@ -88,10 +102,10 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
             <AnimatePresence mode="wait">
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
               >
                 <Active className="w-5 h-5 text-primary" />
               </motion.div>
@@ -104,10 +118,10 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
             <AnimatePresence mode="wait">
               <motion.p
                 key={idx}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
                 className="font-display font-semibold text-sm text-foreground"
               >
                 {chips[idx].label}
