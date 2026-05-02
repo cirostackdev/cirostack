@@ -1,66 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  ShoppingCart,
-  HeartPulse,
-  Landmark,
-  Building2,
-  GraduationCap,
-  Palmtree,
-  Factory,
-  Briefcase,
-  Film,
-  HeartHandshake,
-  Laptop,
-  Sprout,
-  HardHat,
-  Truck,
-  Trophy,
-  Sparkles,
-  Car,
-  Scale,
-  Store,
-} from "lucide-react";
+import { industriesData as subIndustries } from "@/data/industries-generated";
+import { industriesData as parentCategories } from "@/data/industries";
 
-const chips = [
-  { icon: ShoppingCart, label: "Retail", image: "/images/industries/hero-cat-retail-and-e-commerce.jpg" },
-  { icon: HeartPulse, label: "Healthcare", image: "/images/industries/hero-cat-healthcare-and-medical.jpg" },
-  { icon: Landmark, label: "Finance", image: "/images/industries/hero-cat-financial-services.jpg" },
-  { icon: Building2, label: "Real Estate", image: "/images/industries/hero-cat-real-estate-and-property.jpg" },
-  { icon: GraduationCap, label: "Education", image: "/images/industries/hero-cat-education-and-e-learning.jpg" },
-  { icon: Palmtree, label: "Hospitality", image: "/images/industries/hero-cat-hospitality-and-tourism.jpg" },
-  { icon: Factory, label: "Manufacturing", image: "/images/industries/hero-cat-manufacturing-and-industrial.jpg" },
-  { icon: Briefcase, label: "Professional", image: "/images/industries/hero-cat-professional-services.jpg" },
-  { icon: Film, label: "Media", image: "/images/industries/hero-cat-media-and-entertainment.jpg" },
-  { icon: HeartHandshake, label: "Non-Profit", image: "/images/industries/hero-cat-non-profit-and-social-enterprise.jpg" },
-  { icon: Laptop, label: "Tech & Startups", image: "/images/industries/hero-cat-technology-and-startups.jpg" },
-  { icon: Sprout, label: "Agriculture", image: "/images/industries/hero-cat-agriculture-and-farming.jpg" },
-  { icon: HardHat, label: "Construction", image: "/images/industries/hero-cat-construction-and-engineering.jpg" },
-  { icon: Truck, label: "Logistics", image: "/images/industries/hero-cat-transportation-and-logistics.jpg" },
-  { icon: Landmark, label: "Government", image: "/images/industries/hero-cat-government-and-public-sector.jpg" },
-  { icon: Trophy, label: "Sports", image: "/images/industries/hero-cat-sports-and-recreation.jpg" },
-  { icon: Sparkles, label: "Beauty", image: "/images/industries/hero-cat-beauty-and-personal-care.jpg" },
-  { icon: Car, label: "Automotive", image: "/images/industries/hero-cat-automotive.jpg" },
-  { icon: Scale, label: "Legal", image: "/images/industries/hero-cat-legal-services.jpg" },
-  { icon: Store, label: "Small Business", image: "/images/industries/hero-cat-small-business.jpg" },
-];
+/* Build the full list of 200 sub-industries with their parent icon and hero image */
+const allChips = Object.values(subIndustries).map((ind) => {
+  const parent = Object.values(parentCategories).find(
+    (p) => p.title === ind.parentCategory
+  );
+  return {
+    label: ind.title,
+    icon: parent?.icon,
+    image: `/images/industries/hero-${ind.slug}.jpg`,
+  };
+});
 
 interface HeroVisualStackProps {
-  /** Optional fallback image (kept for backwards compatibility). */
   image?: string;
 }
 
 export default function HeroVisualStack({ image: _image }: HeroVisualStackProps) {
+  /* Shuffle once on mount so repeat visits feel fresh */
+  const chips = useMemo(() => {
+    const arr = [...allChips];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, []);
+
   const [idx, setIdx] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setIdx((i) => (i + 1) % chips.length), 3500);
     return () => clearInterval(id);
-  }, []);
+  }, [chips.length]);
 
-  const Active = chips[idx].icon;
-  const activeImage = chips[idx].image;
+  const current = chips[idx];
+  const Icon = current.icon;
 
   return (
     <div className="relative w-full aspect-[4/5] md:aspect-square">
@@ -78,8 +57,8 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
         <AnimatePresence mode="wait">
           <motion.img
             key={idx}
-            src={activeImage}
-            alt={`${chips[idx].label} project`}
+            src={current.image}
+            alt={`${current.label} project`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -107,7 +86,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <Active className="w-5 h-5 text-primary" />
+                {Icon && <Icon className="w-5 h-5 text-primary" />}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -122,9 +101,9 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
-                className="font-display font-semibold text-sm text-foreground"
+                className="font-display font-semibold text-sm text-foreground truncate"
               >
-                {chips[idx].label}
+                {current.label}
               </motion.p>
             </AnimatePresence>
           </div>
