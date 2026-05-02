@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/dance-studios` },
   openGraph: {
     url: `https://cirostack.com/industries/dance-studios`,
-    title: "Custom Software for Dance Studios — CiroStack",
-    description: "We build class registration systems, recital management tools, and student progress dashboards for dance studios — delivered by senior engineers who scope it right the first time.",
+    title: "Custom Software for Dance Studios | CiroStack",
+    description: "We build class registration systems, recital management tools, and student progress dashboards for dance studios, delivered by senior engineers who scope it right the first time.",
     images: [{ url: "https://cirostack.com/og/industry-pages/dance-studios.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

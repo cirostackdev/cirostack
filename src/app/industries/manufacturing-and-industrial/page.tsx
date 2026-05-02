@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/manufacturing-and-industrial" },
   openGraph: {
     url: "https://cirostack.com/industries/manufacturing-and-industrial",
-    title: "Software for Manufacturing & Industrial — CiroStack",
+    title: "Software for Manufacturing & Industrial | CiroStack",
     description:
       "Production monitoring, supply chain management, and factory automation tools for manufacturers. We build software that connects your plant floor to your boardroom with real-time data.",
     images: [{ url: "https://cirostack.com/og/industries/manufacturing-and-industrial.jpg", width: 1200, height: 630, alt: "CiroStack Manufacturing And Industrial" }],

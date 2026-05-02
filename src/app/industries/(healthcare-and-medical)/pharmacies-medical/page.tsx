@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/pharmacies-medical` },
   openGraph: {
     url: `https://cirostack.com/industries/pharmacies-medical`,
-    title: "Custom Software for Pharmacies — CiroStack",
+    title: "Custom Software for Pharmacies | CiroStack",
     description: "We build prescription management systems, refill reminder tools, and inventory dashboards that help pharmacies serve patients faster and keep shelves stocked with what people actually need.",
     images: [{ url: "https://cirostack.com/og/industry-pages/pharmacies-medical.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

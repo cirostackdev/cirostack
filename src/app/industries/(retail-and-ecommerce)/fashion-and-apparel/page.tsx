@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/fashion-and-apparel` },
   openGraph: {
     url: `https://cirostack.com/industries/fashion-and-apparel`,
-    title: "Custom Software for Fashion & Apparel — CiroStack",
+    title: "Custom Software for Fashion & Apparel | CiroStack",
     description: "CiroStack builds virtual try-on features, size recommendation tools, and lookbook platforms for fashion brands that want their online store to feel as good as their clothes.",
     images: [{ url: "https://cirostack.com/og/industry-pages/fashion-and-apparel.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

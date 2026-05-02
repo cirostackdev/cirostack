@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/restaurants-sb` },
   openGraph: {
     url: `https://cirostack.com/industries/restaurants-sb`,
-    title: "Custom Software for Restaurants — CiroStack",
+    title: "Custom Software for Restaurants | CiroStack",
     description: "We build online ordering platforms, reservation management tools, and kitchen display systems for restaurants that want to own their digital presence instead of paying commissions.",
     images: [{ url: "https://cirostack.com/og/industry-pages/restaurants-sb.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

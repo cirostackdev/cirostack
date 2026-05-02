@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/educational-non-profits` },
   openGraph: {
     url: `https://cirostack.com/industries/educational-non-profits`,
-    title: "Custom Software for Educational Non-Profits — CiroStack",
-    description: "We create student tracking systems, grant reporting dashboards, and program management tools for educational non-profits — delivered by senior engineers who care about the work.",
+    title: "Custom Software for Educational Non-Profits | CiroStack",
+    description: "We create student tracking systems, grant reporting dashboards, and program management tools for educational non-profits, delivered by senior engineers who care about the work.",
     images: [{ url: "https://cirostack.com/og/industry-pages/educational-non-profits.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

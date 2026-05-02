@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/chemical-and-pharmaceutical` },
   openGraph: {
     url: `https://cirostack.com/industries/chemical-and-pharmaceutical`,
-    title: "Custom Software for Chemical & Pharmaceutical — CiroStack",
+    title: "Custom Software for Chemical & Pharmaceutical | CiroStack",
     description: "CiroStack builds compliance-ready batch tracking, formula management, and lab data systems for chemical and pharmaceutical companies that need reliability from day one.",
     images: [{ url: "https://cirostack.com/og/industry-pages/chemical-and-pharmaceutical.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

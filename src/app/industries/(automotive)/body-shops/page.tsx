@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/body-shops` },
   openGraph: {
     url: `https://cirostack.com/industries/body-shops`,
-    title: "Custom Software for Body Shops — CiroStack",
+    title: "Custom Software for Body Shops | CiroStack",
     description: "Our team builds estimate tracking tools, insurance claim integrations, and workflow dashboards so body shops can move vehicles through repair stages without paperwork bottlenecks.",
     images: [{ url: "https://cirostack.com/og/industry-pages/body-shops.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

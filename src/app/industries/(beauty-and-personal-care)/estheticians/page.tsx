@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/estheticians` },
   openGraph: {
     url: `https://cirostack.com/industries/estheticians`,
-    title: "Custom Software for Estheticians — CiroStack",
-    description: "Booking systems, client skin profiles, and automated follow-up reminders — we build practice management software that lets estheticians focus on their clients, not their calendar.",
+    title: "Custom Software for Estheticians | CiroStack",
+    description: "Booking systems, client skin profiles, and automated follow-up reminders, we build practice management software that lets estheticians focus on their clients, not their calendar.",
     images: [{ url: "https://cirostack.com/og/industry-pages/estheticians.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/organic-farming` },
   openGraph: {
     url: `https://cirostack.com/industries/organic-farming`,
-    title: "Custom Software for Organic Farming — CiroStack",
-    description: "Certification tracking, soil health dashboards, and direct-to-consumer ordering platforms — we build software that helps organic farms grow and prove their standards at every step.",
+    title: "Custom Software for Organic Farming | CiroStack",
+    description: "Certification tracking, soil health dashboards, and direct-to-consumer ordering platforms, we build software that helps organic farms grow and prove their standards at every step.",
     images: [{ url: "https://cirostack.com/og/industry-pages/organic-farming.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/business-coaching` },
   openGraph: {
     url: `https://cirostack.com/industries/business-coaching`,
-    title: "Custom Software for Business Coaching — CiroStack",
+    title: "Custom Software for Business Coaching | CiroStack",
     description: "We build client progress trackers, session scheduling platforms, and goal-setting dashboards for business coaches ready to scale beyond one-on-one calls and manual follow-ups.",
     images: [{ url: "https://cirostack.com/og/industry-pages/business-coaching.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

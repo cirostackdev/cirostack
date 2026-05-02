@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/produce-distribution` },
   openGraph: {
     url: `https://cirostack.com/industries/produce-distribution`,
-    title: "Custom Software for Produce Distribution — CiroStack",
+    title: "Custom Software for Produce Distribution | CiroStack",
     description: "Our senior engineers build route optimization tools, cold chain monitoring dashboards, and order management systems that keep produce distributors fast, fresh, and profitable.",
     images: [{ url: "https://cirostack.com/og/industry-pages/produce-distribution.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

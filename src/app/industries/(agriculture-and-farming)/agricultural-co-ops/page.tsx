@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/agricultural-co-ops` },
   openGraph: {
     url: `https://cirostack.com/industries/agricultural-co-ops`,
-    title: "Custom Software for Agricultural Co-ops — CiroStack",
+    title: "Custom Software for Agricultural Co-ops | CiroStack",
     description: "Our senior engineers build member portals, shared-resource scheduling tools, and distribution platforms so agricultural co-ops can coordinate harvests and payouts without the spreadsheet chaos.",
     images: [{ url: "https://cirostack.com/og/industry-pages/agricultural-co-ops.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

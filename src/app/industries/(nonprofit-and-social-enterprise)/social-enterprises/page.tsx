@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/social-enterprises` },
   openGraph: {
     url: `https://cirostack.com/industries/social-enterprises`,
-    title: "Custom Software for Social Enterprises — CiroStack",
-    description: "We create impact dashboards, beneficiary tracking tools, and custom operational platforms for social enterprises balancing mission and margin — built by senior engineers.",
+    title: "Custom Software for Social Enterprises | CiroStack",
+    description: "We create impact dashboards, beneficiary tracking tools, and custom operational platforms for social enterprises balancing mission and margin, built by senior engineers.",
     images: [{ url: "https://cirostack.com/og/industry-pages/social-enterprises.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

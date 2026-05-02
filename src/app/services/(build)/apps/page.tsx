@@ -13,14 +13,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/services/${slug}` },
   openGraph: {
     url: `https://cirostack.com/services/${slug}`,
-    title: "Mobile App Development — CiroStack",
-    description: "Custom iOS and Android apps built by senior engineers. From MVP to scale, we handle architecture, design, and deployment — so your app works as well as your idea deserves.",
+    title: "Mobile App Development | CiroStack",
+    description: "Custom iOS and Android apps built by senior engineers. From MVP to scale, we handle architecture, design, and deployment, so your app works as well as your idea deserves.",
     images: [{ url: ogImageUrl, width: 1200, height: 630, alt: service?.title ?? "CiroStack Service" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mobile App Development — CiroStack",
-    description: "Custom iOS and Android apps built by senior engineers. From MVP to scale, we handle architecture, design, and deployment — so your app works as well as your idea deserves.",
+    title: "Mobile App Development | CiroStack",
+    description: "Custom iOS and Android apps built by senior engineers. From MVP to scale, we handle architecture, design, and deployment, so your app works as well as your idea deserves.",
     images: [ogImageUrl],
   },
 };

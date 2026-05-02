@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/fintech-startups` },
   openGraph: {
     url: `https://cirostack.com/industries/fintech-startups`,
-    title: "Custom Software for Fintech Startups — CiroStack",
+    title: "Custom Software for Fintech Startups | CiroStack",
     description: "From payment processing interfaces to KYC verification flows and real-time transaction dashboards, we build the core product infrastructure fintech startups need to launch and scale.",
     images: [{ url: "https://cirostack.com/og/industry-pages/fintech-startups.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

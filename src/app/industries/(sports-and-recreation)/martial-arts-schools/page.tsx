@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/martial-arts-schools` },
   openGraph: {
     url: `https://cirostack.com/industries/martial-arts-schools`,
-    title: "Custom Software for Martial Arts Schools — CiroStack",
+    title: "Custom Software for Martial Arts Schools | CiroStack",
     description: "We build belt progression trackers, class attendance systems, and family billing portals for martial arts schools managing students of all ages and skill levels.",
     images: [{ url: "https://cirostack.com/og/industry-pages/martial-arts-schools.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

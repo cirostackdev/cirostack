@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/skincare` },
   openGraph: {
     url: `https://cirostack.com/industries/skincare`,
-    title: "Custom Software for Skincare — CiroStack",
+    title: "Custom Software for Skincare | CiroStack",
     description: "From routine-builder quizzes to subscription management and ingredient databases, we build digital products that help skincare brands connect with customers and drive loyalty.",
     images: [{ url: "https://cirostack.com/og/industry-pages/skincare.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

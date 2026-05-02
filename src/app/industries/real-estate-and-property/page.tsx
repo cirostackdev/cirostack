@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/real-estate-and-property" },
   openGraph: {
     url: "https://cirostack.com/industries/real-estate-and-property",
-    title: "Software for Real Estate & Property — CiroStack",
+    title: "Software for Real Estate & Property | CiroStack",
     description:
       "Listing platforms, property management tools, and CRM systems for agents, brokers, and property managers. We build real estate software that helps you close more deals and manage properties smarter.",
     images: [{ url: "https://cirostack.com/og/industries/real-estate-and-property.jpg", width: 1200, height: 630, alt: "CiroStack Real Estate And Property" }],

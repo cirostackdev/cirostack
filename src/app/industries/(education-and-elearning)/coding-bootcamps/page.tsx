@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/coding-bootcamps` },
   openGraph: {
     url: `https://cirostack.com/industries/coding-bootcamps`,
-    title: "Custom Software for Coding Bootcamps — CiroStack",
+    title: "Custom Software for Coding Bootcamps | CiroStack",
     description: "Our team builds student progress dashboards, curriculum management tools, and job placement trackers that help coding bootcamps deliver results and prove outcomes to prospective students.",
     images: [{ url: "https://cirostack.com/og/industry-pages/coding-bootcamps.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

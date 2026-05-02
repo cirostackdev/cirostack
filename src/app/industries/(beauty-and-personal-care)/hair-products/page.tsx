@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/hair-products` },
   openGraph: {
     url: `https://cirostack.com/industries/hair-products`,
-    title: "Custom Software for Hair Products — CiroStack",
-    description: "We build e-commerce storefronts, wholesale distributor portals, and ingredient transparency pages that help hair product brands grow online and in salons — delivered at a fixed price.",
+    title: "Custom Software for Hair Products | CiroStack",
+    description: "We build e-commerce storefronts, wholesale distributor portals, and ingredient transparency pages that help hair product brands grow online and in salons, delivered at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/hair-products.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

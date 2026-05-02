@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/vacation-rentals` },
   openGraph: {
     url: `https://cirostack.com/industries/vacation-rentals`,
-    title: "Custom Software for Vacation Rentals — CiroStack",
+    title: "Custom Software for Vacation Rentals | CiroStack",
     description: "Our senior engineers build multi-channel booking managers, dynamic pricing tools, and guest communication platforms for vacation rental operators scaling beyond a handful of listings.",
     images: [{ url: "https://cirostack.com/og/industry-pages/vacation-rentals.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

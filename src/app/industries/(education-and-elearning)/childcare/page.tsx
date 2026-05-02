@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/childcare` },
   openGraph: {
     url: `https://cirostack.com/industries/childcare`,
-    title: "Custom Software for Childcare — CiroStack",
-    description: "We build parent communication apps, attendance trackers, and billing platforms that help childcare centers keep families informed and operations running smoothly — delivered at a fixed price.",
+    title: "Custom Software for Childcare | CiroStack",
+    description: "We build parent communication apps, attendance trackers, and billing platforms that help childcare centers keep families informed and operations running smoothly, delivered at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/childcare.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

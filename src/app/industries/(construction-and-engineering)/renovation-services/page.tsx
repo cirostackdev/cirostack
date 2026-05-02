@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/renovation-services` },
   openGraph: {
     url: `https://cirostack.com/industries/renovation-services`,
-    title: "Custom Software for Renovation Services — CiroStack",
+    title: "Custom Software for Renovation Services | CiroStack",
     description: "Our senior engineers build before-and-after galleries, project estimators, and homeowner communication tools that help renovation companies showcase their work and close more jobs.",
     images: [{ url: "https://cirostack.com/og/industry-pages/renovation-services.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

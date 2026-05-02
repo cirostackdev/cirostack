@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/microfinance` },
   openGraph: {
     url: `https://cirostack.com/industries/microfinance`,
-    title: "Custom Software for Microfinance — CiroStack",
+    title: "Custom Software for Microfinance | CiroStack",
     description: "We build loan origination platforms, repayment tracking systems, and borrower communication tools that help microfinance institutions reach more people and manage risk at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/microfinance.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

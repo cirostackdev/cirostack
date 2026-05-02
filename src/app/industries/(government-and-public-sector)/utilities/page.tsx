@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/utilities` },
   openGraph: {
     url: `https://cirostack.com/industries/utilities`,
-    title: "Custom Software for Utilities — CiroStack",
+    title: "Custom Software for Utilities | CiroStack",
     description: "We build outage reporting systems, usage monitoring dashboards, and customer billing portals that help utility companies serve ratepayers and manage infrastructure at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/utilities.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

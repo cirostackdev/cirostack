@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/investment-firms` },
   openGraph: {
     url: `https://cirostack.com/industries/investment-firms`,
-    title: "Custom Software for Investment Firms — CiroStack",
+    title: "Custom Software for Investment Firms | CiroStack",
     description: "Our senior engineers build portfolio reporting tools, client relationship dashboards, and deal flow trackers that help investment firms make decisions and communicate results clearly.",
     images: [{ url: "https://cirostack.com/og/industry-pages/investment-firms.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

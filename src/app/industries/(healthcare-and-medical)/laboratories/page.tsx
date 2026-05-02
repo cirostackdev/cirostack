@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/laboratories` },
   openGraph: {
     url: `https://cirostack.com/industries/laboratories`,
-    title: "Custom Software for Laboratories — CiroStack",
+    title: "Custom Software for Laboratories | CiroStack",
     description: "We build sample tracking systems, result reporting portals, and equipment calibration schedulers that help laboratories maintain accuracy and deliver findings to clients on time.",
     images: [{ url: "https://cirostack.com/og/industry-pages/laboratories.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

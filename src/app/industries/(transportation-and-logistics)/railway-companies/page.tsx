@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/railway-companies` },
   openGraph: {
     url: `https://cirostack.com/industries/railway-companies`,
-    title: "Custom Software for Railway Companies — CiroStack",
+    title: "Custom Software for Railway Companies | CiroStack",
     description: "CiroStack builds scheduling optimization tools, maintenance tracking systems, and passenger booking platforms for railway companies running complex timetables across large networks.",
     images: [{ url: "https://cirostack.com/og/industry-pages/railway-companies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

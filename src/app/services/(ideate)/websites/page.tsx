@@ -13,14 +13,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/services/${slug}` },
   openGraph: {
     url: `https://cirostack.com/services/${slug}`,
-    title: "Custom Website Development — CiroStack",
-    description: "We build fast, beautiful websites that drive real business results. Custom-designed, conversion-optimized, and shipped in weeks — not months. No templates, no shortcuts.",
+    title: "Custom Website Development | CiroStack",
+    description: "We build fast, beautiful websites that drive real business results. Custom-designed, conversion-optimized, and shipped in weeks, not months. No templates, no shortcuts.",
     images: [{ url: ogImageUrl, width: 1200, height: 630, alt: service?.title ?? "CiroStack Service" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Website Development — CiroStack",
-    description: "We build fast, beautiful websites that drive real business results. Custom-designed, conversion-optimized, and shipped in weeks — not months. No templates, no shortcuts.",
+    title: "Custom Website Development | CiroStack",
+    description: "We build fast, beautiful websites that drive real business results. Custom-designed, conversion-optimized, and shipped in weeks, not months. No templates, no shortcuts.",
     images: [ogImageUrl],
   },
 };

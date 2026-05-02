@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/non-profit-and-social-enterprise" },
   openGraph: {
     url: "https://cirostack.com/industries/non-profit-and-social-enterprise",
-    title: "Software for Non-Profits & Social Enterprises — CiroStack",
+    title: "Software for Non-Profits & Social Enterprises | CiroStack",
     description:
       "Donor management, volunteer coordination, and impact tracking tools for charities and non-profits. We build purpose-driven software that amplifies your mission without blowing your budget.",
     images: [{ url: "https://cirostack.com/og/industries/non-profit-and-social-enterprise.jpg", width: 1200, height: 630, alt: "CiroStack Non Profit And Social Enterprise" }],

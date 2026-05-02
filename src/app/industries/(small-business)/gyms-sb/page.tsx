@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/gyms-sb` },
   openGraph: {
     url: `https://cirostack.com/industries/gyms-sb`,
-    title: "Custom Software for Gyms — CiroStack",
+    title: "Custom Software for Gyms | CiroStack",
     description: "We build member check-in apps, class scheduling tools, and billing management systems for small gyms that care about member experience but don't have an IT department.",
     images: [{ url: "https://cirostack.com/og/industry-pages/gyms-sb.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

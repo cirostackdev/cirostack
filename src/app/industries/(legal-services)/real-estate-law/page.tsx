@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/real-estate-law` },
   openGraph: {
     url: `https://cirostack.com/industries/real-estate-law`,
-    title: "Custom Software for Real Estate Law — CiroStack",
+    title: "Custom Software for Real Estate Law | CiroStack",
     description: "We build closing coordination platforms, title search trackers, and document management systems that help real estate law practices handle transactions smoothly from contract to keys.",
     images: [{ url: "https://cirostack.com/og/industry-pages/real-estate-law.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

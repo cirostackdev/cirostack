@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/recruiting-agencies` },
   openGraph: {
     url: `https://cirostack.com/industries/recruiting-agencies`,
-    title: "Custom Software for Recruiting Agencies — CiroStack",
-    description: "CiroStack builds applicant tracking systems, client portals, and placement analytics dashboards for recruiting agencies scaling their pipeline — delivered at a fixed price.",
+    title: "Custom Software for Recruiting Agencies | CiroStack",
+    description: "CiroStack builds applicant tracking systems, client portals, and placement analytics dashboards for recruiting agencies scaling their pipeline, delivered at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/recruiting-agencies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

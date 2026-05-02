@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/consultants` },
   openGraph: {
     url: `https://cirostack.com/industries/consultants`,
-    title: "Custom Software for Consultants — CiroStack",
+    title: "Custom Software for Consultants | CiroStack",
     description: "Our senior engineers build proposal generators, client dashboards, and project tracking tools for independent consultants who need their own platform instead of a patchwork of apps.",
     images: [{ url: "https://cirostack.com/og/industry-pages/consultants.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

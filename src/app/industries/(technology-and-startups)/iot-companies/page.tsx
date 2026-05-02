@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/iot-companies` },
   openGraph: {
     url: `https://cirostack.com/industries/iot-companies`,
-    title: "Custom Software for IoT Companies — CiroStack",
+    title: "Custom Software for IoT Companies | CiroStack",
     description: "We build device management platforms, sensor data dashboards, and firmware update systems for IoT companies connecting hardware to software at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/iot-companies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

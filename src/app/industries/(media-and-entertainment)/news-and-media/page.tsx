@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/news-and-media` },
   openGraph: {
     url: `https://cirostack.com/industries/news-and-media`,
-    title: "Custom Software for News & Media — CiroStack",
+    title: "Custom Software for News & Media | CiroStack",
     description: "Our team delivers custom CMS platforms, editorial workflow tools, and audience analytics dashboards for news organizations that move fast and publish often.",
     images: [{ url: "https://cirostack.com/og/industry-pages/news-and-media.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

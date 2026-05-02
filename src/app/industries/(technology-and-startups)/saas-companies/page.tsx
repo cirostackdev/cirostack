@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/saas-companies` },
   openGraph: {
     url: `https://cirostack.com/industries/saas-companies`,
-    title: "Custom Software for SaaS Companies — CiroStack",
+    title: "Custom Software for SaaS Companies | CiroStack",
     description: "We build onboarding flows, billing integrations, and admin dashboards for SaaS companies that want every screen in their product to feel intentional and well-built.",
     images: [{ url: "https://cirostack.com/og/industry-pages/saas-companies.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

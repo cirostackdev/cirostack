@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/fleet-management` },
   openGraph: {
     url: `https://cirostack.com/industries/fleet-management`,
-    title: "Custom Software for Fleet Management — CiroStack",
+    title: "Custom Software for Fleet Management | CiroStack",
     description: "We build vehicle tracking dashboards, maintenance scheduling systems, and driver performance tools that give fleet managers real-time control over every asset on the road.",
     images: [{ url: "https://cirostack.com/og/industry-pages/fleet-management.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

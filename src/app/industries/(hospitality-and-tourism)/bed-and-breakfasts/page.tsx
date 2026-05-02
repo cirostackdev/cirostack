@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/bed-and-breakfasts` },
   openGraph: {
     url: `https://cirostack.com/industries/bed-and-breakfasts`,
-    title: "Custom Software for Bed & Breakfasts — CiroStack",
+    title: "Custom Software for Bed & Breakfasts | CiroStack",
     description: "Our team builds direct booking engines, guest experience portals, and channel management tools that help bed and breakfasts fill rooms without relying entirely on third-party listing sites.",
     images: [{ url: "https://cirostack.com/og/industry-pages/bed-and-breakfasts.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

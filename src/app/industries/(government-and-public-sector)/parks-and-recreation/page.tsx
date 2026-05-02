@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/parks-and-recreation` },
   openGraph: {
     url: `https://cirostack.com/industries/parks-and-recreation`,
-    title: "Custom Software for Parks & Recreation — CiroStack",
+    title: "Custom Software for Parks & Recreation | CiroStack",
     description: "Our team builds facility booking systems, program registration portals, and maintenance tracking dashboards that help parks and recreation departments keep communities active and engaged.",
     images: [{ url: "https://cirostack.com/og/industry-pages/parks-and-recreation.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

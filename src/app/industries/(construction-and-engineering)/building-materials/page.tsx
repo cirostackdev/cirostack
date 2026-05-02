@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/building-materials` },
   openGraph: {
     url: `https://cirostack.com/industries/building-materials`,
-    title: "Custom Software for Building Materials — CiroStack",
+    title: "Custom Software for Building Materials | CiroStack",
     description: "Our senior engineers build inventory management systems, contractor ordering portals, and delivery route planners that help building materials suppliers move product faster and reduce waste.",
     images: [{ url: "https://cirostack.com/og/industry-pages/building-materials.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

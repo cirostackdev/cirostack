@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/salons` },
   openGraph: {
     url: `https://cirostack.com/industries/salons`,
-    title: "Custom Software for Salons — CiroStack",
+    title: "Custom Software for Salons | CiroStack",
     description: "We build stylist booking platforms, product retail integrations, and client history dashboards that give salons everything they need to manage chairs, inventory, and repeat visits.",
     images: [{ url: "https://cirostack.com/og/industry-pages/salons.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://cirostack.com/industries/beauty-and-personal-care" },
   openGraph: {
     url: "https://cirostack.com/industries/beauty-and-personal-care",
-    title: "Software for Beauty & Personal Care — CiroStack",
+    title: "Software for Beauty & Personal Care | CiroStack",
     description:
       "Booking systems, client management, and marketing tools for salons, spas, barber shops, and beauty brands. We build software that keeps your chairs full and your clients coming back.",
     images: [{ url: "https://cirostack.com/og/industries/beauty-and-personal-care.jpg", width: 1200, height: 630, alt: "CiroStack Beauty And Personal Care" }],

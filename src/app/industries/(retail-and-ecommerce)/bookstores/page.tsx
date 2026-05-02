@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/bookstores` },
   openGraph: {
     url: `https://cirostack.com/industries/bookstores`,
-    title: "Custom Software for Bookstores — CiroStack",
+    title: "Custom Software for Bookstores | CiroStack",
     description: "We build online storefronts, inventory search tools, and reading community platforms for bookstores competing in a market that rewards great customer experience.",
     images: [{ url: "https://cirostack.com/og/industry-pages/bookstores.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

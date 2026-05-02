@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/electronics-and-gadgets` },
   openGraph: {
     url: `https://cirostack.com/industries/electronics-and-gadgets`,
-    title: "Custom Software for Electronics & Gadgets — CiroStack",
-    description: "We build product comparison engines, warranty management systems, and spec-driven search tools for electronics retailers — delivered by senior engineers at a fixed price.",
+    title: "Custom Software for Electronics & Gadgets | CiroStack",
+    description: "We build product comparison engines, warranty management systems, and spec-driven search tools for electronics retailers, delivered by senior engineers at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/electronics-and-gadgets.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

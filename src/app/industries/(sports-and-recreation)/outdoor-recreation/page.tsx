@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/outdoor-recreation` },
   openGraph: {
     url: `https://cirostack.com/industries/outdoor-recreation`,
-    title: "Custom Software for Outdoor Recreation — CiroStack",
+    title: "Custom Software for Outdoor Recreation | CiroStack",
     description: "CiroStack builds trip booking platforms, equipment rental trackers, and waiver management systems for outdoor recreation businesses handling groups, gear, and unpredictable conditions.",
     images: [{ url: "https://cirostack.com/og/industry-pages/outdoor-recreation.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

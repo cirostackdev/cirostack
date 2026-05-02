@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/educational-publishers` },
   openGraph: {
     url: `https://cirostack.com/industries/educational-publishers`,
-    title: "Custom Software for Educational Publishers — CiroStack",
+    title: "Custom Software for Educational Publishers | CiroStack",
     description: "From digital textbook platforms to interactive exercise builders and analytics dashboards, we build tools that help educational publishers bring their content online and track engagement.",
     images: [{ url: "https://cirostack.com/og/industry-pages/educational-publishers.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

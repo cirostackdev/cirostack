@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/sports-leagues` },
   openGraph: {
     url: `https://cirostack.com/industries/sports-leagues`,
-    title: "Custom Software for Sports Leagues — CiroStack",
-    description: "Our team creates season scheduling tools, standings trackers, and team management portals for sports leagues — built by senior engineers who deliver on time at a fixed price.",
+    title: "Custom Software for Sports Leagues | CiroStack",
+    description: "Our team creates season scheduling tools, standings trackers, and team management portals for sports leagues, built by senior engineers who deliver on time at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/sports-leagues.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

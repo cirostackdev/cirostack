@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/factory-automation` },
   openGraph: {
     url: `https://cirostack.com/industries/factory-automation`,
-    title: "Custom Software for Factory Automation — CiroStack",
-    description: "We build control interfaces, sensor data pipelines, and production analytics dashboards for factories moving toward full automation — all scoped and delivered at a fixed price.",
+    title: "Custom Software for Factory Automation | CiroStack",
+    description: "We build control interfaces, sensor data pipelines, and production analytics dashboards for factories moving toward full automation, all scoped and delivered at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/factory-automation.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

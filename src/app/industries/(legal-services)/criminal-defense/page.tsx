@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/criminal-defense` },
   openGraph: {
     url: `https://cirostack.com/industries/criminal-defense`,
-    title: "Custom Software for Criminal Defense — CiroStack",
+    title: "Custom Software for Criminal Defense | CiroStack",
     description: "We build case management systems, evidence organization tools, and court deadline trackers that help criminal defense attorneys stay prepared and never miss a filing date.",
     images: [{ url: "https://cirostack.com/og/industry-pages/criminal-defense.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

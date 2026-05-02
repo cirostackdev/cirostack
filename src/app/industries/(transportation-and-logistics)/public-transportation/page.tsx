@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/public-transportation` },
   openGraph: {
     url: `https://cirostack.com/industries/public-transportation`,
-    title: "Custom Software for Public Transportation — CiroStack",
+    title: "Custom Software for Public Transportation | CiroStack",
     description: "We build passenger information systems, route planning tools, and fleet management dashboards for public transportation agencies serving thousands of riders every day.",
     images: [{ url: "https://cirostack.com/og/industry-pages/public-transportation.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

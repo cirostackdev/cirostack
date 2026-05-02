@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/manufacturing-plants` },
   openGraph: {
     url: `https://cirostack.com/industries/manufacturing-plants`,
-    title: "Custom Software for Manufacturing Plants — CiroStack",
+    title: "Custom Software for Manufacturing Plants | CiroStack",
     description: "CiroStack delivers shop floor management tools, shift scheduling systems, and output tracking dashboards built specifically for manufacturing plant operations and daily production goals.",
     images: [{ url: "https://cirostack.com/og/industry-pages/manufacturing-plants.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

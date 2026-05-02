@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/nail-salons` },
   openGraph: {
     url: `https://cirostack.com/industries/nail-salons`,
-    title: "Custom Software for Nail Salons — CiroStack",
+    title: "Custom Software for Nail Salons | CiroStack",
     description: "Our senior engineers build appointment schedulers, service menu builders, and tip-splitting tools that help nail salons run smoothly from open to close every single day.",
     images: [{ url: "https://cirostack.com/og/industry-pages/nail-salons.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

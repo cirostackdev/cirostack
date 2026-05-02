@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/fisheries` },
   openGraph: {
     url: `https://cirostack.com/industries/fisheries`,
-    title: "Custom Software for Fisheries — CiroStack",
+    title: "Custom Software for Fisheries | CiroStack",
     description: "We build catch tracking systems, fleet coordination tools, and compliance reporting platforms that help fisheries stay productive and meet regulatory requirements without manual headaches.",
     images: [{ url: "https://cirostack.com/og/industry-pages/fisheries.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

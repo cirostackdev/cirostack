@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/education-departments` },
   openGraph: {
     url: `https://cirostack.com/industries/education-departments`,
-    title: "Custom Software for Education Departments — CiroStack",
+    title: "Custom Software for Education Departments | CiroStack",
     description: "We build student data systems, school performance dashboards, and grant management portals that help education departments track outcomes and allocate resources where they matter most.",
     images: [{ url: "https://cirostack.com/og/industry-pages/education-departments.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

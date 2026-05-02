@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: [{ url: "https://cirostack.com/og/pages/services.jpg", width: 1200, height: 630, alt: "CiroStack Services" }],
     url: "https://cirostack.com/services",
-    title: "What We Build — Services from CiroStack",
+    title: "What We Build | Services from CiroStack",
     description:
-      "Custom software, mobile apps, AI automation, cloud engineering, and UX/UI design — all delivered at a fixed price by senior engineers. See how we can help you ship.",
+      "Custom software, mobile apps, AI automation, cloud engineering, and UX/UI design, all delivered at a fixed price by senior engineers. See how we can help you ship.",
   },
 };
 

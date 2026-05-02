@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/publishing` },
   openGraph: {
     url: `https://cirostack.com/industries/publishing`,
-    title: "Custom Software for Publishing — CiroStack",
-    description: "We create manuscript tracking systems, editorial calendars, and digital distribution platforms for publishers — scoped clearly and delivered at a fixed price by senior engineers.",
+    title: "Custom Software for Publishing | CiroStack",
+    description: "We create manuscript tracking systems, editorial calendars, and digital distribution platforms for publishers, scoped clearly and delivered at a fixed price by senior engineers.",
     images: [{ url: "https://cirostack.com/og/industry-pages/publishing.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

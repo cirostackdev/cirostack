@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/livestock-management` },
   openGraph: {
     url: `https://cirostack.com/industries/livestock-management`,
-    title: "Custom Software for Livestock Management — CiroStack",
+    title: "Custom Software for Livestock Management | CiroStack",
     description: "We build herd tracking platforms, feed management systems, and health monitoring dashboards that give livestock operations real visibility into animal welfare and productivity.",
     images: [{ url: "https://cirostack.com/og/industry-pages/livestock-management.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

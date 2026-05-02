@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/golf-courses` },
   openGraph: {
     url: `https://cirostack.com/industries/golf-courses`,
-    title: "Custom Software for Golf Courses — CiroStack",
+    title: "Custom Software for Golf Courses | CiroStack",
     description: "We build tee time booking systems, tournament management tools, and member portals for golf courses that want a smooth experience from reservation to the 18th hole.",
     images: [{ url: "https://cirostack.com/og/industry-pages/golf-courses.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

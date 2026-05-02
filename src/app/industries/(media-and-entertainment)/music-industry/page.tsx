@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/music-industry` },
   openGraph: {
     url: `https://cirostack.com/industries/music-industry`,
-    title: "Custom Software for Music Industry — CiroStack",
+    title: "Custom Software for Music Industry | CiroStack",
     description: "We build royalty tracking systems, catalog management tools, and artist portals that help music companies handle rights, releases, and revenue in one place.",
     images: [{ url: "https://cirostack.com/og/industry-pages/music-industry.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

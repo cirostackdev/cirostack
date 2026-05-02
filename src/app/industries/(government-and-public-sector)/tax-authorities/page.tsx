@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/tax-authorities` },
   openGraph: {
     url: `https://cirostack.com/industries/tax-authorities`,
-    title: "Custom Software for Tax Authorities — CiroStack",
+    title: "Custom Software for Tax Authorities | CiroStack",
     description: "Our senior engineers build taxpayer self-service portals, audit workflow tools, and revenue tracking dashboards that help tax authorities process filings accurately and reduce backlogs.",
     images: [{ url: "https://cirostack.com/og/industry-pages/tax-authorities.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

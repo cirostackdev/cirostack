@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/photography` },
   openGraph: {
     url: `https://cirostack.com/industries/photography`,
-    title: "Custom Software for Photography — CiroStack",
+    title: "Custom Software for Photography | CiroStack",
     description: "We build client galleries, booking management systems, and automated delivery platforms for photography businesses ready to streamline their workflow from shoot to final delivery.",
     images: [{ url: "https://cirostack.com/og/industry-pages/photography.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

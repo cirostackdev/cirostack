@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/hospitals-and-clinics` },
   openGraph: {
     url: `https://cirostack.com/industries/hospitals-and-clinics`,
-    title: "Custom Software for Hospitals & Clinics — CiroStack",
+    title: "Custom Software for Hospitals & Clinics | CiroStack",
     description: "Our senior engineers build patient intake systems, appointment scheduling platforms, and clinical workflow dashboards that help hospitals and clinics reduce wait times and improve care coordination.",
     images: [{ url: "https://cirostack.com/og/industry-pages/hospitals-and-clinics.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

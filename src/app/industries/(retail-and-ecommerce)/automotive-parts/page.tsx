@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/automotive-parts` },
   openGraph: {
     url: `https://cirostack.com/industries/automotive-parts`,
-    title: "Custom Software for Automotive Parts — CiroStack",
+    title: "Custom Software for Automotive Parts | CiroStack",
     description: "We build parts catalog systems, fitment databases, and inventory management platforms for automotive parts retailers selling online, in-store, or both.",
     images: [{ url: "https://cirostack.com/og/industry-pages/automotive-parts.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/health-advocacy` },
   openGraph: {
     url: `https://cirostack.com/industries/health-advocacy`,
-    title: "Custom Software for Health Advocacy — CiroStack",
+    title: "Custom Software for Health Advocacy | CiroStack",
     description: "Our senior engineers build patient resource directories, campaign tracking tools, and community outreach platforms for health advocacy organizations reaching the people who need them.",
     images: [{ url: "https://cirostack.com/og/industry-pages/health-advocacy.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

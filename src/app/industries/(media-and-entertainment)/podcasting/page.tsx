@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/podcasting` },
   openGraph: {
     url: `https://cirostack.com/industries/podcasting`,
-    title: "Custom Software for Podcasting — CiroStack",
+    title: "Custom Software for Podcasting | CiroStack",
     description: "CiroStack builds distribution dashboards, guest scheduling tools, and listener analytics platforms for podcasters and podcast networks scaling their content operations.",
     images: [{ url: "https://cirostack.com/og/industry-pages/podcasting.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

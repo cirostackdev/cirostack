@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/freelancers` },
   openGraph: {
     url: `https://cirostack.com/industries/freelancers`,
-    title: "Custom Software for Freelancers — CiroStack",
-    description: "CiroStack builds portfolio sites, contract generators, and time-tracking dashboards for freelancers who want to run a real business — delivered at a fixed price.",
+    title: "Custom Software for Freelancers | CiroStack",
+    description: "CiroStack builds portfolio sites, contract generators, and time-tracking dashboards for freelancers who want to run a real business, delivered at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/freelancers.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

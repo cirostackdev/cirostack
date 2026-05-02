@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/mental-health` },
   openGraph: {
     url: `https://cirostack.com/industries/mental-health`,
-    title: "Custom Software for Mental Health — CiroStack",
+    title: "Custom Software for Mental Health | CiroStack",
     description: "Our team builds secure client portals, session scheduling tools, and progress tracking dashboards that help mental health practices manage caseloads while keeping patient data safe.",
     images: [{ url: "https://cirostack.com/og/industry-pages/mental-health.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

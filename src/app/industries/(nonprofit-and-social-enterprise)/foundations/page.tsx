@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/foundations` },
   openGraph: {
     url: `https://cirostack.com/industries/foundations`,
-    title: "Custom Software for Foundations — CiroStack",
+    title: "Custom Software for Foundations | CiroStack",
     description: "We build grant management portals, applicant review systems, and impact measurement dashboards so foundations can focus on funding good work instead of wrestling with spreadsheets.",
     images: [{ url: "https://cirostack.com/og/industry-pages/foundations.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

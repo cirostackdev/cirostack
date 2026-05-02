@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/shipping-lines` },
   openGraph: {
     url: `https://cirostack.com/industries/shipping-lines`,
-    title: "Custom Software for Shipping Lines — CiroStack",
+    title: "Custom Software for Shipping Lines | CiroStack",
     description: "Our team creates container tracking platforms, voyage management systems, and port scheduling tools for shipping lines coordinating vessels, cargo, and tight turnaround windows.",
     images: [{ url: "https://cirostack.com/og/industry-pages/shipping-lines.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

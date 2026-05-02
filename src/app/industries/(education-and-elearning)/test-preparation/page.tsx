@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/test-preparation` },
   openGraph: {
     url: `https://cirostack.com/industries/test-preparation`,
-    title: "Custom Software for Test Preparation — CiroStack",
+    title: "Custom Software for Test Preparation | CiroStack",
     description: "We build practice exam engines, score prediction tools, and study plan generators that help test prep companies deliver personalized experiences their students actually finish.",
     images: [{ url: "https://cirostack.com/og/industry-pages/test-preparation.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

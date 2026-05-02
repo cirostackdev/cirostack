@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/tutoring-services` },
   openGraph: {
     url: `https://cirostack.com/industries/tutoring-services`,
-    title: "Custom Software for Tutoring Services — CiroStack",
-    description: "From tutor-student matching to session scheduling and progress reports for parents, we build platforms that help tutoring services scale without losing the personal touch — all fixed-price.",
+    title: "Custom Software for Tutoring Services | CiroStack",
+    description: "From tutor-student matching to session scheduling and progress reports for parents, we build platforms that help tutoring services scale without losing the personal touch, all fixed-price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/tutoring-services.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

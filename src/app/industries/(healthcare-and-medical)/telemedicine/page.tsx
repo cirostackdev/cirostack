@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/telemedicine` },
   openGraph: {
     url: `https://cirostack.com/industries/telemedicine`,
-    title: "Custom Software for Telemedicine — CiroStack",
+    title: "Custom Software for Telemedicine | CiroStack",
     description: "We build virtual visit platforms, patient intake workflows, and provider scheduling tools that help telemedicine companies deliver convenient care without sacrificing the clinical experience.",
     images: [{ url: "https://cirostack.com/og/industry-pages/telemedicine.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

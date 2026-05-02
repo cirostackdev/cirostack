@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/medical-equipment` },
   openGraph: {
     url: `https://cirostack.com/industries/medical-equipment`,
-    title: "Custom Software for Medical Equipment — CiroStack",
+    title: "Custom Software for Medical Equipment | CiroStack",
     description: "We build asset tracking platforms, maintenance scheduling tools, and order management systems that help medical equipment companies keep devices in service and customers supplied.",
     images: [{ url: "https://cirostack.com/og/industry-pages/medical-equipment.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

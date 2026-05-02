@@ -13,13 +13,13 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/services/${slug}` },
   openGraph: {
     url: `https://cirostack.com/services/${slug}`,
-    title: "Data Engineering & Data Science — CiroStack",
+    title: "Data Engineering & Data Science | CiroStack",
     description: "We turn raw data into your competitive advantage. Custom pipelines, data warehouses, and executive dashboards that give you real-time visibility into what matters most.",
     images: [{ url: ogImageUrl, width: 1200, height: 630, alt: service?.title ?? "CiroStack Service" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Data Engineering & Data Science — CiroStack",
+    title: "Data Engineering & Data Science | CiroStack",
     description: "We turn raw data into your competitive advantage. Custom pipelines, data warehouses, and executive dashboards that give you real-time visibility into what matters most.",
     images: [ogImageUrl],
   },

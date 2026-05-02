@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/family-law` },
   openGraph: {
     url: `https://cirostack.com/industries/family-law`,
-    title: "Custom Software for Family Law — CiroStack",
+    title: "Custom Software for Family Law | CiroStack",
     description: "We build case tracking systems, document sharing portals, and parenting schedule tools that help family law firms manage sensitive matters with the care and organization they require.",
     images: [{ url: "https://cirostack.com/og/industry-pages/family-law.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

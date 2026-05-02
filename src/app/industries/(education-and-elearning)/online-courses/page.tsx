@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/online-courses` },
   openGraph: {
     url: `https://cirostack.com/industries/online-courses`,
-    title: "Custom Software for Online Courses — CiroStack",
+    title: "Custom Software for Online Courses | CiroStack",
     description: "Our senior engineers build course delivery platforms, video hosting integrations, and student engagement analytics that help online course creators teach effectively and grow their audience.",
     images: [{ url: "https://cirostack.com/og/industry-pages/online-courses.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

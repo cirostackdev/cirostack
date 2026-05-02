@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/gaming` },
   openGraph: {
     url: `https://cirostack.com/industries/gaming`,
-    title: "Custom Software for Gaming — CiroStack",
+    title: "Custom Software for Gaming | CiroStack",
     description: "CiroStack builds backend services, player analytics dashboards, and community management platforms for gaming companies focused on growth and player retention.",
     images: [{ url: "https://cirostack.com/og/industry-pages/gaming.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

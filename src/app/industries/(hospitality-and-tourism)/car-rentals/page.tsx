@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/car-rentals` },
   openGraph: {
     url: `https://cirostack.com/industries/car-rentals`,
-    title: "Custom Software for Car Rentals — CiroStack",
+    title: "Custom Software for Car Rentals | CiroStack",
     description: "We build online reservation systems, fleet tracking dashboards, and damage documentation apps that help car rental companies turn vehicles around faster and reduce disputes at drop-off.",
     images: [{ url: "https://cirostack.com/og/industry-pages/car-rentals.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

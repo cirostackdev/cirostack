@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/it-services` },
   openGraph: {
     url: `https://cirostack.com/industries/it-services`,
-    title: "Custom Software for IT Services — CiroStack",
-    description: "We build ticketing systems, SLA tracking dashboards, and client portals for IT services companies — built by senior engineers who understand the operational reality.",
+    title: "Custom Software for IT Services | CiroStack",
+    description: "We build ticketing systems, SLA tracking dashboards, and client portals for IT services companies, built by senior engineers who understand the operational reality.",
     images: [{ url: "https://cirostack.com/og/industry-pages/it-services.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

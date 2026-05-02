@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/car-washes` },
   openGraph: {
     url: `https://cirostack.com/industries/car-washes`,
-    title: "Custom Software for Car Washes — CiroStack",
-    description: "Membership management, queue tracking, and mobile payment apps — we build software that helps car washes reduce wait times and grow recurring revenue, delivered at a fixed price.",
+    title: "Custom Software for Car Washes | CiroStack",
+    description: "Membership management, queue tracking, and mobile payment apps, we build software that helps car washes reduce wait times and grow recurring revenue, delivered at a fixed price.",
     images: [{ url: "https://cirostack.com/og/industry-pages/car-washes.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
   twitter: {

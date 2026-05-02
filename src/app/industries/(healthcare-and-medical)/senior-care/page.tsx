@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/senior-care` },
   openGraph: {
     url: `https://cirostack.com/industries/senior-care`,
-    title: "Custom Software for Senior Care — CiroStack",
+    title: "Custom Software for Senior Care | CiroStack",
     description: "Our senior engineers build resident care dashboards, family communication portals, and medication tracking systems that help senior care facilities provide attentive, accountable care every day.",
     images: [{ url: "https://cirostack.com/og/industry-pages/senior-care.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

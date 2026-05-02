@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/film-and-video-production` },
   openGraph: {
     url: `https://cirostack.com/industries/film-and-video-production`,
-    title: "Custom Software for Film & Video Production — CiroStack",
+    title: "Custom Software for Film & Video Production | CiroStack",
     description: "We create call sheet generators, asset management systems, and project tracking dashboards for production studios that need to keep shoots organized and on budget.",
     images: [{ url: "https://cirostack.com/og/industry-pages/film-and-video-production.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },

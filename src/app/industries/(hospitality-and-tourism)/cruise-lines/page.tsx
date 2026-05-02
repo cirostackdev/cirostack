@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/industries/cruise-lines` },
   openGraph: {
     url: `https://cirostack.com/industries/cruise-lines`,
-    title: "Custom Software for Cruise Lines — CiroStack",
+    title: "Custom Software for Cruise Lines | CiroStack",
     description: "Our senior engineers build onboard experience apps, itinerary planners, and crew management dashboards that help cruise lines keep guests happy and operations coordinated across every voyage.",
     images: [{ url: "https://cirostack.com/og/industry-pages/cruise-lines.jpg", width: 1200, height: 630, alt: industry?.title ?? "CiroStack" }],
   },
