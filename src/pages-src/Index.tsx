@@ -290,13 +290,18 @@ const Index = () => {
         </div>
 
         {/* Scrolling marquee */}
-        <div className="mt-10 lg:mt-0 border-y border-border/60 bg-card/40 backdrop-blur-sm py-4 overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap [--marquee-duration:7s] md:[--marquee-duration:20s]">
+        <div className="mt-10 lg:mt-0 border-y border-border/60 bg-card/40 backdrop-blur-sm py-4 overflow-hidden relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-20 z-10 bg-gradient-to-r from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-20 z-10 bg-gradient-to-l from-background to-transparent" />
+          <div
+            className="flex w-max animate-marquee"
+            style={{ "--marquee-duration": "40s" } as React.CSSProperties}
+          >
             {[...marqueeWords, ...marqueeWords].map((w, i) => (
               <Link
                 key={i}
                 href={w.href}
-                className="inline-flex items-center mx-8 text-2xl md:text-3xl font-display font-semibold text-muted-foreground/70 hover:text-foreground transition-colors"
+                className="inline-flex items-center mx-8 text-2xl md:text-3xl font-display font-semibold text-muted-foreground/70 hover:text-foreground transition-colors shrink-0"
               >
                 {w.label}
                 <span className="ml-8 text-primary text-3xl">·</span>
