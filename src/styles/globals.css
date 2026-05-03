@@ -225,3 +225,19 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Two-track variant: each track moves its own full width.
+   Use two sibling elements — second gets animation-delay of -(duration/2)
+   so one track is always in view with no width-calculation dependency. */
+@keyframes marquee-track {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee-track {
+  animation: marquee-track var(--marquee-duration, 40s) linear infinite;
+}
