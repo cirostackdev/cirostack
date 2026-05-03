@@ -148,10 +148,10 @@ const Footer = () => {
               Terms of Service
             </Link>
             <a
-              href="mailto:contact@cirostack.com"
+              href="mailto:cirostack@gmail.com"
               className="text-xs text-primary hover:underline"
             >
-              contact@cirostack.com
+              cirostack@gmail.com
             </a>
           </div>
         </div>

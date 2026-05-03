@@ -32,7 +32,7 @@ const Privacy = () => (
           <h2 className="text-xl font-display font-semibold text-foreground">3. Data Security</h2>
           <p>We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, or destruction.</p>
           <h2 className="text-xl font-display font-semibold text-foreground">4. Contact</h2>
-          <p>For questions about this policy, please contact us at <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">contact@cirostack.com</a>.</p>
+          <p>For questions about this policy, please contact us at <a href="mailto:cirostack@gmail.com" className="text-primary hover:underline">cirostack@gmail.com</a>.</p>
         </div>
       </div>
     </section>

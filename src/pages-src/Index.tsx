@@ -571,8 +571,8 @@ const Index = () => {
             </div>
             <p className="text-sm text-muted-foreground mt-5">
               or email us at{" "}
-              <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">
-                contact@cirostack.com
+              <a href="mailto:cirostack@gmail.com" className="text-primary hover:underline">
+                cirostack@gmail.com
               </a>
             </p>
           </motion.div>
