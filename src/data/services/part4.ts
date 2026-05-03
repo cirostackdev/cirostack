@@ -6,7 +6,7 @@ export const servicesPart4: Record<string, ServiceEntry> = {
         id: "security-audit",
         icon: Shield,
         title: "Security Audit & Governance",
-        tagline: "Protect your systems, data, and reputation.",
+        tagline: "We simulate real attacks on your systems, find the vulnerabilities, and show your team exactly how to fix them.",
         introSummary: "aggressive penetration testing and exhaustive governance frameworks designed to expose and eradicate vulnerabilities before malicious actors exploit them.",
         description: "A single data breach can irreversibly destroy your company's reputation and incur massive regulatory fines. Our Security Audit and Governance service is a proactive, aggressive defense strategy. Certified white-hat hackers perform simulated cyberattacks against your web applications, mobile apps, and cloud infrastructure to identify gaping security holes. Beyond technical penetration testing, we establish the robust internal policies, access controls, and compliance frameworks required to pass grueling SOC 2, HIPAA, and ISO 27001 certifications.",
         details: [
@@ -65,7 +65,7 @@ export const servicesPart4: Record<string, ServiceEntry> = {
         id: "nearshore",
         icon: MapPin,
         title: "US Nearshore Software Development",
-        tagline: "Talent close to home. Savings you'll love.",
+        tagline: "Senior developers in your timezone who speak your language, at a fraction of local hiring costs.",
         introSummary: "elite, culturally aligned software engineering teams localized in Latin America, bridging the critical gap between massive cost savings and flawless real-time collaboration.",
         description: "Offshore outsourcing to distant time zones frequently results in catastrophic communication breakdowns, misaligned code, and agonizing 24-hour feedback loops. Our Nearshore Development service solves this by deploying elite, senior software engineering teams from Latin America (LATAM). These engineers operate in strict alignment with US EST/PST time zones, boast impeccable English fluency, and share deep cultural affinity with US business practices. You secure the immense technical firepower of top-tier React, Python, and AWS architects at a fraction of the Silicon Valley cost, without sacrificing a single ounce of velocity.",
         details: [
@@ -124,7 +124,7 @@ export const servicesPart4: Record<string, ServiceEntry> = {
         id: "outsourcing",
         icon: Users,
         title: "Software Development Outsourcing",
-        tagline: "Entire product teams, expertly managed.",
+        tagline: "We take full ownership of building your product, from architecture through launch, so you focus on your business.",
         introSummary: "end-to-end, fully managed engineering lifecycles where we take absolute ownership of architecting, building, and deploying your entire software product.",
         description: "Sometimes you don't just need extra hands; you need an entirely functional brain. Our Software Development Outsourcing service is designed for organizations that want to aggressively build digital products without the colossal operational distraction of managing an internal engineering department. We act as your highly technical, autonomous product laboratory. You provide the business objective and the vision; we provide the Project Managers, UX Designers, Senior Architects, and QA Engineers required to bring it flawlessly into reality, on time and on budget.",
         details: [
@@ -183,7 +183,7 @@ export const servicesPart4: Record<string, ServiceEntry> = {
         id: "startups",
         icon: Rocket,
         title: "Software Development for Startups",
-        tagline: "From zero to launch, at startup speed.",
+        tagline: "We help founders go from idea to launched product fast, with architecture that won't break when you scale.",
         introSummary: "lean, hyper-velocity product engineering specifically calibrated to help founders achieve product-market fit and secure critical venture funding.",
         description: "Startups operate in a brutal reality: ship fast, secure traction, or die. The luxury of bloated enterprise planning does not exist here. We specialize in Startup Engineering. We partner with founders to ruthlessly scope Minimum Viable Products (MVPs), cutting aesthetic noise to focus strictly on the core value hypotheses. Using highly efficient frameworks like Next.js and serverless cloud architectures, we dramatically accelerate the path to launch. We build fast, but we never build fragile; your MVP will have the structural integrity to scale the second you secure that massive Series A.",
         details: [

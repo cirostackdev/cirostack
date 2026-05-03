@@ -39,7 +39,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "retail-and-e-commerce",
         icon: ShoppingCart,
         title: "Retail & E-Commerce",
-        tagline: "Drive sales and build loyalty with next-generation retail experiences.",
+        tagline: "We build custom commerce software for online stores, physical retailers, and every channel in between.",
         introSummary: "We help retail and e-commerce brands create seamless omnichannel experiences, optimize supply chains, and leverage customer data for hyper-personalized shopping journeys.",
         description: "The modern consumer expects a frictionless shopping experience across all touchpoints. CiroStack builds high-performance e-commerce platforms, smart inventory systems, and immersive digital storefronts that turn browsers into lifelong brand advocates.",
         challenges: [
@@ -70,7 +70,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "healthcare-and-medical",
         icon: HeartPulse,
         title: "Healthcare & Medical",
-        tagline: "Secure, compliant technology for better patient outcomes.",
+        tagline: "We build HIPAA compliant platforms for hospitals, clinics, telehealth, and every corner of patient care.",
         introSummary: "We build HIPAA-compliant telemedicine platforms, EMR integrations, and patient portals that streamline care delivery, reduce administrative burden, and prioritize data security.",
         description: "The healthcare sector requires technology that balances patient accessibility with unbreakable data security. CiroStack develops robust medical software solutions—from remote monitoring applications to complex billing systems—designed to empower providers and improve patient care.",
         challenges: [
@@ -101,7 +101,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "financial-services",
         icon: Landmark,
         title: "Financial Services",
-        tagline: "Secure, agile technology for the future of finance.",
+        tagline: "We build secure platforms for banks, insurers, fintechs, and investment firms that move money with confidence.",
         introSummary: "From digital banking to complex trading platforms, we deliver high-performance, compliant fintech solutions that meet the rigorous demands of the financial sector.",
         description: "The financial industry operates on trust, speed, and absolute accuracy. CiroStack partners with banks, credit unions, and fintech startups to modernize legacy systems, implement robust cybersecurity measures, and launch innovative financial products quickly.",
         challenges: [
@@ -132,7 +132,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "real-estate-and-property",
         icon: Building2,
         title: "Real Estate & Property",
-        tagline: "PropTech solutions that transform how properties are bought, sold, and managed.",
+        tagline: "We build PropTech platforms for agents, property managers, investors, and developers across every property type.",
         introSummary: "We build intuitive platforms for property search, complex portfolio management tools, and seamless CRM integrations that empower real estate professionals.",
         description: "The real estate market is shifting rapidly towards digital-first experiences. CiroStack creates PropTech software that streamlines the entire property lifecycle—from initial search and virtual tours to lease management and ongoing facility operations.",
         challenges: [
@@ -163,7 +163,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "education-and-e-learning",
         icon: GraduationCap,
         title: "Education & E-Learning",
-        tagline: "Engaging EdTech platforms that make learning accessible and effective.",
+        tagline: "We build learning platforms for schools, course creators, corporate trainers, and anyone teaching at scale.",
         introSummary: "We develop scalable learning management systems, interactive classrooms, and educational corporate training portals that drive knowledge retention.",
         description: "Education is no longer confined to the classroom. CiroStack builds intuitive, accessible, and highly interactive EdTech solutions. Whether for primary education, university systems, or corporate upskilling, we craft platforms that foster deep engagement.",
         challenges: [
@@ -194,7 +194,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "hospitality-and-tourism",
         icon: Palmtree,
         title: "Hospitality & Tourism",
-        tagline: "Digital experiences as memorable as the destinations themselves.",
+        tagline: "We build booking engines, guest experience apps, and operations platforms for hotels, restaurants, and travel businesses.",
         introSummary: "We create seamless booking engines, personalized travel apps, and dynamic management systems that elevate the guest experience from planning to departure.",
         description: "In the hospitality industry, the digital experience is the first impression. CiroStack helps hotels, agencies, and tour operators build frictionless booking flows, personalized loyalty programs, and operation tools that ensure a perfect stay.",
         challenges: [
@@ -225,7 +225,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "manufacturing-and-industrial",
         icon: Factory,
         title: "Manufacturing & Industrial",
-        tagline: "Industry 4.0 solutions that drive efficiency and predictive performance.",
+        tagline: "We build factory floor systems, supply chain tools, and quality platforms for manufacturers who need real time visibility.",
         introSummary: "We connect factory floors, optimize supply chains, and implement predictive analytics to transform traditional manufacturing into smart, data-driven operations.",
         description: "The future of manufacturing is connected. CiroStack partners with industrial clients to implement IIoT (Industrial Internet of Things), digitize legacy processes, and harness machine data to minimize downtime and maximize yield.",
         challenges: [
@@ -256,7 +256,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "professional-services",
         icon: Briefcase,
         title: "Professional Services",
-        tagline: "Streamlined operational software for consultancies, agencies, and firms.",
+        tagline: "We build practice management, client delivery, and operations platforms for law firms, agencies, and consultancies.",
         introSummary: "We build bespoke tools for project management, resource allocation, and client communication that help professional service firms scale efficiently.",
         description: "For agencies, law firms, and consultancies, time is the ultimate currency. CiroStack develops tailored operational platforms that eliminate administrative overhead, optimize resource utilization, and provide transparent client reporting.",
         challenges: [
@@ -287,7 +287,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "media-and-entertainment",
         icon: Film,
         title: "Media & Entertainment",
-        tagline: "Scalable content platforms that captivate global audiences.",
+        tagline: "We build content platforms, distribution tools, and audience systems for creators, studios, and publishers.",
         introSummary: "We engineer high-performance streaming architectures, dynamic publishing platforms, and personalized content engines that handle massive traffic with ease.",
         description: "In media, content is king, but delivery is the kingdom. CiroStack builds scalable, globally distributed platforms for broadcasters, publishers, and creators to deliver rich media experiences to millions of concurrent users flawlessly.",
         challenges: [
@@ -318,7 +318,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "non-profit-and-social-enterprise",
         icon: HeartHandshake,
         title: "Non-Profit & Social Enterprise",
-        tagline: "Purpose-driven technology that amplifies your impact.",
+        tagline: "We build donor management, program tracking, and impact reporting platforms for organizations doing meaningful work.",
         introSummary: "We provide cost-effective, high-impact digital solutions for NGOs and charities—from donor management systems to digital advocacy platforms.",
         description: "Non-profits need to maximize the impact of every dollar. CiroStack partners with social enterprises to build scalable digital infrastructure that streamlines fundraising, mobilizes volunteers, and transparently reports on impact.",
         challenges: [
@@ -349,7 +349,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "technology-and-startups",
         icon: Laptop,
         title: "Technology & Startups",
-        tagline: "Agile engineering velocity to take you from seed to scale.",
+        tagline: "We build the product infrastructure, billing systems, and scalable architectures that tech companies need to grow fast.",
         introSummary: "We act as an elite extension of your engineering team, helping startups and tech firms build MVPs faster and scale architectures securely.",
         description: "Startups live or die by their execution speed. CiroStack provides the elite engineering muscle needed to hit aggressive product milestones. Whether you need a rapid MVP to secure funding or a massive architectural rewrite for scale, we deliver.",
         challenges: [
@@ -380,7 +380,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "agriculture-and-farming",
         icon: Sprout,
         title: "Agriculture & Farming",
-        tagline: "AgriTech solutions for sustainable, data-driven farming.",
+        tagline: "We build farm management, supply chain, and precision agriculture platforms that help farming operations produce smarter.",
         introSummary: "We leverage IoT, drone data, and machine learning to help agribusinesses increase yields, monitor crop health, and optimize resource usage.",
         description: "Modern agriculture relies on data as much as it does on weather. CiroStack builds sophisticated AgriTech platforms that aggregate field sensor data, automate irrigation, and manage the complex logistics from farm to table.",
         challenges: [
@@ -411,7 +411,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "construction-and-engineering",
         icon: HardHat,
         title: "Construction & Engineering",
-        tagline: "Digital tools to manage complex projects on time and on budget.",
+        tagline: "We build project management, field reporting, and budget tracking platforms that keep construction projects on time and budget.",
         introSummary: "We build construction management software, safety compliance tools, and BIM integrations that bring clarity to the job site.",
         description: "Construction projects are notoriously complex, with thin margins and fragmented communication. CiroStack develops software that bridges the gap between the office and the job site, ensuring projects stay organized, safe, and profitable.",
         challenges: [
@@ -442,7 +442,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "transportation-and-logistics",
         icon: Truck,
         title: "Transportation & Logistics",
-        tagline: "Intelligent routing and supply chain visibility for the connected world.",
+        tagline: "We build fleet management, route optimization, and shipment tracking platforms for companies that move things for a living.",
         introSummary: "We develop sophisticated fleet management systems, dynamic routing algorithms, and freight brokerage platforms that keep supply chains moving.",
         description: "Logistics requires orchestrating chaos. CiroStack builds technology that brings order to transportation networks, utilizing real-time GPS data, AI routing, and seamless driver communication to optimize every mile.",
         challenges: [
@@ -473,7 +473,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "government-and-public-sector",
         icon: GovtIcon,
         title: "Government & Public Sector",
-        tagline: "Accessible, secure digital services for citizens and agencies.",
+        tagline: "We build secure citizen portals, agency workflows, and public service platforms that modernize how government serves people.",
         introSummary: "We partner with local, state, and federal agencies to modernize legacy systems and deliver user-centric digital public services.",
         description: "Citizens expect the same digital convenience from their government as they do from commercial apps. CiroStack helps public sector agencies securely modernize their infrastructure to provide transparent, accessible, and highly reliable services.",
         challenges: [
@@ -504,7 +504,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "sports-and-recreation",
         icon: Trophy,
         title: "Sports & Recreation",
-        tagline: "High-performance fan engagement and facility management platforms.",
+        tagline: "We build member management, fan engagement, and facility platforms for sports teams, gyms, leagues, and recreation businesses.",
         introSummary: "From live sports betting engines to country club management software, we build platforms that elevate the game.",
         description: "The sports and recreation industry demands robust, real-time performance. CiroStack creates low-latency applications for live viewing, sophisticated tools for facility and league management, and engaging mobile apps for fans.",
         challenges: [
@@ -535,7 +535,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "beauty-and-personal-care",
         icon: Sparkles,
         title: "Beauty & Personal Care",
-        tagline: "Digital elegance for the beauty industry.",
+        tagline: "We build booking, client management, and loyalty platforms for salons, spas, clinics, and beauty brands.",
         introSummary: "We build seamless booking platforms, AR try-on experiences, and tailored e-commerce solutions for salons, spas, and cosmetics brands.",
         description: "In the beauty sector, aesthetics and convenience are paramount. CiroStack develops sleek digital experiences that reflect your brand, alongside robust operational software that keeps your calendars full and retail products moving.",
         challenges: [
@@ -566,7 +566,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "automotive",
         icon: Car,
         title: "Automotive",
-        tagline: "Accelerating digital sales and service for the auto industry.",
+        tagline: "We build dealer management, fleet tracking, and service platforms for dealerships, repair shops, and automotive businesses.",
         introSummary: "We engineer robust dealership platforms, modern service booking tools, and complex inventory management systems for the automotive sector.",
         description: "The car buying and servicing journey is moving online. CiroStack partners with dealerships, repair chains, and aftermarket retailers to create transparent, digital-first experiences that build trust and drive revenue.",
         challenges: [
@@ -597,7 +597,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "legal-services",
         icon: Scale,
         title: "Legal Services",
-        tagline: "Highly secure, efficient software for modern law firms.",
+        tagline: "We build case management, document automation, and client portal platforms for law firms of every size and specialty.",
         introSummary: "We build encrypted client portals, automated document generation, and customized case management systems that empower legal professionals.",
         description: "Law firms handle highly sensitive data and command premium billable hours. CiroStack develops tailored technology that automates routine administrative tasks and provides Fort Knox-level security for client communications.",
         challenges: [
@@ -628,7 +628,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         id: "small-business",
         icon: Store,
         title: "Small Business Solutions",
-        tagline: "Enterprise-grade technology scaled for local business growth.",
+        tagline: "We build the software small businesses actually need: scheduling, payments, client management, and tools that just work.",
         introSummary: "We help local businesses automate their operations, build a robust online presence, and compete with larger corporations through smart tech.",
         description: "Every business deserves great software. CiroStack takes the architectural patterns we use for enterprise clients and distills them into powerful, affordable, and easy-to-use platforms customized for local and small businesses.",
         challenges: [

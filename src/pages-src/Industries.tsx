@@ -111,7 +111,7 @@ const Industries = () => {
       <PageHero
         icon={Factory}
         title="Software built for your industry."
-        description="We don't just write code — we learn your regulations, your users, your market dynamics. Then we build software that fits."
+        description="We learn your regulations, your users, and your market. Then we build software that fits your industry exactly."
         image={imgHero}
         ctaText="Start Your Project"
         ctaLink="/contact"

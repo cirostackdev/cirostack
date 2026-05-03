@@ -6,7 +6,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         id: "data-engineering",
         icon: Database,
         title: "Data Engineering & Data Science",
-        tagline: "Turn raw data into your competitive advantage.",
+        tagline: "We build the pipelines that move your data from scattered sources into one clean, queryable place.",
         introSummary: "high-throughput data architectures and robust ETL pipelines designed to transform chaotic corporate data into crystal-clear predictive analytics.",
         description: "In the modern economy, data is your most valuable asset, but only if it's accessible, clean, and structured. Our data engineers build the sophisticated plumbing required to ingest millions of data points from disparate silos, cleanse them in real-time, and store them securely in highly optimized Data Warehouses. We then layer powerful Business Intelligence (BI) dashboards on top, giving your leadership team the immediate, mathematically sound visualizations needed to make crucial strategic decisions.",
         details: [
@@ -65,7 +65,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         id: "iam",
         icon: Lock,
         title: "Identity & Access Management",
-        tagline: "Secure, seamless identity for every user.",
+        tagline: "We build authentication and access systems that keep the wrong people out without slowing the right people down.",
         introSummary: "impenetrable yet frictionless authentication gateways designed to absolutely secure your infrastructure while delighting your users.",
         description: "In an era of relentless cyber threats and remote workforces, the traditional network perimeter is dead; Identity is the new perimeter. Our Identity & Access Management (IAM) architectures ensure that the exact right individuals have the exact right access to the exact right resources, at the exact right time. We specialize in untangling complex legacy permissions, implementing Zero-Trust architectures, and deploying seamless Single Sign-On (SSO) and Multi-Factor Authentication (MFA) across your entire enterprise ecosystem.",
         details: [
@@ -124,7 +124,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         id: "automation-testing",
         icon: TestTube,
         title: "Automation Testing Services",
-        tagline: "Ship with confidence. Always.",
+        tagline: "We build automated test pipelines that catch bugs before your users do, so you ship with confidence every time.",
         introSummary: "relentless, automated Quality Assurance pipelines designed to eradicate regression bugs and mathematically guarantee code stability.",
         description: "Manual testing cannot scale with modern Agile development. If your engineers are terrified to deploy on a Friday, your testing infrastructure is broken. We architect comprehensive, automated test suites that execute thousands of complex user scenarios in seconds. By deeply integrating Playwright or Cypress into your CI/CD pipelines, we ensure that every single code commit is aggressively validated for visual regressions, API failures, and performance bottlenecks long before it ever reaches a paying customer.",
         details: [
@@ -183,7 +183,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         id: "devops",
         icon: GitBranch,
         title: "DevOps Consulting Services",
-        tagline: "Ship faster, fail safer, scale smarter.",
+        tagline: "We set up the pipelines, monitoring, and infrastructure so your team ships faster and sleeps better at night.",
         introSummary: "streamlined, frictionless deployment pipelines and hyper-observant infrastructure cultures that violently accelerate your engineering velocity.",
         description: "DevOps is not a specific tool; it is a fundamental cultural shift bridging the gap between writing code and running it reliably. If your deployments require manual server interventions, midnight maintenance windows, or cause severe developer anxiety, you need DevOps modernization. We implement rigorous Continuous Integration and Continuous Deployment (CI/CD) pipelines, orchestrate complex containerized environments, and establish profound observability so you can ship features multiple times a day with absolute, mathematical confidence.",
         details: [
@@ -242,7 +242,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         id: "software-auditing",
         icon: BarChart,
         title: "Software Auditing Services",
-        tagline: "Know what you own — and what's at risk.",
+        tagline: "We audit your codebase line by line to find the hidden debt, security holes, and performance bottlenecks slowing you down.",
         introSummary: "ruthless, exhaustive technical analysis of your legacy codebases to mathematically expose hidden technical debt, security vulnerabilities, and scaling bottlenecks.",
         description: "Whether you are preparing for an acquisition, acquiring a new startup yourself, or simply tired of your application crashing, you need absolute clarity on the underlying health of the code. We perform forensic Software Audits. Our senior architects utilize advanced static analysis tools paired with decades of intuitive engineering experience to tear apart your architecture. We uncover the toxic technical debt that slows your velocity, identify glaring security holes, and provide a brutally honest, prioritized roadmap to modernize the platform.",
         details: [

@@ -6,7 +6,7 @@ export const servicesPart2: Record<string, ServiceEntry> = {
         id: "cloud-engineering",
         icon: Cloud,
         title: "Cloud Engineering Service",
-        tagline: "Robust, scalable cloud infrastructure built to last.",
+        tagline: "We code your cloud infrastructure so it deploys itself, heals itself, and scales automatically under any load.",
         introSummary: "resilient, automated cloud infrastructure coded specifically to orchestrate massive scale with zero downtime.",
         description: "Cloud Engineering takes the theoretical strategies of cloud consulting and turns them into hardened, living code. We specialize in building sophisticated cloud-native environments utilizing Infrastructure as Code (IaC) principles. By fully automating the provisioning of servers, networks, and databases, we eliminate human error, drastically accelerate deployment methodologies, and create self-healing systems. From Kubernetes cluster orchestration to complex serverless architectures, our engineers build the invisible backbone that allows your software to dominate the market.",
         details: [
@@ -65,7 +65,7 @@ export const servicesPart2: Record<string, ServiceEntry> = {
         id: "embedded-software",
         icon: Code2,
         title: "Embedded Software Services",
-        tagline: "Reliable firmware for connected devices.",
+        tagline: "We write the firmware that makes your hardware smart, reliable, and ready to talk to the cloud.",
         introSummary: "hyper-optimized, mission-critical firmware bridging the gap between sophisticated hardware peripherals and cloud intelligence.",
         description: "In the realm of embedded systems and IoT, failure is not an option. A memory leak or a crashed thread can brick thousands of remote devices. We specialize in engineering ultra-reliable, real-time embedded software for connected hardware. From writing lower-level hardware abstraction layers and custom bootloaders to developing complex Real-Time Operating System (RTOS) applications, our C/C++ experts ensure your hardware performs responsively and securely on absolute minimum power constraints.",
         details: [
@@ -124,7 +124,7 @@ export const servicesPart2: Record<string, ServiceEntry> = {
         id: "dedicated-teams",
         icon: Users,
         title: "Dedicated Development Teams",
-        tagline: "Your engineering department, on demand.",
+        tagline: "Senior engineers who join your team, learn your codebase, and ship production code from week one.",
         introSummary: "elite, self-managed software engineering teams integrated seamlessly into your existing corporate culture and workflows.",
         description: "Finding, vetting, and retaining top-tier software engineering talent is the single biggest bottleneck for growing tech companies. Our Dedicated Teams service solves this instantly. We provide cohesive, pre-vetted squads of senior engineers, product managers, and QA specialists who work exclusively on your product. Unlike standard freelancers, these are highly communicative, culturally aligned professionals who integrate deeply into your Agile ceremonies, adopt your coding standards, and take long-term ownership of the product's success.",
         details: [
@@ -183,7 +183,7 @@ export const servicesPart2: Record<string, ServiceEntry> = {
         id: "digital-transformation",
         icon: Rocket,
         title: "Digital Transformation Solutions",
-        tagline: "Modernize your business for the digital era.",
+        tagline: "We replace legacy systems and manual processes with modern software that your team actually wants to use.",
         introSummary: "comprehensive, phased modernization strategies designed to eradicate legacy technical debt and digitize archaic business workflows.",
         description: "Many established organizations are paralyzed by outdated, on-premises legacy software that stifles innovation and frustrates employees. Our Digital Transformation service is a holistic overhaul of your operational technology. We act as your strategic technical partner to systematically dissect your current workflows, identify devastating bottlenecks, and architect a phased migration toward modular, cloud-native solutions. We don't just write code; we shift your company culture to become agile, data-driven, and relentlessly digital-first.",
         details: [
@@ -242,7 +242,7 @@ export const servicesPart2: Record<string, ServiceEntry> = {
         id: "ai-ml",
         icon: Bot,
         title: "AI & ML Development Services",
-        tagline: "From proof-of-concept to production ML systems.",
+        tagline: "We build and deploy machine learning models that turn your messy data into predictions you can act on.",
         introSummary: "bespoke machine learning algorithms and predictive models engineered to extract actionable intelligence from your chaotic data streams.",
         description: "Deep analytics is no longer enough; businesses must be proactively predictive. Our Machine Learning engineering team helps organizations transition from tracking what happened, to accurately forecasting what happens next. From sophisticated anomaly detection algorithms catching credit card fraud to complex recommendation engines driving e-commerce revenue, we build robust ML pipelines. We handle the brutal data-wrangling, the intricate model training, and the complex MLOps infrastructure required to keep algorithms highly performant in production.",
         details: [

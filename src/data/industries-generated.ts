@@ -69,7 +69,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Convert browsers into buyers with blazing-fast storefronts, intelligent product discovery, and frictionless checkout experiences.",
         introSummary: "We build custom e-commerce platforms that outperform Shopify and BigCommerce — headless storefronts, real-time inventory sync, and AI-powered personalization engines that lift average order value by double digits.",
-        description: "CiroStack engineers headless commerce platforms that separate your storefront from your backend, delivering pixel perfect creative control, real time inventory accuracy across every sales channel, and the elimination of costly platform transaction fees eroding your margins.",
+        description: "We build custom storefronts that load fast, sync inventory in real time, and eliminate the platform fees eating your margins.",
         challenges: [
             "Page load times above 3 seconds causing cart abandonment rates to spike past 70% on mobile devices.",
             "Inventory discrepancies between online storefront, warehouse management, and marketplace channels like Amazon and Walmart.",
@@ -230,7 +230,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Bridge the physical-digital gap with smart POS systems, real-time inventory, and in-store analytics that turn foot traffic into measurable revenue.",
         introSummary: "We engineer custom retail technology — from unified POS platforms and clienteling apps to IoT-powered foot traffic analytics — that gives physical retailers the same data-driven advantages their online competitors take for granted.",
-        description: "Physical retail is being outpaced by data. CiroStack builds the technology layer that closes this gap with unified POS systems, mobile clienteling apps, and sensor based analytics that map foot traffic patterns and conversion funnels through your space.",
+        description: "We build unified POS systems, clienteling apps, and foot traffic analytics that give physical retailers the data edge they need.",
         challenges: [
             "No visibility into in-store customer behavior — foot traffic, dwell time, and conversion rates are unmeasured blind spots.",
             "POS systems that don't communicate with e-commerce inventory, creating stock discrepancies and lost BOPIS (buy online, pick up in-store) orders.",
@@ -391,7 +391,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Reduce returns, increase confidence, and build brand loyalty with technology purpose-built for fashion commerce.",
         introSummary: "We engineer fashion-specific technology — AI-powered size recommendation, virtual try-on, dynamic lookbook platforms, and returns analytics — that solves the industry's most expensive problem: a 30%+ return rate driven by fit uncertainty.",
-        description: "One in three online apparel purchases gets returned because customers cannot assess fit through a screen. CiroStack builds AI size recommendation engines, AR virtual try on tools, and smart product pages that eliminate the guesswork causing returns.",
+        description: "We build AI size recommendation and virtual try on tools that give shoppers confidence and cut your return rates dramatically.",
         challenges: [
             "Return rates exceeding 30% on online apparel orders, driven primarily by size and fit uncertainty that destroys margins.",
             "Static product photography that fails to convey fabric texture, drape, and how garments look on diverse body types.",
@@ -552,7 +552,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Optimize perishable inventory, delivery logistics, and customer retention with technology built for the unique demands of grocery commerce.",
         introSummary: "We build custom platforms for grocery and food delivery operations — real-time perishable inventory management, route-optimized delivery dispatch, substitution logic, and demand forecasting that reduces spoilage while keeping shelves stocked.",
-        description: "Grocery commerce operates on thin margins with perishable inventory, complex substitution logic, and delivery windows measured in hours. CiroStack builds custom platforms handling real time stock management, route optimized dispatch, and intelligent substitution engines for every order.",
+        description: "We build platforms for perishable inventory, smart substitutions, and route optimized delivery that grocery commerce actually demands.",
         challenges: [
             "Perishable inventory with shelf lives measured in days, not months — requiring real-time stock accuracy to avoid selling items that have already expired.",
             "Complex substitution logic where customers need to pre-approve alternatives and pickers need real-time guidance on acceptable replacements.",
@@ -713,7 +713,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Help customers navigate complex specs, compare options confidently, and make informed purchases with technology that simplifies electronics commerce.",
         introSummary: "We build product comparison engines, spec-driven search filters, compatibility checkers, and warranty management systems specifically designed for the complexity of selling electronics — where customers need confidence, not just a checkout button.",
-        description: "Selling electronics online demands more than a product catalog. Customers compare specs across brands and worry about compatibility. CiroStack builds product comparison engines, spec driven search filters, and compatibility verification tools that drive confident purchase decisions.",
+        description: "We build spec comparison engines, compatibility checkers, and guided search tools that help customers choose the right product confidently.",
         challenges: [
             "Product catalogs with hundreds of technical specifications per item that overwhelm customers and make comparison shopping painful.",
             "Compatibility anxiety — customers don't know if a GPU fits their case, a charger works with their laptop, or a smart home device integrates with their ecosystem.",
@@ -874,7 +874,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Let customers visualize products in their space before purchasing — reducing returns and increasing basket size through AR room planning and custom configuration.",
         introSummary: "We build AR visualization tools, room planning applications, custom product configurators, and delivery scheduling systems designed for the unique challenges of selling large-format, high-consideration home products online.",
-        description: "Furniture is the hardest ecommerce category because products are too large to imagine and too expensive to gamble on. CiroStack builds AR room visualization tools, product configurators, and delivery scheduling systems that reduce returns and increase buyer confidence.",
+        description: "We build AR room visualization, product configurators, and delivery scheduling tools that make buying large items online feel risk free.",
         challenges: [
             "High return rates on furniture (15-25%) driven by 'looked different than expected' and 'doesn't fit the space' — with each return costing $100-$500 in reverse logistics.",
             "Configuration complexity — a single sofa might offer 30 fabric options, 4 wood finishes, 3 sizes, and optional add-ons, creating hundreds of variations that need visual representation.",
@@ -1035,7 +1035,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Match customers to their perfect shade, build subscription loyalty, and leverage ingredient transparency as a competitive advantage.",
         introSummary: "We build virtual shade-matching tools, ingredient analysis platforms, subscription management systems, and customer skin profile engines that solve beauty e-commerce's core challenge: you can't try it on through a screen.",
-        description: "Beauty ecommerce faces a fundamental trust gap since customers cannot swatch shades or test products through a screen. CiroStack builds virtual shade matching tools, ingredient analysis platforms, and skin profile engines that personalize every shopping experience.",
+        description: "We build virtual shade matching, skin profile engines, and ingredient analysis tools that let beauty shoppers buy with confidence.",
         challenges: [
             "Shade matching anxiety causing 20-30% return rates on color cosmetics — customers order 3 shades and return 2, destroying margins.",
             "Ingredient-conscious consumers demanding transparency but product pages burying ingredient lists in tiny text with no explanation of what each ingredient does.",
@@ -1196,7 +1196,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Compete on discovery, curation, and community — not just price — with technology that transforms browsing into belonging.",
         introSummary: "We build recommendation engines, community reading platforms, event management systems, and curated discovery experiences that give independent and specialty bookstores a competitive edge Amazon can't replicate — human curation amplified by technology.",
-        description: "Bookstores cannot compete with major retailers on price or selection, but they can win on discovery and community. CiroStack builds recommendation engines, community reading platforms, event management systems, and curated discovery experiences that transform browsing into loyalty.",
+        description: "We build recommendation engines, reading community platforms, and event tools that help bookstores compete on discovery, not just price.",
         challenges: [
             "Competing with Amazon's infinite selection, next-day delivery, and algorithmic recommendations on a fraction of the technology budget.",
             "Online storefronts that look like generic product catalogs, failing to convey the curated, browsing-friendly experience that makes physical bookstores special.",
@@ -1357,7 +1357,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Modernize prescription workflows, ensure regulatory compliance, and build patient loyalty with pharmacy-specific technology that reduces errors and increases fill rates.",
         introSummary: "We build HIPAA-compliant pharmacy platforms — prescription management systems, medication adherence tools, drug interaction checkers, and patient communication portals — that streamline pharmacy operations while maintaining the strict regulatory compliance the industry demands.",
-        description: "Pharmacy technology is stuck between outdated legacy systems and consumer apps that prioritize plan profitability over patient care. CiroStack builds modern prescription management platforms, medication adherence tools, and HIPAA compliant patient communication systems that actually serve pharmacists.",
+        description: "We build modern prescription management, adherence tracking, and patient communication systems that replace outdated pharmacy technology.",
         challenges: [
             "Legacy pharmacy management systems with outdated interfaces that slow dispensing workflows and contribute to pharmacist burnout and dispensing errors.",
             "HIPAA compliance requirements that make every technology decision — from text messaging to cloud storage — a regulatory minefield.",
@@ -1518,7 +1518,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Retail & E-Commerce",
         tagline: "Match the right part to the right vehicle, every time — with fitment verification, VIN lookup, and B2B ordering systems built for automotive complexity.",
         introSummary: "We build automotive parts commerce platforms with VIN-based fitment verification, year-make-model search, interchange databases, and B2B ordering portals — solving the unique challenge of selling products where compatibility is everything.",
-        description: "Every automotive part has a critical compatibility constraint tied to specific vehicle years, makes, models, and engine configurations. CiroStack builds commerce platforms with VIN based fitment verification, interchange databases, and B2B ordering portals for accurate fulfillment.",
+        description: "We build parts commerce platforms with VIN fitment verification and interchange databases so every order matches the right vehicle.",
         challenges: [
             "Fitment errors causing 20-30% return rates — customers ordering parts that don't fit their specific vehicle year, make, model, and engine configuration.",
             "Complex catalog data with millions of SKU-to-vehicle fitment mappings spread across ACES, PIES, and proprietary manufacturer databases that need constant updating.",
@@ -1679,7 +1679,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Technology that helps you focus on what matters most — your patients.",
         introSummary: "Running a hospital or clinic means juggling patient care, staff coordination, compliance, and billing — all at once. We build the digital tools that take the complexity off your plate so your team can focus on delivering exceptional care.",
-        description: "Hospitals and clinics face mounting pressure to reduce wait times, improve outcomes, streamline insurance processing, and meet strict privacy regulations. CiroStack builds custom digital platforms that unify patient scheduling, clinical workflows, billing, and compliance into one system.",
+        description: "We build patient scheduling, clinical workflow, and billing systems that help hospitals deliver better care with less administrative overhead.",
         challenges: [
             "Patients frustrated by long wait times, confusing paperwork, and difficulty booking appointments online.",
             "Staff spending hours on manual data entry instead of patient care.",
@@ -1845,7 +1845,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Connect with patients anywhere — securely, reliably, and without the headaches.",
         introSummary: "Telemedicine is no longer a nice-to-have. Patients expect virtual visits that are just as smooth as in-person ones. We build telemedicine platforms that make remote care feel personal, professional, and effortless for both providers and patients.",
-        description: "Patients expect virtual visits that feel as seamless as in person appointments. CiroStack builds custom telemedicine platforms that integrate secure video consultations, electronic prescriptions, and clinical records directly into your existing practice management workflow without disruption.",
+        description: "We build secure telemedicine platforms that integrate video visits, prescriptions, and records directly into your existing practice workflow.",
         challenges: [
             "Video calls that drop, lag, or frustrate patients — damaging trust in your practice.",
             "Telemedicine tools that don't connect to your existing scheduling or health records systems.",
@@ -2011,7 +2011,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Fill more chairs, simplify your front desk, and give patients a reason to come back.",
         introSummary: "Dental practices live and die by their schedule. We build digital tools that keep your chairs full, your front desk organized, and your patients happy — from first visit to lifetime loyalty.",
-        description: "Running a dental practice means balancing clinical care with business operations. CiroStack builds digital tools that keep appointment books full, automate insurance verification, streamline treatment plan acceptance, and create patient communication systems that drive retention and referrals.",
+        description: "We build scheduling, insurance verification, and patient communication tools that keep dental chairs full and practices running smoothly.",
         challenges: [
             "Empty chairs from last-minute cancellations and patients who don't schedule their next visit.",
             "Front desk staff overwhelmed by phone calls, insurance verification, and paperwork.",
@@ -2177,7 +2177,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Technology that supports the therapeutic relationship, not complicates it.",
         introSummary: "Mental health professionals need tools that respect the sensitivity of their work. We build platforms that handle the business side — scheduling, billing, documentation — so therapists can be fully present with their clients.",
-        description: "Mental health care is deeply personal, and supporting technology should remain invisible to the therapeutic process. CiroStack builds platforms that handle scheduling, insurance billing, session documentation, and secure client communication so therapists can focus entirely on patient care.",
+        description: "We build private, HIPAA compliant platforms for scheduling, billing, and session notes so therapists can focus entirely on patient care.",
         challenges: [
             "Spending evenings writing session notes instead of resting and recharging.",
             "Complex insurance credentialing and billing that leads to rejected claims and delayed payments.",
@@ -2343,7 +2343,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Faster fills, happier customers, and a pharmacy that runs like clockwork.",
         introSummary: "Pharmacies are caught between razor-thin margins and rising customer expectations. We build digital tools that speed up prescription processing, reduce errors, improve adherence, and turn your pharmacy into a community health destination.",
-        description: "Modern pharmacies must handle online refill ordering, medication reminders, immunization scheduling, and personalized health advice alongside traditional dispensing. CiroStack builds integrated pharmacy platforms that automate prescription processing, ensure regulatory compliance, and strengthen patient relationships at every touchpoint.",
+        description: "We build pharmacy platforms that automate prescription processing, manage refills, and keep patients engaged with their medication plans.",
         challenges: [
             "Long wait times that frustrate customers and drive them to competitors or mail-order pharmacies.",
             "Manual prior authorization processes that tie up staff for hours.",
@@ -2509,7 +2509,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Keep members engaged, classes full, and your community thriving.",
         introSummary: "Whether you run a gym, yoga studio, or wellness center, your success depends on one thing: members who keep showing up. We build digital experiences that make joining easy, staying motivated effortless, and managing your business a breeze.",
-        description: "The fitness and wellness industry runs on relationships and habits. Your members need reasons to keep returning, and your staff needs tools that stay out of the way. CiroStack builds member engagement platforms, class scheduling systems, and retention analytics.",
+        description: "We build member engagement platforms, class scheduling systems, and retention analytics that keep your fitness community showing up consistently.",
         challenges: [
             "High member churn — people sign up in January and disappear by March.",
             "Class scheduling chaos with waitlists, cancellations, and no-shows.",
@@ -2675,7 +2675,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Sell more equipment, simplify compliance, and support your customers better.",
         introSummary: "Medical equipment companies face unique challenges: complex product catalogs, strict regulatory requirements, long sales cycles, and the need for exceptional post-sale support. We build digital platforms that streamline your operations from quote to installation to ongoing service.",
-        description: "Selling and servicing medical equipment requires detailed specifications, compliance documentation, and responsive support across long sales cycles. CiroStack builds custom platforms that simplify complex product catalogs, automate regulatory paperwork, and streamline the entire equipment sales lifecycle.",
+        description: "We build platforms that simplify complex product catalogs, automate compliance paperwork, and shorten your medical equipment sales cycles.",
         challenges: [
             "Complex sales cycles with multiple decision-makers, RFPs, and lengthy procurement processes.",
             "Keeping track of regulatory compliance documentation, certifications, and FDA requirements across your product line.",
@@ -2841,7 +2841,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Process more samples, report faster results, and eliminate manual bottlenecks.",
         introSummary: "Laboratories are under constant pressure to deliver accurate results faster, maintain strict quality standards, and manage increasing sample volumes. We build digital systems that streamline your workflow from sample receipt to result delivery — so your team can focus on the science, not the paperwork.",
-        description: "Whether you operate a clinical diagnostic lab or research facility, your daily work depends on precision and speed. CiroStack builds custom LIMS integrations, sample tracking systems, and automated reporting platforms that eliminate manual bottlenecks and accelerate result delivery.",
+        description: "We build LIMS integrations, sample tracking, and automated reporting tools that eliminate manual bottlenecks and deliver results faster.",
         challenges: [
             "Manual sample tracking and handoffs that create delays and increase the risk of mislabeling or lost specimens.",
             "Instruments that don't talk to each other or to your reporting systems, requiring manual data transcription.",
@@ -3007,7 +3007,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Help more patients recover fully — with tools that make your practice run itself.",
         introSummary: "Physical therapy practices thrive when patients complete their full plan of care. We build digital tools that keep patients engaged, simplify documentation, and give you the visibility you need to run a profitable, patient-centered practice.",
-        description: "The biggest challenge in physical therapy is operational, not clinical. Patients drop out early, documentation consumes hours, and insurance authorizations expire silently. CiroStack builds engagement tools, automated documentation systems, and authorization tracking that keep patients completing their care.",
+        description: "We build patient engagement, documentation, and authorization tracking tools that keep patients completing their full plan of care.",
         challenges: [
             "Patient drop-off — up to 70% of patients don't complete their full plan of care.",
             "Time-consuming daily documentation that keeps therapists late after their last patient.",
@@ -3173,7 +3173,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Healthcare & Medical",
         tagline: "Better care for residents, peace of mind for families, and confidence for your staff.",
         introSummary: "Senior care facilities operate at the intersection of healthcare and hospitality — where the quality of daily life matters as much as clinical outcomes. We build technology that helps your staff deliver better care, keeps families informed and reassured, and ensures your facility stays compliant and well-run.",
-        description: "Senior care facilities manage clinical care, daily operations, regulatory compliance, staffing, and family communication simultaneously. CiroStack builds unified platforms that coordinate care teams, automate compliance documentation, keep families informed, and give administrators real time visibility across every facility.",
+        description: "We build care coordination, family communication, and compliance platforms that give senior care facilities real time visibility across operations.",
         challenges: [
             "Families feeling disconnected and anxious about their loved one's daily care and well-being.",
             "Staff turnover and the constant challenge of training new caregivers on resident preferences and care plans.",
@@ -3339,7 +3339,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Modern banking experiences that keep members loyal and operations lean.",
         introSummary: "Your customers expect the convenience of a fintech app with the trust of a traditional institution. We help banks and credit unions deliver exactly that—seamless digital experiences that make everyday banking effortless while keeping your operations secure and compliant behind the scenes.",
-        description: "Whether you are a community bank or credit union, your digital experience is now your biggest differentiator. CiroStack builds custom banking platforms with modern interfaces, mobile apps, and secure integrations that keep members loyal and operations efficient.",
+        description: "We build custom digital banking platforms with modern interfaces and mobile apps that help banks compete with fintech on experience.",
         challenges: [
             "Customers leaving for fintech alternatives that offer faster, more convenient digital experiences.",
             "Legacy core banking systems that make it painfully slow to launch new products or features.",
@@ -3470,7 +3470,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Sharper portfolio insights, smoother client experiences, faster deal execution.",
         introSummary: "Your clients trust you with their wealth. The technology behind your firm should reflect that same standard of excellence—giving your advisors instant access to the data they need and your clients the transparency they expect.",
-        description: "Investment firms depend on decision quality and client trust. CiroStack builds platforms that unify portfolio data, market intelligence, and client communications into a single system, giving advisors instant insights and investors a transparent, professional digital experience.",
+        description: "We build platforms that unify portfolio data, market intelligence, and client reporting into one system advisors actually want to use.",
         challenges: [
             "Advisors juggling multiple disconnected systems for portfolio management, CRM, and compliance reporting.",
             "Clients expecting real-time portfolio visibility and self-service access to statements and tax documents.",
@@ -3601,7 +3601,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Faster quotes, smoother claims, happier policyholders.",
         introSummary: "Insurance customers expect instant quotes, effortless claims, and clear communication. We build the digital platforms that deliver all three—while streamlining your underwriting and operations behind the scenes.",
-        description: "Policyholders now expect instant quotes, mobile claims filing, and real time status tracking. CiroStack builds custom insurance platforms that automate underwriting workflows, accelerate claims processing, and deliver the seamless digital experiences your customers receive in every other industry.",
+        description: "We build platforms that automate underwriting, accelerate claims processing, and give policyholders the instant digital experience they now expect.",
         challenges: [
             "Losing prospects during lengthy quote processes that require phone calls, paperwork, or days of waiting.",
             "Claims handling bottlenecks that frustrate policyholders and drive up operational costs.",
@@ -3732,7 +3732,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Ship your financial product faster without cutting corners on compliance or security.",
         introSummary: "You have a bold vision for how financial services should work. We have the engineering expertise to build it—fast enough to hit your fundraising milestones and robust enough to pass the scrutiny of regulators, investors, and enterprise clients.",
-        description: "Fintech moves fast, but financial regulations demand precision. CiroStack helps startups build products that are both innovative and compliant from day one so you are not retrofitting security and regulatory controls after your product is already in market.",
+        description: "We help fintech founders build products that are innovative and compliant from day one, so you ship without regulatory surprises.",
         challenges: [
             "Building a compliant, secure product fast enough to hit fundraising milestones and prove market traction.",
             "Navigating complex financial regulations (KYC, AML, money transmission) without a full-time compliance team.",
@@ -3863,7 +3863,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Streamline your practice, delight your clients, and reclaim your time.",
         introSummary: "Your expertise is in numbers, not software. We build practice management and client-facing platforms that eliminate the administrative burden of running an accounting firm—so you can focus on the advisory work that drives revenue and client loyalty.",
-        description: "Accounting firms are burdened by client documents, manual data entry, and disconnected tools. CiroStack builds integrated platforms that automate repetitive workflows, provide clients with modern self service portals, and free your team to focus on advisory work.",
+        description: "We build integrated platforms that automate repetitive workflows, give clients self service portals, and free accountants for advisory work.",
         challenges: [
             "Tax season bottlenecks caused by chasing clients for documents and manually entering data across multiple systems.",
             "Clients expecting a modern, self-service portal instead of emailing spreadsheets and waiting for callbacks.",
@@ -3994,7 +3994,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Help people take control of their money with tools they'll actually use.",
         introSummary: "Personal finance is deeply personal. We build apps and platforms that meet people where they are—whether they're paying off debt, building an emergency fund, or investing for the first time—with experiences that are encouraging, clear, and genuinely helpful.",
-        description: "Most personal finance products feel like they were designed by engineers, not for real people. CiroStack builds consumer facing financial tools that are beautiful, intuitive, and focused on helping users build lasting habits around saving, budgeting, and investing.",
+        description: "We build consumer financial tools that are intuitive, beautiful, and designed to help real people build better money habits.",
         challenges: [
             "High user acquisition costs and low retention—people download the app, use it once, and forget about it.",
             "Making complex financial concepts accessible and actionable for users with varying levels of financial literacy.",
@@ -4125,7 +4125,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Build crypto platforms that are secure, compliant, and easy enough for everyone.",
         introSummary: "The crypto space moves at breakneck speed, but user trust moves slowly. We build cryptocurrency platforms that combine institutional-grade security with consumer-grade simplicity—so you can grow your user base without compromising on safety or compliance.",
-        description: "Whether you are building an exchange, a wallet, or a DeFi interface, the challenge remains the same. CiroStack builds crypto platforms that combine institutional grade security with consumer friendly experiences that make blockchain technology accessible to everyday users.",
+        description: "We build crypto platforms that combine institutional grade security with simple, consumer friendly interfaces everyday users can trust.",
         challenges: [
             "Making blockchain interactions simple enough for mainstream users who don't understand gas fees, private keys, or wallet addresses.",
             "Building security infrastructure robust enough to protect against increasingly sophisticated attacks and exploits.",
@@ -4256,7 +4256,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Extend financial access to underserved communities with technology that scales your impact.",
         introSummary: "Microfinance institutions change lives—but outdated technology and manual processes limit how many lives you can reach. We build platforms that help you serve more borrowers, process loans faster, and track your social impact—without losing the personal relationships that define your mission.",
-        description: "Microfinance institutions change lives, but outdated technology limits how many communities you can reach. CiroStack builds platforms that streamline loan origination, automate repayment tracking, ensure regulatory compliance, and scale your social impact without proportionally scaling your operational overhead.",
+        description: "We build platforms that streamline loan origination, automate repayment tracking, and help microfinance institutions scale their social impact.",
         challenges: [
             "Field officers spending more time on paperwork than with borrowers, limiting how many clients each officer can serve.",
             "Paper-based or spreadsheet-driven loan tracking that creates errors, delays, and audit nightmares as you grow.",
@@ -4387,7 +4387,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Smarter deal analysis, streamlined operations, and investor confidence at every stage.",
         introSummary: "Real estate investment decisions are only as good as the data behind them. We build platforms that give you instant deal analysis, real-time portfolio visibility, and professional investor reporting—so you can move faster on opportunities and keep your investors informed and confident.",
-        description: "Whether you run a REIT, manage a private equity fund, or syndicate individual deals, technology gaps cost you opportunities. CiroStack builds platforms for instant deal analysis, real time portfolio monitoring, and automated investor reporting across your entire operation.",
+        description: "We build platforms for instant deal analysis, real time portfolio tracking, and automated investor reporting across your entire fund.",
         challenges: [
             "Deal analysis still happening in disconnected spreadsheets that are slow to build, hard to share, and prone to errors.",
             "Investors expecting real-time portfolio visibility and professional reporting, not quarterly PDFs assembled manually.",
@@ -4518,7 +4518,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Financial Services",
         tagline: "Member-first technology that strengthens your community mission and competitive position.",
         introSummary: "Credit unions exist to serve their members—not shareholders. Your technology should reflect that mission by making every interaction easier, more personal, and more rewarding. We build digital platforms that help you deliver the member experience that justifies your existence and grows your membership.",
-        description: "Credit unions face a unique challenge competing with banks and fintechs on technology while staying true to a member owned mission. CiroStack builds platforms that deliver modern digital banking experiences while reinforcing the community focused values your members trust.",
+        description: "We build member facing digital platforms that deliver modern banking experiences while reinforcing the community mission members value.",
         challenges: [
             "Younger members choosing banks or fintechs because your digital experience doesn't meet their expectations.",
             "Limited IT budgets making it difficult to build custom technology or move beyond what your core provider offers.",
@@ -4649,7 +4649,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Real Estate Agencies properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Real Estate Agencies.",
-        description: "Real estate agencies juggle listings, client relationships, and transaction management across multiple platforms. CiroStack builds unified agency platforms with intelligent CRM systems, automated listing syndication, client portals, and transaction tracking that close deals faster and delight clients.",
+        description: "We build agency platforms with CRM, automated listing syndication, client portals, and transaction tracking that help you close deals faster.",
         challenges: [
         "Modernizing legacy systems specifically holding back Real Estate Agencies innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Real Estate Agencies.",
@@ -4823,7 +4823,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Property Management properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Property Management.",
-        description: "Property management companies handle tenant communications, maintenance requests, rent collection, and lease renewals across dozens or hundreds of units. CiroStack builds custom tenant portals, automated maintenance dispatch, financial reporting dashboards, and lease management tools for efficient operations.",
+        description: "We build tenant portals, maintenance dispatch, rent collection, and lease management tools that simplify property operations at every scale.",
         challenges: [
         "Modernizing legacy systems specifically holding back Property Management innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Property Management.",
@@ -4997,7 +4997,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Real Estate Investment properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Real Estate Investment.",
-        description: "Real estate investors need instant visibility into deal performance, portfolio health, and market opportunities. CiroStack builds custom investment platforms with automated deal analysis, portfolio tracking dashboards, investor reporting portals, and market intelligence tools that accelerate better decisions.",
+        description: "We build investment platforms with deal analysis dashboards, portfolio tracking, and investor reporting that give you instant visibility.",
         challenges: [
         "Modernizing legacy systems specifically holding back Real Estate Investment innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Real Estate Investment.",
@@ -5171,7 +5171,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Commercial Real Estate properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Commercial Real Estate.",
-        description: "Commercial real estate operates on complex lease structures, tenant improvement negotiations, and long sales cycles. CiroStack builds custom platforms for lease management, tenant relationship tracking, property analytics, and deal pipeline management that streamline every commercial transaction.",
+        description: "We build platforms for lease management, tenant tracking, property analytics, and deal pipelines that streamline complex commercial transactions.",
         challenges: [
         "Modernizing legacy systems specifically holding back Commercial Real Estate innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Commercial Real Estate.",
@@ -5345,7 +5345,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Vacation Rentals properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Vacation Rentals.",
-        description: "Vacation rental operators manage bookings across multiple channels while delivering memorable guest experiences. CiroStack builds custom booking engines, channel management systems, automated guest communication tools, and dynamic pricing platforms that maximize occupancy and revenue year round.",
+        description: "We build booking engines, channel managers, guest communication tools, and dynamic pricing platforms that maximize your occupancy and revenue.",
         challenges: [
         "Modernizing legacy systems specifically holding back Vacation Rentals innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Vacation Rentals.",
@@ -5519,7 +5519,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Property Development properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Property Development.",
-        description: "Property development projects demand precise coordination of budgets, timelines, contractors, and stakeholder expectations. CiroStack builds custom project management platforms, budget tracking dashboards, contractor portals, and stakeholder reporting tools that keep complex developments on schedule and within budget.",
+        description: "We build project tracking, budget management, contractor coordination, and stakeholder reporting tools that keep developments on schedule.",
         challenges: [
         "Modernizing legacy systems specifically holding back Property Development innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Property Development.",
@@ -5693,7 +5693,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Real Estate Agents properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Real Estate Agents.",
-        description: "Real estate agents need technology that works as fast as they do. CiroStack builds custom CRM platforms, automated lead nurturing systems, listing management tools, and client communication portals that help agents close more deals while spending less time on administration.",
+        description: "We build CRM, lead nurturing, listing management, and client communication tools that help agents close more deals with less admin.",
         challenges: [
         "Modernizing legacy systems specifically holding back Real Estate Agents innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Real Estate Agents.",
@@ -5867,7 +5867,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Mortgage Brokers properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Mortgage Brokers.",
-        description: "Mortgage brokers navigate complex loan products, compliance requirements, and time sensitive client expectations. CiroStack builds custom loan processing platforms, rate comparison engines, document management systems, and compliance tracking tools that accelerate closings and improve borrower satisfaction.",
+        description: "We build loan processing, rate comparison, document management, and compliance tools that help brokers close mortgages faster and cleaner.",
         challenges: [
         "Modernizing legacy systems specifically holding back Mortgage Brokers innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Mortgage Brokers.",
@@ -6041,7 +6041,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Facility Management properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Facility Management.",
-        description: "Facility managers oversee building operations, maintenance schedules, vendor relationships, and space utilization across multiple properties. CiroStack builds custom work order systems, preventive maintenance platforms, space optimization tools, and vendor management portals for streamlined facility operations.",
+        description: "We build work order systems, preventive maintenance platforms, and space optimization tools that keep your buildings running efficiently.",
         challenges: [
         "Modernizing legacy systems specifically holding back Facility Management innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Facility Management.",
@@ -6215,7 +6215,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Real Estate & Property",
         tagline: "PropTech solutions that transform how Co-working Spaces properties are managed.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Co-working Spaces.",
-        description: "Coworking spaces balance membership management, room bookings, community engagement, and space utilization. CiroStack builds custom member portals, booking systems, community platforms, and occupancy analytics dashboards that create thriving workspace communities while maximizing revenue per square foot.",
+        description: "We build member portals, room booking, community tools, and occupancy dashboards that help coworking spaces grow revenue per square foot.",
         challenges: [
         "Modernizing legacy systems specifically holding back Co-working Spaces innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Co-working Spaces.",
@@ -6389,7 +6389,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Replace fragmented legacy systems with unified platforms that connect admissions, academics, and administration in one source of truth.",
         introSummary: "We build student information systems, LMS integrations, parent portals, and reporting dashboards that eliminate the data silos costing your institution 15+ hours of staff time per week — so administrators can focus on students, not spreadsheets.",
-        description: "Most educational institutions run on a patchwork of disconnected systems for admissions, academics, and administration. CiroStack builds unified platforms that connect student information systems, learning management, parent portals, and reporting into one seamless digital experience.",
+        description: "We build unified platforms that connect admissions, student records, learning management, and reporting so nothing falls through the cracks.",
         challenges: [
         "Student data living in 4-6 disconnected systems forces staff to spend 15+ hours weekly on manual data reconciliation and CSV exports.",
         "Parent portals with outdated grade and attendance data erode trust and generate 30-50 inbound calls per week to the front office.",
@@ -6551,7 +6551,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Launch a course platform that converts browsers into enrolled students, handles payment processing cleanly, and keeps learners engaged until completion.",
         introSummary: "We build custom course platforms with integrated payment processing, adaptive video delivery, and student progress tracking — so creators stop losing revenue to platform fees and start owning the full learner relationship.",
-        description: "Generic course platforms cap your growth with transaction fees, limited customization, and poor video delivery. CiroStack builds custom learning platforms with integrated payment processing, adaptive content delivery, and student progress tracking that scale with your growing audience.",
+        description: "We build custom course platforms with payments, adaptive video, and progress tracking that scale past off the shelf limits.",
         challenges: [
         "Platform fees of 5-10% quietly consuming $25,000-$100,000 in annual revenue for mid-sized course businesses.",
         "Video delivery that buffers or degrades quality for students on mobile or slower broadband connections, increasing dropout rates.",
@@ -6713,7 +6713,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Build an LMS that actually closes your skills gaps — with compliance tracking your auditors trust and reporting your L&D team doesn't have to rebuild every quarter.",
         introSummary: "We build corporate LMS platforms with completion tracking, compliance training workflows, skills gap analysis, and reporting dashboards that replace the spreadsheets your L&D team currently maintains manually for every audit cycle.",
-        description: "Standard learning management systems are built for average companies, not your specific compliance workflows or skills requirements. CiroStack builds custom corporate training platforms with completion tracking, compliance automation, skills gap analysis, and reporting dashboards tailored to your organization.",
+        description: "We build custom LMS platforms with compliance tracking, skills gap analysis, and reporting dashboards tailored to your organization's actual workflows.",
         challenges: [
         "Compliance training completion records spread across 3 systems, requiring manual reconciliation before every regulatory audit.",
         "L&D teams spending 2-3 days per quarter building training completion reports in Excel because the LMS reporting is insufficient.",
@@ -6887,7 +6887,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Give tutors the scheduling, billing, and progress-tracking tools that let them focus on teaching instead of chasing invoices and playing phone tag with parents.",
         introSummary: "We build tutoring business platforms with integrated scheduling, student progress tracking, automated billing, and parent communication tools — replacing the 5-app patchwork most tutoring businesses run on with a single system designed for how they actually work.",
-        description: "Most tutoring businesses run on a patchwork of scheduling, payment, and communication tools that were never designed to work together. CiroStack builds unified tutoring platforms with integrated scheduling, progress tracking, automated billing, and parent communication in one system.",
+        description: "We build unified tutoring platforms with scheduling, progress tracking, billing, and parent communication all working together in one place.",
         challenges: [
         "Modernizing legacy systems specifically holding back Tutoring Services innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Tutoring Services.",
@@ -7061,7 +7061,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Adaptive practice platforms and predictive score analytics that turn study hours into measurable point gains.",
         introSummary: "We build custom test prep platforms that go far beyond question banks — adaptive practice engines that target each student's weakest domains, score prediction models accurate to within 20 points, and content management systems that let curriculum teams publish updates in hours, not weeks.",
-        description: "Generic quiz apps do not move standardized test scores. CiroStack builds custom test prep platforms with adaptive practice engines that target each student's weakest areas, predictive score analytics, and personalized study plans that turn every practice hour into measurable improvement.",
+        description: "We build adaptive test prep platforms that target each student's weakest areas and turn every practice hour into measurable improvement.",
         challenges: [
             "Static question banks that cycle through content in fixed order regardless of individual student mastery, wasting practice time on material students already know.",
             "No score prediction capability — students study blind without knowing where they stand relative to their target score, causing disengagement and cancellations.",
@@ -7222,7 +7222,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Spaced repetition systems, AI conversation practice, and gamified progress tracking that keep learners engaged until they're fluent.",
         introSummary: "We build custom language learning platforms with scientifically-backed spaced repetition engines, real-time speech analysis for conversation practice, and certification management workflows — the technical infrastructure behind apps that actually produce fluent speakers.",
-        description: "Most language apps lose learners within two weeks because they lack the engagement to sustain long term study. CiroStack builds custom platforms with spaced repetition engines, AI conversation practice, speech analysis, and gamified progress systems that keep learners committed.",
+        description: "We build language platforms with spaced repetition, AI conversation practice, and gamified progress tracking that keep learners engaged long term.",
         challenges: [
             "Learner retention drops below 20% after 30 days because progress feels invisible and study sessions feel disconnected from a meaningful outcome.",
             "No conversation practice capability — learners can ace vocabulary drills but can't form sentences under time pressure without a human speaking partner.",
@@ -7383,7 +7383,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Engaging EdTech platforms that make Childcare accessible and effective.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Childcare.",
-        description: "Childcare centers manage enrollment, daily reports, parent communication, and regulatory compliance with limited technology. CiroStack builds custom platforms that automate attendance tracking, streamline parent updates, simplify billing, and ensure licensing compliance so caregivers can focus on children.",
+        description: "We build childcare platforms that automate attendance, simplify parent updates, handle billing, and keep your center compliant with licensing requirements.",
         challenges: [
         "Modernizing legacy systems specifically holding back Childcare innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Childcare.",
@@ -7557,7 +7557,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Engaging EdTech platforms that make Vocational Training accessible and effective.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Vocational Training.",
-        description: "Vocational training programs must bridge classroom instruction with hands on skill development and industry certification. CiroStack builds custom learning platforms with competency tracking, practical assessment tools, certification management, and employer connection portals that prepare students for immediate employment.",
+        description: "We build learning platforms with competency tracking, hands on assessments, certification management, and employer portals that prepare students for work.",
         challenges: [
         "Modernizing legacy systems specifically holding back Vocational Training innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Vocational Training.",
@@ -7731,7 +7731,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Engaging EdTech platforms that make Educational Publishers accessible and effective.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Educational Publishers.",
-        description: "Educational publishers face the digital transformation of content delivery, assessment, and student engagement. CiroStack builds custom digital publishing platforms with interactive content tools, adaptive learning features, analytics dashboards, and institutional licensing systems that modernize how educational content reaches learners.",
+        description: "We build digital publishing platforms with interactive content, adaptive learning, analytics, and institutional licensing for modern education delivery.",
         challenges: [
         "Modernizing legacy systems specifically holding back Educational Publishers innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Educational Publishers.",
@@ -7905,7 +7905,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Education & E-Learning",
         tagline: "Engaging EdTech platforms that make Coding Bootcamps accessible and effective.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Coding Bootcamps.",
-        description: "Coding bootcamps must deliver intensive technical curricula while tracking student progress and employment outcomes. CiroStack builds custom learning platforms with integrated coding environments, project based assessment tools, career services portals, and outcome tracking dashboards that drive student success.",
+        description: "We build bootcamp platforms with integrated coding environments, project assessments, career portals, and outcome tracking that drive student success.",
         challenges: [
         "Modernizing legacy systems specifically holding back Coding Bootcamps innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Coding Bootcamps.",
@@ -8079,7 +8079,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Hotels & Resorts destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Hotels & Resorts.",
-        description: "Hotels and resorts compete on guest experience from booking through checkout. CiroStack builds custom hospitality platforms with direct booking engines, guest experience apps, operations management systems, and loyalty programs that increase direct revenue and guest satisfaction.",
+        description: "We build direct booking engines, guest experience apps, operations tools, and loyalty platforms that increase revenue and guest satisfaction.",
         challenges: [
         "Modernizing legacy systems specifically holding back Hotels & Resorts innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Hotels & Resorts.",
@@ -8253,7 +8253,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Restaurants & Cafes destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Restaurants & Cafes.",
-        description: "Restaurants and cafes balance front of house service, kitchen operations, and customer loyalty across every shift. CiroStack builds custom POS integrations, online ordering platforms, kitchen display systems, and loyalty programs that streamline operations and keep customers returning.",
+        description: "We build POS integrations, online ordering, kitchen display systems, and loyalty tools that streamline restaurant operations front to back.",
         challenges: [
         "Modernizing legacy systems specifically holding back Restaurants & Cafes innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Restaurants & Cafes.",
@@ -8427,7 +8427,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Travel Agencies destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Travel Agencies.",
-        description: "Travel agencies must curate personalized experiences while managing supplier relationships and complex itineraries. CiroStack builds custom booking platforms, itinerary management tools, CRM systems, and supplier integration portals that let agents focus on creating unforgettable travel experiences.",
+        description: "We build booking platforms, itinerary tools, CRM systems, and supplier integrations that let travel agents focus on creating great experiences.",
         challenges: [
         "Modernizing legacy systems specifically holding back Travel Agencies innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Travel Agencies.",
@@ -8601,7 +8601,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Airlines destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Airlines.",
-        description: "Airlines operate complex reservation systems, fleet management, and loyalty programs across millions of passengers. CiroStack builds custom booking platforms, operational dashboards, crew scheduling tools, and passenger experience applications that improve efficiency and strengthen customer loyalty.",
+        description: "We build booking systems, crew scheduling, operational dashboards, and passenger experience apps that help airlines run more efficiently.",
         challenges: [
         "Modernizing legacy systems specifically holding back Airlines innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Airlines.",
@@ -8775,7 +8775,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Tour Operators destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Tour Operators.",
-        description: "Tour operators coordinate guides, transportation, accommodations, and activities across multiple destinations and seasons. CiroStack builds custom booking engines, inventory management systems, guide scheduling tools, and customer experience platforms that simplify operations while scaling your tour business.",
+        description: "We build booking engines, inventory management, guide scheduling, and customer platforms that simplify operations as your tour business grows.",
         challenges: [
         "Modernizing legacy systems specifically holding back Tour Operators innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Tour Operators.",
@@ -8949,7 +8949,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Event Venues destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Event Venues.",
-        description: "Event venues manage bookings, client requirements, vendor coordination, and floor plans for hundreds of events yearly. CiroStack builds custom venue management platforms with booking calendars, client portals, vendor coordination tools, and event planning dashboards that maximize venue utilization.",
+        description: "We build venue management platforms with booking calendars, client portals, vendor coordination, and event dashboards that maximize utilization.",
         challenges: [
         "Modernizing legacy systems specifically holding back Event Venues innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Event Venues.",
@@ -9123,7 +9123,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Bed & Breakfasts destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Bed & Breakfasts.",
-        description: "Bed and breakfasts rely on personal touches and direct relationships that large hotel chains cannot replicate. CiroStack builds custom direct booking engines, guest communication tools, property management systems, and review management platforms that reduce OTA dependency and protect margins.",
+        description: "We build direct booking engines, guest communication tools, and property management systems that reduce your dependency on online travel agencies.",
         challenges: [
         "Modernizing legacy systems specifically holding back Bed & Breakfasts innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Bed & Breakfasts.",
@@ -9297,7 +9297,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Cruise Lines destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Cruise Lines.",
-        description: "Cruise lines manage onboard experiences, shore excursions, dining, and entertainment for thousands of guests simultaneously. CiroStack builds custom guest experience platforms, excursion booking systems, onboard service apps, and operations dashboards that elevate every moment of the voyage.",
+        description: "We build guest experience apps, excursion booking, onboard service platforms, and operations dashboards that elevate every moment of the voyage.",
         challenges: [
         "Modernizing legacy systems specifically holding back Cruise Lines innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Cruise Lines.",
@@ -9471,7 +9471,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Car Rentals destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Car Rentals.",
-        description: "Car rental companies manage fleet availability, pricing, maintenance, and customer reservations across multiple locations. CiroStack builds custom fleet management platforms, dynamic pricing engines, online reservation systems, and vehicle tracking tools that maximize fleet utilization and revenue.",
+        description: "We build fleet management, dynamic pricing, reservation systems, and vehicle tracking tools that help rental companies maximize fleet utilization.",
         challenges: [
         "Modernizing legacy systems specifically holding back Car Rentals innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Car Rentals.",
@@ -9645,7 +9645,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Hospitality & Tourism",
         tagline: "Digital experiences as memorable as the Travel Bloggers destinations themselves.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Travel Bloggers.",
-        description: "Travel bloggers and content creators need platforms that showcase their journeys while monetizing their audience effectively. CiroStack builds custom content management systems, affiliate integration tools, audience analytics dashboards, and sponsorship management platforms that turn travel stories into sustainable businesses.",
+        description: "We build content platforms, affiliate tools, audience analytics, and sponsorship systems that help travel creators build sustainable businesses.",
         challenges: [
         "Modernizing legacy systems specifically holding back Travel Bloggers innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Travel Bloggers.",
@@ -9819,7 +9819,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Cut unplanned downtime, hit OEE targets, and get real-time visibility across every shift and production line.",
         introSummary: "We build custom MES, OEE dashboards, and production scheduling systems for manufacturers running 2-3 shifts who are still managing output on spreadsheets and whiteboards. Our engineers connect directly to your PLCs, ERP, and SCADA systems to give operations teams the data they need to reduce downtime by 30% or more.",
-        description: "Most manufacturers operate with stale ERP data, manual downtime reports, and spreadsheet based production scheduling. CiroStack builds custom MES platforms, real time OEE dashboards, and production scheduling systems that give shift supervisors instant visibility across every line.",
+        description: "We build MES platforms, real time OEE dashboards, and production scheduling tools that give your factory floor instant visibility.",
         challenges: [
         "OEE calculations done manually in Excel, 12-24 hours after the shift ends, giving supervisors no chance to act on the data.",
         "Unplanned downtime averaging 8-15% of available production time with no systematic root cause tracking to reduce repeat failures.",
@@ -9981,7 +9981,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Replace spreadsheet-driven demand forecasting and supplier firefighting with systems that keep stock in the right place at the right time.",
         introSummary: "We build demand forecasting engines, supplier management portals, and EDI integration middleware for distributors and manufacturers whose supply chain visibility is limited to whatever's in their ERP this morning. Our systems reduce stockouts by 25-40% and cut the time procurement teams spend chasing supplier confirmations by half.",
-        description: "Supply chain teams manage enormous complexity with surprisingly primitive tools. CiroStack builds demand forecasting engines, supplier management portals, and EDI integration middleware that replace spreadsheet driven planning with systems providing real time visibility across your entire supply network.",
+        description: "We build demand forecasting, supplier management, and EDI integration tools that replace spreadsheet planning with real time supply chain visibility.",
         challenges: [
         "Demand forecasting based on last year's actuals and intuition, leading to 15-25% stockout rates on high-velocity items and excess inventory tying up $2-5M in working capital.",
         "Supplier on-time delivery tracked manually through email confirmations, with no early warning when a key component will miss the delivery window.",
@@ -10143,7 +10143,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Eliminate mispicks, inventory shrinkage, and the paper-based processes slowing your warehouse operations down.",
         introSummary: "We build custom WMS platforms, pick/pack workflow systems, and labor management dashboards for distribution centers and 3PLs that have outgrown their spreadsheets and off-the-shelf solutions. Our systems have reduced mispick rates by 40-60% and cut new associate onboarding time from weeks to days.",
-        description: "Warehouse operations depend on speed and accuracy, yet most facilities undermine both with outdated systems. CiroStack builds custom WMS platforms, pick and pack workflow systems, and labor management dashboards that eliminate mispicks, reduce shrinkage, and accelerate fulfillment throughput.",
+        description: "We build WMS platforms, pick and pack workflows, and labor dashboards that eliminate mispicks, cut shrinkage, and speed up fulfillment.",
         challenges: [
         "Inventory accuracy below 96% causing pickers to second-guess locations, increasing pick time by 20-30% and creating downstream stockout surprises.",
         "Mispick rates of 1-3% generating returns, reships, and customer service escalations that cost $15-35 per error to resolve.",
@@ -10305,7 +10305,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Replace paper inspection sheets and reactive scrap reporting with SPC-driven quality systems that catch defects at the source.",
         introSummary: "We build statistical process control systems, digital inspection workflows, and defect tracking platforms for manufacturers whose quality teams are still compiling data from paper checksheets at the end of the day. Our systems have helped clients reduce scrap rates by 25-45% and pass ISO 9001 and IATF 16949 audits without significant findings.",
-        description: "Quality problems are information problems. Process drift and out of spec materials cause defects long before inspectors discover them. CiroStack builds statistical process control systems, digital inspection workflows, and defect tracking platforms that catch quality issues at the source.",
+        description: "We build SPC systems, digital inspection workflows, and defect tracking platforms that catch quality problems at the source.",
         challenges: [
         "SPC data collected on paper checksheets and entered into Excel after the shift, providing no real-time signal when processes drift toward out-of-control conditions.",
         "Defect records stored in disconnected spreadsheets with no structured cause analysis, making it impossible to identify whether the same root cause is recurring across lines or shifts.",
@@ -10467,7 +10467,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Move maintenance from reactive firefighting to predictive precision — catch failures before they stop your line.",
         introSummary: "We build custom CMMS platforms, predictive maintenance dashboards, and spare parts inventory systems for manufacturers whose maintenance teams are running on paper work orders and tribal knowledge. Our systems have helped clients reduce unplanned downtime by 35-50% and cut spare parts carrying costs by 20% through demand-driven reorder logic.",
-        description: "Most maintenance teams operate in managed chaos with spreadsheet work orders and calendar based schedules. CiroStack builds custom CMMS platforms, predictive maintenance dashboards, and spare parts inventory systems that shift your strategy from reactive firefighting to precision prevention.",
+        description: "We build CMMS platforms, predictive maintenance dashboards, and spare parts systems that shift your team from reactive fixes to prevention.",
         challenges: [
         "Unplanned downtime averaging 15-20% of available equipment time because maintenance is reactive — responding to failures rather than preventing them.",
         "Preventive maintenance performed on a fixed calendar schedule regardless of actual equipment condition, wasting maintenance hours on healthy equipment while degrading assets go unmonitored.",
@@ -10629,7 +10629,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Bridge your PLCs, SCADA systems, and IoT sensors into a unified production monitoring platform that drives real decisions.",
         introSummary: "We build PLC integration layers, custom SCADA dashboards, and IoT sensor platforms for manufacturers looking to get actionable data out of their automation investments. Our systems connect Siemens, Allen-Bradley, Mitsubishi, and third-party PLCs to cloud dashboards that give operations managers real-time visibility across every automated line.",
-        description: "Factory automation generates enormous data that most manufacturers never fully use. CiroStack builds PLC integration layers, custom SCADA dashboards, and IoT sensor platforms that transform raw machine data into actionable production intelligence visible across every level of your organization.",
+        description: "We build PLC integration layers, SCADA dashboards, and IoT sensor platforms that turn raw machine data into actionable production intelligence.",
         challenges: [
         "PLC and SCADA data locked in proprietary historians, making cross-line or cross-plant analysis require hours of manual data extraction.",
         "Production monitoring happening at the HMI level only — operators see their line, but supervisors and managers have no real-time cross-line visibility.",
@@ -10791,7 +10791,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Automate purchase order workflows, enforce approval controls, and get spend visibility your ERP alone cannot provide.",
         introSummary: "We build custom procurement platforms, vendor management portals, and spend analytics systems for organizations whose procurement teams manage approvals through email chains and track commitments in spreadsheets. Our systems have reduced PO cycle times by 50-70% and given CFOs category-level spend visibility they never had before.",
-        description: "Procurement inefficiency is expensive and largely invisible when purchase orders take days to route through email approvals. CiroStack builds custom procurement platforms, vendor management portals, and spend analytics systems that automate approval workflows and deliver complete spending visibility.",
+        description: "We build procurement platforms with automated approval workflows, vendor portals, and spend analytics that cut purchase order cycle times dramatically.",
         challenges: [
         "PO approval workflows running through email, taking 4-7 days on average with no visibility into bottlenecks and no automated escalation for overdue approvals.",
         "Maverick spend representing 15-25% of total organizational spend because requisitioners bypass the PO process when it is too slow or inconvenient.",
@@ -10953,7 +10953,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Optimize every route, order, and delivery leg — from warehouse dock to final customer with full tracking visibility.",
         introSummary: "We build route optimization engines, order management systems, and warehouse-to-delivery tracking platforms for distributors who dispatch drivers with paper manifests and track deliveries via phone calls. Our systems have reduced fuel costs by 15-20% and cut delivery exception rates by 40%.",
-        description: "Distribution operations live and die by cost per delivery and on time performance. CiroStack builds route optimization engines, order management systems, and warehouse to delivery tracking platforms that reduce delivery costs, improve schedule reliability, and give customers real time visibility.",
+        description: "We build route optimization, order management, and delivery tracking platforms that reduce cost per delivery and improve on time performance.",
         challenges: [
         "Manual routing created by dispatchers each morning using experience and intuition, producing routes that are 20-30% longer than mathematically optimal.",
         "Order management disconnected from warehouse operations, creating fulfillment errors when pick status and dispatch status are tracked in separate systems.",
@@ -11115,7 +11115,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "Batch tracking, GMP compliance, and LIMS integration built for the scrutiny of regulatory audits and customer quality reviews.",
         introSummary: "We build batch management systems, LIMS integrations, and regulatory documentation platforms for chemical and pharmaceutical manufacturers navigating FDA 21 CFR, EU GMP, and ICH guidelines. Our systems have helped clients achieve inspection readiness and cut batch record compilation time by 60-80%.",
-        description: "Chemical and pharmaceutical manufacturing operates under compliance burdens that generic software cannot address. CiroStack builds batch management systems, LIMS integrations, and regulatory documentation platforms that maintain full traceability from raw material receipt through finished product release.",
+        description: "We build batch tracking, LIMS integrations, and regulatory documentation platforms that maintain full traceability from raw materials through finished product.",
         challenges: [
         "Batch records compiled from paper forms, lab notebooks, and instrument printouts taking 2-5 days per batch — creating release delays and audit risk from incomplete or illegible documentation.",
         "Deviation investigations managed through email and spreadsheets with no structured root cause fields, no CAPA linkage, and no effectiveness verification — failing expectations in FDA and EU GMP inspections.",
@@ -11277,7 +11277,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Manufacturing & Industrial",
         tagline: "JIT inventory, supplier scorecards, and full part traceability — the systems Tier 1 and Tier 2 automotive suppliers need to compete.",
         introSummary: "We build JIT inventory management systems, supplier scorecard platforms, and part traceability solutions for Tier 1 and Tier 2 automotive suppliers managing assembly line sequencing, customer-specific labeling requirements, and the production part approval process. Our systems have helped clients reduce inventory days-on-hand by 25% while maintaining 99.8%+ line fill rates.",
-        description: "Automotive manufacturing demands supply chain precision that most industries never face, with exact sequence delivery to assembly lines. CiroStack builds JIT inventory management systems, supplier scorecard platforms, and part traceability solutions that meet the exacting standards of OEM customers.",
+        description: "We build JIT inventory, supplier scorecard, and part traceability systems that meet the exact sequence delivery standards OEM customers require.",
         challenges: [
         "JIT delivery requirements from OEM customers running takt time assemblies where a single missed sequence delivery causes line stoppage and chargeback penalties.",
         "Supplier scorecards from OEM customers measuring on-time delivery, PPM, and responsiveness with contract implications for poor performance that your procurement team cannot currently track proactively.",
@@ -11439,7 +11439,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Automate the billable hour, streamline case workflows, and give clients the digital experience they expect.",
         introSummary: "We help law firms eliminate the administrative drag that eats into billable hours -- slow document assembly, fragmented case management, and client communication that still runs through email threads nobody can find. Our teams build the systems that let attorneys focus on practicing law.",
-        description: "Most law firms run on disconnected tools where case files, billing, communications, and documents live in separate systems. CiroStack builds unified practice management platforms that automate document assembly, streamline case workflows, and give clients a modern digital experience.",
+        description: "We build unified practice management platforms that automate documents, streamline case workflows, and give law firm clients a modern experience.",
         challenges: [
         "Attorneys spending 8-12 hours per week on non-billable administrative tasks like time entry, document formatting, and status update emails.",
         "Client intake processes that take 3-5 days because forms, conflict checks, and engagement letters are handled manually across disconnected systems.",
@@ -11613,7 +11613,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Automate tax workflows, secure client portals, and maintain airtight audit trails from intake to filing.",
         introSummary: "We help accounting firms eliminate the manual bottlenecks eating into billable hours — rekeying data between systems, chasing document uploads over email, and generating reports that should build themselves. Our teams build the integrated tax workflow, client portal, and document management platforms that let CPAs focus on advisory work instead of administration.",
-        description: "Accounting firms spend tax season buried in manual data extraction, client document collection, and system reconciliation. CiroStack builds custom practice management platforms, automated tax workflow engines, client portals, and analytics dashboards that eliminate the administrative overhead consuming your billable hours.",
+        description: "We build practice management platforms, tax workflow engines, and client portals that eliminate the administrative overhead consuming your billable hours.",
         challenges: [
         "Staff accountants spending 6-10 hours per week rekeying data between tax software, practice management systems, and billing platforms that lack native integration.",
         "Document collection for business tax returns requiring 15-30 separate client requests over email with no centralized tracking of what has been received versus outstanding.",
@@ -11787,7 +11787,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Turn project chaos into profitable delivery — with platforms that track every engagement, automate every report, and win the next proposal before the last one closes.",
         introSummary: "We help consulting firms eliminate the operational drag that erodes margins on every engagement — manual status reporting, fragmented project tracking across clients, and proposal workflows that take two weeks when they should take two hours. Our teams build the integrated project management, client portal, and knowledge base platforms that let consultants focus on billable advisory work.",
-        description: "Consulting firms struggle with project tracking, utilization management, and client delivery across distributed teams. CiroStack builds custom project management platforms, resource allocation tools, client collaboration portals, and performance analytics dashboards that improve utilization rates and client satisfaction simultaneously.",
+        description: "We build project tracking, resource planning, client collaboration, and utilization analytics tools that help consulting firms deliver more with less.",
         challenges: [
         "Project managers spending 6-10 hours per week manually compiling status updates from disconnected time-tracking, task management, and billing tools into client-ready reports.",
         "Deliverable tracking managed in spreadsheets with no real-time visibility into completion rates, blockers, or engagement profitability until the final invoice.",
@@ -11962,7 +11962,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Streamlined operational software for Marketing Agencies.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Marketing Agencies.",
-        description: "Marketing agencies juggle creative projects, client approvals, campaign analytics, and team utilization across multiple accounts simultaneously. CiroStack builds custom project management platforms, creative workflow tools, client reporting dashboards, and resource planning systems that keep every campaign on track.",
+        description: "We build project management, creative workflow, client reporting, and resource planning platforms that keep every agency campaign on track.",
         challenges: [
         "Modernizing legacy systems specifically holding back Marketing Agencies innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Marketing Agencies.",
@@ -12136,7 +12136,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Streamlined operational software for Architecture Firms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Architecture Firms.",
-        description: "Architecture firms coordinate complex design projects spanning BIM workflows, client reviews, regulatory submissions, and construction documentation. CiroStack builds custom project management platforms, BIM collaboration tools, client review portals, and document management systems that streamline every design phase.",
+        description: "We build project management, BIM collaboration, client review portals, and document systems that streamline the full architectural design process.",
         challenges: [
         "Modernizing legacy systems specifically holding back Architecture Firms innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Architecture Firms.",
@@ -12310,7 +12310,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Streamlined operational software for Engineering Firms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Engineering Firms.",
-        description: "Engineering firms manage technical projects requiring precise documentation, regulatory compliance, and cross discipline collaboration. CiroStack builds custom project tracking platforms, technical document management systems, compliance workflow tools, and client reporting dashboards that keep complex engineering projects organized.",
+        description: "We build project tracking, technical document management, compliance tools, and reporting dashboards that keep complex engineering projects organized.",
         challenges: [
         "Modernizing legacy systems specifically holding back Engineering Firms innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Engineering Firms.",
@@ -12484,7 +12484,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Streamlined operational software for HR Consulting.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of HR Consulting.",
-        description: "HR consulting firms handle sensitive employee data, compliance requirements, and organizational change across multiple client engagements. CiroStack builds custom client management platforms, compliance tracking tools, assessment delivery systems, and engagement analytics dashboards that scale your advisory capacity.",
+        description: "We build client management, compliance tracking, assessment delivery, and analytics platforms that help HR consultancies scale their advisory capacity.",
         challenges: [
         "Modernizing legacy systems specifically holding back HR Consulting innovation.",
         "Meeting the increasingly strict compliance and data security requirements for HR Consulting.",
@@ -12658,7 +12658,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Streamlined operational software for IT Services.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of IT Services.",
-        description: "IT service providers manage support tickets, service level agreements, and infrastructure monitoring across diverse client environments. CiroStack builds custom ticketing platforms, SLA tracking dashboards, remote monitoring tools, and client portals that improve response times and demonstrate measurable value.",
+        description: "We build ticketing, SLA tracking, monitoring, and client portal platforms that help IT service providers respond faster and demonstrate value.",
         challenges: [
         "Modernizing legacy systems specifically holding back IT Services innovation.",
         "Meeting the increasingly strict compliance and data security requirements for IT Services.",
@@ -12832,7 +12832,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Streamlined operational software for Recruiting Agencies.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Recruiting Agencies.",
-        description: "Recruiting agencies track candidates, client requirements, and placements across dozens of simultaneous searches. CiroStack builds custom applicant tracking systems, candidate pipeline dashboards, client portals, and placement management tools that help recruiters fill positions faster with stronger matches.",
+        description: "We build applicant tracking, pipeline management, client portals, and placement tools that help recruiters fill positions faster with better matches.",
         challenges: [
         "Modernizing legacy systems specifically holding back Recruiting Agencies innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Recruiting Agencies.",
@@ -13006,7 +13006,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Professional Services",
         tagline: "Streamlined operational software for Business Coaching.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Business Coaching.",
-        description: "Business coaches manage client relationships, session scheduling, progress tracking, and content delivery across growing practices. CiroStack builds custom coaching platforms with client management tools, goal tracking dashboards, session scheduling systems, and resource libraries that scale your impact.",
+        description: "We build client management, goal tracking, session scheduling, and resource library platforms that help coaching practices scale their impact.",
         challenges: [
         "Modernizing legacy systems specifically holding back Business Coaching innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Business Coaching.",
@@ -13180,7 +13180,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Production management, digital asset organization, and crew scheduling tools that keep complex shoots on budget and on time.",
         introSummary: "We build custom production management platforms, digital asset management systems, and post-production workflow tools for film and video production companies whose projects are managed across spreadsheets, Slack threads, and Frame.io folders that nobody can navigate after the project ends. Our systems have reduced production admin overhead by 30-40% and cut asset retrieval time from hours to minutes.",
-        description: "Film and video productions coordinate talent, equipment, locations, and post production workflows across tight timelines and budgets. CiroStack builds custom production management platforms, asset tracking systems, scheduling tools, and collaboration portals that keep productions running on schedule.",
+        description: "We build production management, asset tracking, scheduling, and collaboration platforms that keep film and video projects on timeline and budget.",
         challenges: [
         "Crew scheduling managed in spreadsheets without availability tracking, rate management, or union rule enforcement — creating scheduling conflicts and budget overruns discovered too late to fix.",
         "Digital assets (footage, graphics, audio, deliverables) distributed across multiple drives and cloud folders without consistent naming conventions, making asset retrieval for a revision a 2-hour search.",
@@ -13342,7 +13342,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Rights management, royalty tracking, and fan engagement platforms that turn music catalogs into managed revenue engines.",
         introSummary: "We build custom rights management systems, royalty calculation engines, and artist distribution platforms for independent labels, publishers, and music tech companies managing catalogs too complex for generic tools. Our systems have reduced royalty processing time by 60% and eliminated the common calculation errors that drive artist disputes.",
-        description: "Musicians and labels manage royalty splits, distribution across streaming platforms, and fan engagement while navigating complex licensing agreements. CiroStack builds custom royalty tracking systems, distribution management platforms, fan engagement tools, and catalog administration portals for the modern music business.",
+        description: "We build royalty tracking, distribution management, fan engagement, and catalog administration platforms for the modern music business.",
         challenges: [
         "Royalty calculations done manually in spreadsheets, taking 5-10 days per period to process and regularly producing disputes when artists find errors in their statements.",
         "Rights ownership records maintained in disconnected systems that don't reflect current ownership (following splits, acquisitions, or estate transfers), causing incorrect royalty payments.",
@@ -13504,7 +13504,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Scalable content platforms that captivate Gaming audiences.",
         introSummary: "We build player analytics pipelines, live ops dashboards, monetization systems, and matchmaking infrastructure for game studios who need to act on player behavior data in real time. Our systems have helped studios increase day-30 retention by 20-35% and grow ARPU through data-informed monetization decisions.",
-        description: "Game studios need infrastructure that handles millions of concurrent players, real time matchmaking, and live service updates without downtime. CiroStack builds custom game backend systems, player analytics platforms, matchmaking engines, and live operations dashboards that keep players engaged.",
+        description: "We build game backends, player analytics, matchmaking engines, and live operations dashboards that keep millions of players engaged without downtime.",
         challenges: [
         "Player analytics delayed 24 hours or more because event processing pipelines can't keep up with live game traffic, making real-time live ops decisions impossible.",
         "Monetization systems with static offers and pricing that don't adapt to player spending patterns — leaving revenue on the table from high-value players while pushing mid-value players away.",
@@ -13666,7 +13666,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Scalable content platforms that captivate Photography audiences.",
         introSummary: "We build custom client gallery platforms, booking systems, contract management tools, and digital delivery portals for photographers and photography studios whose client experience is limited by the constraints of off-the-shelf tools. Our systems have helped photography businesses reduce administrative time by 40% and increase repeat client bookings by 25%.",
-        description: "Professional photographers spend enormous time on work that technology should handle, from sending contracts to delivering galleries. CiroStack builds unified photography business platforms that manage the complete client lifecycle from inquiry and booking through gallery delivery and reordering.",
+        description: "We build unified photography platforms that handle contracts, bookings, galleries, and delivery so photographers spend time shooting, not on admin.",
         challenges: [
         "Client booking and contract workflow managed through email and generic tools, creating administrative overhead that consumes 10-15 hours per week that should go into shooting and editing.",
         "Gallery delivery through Pic-Time or SmugMug disconnected from booking and invoicing systems, requiring manual status tracking and follow-up to ensure clients collect their images.",
@@ -13828,7 +13828,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Scalable content platforms that captivate Publishing audiences.",
         introSummary: "We build editorial workflow systems, subscriber management platforms, and rights management databases for publishers whose production processes still run on email chains and shared drives. Our systems have helped publishers reduce time-to-publication by 30% and reduce subscriber churn through better engagement data.",
-        description: "Publishers navigate the shift from print to digital while managing editorial workflows, distribution channels, and audience engagement. CiroStack builds custom editorial management systems, digital distribution platforms, subscription engines, and audience analytics tools that modernize publishing operations.",
+        description: "We build editorial workflows, digital distribution, subscription engines, and audience analytics that help publishers thrive in the digital era.",
         challenges: [
         "Modernizing legacy systems specifically holding back Publishing innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Publishing.",
@@ -14002,7 +14002,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Scalable content platforms that captivate News & Media audiences.",
         introSummary: "We build custom CMS platforms, audience analytics systems, paywall and subscription management tools, and ad operations integrations for news and media organizations whose technology stack is either aging legacy systems or mismatched SaaS tools that don't fit their workflow. Our systems have helped news organizations increase digital subscriber conversion by 35% and reduce CMS publishing time by 50%.",
-        description: "News organizations must publish faster, engage audiences deeper, and monetize content more effectively across every digital channel. CiroStack builds custom content management systems, audience analytics platforms, subscription engines, and advertising management tools that sustain independent journalism.",
+        description: "We build content management, audience analytics, subscription, and ad management platforms that help news organizations publish faster and earn more.",
         challenges: [
         "Modernizing legacy systems specifically holding back News & Media innovation.",
         "Meeting the increasingly strict compliance and data security requirements for News & Media.",
@@ -14176,7 +14176,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Scalable content platforms that captivate Podcasting audiences.",
         introSummary: "We build custom podcast publishing workflows, sponsorship management platforms, and listener engagement systems for podcast networks and independent creators who have outgrown RSS feed management and need proper tooling for content operations, monetization, and audience analytics.",
-        description: "Podcasters need more than a hosting platform. They need tools for production, distribution, audience growth, and monetization that work together seamlessly. CiroStack builds custom podcast management platforms, distribution tools, analytics dashboards, and sponsorship management systems for growing shows.",
+        description: "We build podcast management platforms with production tools, distribution, analytics, and sponsorship systems that help growing shows monetize effectively.",
         challenges: [
         "Modernizing legacy systems specifically holding back Podcasting innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Podcasting.",
@@ -14350,7 +14350,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Scalable content platforms that captivate Event Production audiences.",
         introSummary: "We build custom event management platforms, ticketing systems, vendor coordination tools, and attendee engagement apps for event production companies and venues whose current event software doesn't fit their workflow or whose costs have outgrown the value delivered by generic platforms.",
-        description: "Event production companies coordinate vendors, technical crews, timelines, and client expectations across multiple simultaneous productions. CiroStack builds custom event management platforms, vendor coordination tools, production scheduling systems, and client communication portals that ensure flawless event execution.",
+        description: "We build event management, vendor coordination, production scheduling, and client communication platforms that ensure flawless execution every time.",
         challenges: [
         "Modernizing legacy systems specifically holding back Event Production innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Event Production.",
@@ -14524,7 +14524,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Scalable content platforms that captivate Social Media Influencers audiences.",
         introSummary: "We build brand deal management platforms, audience analytics dashboards, content scheduling systems, and creator operations tools for influencers, creator economy businesses, and talent management agencies who are managing the complexity of multi-platform creator careers with spreadsheets and DMs.",
-        description: "Influencers and creators manage content calendars, brand partnerships, audience analytics, and revenue streams across multiple platforms. CiroStack builds custom creator management platforms, brand deal tracking tools, content scheduling systems, and performance analytics dashboards that maximize creator earning potential.",
+        description: "We build creator platforms with content scheduling, brand deal tracking, analytics, and revenue tools that help influencers grow earnings.",
         challenges: [
         "Modernizing legacy systems specifically holding back Social Media Influencers innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Social Media Influencers.",
@@ -14698,7 +14698,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Media & Entertainment",
         tagline: "Scalable content platforms that captivate Art Galleries audiences.",
         introSummary: "We build custom inventory management systems, collector CRM platforms, online sales portals, and exhibition management tools for galleries and art dealers whose current technology — typically a spreadsheet-based inventory and a generic CRM — doesn't match the sophistication their collector relationships and international sales require.",
-        description: "Art galleries balance exhibition planning, artist relationships, inventory management, and collector engagement across physical and digital spaces. CiroStack builds custom gallery management platforms, inventory tracking systems, collector CRM tools, and online exhibition portals that expand audience reach.",
+        description: "We build gallery management, inventory tracking, collector CRM, and online exhibition platforms that help galleries reach wider audiences.",
         challenges: [
         "Modernizing legacy systems specifically holding back Art Galleries innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Art Galleries.",
@@ -14872,7 +14872,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Charities impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Charities.",
-        description: "Charities depend on donor relationships, fundraising campaigns, and transparent impact reporting to sustain their mission. CiroStack builds custom donor management platforms, fundraising tools, volunteer coordination systems, and impact dashboards that help charitable organizations grow their reach and trust.",
+        description: "We build donor management, fundraising, volunteer coordination, and impact dashboards that help charities grow their reach and demonstrate results clearly.",
         challenges: [
         "Modernizing legacy systems specifically holding back Charities innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Charities.",
@@ -15046,7 +15046,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your NGOs impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of NGOs.",
-        description: "NGOs operate complex programs across multiple regions while managing donor requirements and measuring outcomes. CiroStack builds custom program management platforms, field operations tools, donor reporting systems, and impact measurement dashboards that help organizations scale their mission without scaling overhead.",
+        description: "We build program management, field operations, donor reporting, and impact measurement platforms that help NGOs scale mission without scaling overhead.",
         challenges: [
         "Modernizing legacy systems specifically holding back NGOs innovation.",
         "Meeting the increasingly strict compliance and data security requirements for NGOs.",
@@ -15220,7 +15220,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Religious Organizations impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Religious Organizations.",
-        description: "Religious organizations serve communities through worship, outreach, education, and support programs that require careful coordination. CiroStack builds custom community management platforms, event scheduling tools, giving management systems, and member communication portals that strengthen congregation engagement and participation.",
+        description: "We build community management, event scheduling, giving platforms, and member communication tools that strengthen engagement across your congregation.",
         challenges: [
         "Modernizing legacy systems specifically holding back Religious Organizations innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Religious Organizations.",
@@ -15394,7 +15394,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Community Groups impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Community Groups.",
-        description: "Community groups bring people together around shared interests, causes, and local initiatives. CiroStack builds custom member management platforms, event coordination tools, communication systems, and resource sharing portals that help community organizations grow engagement and amplify collective impact.",
+        description: "We build member management, event coordination, communication tools, and resource sharing platforms that help community organizations grow their impact.",
         challenges: [
         "Modernizing legacy systems specifically holding back Community Groups innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Community Groups.",
@@ -15568,7 +15568,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Foundations impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Foundations.",
-        description: "Foundations manage grant cycles, evaluate proposals, track disbursements, and measure the impact of funded programs. CiroStack builds custom grant management platforms, application review tools, disbursement tracking systems, and outcomes reporting dashboards that streamline philanthropy and maximize every dollar.",
+        description: "We build grant management, application review, disbursement tracking, and outcomes reporting platforms that help foundations maximize every dollar of impact.",
         challenges: [
         "Modernizing legacy systems specifically holding back Foundations innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Foundations.",
@@ -15742,7 +15742,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Social Enterprises impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Social Enterprises.",
-        description: "Social enterprises balance mission driven impact with sustainable business operations. CiroStack builds custom platforms that integrate commerce, impact tracking, and stakeholder reporting into unified systems so organizations can grow revenue while measuring and communicating the social outcomes that define success.",
+        description: "We build platforms that integrate commerce, impact tracking, and stakeholder reporting so social enterprises can grow while measuring real outcomes.",
         challenges: [
         "Modernizing legacy systems specifically holding back Social Enterprises innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Social Enterprises.",
@@ -15916,7 +15916,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Environmental Groups impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Environmental Groups.",
-        description: "Environmental organizations coordinate conservation efforts, advocacy campaigns, and scientific research across vast geographies. CiroStack builds custom campaign management platforms, field data collection tools, donor engagement systems, and environmental monitoring dashboards that amplify conservation impact and supporter involvement.",
+        description: "We build campaign management, field data collection, donor engagement, and environmental monitoring platforms that amplify conservation efforts at scale.",
         challenges: [
         "Modernizing legacy systems specifically holding back Environmental Groups innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Environmental Groups.",
@@ -16090,7 +16090,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Educational Non-Profits impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Educational Non-Profits.",
-        description: "Educational nonprofits deliver learning programs to underserved communities while tracking outcomes for donors and stakeholders. CiroStack builds custom program delivery platforms, student progress tracking tools, volunteer management systems, and impact reporting dashboards that demonstrate measurable educational outcomes.",
+        description: "We build program delivery, student progress tracking, volunteer management, and impact reporting platforms that demonstrate measurable educational outcomes to donors.",
         challenges: [
         "Modernizing legacy systems specifically holding back Educational Non-Profits innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Educational Non-Profits.",
@@ -16264,7 +16264,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Health Advocacy impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Health Advocacy.",
-        description: "Health advocacy organizations raise awareness, support patients, and drive policy change around critical health issues. CiroStack builds custom campaign management platforms, patient support portals, research tracking tools, and community engagement systems that amplify health advocacy missions and connect stakeholders.",
+        description: "We build campaign platforms, patient support portals, research tracking, and community engagement tools that amplify health advocacy missions effectively.",
         challenges: [
         "Modernizing legacy systems specifically holding back Health Advocacy innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Health Advocacy.",
@@ -16438,7 +16438,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Non-Profit & Social Enterprise",
         tagline: "Purpose-driven technology that amplifies your Animal Welfare impact.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Animal Welfare.",
-        description: "Animal welfare organizations manage rescue operations, adoption processes, foster networks, and donor relationships while caring for animals in need. CiroStack builds custom shelter management platforms, adoption portals, foster coordination tools, and fundraising systems that save more lives.",
+        description: "We build shelter management, adoption portals, foster coordination, and fundraising platforms that help animal welfare organizations save more lives.",
         challenges: [
         "Modernizing legacy systems specifically holding back Animal Welfare innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Animal Welfare.",
@@ -16612,7 +16612,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Ship faster, retain longer, and scale without re-architecting every six months.",
         introSummary: "We help SaaS companies fix the engineering bottlenecks that stall growth — slow release cycles, mounting churn from performance issues, and multi-tenant architectures that buckle under load. Our teams embed directly into your product org and deliver measurable output from week one.",
-        description: "SaaS companies need infrastructure that scales with customer growth while maintaining the reliability and security enterprise buyers demand. CiroStack builds custom billing systems, multi tenant architectures, API platforms, and admin dashboards that let product teams ship features faster.",
+        description: "We build billing systems, multi tenant architectures, API platforms, and admin dashboards that let SaaS product teams ship features faster.",
         challenges: [
         "Deployment pipelines that take 30-50 minutes and block the entire engineering team from shipping in parallel.",
         "Multi-tenant data architectures that create noisy-neighbor performance problems as your largest accounts grow.",
@@ -16773,7 +16773,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Build the right MVP, avoid the technical debt that kills momentum, and get Series-A ready.",
         introSummary: "We help tech startups ship validated MVPs in 8-12 weeks, make the architectural decisions that won't need to be undone at Series A, and build the engineering foundation that scales without a full rewrite.",
-        description: "Tech startups need to move fast without accumulating technical debt that slows them down later. CiroStack builds scalable MVP architectures, product infrastructure, and engineering foundations that get you to market quickly while remaining extensible as your company grows.",
+        description: "We build scalable MVP architectures and engineering foundations that get you to market fast and remain extensible as you grow.",
         challenges: [
         "Choosing the wrong tech stack early — frameworks that are hard to hire for or that don't support the scale the product needs at Series A.",
         "Building an MVP so quickly that the codebase becomes unmaintainable, making every subsequent feature take twice as long as it should.",
@@ -16934,7 +16934,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Build apps that get 5-star ratings, survive app store reviews, and keep users coming back.",
         introSummary: "We build iOS and Android apps that pass app store review on the first submission, load in under 2 seconds, and retain users through UX that feels native and intuitive — not like a website crammed into a phone.",
-        description: "Mobile app companies need performant, reliable applications that deliver consistent experiences across iOS and Android devices. CiroStack builds custom cross platform architectures, backend API services, push notification systems, and analytics frameworks that accelerate mobile development and improve user retention.",
+        description: "We build cross platform architectures, backend APIs, push notification systems, and analytics frameworks that accelerate mobile development and improve retention.",
         challenges: [
         "App store rejection due to missing privacy manifests, inadequate permission justifications, or guideline violations that nobody caught during development.",
         "High uninstall rates in the first 7 days because onboarding doesn't deliver value fast enough or asks for too many permissions upfront.",
@@ -17095,7 +17095,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Take your AI product from proof-of-concept to production without burning through GPUs or engineers.",
         introSummary: "We help AI companies cross the gap between impressive demo and reliable product — building the inference infrastructure, data pipelines, and user-facing interfaces that turn a model into a business.",
-        description: "AI companies need robust infrastructure for training models, managing data pipelines, and deploying predictions at scale. CiroStack builds custom ML operations platforms, data pipeline architectures, model serving infrastructure, and monitoring dashboards that help AI teams iterate faster and deploy confidently.",
+        description: "We build ML operations platforms, data pipelines, model serving infrastructure, and monitoring dashboards that help AI teams ship faster.",
         challenges: [
         "Inference costs that scale linearly with users, making the unit economics unsustainable before reaching profitability.",
         "No systematic way to evaluate model quality — every update is a gamble because there's no regression test suite for LLM outputs.",
@@ -17256,7 +17256,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Smart contract development, wallet UX, and Web3 backend infrastructure built with security as the baseline.",
         introSummary: "We build blockchain products that don't get exploited — secure smart contracts, audited before deployment, with wallet UX that non-crypto-native users can actually navigate.",
-        description: "Blockchain companies build on rapidly evolving protocols where security vulnerabilities can be catastrophic. CiroStack builds custom smart contract architectures, decentralized application frontends, wallet integrations, and blockchain analytics platforms with institutional grade security baked into every layer.",
+        description: "We build smart contract architectures, decentralized app frontends, wallet integrations, and blockchain analytics platforms with security built into every layer.",
         challenges: [
         "Smart contract vulnerabilities — reentrancy attacks, integer overflow, access control flaws — that result in funds being drained before the team can respond.",
         "Wallet UX that requires users to understand gas, private keys, and transaction signing — creating an adoption barrier that limits your user base to existing crypto users.",
@@ -17417,7 +17417,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Connect devices, ingest data at scale, and turn sensor readings into decisions that run automatically.",
         introSummary: "We build IoT platforms that manage thousands of connected devices, process high-volume telemetry in real time, and push firmware updates without requiring a truck roll.",
-        description: "IoT companies manage thousands of connected devices generating continuous data streams that must be processed and acted upon reliably. CiroStack builds custom device management platforms, data pipeline architectures, edge computing solutions, and monitoring dashboards that scale with your fleet.",
+        description: "We build device management, data pipelines, edge computing, and monitoring dashboards that scale reliably with your connected device fleet.",
         challenges: [
         "Firmware update logistics that require manual intervention per device — impossible to scale past a few hundred devices in the field.",
         "Telemetry ingestion pipelines that can't handle the write volume when all devices report simultaneously, causing data loss during peak periods.",
@@ -17578,7 +17578,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Build security products that enterprise buyers trust — fast detection, clear compliance, and integrations that actually work.",
         introSummary: "We help cybersecurity companies ship SIEM integrations, threat detection engines, and compliance automation platforms that close enterprise deals and survive the security questionnaires your own product has to answer.",
-        description: "Cybersecurity companies protect organizations from evolving threats that demand constant vigilance and rapid response. CiroStack builds custom threat detection platforms, security operations dashboards, compliance automation tools, and incident response systems that help security teams defend against sophisticated attacks.",
+        description: "We build threat detection, security operations dashboards, compliance automation, and incident response systems that help teams defend against real threats.",
         challenges: [
         "Integration complexity — enterprise buyers require native connectors to 15-30 tools (Splunk, SentinelOne, CrowdStrike, ServiceNow, Jira) before they'll consider a purchase.",
         "Log ingestion at scale — SIEM and threat detection products need to process millions of events per second without dropping data or introducing latency that makes alerts stale.",
@@ -17739,7 +17739,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Cut your cloud bill, fix your infrastructure reliability, and migrate without the 3am outages.",
         introSummary: "We help cloud-native businesses optimize their AWS/GCP/Azure spend, migrate legacy workloads without downtime, and build the infrastructure automation that replaces manual operations.",
-        description: "Cloud service providers need multi tenant platforms that maintain strict isolation, performance guarantees, and cost efficiency at scale. CiroStack builds custom orchestration layers, resource management dashboards, billing systems, and self service portals that let your customers provision and manage resources.",
+        description: "We build orchestration layers, resource management dashboards, billing systems, and self service portals for cloud providers serving demanding enterprise customers.",
         challenges: [
         "Cloud costs growing faster than revenue — teams that can't explain a $30,000 monthly AWS bill or identify which services are wasting money.",
         "Manual infrastructure operations that require senior engineers to execute routine tasks — deployments, scaling events, certificate renewals — that should be automated.",
@@ -17900,7 +17900,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Build the CI/CD, observability, and automation platform that your engineering team actually loves using.",
         introSummary: "We help DevOps tool companies and internal platform teams ship CI/CD pipelines that complete in minutes, observability that surfaces root causes instead of noise, and automation that replaces the manual ops work that wears engineers down.",
-        description: "DevOps tool companies build products that engineering teams depend on for every deployment and release. CiroStack builds custom CI/CD pipeline integrations, infrastructure monitoring platforms, deployment automation tools, and observability dashboards that help development teams ship reliable software faster.",
+        description: "We build CI/CD integrations, infrastructure monitoring, deployment automation, and observability dashboards that help engineering teams ship reliable software faster.",
         challenges: [
         "CI/CD pipelines that take 30-45 minutes and block engineers from shipping — a constant source of frustration that slows the entire organization.",
         "Observability that generates so many alerts and dashboards that on-call engineers can't identify root cause without extensive manual investigation.",
@@ -18061,7 +18061,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Technology & Startups",
         tagline: "Build APIs, SDKs, and CLI tools that developers actually recommend to their teams.",
         introSummary: "We help developer tool companies ship APIs with the documentation, SDK quality, and developer experience that turns evaluators into advocates — because in developer tools, word-of-mouth is your primary growth channel.",
-        description: "Developer tool companies must deliver exceptional developer experiences with clean APIs, thorough documentation, and frictionless onboarding. CiroStack builds custom API platforms, developer portals, SDK generation tools, and usage analytics dashboards that help developer tools achieve adoption and drive engagement.",
+        description: "We build API platforms, developer portals, SDK tooling, and usage analytics that help developer tool companies drive adoption and engagement.",
         challenges: [
         "API design decisions made early that create permanent friction — inconsistent naming, non-idiomatic error responses, authentication flows that require too many steps before the first successful call.",
         "Documentation that describes what your API does but not why, missing the practical examples that help developers solve their specific problem.",
@@ -18222,7 +18222,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Farms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Farms.",
-        description: "Modern farms generate vast amounts of data from soil sensors, weather stations, and equipment telemetry that rarely gets used effectively. CiroStack builds custom farm management platforms, crop planning tools, yield analytics dashboards, and equipment integration systems for smarter operations.",
+        description: "We build farm management platforms, crop planning tools, yield dashboards, and equipment integrations that help modern farms make smarter decisions.",
         challenges: [
         "Modernizing legacy systems specifically holding back Farms innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Farms.",
@@ -18396,7 +18396,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Agribusiness.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Agribusiness.",
-        description: "Agribusiness operations span supply chains from seed to sale, requiring coordination across procurement, processing, and distribution. CiroStack builds custom supply chain platforms, crop analytics dashboards, inventory management systems, and logistics tools that help agribusiness operations optimize every stage.",
+        description: "We build supply chain platforms, crop analytics, inventory, and logistics tools that help agribusiness operations optimize from seed to sale.",
         challenges: [
         "Modernizing legacy systems specifically holding back Agribusiness innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Agribusiness.",
@@ -18570,7 +18570,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Livestock Management.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Livestock Management.",
-        description: "Livestock operations require precise tracking of animal health, breeding records, feed management, and regulatory compliance across large herds. CiroStack builds custom herd management platforms, health monitoring tools, breeding record systems, and compliance tracking dashboards for efficient livestock operations.",
+        description: "We build herd tracking, health monitoring, breeding records, and compliance platforms that help livestock operations manage large herds efficiently.",
         challenges: [
         "Modernizing legacy systems specifically holding back Livestock Management innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Livestock Management.",
@@ -18744,7 +18744,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Farm Equipment.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Farm Equipment.",
-        description: "Farm equipment dealers and manufacturers manage complex inventory, service scheduling, and parts logistics across wide geographic areas. CiroStack builds custom fleet tracking platforms, maintenance scheduling tools, parts inventory systems, and dealer management portals that keep agricultural equipment running.",
+        description: "We build fleet tracking, maintenance scheduling, parts inventory, and dealer management tools that keep agricultural equipment running at peak performance.",
         challenges: [
         "Modernizing legacy systems specifically holding back Farm Equipment innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Farm Equipment.",
@@ -18918,7 +18918,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Produce Distribution.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Produce Distribution.",
-        description: "Produce distributors manage cold chain logistics, freshness tracking, and delivery scheduling for products with extremely short shelf lives. CiroStack builds custom cold chain monitoring platforms, route optimization engines, freshness tracking tools, and order management systems that minimize waste.",
+        description: "We build cold chain monitoring, route optimization, freshness tracking, and order management platforms that help produce distributors minimize waste.",
         challenges: [
         "Modernizing legacy systems specifically holding back Produce Distribution innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Produce Distribution.",
@@ -19092,7 +19092,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Organic Farming.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Organic Farming.",
-        description: "Organic farming operations must maintain meticulous records for certification compliance while managing soil health and sustainable practices. CiroStack builds custom certification tracking platforms, soil management tools, crop rotation planners, and compliance documentation systems that simplify organic operation management.",
+        description: "We build certification tracking, soil management, crop rotation, and compliance documentation tools that simplify organic farming operations and audits.",
         challenges: [
         "Modernizing legacy systems specifically holding back Organic Farming innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Organic Farming.",
@@ -19266,7 +19266,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Agricultural Co-ops.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Agricultural Co-ops.",
-        description: "Agricultural cooperatives coordinate purchasing, marketing, and distribution for hundreds of member farmers. CiroStack builds custom member management platforms, collective purchasing tools, crop aggregation systems, and distribution logistics portals that strengthen cooperative efficiency and member profitability.",
+        description: "We build member management, collective purchasing, crop aggregation, and distribution platforms that strengthen cooperative efficiency and member returns.",
         challenges: [
         "Modernizing legacy systems specifically holding back Agricultural Co-ops innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Agricultural Co-ops.",
@@ -19440,7 +19440,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Precision Agriculture.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Precision Agriculture.",
-        description: "Precision agriculture uses sensor data, satellite imagery, and machine learning to optimize every acre of production. CiroStack builds custom field mapping platforms, variable rate application tools, sensor integration systems, and yield prediction dashboards that turn agricultural data into actionable insights.",
+        description: "We build field mapping, sensor integration, variable rate application, and yield prediction tools that turn agricultural data into actionable decisions.",
         challenges: [
         "Modernizing legacy systems specifically holding back Precision Agriculture innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Precision Agriculture.",
@@ -19614,7 +19614,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Fisheries.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Fisheries.",
-        description: "Fisheries manage catch documentation, fleet coordination, regulatory compliance, and market pricing across unpredictable conditions. CiroStack builds custom catch tracking platforms, fleet management tools, compliance reporting systems, and market intelligence dashboards that help fishing operations stay profitable and sustainable.",
+        description: "We build catch tracking, fleet management, compliance reporting, and market intelligence platforms that help fishing operations stay profitable and sustainable.",
         challenges: [
         "Modernizing legacy systems specifically holding back Fisheries innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Fisheries.",
@@ -19788,7 +19788,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Agriculture & Farming",
         tagline: "AgriTech solutions for sustainable, data-driven Forestry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Forestry.",
-        description: "Forestry operations balance harvest planning, environmental compliance, and inventory management across vast land areas. CiroStack builds custom harvest scheduling platforms, timber inventory tools, compliance tracking systems, and environmental monitoring dashboards that optimize sustainable forest resource management.",
+        description: "We build harvest scheduling, timber inventory, compliance tracking, and environmental monitoring platforms that help forestry operations manage resources sustainably.",
         challenges: [
         "Modernizing legacy systems specifically holding back Forestry innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Forestry.",
@@ -19962,7 +19962,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Stop managing $50M projects with spreadsheets, text threads, and disconnected tools that lose change orders.",
         introSummary: "We help construction companies replace fragmented project management with integrated platforms that connect bidding, scheduling, field reporting, safety compliance, and equipment tracking in a single system. Our teams have built software for general contractors, specialty builders, and commercial construction firms managing 10-200 concurrent projects.",
-        description: "Construction companies manage projects where budget overruns and schedule delays can cost millions. CiroStack builds custom project management platforms, budget tracking dashboards, subcontractor coordination tools, and field reporting systems that keep complex construction projects on time and within budget.",
+        description: "We build project management, budget tracking, subcontractor coordination, and field reporting platforms that keep construction projects on time and budget.",
         challenges: [
         "Project managers spending 30-40% of their time on manual data entry across disconnected systems — Procore, Excel, email, and text messages.",
         "Change orders averaging $26,000 each going untracked for 2-4 weeks because field-to-office communication relies on paper forms and phone calls.",
@@ -20123,7 +20123,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Connect your BIM workflows, client presentations, and project delivery into one seamless digital practice.",
         introSummary: "We help architecture firms bridge the gap between creative design and operational efficiency. From BIM data integration and client portals to interactive project visualization and resource planning, we build the digital infrastructure that lets your team focus on design instead of administration.",
-        description: "Architecture firms coordinate design development, client collaboration, and construction documentation across complex building projects. CiroStack builds custom BIM workflow platforms, client review portals, regulatory submission tools, and project management dashboards that streamline the entire architectural design process.",
+        description: "We build BIM workflows, client review portals, regulatory tools, and project dashboards that streamline architectural design from concept to build.",
         challenges: [
         "BIM models in Revit and ArchiCAD that don't connect to project management, billing, or client-facing systems — forcing manual data extraction and reformatting.",
         "Client design review cycles that take 2-3 weeks because presentations require manual rendering, PDF assembly, and in-person scheduling.",
@@ -20284,7 +20284,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Digital tools to manage complex Civil Engineering projects on time and budget.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Civil Engineering.",
-        description: "Civil engineering projects require precise coordination of design calculations, regulatory approvals, and field inspections across long timelines. CiroStack builds custom project management platforms, inspection tracking tools, compliance documentation systems, and resource planning dashboards that keep infrastructure projects moving forward.",
+        description: "We build project management, inspection tracking, compliance documentation, and resource planning platforms that keep infrastructure projects moving forward reliably.",
         challenges: [
         "Modernizing legacy systems specifically holding back Civil Engineering innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Civil Engineering.",
@@ -20458,7 +20458,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Digital tools to manage complex Contractors projects on time and budget.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Contractors.",
-        description: "General contractors coordinate subcontractors, materials, inspections, and client communications across multiple active job sites simultaneously. CiroStack builds custom job management platforms, scheduling tools, material tracking systems, and client communication portals that keep every project organized and profitable.",
+        description: "We build job management, scheduling, material tracking, and client communication platforms that help contractors keep every project organized and profitable.",
         challenges: [
         "Modernizing legacy systems specifically holding back Contractors innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Contractors.",
@@ -20632,7 +20632,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Digital tools to manage complex Subcontractors projects on time and budget.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Subcontractors.",
-        description: "Subcontractors juggle multiple jobs from different general contractors while managing their own crews, materials, and billing. CiroStack builds custom job tracking platforms, crew scheduling tools, material ordering systems, and invoice management portals that maximize productivity across every active project.",
+        description: "We build job tracking, crew scheduling, material ordering, and invoice management platforms that help subcontractors maximize productivity across multiple projects.",
         challenges: [
         "Modernizing legacy systems specifically holding back Subcontractors innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Subcontractors.",
@@ -20806,7 +20806,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Digital tools to manage complex Building Materials projects on time and budget.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Building Materials.",
-        description: "Building materials suppliers manage complex inventory, delivery logistics, and contractor relationships across wide service areas. CiroStack builds custom inventory management platforms, delivery scheduling tools, contractor portals, and order tracking systems that ensure the right materials reach job sites on time.",
+        description: "We build inventory management, delivery scheduling, contractor portals, and order tracking platforms that ensure materials reach job sites on time.",
         challenges: [
         "Modernizing legacy systems specifically holding back Building Materials innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Building Materials.",
@@ -20980,7 +20980,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Digital tools to manage complex Real Estate Development projects on time and budget.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Real Estate Development.",
-        description: "Real estate developers coordinate land acquisition, financing, construction, and sales across projects spanning years. CiroStack builds custom development tracking platforms, budget management tools, investor reporting dashboards, and sales management systems that provide visibility across every project phase.",
+        description: "We build development tracking, budget management, investor reporting, and sales platforms that give developers full visibility across every project phase.",
         challenges: [
         "Modernizing legacy systems specifically holding back Real Estate Development innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Real Estate Development.",
@@ -21154,7 +21154,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Digital tools to manage complex Facility Management projects on time and budget.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Facility Management.",
-        description: "Facility management companies maintain building systems, coordinate service teams, and ensure regulatory compliance across diverse property portfolios. CiroStack builds custom work order platforms, preventive maintenance schedulers, compliance tracking tools, and tenant communication portals that streamline building operations.",
+        description: "We build work order platforms, preventive maintenance schedulers, compliance tools, and tenant portals that streamline operations across building portfolios.",
         challenges: [
         "Modernizing legacy systems specifically holding back Facility Management innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Facility Management.",
@@ -21328,7 +21328,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Digital tools to manage complex Renovation Services projects on time and budget.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Renovation Services.",
-        description: "Renovation companies manage design consultations, material selection, subcontractor coordination, and client expectations throughout transformation projects. CiroStack builds custom project management platforms, material tracking tools, client communication portals, and scheduling systems that deliver renovation projects on time and within budget.",
+        description: "We build project management, material tracking, client portals, and scheduling platforms that help renovation companies deliver on time and budget.",
         challenges: [
         "Modernizing legacy systems specifically holding back Renovation Services innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Renovation Services.",
@@ -21502,7 +21502,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Construction & Engineering",
         tagline: "Digital tools to manage complex Landscape Architecture projects on time and budget.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Landscape Architecture.",
-        description: "Landscape architecture firms design outdoor spaces that balance aesthetics, environmental sustainability, and client vision. CiroStack builds custom project management platforms, design collaboration tools, plant specification databases, and client presentation portals that elevate landscape design workflows and deliverables.",
+        description: "We build project management, design collaboration, plant specification, and client presentation platforms that elevate landscape design workflows and deliverables.",
         challenges: [
         "Modernizing legacy systems specifically holding back Landscape Architecture innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Landscape Architecture.",
@@ -21676,7 +21676,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Trucking Companies.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Trucking Companies.",
-        description: "Trucking companies manage fleet operations, driver schedules, compliance documentation, and customer shipments across thousands of miles daily. CiroStack builds custom fleet management platforms, dispatch tools, compliance tracking systems, and shipment visibility dashboards that optimize every route and load.",
+        description: "We build fleet management, dispatch, compliance tracking, and shipment visibility platforms that help trucking companies optimize every route and load.",
         challenges: [
         "Modernizing legacy systems specifically holding back Trucking Companies innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Trucking Companies.",
@@ -21850,7 +21850,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Delivery Services.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Delivery Services.",
-        description: "Delivery services balance speed, accuracy, and cost across constantly changing routes and volumes. CiroStack builds custom dispatch platforms, route optimization engines, real time tracking systems, and proof of delivery tools that help delivery operations scale efficiently while maintaining service quality.",
+        description: "We build dispatch, route optimization, tracking, and proof of delivery tools that help delivery operations scale without losing quality.",
         challenges: [
         "Modernizing legacy systems specifically holding back Delivery Services innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Delivery Services.",
@@ -22024,7 +22024,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Freight Forwarding.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Freight Forwarding.",
-        description: "Freight forwarders coordinate shipments across carriers, borders, and transport modes while managing complex documentation and customs requirements. CiroStack builds custom shipment tracking platforms, document management tools, carrier integration systems, and customs compliance portals that simplify global logistics.",
+        description: "We build shipment tracking, document management, carrier integration, and customs compliance platforms that simplify the complexity of global freight logistics.",
         challenges: [
         "Modernizing legacy systems specifically holding back Freight Forwarding innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Freight Forwarding.",
@@ -22198,7 +22198,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Warehousing.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Warehousing.",
-        description: "Warehousing operations demand precise inventory control, efficient picking workflows, and seamless integration with transportation partners. CiroStack builds custom warehouse management platforms, inventory tracking systems, picking optimization tools, and carrier integration portals that maximize throughput and accuracy.",
+        description: "We build warehouse management, inventory tracking, picking optimization, and carrier integration platforms that maximize warehouse throughput and accuracy.",
         challenges: [
         "Modernizing legacy systems specifically holding back Warehousing innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Warehousing.",
@@ -22372,7 +22372,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Public Transportation.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Public Transportation.",
-        description: "Public transit agencies serve millions of riders while managing fleet maintenance, route planning, and budget constraints. CiroStack builds custom passenger information systems, fleet management platforms, route optimization tools, and ridership analytics dashboards that improve service reliability and rider satisfaction.",
+        description: "We build passenger information, fleet management, route optimization, and ridership analytics platforms that help transit agencies serve riders better.",
         challenges: [
         "Modernizing legacy systems specifically holding back Public Transportation innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Public Transportation.",
@@ -22546,7 +22546,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Ride-Sharing.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Ride-Sharing.",
-        description: "Ride sharing platforms must match drivers with riders instantly while managing pricing, safety, and driver satisfaction. CiroStack builds custom matching algorithms, dynamic pricing engines, driver management platforms, and rider experience tools that create reliable and scalable transportation networks.",
+        description: "We build matching algorithms, dynamic pricing, driver management, and rider experience platforms that create reliable, scalable transportation networks.",
         challenges: [
         "Modernizing legacy systems specifically holding back Ride-Sharing innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Ride-Sharing.",
@@ -22720,7 +22720,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Courier Services.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Courier Services.",
-        description: "Courier services promise fast, reliable delivery of time sensitive packages across congested urban environments. CiroStack builds custom dispatch platforms, route optimization engines, real time tracking tools, and proof of delivery systems that help couriers meet tight deadlines efficiently.",
+        description: "We build dispatch, route optimization, tracking, and proof of delivery platforms that help couriers meet tight deadlines cost effectively.",
         challenges: [
         "Modernizing legacy systems specifically holding back Courier Services innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Courier Services.",
@@ -22894,7 +22894,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Shipping Lines.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Shipping Lines.",
-        description: "Shipping lines manage vessel operations, container tracking, and port logistics across global trade routes. CiroStack builds custom vessel management platforms, container tracking systems, booking portals, and operations dashboards that improve fleet utilization and provide real time cargo visibility.",
+        description: "We build vessel management, container tracking, booking portals, and operations dashboards that improve fleet utilization and real time cargo visibility.",
         challenges: [
         "Modernizing legacy systems specifically holding back Shipping Lines innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Shipping Lines.",
@@ -23068,7 +23068,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Railway Companies.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Railway Companies.",
-        description: "Railway companies coordinate train operations, track maintenance, passenger services, and freight logistics across extensive networks. CiroStack builds custom operations management platforms, maintenance scheduling tools, passenger booking systems, and freight tracking dashboards that improve safety and operational efficiency.",
+        description: "We build operations management, maintenance scheduling, passenger booking, and freight tracking platforms that improve railway safety and operational efficiency.",
         challenges: [
         "Modernizing legacy systems specifically holding back Railway Companies innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Railway Companies.",
@@ -23242,7 +23242,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Transportation & Logistics",
         tagline: "Intelligent routing and supply chain visibility for Aviation.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Aviation.",
-        description: "Aviation companies manage flight operations, crew scheduling, maintenance compliance, and passenger experiences across complex regulatory environments. CiroStack builds custom operations platforms, crew management tools, maintenance tracking systems, and passenger service applications that improve safety and operational performance.",
+        description: "We build flight operations, crew management, maintenance tracking, and passenger service platforms that help aviation companies improve safety and performance.",
         challenges: [
         "Modernizing legacy systems specifically holding back Aviation innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Aviation.",
@@ -23416,7 +23416,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Local Government services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Local Government.",
-        description: "Local governments serve residents through permit processing, public records, community services, and infrastructure management. CiroStack builds custom citizen service portals, permit tracking systems, public records platforms, and department workflow tools that modernize municipal operations and improve transparency.",
+        description: "We build citizen portals, permit tracking, public records platforms, and department workflow tools that modernize how local governments serve residents.",
         challenges: [
         "Modernizing legacy systems specifically holding back Local Government innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Local Government.",
@@ -23590,7 +23590,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Federal Agencies services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Federal Agencies.",
-        description: "Federal agencies manage complex programs, interagency coordination, and public services under strict regulatory and security requirements. CiroStack builds custom program management platforms, secure data systems, compliance automation tools, and citizen service portals that modernize federal operations while meeting FedRAMP standards.",
+        description: "We build secure program management, compliance automation, data systems, and citizen portals that modernize federal operations within strict regulatory standards.",
         challenges: [
         "Modernizing legacy systems specifically holding back Federal Agencies innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Federal Agencies.",
@@ -23764,7 +23764,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Public Safety services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Public Safety.",
-        description: "Public safety agencies coordinate emergency response, incident management, and community communication under critical time pressure. CiroStack builds custom dispatch platforms, incident management systems, community alert tools, and data analytics dashboards that help first responders protect communities more effectively.",
+        description: "We build dispatch, incident management, community alert, and analytics platforms that help first responders protect their communities more effectively.",
         challenges: [
         "Modernizing legacy systems specifically holding back Public Safety innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Public Safety.",
@@ -23938,7 +23938,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Education Departments services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Education Departments.",
-        description: "Education departments oversee curriculum standards, school performance, teacher certification, and student outcomes across entire districts or states. CiroStack builds custom data management platforms, performance tracking dashboards, certification systems, and reporting tools that improve educational oversight and accountability.",
+        description: "We build data management, performance tracking, certification, and reporting platforms that help education departments improve oversight and accountability.",
         challenges: [
         "Modernizing legacy systems specifically holding back Education Departments innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Education Departments.",
@@ -24112,7 +24112,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Health Departments services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Health Departments.",
-        description: "Public health departments manage disease surveillance, community wellness programs, and emergency preparedness across diverse populations. CiroStack builds custom epidemiological tracking platforms, community health portals, vaccination management systems, and emergency response dashboards that strengthen public health infrastructure.",
+        description: "We build epidemiological tracking, community health portals, vaccination management, and emergency response platforms that strengthen public health infrastructure.",
         challenges: [
         "Modernizing legacy systems specifically holding back Health Departments innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Health Departments.",
@@ -24286,7 +24286,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Transportation Departments services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Transportation Departments.",
-        description: "Transportation departments plan, build, and maintain road networks, bridges, and transit systems serving millions of commuters. CiroStack builds custom asset management platforms, project tracking tools, traffic analytics dashboards, and public information systems that improve infrastructure planning and citizen communication.",
+        description: "We build asset management, project tracking, traffic analytics, and public information platforms that help transportation departments plan and communicate better.",
         challenges: [
         "Modernizing legacy systems specifically holding back Transportation Departments innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Transportation Departments.",
@@ -24460,7 +24460,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Parks & Recreation services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Parks & Recreation.",
-        description: "Parks and recreation departments manage facilities, programs, permits, and natural resources that serve entire communities. CiroStack builds custom reservation systems, program registration platforms, facility management tools, and visitor analytics dashboards that help parks departments maximize community engagement and resource efficiency.",
+        description: "We build reservation systems, program registration, facility management, and visitor analytics platforms that help parks departments serve their communities better.",
         challenges: [
         "Modernizing legacy systems specifically holding back Parks & Recreation innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Parks & Recreation.",
@@ -24634,7 +24634,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Libraries services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Libraries.",
-        description: "Modern libraries offer far more than book lending, providing digital resources, community programs, and technology access. CiroStack builds custom catalog management systems, digital resource platforms, program registration tools, and patron engagement dashboards that help libraries serve evolving community needs.",
+        description: "We build catalog management, digital resource platforms, program registration, and patron engagement tools that help libraries serve evolving community needs.",
         challenges: [
         "Modernizing legacy systems specifically holding back Libraries innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Libraries.",
@@ -24808,7 +24808,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Utilities services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Utilities.",
-        description: "Utility companies manage complex infrastructure, billing systems, and customer service across millions of service connections. CiroStack builds custom meter data management platforms, billing systems, outage tracking tools, and customer portals that modernize utility operations and improve service reliability.",
+        description: "We build meter data management, billing, outage tracking, and customer portals that help utility companies modernize operations and improve reliability.",
         challenges: [
         "Modernizing legacy systems specifically holding back Utilities innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Utilities.",
@@ -24982,7 +24982,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Government & Public Sector",
         tagline: "Accessible, secure digital Tax Authorities services for citizens.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Tax Authorities.",
-        description: "Tax authorities process millions of returns, manage compliance enforcement, and provide taxpayer services under strict accuracy requirements. CiroStack builds custom return processing platforms, compliance tracking systems, taxpayer portals, and analytics dashboards that improve collection efficiency and reduce processing errors.",
+        description: "We build return processing, compliance tracking, taxpayer portals, and analytics platforms that help tax authorities improve collection efficiency and accuracy.",
         challenges: [
         "Modernizing legacy systems specifically holding back Tax Authorities innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Tax Authorities.",
@@ -25156,7 +25156,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Sports Teams management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Sports Teams.",
-        description: "Sports teams manage player performance, fan engagement, ticket sales, and sponsorship relationships across competitive seasons. CiroStack builds custom performance analytics platforms, fan engagement tools, ticketing systems, and sponsorship management dashboards that help teams win both on and off the field.",
+        description: "We build performance analytics, fan engagement, ticketing, and sponsorship platforms that help teams win on the field and off it.",
         challenges: [
         "Modernizing legacy systems specifically holding back Sports Teams innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Sports Teams.",
@@ -25330,7 +25330,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Fitness Centers management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Fitness Centers.",
-        description: "Fitness centers compete on member experience, class variety, and community atmosphere. CiroStack builds custom membership management platforms, class booking systems, trainer scheduling tools, and member engagement dashboards that reduce churn and create fitness communities members genuinely want to belong to.",
+        description: "We build membership management, class booking, trainer scheduling, and engagement platforms that reduce churn and build fitness communities members love.",
         challenges: [
         "Modernizing legacy systems specifically holding back Fitness Centers innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Fitness Centers.",
@@ -25504,7 +25504,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Gyms management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Gyms.",
-        description: "Gyms need technology that keeps members showing up and staying engaged month after month. CiroStack builds custom membership platforms, workout tracking tools, class scheduling systems, and retention analytics dashboards that turn casual visitors into committed long term members.",
+        description: "We build membership platforms, workout tracking, class scheduling, and retention dashboards that turn casual visitors into committed long term members.",
         challenges: [
         "Modernizing legacy systems specifically holding back Gyms innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Gyms.",
@@ -25678,7 +25678,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Yoga Studios management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Yoga Studios.",
-        description: "Yoga studios cultivate mindful communities that value personal attention and consistent practice. CiroStack builds custom class booking platforms, membership management tools, instructor scheduling systems, and student progress tracking dashboards that help studios grow while maintaining their intimate community atmosphere.",
+        description: "We build class booking, membership, instructor scheduling, and student tracking platforms that help yoga studios grow without losing intimacy.",
         challenges: [
         "Modernizing legacy systems specifically holding back Yoga Studios innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Yoga Studios.",
@@ -25852,7 +25852,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Sports Leagues management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Sports Leagues.",
-        description: "Sports leagues coordinate teams, schedules, officials, and standings across entire seasons while engaging fans and sponsors. CiroStack builds custom league management platforms, scheduling tools, referee assignment systems, and fan engagement portals that keep every season running smoothly.",
+        description: "We build league management, scheduling, referee assignment, and fan engagement platforms that keep seasons running smoothly from start to finals.",
         challenges: [
         "Modernizing legacy systems specifically holding back Sports Leagues innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Sports Leagues.",
@@ -26026,7 +26026,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Outdoor Recreation management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Outdoor Recreation.",
-        description: "Outdoor recreation companies manage equipment rentals, guided experiences, permits, and safety across diverse natural environments. CiroStack builds custom booking platforms, equipment tracking tools, guide scheduling systems, and waiver management portals that help outdoor businesses scale while prioritizing participant safety.",
+        description: "We build booking, equipment tracking, guide scheduling, and waiver platforms that help outdoor recreation businesses scale while keeping participants safe.",
         challenges: [
         "Modernizing legacy systems specifically holding back Outdoor Recreation innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Outdoor Recreation.",
@@ -26200,7 +26200,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Martial Arts Schools management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Martial Arts Schools.",
-        description: "Martial arts schools balance student progression through belt systems, class scheduling, and community building. CiroStack builds custom student management platforms, belt tracking tools, scheduling systems, and parent communication portals that help schools grow while honoring traditional training values.",
+        description: "We build student management, belt tracking, scheduling, and parent communication platforms that help martial arts schools grow and retain students.",
         challenges: [
         "Modernizing legacy systems specifically holding back Martial Arts Schools innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Martial Arts Schools.",
@@ -26374,7 +26374,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Dance Studios management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Dance Studios.",
-        description: "Dance studios manage class schedules, recital planning, student progression, and parent communication across multiple age groups and styles. CiroStack builds custom studio management platforms, scheduling tools, recital coordination systems, and progress tracking portals that keep studios thriving.",
+        description: "We build studio management, class scheduling, recital coordination, and student progress platforms that help dance studios stay organized and thrive.",
         challenges: [
         "Modernizing legacy systems specifically holding back Dance Studios innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Dance Studios.",
@@ -26548,7 +26548,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Golf Courses management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Golf Courses.",
-        description: "Golf courses manage tee time bookings, membership programs, pro shop inventory, and course maintenance across seasonal demand. CiroStack builds custom tee time reservation platforms, membership management tools, pro shop systems, and operations dashboards that maximize revenue and golfer satisfaction.",
+        description: "We build tee time booking, membership, pro shop, and course operations platforms that help golf courses maximize revenue year round.",
         challenges: [
         "Modernizing legacy systems specifically holding back Golf Courses innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Golf Courses.",
@@ -26722,7 +26722,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Sports & Recreation",
         tagline: "High-performance fan engagement and Sports Events management platforms.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Sports Events.",
-        description: "Sports event organizers coordinate venues, participants, sponsors, and logistics across competitions that demand precise timing and execution. CiroStack builds custom event management platforms, registration systems, scoring tools, and sponsor engagement dashboards that deliver flawless sporting events at every scale.",
+        description: "We build event management, registration, scoring, and sponsor engagement platforms that help organizers deliver flawless sporting events at any scale.",
         challenges: [
         "Modernizing legacy systems specifically holding back Sports Events innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Sports Events.",
@@ -26896,7 +26896,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Salons operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Salons.",
-        description: "Salons depend on repeat clients, full appointment books, and efficient service delivery to stay profitable. CiroStack builds custom booking platforms, client management tools, staff scheduling systems, and loyalty program dashboards that help salons increase retention and maximize daily revenue.",
+        description: "We build booking, client management, staff scheduling, and loyalty platforms that help salons fill appointment books and grow repeat revenue.",
         challenges: [
         "Modernizing legacy systems specifically holding back Salons innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Salons.",
@@ -27070,7 +27070,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Spas operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Spas.",
-        description: "Spas create wellness experiences that begin the moment a client books an appointment. CiroStack builds custom reservation platforms, treatment management tools, therapist scheduling systems, and guest experience dashboards that help spas deliver seamless relaxation from first booking through final checkout.",
+        description: "We build reservation, treatment management, therapist scheduling, and guest experience platforms that deliver seamless spa relaxation from booking to checkout.",
         challenges: [
         "Modernizing legacy systems specifically holding back Spas innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Spas.",
@@ -27244,7 +27244,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Barber Shops operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Barber Shops.",
-        description: "Barber shops thrive on loyal clientele, efficient scheduling, and a strong local reputation. CiroStack builds custom appointment booking platforms, client preference tracking tools, staff scheduling systems, and reputation management dashboards that help barbershops build steady repeat business and community presence.",
+        description: "We build appointment booking, client preference tracking, staff scheduling, and reputation management platforms that help barbershops build steady repeat business.",
         challenges: [
         "Modernizing legacy systems specifically holding back Barber Shops innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Barber Shops.",
@@ -27418,7 +27418,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Nail Salons operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Nail Salons.",
-        description: "Nail salons manage high volume appointments, service customization, and product inventory across busy daily schedules. CiroStack builds custom booking platforms, service tracking tools, inventory management systems, and client communication dashboards that help nail salons serve more clients without sacrificing quality.",
+        description: "We build booking, service tracking, inventory, and client communication platforms that help nail salons serve more clients without sacrificing quality.",
         challenges: [
         "Modernizing legacy systems specifically holding back Nail Salons innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Nail Salons.",
@@ -27592,7 +27592,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Estheticians operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Estheticians.",
-        description: "Estheticians provide personalized skincare treatments that require detailed client history tracking and careful product recommendations. CiroStack builds custom client management platforms, treatment tracking tools, product recommendation engines, and appointment scheduling systems that help estheticians deliver consistently exceptional results.",
+        description: "We build client management, treatment tracking, product recommendation, and scheduling platforms that help estheticians deliver consistently personalized skincare results.",
         challenges: [
         "Modernizing legacy systems specifically holding back Estheticians innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Estheticians.",
@@ -27766,7 +27766,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Tattoo Shops operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Tattoo Shops.",
-        description: "Tattoo shops manage custom design consultations, artist schedules, health compliance, and portfolio showcasing. CiroStack builds custom booking platforms, design consultation tools, artist portfolio systems, and health compliance tracking dashboards that help tattoo shops attract clients and streamline creative workflows.",
+        description: "We build booking, design consultation, portfolio, and compliance tracking platforms that help tattoo shops attract clients and streamline operations.",
         challenges: [
         "Modernizing legacy systems specifically holding back Tattoo Shops innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Tattoo Shops.",
@@ -27940,7 +27940,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Beauty Clinics operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Beauty Clinics.",
-        description: "Beauty clinics offer advanced aesthetic treatments requiring precise scheduling, medical compliance, and detailed client records. CiroStack builds custom clinic management platforms, treatment planning tools, compliance tracking systems, and client communication dashboards that help beauty clinics operate safely and scale effectively.",
+        description: "We build clinic management, treatment planning, compliance tracking, and client communication platforms that help beauty clinics operate safely and grow.",
         challenges: [
         "Modernizing legacy systems specifically holding back Beauty Clinics innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Beauty Clinics.",
@@ -28114,7 +28114,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Cosmetics Brands operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Cosmetics Brands.",
-        description: "Cosmetics brands compete on product discovery, shade matching, and personalized recommendations across digital and retail channels. CiroStack builds custom ecommerce platforms, virtual try on tools, shade matching engines, and analytics dashboards that convert browsers into loyal customers.",
+        description: "We build ecommerce, virtual try on, shade matching, and analytics platforms that help cosmetics brands convert browsers into loyal buyers.",
         challenges: [
         "Modernizing legacy systems specifically holding back Cosmetics Brands innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Cosmetics Brands.",
@@ -28288,7 +28288,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Hair Products operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Hair Products.",
-        description: "Hair product companies must educate consumers about ingredients, match products to hair types, and build brand loyalty. CiroStack builds custom ecommerce platforms, hair type assessment tools, subscription management systems, and education portals that help brands grow their customer base.",
+        description: "We build ecommerce, hair type assessments, subscription management, and education portals that help hair product brands grow their customer base.",
         challenges: [
         "Modernizing legacy systems specifically holding back Hair Products innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Hair Products.",
@@ -28462,7 +28462,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Beauty & Personal Care",
         tagline: "Digital elegance tailored for Skincare operations.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Skincare.",
-        description: "Skincare brands help customers navigate complex routines and ingredient choices for their unique skin concerns. CiroStack builds custom skin assessment tools, product recommendation engines, subscription platforms, and educational content systems that build trust and drive informed purchasing.",
+        description: "We build skin assessment tools, product recommendation engines, subscription platforms, and education systems that help brands build trust and loyalty.",
         challenges: [
         "Modernizing legacy systems specifically holding back Skincare innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Skincare.",
@@ -28636,7 +28636,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Car Dealerships industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Car Dealerships.",
-        description: "Car dealerships manage inventory, financing, trade ins, and customer relationships across sales floors and service departments. CiroStack builds custom dealer management platforms, inventory tracking tools, financing workflow systems, and customer relationship portals that accelerate sales and improve service retention.",
+        description: "We build dealer management, inventory tracking, financing workflow, and customer relationship platforms that help car dealerships accelerate sales and service.",
         challenges: [
         "Modernizing legacy systems specifically holding back Car Dealerships innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Car Dealerships.",
@@ -28810,7 +28810,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Auto Repair Shops industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Auto Repair Shops.",
-        description: "Auto repair shops juggle diagnostic workflows, parts ordering, customer approvals, and technician scheduling across dozens of vehicles daily. CiroStack builds custom shop management platforms, digital inspection tools, parts ordering systems, and communication portals that increase throughput and trust.",
+        description: "We build shop management, digital inspection, parts ordering, and customer communication platforms that help repair shops increase throughput and trust.",
         challenges: [
         "Modernizing legacy systems specifically holding back Auto Repair Shops innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Auto Repair Shops.",
@@ -28984,7 +28984,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Car Washes industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Car Washes.",
-        description: "Car wash operations manage high volume vehicle throughput, membership programs, and equipment maintenance across busy locations. CiroStack builds custom point of sale systems, membership management platforms, equipment monitoring tools, and loyalty dashboards that maximize wash volume and recurring revenue.",
+        description: "We build point of sale, membership, equipment monitoring, and loyalty platforms that help car washes maximize volume and recurring revenue.",
         challenges: [
         "Modernizing legacy systems specifically holding back Car Washes innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Car Washes.",
@@ -29158,7 +29158,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Auto Parts Stores industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Auto Parts Stores.",
-        description: "Auto parts stores manage vast inventories with complex fitment data across thousands of vehicle applications. CiroStack builds custom catalog management platforms, fitment verification tools, inventory systems, and ecommerce portals that help parts stores deliver accurate results and reduce costly returns.",
+        description: "We build catalog management, fitment verification, inventory, and ecommerce platforms that help parts stores deliver accurate results with fewer returns.",
         challenges: [
         "Modernizing legacy systems specifically holding back Auto Parts Stores innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Auto Parts Stores.",
@@ -29332,7 +29332,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Fleet Management industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Fleet Management.",
-        description: "Fleet managers oversee vehicle maintenance, driver compliance, fuel costs, and route efficiency across entire vehicle fleets. CiroStack builds custom fleet tracking platforms, maintenance scheduling tools, driver compliance systems, and cost analytics dashboards that reduce operating expenses and extend fleet lifespan.",
+        description: "We build fleet tracking, maintenance scheduling, driver compliance, and cost analytics platforms that reduce operating expenses and extend vehicle life.",
         challenges: [
         "Modernizing legacy systems specifically holding back Fleet Management innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Fleet Management.",
@@ -29506,7 +29506,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Rental Cars industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Rental Cars.",
-        description: "Rental car companies balance fleet availability, pricing strategy, vehicle maintenance, and customer service across multiple locations. CiroStack builds custom fleet management platforms, dynamic pricing tools, reservation systems, and vehicle tracking dashboards that maximize utilization rates and revenue per vehicle.",
+        description: "We build fleet management, dynamic pricing, reservation, and vehicle tracking platforms that help rental car companies maximize utilization and revenue.",
         challenges: [
         "Modernizing legacy systems specifically holding back Rental Cars innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Rental Cars.",
@@ -29680,7 +29680,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Motorcycle Shops industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Motorcycle Shops.",
-        description: "Motorcycle shops serve passionate enthusiasts who value expertise, customization, and community. CiroStack builds custom inventory management platforms, service scheduling tools, parts ordering systems, and customer community portals that help motorcycle shops build loyalty and grow sales across bikes and accessories.",
+        description: "We build inventory management, service scheduling, parts ordering, and community platforms that help motorcycle shops build loyalty and grow sales.",
         challenges: [
         "Modernizing legacy systems specifically holding back Motorcycle Shops innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Motorcycle Shops.",
@@ -29854,7 +29854,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Tire Shops industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Tire Shops.",
-        description: "Tire shops manage seasonal demand fluctuations, vehicle fitment data, and service scheduling across busy retail operations. CiroStack builds custom appointment booking platforms, tire fitment tools, inventory management systems, and communication dashboards that keep bays full and customers informed.",
+        description: "We build appointment booking, fitment tools, inventory management, and customer communication platforms that help tire shops keep service bays full.",
         challenges: [
         "Modernizing legacy systems specifically holding back Tire Shops innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Tire Shops.",
@@ -30028,7 +30028,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Body Shops industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Body Shops.",
-        description: "Body shops coordinate insurance claims, repair estimates, parts sourcing, and customer communication across complex repair workflows. CiroStack builds custom repair management platforms, estimate tools, insurance integration systems, and customer status portals that streamline collision repair from intake through final delivery.",
+        description: "We build repair management, estimating, insurance integration, and customer status platforms that streamline collision repair from intake to final delivery.",
         challenges: [
         "Modernizing legacy systems specifically holding back Body Shops innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Body Shops.",
@@ -30202,7 +30202,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Automotive",
         tagline: "Accelerating digital sales and service for the Automotive Detailing industry.",
         introSummary: "CiroStack delivers bespoke software engineering tailored to the specific technical demands and operational realities of Automotive Detailing.",
-        description: "Automotive detailing businesses manage appointment scheduling, service packages, product inventory, and customer relationships across mobile and fixed locations. CiroStack builds custom booking platforms, service management tools, inventory tracking systems, and customer loyalty dashboards that help detailing businesses grow efficiently.",
+        description: "We build booking, service management, inventory tracking, and customer loyalty platforms that help automotive detailing businesses grow and operate efficiently.",
         challenges: [
         "Modernizing legacy systems specifically holding back Automotive Detailing innovation.",
         "Meeting the increasingly strict compliance and data security requirements for Automotive Detailing.",
@@ -30376,7 +30376,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Reduce write-offs, capture every billable hour, and give clients a portal they'll actually use.",
         introSummary: "We build practice management systems, billing automation, and secure client portals that recover the revenue law firms leak through manual time tracking and give partners real-time visibility into utilization and realization rates.",
-        description: "Law firms manage complex caseloads, client relationships, and billing across practice areas that each demand specialized workflows. CiroStack builds custom case management platforms, document automation tools, time tracking systems, and client portals that let attorneys focus on practicing law.",
+        description: "We build case management, document automation, time tracking, and client portals that let law firms spend more time practicing law.",
         challenges: [
         "Billing leakage from attorneys logging time at end-of-day from memory rather than at the moment of work — resulting in 15-20% of billable hours never being captured.",
         "Slow invoice cycles where a billing coordinator manually assembles timeslips into bills, delaying cash collection by 30-60 days after work is done.",
@@ -30537,7 +30537,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Run a lean, profitable solo practice without hiring a billing coordinator or a full-time paralegal.",
         introSummary: "We build the automation layer that lets solo attorneys focus on legal work — automated client intake, billing, and document generation that replaces the administrative overhead that consumes 30% of a solo practitioner's week.",
-        description: "Solo practitioners handle every aspect of their practice from client intake through case resolution without support staff. CiroStack builds custom practice management platforms, document assembly tools, client portals, and billing systems that give solo attorneys the efficiency of larger firms.",
+        description: "We build practice management, document assembly, client portals, and billing platforms that give solo attorneys the efficiency of larger firms.",
         challenges: [
         "Administrative work consuming 25-35% of the workweek — time that can't be billed and directly reduces take-home income.",
         "Cash flow problems from slow collections: clients who don't pay promptly, invoices that go out late, and no automated follow-up for overdue accounts.",
@@ -30698,7 +30698,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Accelerate M&A due diligence, automate contract lifecycle management, and give boards a secure collaboration platform.",
         introSummary: "We build virtual data rooms, contract lifecycle management systems, and board portals for corporate law practices — cutting deal cycle times, reducing manual contract review, and eliminating the document chaos that slows transactions.",
-        description: "Corporate law practices manage transactions, compliance reviews, and due diligence across deals involving massive document volumes. CiroStack builds custom deal room platforms, document review tools, compliance tracking systems, and collaboration portals that accelerate transactions while reducing oversight risk.",
+        description: "We build deal room, document review, compliance tracking, and collaboration platforms that accelerate corporate legal transactions and reduce oversight risk.",
         challenges: [
         "Due diligence requests arriving as unsorted email attachments rather than organized virtual data rooms, slowing deal timelines and creating version-control chaos among deal team members.",
         "Contract renewals and obligation deadlines tracked in spreadsheets that nobody updates consistently — resulting in missed renewals, auto-escalations on unfavorable terms, and expired agreements discovered during audits.",
@@ -30859,7 +30859,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Manage sensitive matters with organized case files, secure communication, and financial disclosure tools that speed up settlements.",
         introSummary: "We build case management systems, secure client communication portals, and financial disclosure automation for family law practices — helping attorneys manage high-emotion, document-intensive matters without the administrative chaos that makes them unprofitable.",
-        description: "Family law practices handle emotionally sensitive cases requiring careful client communication, court deadline management, and complex financial calculations. CiroStack builds custom case management platforms, communication portals, deadline tracking tools, and financial calculation systems that bring order to workflows.",
+        description: "We build case management, client communication, deadline tracking, and financial calculation platforms that bring order to sensitive family law matters.",
         challenges: [
         "Frequent client calls asking for case status updates that consume attorney time without generating billable work — clients who feel uninformed call more.",
         "Financial disclosure preparation (asset schedules, income documentation, expense affidavits) that requires attorneys or paralegals to organize documents clients provide in disorganized batches.",
@@ -31020,7 +31020,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Organize case files, track court deadlines, and manage evidence so nothing falls through the cracks before trial.",
         introSummary: "We build case management systems, court deadline tracking, and evidence organization tools for criminal defense practices — reducing the administrative overhead that creates malpractice risk and allowing attorneys to focus on building the defense rather than managing the file.",
-        description: "Criminal defense attorneys work under strict deadlines with extensive discovery materials and complex procedural requirements. CiroStack builds custom case management platforms, discovery review tools, deadline tracking systems, and client communication portals that help defense attorneys build stronger cases.",
+        description: "We build case management, discovery review, deadline tracking, and client communication platforms that help defense attorneys build stronger cases faster.",
         challenges: [
         "Court deadline tracking across multiple active matters with overlapping timelines — relying on individual attorney calendars creates single points of failure when an attorney is sick or on trial.",
         "Discovery management: organizing voluminous productions (thousands of pages, video files, audio recordings) in a way that allows quick retrieval during trial preparation.",
@@ -31181,7 +31181,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Track visa timelines, automate USCIS form preparation, and communicate with multilingual clients without the translation overhead.",
         introSummary: "We build case management systems with USCIS deadline tracking, automated form preparation, and multilingual client communication tools for immigration law practices — reducing per-case processing time and enabling firms to serve more clients without proportionally growing staff.",
-        description: "Immigration law firms manage cases across constantly changing regulations, multiple government agencies, and lengthy processing timelines. CiroStack builds custom case tracking platforms, form automation tools, deadline management systems, and client portals that help attorneys navigate complex regulatory landscapes.",
+        description: "We build case tracking, form automation, deadline management, and client communication platforms that help immigration attorneys navigate complex regulations efficiently.",
         challenges: [
         "Repetitive form preparation: the same client information entered into I-130, I-485, I-131, and I-765 forms by hand for each case, with manual review for consistency errors between forms.",
         "USCIS processing time monitoring: tracking priority dates, case status updates, and estimated wait times across a large active caseload without a systematic alert mechanism.",
@@ -31342,7 +31342,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Manage your patent and trademark portfolio so renewals never lapse and infringement is caught early.",
         introSummary: "We build IP portfolio management systems with automated renewal tracking, deadline alerts, and infringement monitoring that protect your clients' assets without the manual overhead that causes valuable rights to lapse.",
-        description: "Intellectual property firms manage patent portfolios, trademark filings, and licensing agreements across complex prosecution and litigation matters. CiroStack builds custom portfolio management platforms, filing deadline trackers, prior art research tools, and reporting dashboards that protect and monetize intellectual assets.",
+        description: "We build portfolio management, filing deadline tracking, prior art research, and reporting platforms that help IP firms protect valuable assets.",
         challenges: [
         "Maintenance fee and renewal deadlines tracked in spreadsheets that are updated inconsistently, creating the risk of patent abandonment or trademark cancellation through missed payments.",
         "No systematic monitoring for potential trademark or patent infringement — clients rely on occasional Google searches rather than systematic monitoring that detects infringement early.",
@@ -31516,7 +31516,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Close more transactions on time, eliminate closing day surprises, and give clients real-time visibility into every step of their transaction.",
         introSummary: "We build closing workflow platforms, title search automation tools, escrow tracking dashboards, and document generation systems for real estate law practices — replacing the spreadsheets, email chains, and manual checklists that cause missed deadlines and closing day chaos.",
-        description: "Real estate law practices coordinate closings, title searches, and contract reviews across transactions involving multiple parties and strict deadlines. CiroStack builds custom transaction management platforms, document automation tools, closing coordination systems, and portals that streamline every matter.",
+        description: "We build transaction management, document automation, closing coordination, and client portals that streamline every step of real estate legal matters.",
         challenges: [
         "Title search coordination handled through email and phone creates 10-15 day turnarounds that compress closing timelines and increase last-minute scrambles.",
         "Escrow tracking across multiple closings managed in spreadsheets, with no automated alerts when disbursement conditions are met or deadlines approach.",
@@ -31678,7 +31678,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Deliver estate plans faster, give clients a secure vault for their most important documents, and eliminate the intake questionnaire chaos.",
         introSummary: "We build document automation systems, secure client vaults, and streamlined intake workflows for estate planning practices — replacing the paper questionnaires, manual drafting, and scattered document storage that slow your practice and leave clients without a clear home for their most important legal documents.",
-        description: "Estate planning attorneys help clients protect wealth and wishes through wills, trusts, and succession plans that must be precise. CiroStack builds custom estate planning platforms, document automation tools, client review portals, and update tracking systems that simplify complex planning workflows.",
+        description: "We build estate planning platforms with document automation, client review portals, and update tracking that simplify complex wealth protection workflows.",
         challenges: [
         "Paper or PDF intake questionnaires that clients return incomplete, requiring follow-up calls before drafting can begin — adding 1-2 weeks to the intake cycle for every new engagement.",
         "Manual document drafting by opening prior client files as templates and substituting content — introducing errors, using outdated provision language, and consuming 3-4 attorney and paralegal hours per basic plan.",
@@ -31840,7 +31840,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Legal Services",
         tagline: "Serve more clients, satisfy more grantors, and keep your volunteer attorneys from drowning in intake paperwork.",
         introSummary: "We build case management systems, intake workflows, volunteer coordination tools, and grant reporting automation for legal aid organizations — so your staff attorneys spend more time on legal work and less time on the administrative burden that prevents under-resourced organizations from serving as many clients as they\'re capable of serving.",
-        description: "Legal aid organizations serve communities with limited resources, handling high caseloads across diverse practice areas simultaneously. CiroStack builds custom intake management platforms, case tracking tools, volunteer coordination systems, and impact reporting dashboards that help organizations serve more people.",
+        description: "We build intake, case tracking, volunteer coordination, and impact reporting platforms that help legal aid organizations serve more people effectively.",
         challenges: [
         "Client intake processes that require multiple in-person appointments or complex phone triage before determining eligibility — creating barriers for clients with transportation, childcare, or work schedule constraints and losing clients who give up before services begin.",
         "Grant reporting assembled manually each quarter by pulling case data from multiple systems and spreadsheets — consuming 20-40 attorney and staff hours per reporting cycle and introducing data inconsistencies across reports to different funders.",
@@ -32002,7 +32002,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Turn foot traffic into repeat customers with a website, online store, and local SEO that actually drive sales.",
         introSummary: "We help local retail shops stop losing sales to Amazon and big-box competitors by building fast, mobile-first websites with integrated online ordering, local SEO that ranks in the map pack, and POS-connected inventory systems that keep online and in-store stock in sync.",
-        description: "Local retailers compete against national chains and online marketplaces with personalized service and community presence. CiroStack builds custom point of sale platforms, inventory management tools, customer loyalty systems, and local marketing dashboards that help independent retailers thrive in competitive markets.",
+        description: "We build point of sale, inventory, loyalty, and marketing platforms that help independent retailers compete and thrive in local markets.",
         challenges: [
         "Your shop doesn't appear in Google Maps or local search results, so nearby customers find competitors first.",
         "Online inventory and in-store stock are managed separately, causing oversells and frustrated customers who drive to your store for items that aren't there.",
@@ -32162,7 +32162,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Fill more seats, streamline online orders, and stop paying 30% to delivery apps.",
         introSummary: "We build restaurant websites with built-in online ordering, reservation systems, and menu management that let you own the customer relationship instead of handing it to DoorDash and Yelp.",
-        description: "Small restaurants manage orders, kitchen operations, and customer loyalty while keeping food costs under control across tight margins. CiroStack builds custom POS integrations, online ordering platforms, inventory tracking tools, and customer engagement systems that help independent restaurants operate profitably.",
+        description: "We build POS, online ordering, inventory tracking, and customer engagement platforms that help independent restaurants operate profitably on tight margins.",
         challenges: [
         "Delivery apps take 15-30% commission on every order, eating into already thin margins on your highest-volume revenue stream.",
         "Your website menu is a PDF that hasn't been updated in months, and customers can't order online without going through a third-party app.",
@@ -32322,7 +32322,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Book more appointments, eliminate no-shows, and turn every client into a repeat visitor.",
         introSummary: "We build salon and spa websites with online booking, automated reminders, review management, and client retention tools that keep your chairs full and your phone free from scheduling calls.",
-        description: "Small salon owners handle appointments, staff scheduling, product inventory, and client relationships while managing every aspect of their business. CiroStack builds custom booking platforms, staff management tools, inventory systems, and client dashboards that let owners focus on their craft.",
+        description: "We build booking, staff management, inventory, and client communication platforms that help salon owners stay organized and focus on craft.",
         challenges: [
         "No-shows and last-minute cancellations cost your salon $1,500-$4,000/month in lost chair time that can't be recovered.",
         "Clients can't book online after hours, so you lose bookings to competitors who offer 24/7 scheduling while you rely on phone calls during business hours.",
@@ -32482,7 +32482,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Reduce member churn, fill classes, and turn your gym into a community — not just a building with equipment.",
         introSummary: "We build gym and fitness studio websites with online class booking, member portals, automated retention campaigns, and churn prediction that keep members engaged and paying month after month.",
-        description: "Small gym owners build fitness communities while managing memberships, class schedules, and facility maintenance on limited budgets. CiroStack builds custom membership platforms, class booking tools, payment systems, and engagement dashboards that help independent gyms compete with national franchise chains.",
+        description: "We build membership, class booking, payment, and engagement platforms that help independent gyms compete with franchise chains on member experience.",
         challenges: [
         "Monthly member churn runs 5-8% because you have no early warning system when members stop showing up.",
         "Class scheduling is manual and rigid — popular classes are overbooked while others run at 30% capacity with no way to rebalance demand.",
@@ -32642,7 +32642,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Get more clients from your website, automate intake, and stop losing leads to slow follow-up.",
         introSummary: "We build law firm websites that rank for high-intent local searches, convert visitors into consultations, and automate the client intake process so your team spends time practicing law instead of chasing paperwork.",
-        description: "Small law firms balance legal expertise with the business demands of running a practice. CiroStack builds custom practice management platforms, client intake tools, billing systems, and document portals that give small firms the efficiency of larger practices without enterprise overhead.",
+        description: "We build practice management, client intake, billing, and document platforms that give small firms the efficiency of larger practices.",
         challenges: [
         "Your website doesn't rank for practice-area searches in your city — 'personal injury lawyer Dallas' or 'family attorney near me' — so potential clients find competitors first.",
         "Lead follow-up takes hours or days because intake forms go to an email inbox that gets checked between depositions and court appearances.",
@@ -32802,7 +32802,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Automate tax season chaos, onboard clients faster, and grow your firm without hiring more admin staff.",
         introSummary: "We build accounting firm websites with secure client portals, automated document collection, and client onboarding workflows that eliminate the paper chase and free your team to focus on advisory work.",
-        description: "Small accounting firms serve clients across tax preparation, bookkeeping, and advisory services with limited staff. CiroStack builds custom client management platforms, tax workflow tools, document collection systems, and billing dashboards that help small firms handle more clients with greater efficiency.",
+        description: "We build client management, tax workflow, document collection, and billing platforms that help small accounting firms serve more clients efficiently.",
         challenges: [
         "Tax season document collection is a nightmare — you're sending 5+ follow-up emails per client for missing W-2s, 1099s, and bank statements.",
         "Client onboarding takes 2-3 weeks of back-and-forth emails, paper engagement letters, and manual data entry into your practice management system.",
@@ -32963,7 +32963,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Generate leads from your own website, automate follow-up, and stop paying Zillow for your own listings.",
         introSummary: "We build real estate agent websites with IDX property search, automated lead nurture, neighborhood landing pages, and CRM integration that turn your online presence into a lead generation machine you actually own.",
-        description: "Independent real estate agents manage listings, client relationships, and transaction paperwork while competing against large brokerages. CiroStack builds custom CRM platforms, listing management tools, transaction tracking systems, and marketing automation dashboards that level the competitive playing field for independent agents.",
+        description: "We build CRM, listing management, transaction tracking, and marketing platforms that help independent real estate agents compete with larger brokerages.",
         challenges: [
         "You're paying $500-$2,000/month for Zillow and portal leads that are shared with multiple agents and convert at 2-3%.",
         "Your website is a generic brokerage template with no IDX search, no neighborhood content, and no lead capture beyond a basic contact form.",
@@ -33123,7 +33123,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Win more engagements with a website that proves your expertise before the first meeting.",
         introSummary: "We build consultant websites with thought leadership positioning, automated proposal workflows, client portals, and lead generation systems that attract higher-value clients and reduce the time you spend on business development.",
-        description: "Independent consultants deliver expert advice while managing client acquisition, project delivery, and invoicing on their own. CiroStack builds custom client management platforms, proposal tools, project tracking systems, and billing dashboards that help consultants operate with the polish of established firms.",
+        description: "We build client management, project tracking, proposals, and billing platforms that help consultants operate with the polish of established firms.",
         challenges: [
         "Your website reads like a generic corporate brochure and generates zero inbound leads — all business comes from referrals and personal networking.",
         "Proposal creation takes 3-5 hours per opportunity because you're starting from scratch every time with no templates or automation.",
@@ -33283,7 +33283,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Win more bids, get paid faster, and manage every job from estimate to final invoice without the paperwork chaos.",
         introSummary: "We build digital systems for small contractors — estimating tools, job scheduling, photo documentation, and automated invoicing — so you spend more time on-site and less time chasing down paperwork, tracking down payments, and juggling jobs across spreadsheets and sticky notes.",
-        description: "Small contractors estimate jobs, coordinate crews, manage materials, and handle client communications across multiple active projects simultaneously. CiroStack builds custom job management platforms, estimating tools, crew scheduling systems, and client communication portals that help contractors stay organized and grow profitably.",
+        description: "We build job management, estimating, crew scheduling, and client communication platforms that help small contractors stay organized and grow profitably.",
         challenges: [
         "Estimates written on paper or in basic spreadsheets take 2-3 hours each and look unprofessional next to competitors using modern estimating software.",
         "Job scheduling lives in the owner\'s head or a whiteboard, causing double-bookings, crew confusion, and jobs that slip through the cracks entirely.",
@@ -33445,7 +33445,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         parentCategory: "Small Business",
         tagline: "Stop chasing invoices, win better clients, and run your solo business like it\'s already the size it\'s becoming.",
         introSummary: "We build the digital infrastructure freelancers actually need: a portfolio site that converts visitors to inquiries, automated invoicing and proposal tools, a client management system, and time tracking that feeds directly into billing — so you spend more time on client work and less time on the administrative overhead that doesn\'t pay.",
-        description: "Freelancers manage client acquisition, project delivery, invoicing, and professional development while building sustainable independent careers. CiroStack builds custom portfolio platforms, project management tools, invoicing systems, and client communication dashboards that help freelancers present professionally and operate efficiently at scale.",
+        description: "We build portfolio, project management, invoicing, and client communication platforms that help freelancers present professionally and manage their business efficiently.",
         challenges: [
         "Unpredictable cash flow from slow invoice collection — clients paying 45-90 days after project completion because invoices are manual and follow-up is inconsistent.",
         "Time lost to proposal writing: each new proposal takes 2-4 hours of reformatting previous work, researching scope, and assembling a document that looks professional.",

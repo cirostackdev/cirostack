@@ -6,7 +6,7 @@ export const servicesPart1: Record<string, ServiceEntry> = {
         id: "websites",
         icon: Globe,
         title: "Custom Software Development",
-        tagline: "Beautiful, fast websites that drive results.",
+        tagline: "We build fast, custom websites that look great, rank well, and turn visitors into paying customers.",
         introSummary: "high-performance, customized web platforms tailored specifically to amplify your digital presence and optimize conversion rates.",
         description: "In today's digital landscape, your website is the cornerstone of your business identity. Our custom software development service goes beyond templates. We design and construct bespoke, responsive web architectures that prioritize performance, accessibility, and user engagement. By leveraging modern web frameworks, we ensure your platform isn't just visually stunning—it's a rapid, secure, and scalable asset that acts as your hardest working salesperson.",
         details: [
@@ -65,7 +65,7 @@ export const servicesPart1: Record<string, ServiceEntry> = {
         id: "apps",
         icon: Smartphone,
         title: "Mobile Apps Development",
-        tagline: "Custom applications that scale with your vision.",
+        tagline: "Native and cross platform mobile apps built by senior engineers, from first prototype to millions of users.",
         introSummary: "robust, high-performance web and mobile applications engineered to provide seamless native experiences across all devices and platforms.",
         description: "We orchestrate the entire lifecycle of custom application development, from minimal viable products (MVPs) to complex enterprise-grade platforms. Understanding that sluggish or unintuitive applications destroy user trust, we focus intensely on real-time synchronization, fluid animations, and offline-first capabilities. Whether deploying natively to iOS and Android or crafting a powerful Progressive Web Application (PWA), our engineering teams ensure your app scales flawlessly alongside your growing user base.",
         details: [
@@ -124,7 +124,7 @@ export const servicesPart1: Record<string, ServiceEntry> = {
         id: "ai",
         icon: Bot,
         title: "Generative AI Development",
-        tagline: "Intelligent tools that work while you sleep.",
+        tagline: "Custom AI tools trained on your data that automate real work and solve problems unique to your business.",
         introSummary: "secure, custom-trained artificial intelligence solutions designed to automate workflows, uncover insights, and revolutionize how you operate.",
         description: "Artificial Intelligence is no longer just a buzzword; it is a critical competitive advantage. We specialize in developing and integrating Generative AI solutions that seamlessly fit into your existing operations. Whether you need a highly intelligent customer service chatbot trained exclusively on your proprietary documentation, or automated content generation pipelines that scale your marketing efforts exponentially, our AI engineers build secure interfaces utilizing industry-leading Large Language Models.",
         details: [
@@ -183,7 +183,7 @@ export const servicesPart1: Record<string, ServiceEntry> = {
         id: "ux-ui-design",
         icon: Cpu,
         title: "UX & UI Design Services",
-        tagline: "Interfaces that delight users and drive conversions.",
+        tagline: "Research driven design that makes complex products feel simple, so users stay longer and convert more often.",
         introSummary: "stunning, intuitive interface designs fundamentally rooted in user psychology and heavy data-driven research.",
         description: "Great design is rarely just about making things look pretty; it's an exercise in complex problem-solving. Our UX/UI design team creates high-converting digital experiences by deeply understanding your users' friction points and behaviors. From initial wireframing and exhaustive user research to developing robust, scalable design systems and high-fidelity prototypes, we ensure every interaction is meaningful, accessible, and aligned perfectly with your brand's core objectives.",
         details: [
@@ -242,7 +242,7 @@ export const servicesPart1: Record<string, ServiceEntry> = {
         id: "cloud-consulting",
         icon: Cloud,
         title: "Cloud Consulting & Services",
-        tagline: "Strategic cloud guidance from certified experts.",
+        tagline: "We plan your cloud migration, optimize your spend, and architect infrastructure that scales without surprises.",
         introSummary: "strategic, highly secure cloud migration and infrastructure architectures that drastically reduce operational costs and enhance system resilience.",
         description: "Navigating the complexities of modern cloud infrastructure requires deep expertise to avoid skyrocketing costs and security vulnerabilities. Our certified cloud consultants partner with your leadership teams to assess your current infrastructure, map out comprehensive migration strategies, and architect robust cloud-native environments. Whether you are moving legacy systems to AWS, optimizing Azure deployments, or needing strict compliance across Google Cloud, we ensure your transition is seamless, secure, and strictly optimized for ROI.",
         details: [
