@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { industriesData } from "@/data/industries-generated";
 import { industriesData as parentData } from "@/data/industries";
 import { projects, projectImages } from "@/data/caseStudies";
-import CountUp from "@/components/industries/CountUp";
 import CategoryFAQ from "@/components/industries/CategoryFAQ";
 import CategoryPicker from "@/components/industries/CategoryPicker";
 
@@ -105,24 +104,26 @@ export default function IndustryCategory({ categoryId }: Props) {
         ctaLink="/contact"
       />
 
-      {/* Stats bar */}
-      {parent.stats.length > 0 && (
-        <section className="bg-card border-y border-border/40 py-14">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              {parent.stats.slice(0, 4).map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <p className="text-4xl lg:text-5xl font-display font-bold text-primary">{s.value}</p>
-                  <p className="mt-1 text-sm text-muted-foreground font-medium tracking-wide uppercase">{s.label}</p>
-                </motion.div>
-              ))}
+      {/* ══════════════════════════════════════════════
+          SUB-INDUSTRIES — hover picker (directly below hero)
+          ══════════════════════════════════════════════ */}
+      {subIndustries.length > 0 && (
+        <section className="section-padding section-alt">
+          <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+            <div className="mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground leading-tight max-w-2xl">
+                Hover. Explore. <span className="text-gradient">Find your fit.</span>
+              </h2>
             </div>
+            <CategoryPicker
+              categories={subIndustries.map((sub) => ({
+                id: sub.id,
+                title: sub.title,
+                tagline: sub.tagline,
+                icon: sub.icon,
+                image: `/images/industries/hero-${sub.id}.jpg`,
+              }))}
+            />
           </div>
         </section>
       )}
@@ -287,30 +288,6 @@ export default function IndustryCategory({ categoryId }: Props) {
           </div>
         </div>
       </section>
-
-      {/* ══════════════════════════════════════════════
-          SUB-INDUSTRIES — hover picker
-          ══════════════════════════════════════════════ */}
-      {subIndustries.length > 0 && (
-        <section className="section-padding section-alt">
-          <div className="container mx-auto px-4 md:px-6 max-w-6xl">
-            <div className="mb-12 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground leading-tight max-w-2xl">
-                Hover. Explore. <span className="text-gradient">Find your fit.</span>
-              </h2>
-            </div>
-            <CategoryPicker
-              categories={subIndustries.map((sub) => ({
-                id: sub.id,
-                title: sub.title,
-                tagline: sub.tagline,
-                icon: sub.icon,
-                image: `/images/industries/hero-${sub.id}.jpg`,
-              }))}
-            />
-          </div>
-        </section>
-      )}
 
       {/* ══════════════════════════════════════════════
           RELATED CASE STUDY
