@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -25,6 +26,7 @@ import SectionHeading from "@/components/SectionHeading";
 import imgHealthflow from "@/assets/portfolio-healthflow.jpg";
 import imgShoplocal from "@/assets/portfolio-shoplocal.jpg";
 import imgAutotask from "@/assets/portfolio-autotask.jpg";
+import { projects, projectImages } from "@/data/caseStudies";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { allTestimonials } from "@/data/testimonials";
 import HeroVisualStack from "@/components/home/HeroVisualStack";
@@ -86,11 +88,6 @@ const phases = [
   },
 ];
 
-const projects = [
-  { title: "HealthFlow Dashboard", client: "MedTech Startup", industry: "Healthcare", metric: "60% less admin time", tags: ["Web App", "AI"], image: imgHealthflow },
-  { title: "ShopLocal Marketplace", client: "Retail Collective", industry: "Retail", metric: "₦60M in 90-day GMV", tags: ["E-commerce"], image: imgShoplocal },
-  { title: "AutoTask AI", client: "Operations Corp", industry: "Enterprise", metric: "75% less manual work", tags: ["AI"], image: imgAutotask },
-];
 
 const values = [
   { icon: DollarSign, title: "Fixed Price", line: "The quote is the price. Period." },
@@ -135,6 +132,24 @@ const marqueeWords: { label: string; href: string }[] = [
 
 /* ─── page ─── */
 const Index = () => {
+  const featuredProjects = useMemo(() => {
+    const allEntries = Object.entries(projects);
+    // Fisher-Yates shuffle
+    for (let i = allEntries.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allEntries[i], allEntries[j]] = [allEntries[j], allEntries[i]];
+    }
+    return allEntries.slice(0, 5).map(([id, p]) => ({
+      id,
+      title: p.title,
+      client: p.client,
+      industry: p.industry,
+      metric: p.metrics[0] ? `${p.metrics[0].value} ${p.metrics[0].label}` : "",
+      tags: [p.category],
+      image: projectImages[id],
+    }));
+  }, []);
+
   return (
     <Layout>
       <SEO />
@@ -370,7 +385,7 @@ const Index = () => {
             description="A small sample. The full portfolio has 25 case studies."
           />
 
-          <BentoProjects projects={projects} />
+          <BentoProjects projects={featuredProjects} />
 
           <div className="text-center mt-10">
             <Link

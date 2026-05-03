@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 export interface BentoProject {
+  id: string;
   title: string;
   client: string;
   industry: string;
@@ -39,7 +40,7 @@ export default function BentoProjects({ projects }: BentoProjectsProps) {
         className="relative"
       >
         <Link
-          href="/portfolio"
+          href={`/portfolio/${featured.id}`}
           className="group block relative rounded-3xl overflow-hidden border border-border bg-card aspect-[4/5] lg:aspect-auto lg:h-full lg:min-h-[560px]"
         >
           <img
@@ -106,7 +107,7 @@ export default function BentoProjects({ projects }: BentoProjectsProps) {
               className="border-b border-border last:border-b-0"
             >
               <Link
-                href="/portfolio"
+                href={`/portfolio/${p.id}`}
                 className="group relative grid grid-cols-[auto_1fr_auto] items-center gap-4 md:gap-6 py-5 md:py-6"
               >
                 {/* Index + thumb */}
