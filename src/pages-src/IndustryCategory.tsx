@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Shield, CheckCircle2, Zap } from "lucide-react";
+import { ArrowRight, Shield, CheckCircle2, Zap } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
@@ -13,6 +13,7 @@ import { industriesData as parentData } from "@/data/industries";
 import { projects, projectImages } from "@/data/caseStudies";
 import CountUp from "@/components/industries/CountUp";
 import CategoryFAQ from "@/components/industries/CategoryFAQ";
+import CategoryPicker from "@/components/industries/CategoryPicker";
 
 interface Props {
   categoryId: string;
@@ -288,42 +289,25 @@ export default function IndustryCategory({ categoryId }: Props) {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SUB-INDUSTRIES — directory list
+          SUB-INDUSTRIES — hover picker
           ══════════════════════════════════════════════ */}
       {subIndustries.length > 0 && (
-        <section className="section-padding">
-          <div className="container mx-auto px-4 md:px-6">
-            <SectionHeading
-              badge={`${parent.title} Sectors`}
-              title="Explore specialized solutions"
-              description={`We build tailored software for every corner of the ${parent.title.toLowerCase()} industry.`}
-            />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-0 max-w-6xl mx-auto">
-              {subIndustries.map((sub) => {
-                const SubIcon = sub.icon;
-                return (
-                  <Link
-                    key={sub.id}
-                    href={`/industries/${sub.id}`}
-                    className="group flex items-center gap-4 py-5 border-b border-border hover:border-foreground/40 transition-colors"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center shrink-0 group-hover:bg-foreground transition-colors">
-                      <SubIcon className="w-5 h-5 text-muted-foreground group-hover:text-background transition-colors" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-display font-semibold text-foreground text-base group-hover:text-foreground transition-colors">
-                        {sub.title}
-                      </h4>
-                      <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
-                        {sub.tagline}
-                      </p>
-                    </div>
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0" />
-                  </Link>
-                );
-              })}
+        <section className="section-padding section-alt">
+          <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+            <div className="mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground leading-tight max-w-2xl">
+                Hover. Explore. <span className="text-gradient">Find your fit.</span>
+              </h2>
             </div>
+            <CategoryPicker
+              categories={subIndustries.map((sub) => ({
+                id: sub.id,
+                title: sub.title,
+                tagline: sub.tagline,
+                icon: sub.icon,
+                image: `/images/industries/hero-${sub.id}.jpg`,
+              }))}
+            />
           </div>
         </section>
       )}
