@@ -319,36 +319,30 @@ const Index = () => {
             {/* Horizontal scroll showcase */}
             <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 scrollbar-thin">
-                {industries.map((ind, i) => (
+                {industries.map((ind) => (
                   <Link
                     key={ind.title}
                     href={ind.href}
-                    className="group relative flex-none w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden snap-start bg-card border border-border"
+                    className="block group flex-none w-[260px] md:w-[280px] snap-start"
                   >
-                    <img
-                      src={ind.image}
-                      alt={ind.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                    <div className="absolute top-4 left-4">
-                      <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center">
-                        <ind.icon className="w-5 h-5 text-white" />
+                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
+                      <div className="h-48 overflow-hidden">
+                        <img
+                          src={ind.image}
+                          alt={ind.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
                       </div>
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <span className="text-[10px] font-mono text-white/60 tabular-nums">
-                        {String(i + 1).padStart(2, "0")} / {String(industries.length).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <div className="absolute inset-x-0 bottom-0 p-5">
-                      <h3 className="font-display font-bold text-white text-lg md:text-xl mb-1 leading-tight">
-                        {ind.title}
-                      </h3>
-                      <p className="text-xs text-white/75 leading-relaxed line-clamp-2 max-h-0 group-hover:max-h-20 transition-all duration-500 overflow-hidden">
-                        {ind.tagline}
-                      </p>
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <ind.icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <h3 className="font-display font-semibold text-foreground text-base leading-tight">{ind.title}</h3>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{ind.tagline}</p>
+                      </div>
                     </div>
                   </Link>
                 ))}
