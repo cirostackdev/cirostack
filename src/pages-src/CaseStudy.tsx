@@ -7,7 +7,6 @@ import { Briefcase, Heart, Zap, ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
-import SectionHeading from "@/components/SectionHeading";
 import { projects, projectImages } from "@/data/caseStudies";
 import imgHealthflow from "@/assets/portfolio-healthflow.jpg";
 
@@ -66,24 +65,23 @@ const CaseStudy = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Main content */}
             <div className="lg:col-span-2 space-y-16">
+
               {/* Hero image */}
               <CaseStudyHeroImage image={projectImages[id || ""] || imgHealthflow} title={project.title} />
 
               {/* About client */}
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <div className="surface-glass rounded-2xl p-6 md:p-8">
-                  <h2 className="text-xl font-display font-semibold text-foreground mb-3">About the Client</h2>
-                  <p className="text-muted-foreground leading-relaxed">{project.aboutClient}</p>
-                </div>
+                <h2 className="text-xl font-display font-semibold text-foreground mb-3">About the Client</h2>
+                <p className="text-muted-foreground leading-relaxed">{project.aboutClient}</p>
               </motion.div>
 
               {/* Challenge & Solution */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="surface-glass rounded-2xl p-6 md:p-8 border-l-4 border-l-destructive/50">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-2 border-t border-border">
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                   <h2 className="text-xl font-display font-semibold text-foreground mb-3">The Challenge</h2>
                   <p className="text-muted-foreground leading-relaxed text-sm">{project.challenge}</p>
                 </motion.div>
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="surface-glass rounded-2xl p-6 md:p-8 border-l-4 border-l-primary/50">
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
                   <h2 className="text-xl font-display font-semibold text-foreground mb-3">The Solution</h2>
                   <p className="text-muted-foreground leading-relaxed text-sm">{project.solution}</p>
                 </motion.div>
@@ -91,20 +89,20 @@ const CaseStudy = () => {
 
               {/* Key Features */}
               <div>
-                <SectionHeading badge="Features" title="Key Features" center={false} />
+                <h2 className="text-xl font-display font-semibold text-foreground mb-6">Key Features</h2>
                 <CaseStudyFeatures features={project.keyFeatures} />
               </div>
 
               {/* Results */}
               <div>
-                <SectionHeading badge="Impact" title="The Results" center={false} />
-                <p className="text-muted-foreground leading-relaxed mb-8 -mt-8">{project.result}</p>
+                <h2 className="text-xl font-display font-semibold text-foreground mb-3">The Results</h2>
+                <p className="text-muted-foreground leading-relaxed mb-8">{project.result}</p>
                 <CaseStudyMetrics metrics={project.metrics} />
               </div>
 
               {/* Process */}
               <div>
-                <SectionHeading badge="Process" title="Our Process" center={false} />
+                <h2 className="text-xl font-display font-semibold text-foreground mb-2">Our Process</h2>
                 <CaseStudyProcess steps={project.process} />
               </div>
 
@@ -117,11 +115,11 @@ const CaseStudy = () => {
                 />
               )}
 
-              {/* What client loved & challenges */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="surface-glass rounded-2xl p-6 md:p-8">
+              {/* What client loved & challenges overcome */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-2 border-t border-border">
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                   <div className="flex items-center gap-2 mb-5">
-                    <Heart className="w-5 h-5 text-foreground" />
+                    <Heart className="w-5 h-5 text-primary" />
                     <h3 className="font-display font-semibold text-foreground text-lg">What the Client Loved</h3>
                   </div>
                   <ul className="space-y-3">
@@ -133,21 +131,22 @@ const CaseStudy = () => {
                     ))}
                   </ul>
                 </motion.div>
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="surface-glass rounded-2xl p-6 md:p-8">
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
                   <div className="flex items-center gap-2 mb-5">
-                    <Zap className="w-5 h-5 text-accent" />
+                    <Zap className="w-5 h-5 text-primary" />
                     <h3 className="font-display font-semibold text-foreground text-lg">Challenges We Overcame</h3>
                   </div>
                   <ul className="space-y-3">
                     {project.challengesOvercome.map((item) => (
                       <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-border mt-1.5 shrink-0" />
                         {item}
                       </li>
                     ))}
                   </ul>
                 </motion.div>
               </div>
+
             </div>
 
             {/* Sidebar */}

@@ -88,7 +88,7 @@ const CaseStudySidebar = ({ project }: SidebarProps) => (
     </div>
 
     {/* CTA */}
-    <div className="surface-glass rounded-2xl p-6 glow-border">
+    <div className="surface-glass rounded-2xl p-6">
       <h3 className="font-display font-semibold text-foreground mb-3 text-lg">Want results like these?</h3>
       <p className="text-sm text-muted-foreground mb-5">Let's discuss your project and build something great together.</p>
       <Link href="/contact">

@@ -8,7 +8,7 @@ interface Metric {
 }
 
 const CaseStudyMetrics = ({ metrics }: { metrics: Metric[] }) => (
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden">
     {metrics.map((m, i) => (
       <motion.div
         key={m.label}
@@ -16,11 +16,10 @@ const CaseStudyMetrics = ({ metrics }: { metrics: Metric[] }) => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: i * 0.1 }}
-        className="relative group rounded-2xl p-6 text-center surface-glass hover-lift overflow-hidden"
+        className="bg-card px-6 py-8 text-center"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-        <p className="text-3xl md:text-4xl font-display font-bold text-gradient relative z-10">{m.value}</p>
-        <p className="text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider relative z-10">{m.label}</p>
+        <p className="text-3xl md:text-4xl font-display font-bold text-gradient">{m.value}</p>
+        <p className="text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">{m.label}</p>
       </motion.div>
     ))}
   </div>
