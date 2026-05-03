@@ -133,7 +133,7 @@ const CaseStudy = () => {
                 </motion.div>
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
                   <div className="flex items-center gap-2 mb-5">
-                    <Zap className="w-5 h-5 text-primary" />
+                    <Zap className="w-5 h-5 text-muted-foreground" />
                     <h3 className="font-display font-semibold text-foreground text-lg">Challenges We Overcame</h3>
                   </div>
                   <ul className="space-y-3">
