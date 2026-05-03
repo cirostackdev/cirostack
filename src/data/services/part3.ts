@@ -50,7 +50,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         ],
         industryExpertise: ["Retail", "Financial Services", "Logistics", "Marketing", "Healthcare", "SaaS"],
         reasonsToChoose: [
-            { title: "Business Context", description: "We don't just move data. Our engineers understand the underlying business mechanics—we know the difference between gross revenue and recognized revenue." },
+            { title: "Business Context", description: "We don't just move data. Our engineers understand the underlying business mechanics: we know the difference between gross revenue and recognized revenue." },
             { title: "Modern Stack Mastery", description: "We utilize the modern data stack (dbt, Snowflake, Fivetran), avoiding outdated, slow, on-premises Hadoop clusters in favor of agile, cloud-native tools." },
             { title: "Focus on Governance", description: "We enforce strict data governance and PII masking protocols, ensuring your analytics initiatives never accidentally violate GDPR or CCPA." }
         ],
@@ -101,7 +101,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         ],
         processSteps: [
             { title: "Identity Landscape Audit", description: "We map every single software tool your company uses, identifying orphaned accounts, over-privileged users, and toxic security gaps." },
-            { title: "Architecture & Strategy", description: "We design the central Identity Provider (IdP) architecture—typically Okta or Auth0—and define the strict Role-Based Access Control matrix." },
+            { title: "Architecture & Strategy", description: "We design the central Identity Provider (IdP) architecture: typically Okta or Auth0: and define the strict Role-Based Access Control matrix." },
             { title: "IdP Configuration", description: "Our engineers configure the central identity hub, establishing complex routing rules, custom branding, and adaptive MFA policies." },
             { title: "Application Integration", description: "We systematically connect your internal apps, third-party SaaS tools, and custom databases to the central IdP via SAML or OIDC protocols." },
             { title: "Automated Provisioning", description: "We build the SCIM pipelines that automatically create and destroy user accounts across all applications the moment a user's status changes in HR." },
@@ -111,7 +111,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         reasonsToChoose: [
             { title: "Deep Protocol Knowledge", description: "We don't just click buttons in Okta. Our engineers possess profound, code-level understanding of OAuth 2.0, SAML, and OIDC cryptographic handshakes." },
             { title: "Developer-Centric IAM", description: "For customer-facing apps (CIAM), we provide your developers with the exact SDK implementations and JWT validation logic needed to secure your unique APIs." },
-            { title: "Vendor Agnosticism", description: "We evaluate your specific use case to recommend the best tool—whether that is the extreme enterprise power of Okta, or the developer flexibility of Auth0." }
+            { title: "Vendor Agnosticism", description: "We evaluate your specific use case to recommend the best tool: whether that is the extreme enterprise power of Okta, or the developer flexibility of Auth0." }
         ],
         faqs: [
             { question: "What is the difference between OAuth 2.0 and SAML?", answer: "SAML is an older, XML-based protocol primarily used by large enterprises to log employees into third-party tools (SSO). OAuth 2.0 is a modern, token-based framework primarily used to secure APIs and allow applications to access data on behalf of a user." },
@@ -160,7 +160,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         ],
         processSteps: [
             { title: "QA Audit & Strategy", description: "We analyze your application's most critical user flows (the 'happy paths') and prioritize them based on business risk and revenue generation." },
-            { title: "Framework Selection", description: "We evaluate your tech stack and select the optimal modern tooling—typically Playwright or Cypress—and configure the foundational testing architecture." },
+            { title: "Framework Selection", description: "We evaluate your tech stack and select the optimal modern tooling: typically Playwright or Cypress: and configure the foundational testing architecture." },
             { title: "Test Script Engineering", description: "Our SDETs (Software Development Engineers in Test) write robust, highly resilient code to automate the complex browser interactions and API calls." },
             { title: "Visual & Load Integration", description: "We layer in pixel-by-pixel visual comparison tools and write k6 scripts to hammer your APIs with simulated heavy traffic." },
             { title: "CI/CD Pipeline Injection", description: "We embed the test suite directly into your deployment pipeline. If the tests fail, the deployment is instantly, automatically blocked." },
@@ -266,7 +266,7 @@ export const servicesPart3: Record<string, ServiceEntry> = {
         bookingType: "Initiate Audit",
         valueProps: [
             { title: "M&A Technical Due Diligence", description: "Don't buy a lemon. We provide investors and acquiring companies the absolute truth about the software asset they are purchasing before the ink dries." },
-            { title: "Expose Hidden Risks", description: "We systematically uncover the 'ticking time bombs'—outdated open-source libraries, hardcoded credentials, and fragile database queries that could destroy your business." },
+            { title: "Expose Hidden Risks", description: "We systematically uncover the 'ticking time bombs': outdated open-source libraries, hardcoded credentials, and fragile database queries that could destroy your business." },
             { title: "Accelerate Future Velocity", description: "By identifying the exact modules responsible for the highest technical debt, we show you exactly where to refactor to double your developers' future output speed." },
             { title: "Actionable Intelligence", description: "We don't just hand you a 100-page PDF of automated warnings. We manually curate the findings into a clear, prioritized checklist of immediate 'Quick Wins' vs 'Long-Term Fixes'." }
         ],

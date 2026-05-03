@@ -18,7 +18,7 @@ interface Props {
   categoryId: string;
 }
 
-/** Generic compliance pills — overridden per parent category */
+/** Generic compliance pills: overridden per parent category */
 const complianceMap: Record<string, string[]> = {
   "Healthcare & Medical": ["HIPAA", "HITECH", "FHIR / HL7", "GDPR", "WCAG 2.1 AA"],
   "Financial Services": ["PCI-DSS L1", "SOC 2 Type II", "ISO 27001", "PSD2", "GDPR"],
@@ -30,24 +30,24 @@ const complianceMap: Record<string, string[]> = {
 
 const defaultCompliance = ["GDPR", "SOC 2", "ISO 27001", "WCAG 2.1 AA"];
 
-/** Generic FAQs per category — overridden per parent category title */
+/** Generic FAQs per category: overridden per parent category title */
 function buildFaqs(parentTitle: string) {
   return [
     {
       question: `What kind of ${parentTitle.toLowerCase()} businesses do you typically work with?`,
-      answer: `We partner with companies of all sizes in the ${parentTitle.toLowerCase()} space — from venture-backed startups building their first product, to mid-market firms modernizing legacy systems, to established enterprises rolling out AI and automation. The common thread: teams that want senior engineers, fixed pricing, and software that ships fast.`,
+      answer: `We partner with companies of all sizes in the ${parentTitle.toLowerCase()} space: from venture-backed startups building their first product, to mid-market firms modernizing legacy systems, to established enterprises rolling out AI and automation. The common thread: teams that want senior engineers, fixed pricing, and software that ships fast.`,
     },
     {
       question: `How do you handle compliance and regulatory requirements?`,
-      answer: `Compliance is architected into the project from day one — not bolted on at launch. We map every requirement (whether it's HIPAA, PCI-DSS, GDPR, FERPA, or industry-specific frameworks) to concrete engineering controls, document them for your auditors, and verify them in CI. We've passed dozens of third-party audits.`,
+      answer: `Compliance is architected into the project from day one: not bolted on at launch. We map every requirement (whether it's HIPAA, PCI-DSS, GDPR, FERPA, or industry-specific frameworks) to concrete engineering controls, document them for your auditors, and verify them in CI. We've passed dozens of third-party audits.`,
     },
     {
       question: `What's the typical timeline for a ${parentTitle.toLowerCase()} project?`,
-      answer: `Most fixed-price MVPs ship in 4–8 weeks. Larger platforms or heavily-regulated builds (healthcare, finance, government) typically run 10–16 weeks including compliance review and penetration testing. We agree on scope and timeline upfront — if we go over, that's on us.`,
+      answer: `Most fixed-price MVPs ship in 4–8 weeks. Larger platforms or heavily-regulated builds (healthcare, finance, government) typically run 10–16 weeks including compliance review and penetration testing. We agree on scope and timeline upfront: if we go over, that's on us.`,
     },
     {
       question: `Do we own the code and IP after launch?`,
-      answer: `Yes — completely. From day one, all source code, designs, and IP belong to you. No license fees, no vendor lock-in, no required ongoing retainer. We can hand off to your in-house team, stay on for support, or both.`,
+      answer: `Yes: completely. From day one, all source code, designs, and IP belong to you. No license fees, no vendor lock-in, no required ongoing retainer. We can hand off to your in-house team, stay on for support, or both.`,
     },
   ];
 }
@@ -105,7 +105,7 @@ export default function IndustryCategory({ categoryId }: Props) {
       />
 
       {/* ══════════════════════════════════════════════
-          SUB-INDUSTRIES — hover picker (directly below hero)
+          SUB-INDUSTRIES: hover picker (directly below hero)
           ══════════════════════════════════════════════ */}
       {subIndustries.length > 0 && (
         <section className="section-padding section-alt">
@@ -129,7 +129,7 @@ export default function IndustryCategory({ categoryId }: Props) {
       )}
 
       {/* ══════════════════════════════════════════════
-          INTRO — pull-quote + body
+          INTRO: pull-quote + body
           ══════════════════════════════════════════════ */}
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
@@ -162,7 +162,7 @@ export default function IndustryCategory({ categoryId }: Props) {
       </section>
 
       {/* ══════════════════════════════════════════════
-          CHALLENGES — editorial numbered list
+          CHALLENGES: editorial numbered list
           ══════════════════════════════════════════════ */}
       {parent.challenges.length > 0 && (
         <section className="section-padding section-alt">
@@ -195,7 +195,7 @@ export default function IndustryCategory({ categoryId }: Props) {
       )}
 
       {/* ══════════════════════════════════════════════
-          SOLUTIONS — alternating rows
+          SOLUTIONS: alternating rows
           ══════════════════════════════════════════════ */}
       {parent.solutions.length > 0 && (
         <section className="section-padding">

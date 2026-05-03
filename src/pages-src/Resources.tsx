@@ -27,7 +27,7 @@ const featured = [
         icon: Bot,
         type: "Whitepaper",
         title: "The Complete Guide to AI Automation for SMBs",
-        description: "Everything you need to know about implementing AI automation in your business — from strategy to execution.",
+        description: "Everything you need to know about implementing AI automation in your business: from strategy to execution.",
         pages: "42 pages",
         tags: ["AI", "Automation", "Strategy"],
         isNew: true,

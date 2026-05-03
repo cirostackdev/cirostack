@@ -42,7 +42,7 @@ const CaseStudy = () => {
   return (
     <Layout>
       <SEO
-        title={`${project.title} - Case Study`}
+        title={`${project.title}: Case Study`}
         description={project.description}
         url={`/portfolio/${id}`}
       />

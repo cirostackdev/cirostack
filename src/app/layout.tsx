@@ -26,7 +26,7 @@ const OG_IMAGE = `${SITE_URL}/og/home.jpg`;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "CiroStack — Custom Software, Apps & AI for Growing Businesses",
+    default: "CiroStack: Custom Software, Apps & AI for Growing Businesses",
     template: "%s | CiroStack",
   },
   description:
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: "CiroStack | We Build the Software That Grows Your Business",
     description:
       "Custom websites, mobile apps, and AI automation built by senior engineers. Fixed-price engagements, no surprises, shipped in weeks, not months. Tell us what you need.",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "CiroStack — Software Development Agency", type: "image/jpeg" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "CiroStack: Software Development Agency", type: "image/jpeg" }],
   },
   twitter: {
     card: "summary_large_image",

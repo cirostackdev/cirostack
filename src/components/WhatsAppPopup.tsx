@@ -34,7 +34,7 @@ const PAGE_GROUPS: { match: string; config: GroupConfig }[] = [
             label: "Join our Story",
             headline: "Be part of the CiroStack story",
             subtext:
-                "Connect with our founders and follow us as we build — early access, behind-the-scenes updates, and direct Q&A.",
+                "Connect with our founders and follow us as we build: early access, behind-the-scenes updates, and direct Q&A.",
             groupId: "website-launchpad",
         },
     },
@@ -45,7 +45,7 @@ const PAGE_GROUPS: { match: string; config: GroupConfig }[] = [
             label: "Talk to our Team",
             headline: "Speak directly with our engineers",
             subtext:
-                "Join our Software Launchpad — ask questions, get free advice, and shortcut your project planning by weeks.",
+                "Join our Software Launchpad: ask questions, get free advice, and shortcut your project planning by weeks.",
             groupId: "software-launchpad",
         },
     },
@@ -56,7 +56,7 @@ const PAGE_GROUPS: { match: string; config: GroupConfig }[] = [
             label: "Join the Discussion",
             headline: "Take the conversation further",
             subtext:
-                "Our community group goes deeper — share ideas with founders and engineers who are building right now.",
+                "Our community group goes deeper: share ideas with founders and engineers who are building right now.",
             groupId: "training-launchpad",
         },
     },
@@ -67,7 +67,7 @@ const PAGE_GROUPS: { match: string; config: GroupConfig }[] = [
             label: "Join our Community",
             headline: "Join 500+ founders & engineers",
             subtext:
-                "Free advice, resources and connections from the CiroStack community — zero spam, all signal.",
+                "Free advice, resources and connections from the CiroStack community: zero spam, all signal.",
             groupId: "website-launchpad",
         },
     },
@@ -79,8 +79,8 @@ const TIME_ON_PAGE_MS = 30_000; // 30 s
 const ENGAGEMENT_THRESHOLD = 40;
 
 /* ─── Suppression keys ───────────────────────────────────────────────────── */
-const DISMISS_LS_KEY = "wa_popup_dismissed_until"; // localStorage  — 48 h
-const SESSION_SK_KEY = "wa_popup_shown_paths";      // sessionStorage — per session
+const DISMISS_LS_KEY = "wa_popup_dismissed_until"; // localStorage : 48 h
+const SESSION_SK_KEY = "wa_popup_shown_paths";      // sessionStorage: per session
 
 /* ─── Helpers ────────────────────────────────────────────────────────────── */
 
@@ -147,7 +147,7 @@ export function WhatsAppPopup() {
     const [visible, setVisible] = useState(false);
     const [rendered, setRendered] = useState(false);
 
-    // Stable ref that always holds the current pathname — avoids stale closures
+    // Stable ref that always holds the current pathname: avoids stale closures
     // in event listeners without re-registering them on every render.
     const pathnameRef = useRef(pathname);
     const firedRef = useRef(false);
@@ -202,7 +202,7 @@ export function WhatsAppPopup() {
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // register once — tryShow reads from refs
+    }, []); // register once: tryShow reads from refs
 
     /* ── Trigger 2: time on page ─────────────────────────────────────────── */
     useEffect(() => {
@@ -250,7 +250,7 @@ export function WhatsAppPopup() {
             if (mouseIdleRef.current) clearTimeout(mouseIdleRef.current);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // register once — reads from refs
+    }, []); // register once: reads from refs
 
     /* ── Handlers ────────────────────────────────────────────────────────── */
     function handleCTA() {
@@ -294,7 +294,7 @@ export function WhatsAppPopup() {
                     : "translate-y-12 opacity-0 pointer-events-none",
             ].join(" ")}
         >
-            {/* Top accent stripe — WhatsApp green */}
+            {/* Top accent stripe: WhatsApp green */}
             <div className="h-1 w-full rounded-t-2xl bg-[#25D366]" />
 
             <div className="p-6">
@@ -328,7 +328,7 @@ export function WhatsAppPopup() {
                     {group.subtext}
                 </p>
 
-                {/* CTA button — WhatsApp green (brand colour, intentionally off-palette) */}
+                {/* CTA button: WhatsApp green (brand colour, intentionally off-palette) */}
                 <button
                     id="wa-popup-cta"
                     onClick={handleCTA}

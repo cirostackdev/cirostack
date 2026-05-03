@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function ClientReviews({ serviceId }: Props) {
-    // Filter to testimonials tagged for this service (or untagged — show everywhere).
+    // Filter to testimonials tagged for this service (or untagged: show everywhere).
     // Fall back to the full list if fewer than 3 match.
     const filtered = serviceId
         ? allTestimonials.filter(t => !t.services || t.services.includes(serviceId))

@@ -63,7 +63,7 @@ import BentoProjects from "@/components/home/BentoProjects";
 /* ─── data ─── */
 // Full pool of all 20 industries. Technology & Startups is index 0 (always pinned first in scroll).
 const allIndustries = [
-  { icon: Laptop,         label: "Tech & Startups",      title: "Technology & Startups",        tagline: "From MVP to scale — engineering velocity for founders",            href: "/industries/technology-and-startups",        image: imgLaunchpad },
+  { icon: Laptop,         label: "Tech & Startups",      title: "Technology & Startups",        tagline: "From MVP to scale: engineering velocity for founders",            href: "/industries/technology-and-startups",        image: imgLaunchpad },
   { icon: HeartPulse,     label: "Healthcare",            title: "Healthcare & Medical",          tagline: "HIPAA-compliant platforms for better patient outcomes",            href: "/industries/healthcare-and-medical",          image: imgHealthflow },
   { icon: Landmark,       label: "Finance",               title: "Financial Services",            tagline: "Secure, real-time systems for modern finance",                    href: "/industries/financial-services",              image: imgFinguard },
   { icon: ShoppingCart,   label: "Retail",                title: "Retail & E-Commerce",           tagline: "Conversion-optimized storefronts and marketplaces",               href: "/industries/retail-and-e-commerce",           image: imgShoplocal },
@@ -133,11 +133,11 @@ const values = [
   { icon: DollarSign, title: "Fixed Price", line: "The quote is the price. Period." },
   { icon: Users, title: "Senior Engineers", line: "The team you meet builds your product. No handoffs." },
   { icon: Zap, title: "Weeks, Not Months", line: "Most projects ship in 4–8 weeks." },
-  { icon: Shield, title: "You Own Everything", line: "Code, designs, IP — yours from day one." },
+  { icon: Shield, title: "You Own Everything", line: "Code, designs, IP: yours from day one." },
 ];
 
 
-/* Marquee strip — industry names scrolling (with links) */
+/* Marquee strip: industry names scrolling (with links) */
 const marqueeWords: { label: string; href: string }[] = [
   { label: "Healthcare", href: "/industries/healthcare-and-medical" },
   { label: "Fintech", href: "/industries/financial-services" },
@@ -159,7 +159,7 @@ const marqueeWords: { label: string; href: string }[] = [
 /* ─── page ─── */
 const Index = () => {
   const { scrollIndustries, alsoServe } = useMemo(() => {
-    const pinned = allIndustries[0]; // Technology & Startups — always first
+    const pinned = allIndustries[0]; // Technology & Startups: always first
     const rest = [...allIndustries.slice(1)];
     for (let i = rest.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -196,7 +196,7 @@ const Index = () => {
       <SEO />
 
       {/* ══════════════════════════════════════════════
-          SECTION 1 — SPLIT EDITORIAL HERO
+          SECTION 1: SPLIT EDITORIAL HERO
           ══════════════════════════════════════════════ */}
       <section className="relative overflow-hidden pt-24 md:pt-24 pb-0 lg:h-screen lg:min-h-[760px] lg:flex lg:flex-col">
         {/* Ambient backdrop */}
@@ -207,7 +207,7 @@ const Index = () => {
 
         <div className="container mx-auto px-4 md:px-6 lg:flex-1 lg:flex lg:items-center lg:min-h-0 lg:py-4">
           <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-12 items-center w-full">
-            {/* LEFT — text */}
+            {/* LEFT: text */}
             <div>
 
               <motion.h1
@@ -230,7 +230,7 @@ const Index = () => {
                 className="text-base md:text-lg text-muted-foreground mb-6 max-w-xl leading-relaxed"
               >
                 Fixed price. Senior engineers. Shipped in weeks.
-                From websites to AI — across 20+ industries.
+                From websites to AI: across 20+ industries.
               </motion.p>
 
               <motion.div
@@ -278,7 +278,7 @@ const Index = () => {
               </motion.div>
             </div>
 
-            {/* RIGHT — visual stack */}
+            {/* RIGHT: visual stack */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -307,7 +307,7 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 2 — SERVICES (lifecycle timeline)
+          SECTION 2: SERVICES (lifecycle timeline)
           ══════════════════════════════════════════════ */}
       <section className="section-padding section-alt">
         <div className="container mx-auto px-4 md:px-6">
@@ -329,7 +329,7 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 3 — INDUSTRIES (horizontal showcase)
+          SECTION 3: INDUSTRIES (horizontal showcase)
           ══════════════════════════════════════════════ */}
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">
@@ -345,7 +345,7 @@ const Index = () => {
                 <span className="text-muted-foreground">not ours.</span>
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-md">
-                We learn your regulations, your users, your market — then build software that fits.
+                We learn your regulations, your users, your market: then build software that fits.
               </p>
             </div>
 
@@ -404,7 +404,7 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 4 — FEATURED WORK (bento)
+          SECTION 4: FEATURED WORK (bento)
           ══════════════════════════════════════════════ */}
       <section id="featured-work" className="section-padding section-alt">
         <div className="container mx-auto px-4 md:px-6">
@@ -428,12 +428,12 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 5 — WHY FIXED PRICE
+          SECTION 5: WHY FIXED PRICE
           ══════════════════════════════════════════════ */}
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left — narrative */}
+            {/* Left: narrative */}
             <div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-6">
                 No hourly billing.
@@ -443,7 +443,7 @@ const Index = () => {
                 No excuses.
               </h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-10">
-                Most agencies bill by the hour — which means the longer your project takes,
+                Most agencies bill by the hour: which means the longer your project takes,
                 the more they earn. We flipped that. You get a fixed price before we write
                 a single line of code. If we go over, that's on us. Not you.
               </p>
@@ -490,7 +490,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Right — 4 value cards */}
+            {/* Right: 4 value cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {values.map((v, i) => (
                 <motion.div
@@ -514,7 +514,7 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 6 — TESTIMONIALS
+          SECTION 6: TESTIMONIALS
           ══════════════════════════════════════════════ */}
       <TestimonialsMarquee
         items={allTestimonials}
@@ -524,7 +524,7 @@ const Index = () => {
       />
 
       {/* ══════════════════════════════════════════════
-          SECTION 7 — FINAL CTA (gradient orb)
+          SECTION 7: FINAL CTA (gradient orb)
           ══════════════════════════════════════════════ */}
       <section className="relative section-padding section-alt overflow-hidden">
         <div className="absolute inset-0 -z-10">

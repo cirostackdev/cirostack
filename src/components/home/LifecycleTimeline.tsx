@@ -53,10 +53,10 @@ const phaseIcons = [Lightbulb, Hammer, TrendingUp, Settings, Rocket];
 
 const phaseDescriptions = [
   "Strategy, AI roadmap, transformation planning.",
-  "Web, mobile, design — turning ideas into product.",
-  "Cloud, performance, scale — making it production-ready.",
-  "Data, identity, security — running it reliably.",
-  "Teams, QA, audits — growing with confidence.",
+  "Web, mobile, design: turning ideas into product.",
+  "Cloud, performance, scale: making it production-ready.",
+  "Data, identity, security: running it reliably.",
+  "Teams, QA, audits: growing with confidence.",
 ];
 
 function imageForSlug(slug: string): string | undefined {
@@ -163,7 +163,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
                   key={`${item.phaseIndex}-${item.slug}`}
                   className="relative"
                 >
-                  {/* Phase header — only on first service of the phase */}
+                  {/* Phase header: only on first service of the phase */}
                   {isFirstOfPhase && (
                     <div className="relative flex items-center gap-4 pt-8 pb-4 first:pt-0">
                       <div className="relative z-10 w-12 h-12 rounded-full bg-background border-2 border-foreground/80 flex items-center justify-center shrink-0">
@@ -183,7 +183,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
                     </div>
                   )}
 
-                  {/* Service row — Link on desktop, click toggles card on mobile */}
+                  {/* Service row: Link on desktop, click toggles card on mobile */}
                   <Link
                     href={item.href}
                     ref={(el) => {
@@ -235,7 +235,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
                     />
                   </Link>
 
-                  {/* Mobile inline card — opens directly under the active service */}
+                  {/* Mobile inline card: opens directly under the active service */}
                   <AnimatePresence initial={false}>
                     {isMobileActive && (
                       <motion.div

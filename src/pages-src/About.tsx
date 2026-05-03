@@ -44,11 +44,11 @@ const whyUs = [
   {
     title: "Fixed price. The quote is the price.",
     description:
-      "Every project starts with a detailed scope and a locked price. You know the exact cost before we write a single line of code. If we go over, that's on us — not you. No hourly billing, no surprise invoices, no change-order games.",
+      "Every project starts with a detailed scope and a locked price. You know the exact cost before we write a single line of code. If we go over, that's on us: not you. No hourly billing, no surprise invoices, no change-order games.",
     points: [
       "Full scope document before you sign anything",
       "Overruns are our problem, not yours",
-      "Milestone-based payments — never pay for work you haven't seen",
+      "Milestone-based payments: never pay for work you haven't seen",
     ],
     image: whyFixedPrice,
     imageAlt: "Fixed-price transparent contracts",
@@ -56,7 +56,7 @@ const whyUs = [
   {
     title: "The team you meet is the team that builds.",
     description:
-      "Agency bait-and-switch is real: seniors pitch, juniors deliver. We don't do that. The engineer who scopes your project is the engineer who writes your code. You talk directly to your builder — not a project manager playing telephone.",
+      "Agency bait-and-switch is real: seniors pitch, juniors deliver. We don't do that. The engineer who scopes your project is the engineer who writes your code. You talk directly to your builder: not a project manager playing telephone.",
     points: [
       "Senior engineers on every project, no exceptions",
       "Direct Slack access to your engineer throughout",
@@ -68,7 +68,7 @@ const whyUs = [
   {
     title: "We win when your metrics move.",
     description:
-      "Writing code is the easy part. Writing code that actually grows your business is hard — and that's the only thing we care about. Before we design anything, we agree on the numbers that define success. After launch, we review them together. If something isn't working, we fix it.",
+      "Writing code is the easy part. Writing code that actually grows your business is hard: and that's the only thing we care about. Before we design anything, we agree on the numbers that define success. After launch, we review them together. If something isn't working, we fix it.",
     points: [
       "Success metrics defined before kickoff",
       "30-day post-launch performance review included",
@@ -83,7 +83,7 @@ const values = [
   {
     icon: Heart,
     title: "Quality First",
-    description: "We don't cut corners. Clean code, thorough testing, proper documentation — because shortcuts today become support tickets tomorrow.",
+    description: "We don't cut corners. Clean code, thorough testing, proper documentation: because shortcuts today become support tickets tomorrow.",
     num: "01",
   },
   {
@@ -95,7 +95,7 @@ const values = [
   {
     icon: Users,
     title: "True Partnership",
-    description: "We join your Slack, attend your standups, and care about your roadmap. We're the engineering team you always wanted — without the hiring overhead.",
+    description: "We join your Slack, attend your standups, and care about your roadmap. We're the engineering team you always wanted: without the hiring overhead.",
     num: "03",
   },
   {
@@ -186,7 +186,7 @@ const About = () => {
     <Layout>
       <SEO
         title="Our Company"
-        description="Learn about CiroStack — who we are, how we work, and why businesses trust us to build their most important software."
+        description="Learn about CiroStack: who we are, how we work, and why businesses trust us to build their most important software."
         url="/about"
       />
 
@@ -224,7 +224,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Founder Story — two-column */}
+      {/* Founder Story: two-column */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -238,7 +238,7 @@ const About = () => {
             </h3>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm Jessy Onah. Before CiroStack, I spent years building software for other agencies — and
+                I'm Jessy Onah. Before CiroStack, I spent years building software for other agencies: and
                 watching the same pattern repeat. Clients got billed by the hour for work that dragged on,
                 junior developers were swapped in after the pitch, and nobody tracked whether the product
                 actually moved the needle for the business.
@@ -250,12 +250,12 @@ const About = () => {
               </p>
               <p>
                 CiroStack is the company I wished existed when I was on the other side of the table. We're
-                a small, senior team — remote-first, distributed across 5 countries — and we treat every
+                a small, senior team: remote-first, distributed across 5 countries: and we treat every
                 client's product like our own. 50+ projects later, that approach hasn't changed.
               </p>
             </div>
             <p className="mt-6 text-foreground font-display font-semibold">
-              — Jessy Onah, Founder
+             : Jessy Onah, Founder
             </p>
             <Link href="/contact" className="inline-block mt-6">
               <Button>
@@ -274,10 +274,10 @@ const About = () => {
             <h4 className="font-display font-semibold text-foreground mb-5">How we work</h4>
             <div className="space-y-4">
               {[
-                "Fixed price — you know the cost before we start",
+                "Fixed price: you know the cost before we start",
                 "Senior engineers on every project, no exceptions",
                 "Weekly written progress updates",
-                "Your code, your designs, your IP — always",
+                "Your code, your designs, your IP: always",
                 "Direct Slack access to the engineer building your product",
                 "30–90 day post-launch support included",
               ].map((item) => (
@@ -291,7 +291,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Why partner with us — alternating rows (mirrors ReasonsToChoose) */}
+      {/* Why partner with us: alternating rows (mirrors ReasonsToChoose) */}
       <section className="py-24 bg-slate-50 dark:bg-slate-900/50 border-y border-border/50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mb-20">
@@ -300,7 +300,7 @@ const About = () => {
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl">
               We're not a freelance marketplace. We're not an offshore factory. We're a senior
-              engineering team that works as your in-house partner — without the overhead.
+              engineering team that works as your in-house partner: without the overhead.
             </p>
           </div>
 
@@ -435,7 +435,7 @@ const About = () => {
               The people behind the code
             </h3>
             <p className="mt-4 text-muted-foreground text-lg max-w-2xl">
-              A small, senior team — no juniors passed off as leads, no outsourcing without your knowledge.
+              A small, senior team: no juniors passed off as leads, no outsourcing without your knowledge.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -448,7 +448,7 @@ const About = () => {
                 transition={{ delay: i * 0.1 }}
                 className="rounded-2xl border border-border/40 bg-card overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all duration-300 group"
               >
-                {/* Banner — role-relevant bg image */}
+                {/* Banner: role-relevant bg image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={member.bg}
@@ -456,7 +456,7 @@ const About = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-black/50" />
-                  {/* Avatar — fully inside the banner, bottom-left */}
+                  {/* Avatar: fully inside the banner, bottom-left */}
                   <div className="absolute bottom-4 left-6">
                     <div className="w-24 h-24 rounded-full border-4 border-white/20 overflow-hidden shadow-xl group-hover:scale-105 transition-transform duration-300">
                       <img

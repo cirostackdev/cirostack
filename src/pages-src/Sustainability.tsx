@@ -47,7 +47,7 @@ const pillars = [
 const actions = [
     "Remote-first culture eliminates daily commute emissions company-wide",
     "Annual carbon footprint audit from certified third-party provider",
-    "Paperless operations — fully digital contracts, invoices, and communications",
+    "Paperless operations: fully digital contracts, invoices, and communications",
     "Sustainable vendor partnerships and procurement policies",
     "Team education on sustainable practices and environmental impact",
     "Donations of 1% of annual revenue to environmental nonprofits",
@@ -92,7 +92,7 @@ const Sustainability = () => {
                             <div className="space-y-4 text-muted-foreground leading-relaxed">
                                 <p>
                                     We believe technology companies have a responsibility to lead by example. At CiroStack, sustainability
-                                    isn't a marketing initiative — it's woven into how we operate every day.
+                                    isn't a marketing initiative: it's woven into how we operate every day.
                                 </p>
                                 <p>
                                     From our remote-first culture that eliminates commute emissions, to our partnerships with green cloud
@@ -135,7 +135,7 @@ const Sustainability = () => {
                     <SectionHeading
                         badge="Our Commitments"
                         title="Four pillars of sustainability"
-                        description="Specific, measurable goals we're working toward — and our progress against each one."
+                        description="Specific, measurable goals we're working toward: and our progress against each one."
                     />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {pillars.map((pillar, i) => (

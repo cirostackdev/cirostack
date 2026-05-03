@@ -114,7 +114,7 @@ add("healthflow", {
     { phase: "Launch & Support", activities: "Deployment, training, post-launch support", duration: "1 week" },
   ],
   whatClientLoved: ["The transparency of weekly progress updates", "How intuitive the interface was", "The AI insights that exceeded expectations"],
-  challengesOvercome: ["Integrating with legacy EHR systems — we built custom data bridges", "Ensuring real-time sync with unreliable internet — offline-first architecture"],
+  challengesOvercome: ["Integrating with legacy EHR systems: we built custom data bridges", "Ensuring real-time sync with unreliable internet: offline-first architecture"],
   testimonial: { quote: "CiroStack transformed our patient management workflow. The AI insights alone saved us countless hours.", author: "Dr. James Park", role: "CTO, MedTech Startup" },
   relatedProjects: [
     { id: "fittrack", title: "FitTrack Pro", description: "Cross-platform fitness tracking app with AI coaching" },
@@ -164,7 +164,7 @@ add("shoplocal", {
     { phase: "Testing", activities: "End-to-end testing with real vendors, load testing", duration: "1 week" },
   ],
   whatClientLoved: ["Mobile-first approach", "The vendor onboarding was so simple", "On-time delivery despite the complexity"],
-  challengesOvercome: ["Supporting multiple payment providers — we built an abstraction layer", "Handling high traffic on launch day — pre-scaled infrastructure"],
+  challengesOvercome: ["Supporting multiple payment providers: we built an abstraction layer", "Handling high traffic on launch day: pre-scaled infrastructure"],
   testimonial: { quote: "Our local vendors finally have a digital home. We went from zero online sales to ₦60M in three months.", author: "Maria Rodriguez", role: "Founder, Retail Collective" },
   relatedProjects: [
     { id: "greenleaf", title: "GreenLeaf Website", description: "Award-winning website for an eco-tech startup" },
@@ -214,7 +214,7 @@ add("autotask", {
     { phase: "Testing", activities: "Accuracy testing with real documents, edge case handling", duration: "1 week" },
   ],
   whatClientLoved: ["ROI was achieved before the project was even fully complete", "Staff were genuinely excited to stop doing data entry", "The exception handling meant they never lost control"],
-  challengesOvercome: ["Handling poorly scanned documents — pre-processing and OCR enhancement", "Integrating with a 15-year-old ERP — we built a database bridge"],
+  challengesOvercome: ["Handling poorly scanned documents: pre-processing and OCR enhancement", "Integrating with a 15-year-old ERP: we built a database bridge"],
   relatedProjects: [
     { id: "docai", title: "DocAI Processor", description: "AI-powered document analysis for legal firms" },
     { id: "healthflow", title: "HealthFlow Dashboard", description: "Patient management with AI insights" },
@@ -263,7 +263,7 @@ add("fittrack", {
     { phase: "Testing", activities: "Beta testing with 200 users, performance optimization", duration: "2 weeks" },
   ],
   whatClientLoved: ["The AI that adapts to available equipment", "Beta users loved the social features", "App store submission was handled end-to-end"],
-  challengesOvercome: ["Syncing across multiple wearable platforms — unified health data abstraction", "Keeping app size small — aggressive code splitting and lazy loading"],
+  challengesOvercome: ["Syncing across multiple wearable platforms: unified health data abstraction", "Keeping app size small: aggressive code splitting and lazy loading"],
   relatedProjects: [
     { id: "healthflow", title: "HealthFlow Dashboard", description: "Patient management with real-time analytics" },
     { id: "sportspulse", title: "SportsPulse Analytics", description: "Real-time sports analytics platform" },
@@ -312,7 +312,7 @@ add("greenleaf", {
     { phase: "Testing", activities: "Cross-browser testing, performance optimization, SEO audit", duration: "1 week" },
   ],
   whatClientLoved: ["The carbon calculator became their #1 lead generation tool", "Investors commented on how professional the site was", "Page load speed was exceptional despite heavy animations"],
-  challengesOvercome: ["Maintaining fast load times with 3D animations — progressive loading and LOD", "Making the carbon calculator accurate — collaborated with their data science team"],
+  challengesOvercome: ["Maintaining fast load times with 3D animations: progressive loading and LOD", "Making the carbon calculator accurate: collaborated with their data science team"],
   relatedProjects: [
     { id: "shoplocal", title: "ShopLocal Marketplace", description: "Multi-vendor e-commerce platform" },
     { id: "agriconnect", title: "AgriConnect Platform", description: "Smart farming management system" },
@@ -361,7 +361,7 @@ add("docai", {
     { phase: "Testing", activities: "Testing with 200+ real contracts, accuracy validation with lawyers", duration: "2 weeks" },
   ],
   whatClientLoved: ["Junior associates now focus on analysis instead of reading entire contracts", "The risk flagging caught issues they would have missed", "Zero learning curve"],
-  challengesOvercome: ["Handling contracts in multiple formats — universal document parser", "Ensuring AI accuracy met legal standards — human-in-the-loop validation"],
+  challengesOvercome: ["Handling contracts in multiple formats: universal document parser", "Ensuring AI accuracy met legal standards: human-in-the-loop validation"],
   testimonial: { quote: "This tool has completely changed how we handle contract review. It's like having a tireless associate who never misses a clause.", author: "Rebecca Lane", role: "Partner, Legal Firm" },
   relatedProjects: [
     { id: "autotask", title: "AutoTask AI", description: "AI-driven workflow automation for enterprises" },
@@ -411,7 +411,7 @@ add("retailmax", {
     { phase: "Rollout", activities: "Pilot in 5 stores, full deployment, staff training", duration: "2 weeks" },
   ],
   whatClientLoved: ["Cashiers learned the system in hours, not weeks", "The offline mode was a lifesaver during an internet outage", "Customer insights at the register drove real upsells"],
-  challengesOvercome: ["Syncing inventory across 120 stores in real-time — event-driven architecture with Redis", "Supporting legacy receipt printers — built a universal print adapter"],
+  challengesOvercome: ["Syncing inventory across 120 stores in real-time: event-driven architecture with Redis", "Supporting legacy receipt printers: built a universal print adapter"],
   testimonial: { quote: "Our checkout lines move twice as fast and our staff actually enjoy using the system. The ROI was immediate.", author: "Karen Mitchell", role: "VP Operations, ChainStore Group" },
   relatedProjects: [
     { id: "shoplocal", title: "ShopLocal Marketplace", description: "Multi-vendor e-commerce platform" },
@@ -460,8 +460,8 @@ add("finguard", {
     { phase: "Implementation", activities: "Security hardening, fraud model training, dashboard", duration: "4 weeks" },
     { phase: "Validation", activities: "Red team exercise, compliance verification", duration: "1 week" },
   ],
-  whatClientLoved: ["The depth of the audit report — nothing was overlooked", "Fraud detection ROI was immediate", "We were audit-ready within weeks"],
-  challengesOvercome: ["Implementing zero-trust without disrupting live banking — phased rollout", "Training fraud models with limited historical data — synthetic data augmentation"],
+  whatClientLoved: ["The depth of the audit report: nothing was overlooked", "Fraud detection ROI was immediate", "We were audit-ready within weeks"],
+  challengesOvercome: ["Implementing zero-trust without disrupting live banking: phased rollout", "Training fraud models with limited historical data: synthetic data augmentation"],
   testimonial: { quote: "CiroStack turned our biggest regulatory risk into our strongest competitive advantage. The fraud detection system paid for itself in the first month.", author: "James Whitfield", role: "CISO, NexBank" },
   relatedProjects: [
     { id: "autotask", title: "AutoTask AI", description: "AI-driven workflow automation" },
@@ -511,7 +511,7 @@ add("propview", {
     { phase: "Optimization", activities: "Performance tuning, cost optimization, monitoring", duration: "2 weeks" },
   ],
   whatClientLoved: ["Zero downtime during the entire migration", "Virtual tours now load instantly even on mobile", "Monthly costs dropped significantly"],
-  challengesOvercome: ["Migrating 2TB of property images without downtime — incremental sync strategy", "Maintaining SEO rankings during domain changes — 301 redirect automation"],
+  challengesOvercome: ["Migrating 2TB of property images without downtime: incremental sync strategy", "Maintaining SEO rankings during domain changes: 301 redirect automation"],
   testimonial: { quote: "The migration was seamless. Our agents didn't even notice it happened, except that everything got faster.", author: "Greg Thompson", role: "CEO, UrbanNest Realty" },
   relatedProjects: [
     { id: "greenleaf", title: "GreenLeaf Website", description: "Award-winning eco-tech website" },
@@ -561,7 +561,7 @@ add("eduspark", {
     { phase: "Handoff", activities: "Knowledge transfer, documentation, support transition", duration: "3 weeks" },
   ],
   whatClientLoved: ["The dedicated team felt like their own employees", "Bi-weekly releases meant they saw progress constantly", "The AI personalization exceeded all expectations"],
-  challengesOvercome: ["Migrating 5 years of student data — incremental migration with zero data loss", "Building real-time collaboration at scale — custom WebRTC signaling server"],
+  challengesOvercome: ["Migrating 5 years of student data: incremental migration with zero data loss", "Building real-time collaboration at scale: custom WebRTC signaling server"],
   testimonial: { quote: "The CiroStack team integrated seamlessly with our engineers. The new LMS handles 50,000 students without breaking a sweat.", author: "Professor Laura Vance", role: "CTO, EduPrime" },
   relatedProjects: [
     { id: "healthflow", title: "HealthFlow Dashboard", description: "Patient management dashboard" },
@@ -611,7 +611,7 @@ add("travelease", {
     { phase: "Launch", activities: "App store submission, partner training, marketing support", duration: "2 weeks" },
   ],
   whatClientLoved: ["The AI itinerary builder became their strongest selling point", "Offline mode works perfectly in remote safari camps", "M-Pesa integration opened up the local market"],
-  challengesOvercome: ["Integrating with 200+ partner systems with varying APIs — built a universal adapter", "Offline functionality with eventual sync — conflict resolution algorithm"],
+  challengesOvercome: ["Integrating with 200+ partner systems with varying APIs: built a universal adapter", "Offline functionality with eventual sync: conflict resolution algorithm"],
   testimonial: { quote: "We went from losing leads to being the fastest-booking safari company in East Africa. The app is our competitive advantage.", author: "David Kimani", role: "CEO, Safari Adventures" },
   relatedProjects: [
     { id: "fittrack", title: "FitTrack Pro", description: "Cross-platform fitness app" },
@@ -634,7 +634,7 @@ add("factoryiq", {
   description: "IoT-connected smart factory platform with predictive maintenance and CI/CD-powered deployment for 14 manufacturing plants.",
   aboutClient: "PrecisionMFG is a German industrial manufacturer operating 14 plants across Europe, producing precision components for automotive and aerospace industries.",
   challenge: "Software deployments to factory floor systems took weeks, causing delays in rolling out critical updates. Unplanned downtime cost €200K per incident.",
-  solution: "We implemented a full DevOps pipeline for their factory systems — CI/CD for edge devices, infrastructure-as-code for factory servers, and a predictive maintenance AI that reduced downtime by 28%.",
+  solution: "We implemented a full DevOps pipeline for their factory systems: CI/CD for edge devices, infrastructure-as-code for factory servers, and a predictive maintenance AI that reduced downtime by 28%.",
   keyFeatures: [
     { feature: "Edge CI/CD", description: "Automated deployments to 500+ factory floor devices", benefit: "Deployments from weeks to hours" },
     { feature: "Predictive Maintenance", description: "AI analyzing sensor data to predict equipment failures", benefit: "28% less unplanned downtime" },
@@ -661,7 +661,7 @@ add("factoryiq", {
     { phase: "Training", activities: "Team enablement, runbook creation, handoff", duration: "2 weeks" },
   ],
   whatClientLoved: ["Deployments that used to take 2 weeks now happen in 2 hours", "Predictive maintenance caught a critical pump failure before it happened", "The monitoring dashboards are used by management daily"],
-  challengesOvercome: ["Deploying to air-gapped factory networks — built an offline artifact sync system", "Managing diverse device types across 14 plants — device abstraction layer"],
+  challengesOvercome: ["Deploying to air-gapped factory networks: built an offline artifact sync system", "Managing diverse device types across 14 plants: device abstraction layer"],
   testimonial: { quote: "CiroStack modernized our factory operations. The predictive maintenance AI alone saved us €2.8M in the first year.", author: "Hans Müller", role: "Head of Ops, PrecisionMFG" },
   relatedProjects: [
     { id: "cloudops", title: "CloudOps Dashboard", description: "Multi-cloud management platform" },
@@ -711,7 +711,7 @@ add("legalshield", {
     { phase: "Roadmap", activities: "Architecture design, phased plan, cost estimation, presentation", duration: "2 weeks" },
   ],
   whatClientLoved: ["The audit report was incredibly detailed and actionable", "Critical security issues were patched within days", "The modernization roadmap gave them budget clarity"],
-  challengesOvercome: ["Auditing a codebase with no documentation — we reverse-engineered the architecture", "Balancing immediate fixes with long-term strategy — tiered priority framework"],
+  challengesOvercome: ["Auditing a codebase with no documentation: we reverse-engineered the architecture", "Balancing immediate fixes with long-term strategy: tiered priority framework"],
   testimonial: { quote: "CiroStack found vulnerabilities our previous vendor missed for years. Their modernization roadmap is now our IT strategy bible.", author: "Catherine Liu", role: "Managing Partner, Morrison & Partners" },
   relatedProjects: [
     { id: "docai", title: "DocAI Processor", description: "AI contract analysis for legal firms" },
@@ -732,7 +732,7 @@ add("streamdeck", {
   duration: "16 weeks",
   year: "2025",
   description: "Netflix-calibre streaming platform with adaptive bitrate and edge caching serving 2M+ viewers across Africa.",
-  aboutClient: "AfriStream is an African streaming service focused on original African content — movies, series, and documentaries — serving viewers across 15 countries.",
+  aboutClient: "AfriStream is an African streaming service focused on original African content: movies, series, and documentaries: serving viewers across 15 countries.",
   challenge: "Their existing platform buffered constantly, had high CDN costs, and couldn't handle concurrent viewership spikes during original content premieres.",
   solution: "We re-architected the entire streaming backend with adaptive bitrate delivery, multi-region edge caching, and a microservices architecture that handles 500K concurrent streams.",
   keyFeatures: [
@@ -761,7 +761,7 @@ add("streamdeck", {
     { phase: "Launch", activities: "Load testing, premiere stress test, gradual rollout", duration: "2 weeks" },
   ],
   whatClientLoved: ["Viewers in rural areas can now stream without buffering", "CDN costs dropped dramatically", "The analytics dashboard drives our content strategy"],
-  challengesOvercome: ["Delivering quality streams over unreliable African internet — multi-CDN fallback", "Transcoding 10,000+ hours of content — distributed FFmpeg pipeline"],
+  challengesOvercome: ["Delivering quality streams over unreliable African internet: multi-CDN fallback", "Transcoding 10,000+ hours of content: distributed FFmpeg pipeline"],
   testimonial: { quote: "We went from a broken streaming backend to a Netflix-calibre experience in under 4 months. CiroStack's media engineering expertise is second to none.", author: "Isabelle Fontaine", role: "CTO, AfriStream" },
   relatedProjects: [
     { id: "eduspark", title: "EduSpark LMS", description: "Learning platform with video support" },
@@ -811,8 +811,8 @@ add("givehub", {
     { phase: "Training", activities: "Staff training, data migration, go-live support", duration: "2 weeks" },
   ],
   whatClientLoved: ["Finally having a single source of truth for donor data", "The impact dashboard transformed their grant applications", "Online donations surged immediately after launch"],
-  challengesOvercome: ["Migrating 10 years of scattered data — custom ETL pipeline with deduplication", "Multi-currency donation support for 12 countries — intelligent currency handling"],
-  testimonial: { quote: "CiroStack didn't just build us software — they transformed how we operate. Our donors are happier, our staff are more productive, and our impact data tells a powerful story.", author: "Sarah Mitchell", role: "Executive Director, HopeFoundation" },
+  challengesOvercome: ["Migrating 10 years of scattered data: custom ETL pipeline with deduplication", "Multi-currency donation support for 12 countries: intelligent currency handling"],
+  testimonial: { quote: "CiroStack didn't just build us software: they transformed how we operate. Our donors are happier, our staff are more productive, and our impact data tells a powerful story.", author: "Sarah Mitchell", role: "Executive Director, HopeFoundation" },
   relatedProjects: [
     { id: "eduspark", title: "EduSpark LMS", description: "Education platform" },
     { id: "agriconnect", title: "AgriConnect", description: "Smart farming platform" },
@@ -834,7 +834,7 @@ add("launchpad", {
   description: "Rapid MVP development for a Y Combinator-backed startup, going from idea to launched product in 8 weeks.",
   aboutClient: "TechVenture Labs is a YC-backed startup building an AI-powered hiring platform that matches candidates based on skills, culture fit, and growth potential.",
   challenge: "They had 12 weeks until their demo day and no technical team. They needed an MVP that could demonstrate product-market fit and handle real users.",
-  solution: "We assembled a 4-person team and built a fully functional MVP with AI matching, candidate profiles, employer dashboards, and real-time messaging — shipped 4 weeks early.",
+  solution: "We assembled a 4-person team and built a fully functional MVP with AI matching, candidate profiles, employer dashboards, and real-time messaging: shipped 4 weeks early.",
   keyFeatures: [
     { feature: "AI Matching Engine", description: "ML model matching candidates to roles based on 50+ signals", benefit: "3x better match quality than job boards" },
     { feature: "Employer Dashboard", description: "Pipeline management, analytics, and team collaboration", benefit: "Streamlined hiring workflow" },
@@ -861,7 +861,7 @@ add("launchpad", {
     { phase: "Launch", activities: "Testing, deployment, demo day preparation", duration: "1 week" },
   ],
   whatClientLoved: ["We launched 4 weeks ahead of our YC demo day", "The AI matching wowed investors", "CiroStack moved faster than any team we've worked with"],
-  challengesOvercome: ["Building a reliable matching algorithm with limited training data — few-shot learning approach", "Scaling WebSocket connections for real-time messaging — connection pooling"],
+  challengesOvercome: ["Building a reliable matching algorithm with limited training data: few-shot learning approach", "Scaling WebSocket connections for real-time messaging: connection pooling"],
   testimonial: { quote: "CiroStack turned our napkin sketch into a funded startup. They shipped our MVP in 8 weeks and it was so good that investors fought to participate in our round.", author: "Michael Chen", role: "CEO, TechVenture Labs" },
   relatedProjects: [
     { id: "autotask", title: "AutoTask AI", description: "AI workflow automation" },
@@ -911,7 +911,7 @@ add("agriconnect", {
     { phase: "Dashboards", activities: "Mobile app, alerts, reporting, farmer training", duration: "3 weeks" },
   ],
   whatClientLoved: ["The crop disease prediction saved an entire harvest season", "Farm managers love the mobile dashboards", "Water savings alone justified the investment"],
-  challengesOvercome: ["Unreliable connectivity in rural areas — edge processing with batch sync", "Diverse sensor types and protocols — universal IoT adapter layer"],
+  challengesOvercome: ["Unreliable connectivity in rural areas: edge processing with batch sync", "Diverse sensor types and protocols: universal IoT adapter layer"],
   testimonial: { quote: "CiroStack turned our raw sensor data into a competitive advantage. The crop prediction model saved our entire maize harvest last season.", author: "Joseph Karanja", role: "CEO, FarmTech Africa" },
   relatedProjects: [
     { id: "greenleaf", title: "GreenLeaf Website", description: "Eco-tech startup website" },
@@ -931,7 +931,7 @@ add("buildsite", {
   size: "Enterprise",
   duration: "20 weeks",
   year: "2025",
-  description: "Embedded software for IoT-connected construction site monitoring — safety compliance, equipment tracking, and environmental sensors.",
+  description: "Embedded software for IoT-connected construction site monitoring: safety compliance, equipment tracking, and environmental sensors.",
   aboutClient: "ConstruTech develops smart construction technology for major infrastructure projects across Australia and Southeast Asia.",
   challenge: "Construction sites lacked real-time visibility into worker safety, equipment location, and environmental conditions. Manual safety checks were inconsistent.",
   solution: "We developed embedded firmware for their IoT sensor network, a gateway system for aggregating data, and a cloud platform for real-time monitoring and alerts.",
@@ -961,7 +961,7 @@ add("buildsite", {
     { phase: "Field Testing", activities: "On-site deployment, calibration, validation", duration: "3 weeks" },
   ],
   whatClientLoved: ["The safety wearables are comfortable enough that workers actually wear them", "Environmental compliance is now automatic", "The dashboard gives project managers real-time situational awareness"],
-  challengesOvercome: ["Battery life on wearable sensors — ultra-low-power firmware with smart wake cycles", "Connectivity on remote construction sites — mesh networking with LoRa"],
+  challengesOvercome: ["Battery life on wearable sensors: ultra-low-power firmware with smart wake cycles", "Connectivity on remote construction sites: mesh networking with LoRa"],
   testimonial: { quote: "CiroStack's IoT solution made our sites the safest in Australia. Insurance premiums dropped and worker morale improved dramatically.", author: "Paul Henderson", role: "CTO, ConstruTech" },
   relatedProjects: [
     { id: "factoryiq", title: "FactoryIQ", description: "Smart manufacturing DevOps" },
@@ -984,7 +984,7 @@ add("logistrack", {
   description: "Fleet management platform with comprehensive automated test suite ensuring 99.99% uptime for a 2,000-vehicle logistics fleet.",
   aboutClient: "SwiftLogix operates a fleet of 2,000+ delivery vehicles across West Africa, handling last-mile delivery for major e-commerce platforms.",
   challenge: "Their fleet management software had frequent bugs that caused routing errors, delivery delays, and driver frustration. Manual testing couldn't keep up with release cycles.",
-  solution: "We built a comprehensive automated testing framework — unit, integration, E2E, and performance tests — that caught 95% of bugs before production. Also rebuilt critical modules.",
+  solution: "We built a comprehensive automated testing framework: unit, integration, E2E, and performance tests: that caught 95% of bugs before production. Also rebuilt critical modules.",
   keyFeatures: [
     { feature: "E2E Test Suite", description: "500+ automated end-to-end tests covering all critical flows", benefit: "95% of bugs caught pre-production" },
     { feature: "Performance Testing", description: "Load testing simulating 10,000 concurrent dispatches", benefit: "Guaranteed 99.99% uptime" },
@@ -1010,8 +1010,8 @@ add("logistrack", {
     { phase: "Implementation", activities: "500+ test cases, performance tests, monitoring", duration: "5 weeks" },
     { phase: "Handoff", activities: "Team training, documentation, test maintenance plan", duration: "2 weeks" },
   ],
-  whatClientLoved: ["Deployments went from scary to boring — in the best way", "The route optimization alone saved millions in fuel", "Our developers now write tests voluntarily"],
-  challengesOvercome: ["Testing real-time GPS tracking — built a GPS simulation framework", "Flaky tests from network dependencies — smart retry and mock strategies"],
+  whatClientLoved: ["Deployments went from scary to boring: in the best way", "The route optimization alone saved millions in fuel", "Our developers now write tests voluntarily"],
+  challengesOvercome: ["Testing real-time GPS tracking: built a GPS simulation framework", "Flaky tests from network dependencies: smart retry and mock strategies"],
   testimonial: { quote: "CiroStack turned our buggy software into the most reliable platform in West African logistics. Our 99.99% uptime is our competitive advantage.", author: "Adebayo Okonkwo", role: "CTO, SwiftLogix" },
   relatedProjects: [
     { id: "factoryiq", title: "FactoryIQ", description: "Smart manufacturing DevOps" },
@@ -1061,7 +1061,7 @@ add("govportal", {
     { phase: "Deployment", activities: "Phased rollout, citizen enrollment, staff training", duration: "3 weeks" },
   ],
   whatClientLoved: ["Citizens can now access all services with one login", "The biometric system is fast and accurate", "Fraud dropped to zero immediately"],
-  challengesOvercome: ["Enrolling citizens with no existing digital identity — mobile enrollment teams", "Integrating with 20+ legacy government systems — API gateway with adapters"],
+  challengesOvercome: ["Enrolling citizens with no existing digital identity: mobile enrollment teams", "Integrating with 20+ legacy government systems: API gateway with adapters"],
   testimonial: { quote: "CiroStack built the digital infrastructure that transformed how our state serves its citizens. 5 million people now access government services from their phones.", author: "Director Amara Obi", role: "Digital Agency Director" },
   relatedProjects: [
     { id: "finguard", title: "FinGuard Platform", description: "Banking security platform" },
@@ -1084,7 +1084,7 @@ add("sportspulse", {
   description: "AI-powered sports analytics platform generating match insights, performance reports, and fan engagement content.",
   aboutClient: "A top-tier English Premier League football club with a global fanbase of 200M+ supporters, seeking to leverage AI for competitive advantage on and off the pitch.",
   challenge: "Match analysis was done manually by a small team, taking days per game. Fan content creation was slow and didn't keep up with social media demands.",
-  solution: "We built an AI platform that automatically generates match analysis reports, player performance insights, and fan-facing content — from highlight reels to social media posts.",
+  solution: "We built an AI platform that automatically generates match analysis reports, player performance insights, and fan-facing content: from highlight reels to social media posts.",
   keyFeatures: [
     { feature: "Auto Match Analysis", description: "AI generates tactical analysis within 30 minutes of final whistle", benefit: "Coaching staff get insights 10x faster" },
     { feature: "Player Performance AI", description: "Generative reports on player fitness, form, and comparison", benefit: "Data-driven selection decisions" },
@@ -1111,7 +1111,7 @@ add("sportspulse", {
     { phase: "Validation", activities: "Testing with real match data, coaching staff feedback", duration: "1 week" },
   ],
   whatClientLoved: ["Match analysis available before the team bus reaches the training ground", "The fan content engine keeps our social media feeds constantly active", "Scouting reports that used to take a week now take minutes"],
-  challengesOvercome: ["Ensuring tactical accuracy — fine-tuned models with 5 years of match data", "Generating content in the club's unique voice — custom style transfer"],
+  challengesOvercome: ["Ensuring tactical accuracy: fine-tuned models with 5 years of match data", "Generating content in the club's unique voice: custom style transfer"],
   testimonial: { quote: "CiroStack gave us an AI advantage both on the pitch and on social media. Our coaching staff and content team are now powered by the same platform.", author: "Daniel Rhodes", role: "Head of Analytics" },
   relatedProjects: [
     { id: "fittrack", title: "FitTrack Pro", description: "Fitness tracking app" },
@@ -1134,7 +1134,7 @@ add("beautybook", {
   description: "All-in-one salon management and booking platform built by a nearshore team, serving 3,000+ beauty professionals across the US.",
   aboutClient: "GlowUp Inc. is a beauty tech startup building tools for independent stylists, salon owners, and spa operators to manage bookings, payments, and client relationships.",
   challenge: "Their US-based team was too expensive to scale. They needed a cost-effective nearshore team that could work in the same timezone and deliver enterprise-quality software.",
-  solution: "We provided a 5-person nearshore team in Lagos (overlapping US business hours) that built their entire platform — booking engine, POS integration, loyalty programs, and client management.",
+  solution: "We provided a 5-person nearshore team in Lagos (overlapping US business hours) that built their entire platform: booking engine, POS integration, loyalty programs, and client management.",
   keyFeatures: [
     { feature: "Smart Booking", description: "AI-optimized scheduling that minimizes gaps and maximizes revenue", benefit: "25% more appointments per day" },
     { feature: "Client Management", description: "Full client profiles with preferences, history, and notes", benefit: "Personalized experiences that drive loyalty" },
@@ -1161,8 +1161,8 @@ add("beautybook", {
     { phase: "Scale", activities: "Performance optimization, launch, onboarding", duration: "2 weeks" },
   ],
   whatClientLoved: ["60% cost savings compared to our US team", "The nearshore team felt like they were in the next room", "Quality was indistinguishable from a Silicon Valley team"],
-  challengesOvercome: ["Timezone coordination — 6-hour overlap window maximized for live collaboration", "Maintaining code quality remotely — strict code review and CI/CD practices"],
-  testimonial: { quote: "CiroStack's nearshore team delivered better software at 60% of the cost. They're not a vendor — they're our engineering team.", author: "Jessica Torres", role: "CEO, GlowUp Inc." },
+  challengesOvercome: ["Timezone coordination: 6-hour overlap window maximized for live collaboration", "Maintaining code quality remotely: strict code review and CI/CD practices"],
+  testimonial: { quote: "CiroStack's nearshore team delivered better software at 60% of the cost. They're not a vendor: they're our engineering team.", author: "Jessica Torres", role: "CEO, GlowUp Inc." },
   relatedProjects: [
     { id: "retailmax", title: "RetailMax POS", description: "Smart retail POS system" },
     { id: "travelease", title: "TravelEase", description: "Travel booking app" },
@@ -1184,7 +1184,7 @@ add("autodrive", {
   description: "Connected vehicle platform with OTA updates, diagnostics, and fleet management for a European automaker's 50,000-vehicle fleet.",
   aboutClient: "MotorTech Solutions provides connected car technology for a major European automaker, managing software for 50,000+ vehicles across 8 countries.",
   challenge: "Their internal team couldn't keep up with the demand for connected car features. They needed a reliable outsourcing partner who understood automotive-grade software.",
-  solution: "We provided a fully managed 8-person development team that built the connected vehicle platform — OTA update system, remote diagnostics, driver app, and fleet analytics.",
+  solution: "We provided a fully managed 8-person development team that built the connected vehicle platform: OTA update system, remote diagnostics, driver app, and fleet analytics.",
   keyFeatures: [
     { feature: "OTA Updates", description: "Secure over-the-air software updates for 50,000+ vehicles", benefit: "No dealer visits for software fixes" },
     { feature: "Remote Diagnostics", description: "Real-time vehicle health monitoring and predictive alerts", benefit: "40% fewer roadside breakdowns" },
@@ -1211,7 +1211,7 @@ add("autodrive", {
     { phase: "Analytics", activities: "Fleet dashboard, reporting, data warehouse", duration: "3 weeks" },
   ],
   whatClientLoved: ["The OTA system saved us from a €15M recall", "Our outsourced team integrates perfectly with internal engineers", "Automotive-grade quality from day one"],
-  challengesOvercome: ["Meeting automotive safety standards (ISO 26262) — rigorous testing protocols", "Managing OTA updates across 8 countries with different regulations — region-aware deployment"],
+  challengesOvercome: ["Meeting automotive safety standards (ISO 26262): rigorous testing protocols", "Managing OTA updates across 8 countries with different regulations: region-aware deployment"],
   testimonial: { quote: "CiroStack's team writes automotive-grade software that our internal engineers trust completely. The OTA system alone saved us from a €15M recall.", author: "Klaus Weber", role: "VP Engineering, MotorTech Solutions" },
   relatedProjects: [
     { id: "buildsite", title: "BuildSite Pro", description: "IoT construction monitoring" },
@@ -1231,10 +1231,10 @@ add("smallbizos", {
   size: "SMB",
   duration: "14 weeks",
   year: "2025",
-  description: "AI-powered all-in-one business management platform for small businesses — invoicing, CRM, bookkeeping, and smart insights.",
+  description: "AI-powered all-in-one business management platform for small businesses: invoicing, CRM, bookkeeping, and smart insights.",
   aboutClient: "SME Alliance is a business services company helping 10,000+ small businesses across the US Southeast with technology, consulting, and networking.",
   challenge: "Their small business members used 5-7 different tools for invoicing, CRM, bookkeeping, and analytics. The cost and complexity were overwhelming for non-technical owners.",
-  solution: "We built an all-in-one platform with AI-powered bookkeeping, smart invoicing, CRM, and business insights — designed to be simpler than any individual tool.",
+  solution: "We built an all-in-one platform with AI-powered bookkeeping, smart invoicing, CRM, and business insights: designed to be simpler than any individual tool.",
   keyFeatures: [
     { feature: "AI Bookkeeping", description: "Automatic categorization of expenses and revenue from bank feeds", benefit: "Save 10+ hours per month on accounting" },
     { feature: "Smart Invoicing", description: "One-click invoicing with automated follow-ups and payment links", benefit: "40% faster payment collection" },
@@ -1261,7 +1261,7 @@ add("smallbizos", {
     { phase: "Launch", activities: "Beta with 100 businesses, feedback iteration, full launch", duration: "2 weeks" },
   ],
   whatClientLoved: ["Business owners with zero tech skills can use it immediately", "The AI bookkeeping eliminates their biggest pain point", "Replacing 5 tools with one saved them hundreds per month"],
-  challengesOvercome: ["Making AI bookkeeping accurate enough for tax purposes — fine-tuned on 1M+ real transactions", "Building for non-technical users — extensive usability testing with real business owners"],
+  challengesOvercome: ["Making AI bookkeeping accurate enough for tax purposes: fine-tuned on 1M+ real transactions", "Building for non-technical users: extensive usability testing with real business owners"],
   testimonial: { quote: "CiroStack built the platform our members have been begging for. 10,000 businesses are now running more efficiently, and our retention has never been higher.", author: "Robert Harris", role: "CEO, SME Alliance" },
   relatedProjects: [
     { id: "launchpad", title: "LaunchPad MVP", description: "Rapid MVP development" },
@@ -1310,8 +1310,8 @@ add("cloudops", {
     { phase: "Development", activities: "Dashboard, cost engine, security scoring, governance", duration: "9 weeks" },
     { phase: "Rollout", activities: "Beta with 10 clients, iteration, full deployment", duration: "2 weeks" },
   ],
-  whatClientLoved: ["One dashboard instead of three — engineers are 80% more productive", "The cost optimization recommendations are incredibly accurate", "Automated governance means no more manual audits"],
-  challengesOvercome: ["Normalizing resource models across 3 clouds — universal resource abstraction", "Real-time cost data with different billing cycles — intelligent caching and estimation"],
+  whatClientLoved: ["One dashboard instead of three: engineers are 80% more productive", "The cost optimization recommendations are incredibly accurate", "Automated governance means no more manual audits"],
+  challengesOvercome: ["Normalizing resource models across 3 clouds: universal resource abstraction", "Real-time cost data with different billing cycles: intelligent caching and estimation"],
   testimonial: { quote: "CiroStack built the multi-cloud tool we've been dreaming of. Our engineers manage 3x more infrastructure with less effort.", author: "Aiden Park", role: "CEO, CloudFirst Technologies" },
   relatedProjects: [
     { id: "propview", title: "PropView", description: "Cloud-native real estate platform" },

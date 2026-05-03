@@ -1,6 +1,6 @@
 // Override Next.js StaticImageData so image imports behave like Vite (plain string URLs).
 // The webpack config in next.config.ts replaces next-image-loader with asset/resource,
-// making the runtime values strings — these declarations align the types.
+// making the runtime values strings: these declarations align the types.
 
 declare module "next/image-types/global" {}
 
@@ -40,7 +40,7 @@ declare module "*.avif" {
 // CSS side-effect imports
 declare module "*.css";
 
-// Missing modules referenced by orphaned/unused components — stubbed to unblock typecheck.
+// Missing modules referenced by orphaned/unused components: stubbed to unblock typecheck.
 declare module "@/components/ui/Button" {
   const Button: any;
   export default Button;

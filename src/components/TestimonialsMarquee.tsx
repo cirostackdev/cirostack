@@ -18,11 +18,11 @@ export type TestimonialItem = {
 
 type Props = {
     items: TestimonialItem[];
-    /** Section heading — defaults to "What our partners say" */
+    /** Section heading: defaults to "What our partners say" */
     heading?: string;
     /** Section sub-heading */
     subheading?: string;
-    /** CSS animation duration — longer = slower. Default "100s" */
+    /** CSS animation duration: longer = slower. Default "100s" */
     duration?: string;
     /** Background class for the section wrapper. Default "bg-card" */
     sectionBg?: string;

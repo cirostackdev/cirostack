@@ -33,7 +33,7 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title="Contact Us - Free Software Quote"
+        title="Contact Us: Free Software Quote"
         description="Get a free quote for your next software, website, or app development project within 24 hours. Connect with CiroStack."
         url="/contact"
       />
@@ -115,9 +115,9 @@ const Contact = () => {
                     <Select>
                       <SelectTrigger><SelectValue placeholder="Select budget" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="3k-5k">$3,000 – $5,000</SelectItem>
-                        <SelectItem value="5k-10k">$5,000 – $10,000</SelectItem>
-                        <SelectItem value="10k-25k">$10,000 – $25,000</SelectItem>
+                        <SelectItem value="3k-5k">$3,000: $5,000</SelectItem>
+                        <SelectItem value="5k-10k">$5,000: $10,000</SelectItem>
+                        <SelectItem value="10k-25k">$10,000: $25,000</SelectItem>
                         <SelectItem value="25k+">$25,000+</SelectItem>
                       </SelectContent>
                     </Select>

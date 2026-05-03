@@ -95,7 +95,7 @@ export function ReasonsToChoose({ service }: { service: ServiceEntry }) {
                         Why partner with CiroStack?
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl">
-                        We are not just another vendor. We act as your elite engineering SEAL team—taking extreme ownership of your most complex technical challenges.
+                        We are not just another vendor. We act as your elite engineering SEAL team: taking extreme ownership of your most complex technical challenges.
                     </p>
                 </div>
 

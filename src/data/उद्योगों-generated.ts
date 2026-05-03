@@ -174,7 +174,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Online Retail Stores",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Online Retail Stores, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Online Retail Stores, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -348,7 +348,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Brick & Mortar Retail",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Brick & Mortar Retail, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Brick & Mortar Retail, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -522,7 +522,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Fashion & Apparel",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fashion & Apparel, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fashion & Apparel, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -696,7 +696,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Grocery & Food Delivery",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Grocery & Food Delivery, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Grocery & Food Delivery, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -870,7 +870,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Electronics & Gadgets",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Electronics & Gadgets, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Electronics & Gadgets, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -1044,7 +1044,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Furniture & Home Decor",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Furniture & Home Decor, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Furniture & Home Decor, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -1218,7 +1218,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Beauty & Cosmetics",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Beauty & Cosmetics, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Beauty & Cosmetics, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -1392,7 +1392,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Bookstores",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Bookstores, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Bookstores, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -1566,7 +1566,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Pharmacies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Pharmacies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Pharmacies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -1740,7 +1740,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Automotive Parts",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Automotive Parts, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Automotive Parts, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -1914,7 +1914,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Hospitals & Clinics",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Hospitals & Clinics, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Hospitals & Clinics, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -2088,7 +2088,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Telemedicine",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Telemedicine, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Telemedicine, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -2262,7 +2262,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Dental Practices",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Dental Practices, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Dental Practices, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -2436,7 +2436,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Mental Health",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Mental Health, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Mental Health, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -2610,7 +2610,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Pharmacies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Pharmacies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Pharmacies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -2784,7 +2784,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Fitness & Wellness",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fitness & Wellness, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fitness & Wellness, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -2958,7 +2958,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Medical Equipment",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Medical Equipment, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Medical Equipment, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -3132,7 +3132,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Laboratories",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Laboratories, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Laboratories, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -3306,7 +3306,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Physical Therapy",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Physical Therapy, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Physical Therapy, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -3480,7 +3480,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Senior Care",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Senior Care, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Senior Care, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -3654,7 +3654,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Banks & Credit Unions",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Banks & Credit Unions, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Banks & Credit Unions, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -3828,7 +3828,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Investment Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Investment Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Investment Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -4002,7 +4002,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Insurance",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Insurance, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Insurance, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -4176,7 +4176,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Fintech Startups",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fintech Startups, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fintech Startups, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -4350,7 +4350,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Accounting Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Accounting Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Accounting Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -4524,7 +4524,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Personal Finance",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Personal Finance, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Personal Finance, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -4698,7 +4698,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Cryptocurrency",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cryptocurrency, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cryptocurrency, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -4872,7 +4872,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Microfinance",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Microfinance, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Microfinance, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -5046,7 +5046,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Real Estate Investment",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Investment, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Investment, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -5220,7 +5220,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Credit Unions",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Credit Unions, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Credit Unions, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -5394,7 +5394,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Real Estate Agencies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -5568,7 +5568,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Property Management",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Property Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Property Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -5742,7 +5742,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Real Estate Investment",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Investment, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Investment, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -5916,7 +5916,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Commercial Real Estate",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Commercial Real Estate, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Commercial Real Estate, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -6090,7 +6090,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Vacation Rentals",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Vacation Rentals, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Vacation Rentals, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -6264,7 +6264,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Property Development",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Property Development, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Property Development, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -6438,7 +6438,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Real Estate Agents",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Agents, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Agents, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -6612,7 +6612,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Mortgage Brokers",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Mortgage Brokers, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Mortgage Brokers, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -6786,7 +6786,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Facility Management",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Facility Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Facility Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -6960,7 +6960,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Co-working Spaces",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Co-working Spaces, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Co-working Spaces, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -7134,7 +7134,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Schools & Universities",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Schools & Universities, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Schools & Universities, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -7308,7 +7308,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Online Courses",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Online Courses, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Online Courses, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -7482,7 +7482,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Corporate Training",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Corporate Training, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Corporate Training, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -7656,7 +7656,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Tutoring Services",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tutoring Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tutoring Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -7830,7 +7830,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Test Preparation",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Test Preparation, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Test Preparation, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -8004,7 +8004,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Language Learning",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Language Learning, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Language Learning, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -8178,7 +8178,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Childcare",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Childcare, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Childcare, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -8352,7 +8352,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Vocational Training",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Vocational Training, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Vocational Training, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -8526,7 +8526,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Educational Publishers",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Educational Publishers, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Educational Publishers, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -8700,7 +8700,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Coding Bootcamps",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Coding Bootcamps, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Coding Bootcamps, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -8874,7 +8874,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Hotels & Resorts",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Hotels & Resorts, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Hotels & Resorts, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -9048,7 +9048,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Restaurants & Cafes",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Restaurants & Cafes, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Restaurants & Cafes, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -9222,7 +9222,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Travel Agencies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Travel Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Travel Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -9396,7 +9396,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Airlines",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Airlines, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Airlines, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -9570,7 +9570,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Tour Operators",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tour Operators, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tour Operators, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -9744,7 +9744,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Event Venues",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Event Venues, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Event Venues, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -9918,7 +9918,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Bed & Breakfasts",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Bed & Breakfasts, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Bed & Breakfasts, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -10092,7 +10092,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Cruise Lines",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cruise Lines, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cruise Lines, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -10266,7 +10266,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Car Rentals",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Car Rentals, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Car Rentals, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -10440,7 +10440,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Travel Bloggers",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Travel Bloggers, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Travel Bloggers, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -10614,7 +10614,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Manufacturing Plants",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Manufacturing Plants, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Manufacturing Plants, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -10788,7 +10788,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Supply Chain & Logistics",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Supply Chain & Logistics, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Supply Chain & Logistics, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -10962,7 +10962,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Warehousing",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Warehousing, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Warehousing, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -11136,7 +11136,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Quality Control",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Quality Control, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Quality Control, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -11310,7 +11310,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Equipment Maintenance",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Equipment Maintenance, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Equipment Maintenance, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -11484,7 +11484,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Factory Automation",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Factory Automation, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Factory Automation, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -11658,7 +11658,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Procurement",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Procurement, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Procurement, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -11832,7 +11832,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Distribution",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Distribution, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Distribution, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -12006,7 +12006,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Chemical & Pharmaceutical",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Chemical & Pharmaceutical, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Chemical & Pharmaceutical, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -12180,7 +12180,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Automotive Manufacturing",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Automotive Manufacturing, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Automotive Manufacturing, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -12354,7 +12354,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Law Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Law Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Law Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -12528,7 +12528,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Accounting Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Accounting Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Accounting Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -12702,7 +12702,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Consulting Agencies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Consulting Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Consulting Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -12876,7 +12876,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Marketing Agencies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Marketing Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Marketing Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -13050,7 +13050,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Architecture Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Architecture Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Architecture Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -13224,7 +13224,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Engineering Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Engineering Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Engineering Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -13398,7 +13398,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of HR Consulting",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of HR Consulting, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of HR Consulting, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -13572,7 +13572,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of IT Services",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of IT Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of IT Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -13746,7 +13746,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Recruiting Agencies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Recruiting Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Recruiting Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -13920,7 +13920,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Business Coaching",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Business Coaching, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Business Coaching, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -14094,7 +14094,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Film & Video Production",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Film & Video Production, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Film & Video Production, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -14268,7 +14268,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Music Industry",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Music Industry, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Music Industry, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -14442,7 +14442,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Gaming",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Gaming, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Gaming, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -14616,7 +14616,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Photography",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Photography, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Photography, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -14790,7 +14790,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Publishing",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Publishing, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Publishing, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -14964,7 +14964,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of News & Media",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of News & Media, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of News & Media, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -15138,7 +15138,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Podcasting",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Podcasting, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Podcasting, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -15312,7 +15312,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Event Production",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Event Production, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Event Production, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -15486,7 +15486,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Social Media Influencers",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Social Media Influencers, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Social Media Influencers, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -15660,7 +15660,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Art Galleries",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Art Galleries, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Art Galleries, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -15834,7 +15834,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Charities",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Charities, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Charities, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -16008,7 +16008,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of NGOs",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of NGOs, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of NGOs, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -16182,7 +16182,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Religious Organizations",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Religious Organizations, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Religious Organizations, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -16356,7 +16356,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Community Groups",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Community Groups, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Community Groups, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -16530,7 +16530,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Foundations",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Foundations, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Foundations, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -16704,7 +16704,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Social Enterprises",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Social Enterprises, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Social Enterprises, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -16878,7 +16878,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Environmental Groups",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Environmental Groups, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Environmental Groups, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -17052,7 +17052,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Educational Non-Profits",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Educational Non-Profits, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Educational Non-Profits, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -17226,7 +17226,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Health Advocacy",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Health Advocacy, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Health Advocacy, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -17400,7 +17400,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Animal Welfare",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Animal Welfare, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Animal Welfare, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -17574,7 +17574,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of SaaS Companies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of SaaS Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of SaaS Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -17748,7 +17748,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Tech Startups",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tech Startups, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tech Startups, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -17922,7 +17922,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Mobile App Developers",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Mobile App Developers, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Mobile App Developers, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -18096,7 +18096,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of AI Companies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of AI Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of AI Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -18270,7 +18270,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Blockchain/Crypto",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Blockchain/Crypto, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Blockchain/Crypto, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -18444,7 +18444,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of IoT Companies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of IoT Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of IoT Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -18618,7 +18618,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Cybersecurity",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cybersecurity, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cybersecurity, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -18792,7 +18792,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Cloud Services",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cloud Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cloud Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -18966,7 +18966,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of DevOps Tools",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of DevOps Tools, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of DevOps Tools, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -19140,7 +19140,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Developer Tools",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Developer Tools, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Developer Tools, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -19314,7 +19314,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Farms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Farms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Farms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -19488,7 +19488,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Agribusiness",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Agribusiness, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Agribusiness, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -19662,7 +19662,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Livestock Management",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Livestock Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Livestock Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -19836,7 +19836,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Farm Equipment",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Farm Equipment, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Farm Equipment, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -20010,7 +20010,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Produce Distribution",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Produce Distribution, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Produce Distribution, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -20184,7 +20184,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Organic Farming",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Organic Farming, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Organic Farming, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -20358,7 +20358,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Agricultural Co-ops",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Agricultural Co-ops, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Agricultural Co-ops, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -20532,7 +20532,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Precision Agriculture",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Precision Agriculture, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Precision Agriculture, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -20706,7 +20706,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Fisheries",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fisheries, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fisheries, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -20880,7 +20880,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Forestry",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Forestry, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Forestry, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -21054,7 +21054,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Construction Companies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Construction Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Construction Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -21228,7 +21228,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Architecture Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Architecture Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Architecture Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -21402,7 +21402,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Civil Engineering",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Civil Engineering, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Civil Engineering, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -21576,7 +21576,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Contractors",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Contractors, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Contractors, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -21750,7 +21750,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Subcontractors",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Subcontractors, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Subcontractors, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -21924,7 +21924,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Building Materials",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Building Materials, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Building Materials, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -22098,7 +22098,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Real Estate Development",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Development, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Development, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -22272,7 +22272,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Facility Management",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Facility Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Facility Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -22446,7 +22446,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Renovation Services",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Renovation Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Renovation Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -22620,7 +22620,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Landscape Architecture",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Landscape Architecture, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Landscape Architecture, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -22794,7 +22794,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Trucking Companies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Trucking Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Trucking Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -22968,7 +22968,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Delivery Services",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Delivery Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Delivery Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -23142,7 +23142,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Freight Forwarding",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Freight Forwarding, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Freight Forwarding, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -23316,7 +23316,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Warehousing",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Warehousing, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Warehousing, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -23490,7 +23490,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Public Transportation",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Public Transportation, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Public Transportation, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -23664,7 +23664,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Ride-Sharing",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Ride-Sharing, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Ride-Sharing, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-manufacturing.jpg",
@@ -23838,7 +23838,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Courier Services",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Courier Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Courier Services, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -24012,7 +24012,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Shipping Lines",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Shipping Lines, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Shipping Lines, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -24186,7 +24186,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Railway Companies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Railway Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Railway Companies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -24360,7 +24360,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Aviation",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Aviation, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Aviation, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -24534,7 +24534,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Local Government",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Local Government, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Local Government, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -24708,7 +24708,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Federal Agencies",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Federal Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Federal Agencies, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -24882,7 +24882,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Public Safety",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Public Safety, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Public Safety, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -25056,7 +25056,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Education Departments",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Education Departments, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Education Departments, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -25230,7 +25230,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Health Departments",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Health Departments, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Health Departments, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -25404,7 +25404,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Transportation Departments",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Transportation Departments, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Transportation Departments, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -25578,7 +25578,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Parks & Recreation",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Parks & Recreation, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Parks & Recreation, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -25752,7 +25752,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Libraries",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Libraries, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Libraries, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -25926,7 +25926,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Utilities",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Utilities, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Utilities, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -26100,7 +26100,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Tax Authorities",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tax Authorities, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tax Authorities, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -26274,7 +26274,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Sports Teams",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Sports Teams, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Sports Teams, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -26448,7 +26448,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Fitness Centers",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fitness Centers, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fitness Centers, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -26622,7 +26622,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Gyms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Gyms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Gyms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -26796,7 +26796,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Yoga Studios",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Yoga Studios, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Yoga Studios, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -26970,7 +26970,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Sports Leagues",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Sports Leagues, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Sports Leagues, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -27144,7 +27144,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Outdoor Recreation",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Outdoor Recreation, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Outdoor Recreation, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -27318,7 +27318,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Martial Arts Schools",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Martial Arts Schools, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Martial Arts Schools, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -27492,7 +27492,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Dance Studios",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Dance Studios, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Dance Studios, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -27666,7 +27666,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Golf Courses",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Golf Courses, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Golf Courses, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -27840,7 +27840,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Sports Events",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Sports Events, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Sports Events, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -28014,7 +28014,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Salons",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Salons, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Salons, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -28188,7 +28188,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Spas",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Spas, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Spas, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -28362,7 +28362,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Barber Shops",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Barber Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Barber Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -28536,7 +28536,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Nail Salons",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Nail Salons, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Nail Salons, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -28710,7 +28710,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Estheticians",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Estheticians, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Estheticians, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -28884,7 +28884,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Tattoo Shops",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tattoo Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tattoo Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -29058,7 +29058,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Beauty Clinics",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Beauty Clinics, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Beauty Clinics, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -29232,7 +29232,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Cosmetics Brands",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cosmetics Brands, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Cosmetics Brands, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -29406,7 +29406,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Hair Products",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Hair Products, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Hair Products, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -29580,7 +29580,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Skincare",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Skincare, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Skincare, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -29754,7 +29754,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Car Dealerships",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Car Dealerships, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Car Dealerships, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -29928,7 +29928,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Auto Repair Shops",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Auto Repair Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Auto Repair Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -30102,7 +30102,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Car Washes",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Car Washes, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Car Washes, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-telecom.jpg",
@@ -30276,7 +30276,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Auto Parts Stores",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Auto Parts Stores, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Auto Parts Stores, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -30450,7 +30450,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Fleet Management",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fleet Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Fleet Management, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-culture.jpg",
@@ -30624,7 +30624,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Rental Cars",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Rental Cars, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Rental Cars, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -30798,7 +30798,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Motorcycle Shops",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Motorcycle Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Motorcycle Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -30972,7 +30972,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Tire Shops",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tire Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Tire Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -31146,7 +31146,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Body Shops",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Body Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Body Shops, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -31320,7 +31320,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Automotive Detailing",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Automotive Detailing, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Automotive Detailing, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -31494,7 +31494,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Law Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Law Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Law Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -31668,7 +31668,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Solo Practitioners",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Solo Practitioners, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Solo Practitioners, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-apps.jpg",
@@ -31842,7 +31842,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Corporate Law",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Corporate Law, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Corporate Law, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -32016,7 +32016,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Family Law",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Family Law, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Family Law, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -32190,7 +32190,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Criminal Defense",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Criminal Defense, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Criminal Defense, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-ai.jpg",
@@ -32364,7 +32364,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Immigration Law",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Immigration Law, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Immigration Law, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -32538,7 +32538,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Intellectual Property",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Intellectual Property, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Intellectual Property, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -32712,7 +32712,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Real Estate Law",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Law, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Law, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-media.jpg",
@@ -32886,7 +32886,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Estate Planning",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Estate Planning, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Estate Planning, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -33060,7 +33060,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Legal Aid",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Legal Aid, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Legal Aid, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/hero-industry.jpg",
@@ -33234,7 +33234,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Local Retail",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Local Retail, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Local Retail, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-cloud-engineering.jpg",
@@ -33408,7 +33408,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Restaurants",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Restaurants, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Restaurants, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-data-engineering.jpg",
@@ -33582,7 +33582,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Salons",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Salons, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Salons, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -33756,7 +33756,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Gyms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Gyms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Gyms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",
@@ -33930,7 +33930,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Law Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Law Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Law Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-financial.jpg",
@@ -34104,7 +34104,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Accounting Firms",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Accounting Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Accounting Firms, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-sports-betting.jpg",
@@ -34278,7 +34278,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Real Estate Agents",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Agents, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Real Estate Agents, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -34452,7 +34452,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Consultants",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Consultants, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Consultants, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-dedicated-teams.jpg",
@@ -34626,7 +34626,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Contractors",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Contractors, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Contractors, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/svc-websites.jpg",
@@ -34800,7 +34800,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         {
                 "title": "Designing for the Future of Freelancers",
                 "content": [
-                        "Exceptional technology is only as good as its adoption rate. In the complex world of Freelancers, where users span from warehouse workers to executive suites, human-centric design is not a luxury—it is an operational imperative.",
+                        "Exceptional technology is only as good as its adoption rate. In the complex world of Freelancers, where users span from warehouse workers to executive suites, human-centric design is not a luxury: it is an operational imperative.",
                         "Our UX/UI experts conduct intensive user research to build interfaces that reduce cognitive load, minimize operational errors, and dramatically cut training times. The result is enterprise software that feels as intuitive as the best consumer applications in your pocket."
                         ],
                 "imagePath": "@/assets/ind-biotech.jpg",

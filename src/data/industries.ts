@@ -72,7 +72,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         title: "Healthcare & Medical",
         tagline: "We build HIPAA compliant platforms for hospitals, clinics, telehealth, and every corner of patient care.",
         introSummary: "We build HIPAA-compliant telemedicine platforms, EMR integrations, and patient portals that streamline care delivery, reduce administrative burden, and prioritize data security.",
-        description: "The healthcare sector requires technology that balances patient accessibility with unbreakable data security. CiroStack develops robust medical software solutions—from remote monitoring applications to complex billing systems—designed to empower providers and improve patient care.",
+        description: "The healthcare sector requires technology that balances patient accessibility with unbreakable data security. CiroStack develops robust medical software solutions: from remote monitoring applications to complex billing systems: designed to empower providers and improve patient care.",
         challenges: [
             "Strict compliance requirements (HIPAA, GDPR)",
             "Fragmented patient health records",
@@ -134,7 +134,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         title: "Real Estate & Property",
         tagline: "We build PropTech platforms for agents, property managers, investors, and developers across every property type.",
         introSummary: "We build intuitive platforms for property search, complex portfolio management tools, and seamless CRM integrations that empower real estate professionals.",
-        description: "The real estate market is shifting rapidly towards digital-first experiences. CiroStack creates PropTech software that streamlines the entire property lifecycle—from initial search and virtual tours to lease management and ongoing facility operations.",
+        description: "The real estate market is shifting rapidly towards digital-first experiences. CiroStack creates PropTech software that streamlines the entire property lifecycle: from initial search and virtual tours to lease management and ongoing facility operations.",
         challenges: [
             "Fragmented property listing data (MLS integration)",
             "Cumbersome document and signature workflows",
@@ -305,7 +305,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         valueProps: [
             { title: "Flawless Scale", description: "Architectures designed specifically to handle viral events and breaking news spikes." },
             { title: "Increased Engagement", description: "Personalization strategies that keep users on the platform longer." },
-            { title: "Omnichannel Delivery", description: "Write once, publish everywhere—from Apple TV to mobile apps." }
+            { title: "Omnichannel Delivery", description: "Write once, publish everywhere: from Apple TV to mobile apps." }
         ],
         stats: [
             { value: "10M+", label: "Concurrent Users" },
@@ -319,7 +319,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         icon: HeartHandshake,
         title: "Non-Profit & Social Enterprise",
         tagline: "We build donor management, program tracking, and impact reporting platforms for organizations doing meaningful work.",
-        introSummary: "We provide cost-effective, high-impact digital solutions for NGOs and charities—from donor management systems to digital advocacy platforms.",
+        introSummary: "We provide cost-effective, high-impact digital solutions for NGOs and charities: from donor management systems to digital advocacy platforms.",
         description: "Non-profits need to maximize the impact of every dollar. CiroStack partners with social enterprises to build scalable digital infrastructure that streamlines fundraising, mobilizes volunteers, and transparently reports on impact.",
         challenges: [
             "Donor retention and engagement",

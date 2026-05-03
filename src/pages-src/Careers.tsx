@@ -100,8 +100,8 @@ const perks = [
 const process = [
     { step: "01", title: "Apply Online", description: "Submit your application with a resume and a brief intro about why you want to join CiroStack." },
     { step: "02", title: "Intro Call", description: "A 30-minute video chat with our talent team to learn more about you and share details about the role." },
-    { step: "03", title: "Technical or Portfolio Review", description: "Role-specific assessment — a technical challenge, portfolio review, or case study depending on the position." },
-    { step: "04", title: "Team Interviews", description: "Meet the team you'd work with. We keep this to 2 rounds max — we respect your time." },
+    { step: "03", title: "Technical or Portfolio Review", description: "Role-specific assessment: a technical challenge, portfolio review, or case study depending on the position." },
+    { step: "04", title: "Team Interviews", description: "Meet the team you'd work with. We keep this to 2 rounds max: we respect your time." },
     { step: "05", title: "Offer & Onboarding", description: "If it's a match, you'll receive an offer within 48 hours and a smooth, structured onboarding experience." },
 ];
 

@@ -1,4 +1,4 @@
-// Meta Conversions API client — sends events to the backend which forwards to Meta server-side.
+// Meta Conversions API client: sends events to the backend which forwards to Meta server-side.
 // Use this alongside the pixel helpers in meta-pixel.ts for redundant tracking (deduplication via event_id).
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://api.cirostack.com";
@@ -73,7 +73,7 @@ export async function sendServerEvent(event: ConversionEvent): Promise<void> {
       ],
     };
 
-    // Fire and forget — don't block the UI
+    // Fire and forget: don't block the UI
     fetch(`${API_BASE}/v1/meta/events`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

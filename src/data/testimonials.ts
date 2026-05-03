@@ -1,8 +1,8 @@
 /**
  * Curated testimonials with service and industry tags for filtered marquee rendering.
  *
- * services  — service page slugs (matches heroImages keys in ServiceDetail.tsx)
- * industries — industry parentCategory values (matches IndustryEntry.parentCategory)
+ * services : service page slugs (matches heroImages keys in ServiceDetail.tsx)
+ * industries: industry parentCategory values (matches IndustryEntry.parentCategory)
  *
  * Untagged items (no services/industries field) appear on ALL pages.
  */
@@ -52,7 +52,7 @@ export const allTestimonials: Testimonial[] = [
         services: ["ai", "ai-ml", "digital-transformation"],
     },
     {
-        text: "Transparent, fast, and genuinely talented. The best software agency we've partnered with — full stop.",
+        text: "Transparent, fast, and genuinely talented. The best software agency we've partnered with: full stop.",
         name: "Tom Harding",
         role: "Founder, Stacklite",
         services: ["websites", "dedicated-teams", "startups"],

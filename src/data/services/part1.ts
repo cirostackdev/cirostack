@@ -8,7 +8,7 @@ export const servicesPart1: Record<string, ServiceEntry> = {
         title: "Custom Software Development",
         tagline: "We build fast, custom websites that look great, rank well, and turn visitors into paying customers.",
         introSummary: "high-performance, customized web platforms tailored specifically to amplify your digital presence and optimize conversion rates.",
-        description: "In today's digital landscape, your website is the cornerstone of your business identity. Our custom software development service goes beyond templates. We design and construct bespoke, responsive web architectures that prioritize performance, accessibility, and user engagement. By leveraging modern web frameworks, we ensure your platform isn't just visually stunning—it's a rapid, secure, and scalable asset that acts as your hardest working salesperson.",
+        description: "In today's digital landscape, your website is the cornerstone of your business identity. Our custom software development service goes beyond templates. We design and construct bespoke, responsive web architectures that prioritize performance, accessibility, and user engagement. By leveraging modern web frameworks, we ensure your platform isn't just visually stunning: it's a rapid, secure, and scalable asset that acts as your hardest working salesperson.",
         details: [
             "Custom UI/UX design tailored to your specific brand identity.",
             "Mobile-first responsive layouts that adapt perfectly to any device size.",
@@ -286,7 +286,7 @@ export const servicesPart1: Record<string, ServiceEntry> = {
         ],
         industryExpertise: ["Enterprise Logistics", "FinTech", "Healthcare", "E-commerce", "Government", "Media Streaming"],
         reasonsToChoose: [
-            { title: "Agnostic Expertise", description: "We aren't tied exclusively to AWS or Azure. We evaluate your specific needs and recommend the absolute best platform—or multi-cloud hybrid—for your specific goals." },
+            { title: "Agnostic Expertise", description: "We aren't tied exclusively to AWS or Azure. We evaluate your specific needs and recommend the absolute best platform: or multi-cloud hybrid: for your specific goals." },
             { title: "Security as a Foundation", description: "Security isn't a post-launch add-on for us. Network isolation, IAM policies, and encryption are the fundamental bedrock of every architecture we propose." },
             { title: "Clear Communication", description: "Cloud computing can be filled with impenetrable jargon. We translate complex technical architectures into clear, business-driven strategy documents." }
         ],

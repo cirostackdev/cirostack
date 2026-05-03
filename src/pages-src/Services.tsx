@@ -21,7 +21,7 @@ const servicesList = [
     title: "Websites",
     slug: "websites",
     tagline: "Beautiful, fast websites that drive results.",
-    description: "We design and build responsive websites that look incredible on every device. Whether you need a landing page, business site, or e-commerce store — we deliver pixel-perfect quality.",
+    description: "We design and build responsive websites that look incredible on every device. Whether you need a landing page, business site, or e-commerce store: we deliver pixel-perfect quality.",
     deliverables: ["Up to 10 custom pages", "Responsive design", "SEO optimization", "CMS integration", "Analytics setup", "Performance optimization"],
     startingAt: "$3,000",
   },

@@ -74,22 +74,22 @@ const faqs = [
   {
     question: "How do you handle industry-specific compliance like HIPAA, PCI-DSS, or GDPR?",
     answer:
-      "Compliance is architected into the project from day one — never bolted on. We map each requirement to concrete engineering controls (encryption at rest/in transit, audit logging, RBAC, data residency), document them for your auditors, and test them in CI. We've shipped to HIPAA, PCI-DSS Level 1, SOC 2, GDPR, and WCAG 2.1 AA.",
+      "Compliance is architected into the project from day one: never bolted on. We map each requirement to concrete engineering controls (encryption at rest/in transit, audit logging, RBAC, data residency), document them for your auditors, and test them in CI. We've shipped to HIPAA, PCI-DSS Level 1, SOC 2, GDPR, and WCAG 2.1 AA.",
   },
   {
     question: "Do you have reusable IP per industry, or is everything built from scratch?",
     answer:
-      "Both. We have hardened modules (auth, billing, multi-tenant data isolation, EHR integration, payment processing, geospatial fleet tracking) we can drop in to save weeks. Anything custom we write is yours from day one — code, designs, and IP. No lock-in.",
+      "Both. We have hardened modules (auth, billing, multi-tenant data isolation, EHR integration, payment processing, geospatial fleet tracking) we can drop in to save weeks. Anything custom we write is yours from day one: code, designs, and IP. No lock-in.",
   },
   {
     question: "What if my industry isn't in your top 20 verticals?",
     answer:
-      "We've shipped software in 35+ verticals. The 20 listed are where we have the deepest playbooks. For anything outside, we run a discovery sprint to map your domain — regulations, user mental models, KPIs — before scoping. Most industries take 1–2 weeks to ramp on.",
+      "We've shipped software in 35+ verticals. The 20 listed are where we have the deepest playbooks. For anything outside, we run a discovery sprint to map your domain: regulations, user mental models, KPIs: before scoping. Most industries take 1–2 weeks to ramp on.",
   },
   {
     question: "How long does an industry-specific MVP usually take?",
     answer:
-      "Most fixed-price industry MVPs ship in 4–8 weeks. Heavily-regulated verticals (healthcare, finance, gov) add 2–4 weeks for compliance review and penetration testing. We agree on scope and timeline upfront — if we go over, that's on us.",
+      "Most fixed-price industry MVPs ship in 4–8 weeks. Heavily-regulated verticals (healthcare, finance, gov) add 2–4 weeks for compliance review and penetration testing. We agree on scope and timeline upfront: if we go over, that's on us.",
   },
   {
     question: "Can you integrate with our existing industry tools?",
@@ -103,7 +103,7 @@ const Industries = () => {
     <Layout>
       <SEO
         title="Industries We Serve"
-        description="CiroStack builds custom software, apps, and AI solutions for 20+ industries — from healthcare and finance to retail, logistics, and beyond."
+        description="CiroStack builds custom software, apps, and AI solutions for 20+ industries: from healthcare and finance to retail, logistics, and beyond."
         url="/industries"
       />
 
@@ -142,7 +142,7 @@ const Industries = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          PICK YOUR SECTOR — alphabetical with preview
+          PICK YOUR SECTOR: alphabetical with preview
           ══════════════════════════════════════════════ */}
       <section className="section-padding section-alt">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
@@ -210,7 +210,7 @@ const Industries = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          CROSS-INDUSTRY EXPERTISE — divider layout
+          CROSS-INDUSTRY EXPERTISE: divider layout
           ══════════════════════════════════════════════ */}
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
@@ -230,12 +230,12 @@ const Industries = () => {
               {
                 num: "02",
                 title: "We build to your standards",
-                body: "HIPAA for healthcare. PCI-DSS for finance. GDPR for EU markets. Compliance is architected in — not bolted on.",
+                body: "HIPAA for healthcare. PCI-DSS for finance. GDPR for EU markets. Compliance is architected in: not bolted on.",
               },
               {
                 num: "03",
                 title: "We measure what matters",
-                body: "Every project tracks industry-specific KPIs — patient outcomes, cart conversion, fleet utilization — not vanity metrics.",
+                body: "Every project tracks industry-specific KPIs: patient outcomes, cart conversion, fleet utilization: not vanity metrics.",
               },
             ].map((item, i) => (
               <motion.div

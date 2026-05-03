@@ -1,5 +1,5 @@
 /**
- * Three.js WebGL component — must be imported with next/dynamic to avoid SSR issues:
+ * Three.js WebGL component: must be imported with next/dynamic to avoid SSR issues:
  *   const HeroGlobe = dynamic(() => import("@/components/HeroGlobe"), { ssr: false });
  */
 "use client";
@@ -257,7 +257,7 @@ function Globe({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number
         <meshBasicMaterial color="#ffffff" transparent opacity={0.2} />
       </instancedMesh>
 
-      {/* City nodes — pulsing red */}
+      {/* City nodes: pulsing red */}
       <instancedMesh ref={cityDotsRef} args={[undefined, undefined, cityPositions.length]}>
         <sphereGeometry args={[0.045, 8, 8]} />
         <meshBasicMaterial color="#ff3b3b" transparent opacity={0.9} />

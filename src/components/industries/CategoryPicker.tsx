@@ -25,7 +25,7 @@ export default function CategoryPicker({ categories }: CategoryPickerProps) {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-start">
-      {/* Left — alphabetical list */}
+      {/* Left: alphabetical list */}
       <ul className="divide-y divide-border">
         {sorted.map((cat, i) => {
           const isActive = cat.id === activeId;
@@ -64,7 +64,7 @@ export default function CategoryPicker({ categories }: CategoryPickerProps) {
         })}
       </ul>
 
-      {/* Right — sticky preview */}
+      {/* Right: sticky preview */}
       <div className="hidden lg:block sticky top-28">
         <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted">
           <AnimatePresence mode="wait">

@@ -19,7 +19,7 @@ const fadeUp = {
 };
 
 const values = [
-    { icon: Heart, title: "People First", description: "We genuinely care about each team member's wellbeing, growth, and happiness — not just their output." },
+    { icon: Heart, title: "People First", description: "We genuinely care about each team member's wellbeing, growth, and happiness: not just their output." },
     { icon: Zap, title: "Bias for Action", description: "We move fast, learn quickly from mistakes, and never let perfect be the enemy of great." },
     { icon: Globe, title: "Fully Remote", description: "Work from anywhere in the world. We trust our people to do great work wherever they are." },
     { icon: BookOpen, title: "Always Learning", description: "Dedicated time for courses, conferences, and experimentation. Growth is a company priority." },
@@ -57,7 +57,7 @@ const OurCulture = () => {
                 badge="Our Culture"
                 title="Built by people who"
                 highlight="love what they do"
-                description="We're not just a company — we're a community. CiroStack is built on trust, creativity, and the belief that happy teams build extraordinary products."
+                description="We're not just a company: we're a community. CiroStack is built on trust, creativity, and the belief that happy teams build extraordinary products."
                 image={heroCulture}
                 ctaText="View Open Roles"
                 ctaLink="/careers"

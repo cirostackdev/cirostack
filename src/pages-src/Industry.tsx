@@ -86,7 +86,7 @@ export default function Industry() {
                 secondaryCtaLink="/portfolio"
             />
 
-            {/* 2. Stats Section — unique per industry */}
+            {/* 2. Stats Section: unique per industry */}
             <IndustryStats stats={getIndustryStats(id, industryData.parentCategory)} />
 
             {/* 3. Intro Section */}

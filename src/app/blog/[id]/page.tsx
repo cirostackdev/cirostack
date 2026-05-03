@@ -3,7 +3,7 @@ import BlogPostPage from "@/pages-src/BlogPost";
 
 type Props = { params: Promise<{ id: string }> };
 
-// Minimal blog metadata table — avoids importing the client component's full data
+// Minimal blog metadata table: avoids importing the client component's full data
 const POST_META: Record<string, { title: string; description: string; image: string }> = {
   "why-fixed-price": {
     title: "Why Fixed-Price Development Beats Hourly Billing",
@@ -17,7 +17,7 @@ const POST_META: Record<string, { title: string; description: string; image: str
   },
   "react-vs-nextjs": {
     title: "React vs Next.js: A Decision Framework from 50+ Client Projects",
-    description: "When to use React, when to use Next.js, and the questions to ask before picking a framework — drawn from 50+ real engagements.",
+    description: "When to use React, when to use Next.js, and the questions to ask before picking a framework: drawn from 50+ real engagements.",
     image: "/images/blog/blog-react-nextjs.jpg",
   },
   "web-design-trends": {
@@ -27,17 +27,17 @@ const POST_META: Record<string, { title: string; description: string; image: str
   },
   "mvp-launch-checklist": {
     title: "The MVP Launch Checklist: From Architecture to Analytics",
-    description: "Every technical decision you need to make before shipping your first version — infrastructure, monitoring, error handling, and analytics.",
+    description: "Every technical decision you need to make before shipping your first version: infrastructure, monitoring, error handling, and analytics.",
     image: "/images/blog/blog-mvp-launch.jpg",
   },
   "langchain-tutorial": {
     title: "Building a Production AI Chatbot with LangChain & Node.js",
-    description: "Step-by-step guide to building a RAG-powered chatbot that handles real user queries without hallucinating — with retrieval, memory, and fallbacks.",
+    description: "Step-by-step guide to building a RAG-powered chatbot that handles real user queries without hallucinating: with retrieval, memory, and fallbacks.",
     image: "/images/blog/blog-langchain.jpg",
   },
   "cloud-migration-kubernetes": {
     title: "Migrating to Kubernetes on AWS: A Step-by-Step Playbook",
-    description: "How we migrate production workloads to Kubernetes without downtime — from cluster setup to deployment pipelines and autoscaling.",
+    description: "How we migrate production workloads to Kubernetes without downtime: from cluster setup to deployment pipelines and autoscaling.",
     image: "/images/blog/blog-cloud-migration.jpg",
   },
   "healthcare-digital-transformation": {
@@ -52,7 +52,7 @@ const POST_META: Record<string, { title: string; description: string; image: str
   },
   "fintech-security-architecture": {
     title: "Security-First Architecture for Fintech Applications",
-    description: "How to design fintech systems with encryption, fraud detection, and regulatory compliance built in from day one — not bolted on later.",
+    description: "How to design fintech systems with encryption, fraud detection, and regulatory compliance built in from day one: not bolted on later.",
     image: "/images/blog/blog-fintech-security.jpg",
   },
   "design-system-scale": {
@@ -67,7 +67,7 @@ const POST_META: Record<string, { title: string; description: string; image: str
   },
   "ml-models-production": {
     title: "From Jupyter Notebook to Production: Deploying ML Models That Last",
-    description: "The gap between a working notebook and a production ML system — covering serving infrastructure, monitoring, drift detection, and retraining pipelines.",
+    description: "The gap between a working notebook and a production ML system: covering serving infrastructure, monitoring, drift detection, and retraining pipelines.",
     image: "/images/blog/blog-ml-production.jpg",
   },
   "outsourcing-vs-inhouse": {
@@ -77,7 +77,7 @@ const POST_META: Record<string, { title: string; description: string; image: str
   },
   "real-time-data-pipelines": {
     title: "Building Real-Time Data Pipelines with Python and AWS",
-    description: "How to architect streaming data pipelines using Kinesis, Lambda, and Python — with exactly-once processing and failure recovery built in.",
+    description: "How to architect streaming data pipelines using Kinesis, Lambda, and Python: with exactly-once processing and failure recovery built in.",
     image: "/images/blog/blog-data-pipeline.jpg",
   },
   "scaling-saas-post-funding": {

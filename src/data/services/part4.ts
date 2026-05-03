@@ -173,7 +173,7 @@ export const servicesPart4: Record<string, ServiceEntry> = {
             { title: "Post-Launch Capability", description: "Many agencies vanish after the App Store launch. We are designed to seamlessly pivot into a long-term maintenance and growth engineering partner." }
         ],
         faqs: [
-            { question: "Is this cheaper than building an internal team?", answer: "Almost always. When you factor in the massive hidden costs of internal hires—recruiting fees, 6 months of onboarding, health benefits, hardware, and engineering turnover—a completely managed outsourced pod is highly economically efficient." },
+            { question: "Is this cheaper than building an internal team?", answer: "Almost always. When you factor in the massive hidden costs of internal hires: recruiting fees, 6 months of onboarding, health benefits, hardware, and engineering turnover: a completely managed outsourced pod is highly economically efficient." },
             { question: "How do we know what is being built?", answer: "We utilize extreme transparency. We adhere to Agile methodologies, meaning we deliver a working, testable piece of the software every two weeks. You never wait 6 months in the dark for a final reveal." },
             { question: "Who owns the Intellectual Property?", answer: "You do. Your contract will explicitly state that 100% of the code, designs, and architectural IP belongs entirely to your company from the moment it is written." },
             { question: "What if we want to take development internal later?", answer: "We actively encourage and support this. We build beautifully documented, industry-standard code. When you are ready, we execute a seamless, highly structured knowledge transfer to your new internal CTO." }

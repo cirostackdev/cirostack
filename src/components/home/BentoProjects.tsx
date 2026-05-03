@@ -23,7 +23,7 @@ interface BentoProjectsProps {
 /**
  * Editorial case-study showcase.
  * Left: a large featured project with a clean number index + metric callout.
- * Right: a vertical list of case studies styled like a magazine contents page —
+ * Right: a vertical list of case studies styled like a magazine contents page : 
  * numbered rows with hover preview, metric pill, and arrow affordance.
  */
 export default function BentoProjects({ projects }: BentoProjectsProps) {

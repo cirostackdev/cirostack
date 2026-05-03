@@ -19,7 +19,7 @@ const benefits = [
     { icon: Zap, title: "Weekly Insights", description: "Curated tech news, software trends, and actionable tips delivered every Tuesday." },
     { icon: BookOpen, title: "Exclusive Resources", description: "Subscribers get early access to our guides, whitepapers, and templates before anyone else." },
     { icon: Bot, title: "AI & Dev Deep Dives", description: "In-depth articles on AI, automation, and software development from our engineering team." },
-    { icon: Star, title: "No Spam, Ever", description: "We respect your inbox. Crisp, high-value content only — unsubscribe anytime with one click." },
+    { icon: Star, title: "No Spam, Ever", description: "We respect your inbox. Crisp, high-value content only: unsubscribe anytime with one click." },
 ];
 
 const pastIssues = [
@@ -31,7 +31,7 @@ const pastIssues = [
     },
     {
         issue: "#46",
-        title: "The real cost of technical debt — and how to pay it down",
+        title: "The real cost of technical debt: and how to pay it down",
         date: "Feb 18, 2026",
         reads: "3.8K",
     },

@@ -92,7 +92,7 @@ const Newsroom = () => {
     return (
         <Layout>
             <SEO
-                title="Newsroom - Press & Announcements"
+                title="Newsroom: Press and Announcements"
                 description="Latest company news, press releases, format features, and industry recognition for CiroStack."
                 url="/newsroom"
             />
@@ -184,7 +184,7 @@ const Newsroom = () => {
                 <div className="container mx-auto px-4 md:px-6 max-w-2xl">
                     <Tag className="w-12 h-12 text-foreground mx-auto mb-6" />
                     <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Press & Media Inquiries</h2>
-                    <p className="text-muted-foreground text-lg mb-4 max-w-lg mx-auto">Journalists, analysts, and media partners — we'd love to speak with you. Reach out for interviews, quotes, and exclusive briefings.</p>
+                    <p className="text-muted-foreground text-lg mb-4 max-w-lg mx-auto">Journalists, analysts, and media partners: we'd love to speak with you. Reach out for interviews, quotes, and exclusive briefings.</p>
                     <p className="text-muted-foreground mb-8">
                         Contact our press team at{" "}
                         <a href="mailto:contact@cirostack.com" className="text-primary hover:underline font-medium">contact@cirostack.com</a>

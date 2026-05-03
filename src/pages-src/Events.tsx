@@ -94,7 +94,7 @@ const Events = () => {
             {/* Featured Events */}
             <section id="events" className="section-padding">
                 <div className="container mx-auto px-4 md:px-6">
-                    <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited — register early." />
+                    <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited: register early." />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                         {featured.map((event, i) => (
                             <motion.div key={event.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass hover-lift group relative overflow-hidden">

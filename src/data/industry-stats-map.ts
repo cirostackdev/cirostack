@@ -15,7 +15,7 @@ function slugHash(slug: string): number {
   return Math.abs(h);
 }
 
-// Category-specific stat pools — each has 8+ options to pick 4 from
+// Category-specific stat pools: each has 8+ options to pick 4 from
 const categoryStatPools: Record<string, Array<{ value: string; label: string }[]>> = {
   "Retail & E-Commerce": [
     [

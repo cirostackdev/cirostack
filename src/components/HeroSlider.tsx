@@ -26,7 +26,7 @@ const HeroSlider = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
       </div>
 
-      {/* Content — left-aligned, vertically centered */}
+      {/* Content: left-aligned, vertically centered */}
       <div className="relative z-10 h-full flex flex-col justify-center">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl">

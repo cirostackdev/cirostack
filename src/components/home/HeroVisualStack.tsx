@@ -47,7 +47,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
       <div className="absolute -top-12 -right-12 w-72 h-72 rounded-full bg-primary/30 blur-3xl opacity-60" />
       <div className="absolute -bottom-16 -left-10 w-80 h-80 rounded-full bg-accent/30 blur-3xl opacity-50" />
 
-      {/* Featured screenshot — swaps with active industry */}
+      {/* Featured screenshot: swaps with active industry */}
       <motion.div
         initial={{ opacity: 0, y: 30, rotate: -3 }}
         animate={{ opacity: 1, y: 0, rotate: -2 }}
@@ -69,7 +69,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
         <div className="absolute inset-0 bg-gradient-to-tr from-foreground/20 via-transparent to-transparent" />
       </motion.div>
 
-      {/* Floating industry chip — top right */}
+      {/* Floating industry chip: top right */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -110,7 +110,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
         </div>
       </motion.div>
 
-      {/* Floating metric chip — bottom left */}
+      {/* Floating metric chip: bottom left */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
