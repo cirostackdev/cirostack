@@ -25,7 +25,7 @@ const CaseStudyFeatures = ({ features }: { features: Feature[] }) => (
         <div>
           <h3 className="font-display font-semibold text-foreground text-base md:text-lg mb-1">{kf.feature}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed mb-2">{kf.description}</p>
-          <span className="text-primary text-xs font-semibold">{kf.benefit}</span>
+          <span className="text-[hsl(var(--trust))] text-xs font-semibold">{kf.benefit}</span>
         </div>
       </motion.div>
     ))}

@@ -119,13 +119,13 @@ const CaseStudy = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-2 border-t border-border">
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                   <div className="flex items-center gap-2 mb-5">
-                    <Heart className="w-5 h-5 text-primary" />
+                    <Heart className="w-5 h-5 text-[hsl(var(--trust))]" />
                     <h3 className="font-display font-semibold text-foreground text-lg">What the Client Loved</h3>
                   </div>
                   <ul className="space-y-3">
                     {project.whatClientLoved.map((item) => (
                       <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--trust))] mt-1.5 shrink-0" />
                         {item}
                       </li>
                     ))}

@@ -18,7 +18,7 @@ const CaseStudyMetrics = ({ metrics }: { metrics: Metric[] }) => (
         transition={{ delay: i * 0.1 }}
         className="bg-card px-6 py-8 text-center"
       >
-        <p className="text-3xl md:text-4xl font-display font-bold text-gradient">{m.value}</p>
+        <p className="text-3xl md:text-4xl font-display font-bold text-[hsl(var(--trust))]">{m.value}</p>
         <p className="text-xs text-muted-foreground mt-2 font-medium uppercase tracking-wider">{m.label}</p>
       </motion.div>
     ))}
