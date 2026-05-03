@@ -19,6 +19,16 @@ import {
   Zap,
   Shield,
   Sparkles,
+  Scale,
+  Film,
+  Palmtree,
+  Trophy,
+  Car,
+  HeartHandshake,
+  HardHat,
+  Sprout,
+  Briefcase,
+  Store,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
@@ -26,6 +36,23 @@ import SectionHeading from "@/components/SectionHeading";
 import imgHealthflow from "@/assets/portfolio-healthflow.jpg";
 import imgShoplocal from "@/assets/portfolio-shoplocal.jpg";
 import imgAutotask from "@/assets/portfolio-autotask.jpg";
+import imgFinguard from "@/assets/portfolio-finguard.jpg";
+import imgEduspark from "@/assets/portfolio-eduspark.jpg";
+import imgFactoryiq from "@/assets/portfolio-factoryiq.jpg";
+import imgPropview from "@/assets/portfolio-propview.jpg";
+import imgLogistrack from "@/assets/portfolio-logistrack.jpg";
+import imgTravelease from "@/assets/portfolio-travelease.jpg";
+import imgLegalshield from "@/assets/portfolio-legalshield.jpg";
+import imgGovportal from "@/assets/portfolio-govportal.jpg";
+import imgSportspulse from "@/assets/portfolio-sportspulse.jpg";
+import imgBeautybook from "@/assets/portfolio-beautybook.jpg";
+import imgAutodrive from "@/assets/portfolio-autodrive.jpg";
+import imgSmallbizos from "@/assets/portfolio-smallbizos.jpg";
+import imgGivehub from "@/assets/portfolio-givehub.jpg";
+import imgLaunchpad from "@/assets/portfolio-launchpad.jpg";
+import imgAgriconnect from "@/assets/portfolio-agriconnect.jpg";
+import imgBuildsite from "@/assets/portfolio-buildsite.jpg";
+import imgStreamdeck from "@/assets/portfolio-streamdeck.jpg";
 import { projects, projectImages } from "@/data/caseStudies";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { allTestimonials } from "@/data/testimonials";
@@ -34,15 +61,28 @@ import LifecycleTimeline from "@/components/home/LifecycleTimeline";
 import BentoProjects from "@/components/home/BentoProjects";
 
 /* ─── data ─── */
-const industries = [
-  { icon: HeartPulse, title: "Healthcare & Medical", tagline: "HIPAA-compliant platforms for better patient outcomes", href: "/industries/healthcare-and-medical", image: imgHealthflow },
-  { icon: Landmark, title: "Financial Services", tagline: "Secure, real-time systems for modern finance", href: "/industries/financial-services", image: imgAutotask },
-  { icon: ShoppingCart, title: "Retail & E-Commerce", tagline: "Conversion-optimized storefronts and marketplaces", href: "/industries/retail-and-e-commerce", image: imgShoplocal },
-  { icon: GraduationCap, title: "Education & E-Learning", tagline: "Scalable LMS for 50K+ concurrent learners", href: "/industries/education-and-e-learning", image: imgHealthflow },
-  { icon: Factory, title: "Manufacturing", tagline: "IoT dashboards and predictive maintenance", href: "/industries/manufacturing-and-industrial", image: imgAutotask },
-  { icon: Laptop, title: "Technology & Startups", tagline: "From MVP to scale — engineering velocity for founders", href: "/industries/technology-and-startups", image: imgShoplocal },
-  { icon: Building2, title: "Real Estate", tagline: "PropTech platforms for listings, tours, transactions", href: "/industries/real-estate-and-property", image: imgHealthflow },
-  { icon: Truck, title: "Logistics", tagline: "Real-time tracking and supply chain intelligence", href: "/industries/transportation-and-logistics", image: imgAutotask },
+// Full pool of all 20 industries. Technology & Startups is index 0 (always pinned first in scroll).
+const allIndustries = [
+  { icon: Laptop,         label: "Tech & Startups",      title: "Technology & Startups",        tagline: "From MVP to scale — engineering velocity for founders",            href: "/industries/technology-and-startups",        image: imgLaunchpad },
+  { icon: HeartPulse,     label: "Healthcare",            title: "Healthcare & Medical",          tagline: "HIPAA-compliant platforms for better patient outcomes",            href: "/industries/healthcare-and-medical",          image: imgHealthflow },
+  { icon: Landmark,       label: "Finance",               title: "Financial Services",            tagline: "Secure, real-time systems for modern finance",                    href: "/industries/financial-services",              image: imgFinguard },
+  { icon: ShoppingCart,   label: "Retail",                title: "Retail & E-Commerce",           tagline: "Conversion-optimized storefronts and marketplaces",               href: "/industries/retail-and-e-commerce",           image: imgShoplocal },
+  { icon: GraduationCap,  label: "EdTech",                title: "Education & E-Learning",        tagline: "Scalable LMS for 50K+ concurrent learners",                      href: "/industries/education-and-e-learning",        image: imgEduspark },
+  { icon: Factory,        label: "Manufacturing",         title: "Manufacturing & Industrial",    tagline: "IoT dashboards and predictive maintenance",                      href: "/industries/manufacturing-and-industrial",    image: imgFactoryiq },
+  { icon: Building2,      label: "Real Estate",           title: "Real Estate & Property",        tagline: "PropTech platforms for listings, tours, transactions",            href: "/industries/real-estate-and-property",        image: imgPropview },
+  { icon: Truck,          label: "Logistics",             title: "Transportation & Logistics",    tagline: "Real-time tracking and supply chain intelligence",                href: "/industries/transportation-and-logistics",    image: imgLogistrack },
+  { icon: Palmtree,       label: "Hospitality",           title: "Hospitality & Tourism",         tagline: "Digital experiences as memorable as the destinations",            href: "/industries/hospitality-and-tourism",         image: imgTravelease },
+  { icon: Scale,          label: "Legal",                 title: "Legal Services",                tagline: "Secure, efficient software for modern law firms",                href: "/industries/legal-services",                  image: imgLegalshield },
+  { icon: Landmark,       label: "Government",            title: "Government & Public Sector",    tagline: "Accessible digital services for citizens and agencies",           href: "/industries/government-and-public-sector",    image: imgGovportal },
+  { icon: Trophy,         label: "Sports",                title: "Sports & Recreation",           tagline: "Fan engagement and facility management platforms",               href: "/industries/sports-and-recreation",           image: imgSportspulse },
+  { icon: Sparkles,       label: "Beauty",                title: "Beauty & Personal Care",        tagline: "Digital elegance for the beauty industry",                       href: "/industries/beauty-and-personal-care",        image: imgBeautybook },
+  { icon: Car,            label: "Automotive",            title: "Automotive",                    tagline: "Digital sales and service for the auto industry",                href: "/industries/automotive",                      image: imgAutodrive },
+  { icon: HeartHandshake, label: "Non-Profit",            title: "Non-Profit & Social Enterprise",tagline: "Purpose-driven technology that amplifies your impact",            href: "/industries/non-profit-and-social-enterprise",image: imgGivehub },
+  { icon: Sprout,         label: "Agriculture",           title: "Agriculture & Farming",         tagline: "AgriTech solutions for sustainable, data-driven farming",        href: "/industries/agriculture-and-farming",         image: imgAgriconnect },
+  { icon: HardHat,        label: "Construction",          title: "Construction & Engineering",    tagline: "Digital tools to manage complex projects on time and budget",    href: "/industries/construction-and-engineering",    image: imgBuildsite },
+  { icon: Film,           label: "Media",                 title: "Media & Entertainment",         tagline: "Scalable content platforms that captivate global audiences",     href: "/industries/media-and-entertainment",         image: imgStreamdeck },
+  { icon: Briefcase,      label: "Professional Services", title: "Professional Services",         tagline: "Streamlined software for consultancies, agencies, and firms",    href: "/industries/professional-services",           image: imgAutotask },
+  { icon: Store,          label: "Small Business",        title: "Small Business",                tagline: "Enterprise-grade technology scaled for local business growth",   href: "/industries/small-business",                  image: imgSmallbizos },
 ];
 
 const phases = [
@@ -96,20 +136,6 @@ const values = [
   { icon: Shield, title: "You Own Everything", line: "Code, designs, IP — yours from day one." },
 ];
 
-const alsoServe: { label: string; href: string }[] = [
-  { label: "Legal", href: "/industries/legal-services" },
-  { label: "Government", href: "/industries/government-and-public-sector" },
-  { label: "Agriculture", href: "/industries/agriculture-and-farming" },
-  { label: "Construction", href: "/industries/construction-and-engineering" },
-  { label: "Media", href: "/industries/media-and-entertainment" },
-  { label: "Hospitality", href: "/industries/hospitality-and-tourism" },
-  { label: "Sports", href: "/industries/sports-and-recreation" },
-  { label: "Beauty", href: "/industries/beauty-and-personal-care" },
-  { label: "Automotive", href: "/industries/automotive" },
-  { label: "Non-Profit", href: "/industries/non-profit-and-social-enterprise" },
-  { label: "Professional Services", href: "/industries/professional-services" },
-  { label: "Small Business", href: "/industries/small-business" },
-];
 
 /* Marquee strip — industry names scrolling (with links) */
 const marqueeWords: { label: string; href: string }[] = [
@@ -132,6 +158,19 @@ const marqueeWords: { label: string; href: string }[] = [
 
 /* ─── page ─── */
 const Index = () => {
+  const { scrollIndustries, alsoServe } = useMemo(() => {
+    const pinned = allIndustries[0]; // Technology & Startups — always first
+    const rest = [...allIndustries.slice(1)];
+    for (let i = rest.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [rest[i], rest[j]] = [rest[j], rest[i]];
+    }
+    return {
+      scrollIndustries: [pinned, ...rest.slice(0, 4)],
+      alsoServe: rest.slice(4),
+    };
+  }, []);
+
   const featuredProjects = useMemo(() => {
     const allEntries = Object.entries(projects);
     // Fisher-Yates shuffle
@@ -319,7 +358,7 @@ const Index = () => {
             {/* Horizontal scroll showcase */}
             <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 scrollbar-thin">
-                {industries.map((ind) => (
+                {scrollIndustries.map((ind) => (
                   <Link
                     key={ind.title}
                     href={ind.href}
@@ -365,6 +404,12 @@ const Index = () => {
                   {item.label}
                 </Link>
               ))}
+              <Link
+                href="/industries"
+                className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20 transition-colors"
+              >
+                View all 20 →
+              </Link>
             </div>
           </div>
         </div>
