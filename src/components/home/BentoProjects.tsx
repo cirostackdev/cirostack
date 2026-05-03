@@ -9,6 +9,8 @@ export interface BentoProject {
   title: string;
   client: string;
   industry: string;
+  service: string;
+  description: string;
   metric: string;
   tags: string[];
   image: string;
@@ -37,49 +39,30 @@ export default function BentoProjects({ projects }: BentoProjectsProps) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative"
       >
-        <Link
-          href={`/portfolio/${featured.id}`}
-          className="group block relative rounded-3xl overflow-hidden border border-border bg-card aspect-[4/5] lg:aspect-auto lg:h-full lg:min-h-[560px]"
-        >
-          <img
-            src={featured.image}
-            alt={featured.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
-
-          {/* Top row */}
-          <div className="absolute top-6 left-6 right-6 flex items-start justify-between text-white">
-            <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-white/70">
-              Case Study / 001
-            </span>
-            <span className="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-              Featured
-            </span>
-          </div>
-
-          {/* Bottom content */}
-          <div className="absolute inset-x-0 bottom-0 p-7 md:p-10">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-white/70 mb-3">
-              {featured.industry} — {featured.client}
-            </p>
-            <h3 className="text-3xl md:text-5xl font-display font-bold text-white leading-[1.05] tracking-tight mb-5 max-w-xl">
-              {featured.title}
-            </h3>
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="text-xs md:text-sm font-semibold text-white border-t border-white/30 pt-2 px-1">
-                {featured.metric}
+        <Link href={`/portfolio/${featured.id}`} className="block group">
+          <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
+            {/* Image */}
+            <div className="h-72 overflow-hidden relative">
+              <img
+                src={featured.image}
+                alt={featured.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <span className="absolute top-4 left-4 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white">
+                Featured
               </span>
-              <span className="flex-1" />
-              <span className="inline-flex items-center gap-2 text-xs md:text-sm font-medium text-white/90 group-hover:text-white transition-colors">
-                Read case study
-                <span className="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center transition-transform group-hover:translate-x-1 group-hover:bg-white group-hover:text-black">
-                  <ArrowUpRight className="w-4 h-4" />
-                </span>
-              </span>
+            </div>
+            {/* Content */}
+            <div className="p-6">
+              <p className="text-xs text-muted-foreground font-medium mb-1">{featured.client}</p>
+              <h3 className="font-display font-semibold text-foreground text-xl mb-2">{featured.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">{featured.description}</p>
+              <div className="flex flex-wrap gap-2">
+                <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{featured.industry}</span>
+                <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{featured.service}</span>
+              </div>
             </div>
           </div>
         </Link>
