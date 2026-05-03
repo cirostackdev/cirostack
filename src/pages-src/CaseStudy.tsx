@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Briefcase, Heart, Zap, ArrowLeft } from "lucide-react";
+import { Briefcase, ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
@@ -118,10 +118,7 @@ const CaseStudy = () => {
               {/* What client loved & challenges overcome */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-2 border-t border-border">
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                  <div className="flex items-center gap-2 mb-5">
-                    <Heart className="w-5 h-5 text-[hsl(var(--trust))]" />
-                    <h3 className="font-display font-semibold text-foreground text-lg">What the Client Loved</h3>
-                  </div>
+                  <h3 className="font-display font-semibold text-foreground text-lg mb-5">What the Client Loved</h3>
                   <ul className="space-y-3">
                     {project.whatClientLoved.map((item) => (
                       <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
@@ -132,10 +129,7 @@ const CaseStudy = () => {
                   </ul>
                 </motion.div>
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-                  <div className="flex items-center gap-2 mb-5">
-                    <Zap className="w-5 h-5 text-muted-foreground" />
-                    <h3 className="font-display font-semibold text-foreground text-lg">Challenges We Overcame</h3>
-                  </div>
+                  <h3 className="font-display font-semibold text-foreground text-lg mb-5">Challenges We Overcame</h3>
                   <ul className="space-y-3">
                     {project.challengesOvercome.map((item) => (
                       <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
