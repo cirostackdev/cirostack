@@ -627,7 +627,7 @@ export const industriesData: Record<string, IndustryEntry> = {
     "small-business": {
         id: "small-business",
         icon: Store,
-        title: "Small Business Solutions",
+        title: "Small Business",
         tagline: "We build the software small businesses actually need: scheduling, payments, client management, and tools that just work.",
         introSummary: "We help local businesses automate their operations, build a robust online presence, and compete with larger corporations through smart tech.",
         description: "Every business deserves great software. CiroStack takes the architectural patterns we use for enterprise clients and distills them into powerful, affordable, and easy-to-use platforms customized for local and small businesses.",
