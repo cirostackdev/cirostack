@@ -266,9 +266,31 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 2 — INDUSTRIES (horizontal showcase)
+          SECTION 2 — SERVICES (lifecycle timeline)
           ══════════════════════════════════════════════ */}
       <section className="section-padding section-alt">
+        <div className="container mx-auto px-4 md:px-6">
+          <SectionHeading
+            badge="What We Do"
+            title="From first idea to global scale."
+            description="19 services across 5 phases of the software lifecycle. Whatever stage you're at, we meet you there."
+          />
+
+          <LifecycleTimeline phases={phases} />
+
+          <p className="text-center text-sm text-muted-foreground mt-16">
+            Fixed-price packages for every service.{" "}
+            <Link href="/contact" className="text-primary hover:underline font-medium">
+              Get a quote →
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          SECTION 3 — INDUSTRIES (horizontal showcase)
+          ══════════════════════════════════════════════ */}
+      <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 mb-12">
             {/* Big number */}
@@ -349,28 +371,6 @@ const Index = () => {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════
-          SECTION 3 — SERVICES (lifecycle timeline)
-          ══════════════════════════════════════════════ */}
-      <section className="section-padding">
-        <div className="container mx-auto px-4 md:px-6">
-          <SectionHeading
-            badge="What We Do"
-            title="From first idea to global scale."
-            description="19 services across 5 phases of the software lifecycle. Whatever stage you're at, we meet you there."
-          />
-
-          <LifecycleTimeline phases={phases} />
-
-          <p className="text-center text-sm text-muted-foreground mt-16">
-            Fixed-price packages for every service.{" "}
-            <Link href="/contact" className="text-primary hover:underline font-medium">
-              Get a quote →
-            </Link>
-          </p>
         </div>
       </section>
 
