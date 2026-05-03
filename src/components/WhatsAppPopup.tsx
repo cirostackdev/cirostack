@@ -61,17 +61,6 @@ const PAGE_GROUPS: { match: string; config: GroupConfig }[] = [
         },
     },
     {
-        match: "/industries",
-        config: {
-            url: "https://chat.whatsapp.com/LINK4",
-            label: "Find Industry Specialists",
-            headline: "Connect with specialists in your industry",
-            subtext:
-                "Engineers and founders solving the exact same problems in our free Industry Launchpad group.",
-            groupId: "startup-launchpad",
-        },
-    },
-    {
         match: "default",
         config: {
             url: "https://chat.whatsapp.com/LINK4",

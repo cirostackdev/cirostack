@@ -347,12 +347,6 @@ const Index = () => {
               <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-md">
                 We learn your regulations, your users, your market — then build software that fits.
               </p>
-              <Link
-                href="/industries"
-                className="text-primary text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all"
-              >
-                Explore all industries <ArrowRight className="w-4 h-4" />
-              </Link>
             </div>
 
             {/* Horizontal scroll showcase */}
@@ -404,12 +398,6 @@ const Index = () => {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/industries"
-                className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20 transition-colors"
-              >
-                View all 20 →
-              </Link>
             </div>
           </div>
         </div>

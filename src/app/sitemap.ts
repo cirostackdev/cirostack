@@ -13,7 +13,6 @@ const STATIC_PAGES = [
   { path: "/contact", priority: 0.8, changeFrequency: "monthly" },
   { path: "/portfolio", priority: 0.8, changeFrequency: "monthly" },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" },
-  { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
   { path: "/careers", priority: 0.6, changeFrequency: "monthly" },
   { path: "/about/our-culture", priority: 0.5, changeFrequency: "monthly" },
   { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },
