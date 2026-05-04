@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { industriesData as subIndustries } from "@/data/industries-generated";
 import { industriesData as parentCategories } from "@/data/industries";
@@ -33,10 +33,36 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
   }, []);
 
   const [idx, setIdx] = useState(0);
+  const idxRef = useRef(0);
+  const loadedRef = useRef<Set<string>>(new Set());
+
   useEffect(() => {
-    const id = setInterval(() => setIdx((i) => (i + 1) % chips.length), 3500);
-    return () => clearInterval(id);
-  }, [chips.length]);
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const advance = () => {
+      const next = (idxRef.current + 1) % chips.length;
+      const src = chips[next].image;
+
+      const go = () => {
+        loadedRef.current.add(src);
+        idxRef.current = next;
+        setIdx(next);
+        timeoutId = setTimeout(advance, 3500);
+      };
+
+      if (loadedRef.current.has(src)) {
+        go();
+      } else {
+        const img = new Image();
+        img.src = src;
+        img.onload = go;
+        img.onerror = () => { timeoutId = setTimeout(advance, 3500); };
+      }
+    };
+
+    timeoutId = setTimeout(advance, 3500);
+    return () => clearTimeout(timeoutId);
+  }, [chips]);
 
   const current = chips[idx];
   const Icon = current.icon;
@@ -54,7 +80,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         className="absolute inset-6 md:inset-8 rounded-2xl overflow-hidden shadow-2xl border border-border/50 bg-card"
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           <motion.img
             key={idx}
             src={current.image}
@@ -62,7 +88,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full object-cover"
           />
         </AnimatePresence>
