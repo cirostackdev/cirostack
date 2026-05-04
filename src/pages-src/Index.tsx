@@ -213,7 +213,7 @@ const Index = () => {
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.5rem] font-display font-bold text-foreground leading-[0.95] tracking-tight mb-5">
                 Software,
                 <br />
-                <span className="text-gradient italic">engineered</span>
+                <span className="text-gradient italic pr-2">engineered</span>
                 <br />
                 for your industry.
               </h1>
