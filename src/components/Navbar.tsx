@@ -573,6 +573,12 @@ const IndustriesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathna
   // Auto-select the category that contains the current page
   const initialIndex = Math.max(0, categories.findIndex((cat) => isItemActive(cat, pathname)));
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(initialIndex);
+  const activeBtnRef = useRef<HTMLButtonElement>(null);
+
+  // Scroll the active category into view when the mega menu opens
+  useEffect(() => {
+    activeBtnRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, []);
 
   const activeCategory = categories[activeCategoryIndex];
 
@@ -594,6 +600,7 @@ const IndustriesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathna
               return (
                 <li key={category.label}>
                   <button
+                    ref={index === initialIndex ? activeBtnRef : undefined}
                     onClick={() => setActiveCategoryIndex(index)}
                     className={cn(
                       "w-full text-left px-3 py-2 text-sm rounded-md transition-colors flex items-center justify-between",
