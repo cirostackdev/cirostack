@@ -134,7 +134,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
       setDesktopActiveIndex(bestIdx);
     };
     const onScroll = () => {
-      if (raf) return;
+      if (raf) cancelAnimationFrame(raf);
       raf = window.requestAnimationFrame(() => {
         raf = 0;
         update();

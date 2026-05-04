@@ -63,26 +63,26 @@ import BentoProjects from "@/components/home/BentoProjects";
 /* ─── data ─── */
 // Full pool of all 20 industries. Technology & Startups is index 0 (always pinned first in scroll).
 const allIndustries = [
-  { icon: Laptop,         label: "Tech & Startups",      title: "Technology & Startups",        tagline: "From MVP to scale: engineering velocity for founders",            href: "/industries/technology-and-startups",        image: imgLaunchpad },
-  { icon: HeartPulse,     label: "Healthcare",            title: "Healthcare & Medical",          tagline: "HIPAA-compliant platforms for better patient outcomes",            href: "/industries/healthcare-and-medical",          image: imgHealthflow },
-  { icon: Landmark,       label: "Finance",               title: "Financial Services",            tagline: "Secure, real-time systems for modern finance",                    href: "/industries/financial-services",              image: imgFinguard },
-  { icon: ShoppingCart,   label: "Retail",                title: "Retail & E-Commerce",           tagline: "Conversion-optimized storefronts and marketplaces",               href: "/industries/retail-and-e-commerce",           image: imgShoplocal },
-  { icon: GraduationCap,  label: "EdTech",                title: "Education & E-Learning",        tagline: "Scalable LMS for 50K+ concurrent learners",                      href: "/industries/education-and-e-learning",        image: imgEduspark },
-  { icon: Factory,        label: "Manufacturing",         title: "Manufacturing & Industrial",    tagline: "IoT dashboards and predictive maintenance",                      href: "/industries/manufacturing-and-industrial",    image: imgFactoryiq },
-  { icon: Building2,      label: "Real Estate",           title: "Real Estate & Property",        tagline: "PropTech platforms for listings, tours, transactions",            href: "/industries/real-estate-and-property",        image: imgPropview },
-  { icon: Truck,          label: "Logistics",             title: "Transportation & Logistics",    tagline: "Real-time tracking and supply chain intelligence",                href: "/industries/transportation-and-logistics",    image: imgLogistrack },
-  { icon: Palmtree,       label: "Hospitality",           title: "Hospitality & Tourism",         tagline: "Digital experiences as memorable as the destinations",            href: "/industries/hospitality-and-tourism",         image: imgTravelease },
-  { icon: Scale,          label: "Legal",                 title: "Legal Services",                tagline: "Secure, efficient software for modern law firms",                href: "/industries/legal-services",                  image: imgLegalshield },
-  { icon: Landmark,       label: "Government",            title: "Government & Public Sector",    tagline: "Accessible digital services for citizens and agencies",           href: "/industries/government-and-public-sector",    image: imgGovportal },
-  { icon: Trophy,         label: "Sports",                title: "Sports & Recreation",           tagline: "Fan engagement and facility management platforms",               href: "/industries/sports-and-recreation",           image: imgSportspulse },
-  { icon: Sparkles,       label: "Beauty",                title: "Beauty & Personal Care",        tagline: "Digital elegance for the beauty industry",                       href: "/industries/beauty-and-personal-care",        image: imgBeautybook },
-  { icon: Car,            label: "Automotive",            title: "Automotive",                    tagline: "Digital sales and service for the auto industry",                href: "/industries/automotive",                      image: imgAutodrive },
-  { icon: HeartHandshake, label: "Non-Profit",            title: "Non-Profit & Social Enterprise",tagline: "Purpose-driven technology that amplifies your impact",            href: "/industries/non-profit-and-social-enterprise",image: imgGivehub },
-  { icon: Sprout,         label: "Agriculture",           title: "Agriculture & Farming",         tagline: "AgriTech solutions for sustainable, data-driven farming",        href: "/industries/agriculture-and-farming",         image: imgAgriconnect },
-  { icon: HardHat,        label: "Construction",          title: "Construction & Engineering",    tagline: "Digital tools to manage complex projects on time and budget",    href: "/industries/construction-and-engineering",    image: imgBuildsite },
-  { icon: Film,           label: "Media",                 title: "Media & Entertainment",         tagline: "Scalable content platforms that captivate global audiences",     href: "/industries/media-and-entertainment",         image: imgStreamdeck },
-  { icon: Briefcase,      label: "Professional Services", title: "Professional Services",         tagline: "Streamlined software for consultancies, agencies, and firms",    href: "/industries/professional-services",           image: imgAutotask },
-  { icon: Store,          label: "Small Business",        title: "Small Business",                tagline: "Enterprise-grade technology scaled for local business growth",   href: "/industries/small-business",                  image: imgSmallbizos },
+  { icon: Laptop, label: "Tech & Startups", title: "Technology & Startups", tagline: "From MVP to scale: engineering velocity for founders", href: "/industries/technology-and-startups", image: imgLaunchpad },
+  { icon: HeartPulse, label: "Healthcare", title: "Healthcare & Medical", tagline: "HIPAA-compliant platforms for better patient outcomes", href: "/industries/healthcare-and-medical", image: imgHealthflow },
+  { icon: Landmark, label: "Finance", title: "Financial Services", tagline: "Secure, real-time systems for modern finance", href: "/industries/financial-services", image: imgFinguard },
+  { icon: ShoppingCart, label: "Retail", title: "Retail & E-Commerce", tagline: "Conversion-optimized storefronts and marketplaces", href: "/industries/retail-and-e-commerce", image: imgShoplocal },
+  { icon: GraduationCap, label: "EdTech", title: "Education & E-Learning", tagline: "Scalable LMS for 50K+ concurrent learners", href: "/industries/education-and-e-learning", image: imgEduspark },
+  { icon: Factory, label: "Manufacturing", title: "Manufacturing & Industrial", tagline: "IoT dashboards and predictive maintenance", href: "/industries/manufacturing-and-industrial", image: imgFactoryiq },
+  { icon: Building2, label: "Real Estate", title: "Real Estate & Property", tagline: "PropTech platforms for listings, tours, transactions", href: "/industries/real-estate-and-property", image: imgPropview },
+  { icon: Truck, label: "Logistics", title: "Transportation & Logistics", tagline: "Real-time tracking and supply chain intelligence", href: "/industries/transportation-and-logistics", image: imgLogistrack },
+  { icon: Palmtree, label: "Hospitality", title: "Hospitality & Tourism", tagline: "Digital experiences as memorable as the destinations", href: "/industries/hospitality-and-tourism", image: imgTravelease },
+  { icon: Scale, label: "Legal", title: "Legal Services", tagline: "Secure, efficient software for modern law firms", href: "/industries/legal-services", image: imgLegalshield },
+  { icon: Landmark, label: "Government", title: "Government & Public Sector", tagline: "Accessible digital services for citizens and agencies", href: "/industries/government-and-public-sector", image: imgGovportal },
+  { icon: Trophy, label: "Sports", title: "Sports & Recreation", tagline: "Fan engagement and facility management platforms", href: "/industries/sports-and-recreation", image: imgSportspulse },
+  { icon: Sparkles, label: "Beauty", title: "Beauty & Personal Care", tagline: "Digital elegance for the beauty industry", href: "/industries/beauty-and-personal-care", image: imgBeautybook },
+  { icon: Car, label: "Automotive", title: "Automotive", tagline: "Digital sales and service for the auto industry", href: "/industries/automotive", image: imgAutodrive },
+  { icon: HeartHandshake, label: "Non-Profit", title: "Non-Profit & Social Enterprise", tagline: "Purpose-driven technology that amplifies your impact", href: "/industries/non-profit-and-social-enterprise", image: imgGivehub },
+  { icon: Sprout, label: "Agriculture", title: "Agriculture & Farming", tagline: "AgriTech solutions for sustainable, data-driven farming", href: "/industries/agriculture-and-farming", image: imgAgriconnect },
+  { icon: HardHat, label: "Construction", title: "Construction & Engineering", tagline: "Digital tools to manage complex projects on time and budget", href: "/industries/construction-and-engineering", image: imgBuildsite },
+  { icon: Film, label: "Media", title: "Media & Entertainment", tagline: "Scalable content platforms that captivate global audiences", href: "/industries/media-and-entertainment", image: imgStreamdeck },
+  { icon: Briefcase, label: "Professional Services", title: "Professional Services", tagline: "Streamlined software for consultancies, agencies, and firms", href: "/industries/professional-services", image: imgAutotask },
+  { icon: Store, label: "Small Business", title: "Small Business", tagline: "Enterprise-grade technology scaled for local business growth", href: "/industries/small-business", image: imgSmallbizos },
 ];
 
 const phases = [
@@ -326,15 +326,12 @@ const Index = () => {
           <SectionHeading
             badge="What We Do"
             title="From first idea to global scale."
-            description="19 services across 5 phases of the software lifecycle. Whatever stage you're at, we meet you there."
+            description="19 services across 5 phases of a startup's software lifecycle. Whatever stage you're at, we meet you there."
           />
 
           <LifecycleTimeline phases={phases} />
 
           <div className="text-center mt-16 space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Fixed-price packages for every service.
-            </p>
             <Link href="/contact">
               <Button className="rounded-full px-8" size="lg">
                 Get a quote <ArrowRight className="w-4 h-4 ml-2" />
