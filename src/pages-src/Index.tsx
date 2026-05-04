@@ -266,31 +266,28 @@ const Index = () => {
         </div>
 
         {/* Scrolling marquee */}
-        <div className="mt-10 lg:mt-0 border-y border-border/60 bg-card/40 backdrop-blur-sm py-4 overflow-hidden relative flex">
+        <div className="mt-10 lg:mt-0 border-y border-border/60 bg-card/40 backdrop-blur-sm py-4 overflow-hidden relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-20 z-10 bg-gradient-to-r from-background to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-20 z-10 bg-gradient-to-l from-background to-transparent" />
-          {[0, 1].map((track) => (
-            <div
-              key={track}
-              aria-hidden={track === 1}
-              className="flex shrink-0 animate-marquee-track"
-              style={{
-                "--marquee-duration": "40s",
-                animationDelay: track === 1 ? "-20s" : "0s",
-              } as React.CSSProperties}
-            >
-              {marqueeWords.map((w, i) => (
-                <Link
-                  key={i}
-                  href={w.href}
-                  className="inline-flex items-center mx-8 text-2xl md:text-3xl font-display font-semibold text-muted-foreground/70 hover:text-foreground transition-colors shrink-0"
-                >
-                  {w.label}
-                  <span className="ml-8 text-primary text-3xl">·</span>
-                </Link>
-              ))}
-            </div>
-          ))}
+          <div
+            className="flex w-max animate-marquee"
+            style={{ "--marquee-duration": "40s" } as React.CSSProperties}
+          >
+            {[0, 1].map((copy) => (
+              <div key={copy} aria-hidden={copy === 1} className="flex shrink-0">
+                {marqueeWords.map((w, i) => (
+                  <Link
+                    key={i}
+                    href={w.href}
+                    className="inline-flex items-center mx-8 text-2xl md:text-3xl font-display font-semibold text-muted-foreground/70 hover:text-foreground transition-colors shrink-0"
+                  >
+                    {w.label}
+                    <span className="ml-8 text-primary text-3xl">·</span>
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
