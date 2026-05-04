@@ -47,6 +47,7 @@ import imgSecurityAudit from "@/assets/svc-security-audit.jpg";
 import imgNearshore from "@/assets/svc-nearshore.jpg";
 import imgOutsourcing from "@/assets/svc-outsourcing.jpg";
 import imgStartups from "@/assets/svc-startups.jpg";
+import imgStartupBranding from "@/assets/svc-startup-branding.jpg";
 
 const heroImages: Record<string, string> = {
   "websites": imgWebsites,
@@ -68,6 +69,7 @@ const heroImages: Record<string, string> = {
   "nearshore": imgNearshore,
   "outsourcing": imgOutsourcing,
   "startups": imgStartups,
+  "startup-branding": imgStartupBranding,
 };
 
 export default function ServiceDetail() {

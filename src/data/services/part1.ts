@@ -1,4 +1,4 @@
-import { Globe, Smartphone, Bot, Cpu, Cloud } from "lucide-react";
+import { Globe, Smartphone, Bot, Cpu, Cloud, Sparkles } from "lucide-react";
 import type { ServiceEntry } from "./types";
 
 export const servicesPart1: Record<string, ServiceEntry> = {
@@ -295,6 +295,66 @@ export const servicesPart1: Record<string, ServiceEntry> = {
             { question: "How do you ensure no downtime during a migration?", answer: "We utilize strategies like Blue/Green deployments and parallel running. We set up the new cloud environment entirely alongside the old one, mirror the database, and only switch the DNS traffic over once the new system is fully validated." },
             { question: "Which cloud provider is the best?", answer: "It depends heavily on your tech stack. AWS has the most massive ecosystem, Azure is phenomenal if you are heavily entrenched in Microsoft enterprise software, and GCP shines in data analytics and Kubernetes workloads." },
             { question: "What is FinOps?", answer: "FinOps (Cloud Financial Management) is the practice of bringing financial accountability to the variable spend model of cloud computing. We implement tags, budgeting alerts, and reserved instances to ensure you never get a shock at the end of the billing month." }
+        ]
+    },
+    "startup-branding": {
+        id: "startup-branding",
+        icon: Sparkles,
+        title: "Startup Branding",
+        tagline: "We craft distinctive brands that make early-stage startups impossible to ignore: positioning, naming, identity, and a launch-ready brand system.",
+        introSummary: "end-to-end startup brand systems combining sharp positioning, memorable naming, expressive visual identity, and applied brand assets ready to ship from day one.",
+        description: "A great product still loses to a memorable brand. Our Startup Branding service is a senior, founder-friendly engagement that compresses what most agencies stretch over months into a focused sprint. We sharpen your positioning, find a name that earns the .com conversation, and design a complete visual identity (logo system, palette, typography, iconography). You leave with a brand book, a social and pitch-deck kit, and a launch-ready website rollout that makes investors, hires, and customers take you seriously from your first impression.",
+        details: [
+            "Brand strategy: positioning, audience, narrative, and tone of voice.",
+            "Naming and verbal identity, with domain, trademark, and social handle screening.",
+            "Logo system: primary mark, monogram, lockups, and responsive variants.",
+            "Color, typography, iconography, and motion principles.",
+            "Brand guidelines (PDF + Figma), social kit, and pitch deck templates.",
+            "Launch website and applied brand rollout across key touchpoints."
+        ],
+        technologies: ["Figma", "Adobe Illustrator", "Adobe Photoshop", "After Effects", "Webflow", "Notion"],
+        deliverables: [
+            "Brand strategy and positioning document.",
+            "Final name with domain and handle recommendations.",
+            "Complete logo system and visual identity assets.",
+            "Brand guidelines (PDF + Figma library).",
+            "Social media kit and pitch deck templates.",
+            "Launch-ready marketing website with applied brand."
+        ],
+        startingAt: "Custom Quote",
+        bookingType: "Brand Strategy Session",
+        valueProps: [
+            { title: "Founder-Speed Sprints", description: "We compress the typical 3-month agency cycle into a focused, weekly-cadence sprint so you can launch, raise, and recruit on your timeline, not ours." },
+            { title: "Strategy First, Pixels Second", description: "Every visual decision ties back to your positioning, audience, and category. The result is a brand that says something, not just one that looks nice." },
+            { title: "A System, Not a Logo", description: "You get a real brand system: components, rules, and templates your team can extend without us, on day one." },
+            { title: "Ready to Ship", description: "We hand off a launch-ready website, social kit, and deck so the new brand is live and earning attention the day we wrap." }
+        ],
+        whoWeHelped: [
+            "Pre-seed and seed-stage founders preparing to launch.",
+            "Technical teams that need a sharper, investor-ready story.",
+            "Stealth startups coming out of stealth with a name change.",
+            "Series A companies rebranding for their next chapter."
+        ],
+        processSteps: [
+            { title: "Discovery & Positioning", description: "We run founder interviews, competitive teardown, and audience research to lock down what you stand for and who you stand for it against." },
+            { title: "Naming & Verbal Identity", description: "We generate, screen, and pressure-test names against domain, trademark, and handle availability, then craft your tagline and tone of voice." },
+            { title: "Visual Direction", description: "Two or three distinct creative territories explored as moodboards and applied previews so you choose a direction with real-world context, not abstract Pinterest boards." },
+            { title: "Identity Design", description: "We refine the chosen direction into a full identity system: logo, color, type, iconography, and motion, all designed to scale across every surface." },
+            { title: "Brand System & Guidelines", description: "We package everything into a Figma library and brand book your team can extend, plus social and pitch templates ready to use." },
+            { title: "Launch & Rollout", description: "We apply the brand to a launch site and core touchpoints, hand over the system, and brief your team so the rollout lands clean." }
+        ],
+        industryExpertise: ["SaaS", "FinTech", "AI & ML", "DevTools", "Healthtech", "Consumer Apps"],
+        reasonsToChoose: [
+            { title: "Senior, In-House Team", description: "A senior strategist and designer lead your brand from start to finish. No account managers, no junior handoffs, no churn between phases." },
+            { title: "Engineered for Launch", description: "We are a software studio, so the brand is designed with the website, product UI, and pitch deck already in mind, not as an afterthought." },
+            { title: "Fixed Scope, Clear Cadence", description: "You always know what is shipping this week, what is next, and exactly what you are paying for. No surprise invoices, no scope drift." }
+        ],
+        faqs: [
+            { question: "How long does a startup brand take?", answer: "Most engagements run 4 to 8 weeks end to end, depending on whether you also need naming and a launch website. We move at founder speed without cutting strategy corners." },
+            { question: "Can you handle naming, including the legal screening?", answer: "Yes. We generate and shortlist names with domain and handle screening, plus a preliminary trademark check. For final legal clearance we coordinate with your IP counsel or recommend one." },
+            { question: "Do we get the editable source files?", answer: "Always. You own everything: editable Figma files, vector logo source, Adobe files where relevant, fonts, and a full Figma brand library your team can extend." },
+            { question: "Can you also build the launch website?", answer: "Yes. Our engineering team can build the launch site directly on top of the new brand, so the rollout is consistent and ready for traffic on day one." },
+            { question: "What if we already have a name and just need identity?", answer: "No problem. We scope the engagement to what you actually need, whether that is identity-only, a rebrand of an existing mark, or a full strategy plus identity package." }
         ]
     }
 };
