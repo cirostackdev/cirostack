@@ -488,7 +488,7 @@ const Index = () => {
                         key={step.label}
                         initial={{ opacity: 0, scale: 0.5 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, margin: "-100px" }}
+                        viewport={{ once: true, margin: "0px" }}
                         transition={{ duration: 0.4, delay: 0.4 * i + 0.3 }}
                         className="flex-1 min-w-0 text-center"
                       >
