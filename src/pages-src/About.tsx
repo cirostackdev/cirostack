@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 import {
   Building2, ArrowRight, CheckCircle, Star, Quote,
   Heart, Zap, Users, Target,
-  Code2, Server, Globe, Brain,
+  Code2, Server, Globe, Brain, Palette, Layers,
 } from "lucide-react";
 import { allTestimonials } from "@/data/testimonials";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
@@ -107,6 +107,8 @@ const values = [
 ];
 
 const techGroups = [
+  { label: "Branding", icon: Palette, items: ["Positioning", "Naming", "Logo Systems", "Brand Guidelines"] },
+  { label: "UI/UX Design", icon: Layers, items: ["Figma", "Design Systems", "Prototyping", "User Research"] },
   { label: "Frontend", icon: Code2, items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
   { label: "Backend", icon: Server, items: ["Node.js", "Python", "PostgreSQL", "Docker"] },
   { label: "Cloud", icon: Globe, items: ["AWS", "Vercel", "Supabase", "Cloudflare"] },
