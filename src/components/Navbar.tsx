@@ -555,7 +555,7 @@ const IndustriesMegaMenu = ({ onClose }: { onClose: () => void }) => {
             {categories.map((category, index) => (
               <li key={category.label}>
                 <button
-                  onMouseEnter={() => setActiveCategoryIndex(index)}
+                  onClick={() => setActiveCategoryIndex(index)}
                   className={cn(
                     "w-full text-left px-3 py-2 text-sm rounded-md transition-colors flex items-center justify-between",
                     activeCategoryIndex === index
