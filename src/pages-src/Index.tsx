@@ -29,10 +29,18 @@ import {
   Sprout,
   Briefcase,
   Store,
+  Globe,
+  Clock,
+  Star,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import SectionHeading from "@/components/SectionHeading";
+import heroAbout from "@/assets/hero-about.jpg";
+import heroCareers from "@/assets/hero-careers.jpg";
+import imgBlogFixedPrice from "@/assets/blog-fixed-price.jpg";
+import imgBlogAiAutomation from "@/assets/blog-ai-automation.jpg";
+import imgBlogCloudMigration from "@/assets/blog-cloud-migration.jpg";
 import imgHealthflow from "@/assets/portfolio-healthflow.jpg";
 import imgShoplocal from "@/assets/portfolio-shoplocal.jpg";
 import imgAutotask from "@/assets/portfolio-autotask.jpg";
@@ -136,6 +144,28 @@ const values = [
   { icon: Shield, title: "You Own Everything", line: "Code, designs, IP: yours at each paid milestone." },
 ];
 
+
+const companyStats = [
+  { value: "50+", label: "Projects delivered" },
+  { value: "30+", label: "Happy clients" },
+  { value: "5",   label: "Countries served" },
+  { value: "95%", label: "Client retention" },
+];
+
+const featuredPosts = [
+  { id: "why-fixed-price",         title: "Why Fixed-Price Development Beats Hourly Billing",              category: "Startup Playbook",     readTime: "5 min read", image: imgBlogFixedPrice },
+  { id: "ai-automation-guide",     title: "How We Use OpenAI & LangChain to Automate Enterprise Workflows", category: "AI & Machine Learning", readTime: "7 min read", image: imgBlogAiAutomation },
+  { id: "cloud-migration-kubernetes", title: "Migrating to Kubernetes on AWS: A Step-by-Step Playbook",   category: "Cloud & DevOps",       readTime: "9 min read", image: imgBlogCloudMigration },
+];
+
+const careerPerks = [
+  { icon: Globe, label: "Fully Remote",    sub: "Work from anywhere" },
+  { icon: Zap,   label: "Learning Budget", sub: "$1,500 / year" },
+  { icon: Users, label: "Team Retreats",   sub: "Annual company offsite" },
+  { icon: Star,  label: "Equity Options",  sub: "Everyone shares success" },
+  { icon: Clock, label: "Flexible Hours",  sub: "Own your schedule" },
+  { icon: Shield, label: "Health Benefits", sub: "Full coverage" },
+];
 
 /* Marquee strip: industry names scrolling (with links) */
 const marqueeWords: { label: string; href: string }[] = [
@@ -508,7 +538,189 @@ const Index = () => {
       />
 
       {/* ══════════════════════════════════════════════
-          SECTION 7: FINAL CTA (gradient orb)
+          SECTION 7: WHO WE ARE
+          ══════════════════════════════════════════════ */}
+      <section className="section-padding section-alt">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left: image */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative"
+            >
+              <img
+                src={heroAbout}
+                alt="CiroStack team"
+                className="w-full rounded-3xl object-cover aspect-[4/3] shadow-xl"
+              />
+              <div className="absolute inset-0 rounded-3xl ring-1 ring-border/50" />
+            </motion.div>
+
+            {/* Right: text */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-4">Who We Are</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-5">
+                Built by engineers.<br />Run like a startup.
+              </h2>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
+                CiroStack is a remote-first software agency of senior engineers, designers, and AI specialists. We take full ownership of your product — from first line of code to launch day — on a fixed price that never moves.
+              </p>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 border-y border-border py-6 mb-8">
+                {companyStats.map((s) => (
+                  <div key={s.label}>
+                    <p className="text-2xl font-display font-bold text-foreground tabular-nums">{s.value}</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider mt-0.5">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <Link href="/about">
+                  <Button size="lg" className="rounded-full px-8 group">
+                    About Us <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+                <Link href="/our-culture">
+                  <Button size="lg" variant="outline" className="rounded-full px-8">
+                    Our Culture
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          SECTION 8: INSIGHTS
+          ══════════════════════════════════════════════ */}
+      <section className="section-padding">
+        <div className="container mx-auto px-4 md:px-6">
+          <SectionHeading
+            badge="Insights"
+            title="From our engineering team."
+            description="Practical guides, deep-dives, and playbooks from the people building real products."
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+            {featuredPosts.map((post, i) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+              >
+                <Link href={`/blog/${post.id}`} className="group block h-full">
+                  <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs font-medium text-primary">{post.category}</span>
+                        <span className="text-muted-foreground/40">·</span>
+                        <span className="text-xs text-muted-foreground">{post.readTime}</span>
+                      </div>
+                      <h3 className="font-display font-semibold text-foreground text-base leading-snug mb-4 flex-1">
+                        {post.title}
+                      </h3>
+                      <span className="text-primary text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Read article <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/blog" className="text-primary text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all">
+              View all articles <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          SECTION 9: CAREERS
+          ══════════════════════════════════════════════ */}
+      <section className="section-padding section-alt">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left: text */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-4">Careers</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-5">
+                Build products that<br />shape industries.
+              </h2>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
+                We're a remote-first team of builders who care deeply about craft. If you love shipping great software and working with talented people, we'd love to meet you.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                {careerPerks.map((perk) => (
+                  <div key={perk.label} className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <perk.icon className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-foreground leading-tight">{perk.label}</p>
+                      <p className="text-xs text-muted-foreground">{perk.sub}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <Link href="/careers">
+                <Button size="lg" className="rounded-full px-8 group">
+                  View Open Roles <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </motion.div>
+
+            {/* Right: image */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="relative"
+            >
+              <img
+                src={heroCareers}
+                alt="CiroStack careers"
+                className="w-full rounded-3xl object-cover aspect-[4/3] shadow-xl"
+              />
+              <div className="absolute inset-0 rounded-3xl ring-1 ring-border/50" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          SECTION 10: FINAL CTA (gradient orb)
           ══════════════════════════════════════════════ */}
       <section className="relative section-padding section-alt overflow-hidden">
         <div className="absolute inset-0 -z-10">
