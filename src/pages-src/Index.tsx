@@ -296,7 +296,7 @@ const Index = () => {
         </div>
 
         {/* Scrolling marquee */}
-        <div className="mt-10 lg:mt-0 border-y border-border/60 bg-card/40 backdrop-blur-sm py-4 overflow-hidden relative">
+        <div className="mt-10 lg:mt-0 lg:container border-y border-border/60 bg-card/40 backdrop-blur-sm py-4 overflow-hidden relative lg:rounded-2xl">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-20 z-10 bg-gradient-to-r from-background to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-20 z-10 bg-gradient-to-l from-background to-transparent" />
           <div
