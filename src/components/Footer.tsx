@@ -54,7 +54,7 @@ const Footer = () => {
       {/* Newsletter CTA */}
       <div className="border-b border-border">
         <div className="container mx-auto px-4 md:px-6 py-16 md:py-20">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-8 text-center md:text-left">
             <div className="max-w-lg">
               <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">
                 Stay ahead of the curve
