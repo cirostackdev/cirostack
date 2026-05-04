@@ -474,7 +474,8 @@ const Index = () => {
                       whileInView={{ width: "100%" }}
                       viewport={{ once: true, margin: "-100px" }}
                       transition={{ duration: 1.6, ease: [0.25, 0.4, 0.25, 1] }}
-                      className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
+                      style={{ backgroundImage: "linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)))" }}
+                      className="h-full rounded-full"
                     />
                   </div>
                   <div className="relative flex justify-between gap-1">
@@ -492,8 +493,8 @@ const Index = () => {
                         transition={{ duration: 0.4, delay: 0.4 * i + 0.3 }}
                         className="flex-1 min-w-0 text-center"
                       >
-                        <div className="w-10 h-10 rounded-full bg-background border-2 border-primary flex items-center justify-center mx-auto mb-2 shadow-sm">
-                          <span className="text-primary text-[10px] font-bold">{step.pct}</span>
+                        <div className="w-10 h-10 rounded-full bg-background border-2 border-[hsl(var(--trust))] flex items-center justify-center mx-auto mb-2 shadow-sm">
+                          <span className="text-[hsl(var(--trust))] text-[10px] font-bold">{step.pct}</span>
                         </div>
                         <span className="block text-[11px] md:text-xs text-muted-foreground font-medium leading-tight break-words">{step.label}</span>
                       </motion.div>
