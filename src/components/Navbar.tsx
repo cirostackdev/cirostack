@@ -32,37 +32,37 @@ const menuData: MenuItem[] = [
       {
         label: "Ideate",
         children: [
-          { label: "UX & UI Design Services", path: "/services/ux-ui-design" },
-          { label: "Custom Software Development", path: "/services/websites" },
-          { label: "Cloud Consulting & Services", path: "/services/cloud-consulting" },
           { label: "Startup Branding", path: "/services/startup-branding" },
+          { label: "UX & UI Design Services", path: "/services/ux-ui-design" },
+          { label: "Cloud Consulting & Services", path: "/services/cloud-consulting" },
         ],
       },
       {
         label: "Build",
         children: [
-          { label: "Dedicated Development Teams", path: "/services/dedicated-teams" },
+          { label: "Custom Software Development", path: "/services/websites" },
+          { label: "Software Development for Startups", path: "/services/startups" },
+          { label: "Mobile Apps Development Services", path: "/services/apps" },
           { label: "Cloud Engineering Service", path: "/services/cloud-engineering" },
           { label: "Embedded Software Services", path: "/services/embedded-software" },
-          { label: "Mobile Apps Development Services", path: "/services/apps" },
         ],
       },
       {
         label: "Improve",
         children: [
-          { label: "Digital Transformation Solutions", path: "/services/digital-transformation" },
           { label: "Generative AI Development Services", path: "/services/ai" },
           { label: "AI & ML Development Services", path: "/services/ai-ml" },
           { label: "Data Engineering and Data Science", path: "/services/data-engineering" },
+          { label: "Digital Transformation Solutions", path: "/services/digital-transformation" },
         ],
       },
       {
         label: "Operate",
         children: [
-          { label: "Identity and Access Management", path: "/services/iam" },
-          { label: "Automation Testing Services", path: "/services/automation-testing" },
           { label: "DevOps Consulting Services", path: "/services/devops" },
+          { label: "Automation Testing Services", path: "/services/automation-testing" },
           { label: "Software Auditing Services", path: "/services/software-auditing" },
+          { label: "Identity and Access Management", path: "/services/iam" },
           { label: "Security Audit and Governance", path: "/services/security-audit" },
         ],
       },
@@ -71,7 +71,7 @@ const menuData: MenuItem[] = [
         children: [
           { label: "US Nearshore Software Development", path: "/services/nearshore" },
           { label: "Software Development Outsourcing", path: "/services/outsourcing" },
-          { label: "Software Development for Startups", path: "/services/startups" },
+          { label: "Dedicated Development Teams", path: "/services/dedicated-teams" },
         ],
       },
     ],
