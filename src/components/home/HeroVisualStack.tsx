@@ -122,7 +122,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
           </div>
           <div className="min-w-0">
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Built for
+              We've built software for
             </p>
             <AnimatePresence mode="wait">
               <motion.p
