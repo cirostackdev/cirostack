@@ -715,7 +715,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const pathname = usePathname();
+  const rawPathname = usePathname();
+  // Normalize: strip trailing slash so "/about/" matches menu data "/about"
+  const pathname = rawPathname !== "/" && rawPathname.endsWith("/")
+    ? rawPathname.slice(0, -1)
+    : rawPathname;
   const isHome = pathname === "/";
   const showBg = scrolled || activeDropdown !== null || mobileOpen;
   // On non-home pages, use white text over the dark hero when not scrolled
