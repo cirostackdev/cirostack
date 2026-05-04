@@ -210,35 +210,20 @@ const Index = () => {
             {/* LEFT: text */}
             <div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.5rem] font-display font-bold text-foreground leading-[0.95] tracking-tight mb-5"
-              >
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.5rem] font-display font-bold text-foreground leading-[0.95] tracking-tight mb-5">
                 Software,
                 <br />
                 <span className="text-gradient italic">engineered</span>
                 <br />
                 for your industry.
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-                className="text-base md:text-lg text-muted-foreground mb-6 max-w-xl leading-relaxed"
-              >
+              <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-xl leading-relaxed">
                 Fixed price. Senior engineers. Shipped in weeks.
                 From websites to AI: across 20+ industries.
-              </motion.p>
+              </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="flex flex-wrap gap-4 mb-8"
-              >
+              <div className="flex flex-wrap gap-4 mb-8">
                 <Link href="/contact">
                   <Button size="lg" className="rounded-full text-base px-8 group">
                     Start Your Project
@@ -250,14 +235,9 @@ const Index = () => {
                     See Our Work
                   </Button>
                 </Link>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex items-center gap-6 text-sm"
-              >
+              <div className="flex items-center gap-6 text-sm">
                 {[
                   { value: "50+", label: "Projects" },
                   { value: "20+", label: "Industries" },
@@ -275,17 +255,13 @@ const Index = () => {
                     {i < 2 && <span className="h-8 w-px bg-border" />}
                   </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
 
             {/* RIGHT: visual stack */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
+            <div>
               <HeroVisualStack image={imgHealthflow} />
-            </motion.div>
+            </div>
           </div>
         </div>
 
