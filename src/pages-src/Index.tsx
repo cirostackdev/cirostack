@@ -565,68 +565,7 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 7: CAREERS
-          ══════════════════════════════════════════════ */}
-      <section className="section-padding section-alt">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left: text */}
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-4">Careers</p>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-5">
-                Build products that<br />shape industries.
-              </h2>
-              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
-                We're a remote-first team of builders who care deeply about craft. If you love shipping great software and working with talented people, we'd love to meet you.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {careerPerks.map((perk) => (
-                  <div key={perk.label} className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <perk.icon className="w-4 h-4 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground leading-tight">{perk.label}</p>
-                      <p className="text-xs text-muted-foreground">{perk.sub}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <Link href="/careers">
-                <Button size="lg" className="rounded-full px-8 group">
-                  View Open Roles <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-            </motion.div>
-
-            {/* Right: image */}
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative"
-            >
-              <img
-                src={heroCareers}
-                alt="CiroStack careers"
-                className="w-full rounded-3xl object-cover aspect-[4/3] shadow-xl"
-              />
-              <div className="absolute inset-0 rounded-3xl ring-1 ring-border/50" />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════
-          SECTION 8: WHY FIXED PRICE
+          SECTION 7: WHY FIXED PRICE
           ══════════════════════════════════════════════ */}
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">
@@ -760,6 +699,67 @@ const Index = () => {
               </a>
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          SECTION 10: CAREERS
+          ══════════════════════════════════════════════ */}
+      <section className="section-padding section-alt">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left: text */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-4">Careers</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-5">
+                Build products that<br />shape industries.
+              </h2>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
+                We're a remote-first team of builders who care deeply about craft. If you love shipping great software and working with talented people, we'd love to meet you.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                {careerPerks.map((perk) => (
+                  <div key={perk.label} className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <perk.icon className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-foreground leading-tight">{perk.label}</p>
+                      <p className="text-xs text-muted-foreground">{perk.sub}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <Link href="/careers">
+                <Button size="lg" className="rounded-full px-8 group">
+                  View Open Roles <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </motion.div>
+
+            {/* Right: image */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="relative"
+            >
+              <img
+                src={heroCareers}
+                alt="CiroStack careers"
+                className="w-full rounded-3xl object-cover aspect-[4/3] shadow-xl"
+              />
+              <div className="absolute inset-0 rounded-3xl ring-1 ring-border/50" />
+            </motion.div>
+          </div>
         </div>
       </section>
     </Layout>
