@@ -7,35 +7,45 @@ import { ArrowRight, Lightbulb, Hammer, TrendingUp, Settings, Rocket } from "luc
 import { servicesData } from "@/data/services";
 
 import imgAi from "@/assets/reason-ai-0.jpg";
+import imgAiMl from "@/assets/reason-ai-ml-0.jpg";
 import imgStartups from "@/assets/reason-startups-0.jpg";
+import imgStartupBranding from "@/assets/reason-startup-branding-0.jpg";
 import imgDigitalTransformation from "@/assets/reason-digital-transformation-0.jpg";
 import imgWebsites from "@/assets/reason-websites-0.jpg";
 import imgApps from "@/assets/reason-apps-0.jpg";
 import imgUxUi from "@/assets/reason-ux-ui-design-0.jpg";
 import imgCloudConsulting from "@/assets/reason-cloud-consulting-0.jpg";
 import imgCloudEngineering from "@/assets/reason-cloud-engineering-0.jpg";
+import imgEmbeddedSoftware from "@/assets/reason-embedded-software-0.jpg";
 import imgDataEngineering from "@/assets/reason-data-engineering-0.jpg";
 import imgIam from "@/assets/reason-iam-0.jpg";
+import imgDevops from "@/assets/reason-devops-0.jpg";
 import imgSecurityAudit from "@/assets/reason-security-audit-0.jpg";
 import imgDedicatedTeams from "@/assets/reason-dedicated-teams-0.jpg";
 import imgNearshore from "@/assets/reason-nearshore-0.jpg";
+import imgOutsourcing from "@/assets/reason-outsourcing-0.jpg";
 import imgAutomationTesting from "@/assets/reason-automation-testing-0.jpg";
 import imgSoftwareAuditing from "@/assets/reason-software-auditing-0.jpg";
 
 const SERVICE_IMAGES: Record<string, string> = {
   ai: imgAi as unknown as string,
+  "ai-ml": imgAiMl as unknown as string,
   startups: imgStartups as unknown as string,
+  "startup-branding": imgStartupBranding as unknown as string,
   "digital-transformation": imgDigitalTransformation as unknown as string,
   websites: imgWebsites as unknown as string,
   apps: imgApps as unknown as string,
   "ux-ui-design": imgUxUi as unknown as string,
   "cloud-consulting": imgCloudConsulting as unknown as string,
   "cloud-engineering": imgCloudEngineering as unknown as string,
+  "embedded-software": imgEmbeddedSoftware as unknown as string,
   "data-engineering": imgDataEngineering as unknown as string,
   iam: imgIam as unknown as string,
+  devops: imgDevops as unknown as string,
   "security-audit": imgSecurityAudit as unknown as string,
   "dedicated-teams": imgDedicatedTeams as unknown as string,
   nearshore: imgNearshore as unknown as string,
+  outsourcing: imgOutsourcing as unknown as string,
   "automation-testing": imgAutomationTesting as unknown as string,
   "software-auditing": imgSoftwareAuditing as unknown as string,
 };
@@ -52,11 +62,11 @@ interface LifecycleTimelineProps {
 const phaseIcons = [Lightbulb, Hammer, TrendingUp, Settings, Rocket];
 
 const phaseDescriptions = [
-  "Strategy, AI roadmap, transformation planning.",
-  "Web, mobile, design: turning ideas into product.",
-  "Cloud, performance, scale: making it production-ready.",
-  "Data, identity, security: running it reliably.",
-  "Teams, QA, audits: growing with confidence.",
+  "Branding, design, and cloud strategy before you build.",
+  "Software, apps, and infrastructure: turning ideas into product.",
+  "AI, data, and transformation: making what exists smarter.",
+  "DevOps, testing, and security: keeping it running reliably.",
+  "Nearshore, outsourcing, dedicated teams: growing with confidence.",
 ];
 
 function imageForSlug(slug: string): string | undefined {
