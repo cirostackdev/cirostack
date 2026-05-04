@@ -156,7 +156,8 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
     <div className="relative max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 lg:gap-16">
         {/* ─── LEFT: vertical phase + service list ─── */}
-        <div className="relative lg:pb-[28rem]">
+        <div className="lg:pb-[28rem]">
+          <div className="relative">
           {/* Vertical rail */}
           <div className="absolute left-6 top-2 bottom-2 w-px bg-border" />
 
@@ -294,6 +295,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
               );
             })}
           </ol>
+          </div>
         </div>
 
         {/* ─── RIGHT: sticky card that swaps with active service (desktop only) ─── */}
