@@ -82,8 +82,8 @@ export default function ServiceDetail() {
         <div className="min-h-[60vh] flex flex-col items-center justify-center p-4">
           <h1 className="text-4xl font-bold mb-4">Service not found</h1>
           <p className="text-muted-foreground mb-8">The service you're looking for doesn't exist.</p>
-          <Link href="/services">
-            <Button>Return to Services</Button>
+          <Link href="/">
+            <Button>Return to Home</Button>
           </Link>
         </div>
       </Layout>

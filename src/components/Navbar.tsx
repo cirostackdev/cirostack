@@ -25,7 +25,6 @@ const menuData: MenuItem[] = [
       { label: "Sustainability", path: "/sustainability" },
     ],
   },
-  { label: "What we do", path: "/services" },
   {
     label: "Services",
     children: [

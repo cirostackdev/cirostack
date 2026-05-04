@@ -39,7 +39,7 @@ const PAGE_GROUPS: { match: string; config: GroupConfig }[] = [
         },
     },
     {
-        match: "/services",
+        match: "/services/",
         config: {
             url: "https://chat.whatsapp.com/LINK2",
             label: "Talk to our Team",
