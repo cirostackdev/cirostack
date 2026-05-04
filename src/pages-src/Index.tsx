@@ -472,18 +472,18 @@ const Index = () => {
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: "100%" }}
-                      viewport={{ once: true, margin: "-100px" }}
+                      viewport={{ once: true, margin: "0px" }}
                       transition={{ duration: 1.6, ease: [0.25, 0.4, 0.25, 1] }}
-                      style={{ backgroundImage: "linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)))" }}
+                      style={{ backgroundImage: "linear-gradient(to right, hsl(var(--gradient-start)), hsl(var(--gradient-end)))" }}
                       className="h-full rounded-full"
                     />
                   </div>
                   <div className="relative flex justify-between gap-1">
                     {[
-                      { pct: "30%", label: "Upfront" },
-                      { pct: "30%", label: "Design OK" },
-                      { pct: "30%", label: "Dev done" },
-                      { pct: "10%", label: "Launch" },
+                      { pct: "30%", label: "Upfront",   color: "hsl(1,77%,55%)"   },
+                      { pct: "30%", label: "Design OK", color: "hsl(88,79%,46%)"  },
+                      { pct: "30%", label: "Dev done",  color: "hsl(176,82%,37%)" },
+                      { pct: "10%", label: "Launch",    color: "hsl(263,84%,58%)" },
                     ].map((step, i) => (
                       <motion.div
                         key={step.label}
@@ -493,8 +493,8 @@ const Index = () => {
                         transition={{ duration: 0.4, delay: 0.4 * i + 0.3 }}
                         className="flex-1 min-w-0 text-center"
                       >
-                        <div className="w-10 h-10 rounded-full bg-background border-2 border-[hsl(var(--trust))] flex items-center justify-center mx-auto mb-2 shadow-sm">
-                          <span className="text-[hsl(var(--trust))] text-[10px] font-bold">{step.pct}</span>
+                        <div className="w-10 h-10 rounded-full bg-background border-2 flex items-center justify-center mx-auto mb-2 shadow-sm" style={{ borderColor: step.color }}>
+                          <span className="text-[10px] font-bold" style={{ color: step.color }}>{step.pct}</span>
                         </div>
                         <span className="block text-[11px] md:text-xs text-muted-foreground font-medium leading-tight break-words">{step.label}</span>
                       </motion.div>
