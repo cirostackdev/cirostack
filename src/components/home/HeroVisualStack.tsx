@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { industriesData as subIndustries } from "@/data/industries-generated";
 import { industriesData as parentCategories } from "@/data/industries";
 
@@ -14,6 +15,7 @@ const allChips = Object.values(subIndustries).map((ind) => {
     label: ind.title,
     icon: parent?.icon,
     image: `/images/industries/hero-${ind.id}.jpg`,
+    path: `/industries/${ind.id}`,
   };
 });
 
@@ -80,19 +82,21 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         className="absolute inset-6 md:inset-8 rounded-2xl overflow-hidden shadow-2xl border border-border/50 bg-card"
       >
-        <AnimatePresence mode="sync">
-          <motion.img
-            key={idx}
-            src={current.image}
-            alt={`${current.label} project`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-tr from-foreground/20 via-transparent to-transparent" />
+        <Link href={current.path} className="block w-full h-full">
+          <AnimatePresence mode="sync">
+            <motion.img
+              key={idx}
+              src={current.image}
+              alt={`${current.label} project`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-tr from-foreground/20 via-transparent to-transparent" />
+        </Link>
       </motion.div>
 
       {/* Floating industry chip: top right */}
