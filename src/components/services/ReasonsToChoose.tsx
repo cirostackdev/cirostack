@@ -61,6 +61,9 @@ import osR2 from "@/assets/reason-outsourcing-2.jpg";
 import stR0 from "@/assets/reason-startups-0.jpg";
 import stR1 from "@/assets/reason-startups-1.jpg";
 import stR2 from "@/assets/reason-startups-2.jpg";
+import sbR0 from "@/assets/reason-startup-branding-0.jpg";
+import sbR1 from "@/assets/reason-startup-branding-1.jpg";
+import sbR2 from "@/assets/reason-startup-branding-2.jpg";
 
 const reasonImages: Record<string, string[]> = {
     "websites":               [websitesR0, websitesR1, websitesR2],
@@ -82,6 +85,7 @@ const reasonImages: Record<string, string[]> = {
     "nearshore":              [nsR0, nsR1, nsR2],
     "outsourcing":            [osR0, osR1, osR2],
     "startups":               [stR0, stR1, stR2],
+    "startup-branding":       [sbR0, sbR1, sbR2],
 };
 
 export function ReasonsToChoose({ service }: { service: ServiceEntry }) {
