@@ -331,12 +331,16 @@ const Index = () => {
 
           <LifecycleTimeline phases={phases} />
 
-          <p className="text-center text-sm text-muted-foreground mt-16">
-            Fixed-price packages for every service.{" "}
-            <Link href="/contact" className="text-primary hover:underline font-medium">
-              Get a quote →
+          <div className="text-center mt-16 space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Fixed-price packages for every service.
+            </p>
+            <Link href="/contact">
+              <Button className="rounded-full px-8" size="lg">
+                Get a quote <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
             </Link>
-          </p>
+          </div>
         </div>
       </section>
 
