@@ -89,41 +89,41 @@ const phases = [
   {
     name: "Ideate",
     services: [
-      { label: "AI Consultation", href: "/services/ai" },
-      { label: "Startup Strategy", href: "/services/startups" },
-      { label: "Digital Transformation", href: "/services/digital-transformation" },
+      { label: "Startup Branding", href: "/services/startup-branding" },
+      { label: "UX / UI Design", href: "/services/ux-ui-design" },
+      { label: "Cloud Consulting", href: "/services/cloud-consulting" },
     ],
   },
   {
     name: "Build",
     services: [
-      { label: "Websites", href: "/services/websites" },
+      { label: "Custom Software", href: "/services/websites" },
+      { label: "Startup Dev", href: "/services/startups" },
       { label: "Mobile Apps", href: "/services/apps" },
-      { label: "UX / UI Design", href: "/services/ux-ui-design" },
     ],
   },
   {
     name: "Improve",
     services: [
-      { label: "Cloud Consulting", href: "/services/cloud-consulting" },
-      { label: "Cloud Engineering", href: "/services/cloud-engineering" },
+      { label: "Generative AI", href: "/services/ai" },
+      { label: "AI & ML", href: "/services/ai-ml" },
+      { label: "Digital Transformation", href: "/services/digital-transformation" },
     ],
   },
   {
     name: "Operate",
     services: [
-      { label: "Data Engineering", href: "/services/data-engineering" },
-      { label: "Identity & Access", href: "/services/iam" },
+      { label: "DevOps", href: "/services/devops" },
+      { label: "Automation Testing", href: "/services/automation-testing" },
       { label: "Security Audits", href: "/services/security-audit" },
     ],
   },
   {
     name: "Scale",
     services: [
-      { label: "Dedicated Teams", href: "/services/dedicated-teams" },
       { label: "Nearshore Dev", href: "/services/nearshore" },
-      { label: "QA & Testing", href: "/services/automation-testing" },
-      { label: "Software Auditing", href: "/services/software-auditing" },
+      { label: "Outsourcing", href: "/services/outsourcing" },
+      { label: "Dedicated Teams", href: "/services/dedicated-teams" },
     ],
   },
 ];
