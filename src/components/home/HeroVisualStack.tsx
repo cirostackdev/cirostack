@@ -145,7 +145,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.9, duration: 0.5 }}
-        className="absolute bottom-2 left-2 md:bottom-0 md:left-0 z-10"
+        className="absolute bottom-2 left-2 md:bottom-8 md:left-0 z-10"
       >
         <div className="px-4 py-3 rounded-2xl bg-card/95 backdrop-blur-md border border-border shadow-xl">
           <div className="flex items-baseline gap-2">
