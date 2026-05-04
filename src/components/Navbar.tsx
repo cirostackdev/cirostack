@@ -691,7 +691,7 @@ const Navbar = () => {
               <span
                 className={cn(
                   "font-display font-bold text-2xl md:text-3xl transition-colors duration-300",
-                  showBg ? "text-foreground" : "text-white"
+                  "text-foreground"
                 )}
               >
                 Ciro<span className="text-primary">Stack</span>
@@ -714,9 +714,7 @@ const Navbar = () => {
                         href={item.path}
                         className={cn(
                           "px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center gap-1",
-                          showBg
-                            ? "text-foreground hover:text-primary"
-                            : "text-white/90 hover:text-white"
+                          "text-foreground hover:text-primary"
                         )}
                       >
                         {item.label}
@@ -725,11 +723,9 @@ const Navbar = () => {
                       <button
                         className={cn(
                           "px-3 py-2 text-sm transition-colors duration-200 flex items-center gap-1",
-                          showBg
-                            ? "text-foreground hover:text-primary"
-                            : "text-white/90 hover:text-white",
+                          "text-foreground hover:text-primary",
                           activeDropdown === item.label
-                            ? "font-bold text-foreground"
+                            ? "font-bold"
                             : "font-medium"
                         )}
                       >
@@ -754,9 +750,7 @@ const Navbar = () => {
               <button
                 className={cn(
                   "w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-300",
-                  showBg
-                    ? "border-border text-foreground hover:bg-muted"
-                    : "border-white/30 text-white hover:bg-white/10"
+                  "border-border text-foreground hover:bg-muted"
                 )}
                 aria-label="Search"
               >
@@ -772,7 +766,7 @@ const Navbar = () => {
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className={cn(
                   "lg:hidden w-10 h-10 flex items-center justify-center transition-colors duration-300",
-                  showBg ? "text-foreground" : "text-white"
+                  "text-foreground"
                 )}
                 aria-label="Toggle menu"
               >

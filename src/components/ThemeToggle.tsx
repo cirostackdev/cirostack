@@ -16,9 +16,7 @@ export function ThemeToggle({ showBg }: { showBg?: boolean }) {
       <button
         className={cn(
           "w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-300",
-          showBg
-            ? "border-border text-foreground hover:bg-muted"
-            : "border-white/30 text-white hover:bg-white/10"
+          "border-border text-foreground hover:bg-muted"
         )}
         aria-label="Toggle theme"
       >
