@@ -503,8 +503,8 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Right: 4 value cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Right: 4 value items */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {values.map((v, i) => (
                 <motion.div
                   key={v.title}
@@ -512,13 +512,15 @@ const Index = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="p-5 md:p-6 rounded-2xl border border-border bg-card hover-lift"
+                  className="flex items-start gap-4"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <v.icon className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded-lg bg-[#10B981]/10 flex items-center justify-center shrink-0">
+                    <v.icon className="w-5 h-5 text-[#10B981]" />
                   </div>
-                  <h4 className="font-display font-semibold text-foreground text-sm md:text-base mb-1.5">{v.title}</h4>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{v.line}</p>
+                  <div>
+                    <h4 className="font-display font-semibold text-foreground text-sm md:text-base mb-1">{v.title}</h4>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{v.line}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
