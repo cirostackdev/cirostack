@@ -133,7 +133,7 @@ const values = [
   { icon: DollarSign, title: "Fixed Price", line: "The quote is the price. Period." },
   { icon: Users, title: "Senior Engineers", line: "The team you meet builds your product. No handoffs." },
   { icon: Zap, title: "Weeks, Not Months", line: "Most projects ship in 4–8 weeks." },
-  { icon: Shield, title: "You Own Everything", line: "Code, designs, IP: yours from day one." },
+  { icon: Shield, title: "You Own Everything", line: <><span style={{ color: "hsl(1,77%,55%)" }}>Code</span>{", "}<span style={{ color: "hsl(335,55%,49%)" }}>designs</span>{", "}<span style={{ color: "hsl(292,51%,46%)" }}>IP</span>{": "}<span style={{ color: "hsl(263,84%,58%)" }}>yours from day one.</span></> },
 ];
 
 
