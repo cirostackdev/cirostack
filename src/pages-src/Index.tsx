@@ -503,8 +503,8 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Right: 4 value items — editorial grid */}
-            <div className="grid grid-cols-2 gap-x-8 gap-y-0">
+            {/* Right: 4 value items — editorial list */}
+            <div className="divide-y divide-border">
               {values.map((v, i) => (
                 <motion.div
                   key={v.title}
@@ -512,11 +512,10 @@ const Index = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="pt-6 pb-8 border-t border-border"
+                  className="py-5"
                 >
-                  <v.icon className="w-5 h-5 text-[#10B981] mb-3" />
-                  <h4 className="font-display font-semibold text-foreground text-sm md:text-base mb-1.5">{v.title}</h4>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{v.line}</p>
+                  <h4 className="font-display font-semibold text-foreground text-lg md:text-xl mb-1">{v.title}</h4>
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{v.line}</p>
                 </motion.div>
               ))}
             </div>
