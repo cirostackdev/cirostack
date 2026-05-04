@@ -118,7 +118,7 @@ export default function LifecycleTimeline({ phases }: LifecycleTimelineProps) {
     let raf = 0;
     const update = () => {
       if (!mq.matches) return;
-      const viewportCenter = window.innerHeight / 2;
+      const viewportCenter = window.innerHeight * 0.35;
       let bestIdx = 0;
       let bestDist = Infinity;
       itemRefs.current.forEach((el, i) => {
