@@ -406,13 +406,17 @@ const AccordionItem = ({
   item,
   depth = 0,
   onNavigate,
+  pathname,
 }: {
   item: MenuItem;
   depth?: number;
   onNavigate: () => void;
+  pathname: string;
 }) => {
   const [open, setOpen] = useState(false);
   const hasChildren = item.children && item.children.length > 0;
+  const active = isItemActive(item, pathname);
+  const exactActive = item.path === pathname;
 
   if (!hasChildren) {
     return (
@@ -420,10 +424,12 @@ const AccordionItem = ({
         href={item.path || "/"}
         onClick={onNavigate}
         className={cn(
-          "block py-2.5 text-foreground transition-colors hover:text-primary",
+          "block py-2.5 transition-colors hover:text-primary",
+          exactActive ? "text-primary font-bold" : "text-foreground",
           depth === 0 && "text-xl font-semibold",
           depth === 1 && "text-lg font-medium",
-          depth >= 2 && "text-sm font-normal text-muted-foreground"
+          depth >= 2 && !exactActive && "text-sm font-normal text-muted-foreground",
+          depth >= 2 && exactActive && "text-sm font-bold"
         )}
       >
         {item.label}
@@ -436,7 +442,8 @@ const AccordionItem = ({
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "flex items-center justify-between w-full py-2.5 text-foreground transition-colors hover:text-primary text-left",
+          "flex items-center justify-between w-full py-2.5 transition-colors hover:text-primary text-left",
+          active ? "text-primary" : "text-foreground",
           depth === 0 && "text-xl font-semibold",
           depth === 1 && "text-lg font-medium",
           depth >= 2 && "text-sm font-semibold"
@@ -469,6 +476,7 @@ const AccordionItem = ({
                   item={child}
                   depth={depth + 1}
                   onNavigate={onNavigate}
+                  pathname={pathname}
                 />
               ))}
             </div>
@@ -480,7 +488,7 @@ const AccordionItem = ({
 };
 
 /* ─── Services mega-menu (desktop) ─── */
-const ServicesMegaMenu = ({ onClose }: { onClose: () => void }) => {
+const ServicesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname: string }) => {
   const servicesItem = menuData.find((m) => m.label === "Services")!;
   const columns = servicesItem.children!;
 
@@ -511,27 +519,46 @@ const ServicesMegaMenu = ({ onClose }: { onClose: () => void }) => {
 
         {/* Columns */}
         <div className="flex-1 grid grid-cols-3 gap-x-10 gap-y-8">
-          {columns.map((col) => (
-            <div key={col.label}>
-              <p className="text-sm text-muted-foreground uppercase tracking-wider mb-3 pb-2 border-b border-border">
-                {col.label}
-              </p>
-              <ul className="space-y-2">
-                {col.children!.map((child) => (
-                  <li key={child.label}>
-                    <Link
-                      href={child.path || "/"}
-                      onClick={onClose}
-                      className="group text-sm text-foreground hover:text-primary transition-colors flex items-center gap-1"
-                    >
-                      <ChevronRight className="w-3.5 h-3.5 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
-                      {child.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {columns.map((col) => {
+            const colActive = isItemActive(col, pathname);
+            return (
+              <div key={col.label}>
+                <p className={cn(
+                  "text-sm uppercase tracking-wider mb-3 pb-2 border-b border-border",
+                  colActive ? "text-primary font-semibold" : "text-muted-foreground"
+                )}>
+                  {col.label}
+                </p>
+                <ul className="space-y-2">
+                  {col.children!.map((child) => {
+                    const linkActive = child.path === pathname;
+                    return (
+                      <li key={child.label}>
+                        <Link
+                          href={child.path || "/"}
+                          onClick={onClose}
+                          className={cn(
+                            "group text-sm transition-colors flex items-center gap-1",
+                            linkActive
+                              ? "text-primary font-semibold"
+                              : "text-foreground hover:text-primary"
+                          )}
+                        >
+                          <ChevronRight className={cn(
+                            "w-3.5 h-3.5 transition-all duration-200",
+                            linkActive
+                              ? "opacity-100 ml-0 text-primary"
+                              : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
+                          )} />
+                          {child.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </div>
     </motion.div>
@@ -539,10 +566,13 @@ const ServicesMegaMenu = ({ onClose }: { onClose: () => void }) => {
 };
 
 /* ─── Industries mega-menu (desktop) ─── */
-const IndustriesMegaMenu = ({ onClose }: { onClose: () => void }) => {
+const IndustriesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname: string }) => {
   const industriesItem = menuData.find((m) => m.label === "Industries")!;
   const categories = industriesItem.children!;
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+
+  // Auto-select the category that contains the current page
+  const initialIndex = Math.max(0, categories.findIndex((cat) => isItemActive(cat, pathname)));
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(initialIndex);
 
   const activeCategory = categories[activeCategoryIndex];
 
@@ -559,27 +589,32 @@ const IndustriesMegaMenu = ({ onClose }: { onClose: () => void }) => {
         <div className="w-80 shrink-0 border-r border-border pr-2 flex flex-col max-h-[60vh]">
           <h3 className="text-xl font-display font-bold mb-4 px-3 shrink-0">Industries</h3>
           <ul className="space-y-1 overflow-y-auto pr-2 flex-1 pb-4 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/40">
-            {categories.map((category, index) => (
-              <li key={category.label}>
-                <button
-                  onClick={() => setActiveCategoryIndex(index)}
-                  className={cn(
-                    "w-full text-left px-3 py-2 text-sm rounded-md transition-colors flex items-center justify-between",
-                    activeCategoryIndex === index
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  )}
-                >
-                  {category.label}
-                  <ChevronRight
+            {categories.map((category, index) => {
+              const catActive = isItemActive(category, pathname);
+              return (
+                <li key={category.label}>
+                  <button
+                    onClick={() => setActiveCategoryIndex(index)}
                     className={cn(
-                      "w-4 h-4 transition-transform",
-                      activeCategoryIndex === index ? "opacity-100" : "opacity-0"
+                      "w-full text-left px-3 py-2 text-sm rounded-md transition-colors flex items-center justify-between",
+                      activeCategoryIndex === index
+                        ? "bg-primary/10 text-primary font-medium"
+                        : catActive
+                          ? "text-primary font-medium"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
                     )}
-                  />
-                </button>
-              </li>
-            ))}
+                  >
+                    {category.label}
+                    <ChevronRight
+                      className={cn(
+                        "w-4 h-4 transition-transform",
+                        activeCategoryIndex === index ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -594,17 +629,26 @@ const IndustriesMegaMenu = ({ onClose }: { onClose: () => void }) => {
             </p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
-            {activeCategory.children!.map((sub) => (
-              <Link
-                key={sub.label}
-                href={sub.path || "/"}
-                onClick={onClose}
-                className="group flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors"
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-border group-hover:bg-primary transition-colors" />
-                {sub.label}
-              </Link>
-            ))}
+            {activeCategory.children!.map((sub) => {
+              const subActive = sub.path === pathname;
+              return (
+                <Link
+                  key={sub.label}
+                  href={sub.path || "/"}
+                  onClick={onClose}
+                  className={cn(
+                    "group flex items-center gap-2 text-sm transition-colors",
+                    subActive ? "text-primary font-semibold" : "text-foreground hover:text-primary"
+                  )}
+                >
+                  <div className={cn(
+                    "w-1.5 h-1.5 rounded-full transition-colors",
+                    subActive ? "bg-primary" : "bg-border group-hover:bg-primary"
+                  )} />
+                  {sub.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -616,9 +660,11 @@ const IndustriesMegaMenu = ({ onClose }: { onClose: () => void }) => {
 const SimpleDropdown = ({
   items,
   onClose,
+  pathname,
 }: {
   items: MenuItem[];
   onClose: () => void;
+  pathname: string;
 }) => (
   <motion.div
     initial={{ opacity: 0, y: -4 }}
@@ -629,17 +675,28 @@ const SimpleDropdown = ({
   >
     <div className="container mx-auto px-6 py-5">
       <div className="flex items-center justify-center gap-10 flex-wrap">
-        {items.map((child) => (
-          <Link
-            key={child.label}
-            href={child.path || "/"}
-            onClick={onClose}
-            className="group text-sm text-foreground hover:text-primary transition-colors whitespace-nowrap flex items-center gap-1"
-          >
-            <ChevronRight className="w-3.5 h-3.5 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
-            {child.label}
-          </Link>
-        ))}
+        {items.map((child) => {
+          const linkActive = child.path === pathname;
+          return (
+            <Link
+              key={child.label}
+              href={child.path || "/"}
+              onClick={onClose}
+              className={cn(
+                "group text-sm transition-colors whitespace-nowrap flex items-center gap-1",
+                linkActive ? "text-primary font-semibold" : "text-foreground hover:text-primary"
+              )}
+            >
+              <ChevronRight className={cn(
+                "w-3.5 h-3.5 transition-all duration-200",
+                linkActive
+                  ? "opacity-100 ml-0 text-primary"
+                  : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
+              )} />
+              {child.label}
+            </Link>
+          );
+        })}
       </div>
     </div>
   </motion.div>
@@ -806,9 +863,9 @@ const Navbar = () => {
               onMouseLeave={handleLeaveDropdown}
             >
               {activeDropdown === "Services" ? (
-                <ServicesMegaMenu onClose={closeDropdown} />
+                <ServicesMegaMenu onClose={closeDropdown} pathname={pathname} />
               ) : activeDropdown === "Industries" ? (
-                <IndustriesMegaMenu onClose={closeDropdown} />
+                <IndustriesMegaMenu onClose={closeDropdown} pathname={pathname} />
               ) : (
                 (() => {
                   const item = menuData.find((m) => m.label === activeDropdown);
@@ -817,6 +874,7 @@ const Navbar = () => {
                     <SimpleDropdown
                       items={item.children}
                       onClose={closeDropdown}
+                      pathname={pathname}
                     />
                   );
                 })()
@@ -842,6 +900,7 @@ const Navbar = () => {
                   <AccordionItem
                     item={item}
                     onNavigate={() => setMobileOpen(false)}
+                    pathname={pathname}
                   />
                   {i < menuData.length - 1 && (
                     <div className="border-b border-border" />
