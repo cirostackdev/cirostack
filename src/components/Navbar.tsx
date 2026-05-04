@@ -651,7 +651,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const showBg = scrolled || activeDropdown !== null || mobileOpen;
+  // On non-home pages, use white text over the dark hero when not scrolled
+  const useLight = !showBg && !isHome;
 
   const handleEnterItem = (label: string) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -691,7 +695,7 @@ const Navbar = () => {
               <span
                 className={cn(
                   "font-display font-bold text-2xl md:text-3xl transition-colors duration-300",
-                  "text-foreground"
+                  useLight ? "text-white" : "text-foreground"
                 )}
               >
                 Ciro<span className="text-primary">Stack</span>
@@ -714,7 +718,9 @@ const Navbar = () => {
                         href={item.path}
                         className={cn(
                           "px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center gap-1",
-                          "text-foreground hover:text-primary"
+                          useLight
+                            ? "text-white/90 hover:text-white"
+                            : "text-foreground hover:text-primary"
                         )}
                       >
                         {item.label}
@@ -723,7 +729,9 @@ const Navbar = () => {
                       <button
                         className={cn(
                           "px-3 py-2 text-sm transition-colors duration-200 flex items-center gap-1",
-                          "text-foreground hover:text-primary",
+                          useLight
+                            ? "text-white/90 hover:text-white"
+                            : "text-foreground hover:text-primary",
                           activeDropdown === item.label
                             ? "font-bold"
                             : "font-medium"
@@ -750,13 +758,15 @@ const Navbar = () => {
               <button
                 className={cn(
                   "w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-300",
-                  "border-border text-foreground hover:bg-muted"
+                  useLight
+                    ? "border-white/30 text-white hover:bg-white/10"
+                    : "border-border text-foreground hover:bg-muted"
                 )}
                 aria-label="Search"
               >
                 <Search size={18} />
               </button>
-              <ThemeToggle showBg={showBg} />
+              <ThemeToggle useLight={useLight} />
               <Link href="/contact" className="hidden lg:block">
                 <Button className="rounded-full px-6" size="sm">
                   Contact us
@@ -766,7 +776,7 @@ const Navbar = () => {
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className={cn(
                   "lg:hidden w-10 h-10 flex items-center justify-center transition-colors duration-300",
-                  "text-foreground"
+                  useLight ? "text-white" : "text-foreground"
                 )}
                 aria-label="Toggle menu"
               >

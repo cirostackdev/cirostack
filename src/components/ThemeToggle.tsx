@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function ThemeToggle({ showBg }: { showBg?: boolean }) {
+export function ThemeToggle({ useLight }: { useLight?: boolean }) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -16,7 +16,9 @@ export function ThemeToggle({ showBg }: { showBg?: boolean }) {
       <button
         className={cn(
           "w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-300",
-          "border-border text-foreground hover:bg-muted"
+          useLight
+            ? "border-white/30 text-white hover:bg-white/10"
+            : "border-border text-foreground hover:bg-muted"
         )}
         aria-label="Toggle theme"
       >
@@ -30,9 +32,9 @@ export function ThemeToggle({ showBg }: { showBg?: boolean }) {
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       className={cn(
         "w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-300",
-        showBg
-          ? "border-border text-foreground hover:bg-muted"
-          : "border-white/30 text-white hover:bg-white/10"
+        useLight
+          ? "border-white/30 text-white hover:bg-white/10"
+          : "border-border text-foreground hover:bg-muted"
       )}
       aria-label="Toggle theme"
     >
