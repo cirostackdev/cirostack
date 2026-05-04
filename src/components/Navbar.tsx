@@ -394,6 +394,13 @@ const menuData: MenuItem[] = [
   { label: "Careers", path: "/careers" },
 ];
 
+/* ─── Active-route helper ─── */
+function isItemActive(item: MenuItem, pathname: string): boolean {
+  if (item.path && (pathname === item.path || pathname.startsWith(item.path + "/"))) return true;
+  if (item.children) return item.children.some((child) => isItemActive(child, pathname));
+  return false;
+}
+
 /* ─── Mobile accordion item ─── */
 const AccordionItem = ({
   item,
@@ -706,6 +713,7 @@ const Navbar = () => {
             <div className="hidden lg:flex items-center gap-1">
               {menuData.map((item) => {
                 const hasChildren = item.children && item.children.length > 0;
+                const active = isItemActive(item, pathname);
                 return (
                   <div
                     key={item.label}
@@ -718,9 +726,11 @@ const Navbar = () => {
                         href={item.path}
                         className={cn(
                           "px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center gap-1",
-                          useLight
-                            ? "text-white/90 hover:text-white"
-                            : "text-foreground hover:text-primary"
+                          active
+                            ? "text-primary font-bold"
+                            : useLight
+                              ? "text-white/90 hover:text-white"
+                              : "text-foreground hover:text-primary"
                         )}
                       >
                         {item.label}
@@ -729,12 +739,14 @@ const Navbar = () => {
                       <button
                         className={cn(
                           "px-3 py-2 text-sm transition-colors duration-200 flex items-center gap-1",
-                          useLight
-                            ? "text-white/90 hover:text-white"
-                            : "text-foreground hover:text-primary",
-                          activeDropdown === item.label
+                          active
+                            ? "text-primary font-bold"
+                            : useLight
+                              ? "text-white/90 hover:text-white"
+                              : "text-foreground hover:text-primary",
+                          !active && activeDropdown === item.label
                             ? "font-bold"
-                            : "font-medium"
+                            : !active ? "font-medium" : ""
                         )}
                       >
                         {item.label}
