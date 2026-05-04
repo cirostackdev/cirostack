@@ -35,6 +35,7 @@ const menuData: MenuItem[] = [
           { label: "UX & UI Design Services", path: "/services/ux-ui-design" },
           { label: "Custom Software Development", path: "/services/websites" },
           { label: "Cloud Consulting & Services", path: "/services/cloud-consulting" },
+          { label: "Startup Branding", path: "/services/startup-branding" },
         ],
       },
       {
