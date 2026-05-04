@@ -480,10 +480,10 @@ const Index = () => {
                   </div>
                   <div className="relative flex justify-between gap-1">
                     {[
-                      { pct: "30%", label: "Upfront",   color: "hsl(1,77%,55%)"    },
-                      { pct: "30%", label: "Design OK", color: "hsl(335,55%,49%)" },
-                      { pct: "30%", label: "Dev done",  color: "hsl(292,51%,46%)" },
-                      { pct: "10%", label: "Launch",    color: "hsl(263,84%,58%)" },
+                      { pct: "30", label: "Upfront",   color: "hsl(1,77%,55%)"    },
+                      { pct: "30", label: "Design OK", color: "hsl(335,55%,49%)" },
+                      { pct: "30", label: "Dev done",  color: "hsl(292,51%,46%)" },
+                      { pct: "10", label: "Launch",    color: "hsl(263,84%,58%)" },
                     ].map((step, i) => (
                       <motion.div
                         key={step.label}
