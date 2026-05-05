@@ -191,22 +191,32 @@ function isItemActive(item: MenuItem, pathname: string): boolean {
   return false;
 }
 
-/* ─── Mobile accordion item ─── */
+/* ─── Mobile accordion item (controlled) ─── */
 const AccordionItem = ({
   item,
   depth = 0,
   onNavigate,
   pathname,
+  isOpen,
+  onToggle,
 }: {
   item: MenuItem;
   depth?: number;
   onNavigate: () => void;
   pathname: string;
+  isOpen?: boolean;
+  onToggle?: () => void;
 }) => {
-  const [open, setOpen] = useState(false);
+  // For children within a group, manage their own exclusive state
+  const [openChildIndex, setOpenChildIndex] = useState<number | null>(null);
+
   const hasChildren = item.children && item.children.length > 0;
   const active = isItemActive(item, pathname);
   const exactActive = item.path === pathname;
+
+  // Use controlled state if provided, otherwise uncontrolled
+  const open = isOpen ?? false;
+  const toggle = onToggle ?? (() => {});
 
   if (!hasChildren) {
     return (
@@ -230,7 +240,7 @@ const AccordionItem = ({
   return (
     <div>
       <button
-        onClick={() => setOpen(!open)}
+        onClick={toggle}
         className={cn(
           "flex items-center justify-between w-full py-2.5 transition-colors hover:text-primary text-left",
           active ? "text-primary" : "text-foreground",
@@ -260,19 +270,52 @@ const AccordionItem = ({
             <div className={cn(
               depth === 0 ? "pl-0 pb-2" : "pl-4 border-l border-border ml-2 mt-1 mb-2 space-y-1"
             )}>
-              {item.children!.map((child) => (
+              {item.children!.map((child, childIndex) => (
                 <AccordionItem
                   key={child.label}
                   item={child}
                   depth={depth + 1}
                   onNavigate={onNavigate}
                   pathname={pathname}
+                  isOpen={openChildIndex === childIndex}
+                  onToggle={() => setOpenChildIndex(openChildIndex === childIndex ? null : childIndex)}
                 />
               ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  );
+};
+
+/* ─── Mobile menu content (exclusive accordions) ─── */
+const MobileMenuContent = ({ onNavigate, pathname }: { onNavigate: () => void; pathname: string }) => {
+  const [openParentIndex, setOpenParentIndex] = useState<number | null>(null);
+
+  return (
+    <div className="container mx-auto px-4 md:px-6 pb-8">
+      {menuData.map((item, i) => (
+        <div key={item.label}>
+          <AccordionItem
+            item={item}
+            onNavigate={onNavigate}
+            pathname={pathname}
+            isOpen={openParentIndex === i}
+            onToggle={() => setOpenParentIndex(openParentIndex === i ? null : i)}
+          />
+          {i < menuData.length - 1 && (
+            <div className="border-b border-border" />
+          )}
+        </div>
+      ))}
+      <div className="mt-6">
+        <Link href="/contact" onClick={onNavigate}>
+          <Button className="rounded-full px-8" size="lg">
+            Contact us
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };
@@ -761,27 +804,7 @@ const Navbar = () => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 bg-background pt-20 overflow-y-auto lg:hidden"
           >
-            <div className="container mx-auto px-4 md:px-6 pb-8">
-              {menuData.map((item, i) => (
-                <div key={item.label}>
-                  <AccordionItem
-                    item={item}
-                    onNavigate={() => setMobileOpen(false)}
-                    pathname={pathname}
-                  />
-                  {i < menuData.length - 1 && (
-                    <div className="border-b border-border" />
-                  )}
-                </div>
-              ))}
-              <div className="mt-6">
-                <Link href="/contact" onClick={() => setMobileOpen(false)}>
-                  <Button className="rounded-full px-8" size="lg">
-                    Contact us
-                  </Button>
-                </Link>
-              </div>
-            </div>
+            <MobileMenuContent onNavigate={() => setMobileOpen(false)} pathname={pathname} />
           </motion.div>
         )}
       </AnimatePresence>
