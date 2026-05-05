@@ -375,7 +375,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
       transition={{ duration: 0.2 }}
       className="absolute left-0 right-0 top-full bg-background border-b border-border shadow-lg z-40"
     >
-      <div className="container mx-auto px-6 py-10 flex gap-8 min-h-[calc(100vh-4rem)]">
+      <div className="container mx-auto px-6 py-10 flex gap-8">
         {/* Left promo */}
         <div className="w-64 shrink-0 flex flex-col justify-between">
           <div>
@@ -399,15 +399,13 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
         <div className="flex-1 space-y-8">
           {/* First row: 3 categories */}
           <div>
-            <div className="grid grid-cols-3 gap-x-10">
+            <div className="grid grid-cols-3 gap-x-10 cursor-pointer" onClick={() => setOpenRow(0)}>
               {firstRow.map((col) => {
                 const colActive = isItemActive(col, pathname);
                 return (
                   <div key={col.label} className="flex items-center gap-2 mb-3 pb-2 border-b border-border">
                     {col === firstRow[0] && (
-                      <button onClick={() => setOpenRow(0)} className="text-muted-foreground hover:text-foreground transition-colors">
-                        <ChevronDown className={cn("w-4 h-4 transition-transform", openRow === 0 ? "rotate-180" : "")} />
-                      </button>
+                      <ChevronDown className={cn("w-4 h-4 transition-transform text-muted-foreground", openRow === 0 ? "rotate-180" : "")} />
                     )}
                     <p className={cn(
                       "text-sm uppercase tracking-wider",
@@ -452,15 +450,13 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
 
           {/* Second row: 3 categories */}
           <div>
-            <div className="grid grid-cols-3 gap-x-10">
+            <div className="grid grid-cols-3 gap-x-10 cursor-pointer" onClick={() => setOpenRow(1)}>
               {secondRow.map((col) => {
                 const colActive = isItemActive(col, pathname);
                 return (
                   <div key={col.label} className="flex items-center gap-2 mb-3 pb-2 border-b border-border">
                     {col === secondRow[0] && (
-                      <button onClick={() => setOpenRow(1)} className="text-muted-foreground hover:text-foreground transition-colors">
-                        <ChevronDown className={cn("w-4 h-4 transition-transform", openRow === 1 ? "rotate-180" : "")} />
-                      </button>
+                      <ChevronDown className={cn("w-4 h-4 transition-transform text-muted-foreground", openRow === 1 ? "rotate-180" : "")} />
                     )}
                     <p className={cn(
                       "text-sm uppercase tracking-wider",
