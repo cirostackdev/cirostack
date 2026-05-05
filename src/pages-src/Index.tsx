@@ -367,20 +367,20 @@ const Index = () => {
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-4">
-                <Link href="/about">
-                  <Button size="lg" className="rounded-full px-8 group">
-                    About Us <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </Link>
-                <Link href="/our-culture">
+              <div className="flex flex-wrap gap-4 lg:flex-row">
+                <Link href="/our-culture" className="order-1 lg:order-2">
                   <Button size="lg" variant="outline" className="rounded-full px-8">
                     Our Culture
                   </Button>
                 </Link>
-                <Link href="/sustainability">
+                <Link href="/sustainability" className="order-2 lg:order-3">
                   <Button size="lg" variant="outline" className="rounded-full px-8">
                     Sustainability
+                  </Button>
+                </Link>
+                <Link href="/about" className="order-3 lg:order-1 mx-auto lg:mx-0">
+                  <Button size="lg" className="rounded-full px-8 group">
+                    About Us <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
               </div>
