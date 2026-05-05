@@ -655,16 +655,6 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 6: TESTIMONIALS
-          ══════════════════════════════════════════════ */}
-      <TestimonialsMarquee
-        items={allTestimonials}
-        heading="What our partners say"
-        subheading="Trusted by founders, CTOs, and engineering teams worldwide."
-        sectionBg="bg-card"
-      />
-
-      {/* ══════════════════════════════════════════════
           SECTION 9: FINAL CTA (gradient orb)
           ══════════════════════════════════════════════ */}
       <section className="relative section-padding section-alt overflow-hidden">
@@ -768,6 +758,16 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* ══════════════════════════════════════════════
+          SECTION: TESTIMONIALS
+          ══════════════════════════════════════════════ */}
+      <TestimonialsMarquee
+        items={allTestimonials}
+        heading="What our partners say"
+        subheading="Trusted by founders, CTOs, and engineering teams worldwide."
+        sectionBg="bg-card"
+      />
     </Layout>
   );
 };
