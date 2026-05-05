@@ -368,9 +368,9 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
       transition={{ duration: 0.2 }}
       className="absolute left-0 right-0 top-full bg-background border-b border-border shadow-lg z-40"
     >
-      <div className="container mx-auto px-6 py-10 flex gap-8">
+      <div className="container mx-auto px-6 py-10 flex gap-8 max-h-[80vh] overflow-y-auto">
         {/* Left promo */}
-        <div className="w-64 shrink-0 flex flex-col justify-between">
+        <div className="w-64 shrink-0 flex flex-col justify-between sticky top-0">
           <div>
             <div className="w-10 h-1 bg-primary mb-4 rounded-full" />
             <h3 className="text-2xl font-display font-bold leading-tight">
