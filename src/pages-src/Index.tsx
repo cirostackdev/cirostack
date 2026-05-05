@@ -148,22 +148,22 @@ const values = [
 const companyStats = [
   { value: "50+", label: "Projects delivered" },
   { value: "30+", label: "Happy clients" },
-  { value: "5",   label: "Countries served" },
+  { value: "5", label: "Countries served" },
   { value: "95%", label: "Client retention" },
 ];
 
 const featuredPosts = [
-  { id: "why-fixed-price",         title: "Why Fixed-Price Development Beats Hourly Billing",              category: "Startup Playbook",     readTime: "5 min read", image: imgBlogFixedPrice },
-  { id: "ai-automation-guide",     title: "How We Use OpenAI & LangChain to Automate Enterprise Workflows", category: "AI & Machine Learning", readTime: "7 min read", image: imgBlogAiAutomation },
-  { id: "cloud-migration-kubernetes", title: "Migrating to Kubernetes on AWS: A Step-by-Step Playbook",   category: "Cloud & DevOps",       readTime: "9 min read", image: imgBlogCloudMigration },
+  { id: "why-fixed-price", title: "Why Fixed-Price Development Beats Hourly Billing", category: "Startup Playbook", readTime: "5 min read", image: imgBlogFixedPrice },
+  { id: "ai-automation-guide", title: "How We Use OpenAI & LangChain to Automate Enterprise Workflows", category: "AI & Machine Learning", readTime: "7 min read", image: imgBlogAiAutomation },
+  { id: "cloud-migration-kubernetes", title: "Migrating to Kubernetes on AWS: A Step-by-Step Playbook", category: "Cloud & DevOps", readTime: "9 min read", image: imgBlogCloudMigration },
 ];
 
 const careerPerks = [
-  { icon: Globe, label: "Fully Remote",    sub: "Work from anywhere" },
-  { icon: Zap,   label: "Learning Budget", sub: "$1,500 / year" },
-  { icon: Users, label: "Team Retreats",   sub: "Annual company offsite" },
-  { icon: Star,  label: "Equity Options",  sub: "Everyone shares success" },
-  { icon: Clock, label: "Flexible Hours",  sub: "Own your schedule" },
+  { icon: Globe, label: "Fully Remote", sub: "Work from anywhere" },
+  { icon: Zap, label: "Learning Budget", sub: "$1,500 / year" },
+  { icon: Users, label: "Team Retreats", sub: "Annual company offsite" },
+  { icon: Star, label: "Equity Options", sub: "Everyone shares success" },
+  { icon: Clock, label: "Flexible Hours", sub: "Own your schedule" },
   { icon: Shield, label: "Health Benefits", sub: "Full coverage" },
 ];
 
@@ -243,14 +243,13 @@ const Index = () => {
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.5rem] font-display font-bold text-foreground leading-[0.95] tracking-tight mb-5">
                 Software,
                 <br />
-                <span className="text-gradient italic pr-2">engineered</span>
+                <span className="text-gradient italic pr-3">engineered</span>
                 <br />
                 for your industry.
               </h1>
 
               <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-xl leading-relaxed">
                 Fixed price. Senior engineers. Shipped in weeks.
-                From websites to AI: across 20+ industries.
               </p>
 
               <div className="flex flex-wrap gap-4 mb-8">
@@ -352,10 +351,10 @@ const Index = () => {
             >
               <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-4">Who We Are</p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-5">
-                Built by engineers.<br />Run like a startup.
+                Built by engineers.<br />Run as a fast-paced startup.
               </h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
-                CiroStack is a remote-first software agency of senior engineers, designers, and AI specialists. We take full ownership of your product, from first line of code to launch day, on a fixed price that never moves.
+                CiroStack is a remote-first software agency of senior engineers, designers, and AI specialists. We take full ownership of your product, from first line of code to launch day, on a fixed price.
               </p>
 
               {/* Stats */}
@@ -609,10 +608,10 @@ const Index = () => {
                   </div>
                   <div className="relative flex justify-between gap-1">
                     {[
-                      { pct: "30", label: "Upfront",   color: "hsl(1,77%,55%)"    },
+                      { pct: "30", label: "Upfront", color: "hsl(1,77%,55%)" },
                       { pct: "30", label: "Design OK", color: "hsl(335,55%,49%)" },
-                      { pct: "30", label: "Dev done",  color: "hsl(292,51%,46%)" },
-                      { pct: "10", label: "Launch",    color: "hsl(263,84%,58%)" },
+                      { pct: "30", label: "Dev done", color: "hsl(292,51%,46%)" },
+                      { pct: "10", label: "Launch", color: "hsl(263,84%,58%)" },
                     ].map((step, i) => (
                       <motion.div
                         key={step.label}

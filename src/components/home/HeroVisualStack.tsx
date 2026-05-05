@@ -150,7 +150,7 @@ export default function HeroVisualStack({ image: _image }: HeroVisualStackProps)
         <div className="px-4 py-3 rounded-2xl bg-card/95 backdrop-blur-md border border-border shadow-xl">
           <div className="flex items-baseline gap-2">
             <span className="text-2xl md:text-3xl font-display font-bold text-gradient">
-              4–8
+              8–12
             </span>
             <span className="text-xs text-muted-foreground">weeks to ship</span>
           </div>
