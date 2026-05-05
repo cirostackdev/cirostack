@@ -363,9 +363,21 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
   const firstRow = columns.slice(0, 3);
   const secondRow = columns.slice(3, 6);
 
-  // Check if active page belongs to second row
-  const secondRowActive = secondRow.some((col) => isItemActive(col, pathname));
-  const [openRow, setOpenRow] = useState<0 | 1>(secondRowActive ? 1 : 0);
+  // Per-column state: which category (0=first row, 1=second row) is open
+  // Default: first row open, unless active page is in second row for that column
+  const [openCol, setOpenCol] = useState<[0|1, 0|1, 0|1]>([
+    isItemActive(secondRow[0], pathname) ? 1 : 0,
+    isItemActive(secondRow[1], pathname) ? 1 : 0,
+    isItemActive(secondRow[2], pathname) ? 1 : 0,
+  ]);
+
+  const toggleCol = (colIndex: number, row: 0 | 1) => {
+    setOpenCol((prev) => {
+      const next = [...prev] as [0|1, 0|1, 0|1];
+      next[colIndex] = row;
+      return next;
+    });
+  };
 
   return (
     <motion.div
@@ -396,83 +408,39 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
         </div>
 
         {/* Columns */}
-        <div className="flex-1 space-y-8">
-          {/* First row: 3 categories */}
-          <div>
-            <div className="grid grid-cols-3 gap-x-10 cursor-pointer" onClick={() => setOpenRow(0)}>
-              {firstRow.map((col) => {
-                const colActive = isItemActive(col, pathname);
-                return (
-                  <div key={col.label} className="flex items-center gap-2 mb-3 pb-2 border-b border-border">
-                    {col === firstRow[0] && (
-                      <ChevronDown className={cn("w-4 h-4 transition-transform text-muted-foreground", openRow === 0 ? "rotate-180" : "")} />
-                    )}
-                    <p className={cn(
-                      "text-sm uppercase tracking-wider",
-                      colActive ? "text-primary font-semibold" : "text-muted-foreground"
-                    )}>
-                      {col.label}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-            {openRow === 0 && (
-              <div className="grid grid-cols-3 gap-x-10">
-                {firstRow.map((col) => (
-                  <ul key={col.label} className="space-y-2">
-                    {col.children!.map((child) => {
-                      const linkActive = child.path === pathname;
-                      return (
-                        <li key={child.label}>
-                          <Link
-                            href={child.path || "/"}
-                            onClick={onClose}
-                            className={cn(
-                              "group text-sm transition-colors flex items-center gap-1",
-                              linkActive ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-                            )}
-                          >
-                            <ChevronRight className={cn(
-                              "w-3.5 h-3.5 transition-all duration-200",
-                              linkActive ? "opacity-100 ml-0 text-primary" : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
-                            )} />
-                            {child.label}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                ))}
-              </div>
-            )}
-          </div>
+        <div className="flex-1 grid grid-cols-3 gap-x-10">
+          {[0, 1, 2].map((colIndex) => {
+            const topCat = firstRow[colIndex];
+            const bottomCat = secondRow[colIndex];
+            const activeRowForCol = openCol[colIndex];
+            const activeCat = activeRowForCol === 0 ? topCat : bottomCat;
 
-          {/* Second row: 3 categories */}
-          <div>
-            <div className="grid grid-cols-3 gap-x-10 cursor-pointer" onClick={() => setOpenRow(1)}>
-              {secondRow.map((col) => {
-                const colActive = isItemActive(col, pathname);
-                return (
-                  <div key={col.label} className="flex items-center gap-2 mb-3 pb-2 border-b border-border">
-                    {col === secondRow[0] && (
-                      <ChevronDown className={cn("w-4 h-4 transition-transform text-muted-foreground", openRow === 1 ? "rotate-180" : "")} />
-                    )}
-                    <p className={cn(
-                      "text-sm uppercase tracking-wider",
-                      colActive ? "text-primary font-semibold" : "text-muted-foreground"
-                    )}>
-                      {col.label}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-            {openRow === 1 && (
-              <div className="grid grid-cols-3 gap-x-10">
-                {secondRow.map((col) => (
-                  <ul key={col.label} className="space-y-2">
-                    {col.children!.map((child) => {
+            return (
+              <div key={colIndex}>
+                {/* First row heading */}
+                <button
+                  onClick={() => toggleCol(colIndex, 0)}
+                  className={cn(
+                    "w-full flex items-center justify-between mb-3 pb-2 border-b border-border cursor-pointer",
+                    activeRowForCol === 0 ? "" : "opacity-60 hover:opacity-100"
+                  )}
+                >
+                  <p className={cn(
+                    "text-sm uppercase tracking-wider",
+                    isItemActive(topCat, pathname) ? "text-primary font-semibold" : activeRowForCol === 0 ? "text-foreground font-medium" : "text-muted-foreground"
+                  )}>
+                    {topCat.label}
+                  </p>
+                  <ChevronDown className={cn(
+                    "w-3.5 h-3.5 transition-transform text-muted-foreground",
+                    activeRowForCol === 0 ? "rotate-180" : ""
+                  )} />
+                </button>
+
+                {/* First row content */}
+                {activeRowForCol === 0 && (
+                  <ul className="space-y-2 mb-6">
+                    {topCat.children!.map((child) => {
                       const linkActive = child.path === pathname;
                       return (
                         <li key={child.label}>
@@ -494,10 +462,57 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                       );
                     })}
                   </ul>
-                ))}
+                )}
+
+                {/* Second row heading */}
+                <button
+                  onClick={() => toggleCol(colIndex, 1)}
+                  className={cn(
+                    "w-full flex items-center justify-between mb-3 pb-2 border-b border-border cursor-pointer",
+                    activeRowForCol === 1 ? "" : "opacity-60 hover:opacity-100"
+                  )}
+                >
+                  <p className={cn(
+                    "text-sm uppercase tracking-wider",
+                    isItemActive(bottomCat, pathname) ? "text-primary font-semibold" : activeRowForCol === 1 ? "text-foreground font-medium" : "text-muted-foreground"
+                  )}>
+                    {bottomCat.label}
+                  </p>
+                  <ChevronDown className={cn(
+                    "w-3.5 h-3.5 transition-transform text-muted-foreground",
+                    activeRowForCol === 1 ? "rotate-180" : ""
+                  )} />
+                </button>
+
+                {/* Second row content */}
+                {activeRowForCol === 1 && (
+                  <ul className="space-y-2">
+                    {bottomCat.children!.map((child) => {
+                      const linkActive = child.path === pathname;
+                      return (
+                        <li key={child.label}>
+                          <Link
+                            href={child.path || "/"}
+                            onClick={onClose}
+                            className={cn(
+                              "group text-sm transition-colors flex items-center gap-1",
+                              linkActive ? "text-primary font-semibold" : "text-foreground hover:text-primary"
+                            )}
+                          >
+                            <ChevronRight className={cn(
+                              "w-3.5 h-3.5 transition-all duration-200",
+                              linkActive ? "opacity-100 ml-0 text-primary" : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
+                            )} />
+                            {child.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
-            )}
-          </div>
+            );
+          })}
         </div>
       </div>
     </motion.div>
