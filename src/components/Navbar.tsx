@@ -364,9 +364,9 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
   const secondRow = columns.slice(3, 6);
 
   // Per-column state: which category (0=first row, 1=second row) is open
-  // Default: first row open, unless active page is in second row for that column
+  // Default: By Founder Type (col0=1), By Vertical (col1=0), By Product Type (col2=0)
   const [openCol, setOpenCol] = useState<[0|1, 0|1, 0|1]>([
-    isItemActive(secondRow[0], pathname) ? 1 : 0,
+    isItemActive(firstRow[0], pathname) ? 0 : 1,
     isItemActive(secondRow[1], pathname) ? 1 : 0,
     isItemActive(secondRow[2], pathname) ? 1 : 0,
   ]);
