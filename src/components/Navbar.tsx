@@ -355,22 +355,10 @@ const ServicesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
   );
 };
 
-/* ─── Industries mega-menu (desktop) ─── */
-const IndustriesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname: string }) => {
-  const industriesItem = menuData.find((m) => m.label === "Industries")!;
-  const categories = industriesItem.children!;
-
-  // Auto-select the category that contains the current page
-  const initialIndex = Math.max(0, categories.findIndex((cat) => isItemActive(cat, pathname)));
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(initialIndex);
-  const activeBtnRef = useRef<HTMLButtonElement>(null);
-
-  // Scroll the active category into view when the mega menu opens
-  useEffect(() => {
-    activeBtnRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
-  }, []);
-
-  const activeCategory = categories[activeCategoryIndex];
+/* ─── Startups mega-menu (desktop) ─── */
+const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname: string }) => {
+  const startupsItem = menuData.find((m) => m.label === "Startups")!;
+  const columns = startupsItem.children!;
 
   return (
     <motion.div
@@ -380,73 +368,68 @@ const IndustriesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathna
       transition={{ duration: 0.2 }}
       className="absolute left-0 right-0 top-full bg-background border-b border-border shadow-lg z-40"
     >
-      <div className="container mx-auto px-6 py-8 flex gap-8">
-        {/* Categories Sidebar (Scrollable) */}
-        <div className="w-80 shrink-0 border-r border-border pr-2 flex flex-col max-h-[60vh]">
-          <h3 className="text-xl font-display font-bold mb-4 px-3 shrink-0">Industries</h3>
-          <ul className="space-y-1 overflow-y-auto pr-2 flex-1 pb-4 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/40">
-            {categories.map((category, index) => {
-              const catActive = isItemActive(category, pathname);
-              return (
-                <li key={category.label}>
-                  <button
-                    ref={index === initialIndex ? activeBtnRef : undefined}
-                    onClick={() => setActiveCategoryIndex(index)}
-                    className={cn(
-                      "w-full text-left px-3 py-2 text-sm rounded-md transition-colors flex items-center justify-between",
-                      activeCategoryIndex === index
-                        ? "bg-primary/10 text-primary font-medium"
-                        : catActive
-                          ? "text-primary font-medium"
-                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                    )}
-                  >
-                    {category.label}
-                    <ChevronRight
-                      className={cn(
-                        "w-4 h-4 transition-transform",
-                        activeCategoryIndex === index ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        {/* Sub-industries Grid */}
-        <div className="flex-1 py-4 overflow-y-auto max-h-[60vh] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/40">
-          <div className="mb-6">
-            <h4 className="text-lg font-display font-semibold text-foreground">
-              {activeCategory.label}
-            </h4>
-            <p className="text-sm text-muted-foreground mt-1">
-              Select a specialization to see how we can help.
+      <div className="container mx-auto px-6 py-10 flex gap-8">
+        {/* Left promo */}
+        <div className="w-64 shrink-0 flex flex-col justify-between">
+          <div>
+            <div className="w-10 h-1 bg-primary mb-4 rounded-full" />
+            <h3 className="text-2xl font-display font-bold leading-tight">
+              Software for{" "}
+              <span className="text-primary">startups</span>
+            </h3>
+            <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+              Fixed price. Senior engineers. Shipped in weeks.
             </p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
-            {activeCategory.children!.map((sub) => {
-              const subActive = sub.path === pathname;
-              return (
-                <Link
-                  key={sub.label}
-                  href={sub.path || "/"}
-                  onClick={onClose}
-                  className={cn(
-                    "group flex items-center gap-2 text-sm transition-colors",
-                    subActive ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-                  )}
-                >
-                  <div className={cn(
-                    "w-1.5 h-1.5 rounded-full transition-colors",
-                    subActive ? "bg-primary" : "bg-border group-hover:bg-primary"
-                  )} />
-                  {sub.label}
-                </Link>
-              );
-            })}
-          </div>
+          <Link href="/contact" onClick={onClose}>
+            <Button className="rounded-full mt-6" variant="outline">
+              Start your project
+            </Button>
+          </Link>
+        </div>
+
+        {/* Columns */}
+        <div className="flex-1 grid grid-cols-3 gap-x-10 gap-y-8">
+          {columns.map((col) => {
+            const colActive = isItemActive(col, pathname);
+            return (
+              <div key={col.label}>
+                <p className={cn(
+                  "text-sm uppercase tracking-wider mb-3 pb-2 border-b border-border",
+                  colActive ? "text-primary font-semibold" : "text-muted-foreground"
+                )}>
+                  {col.label}
+                </p>
+                <ul className="space-y-2">
+                  {col.children!.map((child) => {
+                    const linkActive = child.path === pathname;
+                    return (
+                      <li key={child.label}>
+                        <Link
+                          href={child.path || "/"}
+                          onClick={onClose}
+                          className={cn(
+                            "group text-sm transition-colors flex items-center gap-1",
+                            linkActive
+                              ? "text-primary font-semibold"
+                              : "text-foreground hover:text-primary"
+                          )}
+                        >
+                          <ChevronRight className={cn(
+                            "w-3.5 h-3.5 transition-all duration-200",
+                            linkActive
+                              ? "opacity-100 ml-0 text-primary"
+                              : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
+                          )} />
+                          {child.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </div>
     </motion.div>
@@ -665,8 +648,8 @@ const Navbar = () => {
             >
               {activeDropdown === "Services" ? (
                 <ServicesMegaMenu onClose={closeDropdown} pathname={pathname} />
-              ) : activeDropdown === "Industries" ? (
-                <IndustriesMegaMenu onClose={closeDropdown} pathname={pathname} />
+              ) : activeDropdown === "Startups" ? (
+                <StartupsMegaMenu onClose={closeDropdown} pathname={pathname} />
               ) : (
                 (() => {
                   const item = menuData.find((m) => m.label === activeDropdown);
