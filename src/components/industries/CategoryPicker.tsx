@@ -16,9 +16,10 @@ export interface PickerCategory {
 
 interface CategoryPickerProps {
   categories: PickerCategory[];
+  basePath?: string;
 }
 
-export default function CategoryPicker({ categories }: CategoryPickerProps) {
+export default function CategoryPicker({ categories, basePath = "/industries" }: CategoryPickerProps) {
   const sorted = [...categories].sort((a, b) => a.title.localeCompare(b.title));
   const [activeId, setActiveId] = useState<string>(sorted[0]?.id ?? "");
   const active = sorted.find((c) => c.id === activeId) ?? sorted[0];
@@ -32,7 +33,7 @@ export default function CategoryPicker({ categories }: CategoryPickerProps) {
           return (
             <li key={cat.id}>
               <Link
-                href={`/industries/${cat.id}`}
+                href={`${basePath}/${cat.id}`}
                 onMouseEnter={() => setActiveId(cat.id)}
                 onFocus={() => setActiveId(cat.id)}
                 className="group flex items-center justify-between gap-6 py-5 md:py-6"
