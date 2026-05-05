@@ -400,7 +400,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                 )}>
                   {col.label}
                 </p>
-                <ul className="space-y-1">
+                <ul className="space-y-2.5">
                   {col.children!.map((child) => {
                     const linkActive = child.path === pathname;
                     return (
@@ -409,7 +409,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                           href={child.path || "/"}
                           onClick={onClose}
                           className={cn(
-                            "group text-[13px] leading-tight transition-colors flex items-center gap-1",
+                            "group text-sm transition-colors flex items-center gap-1",
                             linkActive
                               ? "text-primary font-semibold"
                               : "text-foreground hover:text-primary"
