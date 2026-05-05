@@ -710,15 +710,15 @@ const Index = () => {
                 We're a remote-first team of builders who care deeply about craft. If you love shipping great software and working with talented people, we'd love to meet you.
               </p>
 
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="grid grid-cols-3 sm:grid-cols-2 gap-4 mb-8">
                 {careerPerks.map((perk) => (
-                  <div key={perk.label} className="flex items-center gap-3">
+                  <div key={perk.label} className="flex flex-col items-center text-center sm:flex-row sm:text-left gap-2 sm:gap-3">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                       <perk.icon className="w-4 h-4 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-foreground leading-tight">{perk.label}</p>
-                      <p className="text-xs text-muted-foreground">{perk.sub}</p>
+                      <p className="text-xs sm:text-sm font-medium text-foreground leading-tight">{perk.label}</p>
+                      <p className="text-[10px] sm:text-xs text-muted-foreground">{perk.sub}</p>
                     </div>
                   </div>
                 ))}
