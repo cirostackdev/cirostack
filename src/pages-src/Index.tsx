@@ -724,11 +724,13 @@ const Index = () => {
                 ))}
               </div>
 
-              <Link href="/careers">
-                <Button size="lg" className="rounded-full px-8 group">
-                  View Open Roles <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
+              <div className="flex justify-center lg:justify-start">
+                <Link href="/careers">
+                  <Button size="lg" className="rounded-full px-8 group">
+                    View Open Roles <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+              </div>
             </motion.div>
 
             {/* Right: image */}
