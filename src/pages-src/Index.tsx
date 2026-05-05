@@ -267,7 +267,7 @@ const Index = () => {
                 </Link>
               </div>
 
-              <div className="flex items-center gap-6 text-sm">
+              <div className="flex lg:hidden items-center gap-6 text-sm">
                 {[
                   { value: "50+", label: "Projects" },
                   { value: "20+", label: "Industries" },
@@ -359,7 +359,7 @@ const Index = () => {
               </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 border-y border-border py-6 mb-8">
+              <div className="hidden lg:grid lg:grid-cols-4 gap-6 border-y border-border py-6 mb-8">
                 {companyStats.map((s) => (
                   <div key={s.label}>
                     <p className="text-2xl font-display font-bold text-foreground tabular-nums">{s.value}</p>

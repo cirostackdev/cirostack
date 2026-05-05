@@ -104,9 +104,10 @@ const Footer = () => {
 
       {/* Main Footer Grid */}
       <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
+        {/* Desktop: 5-column layout */}
+        <div className="hidden md:grid md:grid-cols-5 gap-10">
           {/* Brand Column */}
-          <div className="col-span-2 md:col-span-1">
+          <div>
             <Link href="/" className="flex items-center gap-2 mb-6">
               <img src={logo} alt="CiroStack logo" className="w-8 h-8 object-contain" />
               <span className="font-display font-bold text-xl text-foreground">
@@ -160,6 +161,103 @@ const Footer = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Mobile: compact stacked layout */}
+        <div className="md:hidden space-y-10">
+          {/* Brand */}
+          <div>
+            <Link href="/" className="flex items-center gap-2 mb-6">
+              <img src={logo} alt="CiroStack logo" className="w-8 h-8 object-contain" />
+              <span className="font-display font-bold text-xl text-foreground">
+                Ciro<span className="text-primary">Stack</span>
+              </span>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              We build websites, apps & AI tools for growing businesses. Fixed-price development, no surprises.
+            </p>
+            <div className="flex gap-3">
+              <a
+                href="#"
+                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={16} />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={16} />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook size={16} />
+              </a>
+            </div>
+          </div>
+
+          {/* Short columns side by side: Who we are + Insights */}
+          <div className="grid grid-cols-2 gap-10">
+            {[footerColumns[0], footerColumns[3]].map((col) => (
+              <div key={col.title}>
+                <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
+                  {col.title}
+                </h4>
+                <div className="flex flex-col gap-3">
+                  {col.links.map((link) => (
+                    <Link
+                      key={link.path}
+                      href={link.path}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Services: full width, 2-column sub-grid */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
+              {footerColumns[1].title}
+            </h4>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+              {footerColumns[1].links.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Industries: full width, 2-column sub-grid */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
+              {footerColumns[2].title}
+            </h4>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+              {footerColumns[2].links.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
