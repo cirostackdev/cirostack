@@ -375,42 +375,42 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
       transition={{ duration: 0.2 }}
       className="absolute left-0 right-0 top-full bg-background border-b border-border shadow-lg z-40"
     >
-      <div className="container mx-auto px-6 py-6 flex gap-6 min-h-[calc(100vh-4rem)]">
+      <div className="container mx-auto px-6 py-10 flex gap-8 min-h-[calc(100vh-4rem)]">
         {/* Left promo */}
-        <div className="w-48 shrink-0 flex flex-col justify-between">
+        <div className="w-64 shrink-0 flex flex-col justify-between">
           <div>
-            <div className="w-10 h-1 bg-primary mb-3 rounded-full" />
-            <h3 className="text-xl font-display font-bold leading-tight">
+            <div className="w-10 h-1 bg-primary mb-4 rounded-full" />
+            <h3 className="text-2xl font-display font-bold leading-tight">
               Software for{" "}
               <span className="text-primary">startups</span>
             </h3>
-            <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+            <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
               Fixed price. Senior engineers. Shipped in weeks.
             </p>
           </div>
           <Link href="/contact" onClick={onClose}>
-            <Button className="rounded-full mt-4 text-xs" size="sm" variant="outline">
+            <Button className="rounded-full mt-6" variant="outline">
               Start your project
             </Button>
           </Link>
         </div>
 
         {/* Columns */}
-        <div className="flex-1 space-y-6">
+        <div className="flex-1 space-y-8">
           {/* First row: 3 categories */}
           <div>
-            <div className="grid grid-cols-3 gap-x-8">
+            <div className="grid grid-cols-3 gap-x-10">
               {firstRow.map((col) => {
                 const colActive = isItemActive(col, pathname);
                 return (
-                  <div key={col.label} className="flex items-center gap-2 pb-1.5 border-b border-border">
+                  <div key={col.label} className="flex items-center gap-2 mb-3 pb-2 border-b border-border">
                     {col === firstRow[0] && (
                       <button onClick={() => setOpenRow(0)} className="text-muted-foreground hover:text-foreground transition-colors">
-                        <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", openRow === 0 ? "rotate-180" : "")} />
+                        <ChevronDown className={cn("w-4 h-4 transition-transform", openRow === 0 ? "rotate-180" : "")} />
                       </button>
                     )}
                     <p className={cn(
-                      "text-xs uppercase tracking-wider",
+                      "text-sm uppercase tracking-wider",
                       colActive ? "text-primary font-semibold" : "text-muted-foreground"
                     )}>
                       {col.label}
@@ -420,7 +420,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
               })}
             </div>
             {openRow === 0 && (
-              <div className="grid grid-cols-3 gap-x-8 mt-3">
+              <div className="grid grid-cols-3 gap-x-10">
                 {firstRow.map((col) => (
                   <ul key={col.label} className="space-y-2">
                     {col.children!.map((child) => {
@@ -436,8 +436,8 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                             )}
                           >
                             <ChevronRight className={cn(
-                              "w-3 h-3 transition-all duration-200",
-                              linkActive ? "opacity-100 ml-0 text-primary" : "opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0"
+                              "w-3.5 h-3.5 transition-all duration-200",
+                              linkActive ? "opacity-100 ml-0 text-primary" : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
                             )} />
                             {child.label}
                           </Link>
@@ -452,18 +452,18 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
 
           {/* Second row: 3 categories */}
           <div>
-            <div className="grid grid-cols-3 gap-x-8">
+            <div className="grid grid-cols-3 gap-x-10">
               {secondRow.map((col) => {
                 const colActive = isItemActive(col, pathname);
                 return (
-                  <div key={col.label} className="flex items-center gap-2 pb-1.5 border-b border-border">
+                  <div key={col.label} className="flex items-center gap-2 mb-3 pb-2 border-b border-border">
                     {col === secondRow[0] && (
                       <button onClick={() => setOpenRow(1)} className="text-muted-foreground hover:text-foreground transition-colors">
-                        <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", openRow === 1 ? "rotate-180" : "")} />
+                        <ChevronDown className={cn("w-4 h-4 transition-transform", openRow === 1 ? "rotate-180" : "")} />
                       </button>
                     )}
                     <p className={cn(
-                      "text-xs uppercase tracking-wider",
+                      "text-sm uppercase tracking-wider",
                       colActive ? "text-primary font-semibold" : "text-muted-foreground"
                     )}>
                       {col.label}
@@ -473,7 +473,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
               })}
             </div>
             {openRow === 1 && (
-              <div className="grid grid-cols-3 gap-x-8 mt-3">
+              <div className="grid grid-cols-3 gap-x-10">
                 {secondRow.map((col) => (
                   <ul key={col.label} className="space-y-2">
                     {col.children!.map((child) => {
@@ -489,8 +489,8 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                             )}
                           >
                             <ChevronRight className={cn(
-                              "w-3 h-3 transition-all duration-200",
-                              linkActive ? "opacity-100 ml-0 text-primary" : "opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0"
+                              "w-3.5 h-3.5 transition-all duration-200",
+                              linkActive ? "opacity-100 ml-0 text-primary" : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
                             )} />
                             {child.label}
                           </Link>
