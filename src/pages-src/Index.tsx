@@ -32,6 +32,12 @@ import {
   Globe,
   Clock,
   Star,
+  MapPin,
+  BookOpen,
+  Tent,
+  PieChart,
+  CalendarClock,
+  Stethoscope,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
@@ -159,12 +165,12 @@ const featuredPosts = [
 ];
 
 const careerPerks = [
-  { icon: Globe, label: "Fully Remote", sub: "Work from anywhere" },
-  { icon: Zap, label: "Learning Budget", sub: "$1,500 / year" },
-  { icon: Users, label: "Team Retreats", sub: "Annual company offsite" },
-  { icon: Star, label: "Equity Options", sub: "Everyone shares success" },
-  { icon: Clock, label: "Flexible Hours", sub: "Own your schedule" },
-  { icon: Shield, label: "Health Benefits", sub: "Full coverage" },
+  { icon: MapPin, label: "Fully Remote", sub: "Work from anywhere" },
+  { icon: BookOpen, label: "Learning Budget", sub: "$1,500 / year" },
+  { icon: Tent, label: "Team Retreats", sub: "Annual company offsite" },
+  { icon: PieChart, label: "Equity Options", sub: "Everyone shares success" },
+  { icon: CalendarClock, label: "Flexible Hours", sub: "Own your schedule" },
+  { icon: Stethoscope, label: "Health Benefits", sub: "Full coverage" },
 ];
 
 /* Marquee strip: industry names scrolling (with links) */
