@@ -366,7 +366,7 @@ const Privacy = () => (
               CiroStack is the data controller responsible for your personal information. For any questions, concerns, or requests regarding this Privacy Policy or the handling of your personal data, please contact us at:
             </p>
             <div className="bg-muted/50 rounded-lg p-4 space-y-1">
-              <p className="font-semibold text-foreground">CiroStack — Data Protection</p>
+              <p className="font-semibold text-foreground">CiroStack - Data Protection</p>
               <p>Jessy Onah, Founder &amp; Data Controller</p>
               <p>Email: <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">contact@cirostack.com</a></p>
               <p>Website: <a href="https://cirostack.com" className="text-primary hover:underline">cirostack.com</a></p>

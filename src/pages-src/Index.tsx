@@ -355,7 +355,7 @@ const Index = () => {
                 Built by engineers.<br />Run like a startup.
               </h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
-                CiroStack is a remote-first software agency of senior engineers, designers, and AI specialists. We take full ownership of your product — from first line of code to launch day — on a fixed price that never moves.
+                CiroStack is a remote-first software agency of senior engineers, designers, and AI specialists. We take full ownership of your product, from first line of code to launch day, on a fixed price that never moves.
               </p>
 
               {/* Stats */}
@@ -628,7 +628,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Right: 4 value items — editorial list */}
+            {/* Right: 4 value items - editorial list */}
             <div className="divide-y divide-border">
               {values.map((v, i) => (
                 <motion.div
