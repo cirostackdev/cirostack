@@ -400,7 +400,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                 )}>
                   {col.label}
                 </p>
-                <ul className="space-y-2.5">
+                <ul className="space-y-2">
                   {col.children!.map((child) => {
                     const linkActive = child.path === pathname;
                     return (
