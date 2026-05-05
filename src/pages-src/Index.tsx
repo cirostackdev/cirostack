@@ -349,7 +349,6 @@ const Index = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-4">Who We Are</p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-5">
                 Built by engineers.<br />Run as a fast-paced startup.
               </h2>
@@ -497,7 +496,6 @@ const Index = () => {
           <SectionHeading
             badge="Our Work"
             title="Results that speak for themselves."
-            description="A small sample. The full portfolio has 25 case studies."
           />
 
           <BentoProjects projects={featuredProjects} />
@@ -507,7 +505,7 @@ const Index = () => {
               href="/portfolio"
               className="text-primary text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all"
             >
-              View all 25 projects <ArrowRight className="w-4 h-4" />
+              View all projects <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -688,12 +686,6 @@ const Index = () => {
                 </Button>
               </Link>
             </div>
-            <p className="text-sm text-muted-foreground mt-5">
-              or email us at{" "}
-              <a href="mailto:cirostack@gmail.com" className="text-primary hover:underline">
-                cirostack@gmail.com
-              </a>
-            </p>
           </motion.div>
         </div>
       </section>
@@ -711,7 +703,6 @@ const Index = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-4">Careers</p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight mb-5">
                 Build products that<br />shape industries.
               </h2>
