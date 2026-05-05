@@ -166,11 +166,8 @@ const featuredPosts = [
 
 const careerPerks = [
   { icon: MapPin, label: "Fully Remote", sub: "Work from anywhere" },
-  { icon: BookOpen, label: "Learning Budget", sub: "$1,500 / year" },
   { icon: Tent, label: "Team Retreats", sub: "Annual company offsite" },
-  { icon: PieChart, label: "Equity Options", sub: "Everyone shares success" },
   { icon: CalendarClock, label: "Flexible Hours", sub: "Own your schedule" },
-  { icon: Stethoscope, label: "Health Benefits", sub: "Full coverage" },
 ];
 
 /* Marquee strip: industry names scrolling (with links) */
