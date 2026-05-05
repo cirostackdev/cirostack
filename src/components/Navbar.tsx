@@ -360,6 +360,19 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
   const startupsItem = menuData.find((m) => m.label === "Startups")!;
   const columns = startupsItem.children!;
 
+  const firstRow = columns.slice(0, 3);
+  const secondRow = columns.slice(3, 6);
+
+  // Check if active page belongs to second row
+  const secondRowActive = secondRow.some((col) => isItemActive(col, pathname));
+  const [activeRow, setActiveRow] = useState<0 | 1>(secondRowActive ? 1 : 0);
+
+  const visibleColumns = activeRow === 0 ? firstRow : secondRow;
+  const rowLabels = [
+    firstRow.map((c) => c.label).join(" / "),
+    secondRow.map((c) => c.label).join(" / "),
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -4 }}
@@ -381,6 +394,29 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
               Fixed price. Senior engineers. Shipped in weeks.
             </p>
           </div>
+
+          {/* Row toggles */}
+          <div className="space-y-2 mt-6">
+            {[0, 1].map((rowIndex) => (
+              <button
+                key={rowIndex}
+                onClick={() => setActiveRow(rowIndex as 0 | 1)}
+                className={cn(
+                  "w-full flex items-center justify-between text-xs px-3 py-2 rounded-md transition-colors",
+                  activeRow === rowIndex
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                )}
+              >
+                <span>{rowIndex === 0 ? "Stage / Vertical / Product" : "Founder / Challenge / Engagement"}</span>
+                <ChevronDown className={cn(
+                  "w-3.5 h-3.5 transition-transform",
+                  activeRow === rowIndex ? "rotate-180" : ""
+                )} />
+              </button>
+            ))}
+          </div>
+
           <Link href="/contact" onClick={onClose}>
             <Button className="rounded-full mt-4 text-xs" size="sm" variant="outline">
               Start your project
@@ -390,7 +426,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
 
         {/* Columns */}
         <div className="flex-1 grid grid-cols-3 gap-x-8 gap-y-4">
-          {columns.map((col) => {
+          {visibleColumns.map((col) => {
             const colActive = isItemActive(col, pathname);
             return (
               <div key={col.label}>
