@@ -379,6 +379,11 @@ const Index = () => {
                     Our Culture
                   </Button>
                 </Link>
+                <Link href="/sustainability">
+                  <Button size="lg" variant="outline" className="rounded-full px-8">
+                    Sustainability
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
