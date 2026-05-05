@@ -368,39 +368,39 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
       transition={{ duration: 0.2 }}
       className="absolute left-0 right-0 top-full bg-background border-b border-border shadow-lg z-40"
     >
-      <div className="container mx-auto px-6 py-10 flex gap-8 max-h-[80vh] overflow-y-auto">
+      <div className="container mx-auto px-6 py-6 flex gap-6">
         {/* Left promo */}
-        <div className="w-64 shrink-0 flex flex-col justify-between sticky top-0">
+        <div className="w-48 shrink-0 flex flex-col justify-between">
           <div>
-            <div className="w-10 h-1 bg-primary mb-4 rounded-full" />
-            <h3 className="text-2xl font-display font-bold leading-tight">
+            <div className="w-10 h-1 bg-primary mb-3 rounded-full" />
+            <h3 className="text-xl font-display font-bold leading-tight">
               Software for{" "}
               <span className="text-primary">startups</span>
             </h3>
-            <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+            <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
               Fixed price. Senior engineers. Shipped in weeks.
             </p>
           </div>
           <Link href="/contact" onClick={onClose}>
-            <Button className="rounded-full mt-6" variant="outline">
+            <Button className="rounded-full mt-4 text-xs" size="sm" variant="outline">
               Start your project
             </Button>
           </Link>
         </div>
 
         {/* Columns */}
-        <div className="flex-1 grid grid-cols-3 gap-x-10 gap-y-8">
+        <div className="flex-1 grid grid-cols-3 gap-x-8 gap-y-4">
           {columns.map((col) => {
             const colActive = isItemActive(col, pathname);
             return (
               <div key={col.label}>
                 <p className={cn(
-                  "text-sm uppercase tracking-wider mb-3 pb-2 border-b border-border",
+                  "text-xs uppercase tracking-wider mb-2 pb-1.5 border-b border-border",
                   colActive ? "text-primary font-semibold" : "text-muted-foreground"
                 )}>
                   {col.label}
                 </p>
-                <ul className="space-y-2">
+                <ul className="space-y-1">
                   {col.children!.map((child) => {
                     const linkActive = child.path === pathname;
                     return (
@@ -409,17 +409,17 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                           href={child.path || "/"}
                           onClick={onClose}
                           className={cn(
-                            "group text-sm transition-colors flex items-center gap-1",
+                            "group text-[13px] leading-tight transition-colors flex items-center gap-1",
                             linkActive
                               ? "text-primary font-semibold"
                               : "text-foreground hover:text-primary"
                           )}
                         >
                           <ChevronRight className={cn(
-                            "w-3.5 h-3.5 transition-all duration-200",
+                            "w-3 h-3 transition-all duration-200",
                             linkActive
                               ? "opacity-100 ml-0 text-primary"
-                              : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
+                              : "opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0"
                           )} />
                           {child.label}
                         </Link>
