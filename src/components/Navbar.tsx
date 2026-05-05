@@ -365,8 +365,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
 
   // Check if active page belongs to second row
   const secondRowActive = secondRow.some((col) => isItemActive(col, pathname));
-  const [firstOpen, setFirstOpen] = useState(!secondRowActive);
-  const [secondOpen, setSecondOpen] = useState(secondRowActive);
+  const [openRow, setOpenRow] = useState<0 | 1>(secondRowActive ? 1 : 0);
 
   return (
     <motion.div
@@ -406,8 +405,8 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                 return (
                   <div key={col.label} className="flex items-center gap-2 pb-1.5 border-b border-border">
                     {col === firstRow[0] && (
-                      <button onClick={() => setFirstOpen(!firstOpen)} className="text-muted-foreground hover:text-foreground transition-colors">
-                        <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", firstOpen ? "rotate-180" : "")} />
+                      <button onClick={() => setOpenRow(0)} className="text-muted-foreground hover:text-foreground transition-colors">
+                        <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", openRow === 0 ? "rotate-180" : "")} />
                       </button>
                     )}
                     <p className={cn(
@@ -420,7 +419,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                 );
               })}
             </div>
-            {firstOpen && (
+            {openRow === 0 && (
               <div className="grid grid-cols-3 gap-x-8 mt-3">
                 {firstRow.map((col) => (
                   <ul key={col.label} className="space-y-2">
@@ -459,8 +458,8 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                 return (
                   <div key={col.label} className="flex items-center gap-2 pb-1.5 border-b border-border">
                     {col === secondRow[0] && (
-                      <button onClick={() => setSecondOpen(!secondOpen)} className="text-muted-foreground hover:text-foreground transition-colors">
-                        <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", secondOpen ? "rotate-180" : "")} />
+                      <button onClick={() => setOpenRow(1)} className="text-muted-foreground hover:text-foreground transition-colors">
+                        <ChevronDown className={cn("w-3.5 h-3.5 transition-transform", openRow === 1 ? "rotate-180" : "")} />
                       </button>
                     )}
                     <p className={cn(
@@ -473,7 +472,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                 );
               })}
             </div>
-            {secondOpen && (
+            {openRow === 1 && (
               <div className="grid grid-cols-3 gap-x-8 mt-3">
                 {secondRow.map((col) => (
                   <ul key={col.label} className="space-y-2">
