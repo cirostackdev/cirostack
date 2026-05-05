@@ -368,16 +368,18 @@ const Index = () => {
               </div>
 
               <div className="flex flex-wrap gap-4">
-                <Link href="/our-culture">
-                  <Button size="lg" variant="outline" className="rounded-full px-8">
-                    Our Culture
-                  </Button>
-                </Link>
-                <Link href="/sustainability">
-                  <Button size="lg" variant="outline" className="rounded-full px-8">
-                    Sustainability
-                  </Button>
-                </Link>
+                <div className="flex gap-4">
+                  <Link href="/our-culture">
+                    <Button size="lg" variant="outline" className="rounded-full px-8">
+                      Our Culture
+                    </Button>
+                  </Link>
+                  <Link href="/sustainability">
+                    <Button size="lg" variant="outline" className="rounded-full px-8">
+                      Sustainability
+                    </Button>
+                  </Link>
+                </div>
                 <Link href="/about" className="mx-auto lg:mx-0">
                   <Button size="lg" className="rounded-full px-8 group">
                     About Us <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
