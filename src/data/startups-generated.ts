@@ -70,25 +70,28 @@ export type StartupEntry = {
 
 // Import the basic data and extend it with full page content
 import { startupsData as basicData } from "./startups";
+import { startupContentOverrides } from "./startups-content";
 
 function buildFullEntry(id: string): StartupEntry {
   const base = basicData[id];
   if (!base) throw new Error(`Missing startup data for: ${id}`);
 
+  const o = startupContentOverrides[id] ?? {};
+
   return {
     ...base,
-    challenges: generateChallenges(id, base.parentCategory),
-    solutions: generateSolutions(id, base.parentCategory),
-    valueProps: generateValueProps(id),
-    stats: generateStats(id, base.parentCategory),
-    serviceApplications: generateServiceApplications(id, base.parentCategory),
-    deepDive: generateDeepDive(id, base.title),
-    details: generateDetails(id, base.parentCategory),
-    deliverables: generateDeliverables(id, base.parentCategory),
-    startingAt: generatePricing(id, base.parentCategory),
-    faqs: generateFaqs(id, base.title, base.parentCategory),
-    whoWeHelped: generateWhoWeHelped(id, base.parentCategory),
-    clientReviews: generateClientReviews(id, base.parentCategory),
+    challenges: o.challenges ?? generateChallenges(id, base.parentCategory),
+    solutions: o.solutions ?? generateSolutions(id, base.parentCategory),
+    valueProps: o.valueProps ?? generateValueProps(id),
+    stats: o.stats ?? generateStats(id, base.parentCategory),
+    serviceApplications: o.serviceApplications ?? generateServiceApplications(id, base.parentCategory),
+    deepDive: o.deepDive ?? generateDeepDive(id, base.title),
+    details: o.details ?? generateDetails(id, base.parentCategory),
+    deliverables: o.deliverables ?? generateDeliverables(id, base.parentCategory),
+    startingAt: o.startingAt ?? generatePricing(id, base.parentCategory),
+    faqs: o.faqs ?? generateFaqs(id, base.title, base.parentCategory),
+    whoWeHelped: o.whoWeHelped ?? generateWhoWeHelped(id, base.parentCategory),
+    clientReviews: o.clientReviews ?? generateClientReviews(id, base.parentCategory),
   };
 }
 
