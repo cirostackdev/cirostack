@@ -742,7 +742,7 @@ const Index = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative"
+              className="relative order-first lg:order-none"
             >
               <img
                 src={heroCareers}

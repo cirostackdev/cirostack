@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { SearchCommand } from "@/components/SearchCommand";
 import logo from "@/assets/logo.png";
 
 interface MenuItem {
@@ -344,7 +345,7 @@ const ServicesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
             </h3>
           </div>
           <Link href="/contact" onClick={onClose}>
-            <Button className="rounded-full mt-6" variant="outline">
+            <Button className="rounded-full mt-6">
               Let's work together
             </Button>
           </Link>
@@ -444,7 +445,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
             </p>
           </div>
           <Link href="/contact" onClick={onClose}>
-            <Button className="rounded-full mt-6" variant="outline">
+            <Button className="rounded-full mt-6">
               Start your project
             </Button>
           </Link>
@@ -613,6 +614,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -735,6 +737,7 @@ const Navbar = () => {
             {/* Right actions */}
             <div className="flex items-center gap-2 z-50">
               <button
+                onClick={() => setSearchOpen(true)}
                 className={cn(
                   "w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-300",
                   useLight
@@ -808,6 +811,8 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <SearchCommand open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
 };
