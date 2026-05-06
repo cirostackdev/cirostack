@@ -223,6 +223,67 @@ function generateChallenges(id: string, category: string): string[] {
       "Hardware debugging requires physical devices and cannot be fully replicated in CI. Shipping firmware with undiscovered bugs means physical recalls.",
       "Power consumption optimization requires measurement with real hardware under real workloads. Simulation underestimates real-world drain by 30-50%.",
     ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      "You cannot evaluate whether a developer is building the right thing or just billing hours because you do not speak the language.",
+      "Technical decisions made early (database, framework, hosting) lock you in for years and cost $50-200K to change if wrong.",
+      "Agencies send account managers who do not build your product. The person explaining progress is not the person writing code.",
+      "You have no way to know if the estimate is honest or inflated. A 12-week quote might be 6 weeks of work and 6 weeks of padding.",
+    ],
+    "first-time-founder": [
+      "You do not know what you do not know: the unknowns that kill first-time projects are invisible until they blow the timeline.",
+      "Over-scoping the MVP is the single most expensive mistake first-time founders make. Building 20 features when 3 would validate the hypothesis.",
+      "Choosing a tech stack based on blog posts or friend recommendations instead of the specific constraints of your product.",
+      "Confusing building for yourself with building for your users. Your assumptions about what users want are probably wrong until tested.",
+    ],
+    "solo-founder": [
+      "You are the CEO, sales, marketing, product, and support. Managing an engineering team on top of that is unsustainable.",
+      "Context switching between business development and technical oversight costs you 30-40% productivity on both fronts.",
+      "Hiring your first engineer takes 3-6 months. Your product cannot wait that long. You need output now, not in Q3.",
+      "Without a technical co-founder, investors question whether you can execute. You need a shipped product that answers that question.",
+    ],
+    "repeat-founder": [
+      "Your previous agency built what you asked for, not what you needed. They never pushed back because pushback does not bill hours.",
+      "Junior developers disguised as senior engineers: the code compiles but the architecture does not survive the first 1,000 users.",
+      "You know what good engineering looks like, but finding a partner who matches that standard without the 6-month hiring process is hard.",
+      "Speed matters more this time. You have conviction about the market and you need execution velocity that matches your pace.",
+    ],
+    "student-startup": [
+      "Your demo day is in 10 weeks and your budget is $5,000-$15,000. Most agencies will not even take the meeting.",
+      "Accelerator judges and early investors need to see a working product, not a pitch deck and a promise.",
+      "You have never managed a software project and do not know what questions to ask or what realistic timelines look like.",
+      "The freelancer from Upwork disappeared mid-project. Your deadline has not moved. You need reliability, not just cheap labor.",
+    ],
+    "corporate-innovator": [
+      "Your IT security review takes 3 months and requires documentation that startups do not normally produce.",
+      "Legacy system integration is mandatory: the new product must connect to SAP, Salesforce, or custom internal APIs built in 2008.",
+      "Procurement requires fixed-price contracts, SOW documentation, and insurance certifications that most dev shops cannot provide.",
+      "Stakeholder alignment across 5 departments means requirements change after every steering committee meeting.",
+    ],
+    "female-led": [
+      "Being quoted prices 20-40% higher than comparable male-led projects because vendors assume less technical literacy.",
+      "Engineers who explain decisions patronizingly or dismiss your technical input without evaluation.",
+      "Agencies that assign junior engineers to your project while giving senior resources to projects they perceive as more technically demanding.",
+      "Having to prove technical competence repeatedly before your input is taken seriously by your own development team.",
+    ],
+    "african-startup": [
+      "M-Pesa and Paystack are not Stripe: payment integration patterns for African markets have unique reconciliation and settlement challenges.",
+      "Users on 2G connections with data budgets of $2/month require fundamentally different UX assumptions than users on fiber.",
+      "USSD is still the primary digital access channel for millions of users. Ignoring it means ignoring your largest addressable market.",
+      "Multi-country expansion across Africa means different telecom APIs, different payment providers, and different data localization laws per country.",
+    ],
+    "diaspora-founder": [
+      "Multi-currency pricing requires more than exchange rate conversion: different pricing psychology, payment preferences, and purchasing power in each market.",
+      "Cross-border payment flows (remittance, marketplace payments, subscriptions) involve two sets of financial regulations and two sets of payment rails.",
+      "Dual-jurisdiction compliance means your product must satisfy regulatory requirements in both your home market and your current one simultaneously.",
+      "UX that works across cultures: right-to-left languages, date formats, name field structures, and communication preferences all differ between markets.",
+    ],
+    "social-enterprise": [
+      "Grant funders require specific deliverable formats, milestone reporting, and impact measurement that for-profit development partners do not understand.",
+      "WCAG accessibility compliance is not optional when your users include people with disabilities. Most agencies treat it as a nice-to-have.",
+      "Budget constraints of $5,000-$30,000 per project mean every feature must justify its cost in measurable social impact.",
+      "Technology decisions must consider users with limited connectivity, older devices, and low digital literacy. Cutting-edge is not always appropriate.",
+    ],
   };
 
   if (verticalChallenges[id]) return verticalChallenges[id];
@@ -443,6 +504,67 @@ function generateSolutions(id: string, category: string): StartupSolution[] {
       { title: "Power Optimization", description: "Sleep mode management, peripheral duty cycling, and transmission scheduling that extends battery life from weeks to months based on real-world usage patterns." },
       { title: "Cloud Connectivity", description: "MQTT or CoAP protocols, connection resilience, and the buffering strategies that handle intermittent connectivity without data loss." },
     ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      { title: "Plain-English Communication", description: "Every technical decision explained in business terms: what it costs, what it enables, and what happens if you choose differently. No jargon, no hand-waving." },
+      { title: "Direct Engineer Access", description: "You talk to the person building your product. No account manager layer, no game of telephone. Questions get answered by the person who knows the code." },
+      { title: "Fixed Price, Written Scope", description: "Agreed scope and price before work begins. You know exactly what you are paying and exactly what you are getting. Changes require mutual agreement." },
+      { title: "Technology Decisions Owned", description: "We make the technical decisions and explain why. You make business decisions. Nobody asks you to choose between frameworks you have never heard of." },
+    ],
+    "first-time-founder": [
+      { title: "Scope Ruthlessly", description: "We cut your feature list by 60-70% and ship the 3-4 features that actually validate your hypothesis. Everything else waits until users ask for it." },
+      { title: "Pattern Recognition", description: "We have built 50+ products. We know which mistakes are coming because we have seen them before. We tell you before they happen, not after." },
+      { title: "Honest Pushback", description: "When your idea has a flaw, we say so. When your timeline is unrealistic, we say so. You are paying for experience, not agreement." },
+      { title: "Learning-Optimized MVP", description: "Your first product exists to learn, not to be perfect. We build the minimum that produces maximum signal about what users actually want." },
+    ],
+    "solo-founder": [
+      { title: "Autonomous Operation", description: "We run independently: architecture decisions, daily execution, infrastructure management. You approve direction in weekly check-ins. Your time stays on customers and growth." },
+      { title: "Full Department Coverage", description: "Frontend, backend, DevOps, QA, and technical planning. One engagement replaces the 3-5 hires you would need to build an engineering team." },
+      { title: "Async-First Communication", description: "Loom updates, Slack messages, documented decisions. No mandatory meetings that break your sales calls or customer conversations." },
+      { title: "Hiring Bridge", description: "When you are ready to hire full-time, we write the job descriptions, review candidates, and onboard your first engineer into a codebase they can actually work in." },
+    ],
+    "repeat-founder": [
+      { title: "Senior Engineers Only", description: "The team you meet is the team that builds. No juniors, no handoffs after the proposal is signed. Code quality you can read and review personally." },
+      { title: "Direct Communication", description: "No account manager layer. You talk to engineers directly. Decisions are made in real-time, not filtered through a non-technical intermediary." },
+      { title: "Honest Pushback", description: "We challenge scope, question assumptions, and push back when something is heading in the wrong direction. You are not paying for 'yes'." },
+      { title: "Execution Velocity", description: "We match your pace. Daily commits, fast iteration, and the shipping speed that comes from engineers who do not need hand-holding or ramp-up time." },
+    ],
+    "student-startup": [
+      { title: "Demo Day Aligned", description: "We scope to your deadline. If demo day is in 10 weeks, we deliver in 9. The timeline drives the scope, not the other way around." },
+      { title: "Student-Friendly Pricing", description: "Fixed price that fits accelerator budgets ($5K-$15K typical). We work within your constraints because we know what runway looks like at this stage." },
+      { title: "Investor-Ready Output", description: "Code that impresses technical evaluators, architecture you can explain to investors, and a working product that proves you can execute." },
+      { title: "Education Included", description: "We explain every technical decision so you understand your own product. When you pitch to investors, you can answer technical questions confidently." },
+    ],
+    "corporate-innovator": [
+      { title: "Enterprise Documentation", description: "SOWs, security questionnaires, insurance certificates, and the project documentation that your procurement and InfoSec teams require." },
+      { title: "Legacy Integration", description: "Connectors to SAP, Salesforce, Oracle, and custom internal APIs. We work with systems built in 2008 without requiring you to modernize them first." },
+      { title: "Startup Speed, Enterprise Compliance", description: "Agile delivery within governance frameworks. Sprint demos for stakeholders, change request processes for scope, and the audit trail that procurement needs." },
+      { title: "Stakeholder Management", description: "We produce the progress reports, technical summaries, and steering committee materials that keep 5 departments aligned without slowing down delivery." },
+    ],
+    "female-led": [
+      { title: "Transparent, Consistent Pricing", description: "Our rates are published. Your quote is the same quote anyone else gets for the same scope. No negotiation tax, no markup based on assumptions." },
+      { title: "Peer-to-Peer Communication", description: "Engineers who treat your technical input as valid, your questions as reasonable, and your decisions as final. No explaining-down. No second-guessing." },
+      { title: "Senior Resources Guaranteed", description: "The engineers assigned to your project are the same caliber assigned to every project. No juniors because someone assumed the work is simpler." },
+      { title: "Accountability Built In", description: "If something in our communication or delivery is not meeting the standard, we want to know immediately. Feedback is acted on, not dismissed." },
+    ],
+    "african-startup": [
+      { title: "African Payment Rails", description: "M-Pesa, Paystack, Flutterwave, and Chipper integration with the reconciliation, settlement, and webhook handling that each requires." },
+      { title: "Low-Bandwidth UX", description: "Applications optimized for 2G connections: compressed assets, progressive loading, and offline capability that work on $50 Android devices." },
+      { title: "USSD & SMS Channels", description: "Menu-driven USSD interfaces and SMS interactions that reach users on feature phones without smartphones or data plans." },
+      { title: "Multi-Country Architecture", description: "Infrastructure that supports expansion across African markets with different telecom APIs, payment providers, and data localization requirements per country." },
+    ],
+    "diaspora-founder": [
+      { title: "Multi-Currency Infrastructure", description: "Pricing, payment collection, and settlement in multiple currencies with exchange rate handling, conversion fees, and the UX that makes multi-market pricing clear." },
+      { title: "Cross-Border Payment Flows", description: "Remittance, split payments, and subscription billing across jurisdictions with the compliance controls that both sets of regulators require." },
+      { title: "Dual-Market UX", description: "Interfaces that work across cultures: language, date formats, name structures, right-to-left support, and the communication patterns each market expects." },
+      { title: "Dual-Jurisdiction Compliance", description: "Architecture that satisfies regulatory requirements in both markets simultaneously without duplicating the entire backend for each jurisdiction." },
+    ],
+    "social-enterprise": [
+      { title: "Impact-First Prioritization", description: "Features ranked by social outcome per dollar spent on development. Nothing built until it justifies its cost in measurable impact." },
+      { title: "WCAG Accessibility", description: "AA compliance built in from the first wireframe. Screen readers, keyboard navigation, color contrast, and the testing that proves compliance." },
+      { title: "Grant-Compatible Delivery", description: "Milestone reports, deliverable documentation, and budget breakdowns formatted for the specific requirements your funders demand." },
+      { title: "Appropriate Technology", description: "Solutions designed for your actual users: low connectivity, older devices, limited digital literacy. Simple and functional beats clever and inaccessible." },
+    ],
   };
 
   if (verticalSolutions[id]) return verticalSolutions[id];
@@ -632,6 +754,67 @@ function generateValueProps(id: string): StartupValueProp[] {
       { title: "Battery Longevity", description: "Power management optimized through measurement, not simulation. Sleep modes, duty cycling, and transmission scheduling that extend real-world battery life." },
       { title: "Production-Ready Testing", description: "Hardware-in-the-loop CI that catches bugs before they ship to devices you cannot physically recall." },
     ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      { title: "No Jargon, No Surprises", description: "Weekly updates in language you understand. Budget impact, timeline status, and what decisions need your input. The technical details handled without your involvement." },
+      { title: "Fixed Price Protection", description: "The scope is written. The price is locked. If we underestimated complexity, that is our problem, not your invoice." },
+      { title: "Talk to the Builder", description: "Direct Slack access to the engineer writing your code. Questions answered in hours, not filtered through a project manager who does not know the answer." },
+      { title: "Future-Proof Handoff", description: "When you hire your own CTO or engineer, they inherit clean code, full documentation, and an architecture they can understand in a week." },
+    ],
+    "first-time-founder": [
+      { title: "Experience on Your Side", description: "50+ products shipped. We know which decisions first-time founders regret at month 18. We prevent those decisions at month 1." },
+      { title: "Lean by Default", description: "We cut scope until only the learning-critical features remain. Ship in 4-6 weeks, measure, then decide what to build next based on data." },
+      { title: "Honest Timeline", description: "No padding, no sandbagging. If it takes 8 weeks, we say 8 weeks. If your scope is 16 weeks of work, we tell you what to cut to hit 8." },
+      { title: "Investor-Ready Quality", description: "Code, architecture, and documentation that pass technical due diligence. Not impressive demos on top of fragile foundations." },
+    ],
+    "solo-founder": [
+      { title: "Zero Management Overhead", description: "We run autonomously. You approve direction weekly. Your time stays on customers, sales, and fundraising where it belongs." },
+      { title: "Complete Coverage", description: "Frontend, backend, infrastructure, testing, deployment. One engagement replaces 3-5 hires without the recruiting, management, or overhead cost." },
+      { title: "Async by Default", description: "Loom updates, written decisions, Slack access. No mandatory daily standups that break your calendar." },
+      { title: "Graceful Transition", description: "When you are ready to build an in-house team, we help hire, onboard, and hand off a codebase your new engineer can maintain alone." },
+    ],
+    "repeat-founder": [
+      { title: "Matches Your Standards", description: "You know what good code looks like. We write code you can personally review and approve. No shortcuts dressed up as velocity." },
+      { title: "No Account Manager Layer", description: "Engineer-to-founder communication. Decisions made in real-time. No telephone game through non-technical intermediaries." },
+      { title: "Speed Without Mess", description: "Daily commits, fast iteration, and shipping velocity that comes from senior engineers who do not need guidance or ramp-up time." },
+      { title: "Honest Disagreement", description: "We push back when scope is wrong, when a feature is premature, or when your assumption needs testing first. You hired judgment, not compliance." },
+    ],
+    "student-startup": [
+      { title: "Deadline-Driven Scope", description: "Demo day is the constraint. We scope backward from your deadline and deliver what is possible within your timeline and budget." },
+      { title: "Accelerator-Friendly Budget", description: "Fixed price within student budgets. Real engineering quality at a scope that fits $5K-$15K, not toy prototypes." },
+      { title: "Learn While You Ship", description: "Every technical decision explained so you understand your own product. You leave the engagement technically literate, not dependent." },
+      { title: "Investor-Ready Demo", description: "A working product that proves execution capability. Not mockups. Not slide decks. Software that runs and impresses." },
+    ],
+    "corporate-innovator": [
+      { title: "Procurement-Ready", description: "Fixed-price SOWs, professional liability insurance, NDA compliance, and the vendor documentation your procurement team requires." },
+      { title: "Security-Review Ready", description: "Architecture documentation, data flow diagrams, encryption specifications, and penetration test results that pass InfoSec review." },
+      { title: "Legacy Compatible", description: "Integration with existing enterprise systems (SAP, Salesforce, Oracle) without requiring modernization of those systems first." },
+      { title: "Governance-Friendly Delivery", description: "Sprint demos, change management processes, steering committee updates, and the audit trail that enterprise project governance demands." },
+    ],
+    "female-led": [
+      { title: "Published Pricing", description: "Same rate card for everyone. No negotiation markup. Your project costs what any equivalent project costs. Transparent by default." },
+      { title: "Respect as Standard", description: "Engineers who listen, respond to technical input with technical discussion, and treat your expertise as relevant. Not an aspiration, a hiring filter." },
+      { title: "Equal Resourcing", description: "Senior engineers assigned based on project complexity, not founder assumptions. Every project gets the caliber of team it deserves." },
+      { title: "Active Accountability", description: "Monthly engagement surveys. Direct escalation paths. Problems addressed in days, not tolerated. The bar stays high because we measure it." },
+    ],
+    "african-startup": [
+      { title: "Built for the Real Market", description: "M-Pesa, not Stripe. 2G connections, not fiber. Feature phones, not iPhones. We build for how your market actually works." },
+      { title: "Offline-First Always", description: "Apps that function fully without internet and sync when connectivity returns. Your users' reality, not Silicon Valley's assumptions." },
+      { title: "Low-Cost Infrastructure", description: "Architecture optimized for African market economics: minimal bandwidth, compressed assets, and hosting that scales without Western-tier cloud bills." },
+      { title: "Pan-African Expansion", description: "Multi-country architecture from day one. Different payment providers, different telecoms, different regulations per country handled in configuration, not code rewrites." },
+    ],
+    "diaspora-founder": [
+      { title: "Two Markets, One Product", description: "Architecture that serves users in both your home market and your current market without maintaining separate codebases." },
+      { title: "Cross-Border Money", description: "Multi-currency payments, remittance flows, and settlement in different financial systems handled correctly from the start." },
+      { title: "Cultural UX", description: "Interfaces that adapt to language, date formats, communication patterns, and user expectations across your target cultures." },
+      { title: "Dual Compliance", description: "One system satisfying two sets of regulators. Data residency, privacy laws, and financial regulations for both jurisdictions." },
+    ],
+    "social-enterprise": [
+      { title: "Impact Per Dollar", description: "Every feature justified by measurable social outcome. Nothing built because it is technically interesting. Everything built because it moves the needle." },
+      { title: "Accessible by Default", description: "WCAG AA from wireframe to deployment. Screen readers, keyboard navigation, high contrast, and the testing that proves it works." },
+      { title: "Grant-Ready Reporting", description: "Deliverable formats, milestone documentation, and impact metrics structured for the specific reporting your funders require." },
+      { title: "Appropriate Tech", description: "Solutions for your actual users: low bandwidth, older devices, limited literacy. Technology that includes rather than excludes." },
+    ],
   };
 
   if (verticalValueProps[id]) return verticalValueProps[id];
@@ -768,6 +951,67 @@ function generateStats(id: string, category: string): StartupStat[] {
       { value: "3x", label: "Average Battery Life Improvement" },
       { value: "99.8%", label: "OTA Update Success Rate" },
     ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      { value: "20+", label: "Non-Technical Founders Served" },
+      { value: "0", label: "Account Manager Layers" },
+      { value: "100%", label: "Decisions Explained in Plain English" },
+      { value: "Fixed", label: "Price on Every Project" },
+    ],
+    "first-time-founder": [
+      { value: "50+", label: "First Products Shipped" },
+      { value: "60-70%", label: "Features Cut Before Build" },
+      { value: "4-6wk", label: "Average First MVP Delivery" },
+      { value: "0", label: "Founders Surprised by the Bill" },
+    ],
+    "solo-founder": [
+      { value: "15+", label: "Solo Founders Partnered With" },
+      { value: "1hr/wk", label: "Your Time Required" },
+      { value: "3-5", label: "Hires Replaced by One Engagement" },
+      { value: "100%", label: "Async Communication" },
+    ],
+    "repeat-founder": [
+      { value: "0", label: "Junior Engineers on Your Project" },
+      { value: "0", label: "Account Manager Layers" },
+      { value: "Daily", label: "Commit Frequency" },
+      { value: "100%", label: "Code You Can Personally Review" },
+    ],
+    "student-startup": [
+      { value: "12+", label: "Student Projects Delivered" },
+      { value: "$5-15K", label: "Typical Project Budget" },
+      { value: "10wk", label: "Average Demo Day Deadline" },
+      { value: "100%", label: "Delivered Before Deadline" },
+    ],
+    "corporate-innovator": [
+      { value: "8+", label: "Corporate Innovation Projects" },
+      { value: "100%", label: "Security Reviews Passed" },
+      { value: "5+", label: "Legacy Systems Integrated" },
+      { value: "Fixed", label: "Price SOW for Procurement" },
+    ],
+    "female-led": [
+      { value: "0", label: "Pricing Variance by Founder Gender" },
+      { value: "100%", label: "Senior Engineers Assigned" },
+      { value: "Published", label: "Rate Card (Same for Everyone)" },
+      { value: "Monthly", label: "Engagement Quality Surveys" },
+    ],
+    "african-startup": [
+      { value: "10+", label: "African Market Products Shipped" },
+      { value: "6", label: "African Countries Served" },
+      { value: "4", label: "Mobile Money Integrations" },
+      { value: "100%", label: "Offline-First Architecture" },
+    ],
+    "diaspora-founder": [
+      { value: "8+", label: "Multi-Market Products Built" },
+      { value: "12+", label: "Currencies Supported" },
+      { value: "2", label: "Jurisdictions Per Product (Avg)" },
+      { value: "5", label: "Cross-Border Payment Flows Built" },
+    ],
+    "social-enterprise": [
+      { value: "6+", label: "Social Enterprises Served" },
+      { value: "WCAG AA", label: "Accessibility Standard Met" },
+      { value: "100%", label: "Grant-Compatible Reporting" },
+      { value: "3x", label: "Impact Measurement Improvement" },
+    ],
   };
 
   if (verticalStats[id]) return verticalStats[id];
@@ -903,6 +1147,67 @@ function generateServiceApplications(id: string, category: string): StartupServi
       { serviceName: "Cloud Backend", slug: "apps", description: "Device cloud and management platform", applicationDetail: "Web dashboards for fleet management, firmware distribution systems, telemetry collection, and the APIs that mobile companion apps use to interact with devices." },
       { serviceName: "Hardware UX Design", slug: "ux-ui-design", description: "Physical and companion app interfaces", applicationDetail: "LED patterns, button interactions, companion app flows, and the setup/pairing experience that gets devices connected without a manual or support call." },
       { serviceName: "Embedded DevOps", slug: "devops", description: "CI/CD for firmware and OTA delivery", applicationDetail: "Hardware-in-the-loop testing, automated firmware builds, OTA delivery infrastructure, and the staged rollout system that validates updates before full fleet deployment." },
+    ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      { serviceName: "Full Product Development", slug: "websites", description: "End-to-end product build with all decisions owned", applicationDetail: "We handle architecture, framework selection, database design, and infrastructure. You handle business decisions. Weekly updates explain what was built and why." },
+      { serviceName: "Product Strategy", slug: "apps", description: "Feature prioritization and scope management", applicationDetail: "We cut scope to what validates your hypothesis fastest, explain every tradeoff in business terms, and push back when features do not serve your users." },
+      { serviceName: "UX & UI Design", slug: "ux-ui-design", description: "User-tested interface design", applicationDetail: "We design and test with real users before building. You see clickable prototypes before any code is written. No guessing what works." },
+      { serviceName: "Infrastructure & Launch", slug: "devops", description: "Deployment, hosting, and monitoring", applicationDetail: "We set up hosting, deployment pipelines, and monitoring so your product runs reliably. You never need to touch a server or understand cloud configuration." },
+    ],
+    "first-time-founder": [
+      { serviceName: "MVP Development", slug: "websites", description: "Lean first product with maximum learning", applicationDetail: "The minimum set of features that tests your core hypothesis. Built to production quality so what you ship to users becomes what you scale." },
+      { serviceName: "Technical Advisory", slug: "apps", description: "Guidance on decisions you have not faced before", applicationDetail: "Stack selection, architecture decisions, hiring advice, and the pattern recognition from 50+ builds applied to your specific situation." },
+      { serviceName: "Product Design", slug: "ux-ui-design", description: "User-centered design for first products", applicationDetail: "We test assumptions with prototypes before building features. User interviews, usability testing, and the data that tells you what to build next." },
+      { serviceName: "Launch Infrastructure", slug: "devops", description: "Production-ready deployment from day one", applicationDetail: "CI/CD, monitoring, error tracking, and the infrastructure that lets you ship updates daily without fear. Deployments are boring from the start." },
+    ],
+    "solo-founder": [
+      { serviceName: "Autonomous Development", slug: "websites", description: "Full engineering department as a service", applicationDetail: "Frontend, backend, database, and infrastructure handled independently. You approve direction weekly. No daily management required." },
+      { serviceName: "Technical Leadership", slug: "apps", description: "Architecture and strategy decisions", applicationDetail: "We make the decisions a CTO would make: technology selection, architecture design, build-vs-buy choices, and the technical roadmap that aligns with your business goals." },
+      { serviceName: "Product Design", slug: "ux-ui-design", description: "Design without requiring your daily input", applicationDetail: "We research your users, design interfaces, test prototypes, and present recommendations. You give direction, not pixel-level feedback." },
+      { serviceName: "Full Operations", slug: "devops", description: "Infrastructure, monitoring, and maintenance", applicationDetail: "Hosting, deployments, security patches, uptime monitoring, and incident response. Your product runs reliably without you thinking about servers." },
+    ],
+    "repeat-founder": [
+      { serviceName: "Senior Engineering", slug: "websites", description: "Code quality matching your standards", applicationDetail: "Clean architecture, proper testing, meaningful code review. Engineers who write code you would be proud to show during technical due diligence." },
+      { serviceName: "Rapid Execution", slug: "apps", description: "Speed without sacrificing quality", applicationDetail: "Daily commits, weekly milestones, fast iteration cycles. The velocity that comes from senior engineers who know what they are doing and do not need guidance." },
+      { serviceName: "Architecture Review", slug: "ux-ui-design", description: "Validation of technical direction", applicationDetail: "Second opinions on architectural decisions, stack selection, and scaling strategy from engineers who have seen 50+ projects through to production." },
+      { serviceName: "Production Excellence", slug: "devops", description: "Infrastructure done right from the start", applicationDetail: "CI/CD, monitoring, alerting, and the deployment confidence that lets you ship on any day without fear. The ops quality you expect." },
+    ],
+    "student-startup": [
+      { serviceName: "Demo Day MVP", slug: "websites", description: "Working product scoped to your deadline", applicationDetail: "A real product (not a prototype) that demonstrates your concept, handles real users, and impresses judges and investors. Delivered before your deadline." },
+      { serviceName: "Technical Education", slug: "apps", description: "Learning alongside delivery", applicationDetail: "Every decision explained. Every architecture choice documented. You finish the engagement understanding your product well enough to discuss it with investors." },
+      { serviceName: "Pitch-Ready Design", slug: "ux-ui-design", description: "Polished UI that demonstrates vision", applicationDetail: "Clean, professional interface design that makes your product look like it has a full team behind it. First impressions matter at demo day." },
+      { serviceName: "Budget-Optimized Infrastructure", slug: "devops", description: "Free-tier hosting that actually works", applicationDetail: "Vercel, Railway, or AWS free tier configured properly. Production-quality hosting that costs $0-20/month until you have revenue or funding." },
+    ],
+    "corporate-innovator": [
+      { serviceName: "Enterprise-Grade Development", slug: "websites", description: "Startup product meeting corporate standards", applicationDetail: "Agile delivery with the documentation, security controls, and audit trail that enterprise governance requires. Speed without compliance shortcuts." },
+      { serviceName: "Legacy Integration", slug: "apps", description: "Connecting new products to existing systems", applicationDetail: "SAP, Salesforce, Oracle, and custom internal API integrations. We work with your existing technology landscape, not against it." },
+      { serviceName: "Enterprise UX Design", slug: "ux-ui-design", description: "Innovation within corporate design systems", applicationDetail: "Fresh product design that aligns with corporate brand guidelines, accessibility standards, and the internal design system your company maintains." },
+      { serviceName: "Compliant Infrastructure", slug: "devops", description: "Hosting that passes security review", applicationDetail: "Infrastructure architecture designed to pass your InfoSec team's review: encryption, access controls, network segmentation, and the documentation they require." },
+    ],
+    "female-led": [
+      { serviceName: "Full Product Development", slug: "websites", description: "Engineering partnership on equal terms", applicationDetail: "Complete product development with transparent pricing, senior engineers, and communication that respects your expertise and time." },
+      { serviceName: "Technical Strategy", slug: "apps", description: "Honest technical guidance", applicationDetail: "Architecture decisions, stack recommendations, and scaling strategy delivered as peer-to-peer discussion, not explained-down lectures." },
+      { serviceName: "Collaborative Design", slug: "ux-ui-design", description: "Design process that values your input", applicationDetail: "Your product vision and user knowledge inform every design decision. We bring UX expertise. You bring domain expertise. Both are equally weighted." },
+      { serviceName: "Reliable Operations", slug: "devops", description: "Infrastructure with full transparency", applicationDetail: "Hosting, deployment, and monitoring with clear documentation. No black boxes, no vendor lock-in, no dependency on us for ongoing access." },
+    ],
+    "african-startup": [
+      { serviceName: "African Market Development", slug: "websites", description: "Products built for real African infrastructure", applicationDetail: "Web and mobile applications optimized for low bandwidth, intermittent connectivity, and the device landscape your actual users have." },
+      { serviceName: "Mobile Money Integration", slug: "apps", description: "M-Pesa, Paystack, Flutterwave connectors", applicationDetail: "Payment integrations for the rails your users actually use: mobile money, bank transfer, USSD payment, and the reconciliation each requires." },
+      { serviceName: "Low-Bandwidth UX Design", slug: "ux-ui-design", description: "Design for constrained environments", applicationDetail: "Interfaces that load on 2G, work on $50 devices, and communicate effectively with users who have limited digital literacy." },
+      { serviceName: "Cost-Effective Infrastructure", slug: "devops", description: "Hosting optimized for African market economics", applicationDetail: "Infrastructure that serves users affordably: edge caching near African users, compressed assets, and hosting costs aligned to your market's revenue potential." },
+    ],
+    "diaspora-founder": [
+      { serviceName: "Multi-Market Platform", slug: "websites", description: "One product serving multiple countries", applicationDetail: "Architecture that handles multi-currency, multi-language, and multi-regulation requirements without maintaining separate codebases for each market." },
+      { serviceName: "Cross-Border Payments", slug: "apps", description: "Remittance and multi-currency flows", applicationDetail: "Payment infrastructure that moves money across borders: currency conversion, settlement, regulatory reporting, and the UX that makes international transactions feel local." },
+      { serviceName: "Cross-Cultural UX Design", slug: "ux-ui-design", description: "Interfaces for multiple markets", applicationDetail: "Design that adapts to cultural context: language, layout direction, color meaning, communication style, and the user expectations that differ between your target markets." },
+      { serviceName: "Multi-Region Infrastructure", slug: "devops", description: "Hosting that serves both markets fast", applicationDetail: "CDN configuration, data residency compliance, and the multi-region deployment that gives users in both markets fast, compliant experiences." },
+    ],
+    "social-enterprise": [
+      { serviceName: "Impact-Focused Development", slug: "websites", description: "Technology that maximizes social outcome", applicationDetail: "Features prioritized by impact per development dollar. Nothing built because it is technically interesting. Everything built because it moves your mission forward." },
+      { serviceName: "Accessible Design & Dev", slug: "apps", description: "WCAG AA compliant applications", applicationDetail: "Screen reader compatible, keyboard navigable, proper contrast ratios, and alt text on every element. Tested with assistive technology, not just visual inspection." },
+      { serviceName: "Inclusive UX Design", slug: "ux-ui-design", description: "Design for all users regardless of ability", applicationDetail: "User research that includes people with disabilities, older adults, and users with limited digital literacy. Design validated with the actual people you serve." },
+      { serviceName: "Grant-Budget Infrastructure", slug: "devops", description: "Hosting that fits nonprofit budgets", applicationDetail: "AWS Activate credits, Google for Nonprofits, or Vercel's open-source tier. Production-quality hosting at costs that fit grant budgets and donor expectations." },
     ],
   };
 
@@ -1399,6 +1704,247 @@ function generateDeepDive(id: string, title: string): StartupDeepDiveSection[] {
         imageAlt: "Embedded system cloud connectivity and testing",
       },
     ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      {
+        title: "How We Work When You Do Not Code",
+        content: [
+          "You do not need to understand technology to build a technology company. You need a partner who understands technology and explains decisions in terms that matter to you: cost, timeline, and risk.",
+          "Every week, you receive a plain-English update: what was built, what it means for the product, what decisions are coming next, and what your options are. Technical jargon is translated into business impact.",
+          "You have direct Slack access to the engineer building your product. No account manager buffer. When you have a question, the person who knows the answer responds. Usually within hours.",
+          "At the end of the engagement, you own a product you can explain to investors, a codebase your future CTO can maintain, and enough technical literacy to evaluate candidates when you hire.",
+        ],
+        imagePath: `/images/startups/deep-non-technical-founder-1.jpg`,
+        imageAlt: "CiroStack working with non-technical founders",
+      },
+      {
+        title: "Protecting You from Decisions You Cannot Evaluate",
+        content: [
+          "The most expensive mistake non-technical founders make is choosing a technology because someone recommended it without understanding the tradeoffs. We make these decisions and own the consequences.",
+          "We choose boring, proven technology: React, Node.js, PostgreSQL, AWS. Not because it is exciting, but because it is well-documented, widely understood, and easy for your future team to maintain.",
+          "Fixed-price contracts protect you from the incentive problem: hourly billing means the longer the project takes, the more the agency makes. Our incentive is to finish on time because overruns cost us, not you.",
+          "Before you hire your first engineer or CTO, we help you write the job description, evaluate candidates, and onboard them into a codebase with documentation, architecture guides, and clean code they can understand in a week.",
+        ],
+        imagePath: `/images/startups/deep-non-technical-founder-2.jpg`,
+        imageAlt: "Technology decisions made and explained for non-technical founders",
+      },
+    ],
+    "first-time-founder": [
+      {
+        title: "The Expensive Mistakes We Prevent",
+        content: [
+          "First-time founders build too much. The average first MVP we scope has 15-20 features proposed. We ship with 3-5. The ones that actually test the hypothesis. Everything else is a waste of money until users validate the core.",
+          "Tech stack selection matters more than most founders realize. The wrong choice at month 1 costs $50-200K to fix at month 18. We choose based on your specific constraints, not what is trending on Hacker News.",
+          "Building for yourself instead of your users is the second most expensive mistake. We insist on user testing before features are built. A $2,000 prototype test saves $30,000 in building the wrong thing.",
+          "Perfectionism before launch destroys startups. Your product will never feel ready. We push you to ship when the learning threshold is met, not when every pixel is polished.",
+        ],
+        imagePath: `/images/startups/deep-first-time-founder-1.jpg`,
+        imageAlt: "CiroStack guiding first-time founders",
+      },
+      {
+        title: "From First Product to Fundable Company",
+        content: [
+          "Your MVP exists to learn, not to impress. We build the minimum that produces maximum signal: do users want this? Will they pay? Where do they get stuck? Data answers these questions. Features do not.",
+          "We instrument everything from day one. User behavior tracking, funnel analytics, and the dashboards that show you what is working and what is not. Decisions driven by data, not founder intuition.",
+          "When you are ready to raise, your product needs to survive technical due diligence. VCs hire CTOs to review codebases. Ours pass because they are built correctly from the start, not cleaned up before the pitch.",
+          "The transition from external team to internal team is planned from month one. Documentation, architecture guides, and code quality that lets your first hire be productive in their first week, not their first quarter.",
+        ],
+        imagePath: `/images/startups/deep-first-time-founder-2.jpg`,
+        imageAlt: "First-time founder path from MVP to fundable company",
+      },
+    ],
+    "solo-founder": [
+      {
+        title: "Your Engineering Department, Without the Overhead",
+        content: [
+          "You cannot be CEO, sales, marketing, product, customer support, and engineering manager simultaneously. Something breaks. Usually engineering velocity, because code does not complain when you ignore it.",
+          "We operate autonomously. Architecture decisions, technical planning, daily execution, and infrastructure management happen without your involvement. You set direction weekly. We execute daily.",
+          "Communication is async-first: Loom video updates, Slack messages, documented decisions in Notion. No mandatory standups that fragment your calendar. Your attention stays on customers and growth.",
+          "A solo founder's most precious resource is attention. Every hour you spend in engineering meetings is an hour not spent closing customers, building partnerships, or raising funding. We protect that resource.",
+        ],
+        imagePath: `/images/startups/deep-solo-founder-1.jpg`,
+        imageAlt: "CiroStack operating as engineering department for solo founders",
+      },
+      {
+        title: "Building Toward Your First Hire",
+        content: [
+          "At some point, you will want to hire full-time engineers. That transition should be smooth, not traumatic. We plan for it from day one.",
+          "The codebase we deliver is documented, well-structured, and follows conventions that any mid-level engineer can understand. No black-box architecture that only we can maintain.",
+          "When you are ready to hire, we help: writing the job description that attracts the right level, evaluating technical candidates, and onboarding your first engineer into a codebase they can own.",
+          "The handoff period is gradual. Your new engineer works alongside us for 2-4 weeks. They learn the system with access to the people who built it. Then we step back. No cliff edge.",
+        ],
+        imagePath: `/images/startups/deep-solo-founder-2.jpg`,
+        imageAlt: "Solo founder transitioning from external team to first hire",
+      },
+    ],
+    "repeat-founder": [
+      {
+        title: "We Match the Standard You Already Know",
+        content: [
+          "You have worked with agencies before. You know what bad looks like: juniors pretending to be seniors, account managers who cannot answer technical questions, code that works in the demo but falls apart at scale.",
+          "Our team is senior-only. The engineers you interview in week one are the engineers building in week eight. No rotation, no handoff to cheaper resources after the proposal is signed.",
+          "You get direct access to the engineer writing your code. No account manager filter. When you have a question about architecture, the person who designed it responds. In real-time, not next-sprint.",
+          "We push back. When your scope is too large, when a feature is premature, when an assumption needs validation first. You are paying for experienced judgment, not agreeable execution.",
+        ],
+        imagePath: `/images/startups/deep-repeat-founder-1.jpg`,
+        imageAlt: "CiroStack engineering quality for repeat founders",
+      },
+      {
+        title: "Velocity That Matches Your Pace",
+        content: [
+          "Repeat founders move fast because they have conviction. They have seen the market, validated the opportunity, and committed. They need a team that matches that pace without sacrificing quality.",
+          "Daily commits. Weekly milestones. Working software every two weeks. No multi-week dark periods where you wonder what is happening. Progress is visible and continuous.",
+          "Architecture designed for your next 18 months, not your next 18 years. We know the difference between necessary infrastructure and premature optimization. Nothing built until it is needed.",
+          "When you are ready to hire, the codebase is clean enough to attract senior engineers who want to work in it. Bad code repels good candidates. We build the codebase that makes hiring easier.",
+        ],
+        imagePath: `/images/startups/deep-repeat-founder-2.jpg`,
+        imageAlt: "Fast execution and shipping velocity for experienced founders",
+      },
+    ],
+    "student-startup": [
+      {
+        title: "Demo Day in 10 Weeks: Here Is How We Get There",
+        content: [
+          "Your deadline is fixed. Demo day does not move. Budget is constrained. The scope must fit both. We work backward from your deadline and forward from your budget to define what gets built.",
+          "We prioritize the features that make the demo compelling: the core user flow, the differentiating interaction, and enough polish that judges see a product, not a prototype.",
+          "Student founders worry about looking amateur. Our design work produces interfaces that look like they have a full team behind them. First impressions matter when you have 5 minutes to impress.",
+          "We deliver working software, not static mockups. Real user accounts, real data flow, real functionality. Judges and investors can click through it. That credibility is worth more than slides.",
+        ],
+        imagePath: `/images/startups/deep-student-startup-1.jpg`,
+        imageAlt: "CiroStack delivering demo-day-ready products for student founders",
+      },
+      {
+        title: "Understanding What You Built (And What Comes Next)",
+        content: [
+          "We explain every technical decision in terms you can relay to investors: why this database, why this framework, why this architecture. You leave the engagement technically literate about your own product.",
+          "The code we produce is readable and documented. When you join an accelerator and they introduce you to a technical mentor, that mentor can understand the system in an afternoon.",
+          "Post-demo-day, your product needs to serve real users. We build to production quality from the start so the demo is also the launch. No 'rebuild properly later' debt.",
+          "Budget-appropriate infrastructure: Vercel or Railway free tiers, managed databases, and the configuration that costs $0-20/month until you have revenue or funding to justify more.",
+        ],
+        imagePath: `/images/startups/deep-student-startup-2.jpg`,
+        imageAlt: "Student startup technical education and post-demo growth",
+      },
+    ],
+    "corporate-innovator": [
+      {
+        title: "Startup Speed Within Enterprise Constraints",
+        content: [
+          "Corporate innovation fails when it tries to operate like a startup inside a corporation without addressing corporate realities: security reviews, procurement processes, legacy integration requirements, and stakeholder governance.",
+          "We produce the documentation your InfoSec team requires before they ask for it: architecture diagrams, data flow maps, encryption specifications, access control matrices, and incident response plans.",
+          "Procurement needs fixed-price SOWs with clear deliverables, timelines, and acceptance criteria. We write these in the format your legal team expects, with the insurance and liability coverage they require.",
+          "Legacy integration is not a phase, it is a constraint. Your new product must connect to SAP, Salesforce, or the custom internal API built 15 years ago. We design for this integration from the architecture phase.",
+        ],
+        imagePath: `/images/startups/deep-corporate-innovator-1.jpg`,
+        imageAlt: "CiroStack delivering innovation within enterprise governance",
+      },
+      {
+        title: "Managing Stakeholders Without Slowing Delivery",
+        content: [
+          "Corporate projects have 5-10 stakeholders with different priorities. Marketing wants brand alignment. Legal wants risk mitigation. IT wants security. Sales wants features. We manage these inputs without letting them paralyze delivery.",
+          "Steering committee updates are produced automatically from our sprint process: progress reports, risk registers, budget tracking, and the decision log that enterprise governance requires.",
+          "Change management is built into the delivery process. When requirements shift after a stakeholder meeting (and they will), we provide change orders with clear impact analysis: what it costs, what it delays, what it enables.",
+          "The goal is a product that passes all corporate gates (security, legal, brand, compliance) while still being good enough to compete with startups. We have done this before. We know which gates are negotiable and which are not.",
+        ],
+        imagePath: `/images/startups/deep-corporate-innovator-2.jpg`,
+        imageAlt: "Corporate innovation stakeholder management and governance",
+      },
+    ],
+    "female-led": [
+      {
+        title: "Equal Partnership, Not an Exception",
+        content: [
+          "Our pricing is published and consistent. The quote you receive is the same quote any founder receives for equivalent scope. We do not negotiate differently based on who is across the table.",
+          "Our engineers are selected for technical excellence and communication quality. Treating founders as peers is not a policy we enforce; it is a hiring filter we apply. Engineers who talk down to clients do not work here.",
+          "Your technical input is evaluated on its merit. If you have opinions about architecture, user experience, or technical direction, they are discussed as valid contributions, not dismissed as non-technical interference.",
+          "We measure engagement quality monthly. If something in our communication or delivery is not meeting the standard we set, we want to know. Feedback is acted on immediately, not filed and forgotten.",
+        ],
+        imagePath: `/images/startups/deep-female-led-1.jpg`,
+        imageAlt: "CiroStack equal partnership with female-led startups",
+      },
+      {
+        title: "Building Without the Overhead of Proving Yourself",
+        content: [
+          "Female founders report spending 20-30% of engineering interactions proving credibility that male founders are given automatically. That overhead is eliminated here. Your expertise is assumed.",
+          "Senior engineers are assigned to your project based on project complexity, not assumptions about the founder. Every project gets the team caliber that its technical requirements demand.",
+          "Direct communication means decisions happen faster. No extra approval cycles, no second-guessing, no requiring additional justification for the same decisions male founders make unchallenged.",
+          "The goal is a normal, productive, professional engineering engagement where your gender is irrelevant to how you are treated, what you are charged, or what caliber of work you receive.",
+        ],
+        imagePath: `/images/startups/deep-female-led-2.jpg`,
+        imageAlt: "Professional engineering partnership on equal terms",
+      },
+    ],
+    "african-startup": [
+      {
+        title: "Engineering for How African Markets Actually Work",
+        content: [
+          "Standard web architecture assumes broadband, modern devices, and Stripe. African markets have 2G connections, $50 Android phones, and M-Pesa. We build for the real conditions, not Silicon Valley assumptions.",
+          "M-Pesa integration requires understanding STK push flows, callback handling, and the reconciliation patterns that differ from card payment APIs. Paystack and Flutterwave have their own integration patterns. We have built with all of them.",
+          "USSD is not legacy technology in Africa. It is the primary digital interface for millions of users who do not have smartphones or data plans. We build USSD menu systems that deliver real utility in 5 navigation steps.",
+          "Data costs money in African markets. Users on $2/month data budgets will not download a 20MB app or load a 5MB webpage. We optimize for these constraints: compressed assets, lazy loading, and offline-first architecture.",
+        ],
+        imagePath: `/images/startups/deep-african-startup-1.jpg`,
+        imageAlt: "CiroStack building for African market infrastructure realities",
+      },
+      {
+        title: "Pan-African Expansion Without Pan-African Rewrites",
+        content: [
+          "Each African country has different telecom APIs (Safaricom in Kenya, MTN in Nigeria, Vodacom in Tanzania), different payment providers, and different regulatory requirements. A product that works in Kenya does not automatically work in Nigeria.",
+          "We architect for multi-country expansion from day one: payment provider abstraction, telecom integration layers, and configuration-based locale handling. Adding a new country means adding configuration, not rewriting code.",
+          "Data localization requirements vary: some countries require user data stored in-country, others allow regional hosting. Our infrastructure supports both without duplicating the entire application stack.",
+          "Multi-language support goes beyond translation. Right-to-left layouts for Arabic-speaking markets, locale-aware date and number formatting, and the cultural UX differences between East African and West African user expectations.",
+        ],
+        imagePath: `/images/startups/deep-african-startup-2.jpg`,
+        imageAlt: "Pan-African multi-country architecture and expansion",
+      },
+    ],
+    "diaspora-founder": [
+      {
+        title: "One Product, Two Markets, Zero Compromise",
+        content: [
+          "Diaspora founders understand both markets. Their products serve users in their home country and their current country simultaneously. This requires architecture that handles dual-market complexity without feeling complex to users.",
+          "Multi-currency is not just exchange rate conversion. Pricing psychology differs ($9.99 does not work in markets with different digit patterns). We implement localized pricing that respects each market's purchasing behavior.",
+          "Cross-border payment flows involve two sets of rails, two sets of fees, and two sets of regulatory requirements. We build payment architecture that handles remittance, marketplace payments, and subscriptions across jurisdictions.",
+          "User experience must adapt culturally. Name fields (family name first vs. last), address formats, communication preferences (WhatsApp vs. email), and trust signals all differ between markets.",
+        ],
+        imagePath: `/images/startups/deep-diaspora-founder-1.jpg`,
+        imageAlt: "CiroStack building multi-market products for diaspora founders",
+      },
+      {
+        title: "Compliance in Two Jurisdictions Simultaneously",
+        content: [
+          "Your product must comply with regulations in both markets simultaneously. GDPR in Europe and local data protection in Africa. State licensing in the US and central bank requirements in your home market.",
+          "Data residency requirements may conflict: one jurisdiction demands data stored locally, the other demands access to that same data for compliance reporting. We architect solutions that satisfy both without duplicating infrastructure.",
+          "Financial regulations for cross-border products are complex. We build the transaction monitoring, reporting, and record-keeping that both jurisdictions require without making the user experience feel bureaucratic.",
+          "KYC requirements differ between markets. We implement identity verification flows that satisfy both jurisdictions' requirements while maintaining a single user account that works across borders.",
+        ],
+        imagePath: `/images/startups/deep-diaspora-founder-2.jpg`,
+        imageAlt: "Dual-jurisdiction compliance for cross-border products",
+      },
+    ],
+    "social-enterprise": [
+      {
+        title: "Maximum Impact Per Technology Dollar",
+        content: [
+          "Social enterprises have a responsibility to funders, beneficiaries, and boards to spend technology budgets on outcomes, not overhead. Every feature we build must justify its cost in measurable social impact.",
+          "We prioritize features by impact-per-dollar: which capabilities reach the most beneficiaries, improve the most outcomes, or save the most operational cost? Technology that does not move the mission forward does not get built.",
+          "WCAG AA accessibility is non-negotiable from the first wireframe. Your beneficiaries include people with disabilities, older adults, and users on assistive technology. Accessibility is a design constraint, not a final polish step.",
+          "Grant-compatible delivery means milestones aligned with funder reporting periods, documentation that satisfies audit requirements, and budget breakdowns that match the line items in your grant agreement.",
+        ],
+        imagePath: `/images/startups/deep-social-enterprise-1.jpg`,
+        imageAlt: "CiroStack building impact-first technology for social enterprises",
+      },
+      {
+        title: "Technology That Includes, Not Excludes",
+        content: [
+          "Your users may have limited connectivity, older devices, low digital literacy, or disabilities. Technology choices must respect these constraints or they exclude the very people you exist to serve.",
+          "We build for the lowest common denominator of your user base: if 30% of your beneficiaries are on feature phones, the core experience must work on feature phones. Progressive enhancement adds richness for those with capable devices.",
+          "Impact measurement infrastructure is built into the product from day one. Outcome tracking, beneficiary counts, and the metrics your funders care about are captured automatically, not manually compiled for reports.",
+          "Infrastructure costs are optimized for nonprofit economics: AWS Activate credits, Google for Nonprofits discounts, and architecture that minimizes ongoing hosting costs while maintaining reliability for your beneficiaries.",
+        ],
+        imagePath: `/images/startups/deep-social-enterprise-2.jpg`,
+        imageAlt: "Inclusive technology design for social enterprise beneficiaries",
+      },
+    ],
   };
 
   if (verticalDeepDive[id]) return verticalDeepDive[id];
@@ -1592,6 +2138,87 @@ function generateDetails(id: string, category: string): string[] {
       "Communication protocol selected based on power budget and connectivity",
       "Field failure recovery mechanisms (watchdog, safe mode) tested",
     ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      "Weekly plain-English progress updates with business impact explained",
+      "Direct Slack access to the engineer building your product",
+      "Fixed-price contract with scope defined before work begins",
+      "All technical decisions made and explained, not delegated to you",
+      "Investor-ready code quality from day one",
+      "Future hiring support: job descriptions, candidate evaluation, onboarding",
+    ],
+    "first-time-founder": [
+      "Scope reduction workshop in week one (target: 60-70% feature cut)",
+      "Pattern-recognition advisory from 50+ prior product builds",
+      "User testing before features are built (prototype validation)",
+      "Analytics instrumentation from first deployable build",
+      "Honest pushback on scope, timeline, and assumption risks",
+      "Technical due diligence readiness from architecture choices forward",
+    ],
+    "solo-founder": [
+      "Fully autonomous operation with weekly direction approval only",
+      "Async-first communication (Loom, Slack, Notion documentation)",
+      "Complete engineering coverage: frontend, backend, DevOps, QA",
+      "No daily meetings or management overhead required",
+      "Architecture decisions made independently with rationale documented",
+      "Hiring bridge: job descriptions, interviews, onboarding when ready",
+    ],
+    "repeat-founder": [
+      "Senior engineers only, verified before project starts",
+      "Direct engineer communication with no account manager layer",
+      "Daily commits with continuous visibility into progress",
+      "Code quality that passes your personal review standards",
+      "Honest pushback on scope and assumptions as standard practice",
+      "Architecture designed for 18-month growth, not 18-year speculation",
+    ],
+    "student-startup": [
+      "Scope defined by working backward from demo day deadline",
+      "Fixed price within accelerator/student budget ($5K-$15K typical)",
+      "Every technical decision explained for your learning",
+      "Working product (not mockup) delivered before deadline",
+      "Budget-optimized hosting ($0-20/month until revenue)",
+      "Post-demo-day code ready for production users without rebuild",
+    ],
+    "corporate-innovator": [
+      "Fixed-price SOW formatted for enterprise procurement",
+      "Security documentation produced before InfoSec review",
+      "Legacy system integration assessed and planned in week one",
+      "Steering committee materials produced from sprint process",
+      "Change management process for scope evolution",
+      "Enterprise compliance (insurance, NDA, data handling) handled upfront",
+    ],
+    "female-led": [
+      "Published rate card applied identically to all clients",
+      "Senior engineers assigned based on project complexity only",
+      "Direct communication without intermediary interpretation",
+      "Monthly engagement quality survey with action on feedback",
+      "Transparent scope and pricing with no assumption-based markup",
+      "Escalation path available if communication standards slip",
+    ],
+    "african-startup": [
+      "Mobile money integration expertise (M-Pesa, Paystack, Flutterwave)",
+      "Offline-first architecture designed before development begins",
+      "USSD/SMS interface testing on actual feature phone hardware",
+      "Low-bandwidth optimization (2G-compatible page weights)",
+      "Multi-country expansion architecture from day one",
+      "Local hosting options assessed for data localization compliance",
+    ],
+    "diaspora-founder": [
+      "Multi-currency pricing architecture designed in week one",
+      "Cross-border payment flow mapping before development",
+      "Dual-jurisdiction compliance requirements documented upfront",
+      "Multi-language and cultural UX adaptation planned",
+      "Data residency strategy for both target markets",
+      "KYC and identity verification for both jurisdictions",
+    ],
+    "social-enterprise": [
+      "Feature prioritization by impact-per-dollar metric",
+      "WCAG AA accessibility requirements from first wireframe",
+      "Grant-compatible milestone reporting structure",
+      "User research including beneficiaries with disabilities",
+      "Budget-optimized infrastructure (nonprofit credits applied)",
+      "Impact measurement built into product from day one",
+    ],
   };
 
   if (verticalDetails[id]) return verticalDetails[id];
@@ -1769,6 +2396,87 @@ function generateDeliverables(id: string, category: string): string[] {
       "Hardware-in-the-loop CI pipeline for automated testing",
       "Power consumption report with optimization recommendations",
     ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      "Production application deployed and accessible to users",
+      "Complete source code with plain-English architecture documentation",
+      "Hosting and infrastructure configured (no server management required)",
+      "User analytics dashboard showing key business metrics",
+      "Handoff documentation for your future technical hire",
+      "Job description template for your first engineering hire",
+    ],
+    "first-time-founder": [
+      "Lean MVP deployed with only hypothesis-validating features",
+      "Complete source code with architecture decision log",
+      "Analytics and user behavior tracking from launch",
+      "Technical due diligence documentation (architecture, security, testing)",
+      "Product roadmap based on validated user feedback",
+      "Fundraise-ready technical documentation package",
+    ],
+    "solo-founder": [
+      "Production application with all engineering decisions documented",
+      "Complete source code with onboarding guide for future engineers",
+      "CI/CD pipeline running autonomously (deploy on merge)",
+      "Monitoring and alerting configured (issues detected without your attention)",
+      "Architecture documentation for future team handoff",
+      "First-hire onboarding plan with structured knowledge transfer",
+    ],
+    "repeat-founder": [
+      "Production application with code quality matching your standards",
+      "Complete source code reviewable by you personally",
+      "Architecture designed for 18 months of growth without rewrite",
+      "CI/CD, monitoring, and deployment confidence from day one",
+      "Lean documentation (code is self-documenting, decisions are logged)",
+      "Codebase that attracts senior engineering candidates",
+    ],
+    "student-startup": [
+      "Working product delivered before demo day deadline",
+      "Complete source code with explanatory documentation",
+      "Hosting configured at $0-20/month (free tier optimized)",
+      "Demo-ready interface with professional design quality",
+      "Technical explanation guide for investor conversations",
+      "Production-ready architecture (no rebuild needed post-demo)",
+    ],
+    "corporate-innovator": [
+      "Production application passing enterprise security review",
+      "Complete source code with enterprise-grade documentation",
+      "Legacy system integrations deployed and tested",
+      "Security documentation package (architecture, data flows, controls)",
+      "Procurement-ready deliverable acceptance documentation",
+      "Stakeholder-facing progress reports and decision logs",
+    ],
+    "female-led": [
+      "Production application delivered at published pricing",
+      "Complete source code with full documentation and IP ownership",
+      "Engineering engagement quality report (communication, delivery, respect)",
+      "Transparent timeline and budget tracking throughout engagement",
+      "Standard deliverables without gender-based scope assumptions",
+      "Full technical handoff documentation for independence",
+    ],
+    "african-startup": [
+      "Application optimized for low-bandwidth African markets",
+      "Complete source code with offline-first architecture documentation",
+      "Mobile money integration tested with live sandbox environments",
+      "USSD/SMS interface deployed and tested on feature phones",
+      "Multi-country expansion documentation (add-a-country playbook)",
+      "Infrastructure cost analysis at projected African-market scale",
+    ],
+    "diaspora-founder": [
+      "Multi-market application serving both target jurisdictions",
+      "Complete source code with multi-market architecture documentation",
+      "Cross-border payment flows tested with live sandbox environments",
+      "Multi-language interface with cultural UX adaptations",
+      "Dual-jurisdiction compliance documentation",
+      "Market expansion playbook for additional countries",
+    ],
+    "social-enterprise": [
+      "WCAG AA accessible application tested with assistive technology",
+      "Complete source code with accessibility documentation",
+      "Impact measurement dashboard with funder-relevant metrics",
+      "Grant-compatible milestone delivery documentation",
+      "Infrastructure on nonprofit-discounted hosting",
+      "Inclusive design documentation proving beneficiary access",
+    ],
   };
 
   if (verticalDeliverables[id]) return verticalDeliverables[id];
@@ -1938,6 +2646,77 @@ function generateFaqs(id: string, title: string, category: string): StartupFAQ[]
       { question: "Can you work with our hardware team?", answer: "Yes. We collaborate on pin assignments, peripheral selection, power budget allocation, and PCB layout review for signal integrity. Clear HAL interfaces mean hardware revisions do not require firmware rewrites." },
       { question: "How long does firmware development take?", answer: "Basic connected device firmware (sensors, connectivity, OTA) takes 8-12 weeks. Complex firmware (multiple peripherals, real-time processing, safety-critical) takes 12-20 weeks. Timeline depends heavily on hardware readiness and stability." },
     ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      { question: "How do I know if you are building the right thing?", answer: "Weekly demos of working software. You see and click through what was built. Plain-English explanations of what each feature does and why it matters. If it does not match your vision, we adjust before the next sprint, not after the project ends." },
+      { question: "How do I evaluate your work without technical knowledge?", answer: "You evaluate outcomes: Does it work? Does it match the agreed scope? Is it on time? Is it on budget? We handle code quality, architecture, and technical decisions. You hold us accountable to business results." },
+      { question: "What if I need to hire my own engineer later?", answer: "We plan for this from day one. Clean code, full documentation, and architecture guides mean your first hire gets productive in their first week. We also help write job descriptions and evaluate candidates when you are ready." },
+      { question: "How is fixed pricing different from hourly?", answer: "Hourly billing means the slower the work goes, the more you pay. Fixed price means we agree on scope and cost before starting. If we underestimated complexity, that is our problem. Your bill does not change." },
+      { question: "How long does a typical project take?", answer: "Most MVPs take 6-10 weeks. We define scope in the first week and give you an exact timeline before work begins. The timeline does not change unless you add scope (which requires mutual agreement and a revised quote)." },
+    ],
+    "first-time-founder": [
+      { question: "How do you decide what to cut from my feature list?", answer: "We ask one question per feature: does this validate your core hypothesis? If the answer is no, it waits. The goal is to learn whether users want your product, not to build a complete product before learning anything." },
+      { question: "What if my idea changes during development?", answer: "It probably will, and that is fine. Two-week sprints mean you can change direction every 14 days with minimal waste. We build for learning, not for permanence. Pivoting mid-project is normal, not a failure." },
+      { question: "How do I know which tech stack is right?", answer: "You do not need to know. We assess your product requirements (real-time features, mobile needs, data complexity, team plans) and recommend the stack that fits. We explain why in business terms so you can discuss it with advisors." },
+      { question: "Will investors care about the code quality?", answer: "At Series A and beyond, yes. VCs hire CTOs to review codebases during due diligence. We build to that standard from day one so your code is an asset during fundraising, not a liability that reduces your valuation." },
+      { question: "How long should my MVP take?", answer: "4-8 weeks for most products. If the MVP scope takes longer than 8 weeks, the scope is too large. We will tell you what to cut. The goal is to get in front of users fast and learn, not to build a finished product." },
+    ],
+    "solo-founder": [
+      { question: "How much of my time does this require?", answer: "About 1 hour per week: a 30-minute direction check-in plus async Slack responses. We operate autonomously on architecture, daily decisions, and execution. You steer, we row." },
+      { question: "How do you make decisions without me?", answer: "We document decisions with rationale in Notion or your preferred tool. You can review anytime. For reversible decisions, we decide and inform. For irreversible ones (database choice, major architecture), we present options and wait for your input." },
+      { question: "What happens when I am ready to hire?", answer: "We help transition: write the job description, evaluate candidates, and overlap with your first hire for 2-4 weeks of knowledge transfer. They inherit a documented, clean codebase they can maintain independently." },
+      { question: "Can you handle everything? Frontend, backend, DevOps?", answer: "Yes. Our team covers full-stack development, infrastructure, testing, and deployment. One engagement replaces the 3-5 roles you would need if building an internal team. No gaps, no coordination overhead." },
+      { question: "How long until I have a shipped product?", answer: "6-10 weeks for most MVPs. We scope aggressively, build lean, and ship fast. You have a product in front of users within 2 months, generating the data that informs what to build next." },
+    ],
+    "repeat-founder": [
+      { question: "How senior are your engineers actually?", answer: "7+ years average experience shipping production software. The engineer you interview in week one builds your product in week eight. No rotation, no bait-and-switch. You can verify by reviewing their commit history on your project." },
+      { question: "How fast can you move?", answer: "Daily commits from day one. Working software every two weeks. We match the velocity of experienced founders who know what they want. No multi-week dark periods wondering what is happening." },
+      { question: "Will you push back on my decisions?", answer: "Yes. If your scope is too large, if a feature is premature, if an assumption needs testing first, we say so. You are paying for judgment, not compliance. We have seen 50+ projects. Some of those opinions will save you months." },
+      { question: "What is your communication style?", answer: "Direct. Engineer-to-founder. No account manager filtering information. You ask a question, the person who knows the answer responds. Usually the same day. We do not hide behind process when a direct conversation is faster." },
+      { question: "How long does a project typically take with you?", answer: "6-8 weeks for an MVP. 10-14 weeks for a more complete product. We scope precisely and deliver on time because senior engineers estimate accurately and do not need ramp-up time." },
+    ],
+    "student-startup": [
+      { question: "Can you work within a $5,000-$15,000 budget?", answer: "Yes. We scope to your budget. $5K gets a focused MVP with 2-3 core features. $10-15K gets a more complete product with polish. We tell you honestly what is achievable within your constraints." },
+      { question: "Can you guarantee delivery before demo day?", answer: "We have never missed a demo day deadline. We scope backward from your date, build in buffer for revisions, and deliver 1-2 weeks early so you have time to practice your demo with real software." },
+      { question: "Will I understand my own product technically?", answer: "Yes. Every architecture decision is explained. Every technology choice comes with a reason you can articulate. When investors ask technical questions, you answer from understanding, not memorized talking points." },
+      { question: "What happens after demo day?", answer: "The code is yours. It is production-quality, not a throwaway prototype. You can continue development yourself, with us, or with another team. The product serves real users without needing a rebuild." },
+      { question: "Do you work with student teams or just solo student founders?", answer: "Both. If you have a technical co-founder, we can augment their work. If you are non-technical, we handle everything. If you have a team of 3 non-technical co-founders, we still handle everything. Communication adjusts to your setup." },
+    ],
+    "corporate-innovator": [
+      { question: "Can you pass our security review?", answer: "Yes. We produce architecture diagrams, data flow maps, encryption specifications, access control matrices, and penetration test results proactively. Most InfoSec reviews pass within 2-4 weeks when documentation is prepared in advance." },
+      { question: "How do you handle our procurement process?", answer: "Fixed-price SOWs with clear deliverables, acceptance criteria, and timelines. Professional liability insurance, NDA compliance, and the vendor onboarding documentation your procurement team requires. We have done this before." },
+      { question: "Can you integrate with our legacy systems?", answer: "Yes. We have integrated with SAP, Salesforce, Oracle, ServiceNow, and custom internal APIs of varying age and documentation quality. We build adapter layers that isolate your new product from legacy complexity." },
+      { question: "How do you handle stakeholder changes?", answer: "Change requests are formalized with impact analysis: what it costs, what it delays, what it enables. Approved changes update the SOW. This gives stakeholders a feedback mechanism without derailing the project." },
+      { question: "How long does a corporate innovation project take?", answer: "8-14 weeks for the product itself, plus 2-6 weeks for procurement and security review processes that happen before development starts. We can run security documentation preparation in parallel with procurement." },
+    ],
+    "female-led": [
+      { question: "How do I know pricing is actually equal?", answer: "Our rate card is published. We will share it before scoping begins. Your project is priced by complexity and duration, not by assumption about the founder. If you want to compare with other clients' quotes for similar scope, we are transparent." },
+      { question: "What if I experience disrespect from an engineer?", answer: "Report it immediately. We have a direct escalation path (founder to our CEO, no intermediary). The issue is addressed within 24 hours. If the behavior repeats, the engineer is removed from your project. No tolerance policy." },
+      { question: "How do you ensure senior engineers are assigned fairly?", answer: "Project complexity determines team assignment. We document why each engineer is assigned to each project. If you want to verify, we share the team's experience and credentials. Same verification available to all clients." },
+      { question: "Do you measure engagement quality?", answer: "Monthly surveys sent to all clients. Communication quality, delivery satisfaction, and respect metrics tracked. Results reviewed by leadership. Below-threshold scores trigger immediate intervention." },
+      { question: "How long does a typical project take?", answer: "Same as any equivalent project: 6-10 weeks for an MVP, 10-16 weeks for complex products. Timeline is determined by scope complexity, not founder demographics. We scope and quote identically for all clients." },
+    ],
+    "african-startup": [
+      { question: "Which payment integrations do you support?", answer: "M-Pesa (Safaricom, Vodacom), Paystack, Flutterwave, Chipper Cash, and MTN Mobile Money. Each has different integration patterns, settlement timelines, and reconciliation requirements. We know the production edge cases." },
+      { question: "How do you handle offline-first for African markets?", answer: "Local SQLite storage, operation queuing, background sync on connectivity, and conflict resolution for concurrent offline edits. The app works fully without internet, which is the normal state in many use cases." },
+      { question: "Can you build USSD interfaces?", answer: "Yes. We design USSD menu trees that deliver utility in 5 navigation steps on any basic phone. SMS fallback for asynchronous communication. Tested on actual feature phone hardware, not just emulators." },
+      { question: "How do you handle multi-country expansion?", answer: "Architecture with abstraction layers for payment, telecom, and localization. Adding a new country means configuration changes, not code rewrites. Each country's regulatory and technical requirements handled in isolation." },
+      { question: "How long does an African-market product take to build?", answer: "Web platform: 8-12 weeks. Adding offline mobile app: +6-8 weeks. USSD interface: +4-6 weeks. Mobile money integration depends on provider sandbox access (typically 2-4 weeks per provider)." },
+    ],
+    "diaspora-founder": [
+      { question: "How do you handle multi-currency complexity?", answer: "Currency abstraction layer that handles: localized pricing per market, exchange rate management, settlement in different currencies, and the reporting that satisfies both jurisdictions' financial requirements." },
+      { question: "Can you build cross-border payment flows?", answer: "Yes. Remittance, marketplace payments, subscription billing across jurisdictions. We handle dual KYC, correspondent banking relationships (through APIs like Wise or CurrencyCloud), and the regulatory reporting both sides require." },
+      { question: "How do you handle dual-jurisdiction compliance?", answer: "We map requirements for both jurisdictions in the discovery phase. Architecture is designed to satisfy both simultaneously: data residency through multi-region hosting, dual privacy policies, and the audit trail both regulators expect." },
+      { question: "Can you build for right-to-left and left-to-right languages?", answer: "Yes. Our frontend architecture supports bidirectional layouts, locale-aware formatting (dates, numbers, currencies), and cultural UX adaptation. Adding a new language or locale is configuration, not redesign." },
+      { question: "How long does a multi-market product take?", answer: "Single-market MVP: 8-12 weeks. Adding second market (currency, payment, compliance): +4-6 weeks. Multi-language interface: +2-3 weeks. Full dual-market product with cross-border payments: 14-18 weeks total." },
+    ],
+    "social-enterprise": [
+      { question: "How do you handle our limited budget?", answer: "We scope to your budget. $10K gets a focused tool with 2-3 core features. $20-30K gets a more complete platform. We prioritize features by impact-per-dollar and cut everything that does not directly serve your mission." },
+      { question: "How do you ensure accessibility?", answer: "WCAG AA compliance from the first wireframe: proper heading hierarchy, screen reader labels, keyboard navigation, color contrast ratios, and alt text. Tested with real assistive technology (VoiceOver, NVDA), not just automated scanners." },
+      { question: "Can you produce grant-compatible deliverables?", answer: "Yes. Milestone reports, budget breakdowns, outcome metrics, and deliverable documentation formatted for your specific funder's requirements. We have worked with USAID, Gates Foundation, and private foundation reporting standards." },
+      { question: "How do you measure impact?", answer: "We build impact tracking into the product: beneficiary counts, outcome indicators, and the dashboard that shows progress against your theory of change. Data captured automatically, not manually compiled for reports." },
+      { question: "How long does a social enterprise project take?", answer: "6-10 weeks for most tools. Accessibility testing adds 1-2 weeks to ensure proper compliance. Grant-aligned milestones are scheduled to match your funder's reporting periods." },
+    ],
   };
 
   if (verticalFaqs[id]) return verticalFaqs[id];
@@ -1989,6 +2768,17 @@ function generateWhoWeHelped(id: string, category: string): string[] {
     "iot": ["Smart building platforms managing 5,000+ sensors across 50 properties", "Agricultural IoT monitoring 2,000+ field sensors with offline capability", "Industrial monitoring systems with sub-second alerting on anomalies", "Consumer hardware products with 50,000+ devices in the field"],
     "internal-tools": ["Operations platforms replacing 20+ spreadsheets and saving 40 hours/week", "Approval workflow systems processing 500+ requests daily", "Inventory management tools tracking 100,000+ SKUs in real-time", "Customer support tools reducing resolution time by 60%"],
     "embedded": ["Consumer electronics products shipped to 50,000+ customers", "Industrial monitoring devices deployed in harsh environments", "Medical devices passing regulatory testing on first submission", "Agricultural sensors operating 18+ months on a single battery"],
+    // BY FOUNDER TYPE
+    "non-technical-founder": ["First-time app founders who launched without writing a line of code", "Domain experts who turned industry knowledge into SaaS products", "Consultants who productized their services into scalable platforms", "Entrepreneurs who needed technology partners, not technology lessons"],
+    "first-time-founder": ["First-time founders who shipped MVPs in 6 weeks or less", "Founders who validated hypotheses before burning through runway", "Technical founders who needed experienced architecture guidance", "Business founders who needed honest technical partners"],
+    "solo-founder": ["Solo SaaS founders who scaled to $1M ARR without hiring engineers", "Single founders who went from idea to funded with shipped product as proof", "Solopreneurs who needed full engineering teams without management overhead", "Founders who transitioned from external team to first hire smoothly"],
+    "repeat-founder": ["Serial entrepreneurs on their 2nd or 3rd venture moving at speed", "Experienced founders who rejected three agencies before choosing us", "Technical founders who needed senior engineers matching their own standards", "Repeat founders who shipped new products in under 8 weeks"],
+    "student-startup": ["Y Combinator applicants who needed working products for interviews", "University accelerator teams who delivered before demo day", "Student founders who impressed investors with working software", "Hackathon winners who turned projects into real companies"],
+    "corporate-innovator": ["Fortune 500 innovation labs building customer-facing products", "Corporate venture teams launching internal startup concepts", "Enterprise R&D groups prototyping new service offerings", "Digital transformation teams building alongside legacy systems"],
+    "female-led": ["Female founders who received consistent pricing and senior resources", "Women-led startups who scaled from MVP to Series A with our team", "Female technical founders who needed execution partners matching their pace", "Women entrepreneurs who found equal treatment after poor experiences elsewhere"],
+    "african-startup": ["Kenyan fintech startups integrating M-Pesa for rural payments", "Nigerian logistics platforms tracking deliveries across Lagos", "Ghanaian agritech companies serving smallholder farmers via USSD", "Pan-African SaaS companies expanding across 5+ countries"],
+    "diaspora-founder": ["US-based founders serving Nigerian remittance markets", "UK diaspora founders building property platforms for home markets", "European founders connecting African suppliers with global buyers", "Canadian diaspora founders building cross-border payment platforms"],
+    "social-enterprise": ["Education nonprofits reaching 50,000+ students with accessible tools", "Health organizations serving beneficiaries in low-connectivity regions", "Impact measurement platforms tracking outcomes for 100+ programs", "Accessibility-first platforms serving users with visual impairments"],
   };
 
   if (verticalHelped[id]) return verticalHelped[id];
@@ -2086,6 +2876,47 @@ function generateClientReviews(id: string, category: string): StartupClientRevie
     "embedded": [
       { text: "50,000 units shipped with firmware CiroStack wrote. Field return rate is under 0.2%. Their testing approach catches bugs that our in-house team missed because they test on real hardware, not simulators.", name: "Steven A.", role: "VP Engineering, Consumer Electronics" },
       { text: "OTA updates deploy to our fleet every two weeks. Before CiroStack, we shipped firmware at manufacturing and never updated it. Now we fix bugs and add features to devices already in customers' hands.", name: "Angela W.", role: "CTO, Smart Home Startup" },
+    ],
+    // BY FOUNDER TYPE
+    "non-technical-founder": [
+      { text: "I understood every decision they made because they explained it in my language. For the first time, I felt like a participant in my own product development, not a spectator writing checks.", name: "Lisa H.", role: "Non-Technical Founder, Service Platform" },
+      { text: "Fixed price saved my sanity. I knew what I was paying, what I was getting, and when it would be done. No surprises. My previous agency tripled their estimate by week four.", name: "Michael R.", role: "Domain Expert Turned Founder" },
+    ],
+    "first-time-founder": [
+      { text: "They cut my 18-feature MVP to 4 features. I was angry. Then we launched in 5 weeks and 3 of those 4 features turned out to be wrong anyway. If we had built all 18, we would have wasted $80,000 learning what $15,000 taught us.", name: "Jason K.", role: "First-Time Founder, B2B SaaS" },
+      { text: "CiroStack told me my timeline was unrealistic in the first meeting. Every other agency said 'sure, 6 weeks.' CiroStack said '10 weeks or cut scope.' They were right. And they delivered in 9.", name: "Amara S.", role: "First-Time Founder, Consumer App" },
+    ],
+    "solo-founder": [
+      { text: "I spend 1 hour per week on engineering. One 30-minute check-in and a few Slack messages. CiroStack handles everything else. My time goes to customers and fundraising where it belongs.", name: "David N.", role: "Solo Founder, Analytics Platform" },
+      { text: "When I was ready to hire my first engineer, CiroStack helped me write the job description, evaluate candidates, and onboarded my hire in 2 weeks. Smoothest transition I could have asked for.", name: "Rebecca T.", role: "Solo Founder, HR Tech" },
+    ],
+    "repeat-founder": [
+      { text: "I have built three companies. CiroStack is the first external team that matches the quality and speed I expect. Senior engineers, direct communication, and code I can actually read. Finally.", name: "David N.", role: "Serial Entrepreneur, Third Venture" },
+      { text: "They pushed back on my feature scope in week one. My previous agency would have billed me for all of it. CiroStack said no, validated two assumptions first, and saved me 6 weeks of building the wrong thing.", name: "Sarah K.", role: "Repeat Founder, Marketplace" },
+    ],
+    "student-startup": [
+      { text: "Demo day was in 9 weeks. Budget was $8,000. CiroStack delivered a working product in 7 weeks with enough polish that two VCs asked for follow-up meetings. We raised our pre-seed round 3 months later.", name: "Chris P.", role: "Student Founder, Now Series A" },
+      { text: "I understood my own product for the first time after working with CiroStack. They explained every decision. When investors asked technical questions, I answered from understanding, not memorized scripts.", name: "Khadija M.", role: "MBA Student Founder" },
+    ],
+    "corporate-innovator": [
+      { text: "CiroStack passed our InfoSec review in 3 weeks. Most vendors take 3 months. They had documentation ready before we asked for it. That alone saved our project timeline by 2 months.", name: "Robert J.", role: "VP Innovation, Fortune 500" },
+      { text: "Legacy SAP integration that our internal team said would take 6 months. CiroStack delivered it in 8 weeks with an adapter pattern that our IT team actually praised. That never happens.", name: "Jennifer L.", role: "Head of Digital, Insurance Company" },
+    ],
+    "female-led": [
+      { text: "After two agencies that quoted me 40% above market rate, CiroStack charged me exactly what they charge everyone. I verified. Same scope, same price, same senior engineers. What a concept.", name: "Amanda C.", role: "Female Founder, EdTech" },
+      { text: "I do not have to prove my technical knowledge to earn respect from this team. My input is taken seriously the first time. After 3 previous agencies where that was not the case, this is refreshing.", name: "Dr. Monica L.", role: "Female Founder, HealthTech" },
+    ],
+    "african-startup": [
+      { text: "CiroStack built our M-Pesa integration in 3 weeks. Our previous agency (US-based) spent 2 months and never got reconciliation working. CiroStack knew exactly how STK push callbacks behave in production.", name: "Joseph M.", role: "Founder, Kenyan Fintech" },
+      { text: "40,000 farmers access market prices through USSD menus CiroStack designed. On $15 phones. With no internet. That is the engineering challenge that matters in our market, and they solved it.", name: "Grace A.", role: "CEO, AgriTech Social Enterprise" },
+    ],
+    "diaspora-founder": [
+      { text: "One product serving users in London and Lagos. Multi-currency, cross-border payments, dual-language interface. CiroStack built it as one system, not two separate products duct-taped together.", name: "Ade O.", role: "UK-Based Nigerian Founder" },
+      { text: "KYC in two jurisdictions, payment settlement across borders, and a UX that feels local in both markets. CiroStack understood the complexity because they have built this exact pattern before.", name: "Fatima H.", role: "Canadian-Somali Founder, Remittance Platform" },
+    ],
+    "social-enterprise": [
+      { text: "Our platform serves users with visual impairments. CiroStack built with screen readers from day one, not as an afterthought. Our beneficiaries navigate the system independently. That is the impact we exist to create.", name: "Margaret W.", role: "Director, Accessibility Nonprofit" },
+      { text: "Every feature justified by impact per dollar. CiroStack cut 60% of what we asked for and delivered the 40% that actually moved our outcome metrics. Our funders were thrilled with the results-per-grant-dollar.", name: "Benjamin T.", role: "Executive Director, Education Social Enterprise" },
     ],
   };
 
