@@ -345,6 +345,67 @@ function generateChallenges(id: string, category: string): string[] {
       "Data localization requirements in specific African countries mean you cannot just serve the continent from a single US/EU data center.",
       "User devices, connectivity patterns, and digital literacy levels are fundamentally different. A responsive website is not a market-entry strategy.",
     ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": [
+      "Hourly billing agencies have the opposite incentive to yours: the longer the project takes, the more they make. Think about that alignment.",
+      "Scope creep is the number one budget killer. Without a locked scope, every 'quick addition' adds a week and $5,000 to your bill.",
+      "You cannot budget for a variable cost. Unknown final price means you cannot plan your runway, your fundraise, or your next hire.",
+      "Most agencies give estimates, not commitments. An estimate is a guess. A fixed price is a contract. The difference is who absorbs the risk.",
+    ],
+    "dedicated-team": [
+      "Hiring 3-5 senior engineers takes 6-9 months. Your product roadmap cannot wait that long.",
+      "New hires need 2-3 months to understand your codebase. Engineers who have been in your code for 6 months are 3x more productive.",
+      "Scaling a team up for a push and down after is impossible with full-time hires. Severance, morale damage, and hiring costs make it impractical.",
+      "Vendor relationships feel transactional. What you need is a team that attends your standups, knows your codebase, and cares about your product.",
+    ],
+    "tech-cofounder": [
+      "Investors keep asking who your CTO is. Every pitch deck has a 'team' slide and yours has a gap that gets noticed.",
+      "Architecture decisions made today cost $50-200K to undo in 18 months. You are making these decisions without the experience to evaluate them.",
+      "You need someone who can interview engineering candidates, evaluate technical vendors, and represent technology to your board. Not just code.",
+      "Giving equity to a technical co-founder means permanent dilution. Getting CTO-level leadership on contract means flexibility.",
+    ],
+    "cto-as-a-service": [
+      "Your engineers build features but nobody is deciding what the architecture looks like in 2 years. Strategy and execution are different skills.",
+      "A full-time CTO costs $250-400K in salary alone. You do not need 40 hours/week of strategy. You need 8-10 hours of the right strategy.",
+      "Board meetings require technical updates that your engineers cannot produce. Someone needs to translate engineering progress into business language.",
+      "Vendor selection, build-vs-buy decisions, and hiring strategy require CTO-level judgment that individual contributors cannot provide.",
+    ],
+    "design-sprint": [
+      "You are about to commit $50-150K to build something based on assumptions nobody has tested with real users.",
+      "Internal debates about product direction consume months. Everyone has an opinion. Nobody has data.",
+      "Building the wrong product is the most expensive mistake a startup can make. A week of validation prevents months of waste.",
+      "Stakeholders cannot align on product direction through meetings and documents. They need to see and test a tangible prototype.",
+    ],
+    "code-audit": [
+      "Someone told you the architecture is wrong but nobody can tell you specifically what is wrong, how bad it is, or what to fix first.",
+      "You are acquiring a company and need to know what the technology is actually worth. Not what the founders say it is worth.",
+      "Investors want a technical review before funding. You need an honest assessment from someone with no incentive to soften the findings.",
+      "Your engineering team says everything is fine. Your metrics say otherwise. You need an independent evaluation.",
+    ],
+    "staff-augmentation": [
+      "Your backend engineer is on parental leave for 4 months. That work still needs to happen.",
+      "You need a DevOps specialist for a 3-month migration but cannot justify a full-time hire for a temporary need.",
+      "Your team has the capacity but not the specific skill for one technical challenge. Hiring full-time for a 6-week need is wasteful.",
+      "Agency teams do not integrate. They build in isolation and hand over code your team cannot maintain. You need engineers who join your process.",
+    ],
+    "retainer": [
+      "Feature backlogs are too variable for fixed-scope projects. Some months need 80 hours of work. Some need 20. You cannot predict it.",
+      "Losing your development partner between projects means they lose context. Re-onboarding takes weeks every time you start a new engagement.",
+      "Production bugs and urgent fixes cannot wait for a new SOW to be negotiated and signed. You need reserved capacity that responds immediately.",
+      "Budget unpredictability makes quarterly planning impossible. You need a consistent, known engineering cost you can plan around.",
+    ],
+    "nearshore": [
+      "Offshore teams in 8-12 hour timezone gaps mean async-only communication. By the time they answer your question, you have lost a full day.",
+      "Communication overhead from cultural and language differences silently reduces effective velocity by 30-40%, negating cost savings.",
+      "Nearshore skeptics assume lower cost means lower quality. That is true for body shops. It is not true for senior engineers in nearby markets.",
+      "Your engineers need to pair-program, attend standups, and have real-time conversations. That requires timezone overlap, not just Slack.",
+    ],
+    "outsourcing": [
+      "You have a defined project with clear requirements but zero internal bandwidth to build it.",
+      "Managing an external team adds overhead you cannot afford. You need a partner who owns the entire delivery without your daily involvement.",
+      "Quality risk is the main concern: outsourced code often arrives undocumented, untested, and unmaintainable by your future team.",
+      "Handoff failures are common. Projects get delivered and nobody on your side can maintain, deploy, or extend them without calling the vendor back.",
+    ],
   };
 
   if (verticalChallenges[id]) return verticalChallenges[id];
@@ -687,6 +748,67 @@ function generateSolutions(id: string, category: string): StartupSolution[] {
       { title: "Low-Bandwidth Optimization", description: "Asset compression, progressive loading, offline caching, and the performance engineering that makes your product usable on 2G connections and $50 Android devices." },
       { title: "Data Localization", description: "Multi-region infrastructure that satisfies in-country data residency requirements without duplicating your entire application stack for each market." },
     ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": [
+      { title: "Scope Before Price", description: "Detailed scope document with every feature, screen, and integration defined before a price is quoted. You know exactly what you are buying." },
+      { title: "Price is the Price", description: "The quote does not change unless you change the scope. Complexity surprises are our problem. Budget surprises are eliminated." },
+      { title: "Milestone Payments", description: "Pay in milestones tied to delivered working software. Not upfront. Not on a schedule. When features are done, you see them, then you pay." },
+      { title: "Overrun Protection", description: "If we underestimated complexity, the extra cost is ours. Fixed price means the risk of estimation error sits with the team that made the estimate." },
+    ],
+    "dedicated-team": [
+      { title: "Your Team, Your Process", description: "Engineers who attend your standups, work in your Slack, use your JIRA, and follow your coding standards. Not a vendor. An extension of your company." },
+      { title: "Context That Compounds", description: "The same engineers month after month. They know your codebase, your users, your technical debt. Decisions improve as context deepens over time." },
+      { title: "Scale Up and Down", description: "Start with 2 engineers. Add 2 more for a push. Drop back to 2 after launch. No severance, no hiring costs, no morale damage." },
+      { title: "Full Coverage", description: "Frontend, backend, DevOps, and QA combined in one team. No coordination between vendors. No gaps between specialties." },
+    ],
+    "tech-cofounder": [
+      { title: "CTO Without Equity", description: "Architecture ownership, team management, investor communication, and technical strategy. All the responsibilities of a CTO without permanent dilution." },
+      { title: "Architecture Ownership", description: "Someone who decides what the system looks like in 2 years and makes every daily decision consistent with that direction." },
+      { title: "Hiring Leadership", description: "Job descriptions, candidate evaluation, technical interviews, and onboarding. Build your engineering team with CTO-level judgment guiding every hire." },
+      { title: "Board Communication", description: "Technical progress translated for board consumption. Roadmap updates, risk assessments, and the engineering narrative that gives investors confidence." },
+    ],
+    "cto-as-a-service": [
+      { title: "Part-Time Strategy", description: "8-10 hours per week of CTO-level thinking: architecture reviews, technology decisions, vendor evaluations, and team scaling strategy." },
+      { title: "Team Unlocked", description: "Your engineers build faster when someone sets technical direction, resolves architecture debates, and removes ambiguity from decisions." },
+      { title: "Vendor Evaluation", description: "Build-vs-buy decisions, tool selection, and vendor negotiations guided by someone who has evaluated hundreds of technical options." },
+      { title: "Hiring Support", description: "Engineering hiring strategy, job architecture, interview design, and candidate evaluation. Build the right team, not just a team." },
+    ],
+    "design-sprint": [
+      { title: "Five Days, One Answer", description: "From problem statement to tested prototype in one week. You leave with a validated direction or a killed hypothesis. Both save money." },
+      { title: "Real User Feedback", description: "Five user interviews on Day 5 with a clickable prototype. Not opinions from colleagues. Not stakeholder preferences. Actual user reactions." },
+      { title: "Alignment by Artifact", description: "Stakeholders who cannot agree in meetings align when they interact with a tangible prototype. The sprint produces alignment as a byproduct." },
+      { title: "Scope Definition", description: "The sprint output defines what to build. No ambiguous requirements doc. A tested prototype that shows exactly what the product should do." },
+    ],
+    "code-audit": [
+      { title: "Honest Assessment", description: "No sugarcoating. No selling follow-on work. A straight answer about what you have: what is solid, what is risky, and what to prioritize fixing." },
+      { title: "Prioritized Findings", description: "Issues ranked by severity and impact. Not a 50-page list of every imperfection. A clear 'fix these 5 things first' action plan." },
+      { title: "Concrete Remediation Plan", description: "For every finding: what to fix, how long it takes, what it costs, and what happens if you do not fix it. Actionable, not academic." },
+      { title: "Independent Perspective", description: "We have no incentive to soften findings or inflate problems. The audit is the deliverable. We tell you what we find, honestly." },
+    ],
+    "staff-augmentation": [
+      { title: "Productive in Week One", description: "Senior engineers who need no hand-holding. They read your codebase, attend your standup, and contribute meaningful code within their first week." },
+      { title: "Your Process, Your Tools", description: "They work in your repo, follow your code style, attend your ceremonies, and submit PRs through your review process. Indistinguishable from team members." },
+      { title: "Flexible Duration", description: "3 months, 6 months, or ongoing. Scale up for a push, scale down after. No long-term contracts required unless you want them." },
+      { title: "Skill-Specific Placement", description: "Need a DevOps specialist? A React expert? A Python data engineer? We place the specific skill your team is missing, not a generalist." },
+    ],
+    "retainer": [
+      { title: "Reserved Capacity", description: "Guaranteed hours every month from engineers who know your codebase. No re-onboarding. No waiting for availability. Consistent, predictable capacity." },
+      { title: "Same Engineers Monthly", description: "Context compounds over time. The same team that built your features maintains them. No knowledge loss between engagements." },
+      { title: "Flex Within Budget", description: "Some months need 80 hours. Some need 20. The monthly budget stays predictable while the work allocation flexes to your actual needs." },
+      { title: "Priority Response", description: "Production bugs and urgent fixes handled within SLA. No SOW negotiation, no contract amendment. Your retainer includes emergency response." },
+    ],
+    "nearshore": [
+      { title: "Same Timezone", description: "Within 2 hours of your timezone. Real-time communication, pair programming, and standup attendance without 8-hour async delays." },
+      { title: "Senior Engineers, Lower Cost", description: "40-60% cost reduction vs. equivalent local hires. Not because of lower quality. Because of different cost-of-living economics in nearby markets." },
+      { title: "Fluent English", description: "No communication overhead. No lost-in-translation requirements. Engineers who express complex technical concepts clearly in your language." },
+      { title: "Western Process", description: "Agile sprints, code review culture, CI/CD expectations, and the engineering discipline that Western product teams expect. No process mismatch." },
+    ],
+    "outsourcing": [
+      { title: "Full Delivery Ownership", description: "You define requirements. We own everything else: architecture, development, testing, deployment, and documentation. One point of accountability." },
+      { title: "Milestone Accountability", description: "Payment tied to working software delivery, not hours billed. If the milestone is not met, you do not pay for it." },
+      { title: "Complete Handoff", description: "Documentation, architecture guides, deployment procedures, and optional training. Your future team can maintain the system without calling us back." },
+      { title: "Quality Guaranteed", description: "Automated tests, code review, and architecture documentation included in every delivery. Not outsourced code. Properly engineered software." },
+    ],
   };
 
   if (verticalSolutions[id]) return verticalSolutions[id];
@@ -998,6 +1120,67 @@ function generateValueProps(id: string): StartupValueProp[] {
       { title: "Feature Phone Reach", description: "USSD and SMS interfaces that reach users without smartphones or data plans. Your market is larger than you think." },
       { title: "In-Country Compliance", description: "Data localization, local hosting, and the regulatory requirements specific to each African market you enter." },
     ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": [
+      { title: "Budget Certainty", description: "The price is locked before work begins. No hourly surprises. No scope creep charges. Plan your runway with a known engineering cost." },
+      { title: "Aligned Incentives", description: "We make money by finishing on time, not by dragging projects out. Our incentive is speed and quality, not billable hours." },
+      { title: "Milestone Visibility", description: "Pay as working software delivers. See progress before paying. No large upfront deposits. No paying for invisible work." },
+      { title: "Risk Where It Belongs", description: "Estimation risk sits with the team that made the estimate. If complexity surprises us, that cost is ours, not yours." },
+    ],
+    "dedicated-team": [
+      { title: "Deep Context", description: "Same engineers, month after month. They know your system, your users, and your debt. Decisions get better as familiarity deepens." },
+      { title: "True Integration", description: "Your standups, your Slack, your JIRA, your code style. Not a vendor delivering in isolation. An extension of your company." },
+      { title: "Elastic Scaling", description: "Add engineers for a push. Remove after launch. No hiring process, no severance, no morale impact. Just capacity that matches your needs." },
+      { title: "Full Ownership", description: "Your dedicated team owns outcomes, not just tasks. They care about the product because they live in it daily." },
+    ],
+    "tech-cofounder": [
+      { title: "Leadership Without Dilution", description: "CTO-level ownership of technology decisions without giving away equity. Full commitment on contract, not permanent cap table impact." },
+      { title: "Investor Confidence", description: "A named technical leader who presents to your board, answers investor questions, and represents engineering credibility." },
+      { title: "Team Building", description: "Engineering hires evaluated, interviewed, and onboarded by someone with CTO-level judgment. Build the right team from the start." },
+      { title: "Architecture Ownership", description: "Long-term technical direction owned by one person who makes daily decisions consistent with the 2-year vision." },
+    ],
+    "cto-as-a-service": [
+      { title: "Strategy at Part-Time Cost", description: "8-10 hours/week of CTO thinking at a fraction of a $300K+ full-time salary. The strategy you need without the cost you cannot afford." },
+      { title: "Decision Velocity", description: "Architecture debates resolved in hours, not weeks. Your team stops debating and starts building because someone owns the direction." },
+      { title: "Board-Ready Updates", description: "Technical progress translated into business language for investors, advisors, and board members who need confidence, not code details." },
+      { title: "Hiring Architecture", description: "Who to hire, when, at what level, and how to evaluate them. Engineering team scaling guided by experience, not guesswork." },
+    ],
+    "design-sprint": [
+      { title: "One Week, One Answer", description: "Five days from problem to tested prototype. Faster than any other method of validating product direction. Cheaper than building wrong." },
+      { title: "User-Tested Output", description: "Real users interact with your prototype on Day 5. Not colleague opinions. Not stakeholder preferences. Actual market signal." },
+      { title: "Kill Bad Ideas Cheap", description: "A killed hypothesis in a sprint saves $50-150K of building the wrong thing. The best outcome is sometimes 'do not build this.'" },
+      { title: "Team Alignment", description: "Stakeholders who disagree in meetings agree when they test a prototype together. Alignment is a sprint byproduct." },
+    ],
+    "code-audit": [
+      { title: "Truth, Not Sales", description: "We have no incentive to find problems that do not exist or inflate severity. The audit is the deliverable. Honesty is the product." },
+      { title: "Actionable, Not Academic", description: "Every finding comes with: severity, impact, fix approach, effort estimate, and risk of inaction. A plan, not a report." },
+      { title: "Prioritized Focus", description: "The 5 things to fix first, clearly identified. Not 50 pages of every imperfection. Focus on what matters most." },
+      { title: "Independent Voice", description: "No relationship with your current team or vendors. No politics. No protecting feelings. Just what the code says." },
+    ],
+    "staff-augmentation": [
+      { title: "Day-One Productivity", description: "Senior engineers who read your codebase and contribute in their first week. No 3-month onboarding period. No hand-holding required." },
+      { title: "Your Team, Expanded", description: "They follow your process, your code style, your review standards. Indistinguishable from full-time team members in daily work." },
+      { title: "Exact Skill Match", description: "Need DevOps? React? Python ML? We place the specific skill gap, not a generalist who might figure it out." },
+      { title: "No Long-Term Lock-In", description: "3 months minimum, then flexible. Scale up, scale down, or end when the need passes. No penalty." },
+    ],
+    "retainer": [
+      { title: "Predictable Cost", description: "One monthly invoice. Same amount. Budget it quarterly without wondering what engineering will cost next month." },
+      { title: "Zero Re-Onboarding", description: "Same engineers every month. No context loss between projects. No 2-week ramp-up every time work resumes." },
+      { title: "Flex Allocation", description: "Features one month. Bug fixes the next. Performance work the month after. The budget is fixed. The work is flexible." },
+      { title: "Emergency Response", description: "Production issues handled within SLA without negotiating a new contract. Your retainer includes priority incident response." },
+    ],
+    "nearshore": [
+      { title: "Real-Time Collaboration", description: "Same timezone means pair programming, instant Slack responses, and standup attendance. No async lag eating your velocity." },
+      { title: "40-60% Cost Savings", description: "Senior engineers at significantly lower rates than equivalent local hires. Cost-of-living economics, not quality compromise." },
+      { title: "No Communication Tax", description: "Fluent English, Western agile processes, and the cultural alignment that prevents miscommunication from silently reducing output." },
+      { title: "Quality Parity", description: "Same code standards, same review process, same engineering discipline. The only difference is the invoice amount." },
+    ],
+    "outsourcing": [
+      { title: "One Throat to Choke", description: "Single point of accountability for the entire delivery. No coordination between vendors. No finger-pointing between teams." },
+      { title: "Pay for Output", description: "Milestone payments on working software. Not hours logged. Not effort estimated. Working features, deployed and verified." },
+      { title: "Walk Away Clean", description: "Complete documentation and handoff. Your future team maintains the system independently. No vendor dependency, no callback tax." },
+      { title: "Engineered, Not Just Coded", description: "Tests, documentation, architecture guides, and deployment automation. Outsourced does not mean outsourced quality." },
+    ],
   };
 
   if (verticalValueProps[id]) return verticalValueProps[id];
@@ -1256,6 +1439,67 @@ function generateStats(id: string, category: string): StartupStat[] {
       { value: "100%", label: "Offline-First Architecture" },
       { value: "<500KB", label: "Target Page Weight (2G Optimized)" },
     ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": [
+      { value: "100%", label: "Projects Delivered at Quoted Price" },
+      { value: "0", label: "Surprise Invoices Sent" },
+      { value: "4-8wk", label: "Average Delivery Timeline" },
+      { value: "Fixed", label: "Every Single Quote" },
+    ],
+    "dedicated-team": [
+      { value: "18mo", label: "Longest Client Relationship" },
+      { value: "2-8", label: "Engineers Per Team" },
+      { value: "95%", label: "Engineer Retention on Projects" },
+      { value: "1wk", label: "Onboarding to Contribution" },
+    ],
+    "tech-cofounder": [
+      { value: "0%", label: "Equity Required" },
+      { value: "8+", label: "Startups Served as Technical Lead" },
+      { value: "3", label: "Teams Built from Zero" },
+      { value: "$2M+", label: "Raised with Our Technical Leadership" },
+    ],
+    "cto-as-a-service": [
+      { value: "8-10h", label: "Weekly Strategic Hours" },
+      { value: "70%", label: "Cost Savings vs Full-Time CTO" },
+      { value: "5+", label: "Fractional CTO Engagements" },
+      { value: "12+", label: "Board Presentations Delivered" },
+    ],
+    "design-sprint": [
+      { value: "5", label: "Days from Problem to Tested Prototype" },
+      { value: "5", label: "User Interviews Per Sprint" },
+      { value: "40%", label: "Of Sprints Kill the Hypothesis (Saving $$$)" },
+      { value: "$50K+", label: "Average Savings When Hypothesis Killed" },
+    ],
+    "code-audit": [
+      { value: "1-2wk", label: "Assessment Turnaround" },
+      { value: "100%", label: "Honest Findings (No Sugarcoating)" },
+      { value: "5", label: "Avg. Priority Findings Per Audit" },
+      { value: "0", label: "Audits Where We Sold Follow-On Work" },
+    ],
+    "staff-augmentation": [
+      { value: "1wk", label: "Time to First Contribution" },
+      { value: "7+yr", label: "Average Engineer Experience" },
+      { value: "3-12mo", label: "Typical Engagement Duration" },
+      { value: "0", label: "Hand-Holding Required" },
+    ],
+    "retainer": [
+      { value: "1", label: "Invoice Per Month (Predictable)" },
+      { value: "0", label: "Re-Onboarding Between Projects" },
+      { value: "4h", label: "Emergency Response SLA" },
+      { value: "95%", label: "Same-Engineer Continuity Rate" },
+    ],
+    "nearshore": [
+      { value: "±2h", label: "Timezone Difference (Max)" },
+      { value: "40-60%", label: "Cost Savings vs Local Hires" },
+      { value: "C1+", label: "English Fluency Level" },
+      { value: "0", label: "Async-Only Communication Days" },
+    ],
+    "outsourcing": [
+      { value: "100%", label: "Milestone-Based Payment" },
+      { value: "100%", label: "Complete Documentation Included" },
+      { value: "0", label: "Vendor Lock-In (Full Handoff)" },
+      { value: "1", label: "Single Point of Accountability" },
+    ],
   };
 
   if (verticalStats[id]) return verticalStats[id];
@@ -1513,6 +1757,67 @@ function generateServiceApplications(id: string, category: string): StartupServi
       { serviceName: "Payment Integration", slug: "apps", description: "African payment rail connectors", applicationDetail: "M-Pesa, Paystack, Flutterwave, and mobile money integrations with proper reconciliation, settlement handling, and failure recovery." },
       { serviceName: "Low-Bandwidth UX", slug: "ux-ui-design", description: "Interface optimization for constrained networks", applicationDetail: "Asset compression, progressive loading, offline-first patterns, and the UX redesign that makes your product usable on 2G connections." },
       { serviceName: "African Infrastructure", slug: "devops", description: "Hosting and compliance for African markets", applicationDetail: "CDN endpoints near African users, data localization for countries requiring it, and hosting costs aligned to African market revenue potential." },
+    ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": [
+      { serviceName: "Scoped MVP Development", slug: "websites", description: "Fixed-price product delivery", applicationDetail: "Scope defined, price locked, timeline agreed. Development proceeds with milestone payments on working software. No hourly billing, no surprise costs." },
+      { serviceName: "Scope Definition", slug: "apps", description: "Pre-build specification and pricing", applicationDetail: "Detailed scope document with features, screens, integrations, and acceptance criteria. Fixed price quoted against this scope. Changes require mutual agreement." },
+      { serviceName: "MVP Design", slug: "ux-ui-design", description: "Lean interface design within fixed scope", applicationDetail: "Design system selection, key screen layouts, and the minimal UX work that makes your MVP professional without adding weeks to the timeline." },
+      { serviceName: "Launch Infrastructure", slug: "devops", description: "Deployment included in fixed price", applicationDetail: "CI/CD, hosting, and monitoring configured as part of the fixed-price delivery. No additional infrastructure charges. Everything needed for launch is included." },
+    ],
+    "dedicated-team": [
+      { serviceName: "Embedded Engineering", slug: "websites", description: "Full-stack team in your workflow", applicationDetail: "2-8 engineers attending your standups, using your tools, following your standards. They know your codebase because they have been in it for months." },
+      { serviceName: "Team Scaling", slug: "apps", description: "Flexible capacity adjustment", applicationDetail: "Add engineers for a sprint push. Remove after launch. Scale back up for the next milestone. No hiring cycles, no severance, no paperwork." },
+      { serviceName: "Technical Leadership", slug: "ux-ui-design", description: "Architecture guidance within your team", applicationDetail: "A tech lead embedded with your dedicated team who makes architecture decisions, conducts code reviews, and ensures technical quality matches your standards." },
+      { serviceName: "Team Operations", slug: "devops", description: "Process and delivery management", applicationDetail: "Sprint planning, backlog grooming, velocity tracking, and the delivery process that keeps your dedicated team productive without your daily management." },
+    ],
+    "tech-cofounder": [
+      { serviceName: "Technical Strategy", slug: "websites", description: "CTO-level architecture and direction", applicationDetail: "Technology selection, system design, scalability planning, and the long-term technical vision that guides every daily engineering decision." },
+      { serviceName: "Team Building", slug: "apps", description: "Engineering hiring and management", applicationDetail: "Job descriptions, candidate sourcing, technical interviews, offer negotiation, and onboarding. Build the engineering team with CTO-level judgment." },
+      { serviceName: "Investor Relations", slug: "ux-ui-design", description: "Technical representation to board and investors", applicationDetail: "Board updates, due diligence support, technical roadmap presentations, and the credibility that comes from having a named technical leader." },
+      { serviceName: "Hands-On Development", slug: "devops", description: "Architecture implementation and code", applicationDetail: "Not just strategy. Hands-on architecture implementation, critical path coding, and the technical execution that proves the vision is achievable." },
+    ],
+    "cto-as-a-service": [
+      { serviceName: "Architecture Reviews", slug: "websites", description: "System design evaluation and direction", applicationDetail: "Weekly architecture reviews that resolve technical debates, set direction, and ensure your team builds consistently toward the 2-year technical vision." },
+      { serviceName: "Technology Strategy", slug: "apps", description: "Build-vs-buy and vendor decisions", applicationDetail: "Framework evaluation, vendor selection, infrastructure decisions, and the strategic thinking that prevents expensive technology mistakes." },
+      { serviceName: "Board Communication", slug: "ux-ui-design", description: "Technical updates for non-technical stakeholders", applicationDetail: "Monthly board updates, investor reports, and the translation of engineering progress into business outcomes that stakeholders understand." },
+      { serviceName: "Hiring Strategy", slug: "devops", description: "Engineering team scaling guidance", applicationDetail: "When to hire, who to hire, how to evaluate, and how to structure your engineering organization as it grows from 2 to 20 engineers." },
+    ],
+    "design-sprint": [
+      { serviceName: "Sprint Facilitation", slug: "websites", description: "Structured 5-day product validation", applicationDetail: "Monday: problem definition. Tuesday: solution sketching. Wednesday: decision and storyboarding. Thursday: prototype building. Friday: user testing." },
+      { serviceName: "Rapid Prototyping", slug: "apps", description: "Clickable prototype in one day", applicationDetail: "High-fidelity prototype built on Thursday that feels real enough for users to react authentically during Friday's testing sessions." },
+      { serviceName: "User Testing", slug: "ux-ui-design", description: "5 user interviews on Day 5", applicationDetail: "Recruited participants matching your target user profile. Structured interviews that test specific hypotheses. Synthesized insights delivered same day." },
+      { serviceName: "Sprint Output", slug: "devops", description: "Validated direction and build spec", applicationDetail: "Sprint report with: validated/invalidated hypotheses, user quotes, prototype files, and if validated, a development specification ready for building." },
+    ],
+    "code-audit": [
+      { serviceName: "Codebase Review", slug: "websites", description: "Architecture and code quality assessment", applicationDetail: "Complete review of code structure, patterns, test coverage, dependency health, and architecture sustainability. Findings scored by severity and impact." },
+      { serviceName: "Security Assessment", slug: "apps", description: "Vulnerability identification and severity rating", applicationDetail: "Dependency vulnerability scan, authentication review, data exposure analysis, and the security findings that matter most for your risk profile." },
+      { serviceName: "Architecture Evaluation", slug: "ux-ui-design", description: "Scalability and maintainability assessment", applicationDetail: "Can this architecture handle 10x growth? Can new engineers understand it? Where are the coupling problems? Assessment against your growth plans." },
+      { serviceName: "Remediation Planning", slug: "devops", description: "Prioritized fix plan with effort estimates", applicationDetail: "Every finding paired with: recommended fix approach, effort estimate, priority level, and risk of inaction. A roadmap, not just a report." },
+    ],
+    "staff-augmentation": [
+      { serviceName: "Senior Engineer Placement", slug: "websites", description: "Individual contributors joining your team", applicationDetail: "1-3 senior engineers integrated into your existing workflow. They attend your standups, follow your process, and contribute code through your review system." },
+      { serviceName: "Skill-Specific Experts", slug: "apps", description: "Targeted expertise for specific needs", applicationDetail: "DevOps specialist for a migration. React expert for a frontend rebuild. Python ML engineer for a data project. Exact skill match for your specific need." },
+      { serviceName: "Team Integration", slug: "ux-ui-design", description: "Seamless workflow alignment", applicationDetail: "Engineers who adopt your code style, your PR process, your documentation standards, and your communication patterns within their first week." },
+      { serviceName: "Flexible Duration", slug: "devops", description: "Scale to your timeline", applicationDetail: "3-month minimum, then month-to-month. Extend when the work continues. End when the need passes. No long-term contract required." },
+    ],
+    "retainer": [
+      { serviceName: "Ongoing Development", slug: "websites", description: "Continuous feature delivery", applicationDetail: "Monthly capacity for feature development, improvements, and iterations. Same engineers every month who know your codebase and can estimate accurately." },
+      { serviceName: "Maintenance & Support", slug: "apps", description: "Bug fixes and production stability", applicationDetail: "Priority response for production issues. Bug fixes within SLA. Dependency updates and security patches handled without a separate contract." },
+      { serviceName: "Technical Advisory", slug: "ux-ui-design", description: "Ongoing architecture guidance", applicationDetail: "Technology decisions, architecture reviews, and scaling guidance as your product evolves. Consistent technical leadership month to month." },
+      { serviceName: "Infrastructure Management", slug: "devops", description: "Hosting, monitoring, and operations", applicationDetail: "Server management, cost optimization, uptime monitoring, and the operational work that keeps your product running without dedicated DevOps staff." },
+    ],
+    "nearshore": [
+      { serviceName: "Nearshore Engineering", slug: "websites", description: "Senior engineers in your timezone", applicationDetail: "Full-stack engineers within 2 hours of your timezone. Real-time collaboration, pair programming capability, and zero async-only communication days." },
+      { serviceName: "Team Extension", slug: "apps", description: "Integrated nearshore capacity", applicationDetail: "Nearshore engineers embedded in your team process. Same standup, same Slack, same code reviews. The only difference from local hires is the invoice amount." },
+      { serviceName: "Process Alignment", slug: "ux-ui-design", description: "Western agile methodology", applicationDetail: "Sprint planning, retrospectives, code review culture, and CI/CD expectations. No process mismatch. No cultural translation needed." },
+      { serviceName: "Quality Assurance", slug: "devops", description: "Code standards and review", applicationDetail: "Same code quality standards as local teams. Automated testing, peer review, and the engineering discipline that produces maintainable software." },
+    ],
+    "outsourcing": [
+      { serviceName: "Project Delivery", slug: "websites", description: "End-to-end product development", applicationDetail: "Requirements in, working software out. We own architecture, development, testing, deployment, and documentation. One contract, one deliverable." },
+      { serviceName: "Milestone Management", slug: "apps", description: "Progress-based delivery tracking", applicationDetail: "Clear milestones with acceptance criteria. Payment on delivery of working software. Visibility into progress without daily management overhead." },
+      { serviceName: "Documentation & Handoff", slug: "ux-ui-design", description: "Complete knowledge transfer", applicationDetail: "Architecture guides, deployment procedures, code documentation, and optional training. Your future team maintains the system without us." },
+      { serviceName: "Quality & Testing", slug: "devops", description: "Production-ready delivery standard", applicationDetail: "Automated test suites, CI/CD pipelines, and the quality assurance that means 'delivered' equals 'production-ready,' not 'it compiles.'" },
     ],
   };
 
@@ -2491,6 +2796,47 @@ function generateDeepDive(id: string, title: string): StartupDeepDiveSection[] {
         imageAlt: "African market launch strategy and localization",
       },
     ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": [
+      { title: "How Fixed-Price Actually Works", content: ["We scope your project in detail: every feature, every screen, every integration. This scope document becomes the contract. The price is quoted against this specific scope and does not change.", "If you want to add features mid-build, we provide a change order: what it adds, what it costs, what it delays. No surprises. No hidden charges. Additions are your choice, not our upsell.", "Milestone payments mean you pay as working software delivers. Not upfront. Not on a schedule. When you can see and test the feature, then you pay for it. Progress is tangible before money moves.", "If we underestimated complexity, the extra engineering time is our cost. That is what fixed price means. The risk of estimation error sits with the team that made the estimate."], imagePath: `/images/startups/deep-fixed-price-mvp-1.jpg`, imageAlt: "CiroStack fixed-price delivery model" },
+      { title: "Why Fixed Price Produces Better Software", content: ["Hourly billing incentivizes complexity. More features, more debate, more revisions. Fixed price incentivizes efficiency. We want to finish on time because overruns cost us, not you.", "Scope discipline produces better products. When features must justify their inclusion against a fixed budget, only the features that matter survive. This constraint improves the product.", "Senior engineers estimate accurately. Our fixed-price model works because our team has built 50+ products. They know how long things take. Junior engineers guess. Seniors predict.", "Post-delivery iteration is where fixed-price products win. A clean, well-scoped MVP ships faster, costs less, and provides the data you need to decide what to build next."], imagePath: `/images/startups/deep-fixed-price-mvp-2.jpg`, imageAlt: "Fixed-price incentive alignment" },
+    ],
+    "dedicated-team": [
+      { title: "The Difference Between a Vendor and a Team", content: ["Vendors deliver code and disappear. Teams live in your codebase, understand your users, attend your planning sessions, and make decisions like owners. We build teams, not vendor relationships.", "Context takes months to build: understanding your data model, your user personas, your technical debt, your team dynamics. Engineers who have been in your code for 6 months make better decisions than new hires on day one.", "Dedicated teams operate at your cadence: your sprint length, your release schedule, your communication style. No process mismatch. No translation layer between how you work and how they work.", "The best dedicated teams feel indistinguishable from internal teams. Same tools, same ceremonies, same accountability. The only difference is the contract structure and the ability to scale elastically."], imagePath: `/images/startups/deep-dedicated-team-1.jpg`, imageAlt: "CiroStack dedicated team integration" },
+      { title: "Scaling Without the Pain of Hiring", content: ["Adding 2 engineers for a 3-month push: if they are full-time hires, that is 6 months of recruiting, 3 months of onboarding, then the push, then what? Severance? Our model: add engineers in 1-2 weeks, remove when done.", "Team continuity matters. Your dedicated team stays consistent month to month. The same engineers who built the feature maintain it. Knowledge stays on the team, not in documentation that nobody reads.", "Engineering management is included. Sprint planning, backlog grooming, code review, and technical direction happen within the team. You provide product direction. We handle engineering execution.", "When you are ready to hire full-time, your dedicated team helps: they know what skills are missing, what seniority level is needed, and they can onboard new hires into the codebase they know best."], imagePath: `/images/startups/deep-dedicated-team-2.jpg`, imageAlt: "Elastic team scaling without hiring overhead" },
+    ],
+    "tech-cofounder": [
+      { title: "CTO Responsibilities Without CTO Equity", content: ["A technical co-founder typically takes 20-40% equity. That is $2-20M in dilution at Series A valuations. Our model delivers the same responsibilities on a monthly contract. The math is clear.", "Architecture ownership means one person decides what the system looks like and makes every daily decision consistent with that vision. Without this, architecture evolves randomly as individual engineers make local choices.", "Investor confidence requires a named technical leader. Someone who presents the technical roadmap, answers board questions, and represents engineering credibility. Not an anonymous agency. A person with accountability.", "Team building requires CTO-level judgment: which roles to hire first, what seniority level, how to evaluate candidates, and how to structure the team. Individual engineers cannot make these organizational decisions."], imagePath: `/images/startups/deep-tech-cofounder-1.jpg`, imageAlt: "CiroStack tech co-founder engagement model" },
+      { title: "From First Hire to Engineering Organization", content: ["Your first engineering hire is the highest-leverage decision you will make. The wrong hire at this stage sets culture, standards, and velocity for the next 2 years. CTO-level judgment guides this decision.", "Interview design matters: what questions reveal senior capability vs. junior confidence? What technical exercises predict on-the-job performance? We design interview processes that identify the right candidates.", "Onboarding your first engineer into the codebase we built is seamless: they overlap with us for 2-4 weeks, learn the system with the people who designed it, and take ownership gradually.", "As the team grows from 1 to 5 to 15, organizational structure evolves. Team topology, reporting lines, and engineering process that works at 3 engineers breaks at 10. We plan for each transition."], imagePath: `/images/startups/deep-tech-cofounder-2.jpg`, imageAlt: "Building engineering team with CTO-level guidance" },
+    ],
+    "cto-as-a-service": [
+      { title: "The Strategy Gap Your Engineers Cannot Fill", content: ["Individual contributors solve problems they are given. CTOs decide which problems to solve, in what order, and with what approach. Without this layer, teams build efficiently in the wrong direction.", "Architecture debates can paralyze engineering teams for weeks. A fractional CTO resolves them in hours: makes the decision, explains the rationale, and the team moves forward.", "Build-vs-buy decisions require experience with both options. Your engineers prefer to build (it is more interesting). A CTO knows when buying saves 6 months and when building is the right investment.", "Technology strategy is not the same as technology execution. Your team executes well. They need someone deciding what to execute, when to migrate, when to scale, and when to stop investing in something."], imagePath: `/images/startups/deep-cto-as-a-service-1.jpg`, imageAlt: "CiroStack fractional CTO strategic guidance" },
+      { title: "Board Rooms and Hiring Decisions", content: ["Board members ask questions engineers cannot answer: What is our technical risk? Can we hit $10M ARR on this architecture? When do we need to hire a VP Engineering? A fractional CTO provides these answers.", "Quarterly board updates require translating engineering work into business outcomes. Not 'we refactored the auth module' but 'we reduced enterprise onboarding time from 2 weeks to 2 days, unlocking $500K ACV deals.'", "Hiring strategy at the fractional level: when to hire senior vs. mid-level, when to add a team lead, when to split into squads, and how to evaluate candidates for roles you have not filled before.", "Vendor evaluation (cloud providers, tools, SaaS platforms) requires understanding trade-offs that marketing materials hide. A fractional CTO has evaluated hundreds of tools and knows what questions to ask."], imagePath: `/images/startups/deep-cto-as-a-service-2.jpg`, imageAlt: "Fractional CTO board communication and hiring" },
+    ],
+    "design-sprint": [
+      { title: "Five Days That Save Five Months", content: ["Monday: define the problem. Map user journeys, identify the riskiest assumption, and agree on the specific question the sprint will answer. Alignment happens through structured exercises, not debates.", "Tuesday-Wednesday: sketch solutions individually, then converge on the strongest concept. The team votes with dots, not arguments. The best ideas win regardless of who proposed them.", "Thursday: build a clickable prototype. Not code. Not a full design. A high-fidelity prototype realistic enough that users react authentically. One day. One focused designer. One tangible artifact.", "Friday: test with 5 real users recruited from your target audience. Watch them interact. Listen to their confusion. Hear what they expected. Five interviews reveal 85% of usability issues."], imagePath: `/images/startups/deep-design-sprint-1.jpg`, imageAlt: "CiroStack 5-day design sprint process" },
+      { title: "The Output That Drives What Happens Next", content: ["A validated hypothesis means you build with confidence. The prototype worked. Users understood it. Now you know what to build, how it should work, and what users expect. Development spec writes itself.", "A killed hypothesis saves $50-150K. The idea did not work in testing. Users were confused, uninterested, or could not find value. You learned this in 5 days for $15-25K instead of 4 months for $150K.", "Stakeholder alignment is a sprint byproduct. People who disagreed in meetings agree after watching users interact with the prototype. The data resolves debates that opinions could not.", "The sprint prototype often becomes the design specification. Your development team receives a clickable prototype showing exactly how every interaction should work. No ambiguous requirements document needed."], imagePath: `/images/startups/deep-design-sprint-2.jpg`, imageAlt: "Design sprint output and validation results" },
+    ],
+    "code-audit": [
+      { title: "What We Actually Review", content: ["Architecture sustainability: can this system handle 10x your current load? Can a new engineer understand it in a week? Where are the coupling problems that will slow your team?", "Security posture: unpatched dependencies, exposed credentials, unencrypted sensitive data, authentication weaknesses, and the vulnerabilities that matter most for your specific risk profile.", "Code quality: test coverage, error handling, logging, and the patterns that indicate whether this code was written with care or haste. Not style preferences. Functional quality.", "Operational readiness: deployment process, monitoring, backup strategy, and incident response capability. Can this team ship safely? Can they recover when things break?"], imagePath: `/images/startups/deep-code-audit-1.jpg`, imageAlt: "CiroStack code and architecture audit process" },
+      { title: "Findings You Can Act On", content: ["Every finding is scored: critical (fix this week), high (fix this month), medium (fix this quarter), low (fix eventually or never). You know exactly where to focus limited engineering time.", "Each finding includes: what is wrong, why it matters, how to fix it, how long the fix takes, and what happens if you do not fix it. Complete information for every decision.", "The audit report is typically 5-10 pages, not 50. We focus on the findings that matter, not exhaustive cataloging of every imperfect line. You read it in 30 minutes and know what to do.", "We have no incentive to find problems that do not exist. The audit is the deliverable. We are not selling follow-on remediation work. Honesty is the entire product."], imagePath: `/images/startups/deep-code-audit-2.jpg`, imageAlt: "Actionable audit findings and remediation planning" },
+    ],
+    "staff-augmentation": [
+      { title: "Engineers Who Contribute from Day One", content: ["Our engineers are senior: 7+ years shipping production software. They read your codebase, understand your patterns, and submit meaningful PRs within their first week. No 3-month ramp-up.", "They join your process fully: your standup, your Slack channels, your PR review flow, your deployment process. From the outside, they are indistinguishable from full-time team members.", "Skill matching is precise. You need a specific skill (DevOps, React, Python, mobile). We place an engineer with exactly that expertise, not a generalist who will figure it out on your timeline.", "Communication is native. Fluent English, Western development culture, real-time timezone availability. No translation overhead. No async-only days. Direct collaboration."], imagePath: `/images/startups/deep-staff-augmentation-1.jpg`, imageAlt: "CiroStack staff augmentation integration" },
+      { title: "Flexible Capacity for Real Engineering Needs", content: ["Parental leave coverage: your backend engineer is out for 4 months. Work still needs to happen. We place a replacement who maintains velocity without disrupting team dynamics.", "Skill gaps: your team is strong on frontend but needs a DevOps specialist for a 3-month infrastructure migration. Full-time hire makes no sense. Augmentation fills the gap precisely.", "Sprint push: you need extra capacity for a 6-week feature push before a deadline. Scale up for the push, scale back after. No hiring process, no severance, no commitment beyond the need.", "The exit is clean: when the augmentation need ends, the engineer wraps up, documents any tribal knowledge, and steps back. No organizational disruption. No awkward conversations."], imagePath: `/images/startups/deep-staff-augmentation-2.jpg`, imageAlt: "Flexible engineering capacity for temporary needs" },
+    ],
+    "retainer": [
+      { title: "Predictable Engineering Without Predictable Scope", content: ["Product development is inherently variable. Some months need major features. Some need bug fixes. Some need performance work. A retainer gives you capacity without requiring you to predict what you will need.", "The same engineers work on your product every month. They know your codebase, your users, your tech debt. No re-onboarding between projects. No lost context. Decisions compound as familiarity deepens.", "One monthly invoice at a consistent amount. Budget it quarterly without guessing. Finance loves predictability. Your retainer is a known cost you can plan around.", "Emergency response is included. Production goes down at 2am? Your retainer team responds within SLA. No negotiating a new contract during an incident. Capacity is already reserved."], imagePath: `/images/startups/deep-retainer-1.jpg`, imageAlt: "CiroStack retainer engagement model" },
+      { title: "The Retainer That Grows With You", content: ["Start small: 40 hours/month for ongoing maintenance and small features. Scale up: 80 hours/month when a major feature initiative begins. Scale back when the push is complete. Flex within predictable bounds.", "Retainer teams evolve with your product. The engineers who built your core features maintain them, add to them, and know where the bodies are buried. That institutional knowledge has compounding value.", "Quarterly planning sessions align your product roadmap with retainer capacity. We help you decide what fits, what needs to be scoped separately, and what can wait. No surprises at month-end.", "When you eventually hire full-time, your retainer team helps transition. They have been in your code for months or years. They are the best possible onboarding resource for your new hires."], imagePath: `/images/startups/deep-retainer-2.jpg`, imageAlt: "Retainer scaling and long-term partnership" },
+    ],
+    "nearshore": [
+      { title: "The Cost Advantage Without the Communication Tax", content: ["Offshore teams save 60-70% on paper. But async communication, timezone gaps, and cultural misalignment reduce effective velocity 30-40%. Net savings: 20-30% with significant management overhead.", "Nearshore eliminates the communication tax. Within 2 hours of your timezone means: real-time Slack responses, pair programming when needed, and standup attendance at normal hours. Zero async-only days.", "Cost savings of 40-60% are real because they come from cost-of-living economics in nearby markets, not from lower skill levels. Our nearshore engineers have the same experience and standards as local hires.", "The quality test: can you tell which engineers are nearshore and which are local from the code alone? If the answer is no (and it should be), you are getting the same output at lower cost."], imagePath: `/images/startups/deep-nearshore-1.jpg`, imageAlt: "CiroStack nearshore advantage vs offshore" },
+      { title: "Integration That Feels Local", content: ["Process alignment is immediate. Our nearshore engineers work in agile sprints, practice code review, maintain CI/CD discipline, and follow testing conventions that match Western engineering culture.", "English fluency at C1+ level means technical discussions happen naturally. Complex architecture decisions, nuanced code review comments, and stakeholder communication all flow without translation overhead.", "Pair programming works. With timezone overlap, your local engineers and nearshore engineers can share screens, debug together, and transfer knowledge in real-time. This is impossible with 8-hour gaps.", "Cultural alignment extends beyond language: communication directness, meeting participation, proactive problem-flagging, and the engineering ownership mentality that Western teams expect."], imagePath: `/images/startups/deep-nearshore-2.jpg`, imageAlt: "Nearshore team integration and communication" },
+    ],
+    "outsourcing": [
+      { title: "Full Delivery Without Full Attention", content: ["You have a defined project. Clear requirements. No internal bandwidth. You do not want to manage a team. You want to hand over requirements and receive working software.", "We own the entire delivery chain: architecture decisions, technology selection, development, testing, deployment, and documentation. One contract. One point of contact. One accountability.", "Milestone-based payment means you pay for results, not effort. Each milestone has acceptance criteria defined upfront. Working software that meets criteria triggers payment. Not hours. Output.", "The handoff is complete by design. We are not building dependency. We are building a product you own and can maintain independently. Documentation, training, and knowledge transfer are deliverables, not extras."], imagePath: `/images/startups/deep-outsourcing-1.jpg`, imageAlt: "CiroStack full-delivery outsourcing model" },
+      { title: "Quality That Survives the Handoff", content: ["The most common outsourcing failure: code arrives, the team cannot maintain it, and you call the vendor back (at premium rates). We prevent this by building for handoff from day one.", "Automated test suites mean your team can make changes confidently. Tests catch regressions. Documentation explains architecture. Deployment pipelines ship changes safely. Independence is built in.", "Architecture documentation is not a final-sprint afterthought. It is produced throughout development: decision logs, system diagrams, and the 'why' behind every significant choice.", "Optional training sessions at project completion: we walk your team through the system, answer questions, and ensure they can operate, maintain, and extend the software without us."], imagePath: `/images/startups/deep-outsourcing-2.jpg`, imageAlt: "Outsourcing quality and handoff documentation" },
+    ],
   };
 
   if (verticalDeepDive[id]) return verticalDeepDive[id];
@@ -2846,6 +3192,17 @@ function generateDetails(id: string, category: string): string[] {
       "Data localization compliance for target country regulations",
       "Performance testing on representative African networks and devices",
     ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": ["Detailed scope document with acceptance criteria before pricing", "Fixed price confirmed in writing before development starts", "Milestone payments tied to working software delivery", "Biweekly demos with stakeholder feedback incorporated", "Scope change process: mutual agreement required for additions", "Launch date established and tracked from project start"],
+    "dedicated-team": ["Team composition matched to your product needs (2-8 engineers)", "Engineers attend your standups and use your project tools", "Same engineers month-to-month (95% continuity rate)", "Sprint planning and velocity tracking managed within the team", "Scaling up/down within 2 weeks notice", "Quarterly team performance reviews with your feedback"],
+    "tech-cofounder": ["Architecture ownership with long-term technical vision documented", "Engineering hiring: job descriptions through onboarding", "Board-ready technical updates produced monthly", "Investor due diligence support and technical representation", "Hands-on development on critical architecture decisions", "Team building strategy aligned to fundraising milestones"],
+    "cto-as-a-service": ["8-10 hours weekly of strategic technical engagement", "Architecture review sessions resolving team debates", "Board and investor communication prepared monthly", "Build-vs-buy evaluations for major technology decisions", "Hiring strategy and candidate evaluation as needed", "Technology roadmap updated quarterly against business goals"],
+    "design-sprint": ["5-day structured sprint with full facilitation", "User recruitment (5 participants matching target profile)", "Clickable high-fidelity prototype built on Day 4", "User testing sessions conducted and recorded on Day 5", "Sprint report with validated/invalidated hypotheses", "Development specification if hypothesis validated"],
+    "code-audit": ["Complete codebase review (architecture, security, quality)", "Written report delivered within 1-2 weeks of engagement start", "Findings scored by severity (critical/high/medium/low)", "Remediation plan with effort estimates per finding", "Executive summary for non-technical stakeholders", "Optional follow-up call to discuss findings and next steps"],
+    "staff-augmentation": ["Engineer matched to your specific skill requirement", "Productive contributions within first week", "Full integration into your team process and tools", "3-month minimum engagement with flexible extension", "Weekly check-in on integration quality and satisfaction", "Clean offboarding with knowledge transfer when complete"],
+    "retainer": ["Fixed monthly capacity with same engineering team", "Flexible work allocation (features, bugs, performance, ops)", "Priority production incident response within SLA", "Quarterly planning sessions aligning roadmap to capacity", "Monthly progress report and utilization summary", "Scale adjustment with 30-day notice"],
+    "nearshore": ["Engineers within ±2 hours of your timezone", "Fluent English (C1+ level verified)", "Full integration into your development process", "Real-time collaboration capability (pair programming, standups)", "Same code quality standards as local team members", "40-60% cost savings vs equivalent local hires"],
+    "outsourcing": ["Requirements gathering and scope documentation at project start", "Milestone-based delivery with acceptance criteria per milestone", "Full architecture, development, testing, and deployment ownership", "Complete documentation produced throughout (not at end)", "Handoff training session for your future team", "30-day post-delivery support for bug fixes"],
   };
 
   if (verticalDetails[id]) return verticalDetails[id];
@@ -3185,6 +3542,17 @@ function generateDeliverables(id: string, category: string): string[] {
       "Data localization compliance for target country",
       "Market expansion playbook for additional African countries",
     ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": ["Production MVP deployed at the agreed fixed price", "Complete source code with full IP ownership", "Scope document with all acceptance criteria met", "CI/CD pipeline and monitoring configured", "Post-launch bug fix support (30 days included)", "Technical documentation for future development team"],
+    "dedicated-team": ["Continuous software delivery at agreed velocity", "Codebase maintained by engineers with deep context", "Sprint reports and velocity metrics", "Scalable team capacity matching your needs", "Knowledge transfer documentation for team transitions", "Quarterly engineering health reports"],
+    "tech-cofounder": ["Technical strategy document updated quarterly", "Engineering team hired and onboarded (when applicable)", "Architecture decisions documented with rationale", "Board-ready technical updates (monthly)", "Investor-facing technical documentation", "Codebase built to CTO-level quality standards"],
+    "cto-as-a-service": ["Architecture review notes and decisions (weekly)", "Technology strategy document (updated quarterly)", "Board presentation materials (monthly)", "Vendor evaluation reports (as needed)", "Hiring strategy and team architecture plan", "Technical roadmap aligned to business milestones"],
+    "design-sprint": ["Sprint report with hypothesis validation results", "Clickable high-fidelity prototype (Figma)", "User testing recordings and synthesis", "Development specification (if hypothesis validated)", "Stakeholder alignment documentation", "Recommendation for next steps (build, pivot, or stop)"],
+    "code-audit": ["Written audit report (5-10 pages, prioritized findings)", "Security vulnerability assessment with severity ratings", "Architecture sustainability evaluation", "Prioritized remediation plan with effort estimates", "Executive summary for non-technical stakeholders", "Optional remediation support (quoted separately)"],
+    "staff-augmentation": ["Code contributions through your team's standard process", "Knowledge maintained within your codebase and documentation", "Skill gap filled for the duration of the engagement", "Clean offboarding with context transfer to your team", "No proprietary tools or lock-in introduced", "Your codebase, your IP, your process maintained throughout"],
+    "retainer": ["Monthly engineering capacity applied to your priorities", "Production stability and incident response", "Ongoing feature development and iteration", "Monthly utilization and progress reports", "Codebase maintained by engineers with long-term context", "Emergency response within agreed SLA"],
+    "nearshore": ["Engineering output at local-team quality levels", "Real-time collaboration during your business hours", "Code submitted through your standard review process", "40-60% cost savings documented against local benchmarks", "Same tooling, process, and quality standards as local team", "Flexible capacity scaling with minimal lead time"],
+    "outsourcing": ["Complete working software deployed to your infrastructure", "Full source code with IP ownership transferred", "Architecture and deployment documentation", "Automated test suite with meaningful coverage", "CI/CD pipeline configured and operational", "Handoff training completed with your future team"],
   };
 
   if (verticalDeliverables[id]) return verticalDeliverables[id];
@@ -3496,6 +3864,77 @@ function generateFaqs(id: string, title: string, category: string): StartupFAQ[]
       { question: "Do we need separate apps for African markets?", answer: "Usually not. The same codebase serves all markets with configuration for: payment provider, locale, asset compression level, and offline capability. One codebase, market-specific behavior via configuration." },
       { question: "How long does Africa market adaptation take?", answer: "Payment integration: 3-4 weeks. Low-bandwidth optimization: 2-3 weeks. Offline capability: 4-6 weeks. USSD interface: 4-6 weeks. Full adaptation (all of the above): 10-14 weeks depending on your current architecture." },
     ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": [
+      { question: "What if the project costs more than estimated?", answer: "That is our problem. Fixed price means the estimation risk is ours. If we underestimated complexity, we absorb the extra cost. Your invoice does not change." },
+      { question: "What if I want to add features mid-project?", answer: "We provide a change order: what the addition costs, what it delays, and whether it is worth it. No additions happen without your explicit approval and a revised written agreement." },
+      { question: "How do milestone payments work?", answer: "Payment is tied to delivered working software. You see the feature, test it, confirm it meets acceptance criteria, then pay. Typically 3-4 milestones per project. No large upfront deposits." },
+      { question: "What if the final product does not match the scope?", answer: "Acceptance criteria are defined per feature in the scope document. If delivered software does not meet those criteria, we fix it at no additional cost. The scope document is the contract." },
+      { question: "How long does a fixed-price MVP take?", answer: "4-8 weeks for most MVPs. The scope document (produced in week 1) includes an exact timeline. That timeline is committed, not estimated. We deliver on the date we agreed." },
+    ],
+    "dedicated-team": [
+      { question: "How is this different from staff augmentation?", answer: "Staff augmentation adds individual engineers to your team. A dedicated team is a complete unit: they plan sprints, manage technical decisions, and own delivery outcomes. Less management overhead, more ownership." },
+      { question: "How long does onboarding take?", answer: "1-2 weeks to full productivity. Senior engineers read your codebase, attend your ceremonies, and submit meaningful PRs within the first week. No 3-month ramp-up period." },
+      { question: "Can I scale the team up and down?", answer: "Yes. Add engineers with 2 weeks notice. Remove with 2 weeks notice. No hiring cycles, no severance, no morale damage. Capacity matches your needs month to month." },
+      { question: "What if an engineer is not a good fit?", answer: "We replace them within 1-2 weeks. No awkward performance conversations. No severance negotiations. We find the right fit for your team and culture." },
+      { question: "What is the minimum commitment?", answer: "3 months. After that, month-to-month with 30-day notice. Most clients stay 12-18 months because the value compounds as context deepens." },
+    ],
+    "tech-cofounder": [
+      { question: "How is this different from hiring a CTO?", answer: "No equity dilution. No 6-month recruiting process. No risk of a bad full-time hire. Monthly contract with CTO-level responsibilities. When you are ready to hire a full-time CTO, we help with the transition." },
+      { question: "Do you write code or just advise?", answer: "Both. Architecture is implemented, not just designed. Critical path features are built directly. Technical leadership means owning outcomes, not just providing opinions." },
+      { question: "Can you represent us to investors?", answer: "Yes. Board presentations, due diligence support, investor meetings, and the technical credibility that comes from a named leader with a track record." },
+      { question: "What happens when we hire a full-time CTO?", answer: "Graceful transition: we work alongside your new CTO for 1-2 months, transfer context, and step back. The codebase, documentation, and team are ready for independent operation." },
+      { question: "What does this cost compared to a full-time CTO?", answer: "Typically 30-50% of a full-time CTO salary (which ranges $250-400K). You get the same strategic value at a fraction of the cost, without equity dilution or long-term commitment." },
+    ],
+    "cto-as-a-service": [
+      { question: "How many hours per week is typical?", answer: "8-10 hours. Enough for: weekly architecture review, biweekly team planning, monthly board preparation, and ad-hoc decisions. Not full-time. Focused strategic time." },
+      { question: "How is this different from the tech co-founder engagement?", answer: "Tech co-founder is full-time leadership and execution. CTO-as-a-service is part-time strategy. If you have engineers who execute well but need direction, CTO-as-a-service is the right model." },
+      { question: "Can you help us hire?", answer: "Yes. Job architecture, role definitions, interview design, candidate evaluation, and offer strategy. We do not recruit (that is a different service), but we ensure you hire the right people." },
+      { question: "What if we eventually need a full-time CTO?", answer: "We help you hire one. We know exactly what profile your company needs because we have been in the role. We write the JD, evaluate candidates, and onboard the hire." },
+      { question: "What is the minimum commitment?", answer: "3 months. After that, month-to-month. Most engagements last 6-12 months until the company hires a full-time CTO or the team grows enough to not need external strategy." },
+    ],
+    "design-sprint": [
+      { question: "What do we need to prepare?", answer: "A clear problem statement, access to 5 target users for Friday testing (we help recruit), and your key stakeholders available for the full 5 days. We handle everything else." },
+      { question: "What if the sprint kills our idea?", answer: "That is the second-best outcome. Killing a bad idea in 5 days for $15-25K saves $50-150K of building the wrong thing. The sprint pays for itself by preventing waste." },
+      { question: "Can we do a remote sprint?", answer: "Yes. Miro for collaboration, Figma for prototyping, and Zoom for user testing. Remote sprints work well with disciplined facilitation. In-person is slightly better for team dynamics." },
+      { question: "What happens after the sprint?", answer: "If validated: we produce a development specification and can begin building immediately. If invalidated: we document what was learned and recommend the next hypothesis to test." },
+      { question: "How much does a design sprint cost?", answer: "$15-25K depending on complexity and user recruitment requirements. Includes facilitation, prototyping, user testing, and the sprint report. Five days, complete validation." },
+    ],
+    "code-audit": [
+      { question: "How long does an audit take?", answer: "1-2 weeks from start to delivered report. Small codebases (under 50K lines): 1 week. Large codebases or complex architectures: 2 weeks. Timeline agreed before we start." },
+      { question: "Will you try to sell us remediation work?", answer: "No. The audit is the deliverable. We provide findings and recommendations. If you want help fixing things, we can quote that separately. But many clients take our report to their existing team." },
+      { question: "What if the code is fine?", answer: "Then we tell you it is fine. We have no incentive to find problems that do not exist. A clean audit report is a valid and valuable outcome." },
+      { question: "Who is the audience for the report?", answer: "Two sections: executive summary for non-technical stakeholders (2 pages), and detailed findings for engineers (5-8 pages). Both audiences get what they need." },
+      { question: "How much does an audit cost?", answer: "$5-15K depending on codebase size and scope (full audit vs. security-only vs. architecture-only). We scope and price before starting." },
+    ],
+    "staff-augmentation": [
+      { question: "How fast can you place an engineer?", answer: "1-2 weeks from agreement to first day. We match skills from our bench of pre-vetted senior engineers. No 3-month recruiting process." },
+      { question: "What if the engineer is not a good fit?", answer: "We replace them within 1-2 weeks at no additional cost. Fit is non-negotiable. If the engineer does not integrate well with your team, we find someone who does." },
+      { question: "Do they follow our process or bring their own?", answer: "Yours. 100%. Your standup cadence, your PR review process, your code style guide, your deployment procedure. They adapt to you, not the other way around." },
+      { question: "What is the minimum engagement?", answer: "3 months. After that, month-to-month with 30-day notice. This ensures enough time for the engineer to become productive and for you to see meaningful value." },
+      { question: "How do you ensure quality?", answer: "Pre-vetting: 7+ years experience, technical interview, reference checks. During engagement: weekly integration check-ins, PR quality monitoring, and your direct feedback acted on immediately." },
+    ],
+    "retainer": [
+      { question: "How many hours per month is typical?", answer: "40-80 hours/month is most common. Smaller products: 20-40h. Growth-stage products with active development: 80-120h. We recommend based on your product's needs." },
+      { question: "What if I do not use all the hours one month?", answer: "Unused hours roll over for one month (up to 50% of monthly allocation). This gives you flexibility without losing value in quiet months." },
+      { question: "Can I change what the hours are used for?", answer: "Yes. Features one month. Bug fixes the next. Performance work after that. The capacity is reserved. How you use it is flexible within each month." },
+      { question: "What about emergency production issues?", answer: "Included in your retainer with priority SLA (typically 4-hour response). No separate contract needed. No negotiation during an incident. We respond immediately." },
+      { question: "What is the minimum commitment?", answer: "3 months. After that, month-to-month with 30-day notice. Most retainer clients stay 12+ months because the value of consistent engineers with deep context is significant." },
+    ],
+    "nearshore": [
+      { question: "Where are your nearshore engineers located?", answer: "Latin America primarily: Colombia, Argentina, Mexico, and Brazil. Within 1-2 hours of US Eastern/Central time. European clients: Eastern Europe within 1-2 hours of CET." },
+      { question: "How do you verify English fluency?", answer: "C1+ level verified through technical interviews conducted entirely in English. Our engineers discuss complex architectural concepts, write documentation, and participate in meetings without communication friction." },
+      { question: "Is the quality actually the same as local hires?", answer: "Yes. Same interview standards, same code review expectations, same engineering discipline. The cost difference comes from economics, not quality. We would not place an engineer who could not pass a local hiring bar." },
+      { question: "Can they attend our standups?", answer: "Yes. That is the point. Within 2 hours of your timezone means standups at normal times for both parties. Real-time collaboration during your full business day." },
+      { question: "What is the cost structure?", answer: "Monthly rate per engineer, 40-60% below equivalent local market rates. No hidden fees. No per-hour billing. Flat monthly rate with the same predictability as a salary." },
+    ],
+    "outsourcing": [
+      { question: "How do we ensure quality without managing the team?", answer: "Milestone acceptance criteria defined upfront. Each milestone reviewed and approved before payment. Automated test suites verify functionality. Code review standards maintained internally. You evaluate output, not process." },
+      { question: "What about communication during the project?", answer: "Biweekly milestone demos. Weekly written progress updates. Slack access for questions. You are informed without being involved in daily decisions. Minimal time investment from your side." },
+      { question: "What if the delivered software does not meet requirements?", answer: "Milestone acceptance criteria are the contract. If software does not meet criteria, we fix it before payment is due. No ambiguity. Requirements are specific and testable." },
+      { question: "Can our team maintain it after handoff?", answer: "Yes. Documentation, architecture guides, deployment procedures, and optional training are included in every delivery. We build for independence, not dependency." },
+      { question: "How long does a typical outsourced project take?", answer: "8-16 weeks for most projects. Simple applications: 6-8 weeks. Complex platforms with integrations: 12-16 weeks. Timeline agreed in the SOW before work begins." },
+    ],
   };
 
   if (verticalFaqs[id]) return verticalFaqs[id];
@@ -3569,6 +4008,17 @@ function generateWhoWeHelped(id: string, category: string): string[] {
     "post-pivot": ["Startups that shipped pivoted products in 6 weeks (not 6 months)", "Companies that reused 60% of existing code after major direction changes", "Teams that preserved all user data through complete product pivots", "Founders who re-validated with users faster the second time around"],
     "no-tech-team": ["Non-technical founders who shipped products without hiring engineers", "Companies that went from zero code to live product in 8 weeks", "Founders who successfully transitioned from external to internal team", "Startups that raised funding with shipped products as proof of execution"],
     "africa-launch": ["US products that successfully launched in Kenyan and Nigerian markets", "Platforms serving 40,000+ users via USSD in rural areas", "Companies that integrated 3+ African payment providers in one sprint", "Products optimized from 4MB to under 500KB for 2G performance"],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": ["Founders who launched MVPs at exact quoted price (zero overruns)", "Startups that shipped in 4-6 weeks with production-quality code", "Companies that budgeted their runway confidently with fixed engineering costs", "Founders who chose fixed-price after hourly agencies tripled their estimates"],
+    "dedicated-team": ["Growth-stage companies with dedicated teams of 4-6 engineers for 12+ months", "Startups that scaled teams from 2 to 8 for product launches and back down", "Companies whose dedicated teams outperformed internal hires on velocity metrics", "Organizations that used dedicated teams as bridges while hiring full-time"],
+    "tech-cofounder": ["Non-technical founders who raised Series A with our technical leadership", "Startups that built engineering teams from zero under CTO-level guidance", "Companies whose board confidence increased with named technical leadership", "Founders who avoided $2M+ equity dilution by contracting CTO responsibilities"],
+    "cto-as-a-service": ["Startups where fractional CTO resolved 6 months of architecture debates in 2 weeks", "Companies that hired correctly on first attempt with CTO-guided interview processes", "Organizations whose board presentations improved with technical leadership communication", "Teams whose velocity doubled after someone owned technical direction"],
+    "design-sprint": ["Sprints that validated product direction and went straight to development", "Sprints that killed hypotheses (saving $50-150K each in avoided development)", "Stakeholder groups that aligned after months of disagreement through sprint process", "Product teams that used sprint outputs as development specifications"],
+    "code-audit": ["Acquisition targets assessed for technical risk before deal closure", "Startups that used audit reports to prioritize engineering investment", "Companies that passed investor due diligence after audit-driven remediation", "Teams that received honest clean-bill-of-health audits confirming quality"],
+    "staff-augmentation": ["Teams that maintained velocity during engineer parental leave", "Companies that completed infrastructure migrations with specialist augmentation", "Organizations that filled senior skill gaps for 3-6 month project needs", "Teams that integrated augmented engineers indistinguishably from full-time staff"],
+    "retainer": ["Products maintained and improved by same engineers for 18+ months", "Companies with predictable monthly engineering budgets and flexible allocation", "Organizations with 4-hour emergency response without separate contracts", "Teams that transitioned from retainer to internal hires with zero context loss"],
+    "nearshore": ["Companies achieving 50% cost savings with identical code quality metrics", "Teams where nearshore engineers participate in real-time pair programming daily", "Organizations that could not distinguish nearshore PRs from local engineer PRs", "Startups that scaled engineering capacity 3x without scaling budget 3x"],
+    "outsourcing": ["Complete products delivered milestone-by-milestone without daily management", "Companies whose internal teams maintained outsourced code independently post-handoff", "Organizations that received documented, tested, deployment-ready software on schedule", "Teams that used outsourced deliveries as foundations for internal development"],
   };
 
   if (verticalHelped[id]) return verticalHelped[id];
@@ -3748,6 +4198,47 @@ function generateClientReviews(id: string, category: string): StartupClientRevie
     "africa-launch": [
       { text: "Our US product went from unusable to 40,000 active users in Kenya within 3 months of CiroStack's adaptation. M-Pesa integration, offline mode, and 2G optimization. They understood the market immediately.", name: "Aisha N.", role: "Founder, Expanding to East Africa" },
       { text: "Page weight went from 3.8MB to 420KB. Load time on 2G dropped from 45 seconds to 4 seconds. That is the difference between a product that works in Africa and one that does not. CiroStack made it work.", name: "Emmanuel O.", role: "CTO, Pan-African Platform" },
+    ],
+    // BY ENGAGEMENT
+    "fixed-price-mvp": [
+      { text: "Fixed price means I sleep at night. No surprise invoices, no scope creep conversations. Just software shipping on schedule at the price we agreed. After two agencies that tripled their estimates, this was transformative.", name: "Chris P.", role: "Founder, MVP Client" },
+      { text: "They quoted $28K. They delivered for $28K. In 6 weeks. I have never worked with a development partner where the final invoice matched the proposal. CiroStack is the only one.", name: "Laura M.", role: "Founder, B2B SaaS MVP" },
+    ],
+    "dedicated-team": [
+      { text: "Our dedicated team of 4 engineers has been with us for 18 months. They feel like employees, not vendors. They know our codebase better than our internal team does.", name: "Rachel O.", role: "VP Engineering, Growth Stage" },
+      { text: "We scaled from 2 to 6 engineers for our product launch, then back to 3 after. Try doing that with full-time hires. The flexibility alone is worth the engagement model.", name: "James T.", role: "CTO, Series B Startup" },
+    ],
+    "tech-cofounder": [
+      { text: "Investors stopped asking who our CTO was after CiroStack's technical lead presented our roadmap at the board meeting. They provided the credibility we needed without the equity we could not afford to give.", name: "Sarah K.", role: "Non-Technical Founder, Series A" },
+      { text: "CiroStack hired our first 3 engineers, designed our architecture, and built our product. When we finally hired a full-time CTO, she said the foundation was better than what she inherited at her last funded startup.", name: "Michael D.", role: "Founder, Fintech Startup" },
+    ],
+    "cto-as-a-service": [
+      { text: "Our engineers are talented but they were stuck in 3-month architecture debates. CiroStack's fractional CTO resolved them in one session. Velocity doubled because someone finally owned the direction.", name: "Daniel F.", role: "CEO, Developer Tools Company" },
+      { text: "Board members stopped asking uncomfortable technical questions after CiroStack started producing our monthly updates. The translation from engineering work to business outcomes was exactly what we needed.", name: "Andrea L.", role: "Founder, Healthcare SaaS" },
+    ],
+    "design-sprint": [
+      { text: "The sprint killed our original hypothesis on Day 5. We were devastated. Then we realized it saved us $120K of building the wrong thing. Best $20K we ever spent.", name: "Ryan W.", role: "Founder, Consumer App" },
+      { text: "Five stakeholders who could not agree for 3 months aligned in 5 days. Watching users interact with the prototype ended every argument. Data beats opinions.", name: "Catherine H.", role: "VP Product, Enterprise SaaS" },
+    ],
+    "code-audit": [
+      { text: "CiroStack found 3 critical security issues our internal team missed. No sugarcoating, no upselling. Just a clear report that said: fix these immediately, fix these soon, and these are fine. Exactly what we needed.", name: "Mark S.", role: "CTO, Acquired Startup" },
+      { text: "The audit was 8 pages. Not 80. Five things to fix first, clearly prioritized. My team started working the same day they read it. Most useful $8K we have spent on engineering.", name: "Laura K.", role: "VP Engineering, Series A" },
+    ],
+    "staff-augmentation": [
+      { text: "Our augmented engineer submitted a meaningful PR on day 3. Not a typo fix. A real feature. Senior engineers who can read a codebase and contribute immediately are rare. CiroStack delivered one.", name: "Jonathan H.", role: "Engineering Manager, Growth Startup" },
+      { text: "We needed a DevOps specialist for 4 months. Hiring full-time made no sense. CiroStack placed someone who migrated our infrastructure, documented everything, and left us fully independent.", name: "Amy R.", role: "CTO, SaaS Platform" },
+    ],
+    "retainer": [
+      { text: "Same two engineers for 14 months. They know our codebase better than anyone. Monthly cost is predictable. Emergency response is included. We budget engineering like a utility bill now.", name: "Brian C.", role: "Founder, E-commerce Platform" },
+      { text: "Some months we need 80 hours of feature work. Some months we need 20 hours of maintenance. Same invoice either way. The flexibility within a predictable budget is exactly what we needed.", name: "Sandra M.", role: "CEO, B2B Marketplace" },
+    ],
+    "nearshore": [
+      { text: "I genuinely cannot tell which PRs are from our nearshore engineers and which are from our SF team. Same quality, same communication, same code review standards. At 45% lower cost.", name: "Derek W.", role: "VP Engineering, Series B" },
+      { text: "Pair programming with our nearshore team works because they are 1 hour off our timezone. We tried offshore (8 hours off) first. The communication tax ate all the cost savings. Nearshore is the sweet spot.", name: "Lisa H.", role: "CTO, Collaboration Tool" },
+    ],
+    "outsourcing": [
+      { text: "Requirements in. Working software out. Monthly demos. Milestone payments. Our internal team took over the codebase without a single question we could not answer from the documentation.", name: "Gregory T.", role: "VP Product, Enterprise Company" },
+      { text: "We outsourced a complete product build and our team maintained it independently for 2 years without calling CiroStack back once. That is what proper handoff documentation looks like.", name: "Monica J.", role: "Director Engineering, Mid-Size Company" },
     ],
   };
 
