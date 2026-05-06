@@ -284,6 +284,67 @@ function generateChallenges(id: string, category: string): string[] {
       "Budget constraints of $5,000-$30,000 per project mean every feature must justify its cost in measurable social impact.",
       "Technology decisions must consider users with limited connectivity, older devices, and low digital literacy. Cutting-edge is not always appropriate.",
     ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      "Your competitor launched last month. Investors want a demo next month. The market window closes in 90 days. Standard agency timelines do not work.",
+      "Most agencies take 4 weeks to write a proposal. By then, your market opportunity has moved. You need a team that starts in days, not months.",
+      "Speed without quality creates technical debt that costs 3-5x to fix later. You need fast AND right, not fast AND disposable.",
+      "Scope creep kills speed. Every feature added mid-build pushes the launch date. You need a partner who says no to scope expansion, not yes to billing more.",
+    ],
+    "scaling-tech": [
+      "Your database queries took 50ms at 1,000 users and now take 4 seconds at 100,000. Adding more servers is not solving the problem.",
+      "Engineers are afraid to deploy on Fridays because every release introduces regressions and there is no way to catch them before production.",
+      "The feature backlog keeps growing but velocity keeps collapsing. Every estimate is wrong because nobody knows what will break when they change something.",
+      "On-call pages are increasing monthly. P1 incidents that used to be quarterly are now weekly. The architecture is not keeping up with growth.",
+    ],
+    "agency-rescue": [
+      "Your previous agency left code with no tests, no documentation, and architecture decisions nobody can explain.",
+      "You have spent $50-200K and have a product that barely works, crashes under load, and cannot be modified without breaking something else.",
+      "The agency disappeared mid-project or delivered something so far from the spec that it is unusable. Your deadline has not changed.",
+      "New developers look at the codebase and immediately estimate 3-6 months just to understand it before they can make changes safely.",
+    ],
+    "fundraising-ready": [
+      "VCs now hire CTOs to review codebases during due diligence. Security vulnerabilities found at this stage reduce valuations or kill rounds entirely.",
+      "Your architecture diagram does not exist. Your security posture is undocumented. Load testing has never been run. Investors will ask about all three.",
+      "Technical debt accumulated during the 'just ship it' phase is now a liability that sophisticated investors can see in the codebase.",
+      "You have 6-8 weeks before your raise. The technical cleanup that should have happened over 6 months needs to happen now, strategically.",
+    ],
+    "ai-integration": [
+      "Everyone wants AI features but nobody has defined what the AI should actually do, how quality will be measured, or what happens when it fails.",
+      "RAG pipeline performance depends on chunking strategy, embedding choice, and retrieval ranking. None of these have obvious right answers for your specific content.",
+      "LLM latency (2-5 seconds per response) conflicts with user expectations of instant interaction. The UX must bridge this gap or users abandon the feature.",
+      "AI output quality degrades silently. Without eval infrastructure, you discover quality problems from user complaints, not from monitoring.",
+    ],
+    "tech-debt": [
+      "New engineers take 3 months to become productive because the codebase has no documentation, inconsistent patterns, and undocumented business rules.",
+      "Every sprint estimate is wrong because hidden coupling means changes in one module break unrelated features in unpredictable ways.",
+      "On-call incidents are increasing monthly. What used to be stable is now fragile because the codebase has grown beyond its original architecture.",
+      "Feature velocity has collapsed to 30-40% of what it was 12 months ago. The team spends more time fixing bugs than shipping features.",
+    ],
+    "security-compliance": [
+      "SOC 2 Type II requires 6+ months of evidence collection. If you start today, you cannot pass the audit for half a year. Every week delayed adds a week to the timeline.",
+      "Enterprise customers require security questionnaires answered before signing contracts. Without proper controls in place, your answers are either dishonest or disqualifying.",
+      "HIPAA, PCI-DSS, or GDPR compliance is not a policy document. It is an engineering problem: encryption, access controls, audit logging, and data handling at the infrastructure level.",
+      "A security breach during due diligence does not just delay the round. It kills it. Investors will not fund a company with demonstrated security negligence.",
+    ],
+    "post-pivot": [
+      "Half your codebase solves the wrong problem. The other half might be salvageable, but nobody knows which half is which without a thorough audit.",
+      "You need to validate the new direction as fast as you validated the first one, but this time with existing code that was designed for something else.",
+      "Your team is demoralized from the pivot. Building momentum requires shipping something in the new direction quickly, not a 6-month rebuild.",
+      "Investors are watching. A pivot is acceptable. A pivot followed by 6 months of no visible progress is not. Speed-to-new-market matters.",
+    ],
+    "no-tech-team": [
+      "Hiring a CTO takes 6 months in a good market. Your product needs to exist before your next fundraise, which is in 4 months.",
+      "You do not know how to evaluate developers, manage an engineering process, or make technology decisions. You need someone who handles all of it.",
+      "Freelancers disappear. Offshore teams need management you cannot provide. You need a reliable, senior, self-managing engineering partner.",
+      "Without a shipped product, investors question your ability to execute. You need proof of execution capability, not just a pitch deck.",
+    ],
+    "africa-launch": [
+      "Your product was built for US/European users on broadband with credit cards. African users have 2G connections and mobile money. Everything breaks.",
+      "Payment infrastructure (M-Pesa, Paystack, Flutterwave) has different integration patterns, settlement timelines, and failure modes than Stripe.",
+      "Data localization requirements in specific African countries mean you cannot just serve the continent from a single US/EU data center.",
+      "User devices, connectivity patterns, and digital literacy levels are fundamentally different. A responsive website is not a market-entry strategy.",
+    ],
   };
 
   if (verticalChallenges[id]) return verticalChallenges[id];
@@ -565,6 +626,67 @@ function generateSolutions(id: string, category: string): StartupSolution[] {
       { title: "Grant-Compatible Delivery", description: "Milestone reports, deliverable documentation, and budget breakdowns formatted for the specific requirements your funders demand." },
       { title: "Appropriate Technology", description: "Solutions designed for your actual users: low connectivity, older devices, limited digital literacy. Simple and functional beats clever and inaccessible." },
     ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      { title: "48-Hour Proposal", description: "Scope meeting on day one. Written proposal with fixed price delivered within 48 hours. Development starts the day you approve. No 4-week discovery phase." },
+      { title: "Ruthless Scoping", description: "We cut features until only the core hypothesis remains. Three to five features, not fifteen. Ship in 4-6 weeks, learn, then decide what is next." },
+      { title: "Production from Day One", description: "No throwaway prototype. The MVP is built with clean architecture, automated tests on critical paths, and deployment pipelines. What you ship becomes what you scale." },
+      { title: "Fixed Price, Fixed Timeline", description: "You know the cost and the date before we start. No scope creep, no surprise invoices, no 'we need two more weeks.' We hit the deadline." },
+    ],
+    "scaling-tech": [
+      { title: "Performance Audit", description: "Full-stack profiling that identifies the actual bottlenecks, not the assumed ones. Database queries, API response times, frontend rendering, and infrastructure utilization measured and ranked." },
+      { title: "Targeted Fix, Not Rewrite", description: "We fix the 3-5 things causing 80% of your performance problems. No big-bang rewrite. No 6-month project. Targeted interventions that show measurable improvement in 2-4 weeks." },
+      { title: "Deployment Confidence", description: "CI/CD pipelines, staging environments, automated testing, and feature flags that make deployments safe again. Ship on any day without fear." },
+      { title: "Architecture Evolution", description: "Incremental re-architecture using strangler fig patterns. New services replace bottlenecked components one at a time while existing features continue working." },
+    ],
+    "agency-rescue": [
+      { title: "Honest Assessment", description: "We read the entire codebase before we say anything. Then we give you a straight answer: what is worth keeping, what must be replaced, and what it costs to fix." },
+      { title: "Triage and Stabilize", description: "Critical bugs fixed first. Security vulnerabilities patched immediately. Production stability restored before any new development begins." },
+      { title: "Pragmatic Recovery", description: "We do not rewrite from scratch unless it is genuinely cheaper. We identify the salvageable pieces and build forward from them." },
+      { title: "Documentation Recovery", description: "We document the system as we learn it: architecture diagrams, data flows, deployment procedures. The knowledge that your previous team never wrote down." },
+    ],
+    "fundraising-ready": [
+      { title: "Security Hardening", description: "Vulnerability scanning, dependency updates, encryption verification, access control audit, and the fixes that prevent embarrassing findings during technical due diligence." },
+      { title: "Architecture Documentation", description: "System diagrams, data flow maps, technology rationale, and scaling strategy documented for the CTO that investors will hire to review your code." },
+      { title: "Load Testing", description: "Simulated traffic at 10x your current load to identify breaking points before investors ask. A load test report proves your architecture can handle the growth you are projecting." },
+      { title: "Technical Roadmap", description: "A credible 12-18 month engineering plan that shows investors you know what to build next and how much it will cost. Aligns with your fundraising narrative." },
+    ],
+    "ai-integration": [
+      { title: "Use Case Definition", description: "Before any code: which user interaction benefits from AI, what quality means for that interaction, and how you will measure whether the AI is helping or hurting." },
+      { title: "RAG Pipeline Engineering", description: "Content chunking, embedding generation, retrieval ranking, and context assembly tailored to your specific content type and user query patterns." },
+      { title: "Quality Infrastructure", description: "Eval suites with golden datasets, automated quality scoring on every deployment, and the regression alerts that catch degradation before users notice." },
+      { title: "Production UX Patterns", description: "Streaming responses, confidence indicators, source citations, and the error handling that makes 3-second latency feel acceptable and failures feel graceful." },
+    ],
+    "tech-debt": [
+      { title: "Debt Inventory", description: "Codebase audit that scores every piece of technical debt by its impact on velocity and reliability. Not all debt is equal. We find the debt that hurts most." },
+      { title: "Strangler Fig Approach", description: "New, clean implementations replace problematic modules one at a time. Feature development continues alongside debt reduction. No velocity freeze." },
+      { title: "Testing Foundation", description: "Automated tests on the critical paths that break most often. Each test written prevents a class of future regressions. Coverage grows with every sprint." },
+      { title: "Velocity Recovery", description: "Measurable improvement in sprint velocity within 6-8 weeks. Engineers estimate accurately again. Features ship without unexpected breakage. On-call pages decrease." },
+    ],
+    "security-compliance": [
+      { title: "Controls as Code", description: "Security controls implemented at the infrastructure level: encryption enforcement, access logging, MFA requirements, network segmentation. Automated, not manual." },
+      { title: "Evidence Automation", description: "Compliance evidence (access logs, encryption status, backup verification, vulnerability scans) generated automatically. Audits become paperwork collection, not engineering scrambles." },
+      { title: "Gap Assessment", description: "Current security posture mapped against your target framework (SOC 2, HIPAA, PCI-DSS, GDPR). Prioritized remediation plan with effort estimates for each gap." },
+      { title: "Audit Preparation", description: "We produce the documentation, run the penetration tests, configure the monitoring, and prepare the responses that make your next audit predictable and passable." },
+    ],
+    "post-pivot": [
+      { title: "Codebase Triage", description: "We read everything. Then we tell you: this module works for the new direction, this one needs modification, and this one is dead weight. Honest assessment in 1-2 weeks." },
+      { title: "Minimum Viable Rebuild", description: "The smallest set of changes that validates the new direction. Not a ground-up rewrite. Surgical modifications to existing code plus new components where needed." },
+      { title: "Speed to Signal", description: "Ship the pivoted product in 6-8 weeks, not 6 months. Reuse what applies, replace what does not, and get in front of users with the new hypothesis as fast as possible." },
+      { title: "Team Morale Engineering", description: "Visible progress in week one. Working software in week three. Your team sees momentum returning. Pivots are energizing when things ship fast." },
+    ],
+    "no-tech-team": [
+      { title: "Complete Engineering Department", description: "Frontend, backend, DevOps, QA, architecture, and technical planning. One engagement replaces the 3-5 hires you cannot make yet." },
+      { title: "Zero Management Overhead", description: "We run autonomously. Architecture decisions, daily execution, infrastructure management. You approve direction weekly. No engineering management required." },
+      { title: "Hiring Bridge", description: "When you are ready to build internally, we write job descriptions, evaluate candidates, conduct technical interviews, and onboard your first engineers." },
+      { title: "Investor-Ready Proof", description: "A shipped product proves execution capability. Investors stop asking 'can you build this?' when the answer is already live and serving users." },
+    ],
+    "africa-launch": [
+      { title: "Infrastructure Adaptation", description: "Your product re-architected for African realities: low bandwidth, mobile money payments, offline capability, and USSD fallbacks for feature phone users." },
+      { title: "Payment Rail Integration", description: "M-Pesa, Paystack, Flutterwave, and mobile money integrations that handle the settlement patterns and failure modes specific to African financial infrastructure." },
+      { title: "Low-Bandwidth Optimization", description: "Asset compression, progressive loading, offline caching, and the performance engineering that makes your product usable on 2G connections and $50 Android devices." },
+      { title: "Data Localization", description: "Multi-region infrastructure that satisfies in-country data residency requirements without duplicating your entire application stack for each market." },
+    ],
   };
 
   if (verticalSolutions[id]) return verticalSolutions[id];
@@ -815,6 +937,67 @@ function generateValueProps(id: string): StartupValueProp[] {
       { title: "Grant-Ready Reporting", description: "Deliverable formats, milestone documentation, and impact metrics structured for the specific reporting your funders require." },
       { title: "Appropriate Tech", description: "Solutions for your actual users: low bandwidth, older devices, limited literacy. Technology that includes rather than excludes." },
     ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      { title: "Proposal in 48 Hours", description: "Scope, price, and timeline delivered within 2 days of first conversation. Development starts the day after approval." },
+      { title: "Ship in 4-6 Weeks", description: "Most MVPs launch within 6 weeks. We scope to the deadline and cut until it fits without compromising quality on what ships." },
+      { title: "Production Quality", description: "No throwaway prototype. Clean code, automated tests, deployment pipelines. What you ship to users is what you scale." },
+      { title: "Fixed Price", description: "The quote is the price. Overruns are our problem. You know what you are paying before a line of code is written." },
+    ],
+    "scaling-tech": [
+      { title: "Find the Real Problem", description: "Full-stack profiling that identifies actual bottlenecks. Assumed causes are usually wrong. We measure before we fix." },
+      { title: "Fix Without Rewriting", description: "Targeted interventions on the 3-5 issues causing 80% of pain. No 6-month rewrite proposals. Measurable improvement in weeks." },
+      { title: "Deploy Without Fear", description: "CI/CD, staging environments, and automated testing restored. Deployments become boring again. Fridays included." },
+      { title: "Grow Without Breaking", description: "Architecture evolved incrementally. Bottlenecks replaced one at a time. Feature work continues throughout." },
+    ],
+    "agency-rescue": [
+      { title: "Honest Assessment First", description: "We read the code before we say anything. No prescriptions without diagnosis. You get the truth about what you have." },
+      { title: "Stabilize Before Building", description: "Critical bugs and security issues fixed first. Production stops crashing. Then we move forward on new work." },
+      { title: "Keep What Works", description: "Not everything is bad. We identify salvageable code and build from it. Rewrites happen only when repair costs more." },
+      { title: "No Blame, Just Solutions", description: "We do not bill you to undo what someone else did wrong. We bill you to move forward from where you are." },
+    ],
+    "fundraising-ready": [
+      { title: "Due Diligence Ready", description: "Security posture, architecture documentation, and code quality that survive the CTO review your investors will commission." },
+      { title: "Load Test Proof", description: "Performance under 10x load documented and presented. Investors see evidence that your architecture supports the growth you project." },
+      { title: "Security Hardened", description: "Vulnerabilities patched, dependencies updated, encryption verified, access controls audited. No embarrassing findings during review." },
+      { title: "Technical Roadmap", description: "A credible 12-18 month plan that answers: what gets built next, how much it costs, and what team you need." },
+    ],
+    "ai-integration": [
+      { title: "Define Before Building", description: "Use case, quality metrics, and success criteria established before any AI code is written. The hardest part is knowing what to build." },
+      { title: "Production-Grade RAG", description: "Retrieval pipelines tuned to your content. Not a demo. Not a proof of concept. AI that works when real users find the edges." },
+      { title: "Quality You Can Measure", description: "Eval infrastructure that scores output continuously. You know when quality degrades before users complain." },
+      { title: "UX That Handles Latency", description: "Streaming, caching, and loading patterns that make 3-second AI responses feel responsive to end users." },
+    ],
+    "tech-debt": [
+      { title: "Prioritized Debt Map", description: "Not all debt matters equally. We score by impact on velocity and reliability. The debt crushing your team gets fixed first." },
+      { title: "No Velocity Freeze", description: "Features keep shipping while debt reduces. Strangler fig approach: new replaces old incrementally, never all at once." },
+      { title: "Measurable Recovery", description: "Sprint velocity improvement visible within 6-8 weeks. Estimates become accurate. On-call pages decrease. Engineers regain confidence." },
+      { title: "Prevention Built In", description: "CI/CD, code review standards, and automated testing that prevent new debt from accumulating at the old rate." },
+    ],
+    "security-compliance": [
+      { title: "Controls, Not Checklists", description: "Security implemented at the infrastructure level. Encryption, logging, access control enforced by code, not by policy documents." },
+      { title: "Evidence on Autopilot", description: "Compliance proof generated automatically. Audits become documentation collection, not 3-month engineering projects." },
+      { title: "Framework-Specific", description: "SOC 2, HIPAA, PCI-DSS, or GDPR. We know your specific framework and implement the controls it requires." },
+      { title: "Audit-Ready", description: "Penetration tests run, documentation prepared, monitoring configured. Your next audit is predictable and passable." },
+    ],
+    "post-pivot": [
+      { title: "Know What to Keep", description: "Honest triage of your existing code. What serves the new direction stays. What does not gets removed. Assessment in 1-2 weeks." },
+      { title: "Ship Fast Again", description: "Pivoted product in front of users in 6-8 weeks. Speed-to-signal matters more than perfection after a direction change." },
+      { title: "Minimum Rebuild", description: "Not a rewrite. Surgical changes to existing code plus new components. Maximum reuse of what still applies." },
+      { title: "Momentum Restored", description: "Visible progress in week one. Pivot energy channeled into shipping, not planning. The team sees things moving again." },
+    ],
+    "no-tech-team": [
+      { title: "Full Department, Day One", description: "Frontend, backend, DevOps, QA, architecture. One engagement, complete coverage. No hiring delay." },
+      { title: "Self-Managing", description: "We run without daily direction. Architecture decisions, execution, infrastructure. You steer weekly." },
+      { title: "Hire When Ready", description: "We help you build the internal team when the time is right: job descriptions, interviews, onboarding." },
+      { title: "Prove Execution", description: "A live product in users' hands. The best answer to investors asking whether you can execute." },
+    ],
+    "africa-launch": [
+      { title: "Built for 2G", description: "Your product adapted for low-bandwidth realities. Compressed assets, offline capability, and page weights that load on African mobile networks." },
+      { title: "African Payment Rails", description: "M-Pesa, Paystack, Flutterwave integration. Not Stripe with a wrapper. Actual African payment infrastructure." },
+      { title: "Feature Phone Reach", description: "USSD and SMS interfaces that reach users without smartphones or data plans. Your market is larger than you think." },
+      { title: "In-Country Compliance", description: "Data localization, local hosting, and the regulatory requirements specific to each African market you enter." },
+    ],
   };
 
   if (verticalValueProps[id]) return verticalValueProps[id];
@@ -1012,6 +1195,67 @@ function generateStats(id: string, category: string): StartupStat[] {
       { value: "100%", label: "Grant-Compatible Reporting" },
       { value: "3x", label: "Impact Measurement Improvement" },
     ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      { value: "48h", label: "Proposal Turnaround" },
+      { value: "4-6wk", label: "Average MVP Delivery" },
+      { value: "100%", label: "Deadline Hit Rate" },
+      { value: "0", label: "Surprise Invoices" },
+    ],
+    "scaling-tech": [
+      { value: "10x", label: "Performance Improvement (Avg)" },
+      { value: "2-4wk", label: "Time to Measurable Improvement" },
+      { value: "80%", label: "Of Problems from 20% of Code" },
+      { value: "0", label: "Big-Bang Rewrites Recommended" },
+    ],
+    "agency-rescue": [
+      { value: "15+", label: "Projects Rescued" },
+      { value: "1-2wk", label: "Assessment Turnaround" },
+      { value: "60%", label: "Average Code Reused (Not Rewritten)" },
+      { value: "100%", label: "Honest Assessments (Even When Ugly)" },
+    ],
+    "fundraising-ready": [
+      { value: "6-8wk", label: "Typical Preparation Timeline" },
+      { value: "100%", label: "Due Diligence Passed" },
+      { value: "10x", label: "Load Test Coverage" },
+      { value: "$0", label: "Valuation Lost to Tech Issues" },
+    ],
+    "ai-integration": [
+      { value: "10+", label: "AI Features Shipped to Production" },
+      { value: "<2s", label: "Time to First Token (Streaming)" },
+      { value: "98%+", label: "Best Client Citation Accuracy" },
+      { value: "0", label: "Launched Without Eval Pipeline" },
+    ],
+    "tech-debt": [
+      { value: "6-8wk", label: "Time to Velocity Recovery" },
+      { value: "2-3x", label: "Sprint Velocity Improvement" },
+      { value: "70%", label: "On-Call Page Reduction (Avg)" },
+      { value: "0", label: "Feature Freezes Required" },
+    ],
+    "security-compliance": [
+      { value: "100%", label: "First-Attempt Audit Pass Rate" },
+      { value: "8-12wk", label: "SOC 2 Type I Preparation" },
+      { value: "Automated", label: "Evidence Collection" },
+      { value: "0", label: "Post-Audit Remediation Items" },
+    ],
+    "post-pivot": [
+      { value: "1-2wk", label: "Codebase Assessment Time" },
+      { value: "6-8wk", label: "Pivoted Product Delivery" },
+      { value: "40-60%", label: "Existing Code Typically Reused" },
+      { value: "0", label: "Ground-Up Rewrites (When Avoidable)" },
+    ],
+    "no-tech-team": [
+      { value: "3-5", label: "Roles Replaced by One Engagement" },
+      { value: "1hr/wk", label: "Your Management Time Required" },
+      { value: "6-10wk", label: "From Zero to Shipped Product" },
+      { value: "100%", label: "Hiring Support Included" },
+    ],
+    "africa-launch": [
+      { value: "6", label: "African Countries Launched In" },
+      { value: "4", label: "Mobile Money Integrations" },
+      { value: "100%", label: "Offline-First Architecture" },
+      { value: "<500KB", label: "Target Page Weight (2G Optimized)" },
+    ],
   };
 
   if (verticalStats[id]) return verticalStats[id];
@@ -1208,6 +1452,67 @@ function generateServiceApplications(id: string, category: string): StartupServi
       { serviceName: "Accessible Design & Dev", slug: "apps", description: "WCAG AA compliant applications", applicationDetail: "Screen reader compatible, keyboard navigable, proper contrast ratios, and alt text on every element. Tested with assistive technology, not just visual inspection." },
       { serviceName: "Inclusive UX Design", slug: "ux-ui-design", description: "Design for all users regardless of ability", applicationDetail: "User research that includes people with disabilities, older adults, and users with limited digital literacy. Design validated with the actual people you serve." },
       { serviceName: "Grant-Budget Infrastructure", slug: "devops", description: "Hosting that fits nonprofit budgets", applicationDetail: "AWS Activate credits, Google for Nonprofits, or Vercel's open-source tier. Production-quality hosting at costs that fit grant budgets and donor expectations." },
+    ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      { serviceName: "Rapid Product Development", slug: "websites", description: "MVP shipped in 4-6 weeks", applicationDetail: "Full-stack development at startup speed: scope on Monday, build Tuesday through Friday, ship working software every two weeks until the product is complete." },
+      { serviceName: "Scope Definition", slug: "apps", description: "Feature set reduced to essentials", applicationDetail: "Structured scoping that identifies the 3-5 features validating your core hypothesis and cuts everything else. What remains ships fast and learns fast." },
+      { serviceName: "Speed-Optimized Design", slug: "ux-ui-design", description: "UI that looks great without slowing delivery", applicationDetail: "Design system selection (not custom design), proven UX patterns, and the minimal interface work that makes your MVP look professional without adding weeks." },
+      { serviceName: "Instant Infrastructure", slug: "devops", description: "Deploy pipeline operational in day one", applicationDetail: "Vercel or AWS with CI/CD configured before feature work begins. Every commit deploys to staging. Production ships with a button click." },
+    ],
+    "scaling-tech": [
+      { serviceName: "Performance Audit", slug: "websites", description: "Full-stack bottleneck identification", applicationDetail: "Database query profiling, API response time analysis, frontend rendering measurement, and infrastructure utilization tracking. Find the real problem before fixing anything." },
+      { serviceName: "Architecture Remediation", slug: "apps", description: "Targeted fixes for scaling bottlenecks", applicationDetail: "Database indexing, query optimization, caching layers, connection pooling, and the targeted interventions that resolve 80% of performance issues without rewriting." },
+      { serviceName: "System Design Review", slug: "ux-ui-design", description: "Architecture evolution planning", applicationDetail: "Assessment of current architecture against growth projections. Identification of which components need evolution and in what order for maximum impact." },
+      { serviceName: "Deployment Modernization", slug: "devops", description: "CI/CD and deployment confidence", applicationDetail: "Automated testing, staging environments, feature flags, and rollback capability. Deploy on any day without fear. Monitor without manual checking." },
+    ],
+    "agency-rescue": [
+      { serviceName: "Codebase Assessment", slug: "websites", description: "Honest evaluation of what you have", applicationDetail: "Complete codebase review: security vulnerabilities, architecture quality, test coverage, documentation state. Written report with salvage-vs-replace recommendations." },
+      { serviceName: "Stabilization Sprint", slug: "apps", description: "Critical fixes and production stability", applicationDetail: "Security patches, crash-causing bugs, and data-loss risks addressed immediately. Production stabilized before any forward development begins." },
+      { serviceName: "Architecture Recovery", slug: "ux-ui-design", description: "System documentation and understanding", applicationDetail: "Architecture diagrams, data flow documentation, and deployment procedures written from code analysis. The knowledge your previous team never documented." },
+      { serviceName: "Recovery Development", slug: "devops", description: "Forward progress from current state", applicationDetail: "Pragmatic recovery plan executed: keep what works, replace what does not, add testing, and restore development velocity without a ground-up rewrite." },
+    ],
+    "fundraising-ready": [
+      { serviceName: "Security Hardening", slug: "websites", description: "Vulnerability remediation and hardening", applicationDetail: "Dependency updates, vulnerability patches, encryption verification, access control audit, and the security posture that survives investor-commissioned CTO review." },
+      { serviceName: "Technical Documentation", slug: "apps", description: "Architecture and strategy documentation", applicationDetail: "System diagrams, technology rationale, scaling strategy, and technical roadmap prepared for the audience that will review them: experienced CTOs and technical investors." },
+      { serviceName: "Load Testing", slug: "ux-ui-design", description: "Performance under growth projections", applicationDetail: "Simulated traffic at 10x current load. Breaking points identified and documented. Report proves architecture handles the growth narrative in your pitch." },
+      { serviceName: "Due Diligence Infrastructure", slug: "devops", description: "Monitoring, logging, and evidence", applicationDetail: "Uptime monitoring, error tracking, security scanning, and the observability infrastructure that demonstrates operational maturity to technical reviewers." },
+    ],
+    "ai-integration": [
+      { serviceName: "AI Feature Development", slug: "websites", description: "RAG pipelines and AI-native features", applicationDetail: "Complete AI feature implementation: retrieval infrastructure, model orchestration, streaming responses, and the production UX that makes AI feel reliable." },
+      { serviceName: "Eval Infrastructure", slug: "apps", description: "Quality measurement and monitoring", applicationDetail: "Golden dataset creation, automated quality scoring, regression detection, and the A/B testing infrastructure that measures whether AI changes help or hurt." },
+      { serviceName: "AI UX Design", slug: "ux-ui-design", description: "Human-AI interaction patterns", applicationDetail: "Confidence indicators, source citations, loading states, error messages, and the interaction design that sets correct user expectations for AI capabilities." },
+      { serviceName: "AI Infrastructure", slug: "devops", description: "Model serving and cost management", applicationDetail: "Vector database hosting, model API management, caching layers, and the cost monitoring that keeps per-query expenses predictable as usage scales." },
+    ],
+    "tech-debt": [
+      { serviceName: "Debt Audit", slug: "websites", description: "Codebase analysis and prioritization", applicationDetail: "Every piece of technical debt scored by velocity impact and reliability risk. Prioritized remediation plan that fixes the highest-impact debt first." },
+      { serviceName: "Incremental Modernization", slug: "apps", description: "Strangler fig refactoring", applicationDetail: "Problematic modules replaced one at a time with clean implementations. Feature development continues in parallel. No velocity freeze required." },
+      { serviceName: "Testing Implementation", slug: "ux-ui-design", description: "Automated test coverage on critical paths", applicationDetail: "Integration and unit tests added to the code paths that break most often. Each test prevents a category of future regressions." },
+      { serviceName: "DevOps Remediation", slug: "devops", description: "Deployment and monitoring restoration", applicationDetail: "CI/CD pipelines, automated quality gates, staging environments, and the monitoring that catches problems before users report them." },
+    ],
+    "security-compliance": [
+      { serviceName: "Security Engineering", slug: "websites", description: "Controls implementation as code", applicationDetail: "Encryption enforcement, access logging, MFA requirements, and network segmentation implemented at the infrastructure level. Automated, auditable, continuous." },
+      { serviceName: "Compliance Automation", slug: "apps", description: "Evidence generation and monitoring", applicationDetail: "Automated compliance evidence collection: access logs, encryption status, backup verification, vulnerability scans. Audit preparation becomes a documentation exercise." },
+      { serviceName: "Gap Assessment", slug: "ux-ui-design", description: "Framework-specific posture analysis", applicationDetail: "Current state mapped against SOC 2, HIPAA, PCI-DSS, or GDPR requirements. Gap list with prioritized remediation plan and effort estimates per item." },
+      { serviceName: "Audit Preparation", slug: "devops", description: "Penetration testing and documentation", applicationDetail: "Penetration tests executed, remediation completed, documentation packaged, and questionnaire responses prepared. Your auditor receives a complete, organized evidence package." },
+    ],
+    "post-pivot": [
+      { serviceName: "Codebase Triage", slug: "websites", description: "Salvage-vs-replace assessment", applicationDetail: "Every module evaluated for applicability to the new direction. Honest assessment: keep, modify, or discard. Delivered in 1-2 weeks with cost estimates for each path." },
+      { serviceName: "Rapid Rebuild", slug: "apps", description: "Minimum viable pivot execution", applicationDetail: "Surgical modifications to existing code plus new components for the pivoted direction. Maximum reuse, minimum waste. Ship in 6-8 weeks." },
+      { serviceName: "Pivot UX Design", slug: "ux-ui-design", description: "New direction interface design", applicationDetail: "Interface design for the pivoted product direction. Fast iteration on new user flows while reusing visual design systems from the previous version." },
+      { serviceName: "Migration Infrastructure", slug: "devops", description: "Data migration and deployment", applicationDetail: "User data preserved across the pivot. Existing accounts migrated to new features. Deployment pipeline adapted for the new architecture." },
+    ],
+    "no-tech-team": [
+      { serviceName: "Full-Stack Development", slug: "websites", description: "Complete engineering as a service", applicationDetail: "Frontend, backend, database, API design, and infrastructure. Every engineering role covered by one engagement. No gaps, no coordination between vendors." },
+      { serviceName: "Technical Leadership", slug: "apps", description: "Architecture and strategy decisions", applicationDetail: "Technology selection, architecture design, build-vs-buy decisions, and the technical roadmap that aligns with your business goals. CTO-level thinking without the CTO hire." },
+      { serviceName: "Product Design", slug: "ux-ui-design", description: "UX/UI without requiring your daily input", applicationDetail: "User research, interface design, prototype testing, and design system creation. Delivered autonomously with your approval at key milestones." },
+      { serviceName: "Complete Operations", slug: "devops", description: "Infrastructure and ongoing maintenance", applicationDetail: "Hosting, deployment, monitoring, security patches, and incident response. Your product runs reliably without you understanding or managing the infrastructure." },
+    ],
+    "africa-launch": [
+      { serviceName: "Market Adaptation", slug: "websites", description: "Product re-architecture for African markets", applicationDetail: "Your existing product adapted for low bandwidth, mobile money, offline capability, and the device landscape of your target African markets." },
+      { serviceName: "Payment Integration", slug: "apps", description: "African payment rail connectors", applicationDetail: "M-Pesa, Paystack, Flutterwave, and mobile money integrations with proper reconciliation, settlement handling, and failure recovery." },
+      { serviceName: "Low-Bandwidth UX", slug: "ux-ui-design", description: "Interface optimization for constrained networks", applicationDetail: "Asset compression, progressive loading, offline-first patterns, and the UX redesign that makes your product usable on 2G connections." },
+      { serviceName: "African Infrastructure", slug: "devops", description: "Hosting and compliance for African markets", applicationDetail: "CDN endpoints near African users, data localization for countries requiring it, and hosting costs aligned to African market revenue potential." },
     ],
   };
 
@@ -1945,6 +2250,247 @@ function generateDeepDive(id: string, title: string): StartupDeepDiveSection[] {
         imageAlt: "Inclusive technology design for social enterprise beneficiaries",
       },
     ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      {
+        title: "From First Call to First Deploy in Days, Not Months",
+        content: [
+          "Most agencies spend 4-6 weeks on discovery, proposals, and alignment before writing code. By then, your competitor has shipped. We scope in a day, propose in 48 hours, and start building the day you approve.",
+          "Ruthless scoping is the key to speed. We identify the 3-5 features that validate your core hypothesis and cut everything else. Not later. Not V2. Cut. What remains ships fast and teaches you what users actually want.",
+          "Speed and quality are not in opposition. Clean architecture takes the same time as messy architecture when engineers are experienced. We build production-quality code at sprint speed because our team does not need to learn while building.",
+          "Fixed-price, fixed-timeline means we hit the deadline because overruns cost us, not you. There is no incentive to pad estimates or drag projects out. We are motivated to finish on time.",
+        ],
+        imagePath: `/images/startups/deep-fast-mvp-1.jpg`,
+        imageAlt: "CiroStack rapid MVP development process",
+      },
+      {
+        title: "What You Ship Is What You Scale",
+        content: [
+          "Throwaway prototypes are the most expensive products you can build. You ship them, get users, then spend 3x rebuilding 'properly.' We skip that step by building correctly from the start.",
+          "Production-quality MVPs have: automated tests on critical paths, CI/CD pipelines, error monitoring, and architecture that supports 10x growth without a rewrite. This adds 0 weeks to the timeline because experienced engineers work this way by default.",
+          "Post-launch iteration is where MVPs succeed or fail. A well-architected codebase lets you ship improvements daily. A messy one means every change takes a week and might break something else.",
+          "Your MVP is your product. The 'minimum' refers to features, not quality. Users do not forgive bugs because you call it an MVP. We ship fewer features at higher quality.",
+        ],
+        imagePath: `/images/startups/deep-fast-mvp-2.jpg`,
+        imageAlt: "Production-quality MVP that scales without rewriting",
+      },
+    ],
+    "scaling-tech": [
+      {
+        title: "Finding the Real Bottleneck (It Is Usually Not What You Think)",
+        content: [
+          "Teams assume they know what is slow. They are usually wrong. 'The database is slow' often means 'one query is slow and it runs 10,000 times per page load.' We measure before we fix.",
+          "Full-stack profiling reveals the actual path from user action to response. Database query times, API processing, network latency, frontend rendering. The bottleneck hides in the gap between assumptions and measurements.",
+          "The fix is usually simpler than expected: an index, a cache, a query rewrite, a connection pool. Not a new database. Not a rewrite. Not Kubernetes. Targeted interventions that take 1-2 weeks and improve performance 5-10x.",
+          "We produce a prioritized list: these 5 things cause 80% of your performance problems. Fix them in this order. Each fix is independent. You can do them all or stop after the first 3 when performance is acceptable.",
+        ],
+        imagePath: `/images/startups/deep-scaling-tech-1.jpg`,
+        imageAlt: "CiroStack performance profiling and bottleneck identification",
+      },
+      {
+        title: "Making Deployments Boring Again",
+        content: [
+          "Fear of deploying is a symptom of missing infrastructure: no staging environment, no automated tests, no easy rollback. We fix the infrastructure so shipping changes is routine.",
+          "CI/CD pipelines that run automated tests, deploy to staging, and promote to production with a button click. Feature flags that let incomplete features exist in production without being visible to users.",
+          "Architecture evolution happens incrementally: the slow service gets replaced by a faster one, traffic shifts gradually, the old code gets deleted. No big-bang migration. No downtime. No coordination across 12 teams.",
+          "Monitoring and alerting configured so you know about problems before users report them. Error budgets, latency percentiles, and the dashboards that on-call engineers actually look at.",
+        ],
+        imagePath: `/images/startups/deep-scaling-tech-2.jpg`,
+        imageAlt: "Deployment infrastructure and architecture evolution",
+      },
+    ],
+    "agency-rescue": [
+      {
+        title: "The Assessment: Truth Before Action",
+        content: [
+          "We read the entire codebase before saying anything. No prescriptions without diagnosis. No assumptions about what is wrong based on what you have told us. We look at the code and tell you what is actually there.",
+          "The assessment produces a clear report: security vulnerabilities (fix immediately), architectural problems (fix soon), code quality issues (fix incrementally), and things that are actually fine (keep as-is).",
+          "We estimate repair cost vs. rewrite cost honestly. Sometimes keeping 60% of the existing code and replacing 40% is cheaper than starting over. Sometimes the code is so tangled that a rewrite genuinely saves money. We tell you which.",
+          "You receive a written document with our recommendation, cost estimate, and timeline. No sales pitch. No scare tactics. Just an honest assessment of your options with the tradeoffs of each clearly stated.",
+        ],
+        imagePath: `/images/startups/deep-agency-rescue-1.jpg`,
+        imageAlt: "CiroStack codebase assessment and rescue planning",
+      },
+      {
+        title: "Recovery Without Starting Over",
+        content: [
+          "Total rewrites are expensive and risky. They take 2-3x longer than estimated, and you ship nothing to users during the rebuild. We avoid them unless the math genuinely favors starting fresh.",
+          "Stabilization comes first: security holes patched, crash-causing bugs fixed, data-loss risks eliminated. Your product stops embarrassing you in production before we start any new development.",
+          "Recovery development builds forward from what exists: new modules replace broken ones, tests get added around fragile code, documentation gets written as we understand the system. Incremental improvement.",
+          "We do not charge you to undo what someone else did. We charge you to move forward. The assessment is honest about what happened, but the work is focused on where you are going.",
+        ],
+        imagePath: `/images/startups/deep-agency-rescue-2.jpg`,
+        imageAlt: "Pragmatic project recovery without full rewrite",
+      },
+    ],
+    "fundraising-ready": [
+      {
+        title: "What Technical Due Diligence Actually Looks For",
+        content: [
+          "VCs hire experienced CTOs to review your codebase. They look for: security vulnerabilities, architecture sustainability, test coverage, deployment practices, and whether the code matches the growth story in your pitch.",
+          "Security findings kill rounds. An unpatched dependency with a known CVE, unencrypted user data, or exposed API keys found during due diligence signals negligence. We scan, patch, and harden before reviewers arrive.",
+          "Architecture documentation shows you think about scale. A system diagram, data flow map, and technology rationale demonstrate that your technical decisions are deliberate, not accidental.",
+          "Load testing proves your growth narrative is achievable. If you tell investors you can handle 100K users, a load test report proving your architecture handles 100K users makes that claim credible.",
+        ],
+        imagePath: `/images/startups/deep-fundraising-ready-1.jpg`,
+        imageAlt: "CiroStack preparing startups for technical due diligence",
+      },
+      {
+        title: "The Technical Roadmap That Closes Rounds",
+        content: [
+          "Investors want to know: what gets built next, how long it takes, what it costs, and what team you need. A credible technical roadmap answers all four questions with specifics.",
+          "We produce a 12-18 month engineering plan aligned with your fundraising narrative: which features unlock which revenue milestones, which infrastructure investments support which growth targets.",
+          "The roadmap includes hiring plan: when you need your first engineer, when you need a second, and when you need a CTO. Investors see that you have planned the team scaling, not just the product scaling.",
+          "Technical roadmaps that work are specific: 'Q3: Add enterprise SSO (4 weeks, 1 senior engineer, unlocks $50K+ ACV deals)' not 'Q3: Improve platform.' Investors fund specifics.",
+        ],
+        imagePath: `/images/startups/deep-fundraising-ready-2.jpg`,
+        imageAlt: "Technical roadmap and fundraising preparation",
+      },
+    ],
+    "ai-integration": [
+      {
+        title: "Defining the AI Feature Before Building It",
+        content: [
+          "Most AI integration projects fail because nobody defined: what specific user interaction benefits from AI, what 'good output' means for that interaction, and how quality will be measured in production.",
+          "We start with the user problem, not the technology. Which user action takes too long, produces inconsistent results, or requires expertise the user does not have? That is where AI adds value.",
+          "Quality criteria must be defined before code is written. If the AI is summarizing documents, what makes a summary good? Length? Accuracy? Coverage? These definitions drive every architectural decision.",
+          "Failure modes must be designed explicitly. What happens when the AI is wrong? What happens when it is slow? What happens when it does not know? These UX decisions matter as much as the AI pipeline.",
+        ],
+        imagePath: `/images/startups/deep-ai-integration-1.jpg`,
+        imageAlt: "CiroStack defining AI feature requirements before building",
+      },
+      {
+        title: "From Working Demo to Reliable Production",
+        content: [
+          "Every AI demo works. Production is different: real users ask unexpected questions, provide malformed input, and use the feature in ways your eval dataset never anticipated.",
+          "RAG pipeline quality depends on decisions most teams make casually: chunk size, overlap, embedding model, retrieval count, re-ranking strategy. We test each systematically against your actual content and query patterns.",
+          "Eval infrastructure is the difference between AI that improves over time and AI that silently degrades. We build automated quality scoring that runs on every deployment and alerts when metrics drop.",
+          "Cost management matters: a naive RAG implementation can cost $0.50-$2.00 per query at scale. Semantic caching, efficient retrieval, and smart model routing reduce this 60-80% without quality loss.",
+        ],
+        imagePath: `/images/startups/deep-ai-integration-2.jpg`,
+        imageAlt: "AI feature production reliability and cost management",
+      },
+    ],
+    "tech-debt": [
+      {
+        title: "Not All Debt Is Equal: Finding What Hurts Most",
+        content: [
+          "Technical debt is a metaphor that hides a spectrum. Some debt is annoying but harmless. Some debt costs you 30% of engineering velocity. We find the debt that actually hurts and prioritize it.",
+          "The audit produces a scored inventory: each piece of debt rated by its impact on developer velocity and production reliability. High-impact debt gets fixed first. Low-impact debt might stay forever.",
+          "Common high-impact debt patterns: untested code that breaks on every change, tightly coupled modules that make independent work impossible, missing abstractions that force copy-paste across the codebase.",
+          "We do not inventory every imperfect line of code. We find the 5-10 problems that, once fixed, will make your team 2-3x more productive. Focused intervention, not perfectionism.",
+        ],
+        imagePath: `/images/startups/deep-tech-debt-1.jpg`,
+        imageAlt: "CiroStack technical debt assessment and prioritization",
+      },
+      {
+        title: "Paying Down Debt Without Stopping the Business",
+        content: [
+          "Feature freezes for debt reduction kill morale, frustrate stakeholders, and rarely finish on time. We work alongside your team: they ship features, we reduce debt. Both happen simultaneously.",
+          "Strangler fig approach: new, clean modules replace old problematic ones piece by piece. The system gets better incrementally. No big-bang cut-over. No risky migration weekend.",
+          "Automated tests grow with each sprint. Every debt item fixed gets wrapped with tests that prevent re-accumulation. Coverage rises naturally as the riskiest code gets the most attention.",
+          "Velocity improvement is measurable within 6-8 weeks: sprint commitments get met, estimates become accurate, on-call pages decrease, and new engineers get productive faster.",
+        ],
+        imagePath: `/images/startups/deep-tech-debt-2.jpg`,
+        imageAlt: "Incremental tech debt reduction alongside feature development",
+      },
+    ],
+    "security-compliance": [
+      {
+        title: "Security Controls That Generate Their Own Evidence",
+        content: [
+          "The most expensive part of compliance is not implementing controls. It is proving they work, continuously, for every audit cycle. We build controls that produce their own evidence automatically.",
+          "Encryption at rest verified by automated scans. Access logs generated by infrastructure configuration. Backup integrity checked by scheduled jobs. Vulnerability scans run weekly and file results automatically.",
+          "When your auditor asks for evidence, your system produces it in minutes, not weeks. No engineering scramble before audit. No manually compiling screenshots. Compliance evidence is a system output.",
+          "SOC 2 Type II requires 6+ months of continuous evidence. Starting today means your first audit is 6 months away regardless of how fast you implement controls. Every week delayed adds a week to the timeline.",
+        ],
+        imagePath: `/images/startups/deep-security-compliance-1.jpg`,
+        imageAlt: "CiroStack automated security controls and evidence generation",
+      },
+      {
+        title: "From Gap Assessment to Audit Pass",
+        content: [
+          "We map your current security posture against your target framework: SOC 2, HIPAA, PCI-DSS, or GDPR. Every gap identified, effort estimated, and prioritized by audit impact.",
+          "Critical gaps (encryption missing, access controls absent) are fixed immediately. Medium gaps (monitoring incomplete, documentation missing) are scheduled. Low gaps (policy refinements) happen last.",
+          "Penetration testing validates that controls work as designed. We run pen tests before your auditor does, fix what we find, and provide the clean report that demonstrates security maturity.",
+          "Audit preparation means: documentation organized, questionnaire responses drafted, evidence packages compiled, and the engineering team briefed on what auditors will ask. The audit day itself is calm.",
+        ],
+        imagePath: `/images/startups/deep-security-compliance-2.jpg`,
+        imageAlt: "Security compliance gap assessment to audit pass",
+      },
+    ],
+    "post-pivot": [
+      {
+        title: "Triaging What Survives the Pivot",
+        content: [
+          "After a pivot, your codebase is a mix of still-relevant and no-longer-relevant code. The expensive mistake is treating it all as dead. The other expensive mistake is treating it all as alive.",
+          "We read everything in 1-2 weeks. Then we categorize: modules that directly serve the new direction (keep), modules that need modification to serve it (adapt), and modules that are dead weight (remove).",
+          "Data models often survive pivots even when features do not. User accounts, authentication, payment infrastructure, and admin tooling frequently apply regardless of which product direction you take.",
+          "The assessment produces a concrete plan: what we keep (free), what we modify (costs X), what we replace with new code (costs Y). Total cost of the pivot rebuild, not a vague estimate.",
+        ],
+        imagePath: `/images/startups/deep-post-pivot-1.jpg`,
+        imageAlt: "CiroStack post-pivot codebase triage and assessment",
+      },
+      {
+        title: "Shipping the New Direction Fast",
+        content: [
+          "Post-pivot, speed matters more than perfection. Investors are watching. The team needs a win. Users need to see the new direction. We ship the pivoted product in 6-8 weeks, not 6 months.",
+          "Reusing existing infrastructure (auth, payments, deployment) saves 2-4 weeks. New features for the pivoted direction build on top of proven foundations. Maximum reuse, minimum waste.",
+          "The pivoted product is still an MVP. Scope is still ruthless. The 3-5 features that validate the new hypothesis ship first. Everything else waits until users confirm the direction is correct.",
+          "Team energy is a factor. Visible progress in week one, working software in week three, and user feedback by week six restores the momentum that pivots temporarily kill.",
+        ],
+        imagePath: `/images/startups/deep-post-pivot-2.jpg`,
+        imageAlt: "Rapid execution after startup pivot",
+      },
+    ],
+    "no-tech-team": [
+      {
+        title: "Your Engineering Department Until You Build One",
+        content: [
+          "Hiring a CTO takes 6 months. Hiring a senior engineer takes 3-4 months. You do not have that time. Your product needs to exist before your next fundraise, customer deadline, or market window.",
+          "We provide complete engineering coverage from day one: frontend development, backend architecture, database design, infrastructure setup, testing, and deployment. No gaps, no missing skills.",
+          "Autonomous operation means you do not manage engineers. You set product direction weekly. We make technical decisions, execute daily, and report progress asynchronously. Your time stays on the business.",
+          "This is a bridge, not a permanent solution. We are explicitly designed to be replaced by your internal team when the time is right. Everything we build is documented for that handoff.",
+        ],
+        imagePath: `/images/startups/deep-no-tech-team-1.jpg`,
+        imageAlt: "CiroStack as complete engineering department",
+      },
+      {
+        title: "The Transition to Your Own Team",
+        content: [
+          "The goal is not permanent dependency. It is shipping a product now and building a team later when you have revenue, funding, or proven product-market fit to attract talent.",
+          "When you are ready to hire, we help: writing job descriptions that attract the right level, conducting technical interviews, and evaluating candidates against the codebase they will inherit.",
+          "Your first hire overlaps with us for 2-4 weeks. They learn the system with access to the people who built it. Architecture walk-throughs, deployment training, and documented operational procedures.",
+          "The codebase is explicitly designed for handoff: clean structure, consistent patterns, full documentation, and architecture decisions explained. Your new engineer is productive in their first week.",
+        ],
+        imagePath: `/images/startups/deep-no-tech-team-2.jpg`,
+        imageAlt: "Transition from external team to first engineering hire",
+      },
+    ],
+    "africa-launch": [
+      {
+        title: "Your Product Was Not Built for This Market",
+        content: [
+          "Products built for US/European users assume broadband, modern devices, credit cards, and reliable power. African markets break every one of these assumptions. Adaptation is not cosmetic. It is architectural.",
+          "Payment infrastructure differs fundamentally: M-Pesa uses STK push (phone prompts), not card forms. Paystack handles bank transfers differently than Stripe handles ACH. The failure modes and reconciliation patterns are unique.",
+          "2G connectivity means your 3MB JavaScript bundle does not load. Your high-resolution images timeout. Your real-time features disconnect constantly. Performance optimization is not nice-to-have, it is launch-blocking.",
+          "Feature phones are still the primary device for millions of potential users. If your product cannot deliver value via USSD (menu-based text interface) or SMS, you are missing your largest addressable segment.",
+        ],
+        imagePath: `/images/startups/deep-africa-launch-1.jpg`,
+        imageAlt: "CiroStack adapting products for African market realities",
+      },
+      {
+        title: "Launch Strategy That Respects the Market",
+        content: [
+          "Market entry starts with one country, not the continent. Kenya, Nigeria, and South Africa have different infrastructure, different payment providers, and different regulations. Pick one, succeed there, then expand.",
+          "Data localization requirements vary: Nigeria's NDPR, Kenya's DPA, and South Africa's POPIA each have different storage and processing requirements. Architecture must support in-country data residency where mandated.",
+          "User research in African markets cannot be done remotely from a Western office. Local testing with actual users on actual devices and actual connectivity reveals problems that remote analysis misses.",
+          "Pricing for African markets requires different economics: lower ARPU, higher volume, mobile money transaction costs, and the infrastructure that scales without Western-tier cloud bills making the unit economics impossible.",
+        ],
+        imagePath: `/images/startups/deep-africa-launch-2.jpg`,
+        imageAlt: "African market launch strategy and localization",
+      },
+    ],
   };
 
   if (verticalDeepDive[id]) return verticalDeepDive[id];
@@ -2219,6 +2765,87 @@ function generateDetails(id: string, category: string): string[] {
       "Budget-optimized infrastructure (nonprofit credits applied)",
       "Impact measurement built into product from day one",
     ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      "48-hour proposal turnaround after first scope conversation",
+      "Development starts the day after approval (no multi-week setup)",
+      "Two-week sprint demos with working software at each checkpoint",
+      "Scope locked before start: no additions without mutual agreement",
+      "Fixed price confirmed before first line of code",
+      "Launch target date established and tracked from day one",
+    ],
+    "scaling-tech": [
+      "Full-stack performance profiling before any changes are made",
+      "Prioritized bottleneck list with fix complexity and impact estimates",
+      "Targeted fixes deployed incrementally (not as one big release)",
+      "Before/after performance measurements for every intervention",
+      "Feature development uninterrupted during performance work",
+      "Monitoring dashboards showing improvement trends over time",
+    ],
+    "agency-rescue": [
+      "Complete codebase read-through before any recommendations",
+      "Written assessment with salvage-vs-replace analysis per module",
+      "Security vulnerabilities identified and severity-ranked immediately",
+      "Cost comparison: repair vs. rewrite with timeline for each",
+      "Stabilization sprint addressing critical production issues first",
+      "Documentation written as the system is understood",
+    ],
+    "fundraising-ready": [
+      "Security vulnerability scan and remediation within first week",
+      "Architecture documentation produced for CTO-level review",
+      "Load testing at 10x current traffic with detailed report",
+      "Technical roadmap aligned to fundraising narrative",
+      "Code quality improvements targeting due diligence concerns",
+      "Preparation timeline working backward from fundraise date",
+    ],
+    "ai-integration": [
+      "Use case definition workshop before any AI code is written",
+      "Quality criteria and eval metrics agreed before implementation",
+      "RAG pipeline tuned to your specific content and query patterns",
+      "Streaming UI with error handling tested under production conditions",
+      "Eval suite with golden dataset running on every deployment",
+      "Cost-per-query monitoring and optimization from launch",
+    ],
+    "tech-debt": [
+      "Scored debt inventory prioritized by velocity impact",
+      "Parallel workstreams: features continue while debt reduces",
+      "Automated tests added to highest-risk code paths first",
+      "Velocity metrics tracked weekly to show improvement",
+      "No feature freeze required at any point",
+      "Prevention mechanisms (CI/CD, code review) to slow re-accumulation",
+    ],
+    "security-compliance": [
+      "Target framework identified and gap assessment in week one",
+      "Critical security controls implemented immediately",
+      "Evidence collection automated from the start",
+      "Penetration testing conducted and remediated before audit",
+      "Documentation package prepared for auditor consumption",
+      "Timeline working backward from target audit date",
+    ],
+    "post-pivot": [
+      "Complete codebase triage with keep/modify/discard classification",
+      "Cost estimate for minimum viable pivot (not full rewrite)",
+      "Reuse of existing infrastructure (auth, payments, deployment)",
+      "New direction features built on proven foundations",
+      "User-facing product in 6-8 weeks (not 6 months)",
+      "Existing user data preserved and migrated to new features",
+    ],
+    "no-tech-team": [
+      "Full engineering coverage from day one (no hiring delay)",
+      "Autonomous operation with weekly direction approval only",
+      "Architecture decisions documented with rationale",
+      "Async communication (no daily meetings required)",
+      "Hiring support included when you are ready to build internally",
+      "Handoff documentation produced throughout (not at the end)",
+    ],
+    "africa-launch": [
+      "Market-specific assessment of infrastructure differences",
+      "Payment provider integration (M-Pesa, Paystack, Flutterwave)",
+      "Low-bandwidth optimization targeting 2G-compatible performance",
+      "USSD/SMS interface for feature phone users",
+      "Data localization compliance for target country regulations",
+      "Performance testing on representative African networks and devices",
+    ],
   };
 
   if (verticalDetails[id]) return verticalDetails[id];
@@ -2477,6 +3104,87 @@ function generateDeliverables(id: string, category: string): string[] {
       "Infrastructure on nonprofit-discounted hosting",
       "Inclusive design documentation proving beneficiary access",
     ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      "Production MVP deployed and serving users within 4-6 weeks",
+      "Complete source code with clean architecture documentation",
+      "CI/CD pipeline with automated testing on critical paths",
+      "Analytics instrumentation measuring core user behaviors",
+      "Fixed-price delivery with no overrun charges",
+      "Post-launch iteration plan based on user feedback",
+    ],
+    "scaling-tech": [
+      "Performance audit report with prioritized findings",
+      "Targeted fixes deployed with before/after measurements",
+      "CI/CD pipeline with automated testing and staging environment",
+      "Monitoring dashboards showing key performance indicators",
+      "Architecture evolution plan for next 12 months of growth",
+      "Deployment runbook with rollback procedures",
+    ],
+    "agency-rescue": [
+      "Written assessment with per-module salvage-vs-replace recommendation",
+      "Security vulnerabilities patched and verified",
+      "Production stability restored (critical bugs fixed)",
+      "System documentation (architecture, data flows, deployment)",
+      "Recovery development plan with timeline and cost",
+      "Clean codebase (or salvaged + new) ready for forward development",
+    ],
+    "fundraising-ready": [
+      "Security audit report with all critical findings remediated",
+      "Architecture documentation package for CTO-level review",
+      "Load test report proving capacity at projected growth",
+      "Technical roadmap (12-18 months) aligned to fundraise narrative",
+      "Code quality improvements on due-diligence-visible surfaces",
+      "Technical FAQ document anticipating investor questions",
+    ],
+    "ai-integration": [
+      "Production AI feature deployed with monitoring",
+      "RAG pipeline tuned and documented for your content type",
+      "Eval suite with golden dataset running on every deployment",
+      "Streaming UI with error handling and confidence indicators",
+      "Quality monitoring dashboard with degradation alerts",
+      "Cost-per-query analysis with optimization recommendations",
+    ],
+    "tech-debt": [
+      "Scored debt inventory with prioritized remediation plan",
+      "Highest-impact debt items resolved (typically 5-10 items)",
+      "Automated test coverage on previously untested critical paths",
+      "CI/CD improvements preventing new debt accumulation",
+      "Velocity metrics report showing measurable improvement",
+      "Remaining debt roadmap with effort estimates for future sprints",
+    ],
+    "security-compliance": [
+      "Gap assessment report against target compliance framework",
+      "Security controls implemented and automated",
+      "Evidence collection running automatically",
+      "Penetration test report with all findings remediated",
+      "Audit-ready documentation package",
+      "Compliance monitoring dashboard with ongoing status",
+    ],
+    "post-pivot": [
+      "Codebase triage report with cost analysis per module",
+      "Pivoted product deployed and serving users in 6-8 weeks",
+      "Existing user data migrated to new product direction",
+      "Reused infrastructure (auth, payments, deployment) verified",
+      "New feature documentation for pivoted direction",
+      "Iteration plan for validating new market hypothesis",
+    ],
+    "no-tech-team": [
+      "Production application deployed from zero engineering input",
+      "Complete source code with architecture documentation",
+      "CI/CD and monitoring running autonomously",
+      "Handoff documentation for future engineering hire",
+      "Hiring plan (job descriptions, evaluation criteria) when ready",
+      "Operational runbook covering all maintenance tasks",
+    ],
+    "africa-launch": [
+      "Product adapted for target African market (low bandwidth, offline)",
+      "Payment integrations deployed with live sandbox testing",
+      "USSD/SMS interface deployed and tested on feature phones",
+      "Performance verified on representative African networks",
+      "Data localization compliance for target country",
+      "Market expansion playbook for additional African countries",
+    ],
   };
 
   if (verticalDeliverables[id]) return verticalDeliverables[id];
@@ -2717,6 +3425,77 @@ function generateFaqs(id: string, title: string, category: string): StartupFAQ[]
       { question: "How do you measure impact?", answer: "We build impact tracking into the product: beneficiary counts, outcome indicators, and the dashboard that shows progress against your theory of change. Data captured automatically, not manually compiled for reports." },
       { question: "How long does a social enterprise project take?", answer: "6-10 weeks for most tools. Accessibility testing adds 1-2 weeks to ensure proper compliance. Grant-aligned milestones are scheduled to match your funder's reporting periods." },
     ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      { question: "Can you really deliver in 4-6 weeks?", answer: "Yes. Most of our MVPs ship in 4-6 weeks. The key is ruthless scoping: 3-5 features maximum. If the scope requires more time, we tell you what to cut, not how many more weeks to add. Speed comes from focus." },
+      { question: "Is a fast MVP just a prototype that gets thrown away?", answer: "No. We build production-quality code: clean architecture, automated tests on critical paths, and deployment pipelines. What you ship to your first users is what you scale when traction arrives. No rebuild required." },
+      { question: "What if we need to change scope mid-project?", answer: "Small adjustments happen within the budget. Significant scope changes get a transparent change order: what it adds, what it costs, what it delays. We protect the timeline by default and change it only with your explicit agreement." },
+      { question: "How fast can you start?", answer: "Proposal within 48 hours of our first conversation. Development starts the day after you approve. No multi-week discovery phase, no 3-week contract negotiation. We move at the speed your market requires." },
+      { question: "What about post-launch support?", answer: "Bug fixes are included for 30 days after launch. Beyond that, we offer retainer arrangements for ongoing iteration. But the goal of the MVP is to learn, so most clients use post-launch data to define their next sprint scope." },
+    ],
+    "scaling-tech": [
+      { question: "Do we need to rewrite everything?", answer: "Almost never. Most scaling problems come from 3-5 specific bottlenecks. Fix those and performance improves 5-10x. We recommend rewrites only when repair genuinely costs more than replacement, which is rare." },
+      { question: "How long until we see improvement?", answer: "Measurable improvement within 2-4 weeks. The first fixes target the highest-impact bottlenecks. You will see response time improvements, reduced error rates, or successful deployments within the first sprint." },
+      { question: "Can you work alongside our existing team?", answer: "Yes. We often work as a performance-focused squad alongside your feature team. They continue shipping features. We identify and fix the infrastructure and architecture problems. Both workstreams run in parallel." },
+      { question: "How do you find the bottlenecks?", answer: "Full-stack profiling: APM tools on every service, database query analysis, infrastructure utilization metrics, and frontend performance measurement. We measure everything, rank by impact, and fix in priority order." },
+      { question: "Will fixing performance break existing features?", answer: "Each fix is deployed independently with automated tests. We use feature flags and incremental rollouts so problems are caught early. If a fix introduces issues, it is rolled back within minutes, not hours." },
+    ],
+    "agency-rescue": [
+      { question: "How do you assess the damage?", answer: "We read the entire codebase: architecture structure, test coverage, security posture, dependency health, and deployment configuration. Assessment takes 1-2 weeks and produces a written report with specific recommendations." },
+      { question: "Do you always recommend a full rewrite?", answer: "No. Rewrites are expensive and risky. Most projects have 40-60% salvageable code. We identify what works, fix what is broken, and only replace modules where repair costs exceed rebuild costs." },
+      { question: "What if the code is really, truly terrible?", answer: "Sometimes it is. In those cases (typically under 20% of rescues), a ground-up rewrite is genuinely cheaper. We tell you honestly when that is the case, with the math to prove it." },
+      { question: "How do you prevent the same problems from recurring?", answer: "CI/CD pipelines, automated testing, code review processes, and documentation standards established during recovery. The infrastructure that prevents quality from degrading again." },
+      { question: "How long does a rescue project take?", answer: "Assessment: 1-2 weeks. Stabilization (critical bugs, security): 2-4 weeks. Recovery development (forward progress): 6-12 weeks depending on scope. Total from start to shipping features: 8-16 weeks." },
+    ],
+    "fundraising-ready": [
+      { question: "How long before our raise should we start?", answer: "6-8 weeks minimum. Security hardening, architecture documentation, load testing, and roadmap preparation each take 1-2 weeks and can run partially in parallel. Starting 8 weeks before investor meetings is ideal." },
+      { question: "What do investors actually look for in technical due diligence?", answer: "Security vulnerabilities (immediate red flags), architecture sustainability (can this scale?), test coverage (is the team disciplined?), deployment practices (is shipping reliable?), and code quality (could we hire engineers to work in this?)." },
+      { question: "What if they find something bad?", answer: "If we prepare you, they will not. We run the same review an investor-hired CTO would run, fix everything they would flag, and document everything they would want to see. When their reviewer arrives, they find a clean system." },
+      { question: "Can you produce a technical roadmap for our pitch?", answer: "Yes. 12-18 month engineering plan with: features tied to revenue milestones, infrastructure investments tied to growth targets, team scaling plan, and budget estimates. Specific enough for investors who ask hard questions." },
+      { question: "How much does fundraise preparation cost?", answer: "Depends on current state. Well-built products need 2-4 weeks of polish ($8-15K). Products with security debt need 4-8 weeks ($15-30K). We assess first and give you an exact quote before committing." },
+    ],
+    "ai-integration": [
+      { question: "We just want to add ChatGPT to our product. Is it that complicated?", answer: "The API call is easy. Making it work reliably in production is the challenge: handling hallucination, managing latency, controlling costs, maintaining quality over time, and designing UX that sets correct expectations. That is what we build." },
+      { question: "How do you prevent the AI from hallucinating?", answer: "RAG (retrieval-augmented generation) grounds responses in your verified data. Confidence scoring flags uncertain outputs. Citation requirements force source attribution. Eval pipelines measure hallucination rate continuously." },
+      { question: "How much does AI infrastructure cost at scale?", answer: "A naive implementation costs $0.50-$2.00 per query. With semantic caching, efficient retrieval, and smart model routing, we reduce this to $0.05-$0.20 per query. We build cost monitoring from day one so you are never surprised." },
+      { question: "How do you measure whether the AI feature is working?", answer: "Automated eval suites with human-verified golden datasets. Quality scores computed on every deployment. Regression alerts when metrics drop. User feedback loops that improve the system over time." },
+      { question: "How long does AI integration take?", answer: "Simple features (summarization, Q&A) take 6-8 weeks. RAG with domain-specific tuning takes 10-14 weeks. Products with full eval infrastructure and quality monitoring take 12-16 weeks. Complexity depends on your accuracy requirements." },
+    ],
+    "tech-debt": [
+      { question: "How do you prioritize which debt to fix first?", answer: "Impact scoring: each debt item rated by how much it slows development velocity and how much it risks production stability. High-impact debt (things that cost you hours per week) gets fixed first. Low-impact debt might stay indefinitely." },
+      { question: "Do we need to stop building features while you fix debt?", answer: "No. We work alongside your feature team. Debt reduction and feature development run in parallel using the strangler fig approach: new modules replace old ones incrementally without blocking anyone." },
+      { question: "How quickly will we see velocity improvement?", answer: "6-8 weeks typically. After the highest-impact debt items are resolved, engineers estimate more accurately, changes break fewer things, and sprint commitments start being met consistently." },
+      { question: "How do you prevent debt from re-accumulating?", answer: "CI/CD pipelines with quality gates, automated testing on new code, code review standards, and the engineering discipline that comes from working in a clean codebase. Prevention is built into the delivery process." },
+      { question: "How long does a tech debt engagement take?", answer: "Initial audit: 1-2 weeks. Active remediation: 8-12 weeks (running alongside your feature team). After that, the highest-impact debt is resolved and your team maintains the new standards independently." },
+    ],
+    "security-compliance": [
+      { question: "How long does SOC 2 preparation take?", answer: "SOC 2 Type I: 8-12 weeks of control implementation plus the audit itself. SOC 2 Type II: requires 6+ months of evidence collection after controls are in place. Start today and your earliest Type II audit is 6-8 months away." },
+      { question: "Can you help with multiple frameworks?", answer: "Yes. SOC 2, HIPAA, PCI-DSS, GDPR, and ISO 27001. Many controls overlap between frameworks, so achieving one makes the next faster. We map shared controls so you do not implement the same thing twice." },
+      { question: "Do you handle the audit itself?", answer: "We prepare you for the audit: controls implemented, evidence organized, documentation compiled, and responses drafted. You choose the auditor (we recommend several). We support you through the process but the relationship is between you and your auditor." },
+      { question: "What if we just need to pass a customer security questionnaire?", answer: "That is faster: 2-4 weeks to implement the controls they ask about and prepare honest responses. We help you answer the specific questions with evidence, not just checkboxes." },
+      { question: "How much does compliance preparation cost?", answer: "SOC 2 Type I preparation: $20-40K depending on gap severity. HIPAA compliance: $15-30K. Customer security questionnaire preparation: $5-10K. We assess gaps first and provide exact quotes." },
+    ],
+    "post-pivot": [
+      { question: "Do we need to rewrite from scratch?", answer: "Usually not. Most pivots share 40-60% of the previous codebase: auth, payments, admin tools, deployment infrastructure. We identify what applies and reuse it. Full rewrites are recommended only when the math clearly favors them." },
+      { question: "How fast can we ship the pivoted product?", answer: "6-8 weeks for most pivots. Reusing existing infrastructure saves 2-4 weeks compared to starting from zero. We scope the minimum that validates the new direction and ship it fast." },
+      { question: "What happens to our existing users and data?", answer: "User accounts and data are preserved and migrated to the new product. Existing users are transitioned to the new experience. No data loss, no forced re-registration." },
+      { question: "How do you decide what code to keep?", answer: "Three categories: keep (directly serves new direction), modify (serves with changes), discard (no longer relevant). We read everything, categorize it, and present the cost of each option. You approve the plan." },
+      { question: "How long does the assessment take?", answer: "1-2 weeks for the triage. Then we present: what to keep, what to change, what to build new, total cost, and timeline. Development starts immediately after your approval." },
+    ],
+    "no-tech-team": [
+      { question: "How much of my time does this require?", answer: "About 1 hour per week: one 30-minute direction check-in plus occasional Slack responses. We operate autonomously on architecture, daily decisions, and execution. You manage the business, we build the product." },
+      { question: "How do I know you are building the right thing?", answer: "Biweekly demos of working software. You see and interact with what was built. If it does not match your vision, we adjust before the next sprint. You are never more than 2 weeks from a course correction." },
+      { question: "What happens when I want to hire my own engineers?", answer: "We help: write the job description, evaluate candidates, and overlap with your first hire for 2-4 weeks of knowledge transfer. The codebase is documented and structured for handoff from day one." },
+      { question: "Can you really cover frontend, backend, and DevOps?", answer: "Yes. Our team includes full-stack engineers who handle all of it. One engagement, complete coverage. No coordination between multiple vendors, no gaps between specialties." },
+      { question: "How long until I have a shipped product?", answer: "6-10 weeks for most MVPs. We scope in the first week, build in sprints, and ship when the core features are complete. You have a live product serving users within 2-3 months of starting." },
+    ],
+    "africa-launch": [
+      { question: "Can you adapt our existing product for African markets?", answer: "Yes. We assess your current architecture, identify what breaks (payment, performance, connectivity assumptions), and implement the adaptations needed: mobile money, offline capability, low-bandwidth optimization, USSD fallback." },
+      { question: "Which African countries have you launched in?", answer: "Kenya, Nigeria, Ghana, South Africa, Tanzania, and Uganda. Each has different payment infrastructure, telecom APIs, and regulatory requirements. We know the landscape from production experience." },
+      { question: "How do you handle mobile money integration?", answer: "M-Pesa (STK push), Paystack, Flutterwave, and MTN Mobile Money. Each has unique integration patterns, settlement timelines, and webhook behaviors. We have production experience with the edge cases documentation skips." },
+      { question: "Do we need separate apps for African markets?", answer: "Usually not. The same codebase serves all markets with configuration for: payment provider, locale, asset compression level, and offline capability. One codebase, market-specific behavior via configuration." },
+      { question: "How long does Africa market adaptation take?", answer: "Payment integration: 3-4 weeks. Low-bandwidth optimization: 2-3 weeks. Offline capability: 4-6 weeks. USSD interface: 4-6 weeks. Full adaptation (all of the above): 10-14 weeks depending on your current architecture." },
+    ],
   };
 
   if (verticalFaqs[id]) return verticalFaqs[id];
@@ -2779,6 +3558,17 @@ function generateWhoWeHelped(id: string, category: string): string[] {
     "african-startup": ["Kenyan fintech startups integrating M-Pesa for rural payments", "Nigerian logistics platforms tracking deliveries across Lagos", "Ghanaian agritech companies serving smallholder farmers via USSD", "Pan-African SaaS companies expanding across 5+ countries"],
     "diaspora-founder": ["US-based founders serving Nigerian remittance markets", "UK diaspora founders building property platforms for home markets", "European founders connecting African suppliers with global buyers", "Canadian diaspora founders building cross-border payment platforms"],
     "social-enterprise": ["Education nonprofits reaching 50,000+ students with accessible tools", "Health organizations serving beneficiaries in low-connectivity regions", "Impact measurement platforms tracking outcomes for 100+ programs", "Accessibility-first platforms serving users with visual impairments"],
+    // BY CHALLENGE
+    "fast-mvp": ["Founders who beat competitors to market by shipping in 5 weeks", "Startups that raised seed rounds with live products, not pitch decks", "Teams who validated hypotheses in 6 weeks instead of 6 months", "Companies that turned investor interest into demos within 30 days"],
+    "scaling-tech": ["Platforms that went from 4-second to 200ms response times", "Teams that restored deployment confidence after months of fear", "Products that survived 10x traffic growth without downtime", "Companies that reduced on-call pages by 70% in 8 weeks"],
+    "agency-rescue": ["Startups rescued from $200K of unusable agency code", "Products stabilized after previous teams disappeared mid-project", "Companies that recovered from zero-documentation handoffs", "Teams that got back on track after 6+ months of wasted development"],
+    "fundraising-ready": ["Series A companies that passed technical due diligence without findings", "Startups whose load test reports strengthened investor confidence", "Companies whose security posture improved their valuation", "Founders who closed rounds faster with credible technical roadmaps"],
+    "ai-integration": ["Products that added AI features with 98%+ accuracy in production", "Companies that reduced customer support load 60% with AI automation", "Platforms that built eval infrastructure catching quality regressions early", "Teams that controlled AI costs to under $0.10 per query at scale"],
+    "tech-debt": ["Teams that doubled sprint velocity within 8 weeks of debt reduction", "Companies that reduced on-call incidents 70% through targeted fixes", "Products where new engineer onboarding dropped from 3 months to 3 weeks", "Codebases that went from deployment-fear to daily shipping confidence"],
+    "security-compliance": ["Startups that passed SOC 2 Type II on first attempt", "Healthcare companies achieving HIPAA compliance without slowing delivery", "Fintech platforms passing PCI-DSS with zero remediation items", "Companies whose compliance posture accelerated enterprise sales cycles"],
+    "post-pivot": ["Startups that shipped pivoted products in 6 weeks (not 6 months)", "Companies that reused 60% of existing code after major direction changes", "Teams that preserved all user data through complete product pivots", "Founders who re-validated with users faster the second time around"],
+    "no-tech-team": ["Non-technical founders who shipped products without hiring engineers", "Companies that went from zero code to live product in 8 weeks", "Founders who successfully transitioned from external to internal team", "Startups that raised funding with shipped products as proof of execution"],
+    "africa-launch": ["US products that successfully launched in Kenyan and Nigerian markets", "Platforms serving 40,000+ users via USSD in rural areas", "Companies that integrated 3+ African payment providers in one sprint", "Products optimized from 4MB to under 500KB for 2G performance"],
   };
 
   if (verticalHelped[id]) return verticalHelped[id];
@@ -2917,6 +3707,47 @@ function generateClientReviews(id: string, category: string): StartupClientRevie
     "social-enterprise": [
       { text: "Our platform serves users with visual impairments. CiroStack built with screen readers from day one, not as an afterthought. Our beneficiaries navigate the system independently. That is the impact we exist to create.", name: "Margaret W.", role: "Director, Accessibility Nonprofit" },
       { text: "Every feature justified by impact per dollar. CiroStack cut 60% of what we asked for and delivered the 40% that actually moved our outcome metrics. Our funders were thrilled with the results-per-grant-dollar.", name: "Benjamin T.", role: "Executive Director, Education Social Enterprise" },
+    ],
+    // BY CHALLENGE
+    "fast-mvp": [
+      { text: "Proposal in 2 days. Started building on Monday. Shipped in 5 weeks. Our competitor launched 3 weeks later and we already had users. Speed was the difference between winning and losing that market.", name: "Marcus T.", role: "Founder, B2B Marketplace" },
+      { text: "CiroStack cut my 15-feature spec to 4 features. I pushed back hard. Then we launched in 4 weeks and 2 of those features turned out to be wrong. If we had built all 15, we would have wasted 3 months learning what 4 weeks taught.", name: "Rachel K.", role: "Founder, Consumer SaaS" },
+    ],
+    "scaling-tech": [
+      { text: "Response times went from 4 seconds to 180ms. They found the problem in 3 days (a missing database index compounding with an N+1 query). The fix took 2 hours. The diagnosis was the hard part.", name: "Kevin L.", role: "CTO, Analytics Platform" },
+      { text: "We had not deployed on a Friday in 8 months. After CiroStack fixed our CI/CD and added automated testing, we deploy twice a day, any day. The fear is gone.", name: "Samantha W.", role: "VP Engineering, SaaS Company" },
+    ],
+    "agency-rescue": [
+      { text: "Previous agency charged us $180K for code with zero tests, no documentation, and architecture that crashed at 50 concurrent users. CiroStack assessed the damage in a week, salvaged 40%, and had us shipping features again in 6 weeks.", name: "Tom R.", role: "CTO, Consumer App" },
+      { text: "CiroStack told us 60% of our code was salvageable. Every other consultant said rewrite from scratch. CiroStack was right. We saved $120K and 4 months by keeping what worked.", name: "Diana K.", role: "Founder, Healthcare Startup" },
+    ],
+    "fundraising-ready": [
+      { text: "The CTO our lead investor hired to review our code found zero critical issues. He told them the architecture was 'unusually clean for a seed-stage company.' CiroStack prepared us for exactly what he looked for.", name: "Andrew S.", role: "Founder, Series A Company" },
+      { text: "Load test report showing we handle 50K concurrent users was the single most impactful slide in our Series A deck. Investors stopped asking 'can you scale?' because we had proof.", name: "Michelle P.", role: "CEO, B2B SaaS" },
+    ],
+    "ai-integration": [
+      { text: "Our AI summarizes legal documents with 97% accuracy and cites every source. CiroStack built the eval pipeline that catches the 3% before users see it. That pipeline is worth more than the AI feature itself.", name: "Nathan B.", role: "Founder, Legal AI" },
+      { text: "AI cost per query went from $0.85 to $0.08 after CiroStack implemented semantic caching and efficient retrieval. Same quality. 90% cost reduction. That changed our unit economics completely.", name: "Jessica T.", role: "CTO, AI Writing Platform" },
+    ],
+    "tech-debt": [
+      { text: "Sprint velocity doubled in 7 weeks. Not because we hired more engineers. Because CiroStack fixed the 5 things that were costing us 60% of our time. Same team, twice the output.", name: "Paul M.", role: "VP Engineering, Series B Startup" },
+      { text: "New engineers used to take 3 months to get productive. After CiroStack's debt reduction and documentation sprint, our last hire shipped their first feature in week two.", name: "Linda C.", role: "CTO, Growth-Stage SaaS" },
+    ],
+    "security-compliance": [
+      { text: "SOC 2 Type II audit passed with zero findings. Our auditor said it was the smoothest startup audit he had conducted. CiroStack's evidence automation made the entire process feel routine.", name: "Steven H.", role: "CEO, Enterprise SaaS" },
+      { text: "Three enterprise deals ($180K combined ARR) were blocked by security questionnaires we could not answer honestly. CiroStack implemented the controls in 6 weeks. All three deals closed the following month.", name: "Karen D.", role: "Founder, Compliance Platform" },
+    ],
+    "post-pivot": [
+      { text: "CiroStack said 55% of our code still applied to the new direction. They were right. We shipped the pivoted product in 7 weeks. A full rewrite would have taken 4-5 months and we would have missed our fundraising window.", name: "Nina S.", role: "Founder, Post-Pivot Startup" },
+      { text: "The team was demoralized after the pivot. CiroStack shipped visible progress in week one. By week three we had working software in the new direction. Energy came back immediately.", name: "Jason R.", role: "CEO, Marketplace (Second Direction)" },
+    ],
+    "no-tech-team": [
+      { text: "I went from zero code to a live product with paying users in 9 weeks. Without CiroStack, I would still be interviewing CTO candidates. The product exists because they exist.", name: "Rebecca T.", role: "Solo Founder, HR Tech" },
+      { text: "When I raised my seed round, investors asked who built the product. I said CiroStack. They said the code quality was better than most funded startups with full-time engineers. That closed the round.", name: "David M.", role: "Non-Technical Founder, Fintech" },
+    ],
+    "africa-launch": [
+      { text: "Our US product went from unusable to 40,000 active users in Kenya within 3 months of CiroStack's adaptation. M-Pesa integration, offline mode, and 2G optimization. They understood the market immediately.", name: "Aisha N.", role: "Founder, Expanding to East Africa" },
+      { text: "Page weight went from 3.8MB to 420KB. Load time on 2G dropped from 45 seconds to 4 seconds. That is the difference between a product that works in Africa and one that does not. CiroStack made it work.", name: "Emmanuel O.", role: "CTO, Pan-African Platform" },
     ],
   };
 
