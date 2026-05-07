@@ -44,8 +44,6 @@ const menuData: MenuItem[] = [
           { label: "Frontend Development", path: "/services/frontend-development" },
           { label: "Backend Development", path: "/services/backend-development" },
           { label: "Mobile Apps Development Services", path: "/services/apps" },
-          { label: "Cloud Engineering Service", path: "/services/cloud-engineering" },
-          { label: "Embedded Software Services", path: "/services/embedded-software" },
         ],
       },
       {
@@ -53,18 +51,13 @@ const menuData: MenuItem[] = [
         children: [
           { label: "Generative AI Development Services", path: "/services/ai" },
           { label: "AI & ML Development Services", path: "/services/ai-ml" },
-          { label: "Data Engineering and Data Science", path: "/services/data-engineering" },
-          { label: "Digital Transformation Solutions", path: "/services/digital-transformation" },
         ],
       },
       {
         label: "Operate",
         children: [
           { label: "DevOps Consulting Services", path: "/services/devops" },
-          { label: "Automation Testing Services", path: "/services/automation-testing" },
           { label: "Software Auditing Services", path: "/services/software-auditing" },
-          { label: "Identity and Access Management", path: "/services/iam" },
-          { label: "Security Audit and Governance", path: "/services/security-audit" },
         ],
       },
       {

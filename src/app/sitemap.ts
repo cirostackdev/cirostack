@@ -24,10 +24,14 @@ const SERVICE_SLUGS = [
   "backend-development",
   "apps",
   "ux-ui-design",
-  "cloud-engineering",
-  "dedicated-teams",
-  "embedded-software",
   "cloud-consulting",
+  "ai",
+  "ai-ml",
+  "devops",
+  "software-auditing",
+  "dedicated-teams",
+  "nearshore",
+  "outsourcing",
 ];
 
 const BLOG_SLUGS = [
