@@ -40,8 +40,9 @@ const menuData: MenuItem[] = [
       {
         label: "Build",
         children: [
-          { label: "Custom Software Development", path: "/services/websites" },
-          { label: "Software Development for Startups", path: "/services/startups" },
+          { label: "Website Development", path: "/services/website-development" },
+          { label: "Frontend Development", path: "/services/frontend-development" },
+          { label: "Backend Development", path: "/services/backend-development" },
           { label: "Mobile Apps Development Services", path: "/services/apps" },
           { label: "Cloud Engineering Service", path: "/services/cloud-engineering" },
           { label: "Embedded Software Services", path: "/services/embedded-software" },

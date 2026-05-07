@@ -1,7 +1,66 @@
-import { Monitor, Server, Smartphone, Bot, Cpu, Cloud, Sparkles } from "lucide-react";
+import { Globe, Monitor, Server, Smartphone, Bot, Cpu, Cloud, Sparkles } from "lucide-react";
 import type { ServiceEntry } from "./types";
 
 export const servicesPart1: Record<string, ServiceEntry> = {
+    "website-development": {
+        id: "website-development",
+        icon: Globe,
+        title: "Website Development",
+        tagline: "Custom websites designed and built to rank, convert, and grow your business — delivered in weeks, not months.",
+        introSummary: "professionally designed, high-performance websites built from scratch to represent your brand, attract organic traffic, and turn visitors into customers.",
+        description: "Your website is your hardest-working salesperson — available 24/7, reaching every prospect, making the first impression that determines whether they trust you. We design and build custom websites that combine stunning visuals with technical excellence: fast-loading, mobile-perfect, SEO-ready, and built to convert. No templates, no page builders, no compromises. Every site we deliver is a bespoke digital asset engineered to serve your business goals for years.",
+        details: [
+            "Custom design tailored precisely to your brand identity and target audience.",
+            "Mobile-first responsive layouts that look flawless on every device and screen size.",
+            "Technical SEO foundations: semantic HTML, Core Web Vitals, sitemap, and structured data.",
+            "Headless CMS integration so your team can manage content without touching code.",
+            "Conversion rate optimization built into every page layout and call-to-action.",
+            "Analytics and event tracking configured from launch day."
+        ],
+        technologies: ["Next.js", "React", "Tailwind CSS", "TypeScript", "Sanity", "Vercel"],
+        deliverables: [
+            "Fully custom, responsive website.",
+            "CMS integration with content editing training.",
+            "SEO audit and optimization report.",
+            "Google Analytics and Tag Manager setup.",
+            "Performance and accessibility audit.",
+            "30-day post-launch support."
+        ],
+        startingAt: "$3,000",
+        bookingType: "Strategy Session",
+        valueProps: [
+            { title: "Built to Convert", description: "Every layout decision — from hero structure to CTA placement — is driven by conversion principles. We build websites that turn visitors into leads, not just websites that look good in screenshots." },
+            { title: "Fast by Default", description: "We build on Next.js with edge deployment on Vercel, achieving sub-second load times that reduce bounce rates and signal quality to Google's ranking algorithm." },
+            { title: "Yours to Own and Update", description: "We integrate a headless CMS so your team controls content from day one. No developer required for copy updates, blog posts, or new landing pages." },
+            { title: "SEO-Ready from Day One", description: "Technical SEO is engineered into every build: proper heading hierarchy, server-side rendering, canonical tags, schema markup, and the page speed scores that modern search rankings demand." }
+        ],
+        whoWeHelped: [
+            "Professional services firms replacing outdated sites that were losing them deals.",
+            "E-commerce brands escaping Shopify templates to own their storefront performance.",
+            "B2B companies launching new products that needed a credible digital presence fast.",
+            "Local businesses looking to dominate regional search results with a site that outperforms competitors."
+        ],
+        processSteps: [
+            { title: "Discovery & Strategy", description: "We audit your current site, study your competitors, and map your goals, target audience, and conversion objectives into a clear site architecture and design brief." },
+            { title: "Design", description: "Our designers produce wireframes and a full high-fidelity prototype in Figma — every page, every state, every interaction — approved by you before any development begins." },
+            { title: "Development", description: "We build your site in Next.js with pixel-perfect fidelity to the approved designs, obsessing over performance, accessibility, and code quality throughout." },
+            { title: "CMS & Integrations", description: "We connect your content management system, contact forms, analytics, and any third-party tools your business depends on." },
+            { title: "QA & Optimisation", description: "Cross-browser testing, mobile device testing, Lighthouse audits, and SEO checks before we touch production. Nothing ships until it passes." },
+            { title: "Launch & Handover", description: "We handle DNS, SSL, CDN configuration, and the full deployment. We train your team on the CMS and leave you with complete documentation." }
+        ],
+        industryExpertise: ["Professional Services", "E-commerce", "SaaS", "Healthcare", "Real Estate", "Financial Services"],
+        reasonsToChoose: [
+            { title: "We Build, We Don't Assemble", description: "Our websites are engineered in code, not assembled from templates or page builders. The result is faster performance, cleaner markup, and a site that your future developers can actually maintain." },
+            { title: "Design and Engineering Under One Roof", description: "No handoff friction between a design agency and a development shop. Our designers and engineers work together from brief to launch, ensuring the final site matches the approved design exactly." },
+            { title: "We Measure What Matters", description: "We configure analytics, heatmaps, and conversion tracking from day one so you know whether your website is working — and have the data to improve it continuously after launch." }
+        ],
+        faqs: [
+            { question: "How long does a website build take?", answer: "A standard business website takes 4 to 6 weeks from kick-off to launch. Larger sites with multiple page templates, custom functionality, or complex integrations typically take 6 to 10 weeks." },
+            { question: "Can I update content myself after launch?", answer: "Yes. We integrate a headless CMS — typically Sanity or Contentful — so your team can edit text, swap images, publish blog posts, and add pages without touching code or involving a developer." },
+            { question: "What is the difference between Website Development and Frontend Development?", answer: "Website Development is for businesses that need a complete website — design, build, CMS, and launch. Frontend Development is an engineering service for teams building complex web applications who need component-level React expertise." },
+            { question: "Do you handle hosting?", answer: "Yes. We configure hosting, deploy your site to Vercel or AWS, set up your custom domain, SSL certificate, and CDN. Your site is production-ready from the moment we hand over the keys." }
+        ]
+    },
     "frontend-development": {
         id: "frontend-development",
         icon: Monitor,

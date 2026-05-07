@@ -20,6 +20,7 @@ const STATIC_PAGES = [
 ] as const;
 
 const SERVICE_SLUGS = [
+  "website-development",
   "frontend-development",
   "backend-development",
   "apps",

@@ -63,6 +63,7 @@ import sbR1 from "@/assets/reason-startup-branding-1.jpg";
 import sbR2 from "@/assets/reason-startup-branding-2.jpg";
 
 const reasonImages: Record<string, string[]> = {
+    "website-development":    [websitesR0, websitesR1, websitesR2],
     "frontend-development":   [websitesR0, websitesR1, websitesR2],
     "backend-development":    [websitesR0, websitesR1, websitesR2],
     "apps":                   [appsR0, appsR1, appsR2],
