@@ -78,13 +78,17 @@ function buildFullEntry(id: string): StartupEntry {
 
   const o = startupContentOverrides[id] ?? {};
 
+  // Service applications: always prepend branding and append additional, even for overrides
+  const primaryServices = o.serviceApplications ?? generateServiceApplications(id, base.parentCategory);
+  const serviceApplications = ensureBrandingAndAdditional(id, base.parentCategory, primaryServices);
+
   return {
     ...base,
     challenges: o.challenges ?? generateChallenges(id, base.parentCategory),
     solutions: o.solutions ?? generateSolutions(id, base.parentCategory),
     valueProps: o.valueProps ?? generateValueProps(id),
     stats: o.stats ?? generateStats(id, base.parentCategory),
-    serviceApplications: o.serviceApplications ?? generateServiceApplications(id, base.parentCategory),
+    serviceApplications,
     deepDive: o.deepDive ?? generateDeepDive(id, base.title),
     details: o.details ?? generateDetails(id, base.parentCategory),
     deliverables: o.deliverables ?? generateDeliverables(id, base.parentCategory),
@@ -93,6 +97,17 @@ function buildFullEntry(id: string): StartupEntry {
     whoWeHelped: o.whoWeHelped ?? generateWhoWeHelped(id, base.parentCategory),
     clientReviews: o.clientReviews ?? generateClientReviews(id, base.parentCategory),
   };
+}
+
+function ensureBrandingAndAdditional(id: string, category: string, primary: StartupServiceApplication[]): StartupServiceApplication[] {
+  // If already processed (has branding first), return as-is
+  if (primary[0]?.slug === "startup-branding") return primary;
+
+  const title = basicData[id]?.title ?? "";
+  const branding = getBrandingCard(id, title, category);
+  const allSlugs = ["startup-branding", ...primary.map(s => s.slug)];
+  const additional = generateAdditionalServices(id, category, allSlugs);
+  return [branding, ...primary, ...additional];
 }
 
 // ═══════════════════════════════════════════
@@ -1821,29 +1836,97 @@ function generateServiceApplications(id: string, category: string): StartupServi
     ],
   };
 
-  const primary = verticalServices[id] ?? [
+  return verticalServices[id] ?? [
     { serviceName: "Custom Software Development", slug: "websites", description: "Full-stack web application development", applicationDetail: "We build your core product using modern frameworks (React, Next.js, Node.js) with clean architecture that scales." },
     { serviceName: "Mobile Apps Development", slug: "apps", description: "iOS and Android application development", applicationDetail: "Cross-platform mobile apps in React Native that share 90% of code between platforms while feeling native." },
     { serviceName: "UX & UI Design", slug: "ux-ui-design", description: "User experience and interface design", applicationDetail: "Research-driven design that converts users, with prototypes tested before a line of production code is written." },
     { serviceName: "DevOps Consulting", slug: "devops", description: "Infrastructure and deployment automation", applicationDetail: "CI/CD pipelines, infrastructure-as-code, and monitoring that makes deployments boring and reliable." },
   ];
-
-  const branding = getBrandingCard(category);
-  const allSlugs = ["startup-branding", ...primary.map(s => s.slug)];
-  const additional = generateAdditionalServices(id, category, allSlugs);
-  return [branding, ...primary, ...additional];
 }
 
-function getBrandingCard(category: string): StartupServiceApplication {
-  const brandingByCategory: Record<string, StartupServiceApplication> = {
-    "By Stage": { serviceName: "Startup Branding", slug: "startup-branding", description: "Brand identity that builds investor confidence", applicationDetail: "Professional visual identity from day one. Logo, brand system, and pitch deck design that signals credibility to investors and early customers." },
-    "By Vertical": { serviceName: "Startup Branding", slug: "startup-branding", description: "Visual identity that builds trust in your market", applicationDetail: "Logo, color system, typography, and brand guidelines that position your startup as credible from day one. Designed to scale from pitch deck to product." },
-    "By Product Type": { serviceName: "Startup Branding", slug: "startup-branding", description: "Product identity and visual system", applicationDetail: "Brand identity that differentiates your product in a crowded market. Logo, design system, and guidelines that your engineering team can implement consistently." },
-    "By Founder Type": { serviceName: "Startup Branding", slug: "startup-branding", description: "Professional identity without the agency markup", applicationDetail: "Logo, color palette, typography, and brand guidelines that make your startup look established. Fixed price, delivered in 2 weeks, yours forever." },
-    "By Challenge": { serviceName: "Startup Branding", slug: "startup-branding", description: "Rebrand after your pivot or milestone", applicationDetail: "Post-pivot, post-fundraise, or post-product-market-fit: brand identity that matches where your startup is now, not where it started." },
-    "By Engagement": { serviceName: "Startup Branding", slug: "startup-branding", description: "Brand identity as an add-on to any engagement", applicationDetail: "Add branding to any engagement: logo, design system, and brand guidelines delivered alongside your product build. One vendor, one timeline." },
+function getBrandingCard(id: string, title: string, category: string): StartupServiceApplication {
+  // Per-startup branding cards with contextual names
+  const perStartup: Record<string, StartupServiceApplication> = {
+    // BY STAGE
+    "pre-idea": { serviceName: "Discovery-Stage Brand Identity", slug: "startup-branding", description: "Visual credibility before you have a product", applicationDetail: "Logo, color system, and pitch deck design that makes investors take your concept seriously before a line of code exists." },
+    "validation": { serviceName: "Validation-Ready Brand Design", slug: "startup-branding", description: "Professional presence for user testing", applicationDetail: "Brand identity polished enough that test users engage with your product as real, not as a student project. First impressions drive honest feedback." },
+    "mvp": { serviceName: "MVP Brand & Visual Identity", slug: "startup-branding", description: "Ship with a brand that matches your product quality", applicationDetail: "Logo, color system, and UI brand tokens designed alongside your MVP so the product looks intentional from launch day. Not an afterthought." },
+    "early-traction": { serviceName: "Growth-Stage Brand Refinement", slug: "startup-branding", description: "Brand that scales with your traction", applicationDetail: "Refine the brand you launched with into a system that works across marketing, product, and investor materials as your audience grows." },
+    "seed-stage": { serviceName: "Seed-Stage Brand Identity", slug: "startup-branding", description: "Investor-grade visual presence", applicationDetail: "Logo, brand guidelines, and pitch deck design that signals professionalism to seed investors. Fixed price, delivered before your next meeting." },
+    "series-a": { serviceName: "Series A Brand Upgrade", slug: "startup-branding", description: "Brand that matches enterprise ambitions", applicationDetail: "Evolve your scrappy startup brand into one that enterprise prospects and Series A investors take seriously. Design system included." },
+    "series-b-plus": { serviceName: "Enterprise Brand System", slug: "startup-branding", description: "Scalable brand architecture", applicationDetail: "Multi-product brand system, sub-brand guidelines, and the design infrastructure that keeps 50+ people producing consistent materials." },
+    "bootstrapped": { serviceName: "Budget-Smart Brand Design", slug: "startup-branding", description: "Professional identity at bootstrapped prices", applicationDetail: "Clean logo, tight color palette, and brand guidelines that punch above your budget. No agency markup, no 8-week timeline. Two weeks, fixed price." },
+    "growth": { serviceName: "Growth-Phase Brand System", slug: "startup-branding", description: "Brand system that scales with your team", applicationDetail: "Design tokens, component guidelines, and brand documentation that keeps your product visually consistent as your engineering team grows." },
+    "scale-up": { serviceName: "Scale-Up Brand Architecture", slug: "startup-branding", description: "Multi-team brand consistency", applicationDetail: "Brand governance for companies where 5+ teams ship independently. Design system, usage guidelines, and approval workflows that maintain coherence." },
+    // BY VERTICAL
+    "fintech": { serviceName: "Fintech Brand & Trust Design", slug: "startup-branding", description: "Visual identity that signals financial trustworthiness", applicationDetail: "Brand system designed to make users comfortable giving you their money. Trust signals, professional typography, and the visual restraint fintech demands." },
+    "healthtech": { serviceName: "Healthtech Brand Identity", slug: "startup-branding", description: "Clinical credibility through design", applicationDetail: "Brand that communicates medical seriousness without feeling cold. Accessibility-first color choices, WCAG-compliant palettes, and the trust healthcare requires." },
+    "edtech": { serviceName: "EdTech Brand & Learning Identity", slug: "startup-branding", description: "Engaging brand for educators and learners", applicationDetail: "Visual identity that feels credible to administrators buying it and engaging to students using it. Two audiences, one cohesive brand." },
+    "proptech": { serviceName: "PropTech Brand Identity", slug: "startup-branding", description: "Premium brand for property technology", applicationDetail: "Brand system that conveys the professionalism real estate expects. Clean, premium, trustworthy, designed to work on listing pages and investor decks alike." },
+    "legaltech": { serviceName: "LegalTech Professional Identity", slug: "startup-branding", description: "Brand that law firms take seriously", applicationDetail: "Visual identity designed for an audience that bills in 6-minute increments. Professional, restrained, and credible enough for enterprise legal procurement." },
+    "ai-startup": { serviceName: "AI Brand & Product Identity", slug: "startup-branding", description: "Brand that differentiates in a crowded AI market", applicationDetail: "When every competitor looks the same (purple gradients, robot icons), a distinctive brand is your first competitive advantage. Stand out before they try the product." },
+    "logistics-tech": { serviceName: "Logistics Brand Identity", slug: "startup-branding", description: "Operational brand for fleet and supply chain", applicationDetail: "Brand that works on driver apps, dispatch screens, and enterprise sales decks simultaneously. Functional, clear, and recognizable at a glance." },
+    "ecommerce": { serviceName: "E-commerce Brand & Storefront Design", slug: "startup-branding", description: "Conversion-optimized brand identity", applicationDetail: "Brand system designed for product pages, checkout flows, and marketing emails. Every visual choice measured by its impact on purchase confidence." },
+    "b2b-saas": { serviceName: "B2B SaaS Brand System", slug: "startup-branding", description: "Enterprise-ready visual identity", applicationDetail: "Brand that passes the 'would I put this in a board presentation' test. Clean, professional, scalable across product, marketing, and sales materials." },
+    "consumer-apps": { serviceName: "Consumer App Brand Identity", slug: "startup-branding", description: "Memorable brand for app store competition", applicationDetail: "App icon, brand palette, and visual system designed to stand out in crowded app stores and be instantly recognizable on a home screen." },
+    // BY PRODUCT TYPE
+    "web-app": { serviceName: "Web App Brand & Design System", slug: "startup-branding", description: "Visual foundation for your application", applicationDetail: "Brand tokens, color scales, and typography choices that translate directly into your component library. Design and development aligned from the start." },
+    "mobile-app": { serviceName: "Mobile App Brand Identity", slug: "startup-branding", description: "App icon and visual system for both stores", applicationDetail: "Brand identity optimized for mobile: app icon, splash screen, notification branding, and the visual system that makes your app recognizable everywhere." },
+    "ai-product": { serviceName: "AI Product Brand Identity", slug: "startup-branding", description: "Brand that communicates intelligence without hype", applicationDetail: "Visual identity that signals sophistication without the cliched robot/brain imagery. Stand apart from the AI crowd with a brand that feels trustworthy." },
+    "saas-platform": { serviceName: "SaaS Platform Brand System", slug: "startup-branding", description: "Scalable brand for product-led growth", applicationDetail: "Brand system that works across your marketing site, product UI, documentation, and email sequences. Consistent from first visit to power user." },
+    "marketplace": { serviceName: "Marketplace Brand Identity", slug: "startup-branding", description: "Brand that both sides of your marketplace trust", applicationDetail: "Visual identity credible to sellers listing inventory and appealing to buyers browsing it. Neutrality and trustworthiness as design principles." },
+    "api-product": { serviceName: "Developer-Facing Brand Identity", slug: "startup-branding", description: "Brand developers respect", applicationDetail: "Visual identity for docs, dashboards, and dev portals. Clean, technical, no-nonsense. The visual equivalent of good developer experience." },
+    "data-platform": { serviceName: "Data Product Brand System", slug: "startup-branding", description: "Brand for technical and business audiences", applicationDetail: "Visual identity that works on analyst dashboards and executive presentations equally. Data visualization palette and clear information hierarchy included." },
+    "iot": { serviceName: "IoT Product Brand Identity", slug: "startup-branding", description: "Brand that bridges hardware and software", applicationDetail: "Visual identity that works on device packaging, companion apps, and fleet dashboards. Consistent brand across physical and digital touchpoints." },
+    "internal-tools": { serviceName: "Internal Tool Brand & UX Kit", slug: "startup-branding", description: "Professional identity for ops software", applicationDetail: "Even internal tools benefit from cohesive branding. Component library, color system, and visual guidelines that make your internal software feel intentional." },
+    "embedded": { serviceName: "Hardware Brand & Packaging Design", slug: "startup-branding", description: "Brand that works on devices and screens", applicationDetail: "Visual identity for product packaging, device interfaces (LED colors, screen UI), companion apps, and marketing materials. One brand, every surface." },
+    // BY FOUNDER TYPE
+    "non-technical-founder": { serviceName: "Founder Brand & Pitch Identity", slug: "startup-branding", description: "Visual credibility for investor conversations", applicationDetail: "Logo, brand guidelines, and pitch deck template that make your startup look like it has a team of 20 behind it. First impressions close rounds." },
+    "first-time-founder": { serviceName: "First Product Brand Identity", slug: "startup-branding", description: "Professional brand without the learning curve", applicationDetail: "We handle logo, colors, typography, and guidelines. You get a brand system that looks like you spent $50K at an agency. Fixed price, 2 weeks." },
+    "solo-founder": { serviceName: "Solo Founder Brand Package", slug: "startup-branding", description: "Complete brand without managing a designer", applicationDetail: "Logo, brand guidelines, social media templates, and pitch deck design delivered autonomously. You approve direction once, we deliver everything." },
+    "repeat-founder": { serviceName: "Premium Brand Execution", slug: "startup-branding", description: "Brand quality matching your standards", applicationDetail: "You know what good branding looks like. We deliver at that level: strategic positioning, distinctive visual identity, and a system that scales." },
+    "student-startup": { serviceName: "Demo Day Brand Kit", slug: "startup-branding", description: "Polished brand for accelerator presentations", applicationDetail: "Logo, pitch deck template, and product screenshots that make judges take you seriously. Delivered before your demo day deadline." },
+    "corporate-innovator": { serviceName: "Innovation Lab Brand Identity", slug: "startup-branding", description: "Brand that fits corporate governance", applicationDetail: "Visual identity for your internal venture that aligns with corporate brand guidelines while feeling distinctly new. Both compliant and differentiated." },
+    "female-led": { serviceName: "Founder-Led Brand Identity", slug: "startup-branding", description: "Brand that reflects your vision accurately", applicationDetail: "Collaborative brand development that centers your creative vision. We execute, you direct. No unsolicited 'suggestions' about making it more feminine." },
+    "african-startup": { serviceName: "Pan-African Brand Identity", slug: "startup-branding", description: "Brand that works across African markets", applicationDetail: "Visual identity designed for diverse African markets: works on feature phone screens, low-bandwidth connections, and premium app stores equally." },
+    "diaspora-founder": { serviceName: "Cross-Market Brand System", slug: "startup-branding", description: "One brand that works in multiple cultures", applicationDetail: "Visual identity that resonates in both your home market and your current market. Color, typography, and imagery choices that cross cultural boundaries." },
+    "social-enterprise": { serviceName: "Impact-Driven Brand Identity", slug: "startup-branding", description: "Brand that communicates mission and credibility", applicationDetail: "Visual identity that signals both social purpose and operational competence. Works on grant applications, donor reports, and user-facing products." },
+    // BY CHALLENGE
+    "fast-mvp": { serviceName: "Launch-Ready Brand Kit", slug: "startup-branding", description: "Brand shipped alongside your MVP", applicationDetail: "Logo, color palette, and UI brand tokens delivered in week 1 so your product launches with visual coherence, not a placeholder logo." },
+    "scaling-tech": { serviceName: "Brand System for Scale", slug: "startup-branding", description: "Design system that scales with your engineering team", applicationDetail: "Formalize your brand into tokens and components that 10+ engineers can use consistently without a designer reviewing every PR." },
+    "agency-rescue": { serviceName: "Brand Recovery & Cleanup", slug: "startup-branding", description: "Fix the inconsistent brand your agency left", applicationDetail: "Audit what exists, decide what to keep, and produce a clean brand system from the fragments. No more 5 different button colors." },
+    "fundraising-ready": { serviceName: "Investor-Grade Brand Polish", slug: "startup-branding", description: "Brand that survives due diligence optics", applicationDetail: "Visual identity refined to the quality investors expect. Pitch deck design, product screenshots, and brand consistency that signals operational maturity." },
+    "ai-integration": { serviceName: "AI Feature Brand Integration", slug: "startup-branding", description: "Visual language for AI-powered features", applicationDetail: "How AI features look and feel within your existing brand: loading states, confidence indicators, and UI patterns that feel native, not bolted on." },
+    "tech-debt": { serviceName: "Design System Modernization", slug: "startup-branding", description: "Brand cleanup as part of debt reduction", applicationDetail: "Consolidate inconsistent UI patterns into a proper design system. Fewer colors, fewer fonts, fewer component variants. Visual debt paid alongside technical debt." },
+    "security-compliance": { serviceName: "Trust-Forward Brand Identity", slug: "startup-branding", description: "Brand that communicates security competence", applicationDetail: "Visual identity that makes compliance-conscious buyers comfortable. Professional, restrained, and subtly communicating 'we take this seriously.'" },
+    "post-pivot": { serviceName: "Post-Pivot Brand Refresh", slug: "startup-branding", description: "New brand for your new direction", applicationDetail: "Your old brand represents your old product. New direction, new identity. Delivered in 2 weeks so you can relaunch without carrying old baggage." },
+    "no-tech-team": { serviceName: "Complete Brand & Identity", slug: "startup-branding", description: "Brand design without needing a creative team", applicationDetail: "Logo, brand guidelines, pitch deck, and social media templates. Everything you need to look established, delivered without you hiring a designer." },
+    "africa-launch": { serviceName: "African Market Brand Adaptation", slug: "startup-branding", description: "Brand localized for African audiences", applicationDetail: "Adapt your existing brand for African markets: color meanings, imagery preferences, and visual patterns that resonate locally without a full rebrand." },
+    // BY ENGAGEMENT
+    "fixed-price-mvp": { serviceName: "MVP Brand Kit (Included)", slug: "startup-branding", description: "Brand identity bundled with your build", applicationDetail: "Logo, color palette, and product brand tokens included in your fixed-price MVP. Ship with a cohesive brand, not placeholder assets." },
+    "dedicated-team": { serviceName: "Brand & Design System Support", slug: "startup-branding", description: "Ongoing brand evolution with your team", applicationDetail: "Your dedicated team maintains and evolves your brand system alongside product development. Design and engineering always aligned." },
+    "tech-cofounder": { serviceName: "Founder Brand & Positioning", slug: "startup-branding", description: "Brand strategy as part of technical leadership", applicationDetail: "As your technical co-founder, we ensure brand decisions align with product strategy. Visual identity that supports the technical story you tell investors." },
+    "cto-as-a-service": { serviceName: "Strategic Brand Direction", slug: "startup-branding", description: "Brand oversight within technical leadership", applicationDetail: "Brand consistency maintained as part of fractional CTO engagement. Design reviews, system governance, and visual quality standards." },
+    "design-sprint": { serviceName: "Sprint Brand Exploration", slug: "startup-branding", description: "Brand direction tested in 5 days", applicationDetail: "Day 2 of your design sprint includes brand positioning. By Friday, you know what visual direction resonates with users, not just what looks good." },
+    "code-audit": { serviceName: "Brand & Design Audit", slug: "startup-branding", description: "Visual consistency assessment", applicationDetail: "Alongside your code audit, we assess brand implementation: inconsistent colors, orphaned components, and the visual debt hiding in your UI." },
+    "staff-augmentation": { serviceName: "Design Engineer Placement", slug: "startup-branding", description: "Brand-aware engineer for your team", applicationDetail: "Engineers who understand and respect your design system. They implement brand consistently without needing designer review on every component." },
+    "retainer": { serviceName: "Ongoing Brand Maintenance", slug: "startup-branding", description: "Brand evolution as part of your retainer", applicationDetail: "Monthly brand updates, new asset creation, and design system expansion included in your retainer. Brand grows with your product." },
+    "nearshore": { serviceName: "Brand-Aligned Nearshore Team", slug: "startup-branding", description: "Engineers who ship brand-consistent UI", applicationDetail: "Our nearshore engineers work from your design system and brand guidelines. Output matches your visual standards without timezone-gap quality drift." },
+    "outsourcing": { serviceName: "Brand & Product Delivery", slug: "startup-branding", description: "Brand identity included in outsourced builds", applicationDetail: "Brand development included in our delivery scope. You receive both a working product and the visual identity system, not one without the other." },
   };
-  return brandingByCategory[category] || brandingByCategory["By Vertical"];
+
+  if (perStartup[id]) return perStartup[id];
+
+  // Category-level fallbacks
+  const fallbackByCategory: Record<string, StartupServiceApplication> = {
+    "By Stage": { serviceName: "Stage-Appropriate Brand Identity", slug: "startup-branding", description: "Brand that matches where you are now", applicationDetail: "Professional visual identity sized to your current stage. Not over-designed for where you are, not under-designed for where you are going." },
+    "By Vertical": { serviceName: "Industry-Specific Brand Identity", slug: "startup-branding", description: "Visual identity built for your market", applicationDetail: "Logo, color system, typography, and brand guidelines designed for the specific trust signals and visual expectations of your industry." },
+    "By Product Type": { serviceName: "Product Brand & Design System", slug: "startup-branding", description: "Visual foundation for your product", applicationDetail: "Brand identity that translates directly into your product UI. Design tokens, component styles, and guidelines your engineering team can implement." },
+    "By Founder Type": { serviceName: "Founder-Ready Brand Identity", slug: "startup-branding", description: "Professional brand without the agency overhead", applicationDetail: "Logo, color palette, typography, and brand guidelines that make your startup look established. Fixed price, delivered in 2 weeks, yours forever." },
+    "By Challenge": { serviceName: "Brand Identity & Refresh", slug: "startup-branding", description: "Visual identity that supports your goals", applicationDetail: "Brand system designed for the specific milestone or challenge you face. Whether launching, pivoting, or scaling, your brand should match." },
+    "By Engagement": { serviceName: "Brand Identity (Bundled)", slug: "startup-branding", description: "Brand design included with your engagement", applicationDetail: "Add branding to any engagement: logo, design system, and brand guidelines delivered alongside your product build. One vendor, one timeline." },
+  };
+  return fallbackByCategory[category] || fallbackByCategory["By Vertical"];
 }
 
 function generateAdditionalServices(_id: string, category: string, existingSlugs: string[]): StartupServiceApplication[] {
