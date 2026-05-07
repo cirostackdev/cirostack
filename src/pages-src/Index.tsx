@@ -111,8 +111,9 @@ const phases = [
   {
     name: "Build",
     services: [
-      { label: "Custom Software", href: "/services/websites" },
-      { label: "Startup Dev", href: "/services/startups" },
+      { label: "Website Development", href: "/services/website-development" },
+      { label: "Frontend Development", href: "/services/frontend-development" },
+      { label: "Backend Development", href: "/services/backend-development" },
       { label: "Mobile Apps", href: "/services/apps" },
     ],
   },
@@ -121,15 +122,13 @@ const phases = [
     services: [
       { label: "Generative AI", href: "/services/ai" },
       { label: "AI & ML", href: "/services/ai-ml" },
-      { label: "Digital Transformation", href: "/services/digital-transformation" },
     ],
   },
   {
     name: "Operate",
     services: [
       { label: "DevOps", href: "/services/devops" },
-      { label: "Automation Testing", href: "/services/automation-testing" },
-      { label: "Security Audits", href: "/services/security-audit" },
+      { label: "Software Auditing", href: "/services/software-auditing" },
     ],
   },
   {
