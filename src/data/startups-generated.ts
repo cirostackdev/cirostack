@@ -100,18 +100,8 @@ function buildFullEntry(id: string): StartupEntry {
 }
 
 function ensureBrandingAndAdditional(id: string, category: string, primary: StartupServiceApplication[]): StartupServiceApplication[] {
-  // If already processed (has branding first), return as-is
-  if (primary[0]?.slug === "startup-branding") return primary;
-
-  const title = basicData[id]?.title ?? "";
-  const branding = getBrandingCard(id, title, category);
-  const primarySlugs = primary.map(s => s.slug);
-  const cloudCard = primarySlugs.includes("cloud-consulting") ? null : getCloudCard(id, category);
-  const allSlugs = ["startup-branding", "cloud-consulting", ...primarySlugs];
-  const additional = generateAdditionalServices(id, category, allSlugs);
-  return cloudCard
-    ? [branding, ...primary, cloudCard, ...additional]
-    : [branding, ...primary, ...additional];
+  // Return exactly 4 most-relevant services for this startup page
+  return primary.slice(0, 4);
 }
 
 // ═══════════════════════════════════════════
@@ -1841,7 +1831,7 @@ function generateServiceApplications(id: string, category: string): StartupServi
   };
 
   return verticalServices[id] ?? [
-    { serviceName: "Custom Software Development", slug: "frontend-development", description: "Full-stack web application development", applicationDetail: "We build your core product using modern frameworks (React, Next.js, Node.js) with clean architecture that scales." },
+    { serviceName: "Frontend Development", slug: "frontend-development", description: "Full-stack web application development", applicationDetail: "We build your core product using modern frameworks (React, Next.js, Node.js) with clean architecture that scales." },
     { serviceName: "Mobile Apps Development", slug: "apps", description: "iOS and Android application development", applicationDetail: "Cross-platform mobile apps in React Native that share 90% of code between platforms while feeling native." },
     { serviceName: "UX & UI Design", slug: "ux-ui-design", description: "User experience and interface design", applicationDetail: "Research-driven design that converts users, with prototypes tested before a line of production code is written." },
     { serviceName: "DevOps Consulting", slug: "devops", description: "Infrastructure and deployment automation", applicationDetail: "CI/CD pipelines, infrastructure-as-code, and monitoring that makes deployments boring and reliable." },
