@@ -384,7 +384,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
   const [openCol, setOpenCol] = useState<[0|1, 0|1, 0|1]>([
     isItemActive(firstRow[0], pathname) ? 0 : 1,
     isItemActive(secondRow[1], pathname) ? 1 : 0,
-    isItemActive(secondRow[2], pathname) ? 1 : 0,
+    secondRow[2] && isItemActive(secondRow[2], pathname) ? 1 : 0,
   ]);
 
   const toggleCol = (colIndex: number, row: 0 | 1) => {
@@ -481,50 +481,54 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
                 )}
 
                 {/* Second row heading */}
-                <button
-                  onClick={() => toggleCol(colIndex, 1)}
-                  className={cn(
-                    "w-full flex items-center justify-between mb-3 pb-2 border-b border-border cursor-pointer",
-                    activeRowForCol === 1 ? "" : "opacity-60 hover:opacity-100"
-                  )}
-                >
-                  <p className={cn(
-                    "text-sm uppercase tracking-wider",
-                    isItemActive(bottomCat, pathname) ? "text-primary font-semibold" : activeRowForCol === 1 ? "text-foreground font-medium" : "text-muted-foreground"
-                  )}>
-                    {bottomCat.label}
-                  </p>
-                  <ChevronDown className={cn(
-                    "w-3.5 h-3.5 transition-transform text-muted-foreground",
-                    activeRowForCol === 1 ? "rotate-180" : ""
-                  )} />
-                </button>
+                {bottomCat && (
+                  <>
+                    <button
+                      onClick={() => toggleCol(colIndex, 1)}
+                      className={cn(
+                        "w-full flex items-center justify-between mb-3 pb-2 border-b border-border cursor-pointer",
+                        activeRowForCol === 1 ? "" : "opacity-60 hover:opacity-100"
+                      )}
+                    >
+                      <p className={cn(
+                        "text-sm uppercase tracking-wider",
+                        isItemActive(bottomCat, pathname) ? "text-primary font-semibold" : activeRowForCol === 1 ? "text-foreground font-medium" : "text-muted-foreground"
+                      )}>
+                        {bottomCat.label}
+                      </p>
+                      <ChevronDown className={cn(
+                        "w-3.5 h-3.5 transition-transform text-muted-foreground",
+                        activeRowForCol === 1 ? "rotate-180" : ""
+                      )} />
+                    </button>
 
-                {/* Second row content */}
-                {activeRowForCol === 1 && (
-                  <ul className="space-y-2">
-                    {bottomCat.children!.map((child) => {
-                      const linkActive = child.path === pathname;
-                      return (
-                        <li key={child.label}>
-                          <Link
-                            href={child.path || "/"}
-                            onClick={onClose}
-                            className={cn(
-                              "group text-sm transition-colors flex items-center gap-1",
-                              linkActive ? "text-primary font-semibold" : "text-foreground hover:text-primary"
-                            )}
-                          >
-                            <ChevronRight className={cn(
-                              "w-3.5 h-3.5 transition-all duration-200",
-                              linkActive ? "opacity-100 ml-0 text-primary" : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
-                            )} />
-                            {child.label}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                    {/* Second row content */}
+                    {activeRowForCol === 1 && (
+                      <ul className="space-y-2">
+                        {bottomCat.children!.map((child) => {
+                          const linkActive = child.path === pathname;
+                          return (
+                            <li key={child.label}>
+                              <Link
+                                href={child.path || "/"}
+                                onClick={onClose}
+                                className={cn(
+                                  "group text-sm transition-colors flex items-center gap-1",
+                                  linkActive ? "text-primary font-semibold" : "text-foreground hover:text-primary"
+                                )}
+                              >
+                                <ChevronRight className={cn(
+                                  "w-3.5 h-3.5 transition-all duration-200",
+                                  linkActive ? "opacity-100 ml-0 text-primary" : "opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0"
+                                )} />
+                                {child.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </>
                 )}
               </div>
             );
