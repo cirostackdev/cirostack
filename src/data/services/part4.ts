@@ -1,4 +1,4 @@
-import { Shield, MapPin, Users, Rocket } from "lucide-react";
+import { Shield, MapPin, Users } from "lucide-react";
 import type { ServiceEntry } from "./types";
 
 export const servicesPart4: Record<string, ServiceEntry> = {
@@ -177,65 +177,6 @@ export const servicesPart4: Record<string, ServiceEntry> = {
             { question: "How do we know what is being built?", answer: "We utilize extreme transparency. We adhere to Agile methodologies, meaning we deliver a working, testable piece of the software every two weeks. You never wait 6 months in the dark for a final reveal." },
             { question: "Who owns the Intellectual Property?", answer: "You do. Your contract will explicitly state that 100% of the code, designs, and architectural IP belongs entirely to your company from the moment it is written." },
             { question: "What if we want to take development internal later?", answer: "We actively encourage and support this. We build beautifully documented, industry-standard code. When you are ready, we execute a seamless, highly structured knowledge transfer to your new internal CTO." }
-        ]
-    },
-    "startups": {
-        id: "startups",
-        icon: Rocket,
-        title: "Software Development for Startups",
-        tagline: "We help founders go from idea to launched product fast, with architecture that won't break when you scale.",
-        introSummary: "lean, hyper-velocity product engineering specifically calibrated to help founders achieve product-market fit and secure critical venture funding.",
-        description: "Startups operate in a brutal reality: ship fast, secure traction, or die. The luxury of bloated enterprise planning does not exist here. We specialize in Startup Engineering. We partner with founders to ruthlessly scope Minimum Viable Products (MVPs), cutting aesthetic noise to focus strictly on the core value hypotheses. Using highly efficient frameworks like Next.js and serverless cloud architectures, we dramatically accelerate the path to launch. We build fast, but we never build fragile; your MVP will have the structural integrity to scale the second you secure that massive Series A.",
-        details: [
-            "Ruthless MVP scoping to identify and build only critical hypotheses.",
-            "Rapid, interactive Figma prototyping for early investor validation.",
-            "High-velocity full-stack engineering utilizing Next.js and Firebase/Supabase.",
-            "Scalable Serverless architecture designed to minimize early cloud costs.",
-            "Deep analytics integration to aggressively track early user behaviors.",
-            "Post-launch 'Growth Engineering' and rapid feature iteration."
-        ],
-        technologies: ["React", "Next.js", "Supabase", "Firebase", "Stripe", "Vercel"],
-        deliverables: [
-            "Validated Product Specification.",
-            "High-Fidelity Investor Prototypes.",
-            "Production-Ready MVP Application.",
-            "User Behavior Analytics Dashboards.",
-            "Scalable Cloud Foundation.",
-            "Technical Pitch Deck Support."
-        ],
-        startingAt: "$5,000",
-        bookingType: "Founder Strategy Call",
-        valueProps: [
-            { title: "Extreme Time-to-Market", description: "We utilize highly composable tech stacks that allow us to transform brilliant ideas into functional, revenue-generating software in mere weeks." },
-            { title: "Scope Discipline", description: "Founders love features. We act as your rigorous technical gatekeeper, preventing scope creep to ensure you launch your core assumption as cheaply and quickly as possible." },
-            { title: "Architected for Scale", description: "We build lean, but we don't build garbage. Your early MVP uses the exact same rigorous component structure as a Fortune 500 product, preventing immediate rewrites upon scale." },
-            { title: "Investor Readiness", description: "We help you answer the grueling technical questions. We provide the architecture diagrams and security postures VCs demand during technical due diligence." }
-        ],
-        whoWeHelped: [
-            "Solo founders needing a high-fidelity prototype to secure pre-seed funding.",
-            "Funded Seed startups requiring immediate engineering velocity to beat competitors to market.",
-            "Y Combinator alumni needing a massive architectural rebuild after their initial prototype buckled under scale.",
-            "Domain-expert founders (Doctors, Lawyers) who know the industry perfectly but have zero ability to code."
-        ],
-        processSteps: [
-            { title: "Hypothesis Surgery", description: "We sit down with founders to brutally dissect the idea. We identify the single core value proposition and violently strip away 'nice-to-have' features for V2." },
-            { title: "Rapid Prototyping", description: "We design a clickable Figma prototype in days. Founders use this instantly to presell the software, validate demand, or secure early angel checks." },
-            { title: "Lean Engineering", description: "We utilize incredible developer-velocity tools like Next.js, Vercel, and Supabase to wire up complex authentication, databases, and frontends at hyper-speed." },
-            { title: "Analytics Injection", description: "An MVP is useless if you don't know how users react. We install precise telemetry (Mixpanel/Amplitude) so you know exactly which buttons they click." },
-            { title: "The Launch Protocol", description: "We execute the soft launch, configuring domains, scaling the databases, and holding our breath alongside you as the first real users hit the servers." },
-            { title: "Iterative Pivoting", description: "Startup roadmaps change instantly based on user feedback. We pivot the engineering focus weekly, aggressively building the features the data proves users actually want." }
-        ],
-        industryExpertise: ["FinTech", "HealthTech", "Consumer Apps", "Web3", "SaaS", "Marketplaces"],
-        reasonsToChoose: [
-            { title: "We Think Like Founders", description: "We aren't just order takers. We challenge your assumptions, suggest leaner technical approaches, and deeply care about your burn rate." },
-            { title: "Unfair Tech Advantages", description: "We reuse massive amounts of internal boilerplate code for authentication, billing, and routing. You don't pay us to reinvent the wheel, you pay us to build your unique logic." },
-            { title: "A Long-Term Partner", description: "We want to be there at the IPO. We build relationships designed to scale from the $5k prototype all the way to managing your $500k/month Series B engineering pod." }
-        ],
-        faqs: [
-            { question: "What is an MVP?", answer: "A Minimum Viable Product. It is the absolute leanest, smallest version of your software that can reliably answer your core business question. If your assumption is 'People will pay to rent a scooter', the MVP is an app with a single 'Unlock' button, not a complex social network of scooter riders." },
-            { question: "Will the prototype actually be usable code?", answer: "Yes. When we refer to 'rapid prototypes', we usually mean clickable Figma designs for investors. However, when we build the MVP, it is real, robust code that can accept real credit cards and real users securely." },
-            { question: "How involved do I need to be in the development?", answer: "Heavily involved. We are fast, but we rely on you for rapid decisions. We expect founders to test new builds weekly and provide immediate feedback so we can iterate at startup speeds." },
-            { question: "Can you help me pitch to investors?", answer: "Yes. While we aren't venture capitalists, we frequently act as the 'Technical Co-Founder' in the room during pitches, answering complex due-diligence questions regarding cloud scalability and security architectures." }
         ]
     }
 };

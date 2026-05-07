@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { servicesData } from "@/data/services";
 import ServiceDetail from "@/pages-src/ServiceDetail";
 
-const slug = "startups";
+const slug = "backend-development";
 const service = servicesData[slug];
 
-const ogImageUrl = "https://cirostack.com/og/services/startups.jpg";
+const ogImageUrl = "https://cirostack.com/og/services/backend-development.jpg";
 
 export const metadata: Metadata = {
   title: service ? `${service.title} | CiroStack` : "Service | CiroStack",
@@ -13,18 +13,18 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/services/${slug}` },
   openGraph: {
     url: `https://cirostack.com/services/${slug}`,
-    title: "Software Development for Startups | CiroStack",
-    description: "From zero to launch at startup speed. We help founders go from idea to shipped product with senior engineers, fixed-price builds, and the technical guidance to scale after launch.",
+    title: "Backend Development | CiroStack",
+    description: "Robust APIs, secure databases, and server-side systems engineered to power your product reliably at any scale.",
     images: [{ url: ogImageUrl, width: 1200, height: 630, alt: service?.title ?? "CiroStack Service" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Software Development for Startups | CiroStack",
-    description: "From zero to launch at startup speed. We help founders go from idea to shipped product with senior engineers, fixed-price builds, and the technical guidance to scale after launch.",
+    title: "Backend Development | CiroStack",
+    description: "Robust APIs, secure databases, and server-side systems engineered to power your product reliably at any scale.",
     images: [ogImageUrl],
   },
 };
 
-export default function StartupsPage() {
+export default function BackendDevelopmentPage() {
   return <ServiceDetail />;
 }

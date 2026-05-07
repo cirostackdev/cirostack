@@ -58,15 +58,13 @@ import nsR2 from "@/assets/reason-nearshore-2.jpg";
 import osR0 from "@/assets/reason-outsourcing-0.jpg";
 import osR1 from "@/assets/reason-outsourcing-1.jpg";
 import osR2 from "@/assets/reason-outsourcing-2.jpg";
-import stR0 from "@/assets/reason-startups-0.jpg";
-import stR1 from "@/assets/reason-startups-1.jpg";
-import stR2 from "@/assets/reason-startups-2.jpg";
 import sbR0 from "@/assets/reason-startup-branding-0.jpg";
 import sbR1 from "@/assets/reason-startup-branding-1.jpg";
 import sbR2 from "@/assets/reason-startup-branding-2.jpg";
 
 const reasonImages: Record<string, string[]> = {
-    "websites":               [websitesR0, websitesR1, websitesR2],
+    "frontend-development":   [websitesR0, websitesR1, websitesR2],
+    "backend-development":    [websitesR0, websitesR1, websitesR2],
     "apps":                   [appsR0, appsR1, appsR2],
     "ai":                     [aiR0, aiR1, aiR2],
     "ux-ui-design":           [uxR0, uxR1, uxR2],
@@ -84,7 +82,6 @@ const reasonImages: Record<string, string[]> = {
     "security-audit":         [secR0, secR1, secR2],
     "nearshore":              [nsR0, nsR1, nsR2],
     "outsourcing":            [osR0, osR1, osR2],
-    "startups":               [stR0, stR1, stR2],
     "startup-branding":       [sbR0, sbR1, sbR2],
 };
 

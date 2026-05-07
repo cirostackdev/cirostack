@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { servicesData } from "@/data/services";
 import ServiceDetail from "@/pages-src/ServiceDetail";
 
-const slug = "websites";
+const slug = "frontend-development";
 const service = servicesData[slug];
 
-const ogImageUrl = "https://cirostack.com/og/services/websites.jpg";
+const ogImageUrl = "https://cirostack.com/og/services/frontend-development.jpg";
 
 export const metadata: Metadata = {
   title: service ? `${service.title} | CiroStack` : "Service | CiroStack",
@@ -13,18 +13,18 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/services/${slug}` },
   openGraph: {
     url: `https://cirostack.com/services/${slug}`,
-    title: "Custom Website Development | CiroStack",
-    description: "We build fast, beautiful websites that drive real business results. Custom-designed, conversion-optimized, and shipped in weeks, not months. No templates, no shortcuts.",
+    title: "Frontend Development | CiroStack",
+    description: "Pixel-perfect, blazing-fast interfaces built with React and Next.js that convert visitors into customers. No templates, no shortcuts — pure engineering.",
     images: [{ url: ogImageUrl, width: 1200, height: 630, alt: service?.title ?? "CiroStack Service" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Website Development | CiroStack",
-    description: "We build fast, beautiful websites that drive real business results. Custom-designed, conversion-optimized, and shipped in weeks, not months. No templates, no shortcuts.",
+    title: "Frontend Development | CiroStack",
+    description: "Pixel-perfect, blazing-fast interfaces built with React and Next.js that convert visitors into customers. No templates, no shortcuts — pure engineering.",
     images: [ogImageUrl],
   },
 };
 
-export default function WebsitesPage() {
+export default function FrontendDevelopmentPage() {
   return <ServiceDetail />;
 }

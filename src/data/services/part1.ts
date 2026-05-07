@@ -1,64 +1,123 @@
-import { Globe, Smartphone, Bot, Cpu, Cloud, Sparkles } from "lucide-react";
+import { Monitor, Server, Smartphone, Bot, Cpu, Cloud, Sparkles } from "lucide-react";
 import type { ServiceEntry } from "./types";
 
 export const servicesPart1: Record<string, ServiceEntry> = {
-    websites: {
-        id: "websites",
-        icon: Globe,
-        title: "Custom Software Development",
-        tagline: "We build fast, custom websites that look great, rank well, and turn visitors into paying customers.",
-        introSummary: "high-performance, customized web platforms tailored specifically to amplify your digital presence and optimize conversion rates.",
-        description: "In today's digital landscape, your website is the cornerstone of your business identity. Our custom software development service goes beyond templates. We design and construct bespoke, responsive web architectures that prioritize performance, accessibility, and user engagement. By leveraging modern web frameworks, we ensure your platform isn't just visually stunning: it's a rapid, secure, and scalable asset that acts as your hardest working salesperson.",
+    "frontend-development": {
+        id: "frontend-development",
+        icon: Monitor,
+        title: "Frontend Development",
+        tagline: "Pixel-perfect, blazing-fast interfaces built with React and Next.js that convert visitors into customers.",
+        introSummary: "high-performance, component-driven frontend applications crafted with modern frameworks that combine visual excellence with engineering rigour.",
+        description: "Your frontend is the first and most critical impression users form of your product. We engineer bespoke, responsive interfaces using React and Next.js that load instantly, look stunning on every device, and drive meaningful conversions. From marketing sites to complex web applications, our frontend engineers obsess over Core Web Vitals, accessibility, and the micro-interactions that turn browsers into buyers.",
         details: [
-            "Custom UI/UX design tailored to your specific brand identity.",
-            "Mobile-first responsive layouts that adapt perfectly to any device size.",
-            "Built-in Technical SEO best practices to ensure high search engine visibility.",
-            "Headless CMS integration for frictionless content management.",
-            "Performance optimization achieving high Core Web Vitals scores.",
-            "Deep analytics and event-driven conversion tracking setup."
+            "Component-driven React and Next.js architecture built for long-term scalability.",
+            "Mobile-first responsive layouts that adapt flawlessly to any screen and device.",
+            "Built-in technical SEO: semantic HTML, dynamic meta tags, and structured data.",
+            "Headless CMS integration for frictionless, code-free content management.",
+            "Core Web Vitals optimization for sub-second load times and top Lighthouse scores.",
+            "Advanced animation and micro-interaction engineering with Framer Motion."
         ],
-        technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript", "Vercel", "Framer Motion"],
+        technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
         deliverables: [
-            "A fully custom, modern web application.",
-            "Scalable frontend architecture.",
-            "Performance and accessibility audits.",
-            "CMS integration and training.",
-            "Google Analytics and Tag Manager setup.",
+            "Fully custom, responsive web application.",
+            "Scalable component library and design system.",
+            "Performance and accessibility audit report.",
+            "CMS integration and content editing training.",
+            "Google Analytics and Tag Manager configuration.",
             "30-day post-launch technical support."
         ],
-        startingAt: "$3,000",
+        startingAt: "$2,500",
         bookingType: "Strategy Session",
         valueProps: [
-            { title: "Lightning Fast Performance", description: "Our Next.js architectures ensure sub-second page loads, dramatically reducing bounce rates and improving your Google search rankings." },
-            { title: "Bespoke Brand Digitalization", description: "We don't use generic themes. Every pixel is crafted specifically to tell your unique brand story and build unparalleled user trust." },
-            { title: "Scalable Foundations", description: "Built with modern, component-driven React ecosystems, your site is designed to smoothly scale as your traffic and feature requirements grow." },
-            { title: "Conversion Optimized", description: "We embed proven UX principles into the layout to naturally guide visitors toward your primary calls-to-action." }
+            { title: "Lightning-Fast Performance", description: "Our Next.js architectures achieve sub-second load times, dramatically reducing bounce rates and earning the Google rankings your competitors cannot match." },
+            { title: "Pixel-Perfect Craft", description: "We do not use templates. Every component is engineered from scratch to express your brand with precision, building the visual trust that converts visitors into paying customers." },
+            { title: "Scalable Architecture", description: "Component-driven React ecosystems mean your frontend grows with your product. Adding features, pages, or A/B tests never requires rebuilding from scratch." },
+            { title: "Conversion-First Design", description: "We embed proven UX principles into every layout decision, naturally guiding users toward your primary call-to-action without friction or confusion." }
         ],
         whoWeHelped: [
-            "Series A SaaS companies needing a professional marketing site.",
-            "E-commerce brands aiming to escape template constraints.",
-            "B2B service providers requiring high-trust professional redesigns.",
-            "Local enterprises looking to dominate regional digital markets."
+            "SaaS companies launching polished marketing sites ahead of Series A.",
+            "E-commerce brands escaping the performance ceiling of template platforms.",
+            "B2B service providers requiring high-trust, professional-grade redesigns.",
+            "Product teams rebuilding legacy frontends with modern component systems."
         ],
         processSteps: [
-            { title: "Discovery & Strategy", description: "We begin by deeply understanding your business goals, target audience, and competitive landscape to define a clear technical and visual roadmap." },
-            { title: "UX/UI Design", description: "Our expert designers craft wireframes and high-fidelity interactive prototypes, ensuring the user journey is intuitive and visually striking before writing a single line of code." },
-            { title: "Frontend Engineering", description: "Our developers translate the approved designs into a pixel-perfect, highly responsive application using cutting-edge frameworks like React and Next.js." },
-            { title: "Backend & CMS Integration", description: "We connect your seamless frontend to a powerful headless CMS and any required third-party APIs or backend systems." },
-            { title: "QA & Optimization", description: "Rigorous testing across browsers, devices, and network speeds to guarantee absolute stability, accessibility, and near-perfect Lighthouse scores." },
-            { title: "Launch & Training", description: "We handle the complex deployment process, hand over the keys, and provide comprehensive training on managing your new digital asset." }
+            { title: "Discovery & Architecture", description: "We map your goals, user journeys, and performance targets to define the component architecture and technology decisions before writing a line of code." },
+            { title: "UX & Visual Design", description: "Our designers produce wireframes and high-fidelity prototypes in Figma, validating user flows and visual identity before any engineering begins." },
+            { title: "Component Engineering", description: "We build your design system and application components in React, obsessing over accessibility, responsiveness, and performance at every layer." },
+            { title: "CMS & API Integration", description: "We wire your frontend to your chosen headless CMS and any required backend APIs, ensuring content editors can work independently of engineering." },
+            { title: "Performance & QA", description: "Rigorous cross-browser and device testing, Lighthouse audits, and accessibility checks guarantee production quality before we ship." },
+            { title: "Launch & Handover", description: "We manage the deployment, configure your domain and CDN, and walk your team through everything they need to maintain and evolve their new frontend." }
         ],
-        industryExpertise: ["SaaS", "E-commerce", "Healthcare", "Financial Services", "Real Estate", "Professional Services"],
+        industryExpertise: ["SaaS", "E-commerce", "Fintech", "Healthcare", "Real Estate", "Professional Services"],
         reasonsToChoose: [
-            { title: "Engineering Excellence", description: "We are software engineers first. We build robust, scalable architectures, not fragile websites that break during updates." },
-            { title: "Transparent Communication", description: "You are never left in the dark. We work in agile sprints with regular check-ins and total visibility into our progress." },
-            { title: "Long-Term Partnership", description: "We view our clients as partners. Our goal is to build a platform that serves you for years, not just a quick deliverable." }
+            { title: "Engineering, Not Assembly", description: "We are frontend engineers, not drag-and-drop builders. We write clean, tested, documented code that your future engineering team can maintain and extend without us." },
+            { title: "Performance Is Not Optional", description: "Every decision we make — from image formats to bundle splitting — is measured against Core Web Vitals. We ship fast frontends, not just good-looking ones." },
+            { title: "A Partner Beyond Launch", description: "We do not disappear at go-live. We document everything, train your team, and remain available as your product evolves and your feature requirements grow." }
         ],
         faqs: [
-            { question: "How long does a custom website build typically take?", answer: "A standard highly customized marketing site typically takes between 4 to 8 weeks from initial discovery to final launch, depending on complexity and revision cycles." },
-            { question: "Will I be able to update content myself?", answer: "Absolutely. We integrate powerful, user-friendly Content Management Systems (CMS) like Sanity or Strapi, allowing you to easily update text, images, and blog posts without touching any code." },
-            { question: "Do you handle hosting and domain setup?", answer: "Yes, we handle the entire deployment pipeline. We typically deploy utilizing world-class infrastructure like Vercel or AWS, and will configure your custom domains and SSL certificates." },
-            { question: "Is SEO included in the build?", answer: "Yes, technical SEO is baked into our development process. We ensure proper semantic HTML, dynamic meta tags, fast load speeds, and clean URL structures to give you the best possible starting point for search engines." }
+            { question: "How long does a frontend build typically take?", answer: "A polished marketing site takes 3 to 6 weeks. A complex web application with authentication, dashboards, and multiple user flows typically takes 6 to 12 weeks, depending on scope and revision cycles." },
+            { question: "Will I be able to update content myself?", answer: "Yes. We integrate user-friendly headless CMS platforms like Sanity or Contentful so your team can update copy, images, and blog posts without touching code." },
+            { question: "Do you build the backend as well?", answer: "Our Frontend Development service focuses on the UI layer. For full-stack builds requiring custom APIs, databases, or server-side business logic, our Backend Development service handles that side, and we often scope both together." },
+            { question: "Is SEO included?", answer: "Yes. Technical SEO is built into our frontend process: semantic HTML, server-side rendering via Next.js, proper meta tag structure, and fast load speeds that Google rewards with better rankings." }
+        ]
+    },
+    "backend-development": {
+        id: "backend-development",
+        icon: Server,
+        title: "Backend Development",
+        tagline: "Robust APIs, secure databases, and server-side systems that power your product reliably at any scale.",
+        introSummary: "secure, high-performance server-side systems and API infrastructure engineered to handle complex business logic, data integrity, and scale without limits.",
+        description: "Every great product runs on a backend that nobody sees — until it fails. We engineer the APIs, databases, authentication systems, and server-side business logic that form the invisible backbone of your product. Our backend engineers design for reliability, security, and scalability from the first line of code, so your infrastructure grows with your user base instead of becoming the bottleneck that limits it.",
+        details: [
+            "RESTful and GraphQL API design with comprehensive endpoint documentation.",
+            "Relational and document database architecture, modelling, and query optimization.",
+            "Authentication and authorization systems: OAuth2, JWT, RBAC, and SSO.",
+            "Third-party service integration: Stripe, Twilio, SendGrid, and custom APIs.",
+            "Background job processing, event queuing, and webhook infrastructure.",
+            "Automated testing, CI/CD pipelines, and full observability setup."
+        ],
+        technologies: ["Node.js", "Python", "PostgreSQL", "Redis", "Prisma", "Supabase"],
+        deliverables: [
+            "Production-ready API with full documentation.",
+            "Database schema and migration strategy.",
+            "Authentication and authorization system.",
+            "Third-party integration layer.",
+            "Automated test suite covering critical paths.",
+            "Deployment pipeline and monitoring configuration."
+        ],
+        startingAt: "$3,500",
+        bookingType: "Technical Discovery Call",
+        valueProps: [
+            { title: "Security by Design", description: "Authentication, authorization, input validation, and secrets management are built into our architecture from day one — never retrofitted after a vulnerability is discovered." },
+            { title: "Built to Scale", description: "We architect for the traffic you will have, not just the traffic you have today. Horizontal scaling, read replicas, caching layers, and connection pooling are standard, not upgrades." },
+            { title: "API-First Development", description: "We design your API contract before writing implementation code, ensuring every endpoint is intentional, consistent, and ready to serve your frontend, mobile clients, and third-party integrations." },
+            { title: "Observable from Day One", description: "Structured logging, error tracking, performance monitoring, and alerting are configured at launch so your team knows about problems before your users do." }
+        ],
+        whoWeHelped: [
+            "SaaS platforms needing multi-tenant API infrastructure with enterprise-grade data isolation.",
+            "Marketplaces requiring complex payment flows, escrow logic, and automated seller payouts.",
+            "Mobile-first products needing low-latency, offline-tolerant backend architecture.",
+            "Companies migrating off monolithic backends into modular, scalable service layers."
+        ],
+        processSteps: [
+            { title: "Requirements & Data Modelling", description: "We map your business logic, data entities, and integration requirements into a schema and API design document before any code is written." },
+            { title: "API Contract Design", description: "We define all endpoints, request and response shapes, authentication flows, and error codes — reviewed and approved before implementation begins." },
+            { title: "Core Engineering", description: "We build your authentication system, database layer, business logic, and API endpoints with clean architecture, proper separation of concerns, and full test coverage." },
+            { title: "Integrations", description: "We connect your backend to the third-party services your product requires: payment processors, communication platforms, identity providers, and data providers." },
+            { title: "Testing & Security Review", description: "Automated integration tests, security scanning, and a manual review of authentication and authorization logic before any production deployment." },
+            { title: "Deployment & Handover", description: "We configure your CI/CD pipeline, deploy to production, set up monitoring and alerts, and document everything your team needs to operate and extend the system." }
+        ],
+        industryExpertise: ["SaaS", "Fintech", "Healthcare", "Marketplaces", "E-commerce", "Enterprise"],
+        reasonsToChoose: [
+            { title: "Architecture First", description: "We design before we code. A well-designed backend costs the same to build and an order of magnitude less to scale, maintain, and debug. We invest the upfront thinking so you do not pay for rewrites later." },
+            { title: "No Black Boxes", description: "Every system we build is fully documented. Database schemas, API contracts, environment setup, and deployment procedures are all handed over so your team is never dependent on us to run their own infrastructure." },
+            { title: "Security Is Non-Negotiable", description: "We treat security as an engineering discipline, not a checklist. Input validation, secrets management, dependency auditing, and access controls are built into our standard process on every project." }
+        ],
+        faqs: [
+            { question: "Do you build the frontend as well?", answer: "Our Backend Development service focuses on server-side systems, APIs, and databases. For UI layers, our Frontend Development service covers that. We frequently scope both together for complete product builds." },
+            { question: "What databases do you work with?", answer: "We work with PostgreSQL as our default relational database, MongoDB for document workloads, and Redis for caching and queuing. We recommend the right tool for your specific data model and query patterns." },
+            { question: "Can you integrate with our existing systems?", answer: "Yes. Legacy system integration is a core part of our backend work. We have experience connecting to ERPs, CRMs, payment gateways, identity providers, and custom internal APIs — including poorly documented ones." },
+            { question: "How do you handle data security and compliance?", answer: "We follow OWASP guidelines by default: parameterized queries, input validation, secrets in environment variables, dependency auditing, and access logging. For regulated industries, we apply the relevant compliance framework requirements as a baseline." }
         ]
     },
     apps: {

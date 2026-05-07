@@ -117,7 +117,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Headless storefronts built on React and Next.js.",
                 applicationDetail: "We build your storefront as a standalone React application consuming product data from a headless commerce API. This lets your marketing team deploy landing pages, seasonal themes, and promotional experiences without touching the checkout or inventory systems. The result is a storefront that loads faster than any Shopify theme and gives you complete creative control over every pixel of the shopping experience."
             },
@@ -445,7 +445,7 @@ export const industriesData: Record<string, IndustryEntry> = {
             },
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "High-performance fashion storefronts with editorial capability.",
                 applicationDetail: "Fashion sites demand visual impact and speed simultaneously. We build headless storefronts with magazine-quality layouts, smooth scroll-driven animations, video backgrounds, and lookbook-style product discovery: all loading in under a second. The architecture supports rapid seasonal redesigns without re-engineering, letting your creative team refresh the experience for each collection drop."
             },
@@ -761,7 +761,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Spec-rich storefronts with comparison and compatibility tools.",
                 applicationDetail: "We build electronics storefronts where product pages go far beyond photos and bullet points. Each product page dynamically renders relevant specifications, pulls real-time pricing from multiple fulfillment sources, shows compatibility maps with related products, and presents comparison widgets against competing items. The frontend handles complex product variants (color/storage/connectivity combinations) without page reloads, and spec filters let power users find exactly what they need in seconds."
             },
@@ -922,7 +922,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Immersive furniture storefronts with 3D and AR integration.",
                 applicationDetail: "We build furniture e-commerce experiences where product pages aren't static photo galleries: they're interactive 3D viewers with WebAR launch buttons. Customers rotate, zoom, and place products in their room directly from the browser. The storefront handles complex product variants (size × fabric × finish) without page reloads, dynamically updating the 3D model in real-time as the customer customizes their selection."
             },
@@ -1089,7 +1089,7 @@ export const industriesData: Record<string, IndustryEntry> = {
             },
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Beauty storefronts with shade tools and ingredient search.",
                 applicationDetail: "We build beauty e-commerce sites where product pages are more than ingredient lists and marketing copy. Foundation pages feature embedded shade-matching tools. Serum pages surface ingredient explainers that educate while selling. Category pages filter by skin type, concern, and ingredient inclusion/exclusion. The entire experience is designed for the beauty consumer who researches ingredients on INCIDecoder before purchasing."
             },
@@ -1244,7 +1244,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Discovery-driven bookstore websites that feel like browsing.",
                 applicationDetail: "We build bookstore websites that feel like wandering through a well-curated shop, not scrolling through a product database. The homepage features editorial content: staff picks, themed reading lists, new arrival highlights: not category grids. Search works by mood, theme, and 'similar to' queries, not just title and author. Each book page includes staff reviews, reading group discussions, and related event schedules. The experience rewards browsing, just like the physical store."
             },
@@ -1405,7 +1405,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "HIPAA-compliant pharmacy portals and web applications.",
                 applicationDetail: "We build patient-facing pharmacy portals where customers can view prescription status, request refills, schedule immunization appointments, and securely message their pharmacist: all through a responsive web application built with end-to-end encryption and HIPAA-compliant authentication. The pharmacist-facing side provides queue management, verification workflows, and DUR (Drug Utilization Review) alerts in a modern interface that replaces green-screen legacy systems."
             },
@@ -1566,7 +1566,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Automotive parts storefronts with integrated fitment verification.",
                 applicationDetail: "We build parts e-commerce platforms where fitment is a first-class citizen, not a bolted-on plugin. The year-make-model selector persists across the entire shopping session: every category page, search result, and product listing shows only compatible parts. VIN decoding auto-populates the exact vehicle configuration. Product pages show fitment confirmation badges, installation difficulty ratings, and OE-to-aftermarket cross-references. The entire architecture is built around the ACES/PIES data standards used by the automotive aftermarket industry."
             },
@@ -1728,7 +1728,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Patient portals and internal dashboards.",
                 applicationDetail: "We build custom patient-facing portals and internal management dashboards that connect your front desk, clinical staff, and billing team in one unified experience."
             },
@@ -1894,7 +1894,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Telemedicine portals and provider dashboards.",
                 applicationDetail: "We build web-based telemedicine portals where providers manage their virtual schedule, conduct visits, write notes, and handle prescriptions: all in one interface."
             },
@@ -2060,7 +2060,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Practice websites and patient portals.",
                 applicationDetail: "We build modern dental practice websites with integrated online booking, patient portals for forms and records, and SEO optimization to attract new patients searching for dentists in your area."
             },
@@ -2226,7 +2226,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Practice portals and client management.",
                 applicationDetail: "We build secure practice management portals where therapists manage their caseload, documentation, and billing: and clients access scheduling, forms, and secure messaging."
             },
@@ -2392,7 +2392,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Pharmacy portals and ordering systems.",
                 applicationDetail: "We build customer-facing pharmacy portals where patients can order refills, schedule immunizations, manage family prescriptions, and communicate with your pharmacists."
             },
@@ -2564,7 +2564,7 @@ export const industriesData: Record<string, IndustryEntry> = {
             },
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Membership portals and management systems.",
                 applicationDetail: "We create web-based management systems where your staff handles memberships, scheduling, billing, and reporting: plus a member portal for self-service account management."
             },
@@ -2724,7 +2724,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Product catalogs and customer portals.",
                 applicationDetail: "We build comprehensive product catalog websites with advanced search, comparison tools, and specification sheets: plus customer portals for self-service account management."
             },
@@ -2890,7 +2890,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Laboratory information systems and portals.",
                 applicationDetail: "We build custom LIMS and lab information systems tailored to your specific test menu, workflow, and reporting requirements: not generic software you have to work around."
             },
@@ -3056,7 +3056,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Practice management and patient portals.",
                 applicationDetail: "We build PT-specific practice management portals with scheduling, documentation, authorization tracking, outcomes reporting, and patient self-service: designed around how therapists actually work."
             },
@@ -3222,7 +3222,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Facility management and family portals.",
                 applicationDetail: "We build comprehensive facility management platforms with care documentation, compliance tracking, census management, and family-facing portals: all connected in one system."
             },
@@ -3378,7 +3378,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "We build your online banking portal: the place where members log in to check balances, transfer funds, pay bills, and manage their accounts. It's designed to feel as simple as any consumer app, but built with bank-grade security underneath."
             },
@@ -3509,7 +3509,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "We build your advisor workstation and client portal: the two platforms that define your firm's daily operations and client experience. Both are custom-designed to match your workflows, not force you into someone else's."
             },
@@ -3640,7 +3640,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "We build your policyholder self-service portal and agent/broker platform: the digital front doors to your business. Clean interfaces for quoting, policy management, and claims that make doing business with you effortless."
             },
@@ -3771,7 +3771,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "We build your core product: the web application your customers interact with every day. Whether it's a lending platform, a payments dashboard, or a wealth management tool, we design and engineer it to be fast, intuitive, and scalable."
             },
@@ -3902,7 +3902,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "We build your client-facing portal and internal practice management platform: two integrated systems that streamline how your firm collects documents, manages engagements, and delivers work product to clients."
             },
@@ -4164,7 +4164,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "We build your exchange platform, wallet interface, or crypto product dashboard: designed to make complex blockchain interactions feel as simple as using a banking app, while giving power users the depth they need."
             },
@@ -4301,7 +4301,7 @@ export const industriesData: Record<string, IndustryEntry> = {
             },
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "Your back-office management platform: loan portfolio dashboards, disbursement approvals, delinquency management, and regulatory reporting: giving your management team full visibility and control from headquarters."
             },
@@ -4426,7 +4426,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "We build your investor portal, deal analysis platform, and portfolio dashboard: the three systems that define how your firm operates daily and how your investors experience their relationship with you."
             },
@@ -4557,7 +4557,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
             {
                 "serviceName": "Custom Software Development",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals and digital experiences.",
                 "applicationDetail": "We build your online banking platform: the digital front door where members manage their accounts, apply for products, and interact with your credit union. Custom-designed to reflect your brand and mission, not a generic template."
             },
@@ -4715,7 +4715,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Real Estate Agencies leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -5063,7 +5063,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Real Estate Investment leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -5411,7 +5411,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Vacation Rentals leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -5591,7 +5591,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Property Development leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -5927,7 +5927,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Mortgage Brokers leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -6437,7 +6437,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Websites & Web Apps",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Custom parent portals and student-facing web applications.",
                 applicationDetail: "We build parent and student portals as responsive web applications with real-time data feeds from your SIS and LMS. Role-based access controls ensure parents see only their child's records, teachers see their class rosters, and administrators get cross-school views: all without a shared login or CSV download."
         },
@@ -6599,7 +6599,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Websites & Web Apps",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Custom course platforms with enrollment, content delivery, and student dashboards.",
                 applicationDetail: "We build the full course platform as a Next.js web application: student-facing course library, lesson player, progress tracking, quizzes, certificates, and community features. The instructor backend gives you drag-and-drop curriculum management, cohort enrollment tools, and bulk email triggers based on student progress events. Every component is yours: no vendor lock-in, no feature request queues."
         },
@@ -7115,7 +7115,7 @@ export const industriesData: Record<string, IndustryEntry> = {
             },
             {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Full-stack practice platforms with integrated content and analytics.",
                 applicationDetail: "We build your test prep web platform as a unified application: student-facing practice interface, coach and admin dashboards, and curriculum CMS all sharing the same data layer. Students access personalized study plans, review detailed performance breakdowns by topic and question type, and track their score trajectory over time. Coaches see real-time cohort analytics showing which students are at risk of disengaging before they actually cancel."
             },
@@ -7282,7 +7282,7 @@ export const industriesData: Record<string, IndustryEntry> = {
             },
             {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Full-featured web learning platform with admin tools and learner dashboards.",
                 applicationDetail: "We build the web-based learning platform, instructor/admin dashboard, and curriculum management tools as a unified system. Learners access complete lesson catalogs, track progress across vocabulary, grammar, reading, and speaking modules, and manage their certification portfolio. Instructors and curriculum managers get tools to build and update lessons, view cohort-level analytics, and manage learner enrollments: all without requiring developer intervention."
             },
@@ -7803,7 +7803,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Educational Publishers leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -8139,7 +8139,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Hotels & Resorts leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -8319,7 +8319,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Restaurants & Cafes leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -8505,7 +8505,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Travel Agencies leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -8679,7 +8679,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Airlines leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -9369,7 +9369,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Cruise Lines leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -10035,7 +10035,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 serviceName: "Websites",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Supplier portals that replace email-based PO management with structured, auditable digital workflows.",
                 applicationDetail: "We build supplier-facing web portals where vendors log in to view open POs, confirm quantities and delivery dates, submit advance ship notices, and flag capacity constraints. All interactions are timestamped and visible to your procurement team in real time. Integration with your ERP means confirmed dates flow back to your planning system automatically, replacing the manual data entry that currently consumes hours of buyer time each week."
         },
@@ -10353,7 +10353,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Websites",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Quality management web platforms accessible to inspectors, engineers, and management across shifts and locations.",
                 applicationDetail: "We build quality management platforms as web applications: accessible from shop-floor tablets, engineer workstations, and management laptops without installation. Role-based access ensures inspectors see their checksheets, engineers see SPC charts and defect trends, and managers see the quality KPI dashboard. The same platform serves incoming, in-process, and final inspection workflows with consistent data structure and audit trail."
         },
@@ -10839,7 +10839,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Websites",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Web-based procurement portals for requisitioners, approvers, and vendors.",
                 applicationDetail: "We build the web application that requisitioners use to create purchase requests, approvers use to review and approve from any device, and vendors use to receive POs, submit invoices, and track payment status. A standard requisition takes under 3 minutes to submit and routes automatically to the correct approver."
         },
@@ -11019,7 +11019,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 serviceName: "Websites",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Customer-facing delivery tracking portals and B2B order management interfaces.",
                 applicationDetail: "We build the web portals that reduce your dispatch team's call volume: customer tracking portals showing real-time delivery status with map view and estimated arrival time, automated SMS and email notifications at dispatch and delivery confirmation, and B2B customer order portals where repeat customers can place orders, view delivery history, and download POD documentation."
         }
@@ -11163,7 +11163,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Websites",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Web-based eBMR, deviation management, and document control platforms.",
                 applicationDetail: "We build web applications that handle the complete quality management workflow in chemical and pharma manufacturing. The eBMR platform guides operators through each batch step with electronic sign-off required at each stage. The deviation management module enforces structured investigation methodology. The document control system manages SOP versioning, training acknowledgment, and periodic review scheduling. All modules share a common user model with role-based access and audit trail."
         },
@@ -11331,7 +11331,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 serviceName: "Websites",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Supplier quality portals and production visibility dashboards for automotive tier suppliers.",
                 applicationDetail: "We build the web applications that connect your production and quality systems to your team's decision-making. The supplier quality portal gives your SQE team a live view of incoming inspection results, supplier scorecard metrics, and open corrective actions across all active suppliers. The production dashboard shows current kanban status, sequence delivery performance, and real-time inventory positions against customer call-off requirements."
         },
@@ -11517,7 +11517,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Law Firms leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -11685,7 +11685,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Accounting Firms leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -11847,7 +11847,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Client portals and project management platforms.",
                 "applicationDetail": "We build branded client portals with live engagement dashboards, document sharing, deliverable approval workflows, and milestone sign-off: giving clients real-time visibility while eliminating the weekly status-update email."
         },
@@ -12544,7 +12544,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help HR Consulting leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -12898,7 +12898,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Recruiting Agencies leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -13066,7 +13066,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Business Coaching leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -13228,7 +13228,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Websites",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Production management portals, client review platforms, and DAM interfaces.",
                 applicationDetail: "We build web applications tailored to production company workflows: the production management portal that producers and coordinators use to manage all active projects, the client review portal with frame-accurate commenting and approval tracking, and the asset library interface that gives internal teams and authorized clients searchable access to deliverables and raw assets with role-based access control."
         },
@@ -13390,7 +13390,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Websites",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Royalty portal, rights management interface, and artist-facing statement platforms.",
                 applicationDetail: "We build the web platforms that music rights businesses operate from: the rights management interface where catalog managers update ownership records and deal terms, the royalty calculation portal where finance teams run payment periods and review exceptions, and the artist-facing portal where artists view their statements, track their catalog performance, and download payment documentation."
         },
@@ -13552,7 +13552,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Gaming leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -13726,7 +13726,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Photography leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -13888,7 +13888,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Publishing leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -14080,7 +14080,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help News & Media leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -14242,7 +14242,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Podcasting leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -14428,7 +14428,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Event Production leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -14758,7 +14758,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Art Galleries leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -15106,7 +15106,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help NGOs leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -15292,7 +15292,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Religious Organizations leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -15460,7 +15460,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Community Groups leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -15994,7 +15994,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Environmental Groups leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -16150,7 +16150,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Educational Non-Profits leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -16342,7 +16342,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Health Advocacy leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -16821,7 +16821,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Startup Engineering",
-                slug: "startups",
+                slug: "dedicated-teams",
                 description: "Full-stack MVP development with clean architecture from day one.",
                 applicationDetail: "We work directly with the founding team to scope the MVP, choose the tech stack, and build the product in focused 2-week sprints. Our senior engineers make pragmatic architectural decisions: using managed services where it buys time, avoiding over-engineering where simplicity serves better. You get a codebase you can hand to an investor's technical reviewer without embarrassment."
         },
@@ -17304,7 +17304,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Smart contract development in Solidity with security-first patterns.",
                 applicationDetail: "We write Solidity contracts using OpenZeppelin base contracts, implement the checks-effects-interactions pattern for reentrancy prevention, add comprehensive NatSpec documentation, and build a Hardhat or Foundry test suite that achieves 100% branch coverage before any external review. We also run fork simulation tests that replicate mainnet conditions: including edge cases like flash loan scenarios for DeFi contracts: to catch exploits that unit tests miss."
         },
@@ -18109,7 +18109,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "API design, SDK development, and developer portal engineering.",
                 applicationDetail: "We design and build REST or GraphQL APIs with developer experience as the primary constraint: predictable resource naming, idiomatic error responses with machine-readable error codes, webhooks with retry logic and signature verification, and API versioning that doesn't break existing integrations. We build SDKs from your OpenAPI spec using automated generation with handcrafted convenience layer on top: so the generated client is correct and the API is ergonomic."
         },
@@ -18282,7 +18282,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Farms leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -18468,7 +18468,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Agribusiness leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -18630,7 +18630,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Livestock Management leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -19344,7 +19344,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Agricultural Co-ops leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -19680,7 +19680,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Fisheries leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -19854,7 +19854,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Forestry leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -20010,7 +20010,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Project management portals that unify bidding, scheduling, and field operations.",
                 applicationDetail: "We build web-based project command centers that connect your estimating workflows to scheduling, field reporting, and accounting. PMs see real-time dashboards with budget vs. actual, schedule variance, and open RFIs across all active projects. The system integrates with your existing accounting software (Sage, Viewpoint, Foundation) so financial data flows automatically without double-entry. Document management handles plans, specs, submittals, and RFIs with version control and automatic distribution to the right stakeholders."
         },
@@ -20171,7 +20171,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Practice management portals and client-facing project dashboards.",
                 applicationDetail: "We build web-based practice management platforms that unify project tracking, resource allocation, time entry, and billing in a single interface designed for how architecture firms actually work. Project views organize by phase (SD, DD, CD, CA) with deliverable checklists tied to consultant milestones. Client portals provide real-time project status, document access, and design review tools. Integration with Deltek Vantagepoint, Monograph, or your existing PM tool means no duplicate data entry."
         },
@@ -20362,7 +20362,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Civil Engineering leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -20530,7 +20530,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Contractors leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -20692,7 +20692,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Subcontractors leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -20866,7 +20866,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Building Materials leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -21220,7 +21220,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Facility Management leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -21562,7 +21562,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Landscape Architecture leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -21736,7 +21736,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Trucking Companies leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -22102,7 +22102,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Freight Forwarding leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -22432,7 +22432,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Public Transportation leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -22612,7 +22612,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Ride-Sharing leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -22786,7 +22786,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Courier Services leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -22954,7 +22954,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Shipping Lines leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -23128,7 +23128,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Railway Companies leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -23482,7 +23482,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Local Government leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -23830,7 +23830,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Public Safety leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -24172,7 +24172,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Health Departments leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -24346,7 +24346,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Transportation Departments leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -24538,7 +24538,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Parks & Recreation leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -24700,7 +24700,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Libraries leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -25402,7 +25402,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Fitness Centers leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -25570,7 +25570,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Gyms leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -26104,7 +26104,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Outdoor Recreation leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -26266,7 +26266,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Martial Arts Schools leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -26440,7 +26440,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Dance Studios leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -26608,7 +26608,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Golf Courses leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -26782,7 +26782,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Sports Events leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -26974,7 +26974,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Salons leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -27142,7 +27142,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Spas leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -27658,7 +27658,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Estheticians leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -28006,7 +28006,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Beauty Clinics leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -28702,7 +28702,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Car Dealerships leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -29050,7 +29050,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Car Washes leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -29236,7 +29236,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Auto Parts Stores leaders streamline operations, enhance security, and scale rapidly."
         }
@@ -29398,7 +29398,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Fleet Management leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -29914,7 +29914,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Tire Shops leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -30424,7 +30424,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Practice management portals, billing dashboards, and client-facing web applications.",
                 applicationDetail: "We build custom practice management interfaces that integrate with your existing billing software (Clio, PracticePanther, or custom) through their APIs: adding the workflow automations and reporting dashboards that off-the-shelf products don't provide. For firms that have outgrown their current system, we scope and build a purpose-fit replacement that matches your exact billing logic, conflict-check workflows, and reporting requirements."
         },
@@ -30585,7 +30585,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Intake forms, client portals, and practice management integrations for solo attorneys.",
                 applicationDetail: "We build intake-to-engagement workflows using your existing tools or low-code platforms: connecting Typeform or JotForm intake to Clio or MyCase for matter creation, to HelloSign or DocuSign for engagement letters, and to QuickBooks for billing. For attorneys who have outgrown their current toolset, we scope a unified practice management system that handles everything from first inquiry to closed file without manual data transfer."
         },
@@ -30746,7 +30746,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Virtual data rooms, contract repositories, and board portals.",
                 applicationDetail: "We build custom VDRs with the specific permissioning logic your transactions require: buyer-side access with watermarking, seller-side upload workflows, Q&A management between deal parties, and real-time activity dashboards for deal counsel. For in-house legal teams, we build contract repositories with AI-assisted metadata extraction that populates key dates, parties, and terms from uploaded contracts without manual data entry."
         },
@@ -30907,7 +30907,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Client portals, document collection workflows, and financial disclosure tools.",
                 applicationDetail: "We build client-facing portals with role-appropriate views: clients see their matters, documents, upcoming dates, and messages; attorneys see everything plus billing status and case notes. Document collection is managed through structured request lists that guide clients through uploading each required item with clear instructions, reducing the incomplete submission problem that creates follow-up cycles."
         },
@@ -31068,7 +31068,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Case management, deadline tracking, and discovery organization systems.",
                 applicationDetail: "We build criminal defense case management systems with the specific workflow logic the practice area requires: speedy trial calculation tools that track days elapsed and remaining, motion deadline calculators that work backward from hearing dates, and discovery tracking matrices that show what has been received, what is outstanding, and what has been reviewed. These systems are built to match how criminal defense practices actually work rather than generic matter management software."
         },
@@ -31229,7 +31229,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Software Development",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "USCIS form preparation automation and immigration case management.",
                 applicationDetail: "We build form preparation systems that map client questionnaire responses to USCIS form fields for each form package required by case type. The system generates draft forms for paralegal review, flags inconsistencies between related forms (e.g., address discrepancies between I-130 and I-485), and produces a review checklist for attorney sign-off. Output is print-ready PDF and, where USCIS accepts electronic filing, formatted for direct submission."
         },
@@ -31414,7 +31414,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         },
         {
                 "serviceName": "Custom Web Applications",
-                "slug": "websites",
+                "slug": "frontend-development",
                 "description": "Scalable, secure web portals.",
                 "applicationDetail": "We deploy intensive Custom Web Applications strategies to help Intellectual Property leaders streamline operations, enhance security, and scale rapidly."
         },
@@ -31564,7 +31564,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Closing management platforms, client portals, and transaction tracking dashboards.",
                 applicationDetail: "We build transaction management systems purpose-built for real estate law practices: not adapted from generic project management software. Each transaction has a structured timeline showing every required step from contract receipt to post-closing recording, with responsibility assigned, status tracked, and automated reminders for upcoming deadlines. The client portal shows buyers and sellers exactly where their transaction stands, what\'s outstanding, and what they need to do: without requiring a call to your office. We integrate with your existing title production software (SoftPro, RamQuest, Qualia) to eliminate duplicate data entry."
         },
@@ -31726,7 +31726,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Intake portals, client vaults, and practice management tools for estate planning attorneys.",
                 applicationDetail: "We build intake-to-delivery platforms that handle the full estate planning workflow: guided online intake with family structure mapping, asset and beneficiary entry, and objective questionnaires; attorney review dashboard with pre-populated conflict check and engagement letter generation; document assembly queue where the attorney selects provisions and the system generates drafts; signing appointment coordination; and post-signing vault population with secure client access. The system integrates with e-signature platforms (DocuSign, Adobe Sign) and your existing practice management software (Clio, MyCase, WealthCounsel) to avoid duplicate data entry."
         },
@@ -31888,7 +31888,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Case management systems, intake portals, and volunteer coordination platforms for legal aid organizations.",
                 applicationDetail: "We build or significantly extend case management systems configured to legal aid\'s specific workflows: income and issue eligibility screening, case acceptance and referral routing, court date tracking, client communication logs, and case closure coding. For organizations using LegalServer, Clio for legal aid, or other platforms, we extend the existing system with the workflow automations and reporting infrastructure the platform doesn\'t natively provide. For organizations with highly customized needs or legacy systems they\'ve outgrown, we scope a replacement. We understand the legal aid case management workflow, including the intake, brief services, extended services, and self-help distinctions that matter for funding compliance."
         },
@@ -32050,7 +32050,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Fast, mobile-first retail websites with integrated e-commerce.",
                 applicationDetail: "We build your retail site on a modern stack (Next.js or Astro) optimized for Core Web Vitals and local search. Product pages pull directly from your POS inventory feed, so adding a new item to your shop floor automatically lists it online. We implement structured data for local business, product availability, and pricing so Google surfaces your inventory in rich results. The site includes click-to-call, directions integration, and an online ordering flow designed for mobile-first shoppers who are often searching from their car."
         },
@@ -32210,7 +32210,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Restaurant websites with built-in ordering, menus, and reservations.",
                 applicationDetail: "We build fast, mobile-optimized restaurant sites with integrated online ordering that sends tickets directly to your kitchen printer or KDS. The menu is database-driven so you update it once and changes appear everywhere. We implement Google structured data for restaurant menus, hours, and location so your dishes show up in search results with prices and photos. The site scores 90+ on PageSpeed Insights because a 1-second delay on mobile loses 7% of hungry customers who will just order from the next result."
         },
@@ -32370,7 +32370,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Salon websites with integrated booking, portfolios, and review management.",
                 applicationDetail: "We build salon websites that do more than look pretty: they book appointments. The site features stylist portfolios with before/after galleries, real-time availability calendars, and a booking flow that takes under 30 seconds to complete. We implement local SEO with schema markup for beauty businesses so you rank for 'hair salon near me' and similar searches. The site connects to your salon software (Vagaro, Boulevard, Square Appointments, Fresha) so bookings sync instantly."
         },
@@ -32530,7 +32530,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Gym websites with class booking, trial sign-up, and member portals.",
                 applicationDetail: "We build gym websites that convert visitors into trial members and trial members into paying subscribers. The site features real-time class schedules with one-tap booking, trainer bios with specialties and certifications, virtual tour integration, and a frictionless trial sign-up flow that captures the lead and immediately triggers your nurture sequence. SEO is built around local fitness searches: 'CrossFit near me,' 'yoga studio downtown,' 'personal trainer [city]': with location pages that rank in the map pack."
         },
@@ -32690,7 +32690,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Law firm websites that rank, convert, and automate intake.",
                 applicationDetail: "We build law firm sites with individual practice area pages optimized for '[practice area] lawyer [city]' searches: the highest-intent keywords in legal marketing. Each page answers the questions potential clients are actually asking (What should I do after a car accident? How long does a divorce take in Texas?), establishes expertise with case results and attorney credentials, and ends with a clear call to action: a free consultation booking form or click-to-call button. The site is ADA-compliant, mobile-optimized, and loads in under 2 seconds: critical since 68% of legal searches happen on mobile devices."
         },
@@ -32850,7 +32850,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Accounting firm websites with client portals and lead generation.",
                 applicationDetail: "We build firm websites that position you as a strategic advisor, not a commodity tax preparer. Service pages target high-value searches like 'small business accountant [city]' and 'tax planning for [industry]' with content that demonstrates expertise. The site integrates a secure client portal for document exchange and a consultation booking system. We implement trust signals that matter to accounting clients: credentials, industry specializations, client testimonials, and security certifications prominently displayed."
         },
@@ -33011,7 +33011,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Real estate websites with IDX search, lead capture, and neighborhood SEO.",
                 applicationDetail: "We build agent and team websites with full MLS/IDX property search integration that keeps buyers on your site. Listings display with high-resolution photos, interactive maps, school information, and neighborhood data. Buyers register to save properties and set up alerts: every registration is a lead. We build neighborhood landing pages targeting '[neighborhood] homes for sale' and '[city] real estate' searches. The site loads fast on mobile (where 76% of real estate searches happen) and is designed to convert visitors into registered leads at 8-12%: far above the 1-2% industry average."
         },
@@ -33171,7 +33171,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Consulting practice websites that generate inbound leads and prove expertise.",
                 applicationDetail: "We build consultant websites structured around the problems you solve, not the services you offer. Each service page leads with the client pain point ('Your team is growing but productivity is flat'), positions your methodology as the solution, and backs it up with case study results and specific metrics. The site includes a consultation booking flow, a resource library for lead capture (frameworks, assessments, whitepapers), and a blog strategy targeting the exact searches your ideal clients make when they realize they need help. We implement schema markup for professional services and local SEO if you serve a specific geographic market."
         },
@@ -33331,7 +33331,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Job management dashboards, customer portals, and estimating tools built for contractors.",
                 applicationDetail: "We build web-based job management systems that give contractors a single dashboard for open estimates, active jobs, and outstanding invoices. The customer-facing side includes a portal where homeowners can approve estimates, view job status, see uploaded photos, and pay invoices: eliminating the back-and-forth phone calls that eat up the owner\'s morning. Everything is mobile-responsive so it works on a job site tablet as smoothly as a desktop. We integrate with QuickBooks Online for accounting sync and Stripe for payment processing, so the financial backend connects to what you already use."
         },
@@ -33493,7 +33493,7 @@ export const industriesData: Record<string, IndustryEntry> = {
         serviceApplications: [
         {
                 serviceName: "Custom Web Applications",
-                slug: "websites",
+                slug: "frontend-development",
                 description: "Portfolio sites, client portals, and proposal tools built for independent professionals.",
                 applicationDetail: "We build portfolio sites for freelancers that do more than display work: they qualify leads. A well-structured portfolio with case studies, clear positioning, a rates-and-process page, and an inquiry form that asks the right questions filters out low-budget inquiries before they reach your inbox. For the client management side, we build lightweight portals where each client has their own project view: deliverables, communication log, invoices, and approvals: giving you a professional client experience without the overhead of a full agency toolset."
         },
