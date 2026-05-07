@@ -282,9 +282,9 @@ const Index = () => {
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.5rem] font-display font-bold text-foreground leading-[0.95] tracking-tight mb-5">
                 Software,
                 <br />
-                <span className="text-gradient italic pr-3">engineered</span>
+                engineered
                 <br />
-                for your startup.
+                for your <span className="text-gradient italic">startup.</span>
               </h1>
 
               <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-xl leading-relaxed">
