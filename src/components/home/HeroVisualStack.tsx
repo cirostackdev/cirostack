@@ -3,19 +3,19 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { industriesData as subIndustries } from "@/data/industries-generated";
-import { industriesData as parentCategories } from "@/data/industries";
+import { startupsData } from "@/data/startups-generated";
+import { startupsParentData } from "@/data/startups";
 
-/* Build the full list of 200 sub-industries with their parent icon and hero image */
-const allChips = Object.values(subIndustries).map((ind) => {
-  const parent = Object.values(parentCategories).find(
-    (p) => p.title === ind.parentCategory
+/* Build the full list of startup entries with their parent icon and hero image */
+const allChips = Object.values(startupsData).map((s) => {
+  const parent = Object.values(startupsParentData).find(
+    (p) => p.title === s.parentCategory
   );
   return {
-    label: ind.title,
-    icon: parent?.icon,
-    image: `/images/industries/hero-${ind.id}.jpg`,
-    path: `/industries/${ind.id}`,
+    label: s.title,
+    icon: parent?.icon ?? s.icon,
+    image: `/images/startups/hero-${s.id}.jpg`,
+    path: `/startups/${s.id}`,
   };
 });
 

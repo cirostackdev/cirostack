@@ -211,14 +211,14 @@ export const startupsData: Record<string, StartupEntry> = {
     introSummary: "Legaltech is constrained by privilege requirements, jurisdiction variance, and law firms that adopt new software slowly. We build document automation, case management, and legal AI tools that fit into actual legal workflows, not idealized ones.",
     description: "Legal technology that respects privilege requirements, regulatory variance, and the reality of law firm adoption.",
   },
-  "agritech": {
-    id: "agritech",
-    icon: Sprout,
-    title: "Agritech Startups",
+  "ai-startup": {
+    id: "ai-startup",
+    icon: Brain,
+    title: "AI Startups",
     parentCategory: "By Vertical",
-    tagline: "Offline-first apps, IoT telemetry at scale, FSMA 204 traceability. Software that works where farming actually happens.",
-    introSummary: "AgriTech works in environments that break standard assumptions: no connectivity in the field, IoT sensors generating millions of data points, smallholder farmers on feature phones. We build for the actual conditions, not the demo environment.",
-    description: "Agricultural technology built for the real constraints of fields, sensors, and supply chains.",
+    tagline: "RAG pipelines that hallucinate less than 1%. Eval infrastructure that catches regressions before users do. AI products built for production, not demos.",
+    introSummary: "Most AI startups ship a wrapper around an API call and call it a product. Real AI engineering means RAG pipelines with retrieval quality you can measure, eval infrastructure that catches regressions automatically, latency optimization that makes generation times feel instant, and cost architecture that does not bankrupt you at scale. We build AI products that survive contact with real users.",
+    description: "Production-grade AI products built by engineers who understand that the model call is 10% of the work.",
   },
   "logistics-tech": {
     id: "logistics-tech",

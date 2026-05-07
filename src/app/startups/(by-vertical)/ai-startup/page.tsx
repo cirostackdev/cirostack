@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { startupsData } from "@/data/startups-generated";
 import Startup from "@/pages-src/Startup";
 
-const slug = "agritech";
+const slug = "ai-startup";
 const startup = startupsData[slug];
 
 export const metadata: Metadata = {
@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   alternates: { canonical: `https://cirostack.com/startups/${slug}` },
   openGraph: {
     url: `https://cirostack.com/startups/${slug}`,
-    title: "Agritech Startups - Software Development | CiroStack",
+    title: "AI Startups - Software Development | CiroStack",
     description: startup?.tagline ?? "Fixed-price startup software development by senior engineers.",
   },
 };
 
-export default function AgritechPage() {
+export default function AIStartupPage() {
   return <Startup />;
 }

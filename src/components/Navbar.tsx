@@ -102,7 +102,7 @@ const menuData: MenuItem[] = [
           { label: "Edtech Startups", path: "/startups/edtech" },
           { label: "Proptech Startups", path: "/startups/proptech" },
           { label: "Legaltech Startups", path: "/startups/legaltech" },
-          { label: "Agritech Startups", path: "/startups/agritech" },
+          { label: "AI Startups", path: "/startups/ai-startup" },
           { label: "Logistics & Supply Chain", path: "/startups/logistics-tech" },
           { label: "E-commerce & Retail", path: "/startups/ecommerce" },
           { label: "B2B SaaS", path: "/startups/b2b-saas" },

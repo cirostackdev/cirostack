@@ -132,11 +132,11 @@ function generateChallenges(id: string, category: string): string[] {
       "Jurisdiction variance means document templates, workflows, and compliance rules differ across every court system.",
       "Legal AI must cite sources accurately. A hallucinated case citation can result in sanctions against the attorney.",
     ],
-    "agritech": [
-      "Field operations happen where there is no internet: offline-first architecture is not optional, it is the default state.",
-      "IoT sensors generate millions of telemetry data points daily that must be stored, processed, and acted on affordably.",
-      "Smallholder farmers use feature phones with USSD interfaces, not smartphones with web browsers.",
-      "FSMA 204 traceability requirements demand supply chain visibility that most ag-tech platforms were not designed for.",
+    "ai-startup": [
+      "LLMs hallucinate confidently in production, and your users will find every edge case your eval suite missed.",
+      "RAG retrieval quality degrades silently as your knowledge base grows: what worked at 1,000 documents fails at 100,000.",
+      "Inference costs scale linearly with users. A product that costs $0.03 per query at 100 users costs $30,000/month at 1M queries.",
+      "Latency expectations from users trained on Google mean 3-second generation times feel broken without streaming and progressive UI.",
     ],
     "logistics-tech": [
       "Real-time fleet GPS tracking for 1,000+ vehicles requires infrastructure that handles constant location updates at sub-second intervals.",
@@ -535,11 +535,11 @@ function generateSolutions(id: string, category: string): StartupSolution[] {
       { title: "Legal AI with Citations", description: "RAG pipelines that retrieve from verified legal databases, cite sources accurately, and flag confidence levels so attorneys can trust the output." },
       { title: "Firm-Friendly Onboarding", description: "Self-service trials, SSO integration with legal practice management tools (Clio, MyCase), and migration paths that reduce adoption friction." },
     ],
-    "agritech": [
-      { title: "Offline-First Architecture", description: "Local-first data storage with conflict resolution and background sync. The app works fully in the field and syncs when connectivity returns." },
-      { title: "IoT Telemetry at Scale", description: "Time-series ingestion pipelines that handle millions of sensor readings daily, with alerting, aggregation, and affordable long-term storage." },
-      { title: "Feature Phone Support", description: "USSD menu interfaces and SMS-based interactions that reach smallholder farmers without smartphones or reliable data connections." },
-      { title: "Supply Chain Traceability", description: "FSMA 204 compliant tracking from farm to fork: lot-level tracing, critical tracking events, and the data architecture that makes recall response fast." },
+    "ai-startup": [
+      { title: "Production RAG Pipelines", description: "Document chunking strategies, embedding model selection, hybrid search (vector + keyword), and retrieval ranking tuned to your specific content and query patterns." },
+      { title: "Eval and Quality Infrastructure", description: "Automated evaluation suites that test output quality on every deployment. Golden datasets, regression detection, and quality dashboards your team checks daily." },
+      { title: "Cost-Optimized Inference", description: "Model routing, response caching, prompt compression, and tiered model selection that keeps per-query costs sustainable as you scale to millions of requests." },
+      { title: "Streaming UX and Latency Design", description: "Token-by-token streaming, progressive rendering, speculative generation, and the UI patterns that make 2-4 second response times feel instant to end users." },
     ],
     "logistics-tech": [
       { title: "Real-Time Fleet Tracking", description: "Sub-second location updates for 1,000+ vehicles with efficient data pipelines, map rendering, and historical replay for dispatch decisions." },
@@ -907,11 +907,11 @@ function generateValueProps(id: string): StartupValueProp[] {
       { title: "Jurisdiction-Aware Systems", description: "Template engines and workflow tools that handle the variance between courts, states, and regulatory bodies without code duplication." },
       { title: "Firm Adoption Focused", description: "Zero-training interfaces, practice management integrations, and trial experiences designed for attorneys who bill every 6 minutes." },
     ],
-    "agritech": [
-      { title: "Offline-First, Always", description: "Full functionality without internet. Local storage, queued operations, and seamless sync when connectivity returns. No data loss, ever." },
-      { title: "IoT at Ag-Budget Costs", description: "Time-series pipelines that process millions of sensor readings daily without enterprise-scale infrastructure bills." },
-      { title: "Feature Phone Reach", description: "USSD and SMS interfaces that serve farmers on basic handsets. No smartphone required. No data plan required." },
-      { title: "Farm-to-Fork Traceability", description: "FSMA 204 compliant architecture with lot-level tracking, critical events, and recall-ready reporting built from the start." },
+    "ai-startup": [
+      { title: "Retrieval That Improves", description: "RAG pipelines with measurable precision and recall. Retrieval quality tracked per query type, with automatic alerts when accuracy drops below threshold." },
+      { title: "Costs That Scale", description: "Model routing, caching, and prompt optimization that keeps inference costs linear or sub-linear as your user base grows 10x." },
+      { title: "Quality You Can Prove", description: "Eval pipelines with golden datasets, automated regression testing, and quality scores your investors and enterprise customers can audit." },
+      { title: "Speed Users Expect", description: "Streaming infrastructure, progressive UI, and latency budgets that make AI features feel responsive, not like waiting for a loading spinner." },
     ],
     "logistics-tech": [
       { title: "Fleet-Scale Tracking", description: "Sub-second GPS updates for 5,000+ vehicles processed, stored, and rendered on live maps without lag or data loss." },
@@ -1226,11 +1226,11 @@ function generateStats(id: string, category: string): StartupStat[] {
       { value: "50+", label: "Jurisdiction Variants Supported" },
       { value: "3x", label: "Faster Contract Generation vs Manual" },
     ],
-    "agritech": [
-      { value: "2M+", label: "Daily IoT Data Points Processed" },
-      { value: "100%", label: "Offline-First Reliability" },
-      { value: "4", label: "USSD/SMS Systems Deployed" },
-      { value: "6", label: "Supply Chain Traceability Systems Built" },
+    "ai-startup": [
+      { value: "12+", label: "AI Products Shipped to Production" },
+      { value: "<1%", label: "Hallucination Rate (Best Deployments)" },
+      { value: "70%", label: "Average Inference Cost Reduction" },
+      { value: "<800ms", label: "Time to First Token (Median)" },
     ],
     "logistics-tech": [
       { value: "5,000+", label: "Vehicles Tracked in Real-Time" },
@@ -1545,11 +1545,11 @@ function generateServiceApplications(id: string, category: string): StartupServi
       { serviceName: "Legal Workflow Design", slug: "ux-ui-design", description: "Attorney-facing interface design", applicationDetail: "Interfaces designed for attorneys billing in 6-minute increments. Every click justified, every screen earning its real estate against the billable hour." },
       { serviceName: "Privilege-Protected Infrastructure", slug: "devops", description: "Encrypted, access-controlled systems", applicationDetail: "Data architecture where privilege boundaries are enforced at the infrastructure level, with audit trails that prove chain of custody." },
     ],
-    "agritech": [
-      { serviceName: "Farm Management Platform", slug: "websites", description: "Crop planning, monitoring, and analytics", applicationDetail: "Web dashboards that aggregate field sensor data, satellite imagery, and weather forecasts into actionable recommendations for farm managers." },
-      { serviceName: "Field Worker Apps", slug: "apps", description: "Offline-first mobile tools for agriculture", applicationDetail: "Mobile apps that work without connectivity in the field: scouting reports, spray logs, harvest tracking, with background sync when connectivity returns." },
-      { serviceName: "USSD Interface Design", slug: "ux-ui-design", description: "Feature phone menu systems", applicationDetail: "USSD menu flows and SMS interactions designed for smallholder farmers who access markets, weather, and advisory services from basic handsets." },
-      { serviceName: "IoT Data Infrastructure", slug: "devops", description: "Sensor telemetry and time-series pipelines", applicationDetail: "Ingestion pipelines for soil sensors, weather stations, and drone imagery that process millions of data points daily at agricultural-budget costs." },
+    "ai-startup": [
+      { serviceName: "AI Backend Development", slug: "websites", description: "RAG pipelines, model orchestration, and inference APIs", applicationDetail: "Vector databases, embedding pipelines, retrieval ranking, prompt management, and the orchestration layer that coordinates context and model calls into reliable, measurable outputs." },
+      { serviceName: "AI-Native Product Development", slug: "apps", description: "Conversational, generative, and agentic interfaces", applicationDetail: "Streaming response UIs, confidence indicators, source citations, feedback collection, and the interaction patterns that make AI features feel helpful rather than unreliable." },
+      { serviceName: "AI Product Design", slug: "ux-ui-design", description: "Human-AI interaction and trust patterns", applicationDetail: "Designing the boundary between AI and human: when to show confidence scores, how to present sources, where to offer corrections, and how to make latency feel acceptable." },
+      { serviceName: "ML Infrastructure & Ops", slug: "devops", description: "Model serving, evaluation pipelines, and cost monitoring", applicationDetail: "Model deployment pipelines, A/B testing infrastructure, cost dashboards, quality monitoring, and the eval suites that catch degradation before users notice." },
     ],
     "logistics-tech": [
       { serviceName: "Fleet Management Platform", slug: "websites", description: "Real-time tracking and dispatch systems", applicationDetail: "Live fleet dashboards with vehicle status, driver assignment, route visualization, and the exception management that dispatchers need in real-time." },
@@ -1953,28 +1953,28 @@ function generateDeepDive(id: string, title: string): StartupDeepDiveSection[] {
         imageAlt: "Legal AI with accurate citation and confidence scoring",
       },
     ],
-    "agritech": [
+    "ai-startup": [
       {
-        title: "Software That Works Where There Is No Internet",
+        title: "Beyond the API Call: Building AI That Works in Production",
         content: [
-          "Standard web architecture assumes constant connectivity. Agriculture does not have that luxury. Our offline-first approach stores all critical data locally, queues operations, and syncs when connectivity is available.",
-          "Conflict resolution in offline-first systems is hard. When two field workers update the same record offline, we use last-write-wins with audit trails, or domain-specific merge strategies depending on the data type.",
-          "USSD interfaces are the primary digital access point for millions of smallholder farmers. We design menu trees that deliver market prices, weather alerts, and advisory services in under 5 navigation steps on any basic phone.",
-          "SMS-based systems complement USSD for asynchronous communication: delivery confirmations, payment receipts, and weather alerts that reach farmers regardless of their handset capabilities.",
+          "Wrapping an LLM API in a chat interface is a weekend project. Shipping an AI product that works reliably for 10,000 users requires retrieval infrastructure, quality monitoring, cost management, and the engineering discipline to measure everything.",
+          "RAG pipeline quality depends on chunking strategy, embedding model choice, retrieval method (vector, keyword, or hybrid), and re-ranking. We tune each component to your specific content type and query patterns, then measure precision and recall continuously.",
+          "Hallucination is not a bug you fix once. It is a surface area you manage. We build source grounding, confidence scoring, citation generation, and output validation layers that prevent your AI from confidently stating nonsense.",
+          "Eval infrastructure is the difference between an AI demo and an AI product. We build golden datasets, automated quality scoring, regression detection, and the dashboards that tell you exactly when output quality changes.",
         ],
         imagePath: `/images/startups/deep-${id}-1.jpg`,
-        imageAlt: "CiroStack building offline-first agricultural software",
+        imageAlt: "CiroStack building production AI infrastructure",
       },
       {
-        title: "From Sensor to Decision: IoT Data That Drives Action",
+        title: "Scaling AI Without Scaling Costs",
         content: [
-          "Agricultural IoT generates massive data volumes: soil moisture every 15 minutes across thousands of sensors adds up to millions of data points daily. We build time-series pipelines that ingest, aggregate, and alert at agricultural-budget costs.",
-          "Raw sensor data is useless to farmers. We transform telemetry into actionable recommendations: when to irrigate, when to apply inputs, when to harvest. The intelligence layer sits between raw data and farm decisions.",
-          "FSMA 204 food traceability requires tracking produce from seed to shelf. We build the critical tracking event architecture, lot-level identification, and supplier data systems that make recall response fast and auditable.",
-          "Hardware reliability in agriculture is poor: sensors get damaged by weather, animals, and machinery. Our systems detect sensor failures automatically, alert maintenance teams, and degrade gracefully when data gaps occur.",
+          "Inference costs are the gross margin killer for AI startups. At $0.03 per query, 1M monthly queries costs $30,000. We build model routing (use GPT-4 only when needed, route simple queries to cheaper models), response caching, and prompt compression that cut costs 50-70%.",
+          "Latency optimization is UX optimization. Streaming token-by-token output, speculative pre-generation, and progressive rendering transform a 4-second wait into a perceived-instant response. Users stay engaged instead of bouncing.",
+          "Fine-tuning smaller models on your specific domain data often outperforms prompting larger models at 10x lower cost and 5x lower latency. We help you decide when fine-tuning earns its training investment and when prompting is enough.",
+          "AI products that scale need observability: token usage per feature, cost per user segment, latency percentiles, and quality scores by query type. We build the dashboards that let you make informed model and architecture decisions.",
         ],
         imagePath: `/images/startups/deep-${id}-2.jpg`,
-        imageAlt: "IoT data pipeline from field sensors to farm decisions",
+        imageAlt: "AI cost optimization and scaling infrastructure",
       },
     ],
     "logistics-tech": [
@@ -2909,13 +2909,13 @@ function generateDetails(id: string, category: string): string[] {
       "Jurisdiction-specific logic validation with legal domain experts",
       "Information barrier testing between practice groups and matters",
     ],
-    "agritech": [
-      "Engineers experienced with offline-first and IoT architectures",
-      "Offline sync conflict resolution strategy documented upfront",
-      "USSD/SMS interface testing on actual feature phone hardware",
-      "IoT data pipeline cost modeling at projected sensor scale",
-      "Field testing in low-connectivity environments",
-      "FSMA 204 traceability requirement mapping before design",
+    "ai-startup": [
+      "Engineers experienced with RAG pipelines, LLM orchestration, and eval systems",
+      "Retrieval quality baseline measured before architecture decisions",
+      "Cost modeling at projected query volume before model selection",
+      "Eval pipeline with golden datasets established before production launch",
+      "Latency budget defined per feature with streaming architecture planned",
+      "Hallucination mitigation strategy documented with measurable thresholds",
     ],
     "logistics-tech": [
       "Engineers experienced with real-time tracking and fleet systems",
@@ -3259,13 +3259,13 @@ function generateDeliverables(id: string, category: string): string[] {
       "Practice management system integration specifications",
       "Privilege audit trail and access monitoring documentation",
     ],
-    "agritech": [
-      "Offline-first application tested in low-connectivity environments",
-      "Complete source code with sync conflict resolution documentation",
-      "IoT data pipeline with telemetry ingestion and alerting configuration",
-      "USSD/SMS interface specifications and menu flow documentation",
-      "FSMA 204 traceability architecture and compliance documentation",
-      "Sensor failure detection and data gap handling documentation",
+    "ai-startup": [
+      "Production RAG pipeline with measured retrieval precision and recall",
+      "Complete source code with AI architecture and prompt management documentation",
+      "Eval pipeline with golden datasets, regression tests, and quality dashboards",
+      "Cost optimization layer with model routing, caching, and usage analytics",
+      "Streaming response infrastructure with latency monitoring",
+      "Hallucination mitigation documentation with confidence scoring and citation system",
     ],
     "logistics-tech": [
       "Real-time tracking platform deployed and load-tested at fleet scale",
@@ -3616,12 +3616,12 @@ function generateFaqs(id: string, title: string, category: string): StartupFAQ[]
       { question: "How do you handle law firm adoption challenges?", answer: "Zero-training-required interfaces, SSO integration with existing practice management tools (Clio, MyCase, PracticePanther), and self-service trials that prove value within a week. We design for attorneys who bill in 6-minute increments." },
       { question: "How long does a legaltech platform take to build?", answer: "A contract automation tool takes 10-14 weeks. Case management systems with firm-wide workflows take 12-16 weeks. Legal AI products with RAG pipelines and citation systems take 14-18 weeks. Complexity scales with jurisdiction coverage." },
     ],
-    "agritech": [
-      { question: "How does your offline-first architecture work?", answer: "All critical data is stored locally on device. Operations queue and sync when connectivity returns. Conflict resolution uses domain-specific rules (last-write-wins for reports, merge for aggregate data). The app functions fully without internet." },
-      { question: "How do you handle IoT sensor data at scale?", answer: "Time-series ingestion pipelines (InfluxDB or TimescaleDB) process millions of data points daily. We aggregate at configurable intervals, alert on thresholds, and store raw data affordably in cold storage for historical analysis." },
-      { question: "Can you build USSD interfaces for feature phone users?", answer: "Yes. We design USSD menu trees that deliver market prices, weather alerts, input recommendations, and payment confirmations in under 5 navigation steps. SMS fallback for asynchronous notifications. Tested on actual feature phone hardware." },
-      { question: "How do you handle FSMA 204 traceability requirements?", answer: "Critical tracking events (growing, receiving, transforming, shipping) captured at lot level. Key data elements recorded per FDA specifications. The system produces records that satisfy recall investigations within the required timeframes." },
-      { question: "How long does an agritech platform take to build?", answer: "A farm management web dashboard takes 8-10 weeks. Adding offline mobile apps adds 6-8 weeks. IoT sensor integration depends on hardware selection and protocol (MQTT, LoRaWAN): typically 4-8 weeks. USSD systems take 4-6 weeks." },
+    "ai-startup": [
+      { question: "How do you reduce hallucination in production?", answer: "Source grounding through RAG with verified retrieval, confidence scoring on every output, citation generation that links answers to source documents, and output validation layers that catch factual inconsistencies. We measure hallucination rate continuously and alert when it rises." },
+      { question: "How do you manage AI inference costs at scale?", answer: "Model routing directs simple queries to cheaper models (GPT-3.5, Claude Haiku) and reserves expensive models for complex reasoning. Response caching serves repeated queries instantly. Prompt compression reduces token usage 30-50%. Typical result: 50-70% cost reduction vs naive implementation." },
+      { question: "What eval infrastructure do you build?", answer: "Golden datasets with human-labeled expected outputs, automated scoring pipelines that run on every deployment, regression detection with alerts, A/B comparison between model versions, and dashboards that show quality trends over time. You know exactly when quality changes." },
+      { question: "How do you handle RAG retrieval quality at scale?", answer: "Hybrid search (vector + keyword), domain-specific chunking strategies, re-ranking models, and continuous measurement of precision and recall per query type. As your knowledge base grows, we detect and fix retrieval degradation before users notice." },
+      { question: "How long does an AI product take to build?", answer: "A focused AI feature (RAG-powered search, document Q&A) takes 6-8 weeks. A full AI-native product with streaming UI, eval pipeline, and cost optimization takes 10-14 weeks. Adding fine-tuned models adds 4-6 weeks for data preparation and training." },
     ],
     "logistics-tech": [
       { question: "How many vehicles can your tracking system handle?", answer: "Our architecture handles 5,000+ vehicles with sub-second location updates. That means 300,000+ GPS points per minute processed, stored, and displayed on live maps without lag. We have load-tested this at scale." },
@@ -3970,7 +3970,7 @@ function generateWhoWeHelped(id: string, category: string): string[] {
     "edtech": ["Online course platforms serving 100K+ learners", "K-12 assessment tools used by school districts", "Corporate training platforms reducing onboarding time", "Language learning apps with adaptive curricula"],
     "proptech": ["Property search platforms aggregating multi-MLS data", "Digital closing platforms for residential transactions", "Property management tools for portfolio landlords", "Commercial real estate analytics platforms"],
     "legaltech": ["Contract lifecycle management platforms for enterprise legal teams", "AI-powered legal research tools for solo practitioners", "Case management systems for mid-size litigation firms", "Compliance automation platforms for regulated industries"],
-    "agritech": ["Precision agriculture platforms serving commercial farms", "Supply chain traceability systems for food manufacturers", "Smallholder advisory services reaching farmers via USSD", "IoT-powered irrigation management for water-scarce regions"],
+    "ai-startup": ["RAG-powered enterprise search products serving Fortune 500 companies", "AI writing assistants processing 500K+ generations monthly", "Document intelligence platforms extracting data from unstructured PDFs", "AI coding tools with context-aware autocomplete and code review"],
     "logistics-tech": ["Last-mile delivery platforms managing 500+ drivers daily", "Fleet management companies tracking cross-country routes", "Cold chain logistics startups monitoring temperature-sensitive cargo", "Warehouse automation platforms optimizing pick-and-pack"],
     "ecommerce": ["DTC brands migrating from Shopify to headless architecture", "B2B wholesale platforms with custom pricing and quoting", "Subscription box companies optimizing fulfillment costs", "Multi-brand retailers unifying inventory across 50+ stores"],
     "b2b-saas": ["Vertical SaaS companies adding enterprise features to move upmarket", "Horizontal tools implementing usage-based pricing at scale", "Compliance platforms selling to regulated industries", "Developer tools building self-serve onboarding for PLG growth"],
@@ -4056,9 +4056,9 @@ function generateClientReviews(id: string, category: string): StartupClientRevie
       { text: "Our document automation generates 200-page agreements with jurisdiction-specific language in under 10 seconds. Attorneys who used to spend 4 hours on the same documents now spend 15 minutes reviewing.", name: "Nathan B.", role: "Founder, Contract Automation Platform" },
       { text: "CiroStack built our legal AI with citation accuracy above 98%. That is the threshold where attorneys trust it enough to use it daily. Below that, they ignore it. CiroStack understood that from day one.", name: "Sarah T.", role: "CTO, Legal Research Startup" },
     ],
-    "agritech": [
-      { text: "Our field agents collect data in areas with zero connectivity and everything syncs perfectly when they reach town. Not a single record lost in 18 months of operation across 3 countries.", name: "Joseph M.", role: "Founder, Smallholder Advisory Platform" },
-      { text: "USSD menus serving 40,000 farmers daily. Market prices, weather alerts, input recommendations. CiroStack built something that works on a $15 phone in rural Kenya. That is the engineering challenge they solved.", name: "Grace A.", role: "CEO, AgriTech Social Enterprise" },
+    "ai-startup": [
+      { text: "Our hallucination rate dropped from 8% to under 0.5% after CiroStack rebuilt our RAG pipeline. Enterprise customers stopped flagging inaccuracies and started signing annual contracts.", name: "Daniel K.", role: "Founder, AI Research Platform" },
+      { text: "CiroStack cut our inference costs by 65% without any quality loss. Model routing and caching alone saved us $18,000 per month. That turned our unit economics profitable.", name: "Priya S.", role: "CEO, AI Writing Assistant" },
     ],
     "logistics-tech": [
       { text: "We track 2,500 vehicles in real-time and our dispatchers trust the data completely. GPS updates render on the map in under 500ms. CiroStack delivered the performance our operations team demanded.", name: "Robert T.", role: "CTO, Fleet Management Startup" },

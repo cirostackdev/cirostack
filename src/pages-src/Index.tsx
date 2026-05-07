@@ -170,23 +170,23 @@ const careerPerks = [
   { icon: CalendarClock, label: "Flexible Hours", sub: "Own your schedule" },
 ];
 
-/* Marquee strip: industry names scrolling (with links) */
+/* Marquee strip: startup verticals scrolling (with links) */
 const marqueeWords: { label: string; href: string }[] = [
-  { label: "Healthcare", href: "/industries/healthcare-and-medical" },
-  { label: "Fintech", href: "/industries/financial-services" },
-  { label: "Retail", href: "/industries/retail-and-e-commerce" },
-  { label: "Logistics", href: "/industries/transportation-and-logistics" },
-  { label: "Manufacturing", href: "/industries/manufacturing-and-industrial" },
-  { label: "EdTech", href: "/industries/education-and-e-learning" },
-  { label: "PropTech", href: "/industries/real-estate-and-property" },
-  { label: "SaaS", href: "/industries/technology-and-startups" },
-  { label: "Hospitality", href: "/industries/hospitality-and-tourism" },
-  { label: "Legal", href: "/industries/legal-services" },
-  { label: "Government", href: "/industries/government-and-public-sector" },
-  { label: "Media", href: "/industries/media-and-entertainment" },
-  { label: "Agriculture", href: "/industries/agriculture-and-farming" },
-  { label: "Automotive", href: "/industries/automotive" },
-  { label: "Sports", href: "/industries/sports-and-recreation" },
+  { label: "Fintech", href: "/startups/fintech" },
+  { label: "Healthtech", href: "/startups/healthtech" },
+  { label: "EdTech", href: "/startups/edtech" },
+  { label: "PropTech", href: "/startups/proptech" },
+  { label: "Legaltech", href: "/startups/legaltech" },
+  { label: "AI Startups", href: "/startups/ai-startup" },
+  { label: "Logistics", href: "/startups/logistics-tech" },
+  { label: "E-commerce", href: "/startups/ecommerce" },
+  { label: "B2B SaaS", href: "/startups/b2b-saas" },
+  { label: "Consumer Apps", href: "/startups/consumer-apps" },
+  { label: "MVP Development", href: "/startups/mvp" },
+  { label: "Series A", href: "/startups/series-a" },
+  { label: "Bootstrapped", href: "/startups/bootstrapped" },
+  { label: "AI Products", href: "/startups/ai-product" },
+  { label: "Marketplaces", href: "/startups/marketplace" },
 ];
 
 /* ─── page ─── */
@@ -248,7 +248,7 @@ const Index = () => {
                 <br />
                 <span className="text-gradient italic pr-3">engineered</span>
                 <br />
-                for your industry.
+                for your startup.
               </h1>
 
               <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-xl leading-relaxed">
