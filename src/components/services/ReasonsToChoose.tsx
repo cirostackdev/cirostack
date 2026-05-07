@@ -53,6 +53,7 @@ const reasonImages: Record<string, string[]> = {
     "ai-ml":                  [mlR0, mlR1, mlR2],
     "devops":                 [doR0, doR1, doR2],
     "software-auditing":      [saR0, saR1, saR2],
+    "cto-as-a-service":       [dtR0, dtR1, dtR2],
     "nearshore":              [nsR0, nsR1, nsR2],
     "outsourcing":            [osR0, osR1, osR2],
     "startup-branding":       [sbR0, sbR1, sbR2],

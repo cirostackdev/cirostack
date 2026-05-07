@@ -1,4 +1,4 @@
-import { Shield, MapPin, Users } from "lucide-react";
+import { Shield, MapPin, Users, Briefcase } from "lucide-react";
 import type { ServiceEntry } from "./types";
 
 export const servicesPart4: Record<string, ServiceEntry> = {
@@ -59,6 +59,65 @@ export const servicesPart4: Record<string, ServiceEntry> = {
             { question: "Will the penetration test take our website offline?", answer: "Highly unlikely. We utilize extreme caution. While we do aggressive testing, we coordinate the timing of heavier load tests and utilize non-destructive payloads to ensure your production users are never impacted." },
             { question: "Do we need a penetration test if we use AWS/Azure?", answer: "Yes. AWS provides a secure physical infrastructure, but you are responsible for how you configure it (The Shared Responsibility Model). 99% of cloud breaches are caused by customer misconfigurations (like public S3 buckets), not AWS failures." },
             { question: "Can you help us get SOC 2 compliant?", answer: "Yes. We perform pre-audit Gap Analysis. We tell you exactly where your technical infrastructure and internal HR policies currently fail SOC 2 requirements, and help you implement the strict controls needed to pass." }
+        ]
+    },
+    "cto-as-a-service": {
+        id: "cto-as-a-service",
+        icon: Briefcase,
+        title: "CTO as a Service",
+        tagline: "Senior technical leadership on demand — without the full-time executive hire.",
+        introSummary: "fractional CTO-level technical leadership that gives your company the architecture guidance, team oversight, and strategic direction of a world-class CTO at a fraction of the cost.",
+        description: "Most startups and scale-ups need senior technical leadership long before they can justify a full-time CTO hire. Our CTO as a Service gives you everything a great CTO delivers — architecture decisions, team hiring, investor relations, technology strategy, and engineering culture — without the equity, salary, and search process. We embed as your technical leadership layer, working alongside your team to build the engineering foundation your company needs to scale.",
+        details: [
+            "Weekly architecture reviews and technical direction setting.",
+            "Engineering team hiring: job specs, interviews, offers, and onboarding.",
+            "Board and investor communication on technical progress and strategy.",
+            "Technology stack evaluation, vendor selection, and build-vs-buy decisions.",
+            "Technical due diligence support for fundraising rounds.",
+            "Engineering culture, process, and delivery standards establishment."
+        ],
+        technologies: ["AWS", "GCP", "Azure", "Terraform", "GitHub", "Linear"],
+        deliverables: [
+            "Monthly technical strategy report.",
+            "Architecture documentation and decision records.",
+            "Engineering hiring pipeline and candidate evaluations.",
+            "Board-ready technical roadmap and progress updates.",
+            "Technology vendor assessment and recommendations.",
+            "Engineering process and standards playbook."
+        ],
+        startingAt: "$4,000/mo",
+        bookingType: "CTO Discovery Call",
+        valueProps: [
+            { title: "Strategic Leadership Without the Equity", description: "You get CTO-level thinking — architecture, hiring, investor relations, and roadmap — without giving away equity or committing to a six-figure salary before you have the revenue to justify it." },
+            { title: "Decisions from Experience", description: "Our fractional CTOs have made these technology decisions before. Stack selection, scaling architecture, team structure, and vendor choices — all informed by patterns seen across 50+ companies, not first principles guessing." },
+            { title: "Investor Credibility on Demand", description: "Having a named, experienced technical leader for board meetings and due diligence changes the room. We answer the hard technical questions investors ask so your founding team can focus on the business." },
+            { title: "Scales with Your Company", description: "Start with weekly architecture reviews. Add hiring support when you are ready to grow. Transition to a full-time CTO when the time is right — we will help you find and onboard them." }
+        ],
+        whoWeHelped: [
+            "Post-seed startups that needed technical leadership before they could afford a full-time CTO hire.",
+            "Non-technical founders preparing for Series A technical due diligence.",
+            "Scale-ups whose founding CTO left and needed senior coverage during the search.",
+            "Bootstrapped companies that needed architecture guidance without the overhead of a full-time executive."
+        ],
+        processSteps: [
+            { title: "Technical Discovery", description: "We audit your current stack, team, processes, and roadmap to understand exactly where you are and what kind of technical leadership will have the highest impact in the next 90 days." },
+            { title: "Leadership Onboarding", description: "We integrate with your team — meeting the engineers, understanding the codebase, and establishing the rhythm of communication with founders and stakeholders." },
+            { title: "Architecture & Strategy", description: "Weekly architecture reviews, technology decisions, and the long-term technical vision that gives your engineering team a clear direction to build toward." },
+            { title: "Team & Hiring", description: "Job specifications, candidate sourcing support, technical interview design, and offer guidance — building an engineering team with the judgment of someone who has hired hundreds of engineers." },
+            { title: "Investor Relations", description: "Board updates, technical roadmap presentations, due diligence support, and the credibility that comes from having a senior technical leader in the room when it matters." },
+            { title: "Transition Planning", description: "When you are ready to hire a full-time CTO, we help you define the role, find candidates, run the process, and execute a structured handover so nothing is lost in the transition." }
+        ],
+        industryExpertise: ["SaaS", "Fintech", "Healthtech", "E-commerce", "AI Startups", "Marketplaces"],
+        reasonsToChoose: [
+            { title: "Real CTOs, Not Consultants", description: "Our fractional CTOs have been full-time engineering leaders at high-growth companies. They bring the judgment, credibility, and hard-won pattern recognition that comes from having done this job for real." },
+            { title: "Embedded, Not Advisory", description: "We do not send slide decks. We attend your standups, review your PRs, join your board meetings, and make decisions alongside your team — the way a CTO would, not the way a consultant does." },
+            { title: "Aligned Incentives", description: "We succeed when your engineering team delivers, your architecture scales, and your investors are satisfied with your technical progress. Our engagement is structured around your outcomes, not our hours." }
+        ],
+        faqs: [
+            { question: "How many hours per week does a fractional CTO work?", answer: "Typically 10-20 hours per week depending on your needs. We scope the engagement around your specific requirements — from weekly architecture reviews to full-time coverage during critical periods like fundraising or a CTO transition." },
+            { question: "Can a fractional CTO replace a full-time CTO long-term?", answer: "For early-stage companies, often yes. For companies beyond Series B with large engineering teams, a fractional CTO is best as a bridge solution. We will tell you honestly when the right move is to hire full-time, and help you do it." },
+            { question: "How quickly can you start?", answer: "We can typically begin within one to two weeks. The first two weeks are discovery and onboarding — we move fast, but we do not skip the context-building that makes the leadership effective." },
+            { question: "Do you work with our existing engineering team?", answer: "Yes — working with your existing team is the entire point. Our fractional CTO integrates into your team's workflow, earns their trust, and elevates their work. We are not a replacement for your engineers, we are the technical leadership that makes them more effective." }
         ]
     },
     "nearshore": {

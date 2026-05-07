@@ -29,6 +29,7 @@ const SERVICE_SLUGS = [
   "ai-ml",
   "devops",
   "software-auditing",
+  "cto-as-a-service",
   "dedicated-teams",
   "nearshore",
   "outsourcing",

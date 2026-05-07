@@ -63,9 +63,10 @@ const menuData: MenuItem[] = [
       {
         label: "Scale",
         children: [
+          { label: "CTO as a Service", path: "/services/cto-as-a-service" },
+          { label: "Dedicated Development Teams", path: "/services/dedicated-teams" },
           { label: "US Nearshore Software Development", path: "/services/nearshore" },
           { label: "Software Development Outsourcing", path: "/services/outsourcing" },
-          { label: "Dedicated Development Teams", path: "/services/dedicated-teams" },
         ],
       },
     ],
