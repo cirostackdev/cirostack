@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { industriesData } from "@/data/industries-generated";
 
 export const dynamic = 'force-static'
 
@@ -74,12 +73,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const industryEntries: MetadataRoute.Sitemap = Object.keys(industriesData).map((slug) => ({
-    url: `${SITE_URL}/industries/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
-  return [...staticEntries, ...serviceEntries, ...blogEntries, ...industryEntries];
+  return [...staticEntries, ...serviceEntries, ...blogEntries];
 }
