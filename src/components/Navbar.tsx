@@ -112,10 +112,6 @@ const menuData: MenuItem[] = [
           { label: "SaaS Platform", path: "/startups/saas-platform" },
           { label: "Marketplace", path: "/startups/marketplace" },
           { label: "API Product", path: "/startups/api-product" },
-          { label: "Data Platform", path: "/startups/data-platform" },
-          { label: "IoT Product", path: "/startups/iot" },
-          { label: "Internal Tools", path: "/startups/internal-tools" },
-          { label: "Embedded Software", path: "/startups/embedded" },
         ],
       },
       {
@@ -142,7 +138,6 @@ const menuData: MenuItem[] = [
           { label: "Preparing for Funding", path: "/startups/fundraising-ready" },
           { label: "Adding AI Features", path: "/startups/ai-integration" },
           { label: "Crushing Tech Debt", path: "/startups/tech-debt" },
-          { label: "Security & Compliance", path: "/startups/security-compliance" },
           { label: "Post-Pivot Rebuild", path: "/startups/post-pivot" },
           { label: "No In-House Tech Team", path: "/startups/no-tech-team" },
           { label: "Launching in Africa", path: "/startups/africa-launch" },
