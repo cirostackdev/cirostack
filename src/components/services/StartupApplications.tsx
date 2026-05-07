@@ -28,10 +28,9 @@ export function StartupApplications({ serviceSlug, serviceTitle }: StartupApplic
       }
     }
 
-    // Prioritize By Vertical and By Product Type (most relevant), limit to 8
     const priority = ["By Vertical", "By Product Type", "By Challenge", "By Stage", "By Founder Type", "By Engagement"];
     results.sort((a, b) => priority.indexOf(a.parentCategory) - priority.indexOf(b.parentCategory));
-    return results.slice(0, 8);
+    return results;
   }, [serviceSlug]);
 
   if (applications.length === 0) return null;
