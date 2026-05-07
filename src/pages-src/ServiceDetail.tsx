@@ -22,6 +22,7 @@ import { IndustryExpertise } from "@/components/services/IndustryExpertise";
 import { ReasonsToChoose } from "@/components/services/ReasonsToChoose";
 import { Technologies } from "@/components/services/Technologies";
 import { ServiceFAQ } from "@/components/services/ServiceFAQ";
+import { StartupApplications } from "@/components/services/StartupApplications";
 
 // Import external data for cross-linking
 import { projects, projectImages } from "@/pages-src/CaseStudy";
@@ -183,6 +184,9 @@ export default function ServiceDetail() {
 
       {/* 10. Industry Expertise */}
       <IndustryExpertise service={service} />
+
+      {/* 10b. Startup Applications */}
+      <StartupApplications serviceSlug={id} serviceTitle={service.title} />
 
       {/* 11. Reasons To Choose Us */}
       <ReasonsToChoose service={service} />
