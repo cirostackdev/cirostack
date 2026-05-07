@@ -6,6 +6,23 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { startupsData } from "@/data/startups-generated";
 
+const VALID_STARTUP_SLUGS = new Set([
+  // By Vertical
+  "fintech", "healthtech", "edtech", "proptech", "legaltech",
+  "ai-startup", "logistics-tech", "ecommerce", "b2b-saas", "consumer-apps",
+  // By Product Type
+  "web-app", "mobile-app", "ai-product", "saas-platform", "marketplace", "api-product",
+  // By Founder Type
+  "non-technical-founder", "first-time-founder", "solo-founder", "repeat-founder",
+  "student-startup", "corporate-innovator", "female-led", "african-startup",
+  "diaspora-founder", "social-enterprise",
+  // By Challenge
+  "fast-mvp", "scaling-tech", "agency-rescue", "fundraising-ready",
+  "ai-integration", "tech-debt", "post-pivot", "no-tech-team", "africa-launch",
+  // By Stage
+  "pre-idea", "validation", "mvp", "early-traction", "seed-stage", "growth", "scale-up",
+]);
+
 interface StartupApplicationsProps {
   serviceSlug: string;
   serviceTitle: string;
@@ -16,6 +33,7 @@ export function StartupApplications({ serviceSlug, serviceTitle }: StartupApplic
     const results: { startupTitle: string; startupSlug: string; serviceName: string; applicationDetail: string; parentCategory: string }[] = [];
 
     for (const startup of Object.values(startupsData)) {
+      if (!VALID_STARTUP_SLUGS.has(startup.id)) continue;
       const match = startup.serviceApplications.find(sa => sa.slug === serviceSlug);
       if (match) {
         results.push({
