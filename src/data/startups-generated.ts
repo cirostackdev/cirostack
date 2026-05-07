@@ -1821,14 +1821,82 @@ function generateServiceApplications(id: string, category: string): StartupServi
     ],
   };
 
-  if (verticalServices[id]) return verticalServices[id];
-
-  return [
+  const primary = verticalServices[id] ?? [
     { serviceName: "Custom Software Development", slug: "websites", description: "Full-stack web application development", applicationDetail: "We build your core product using modern frameworks (React, Next.js, Node.js) with clean architecture that scales." },
     { serviceName: "Mobile Apps Development", slug: "apps", description: "iOS and Android application development", applicationDetail: "Cross-platform mobile apps in React Native that share 90% of code between platforms while feeling native." },
     { serviceName: "UX & UI Design", slug: "ux-ui-design", description: "User experience and interface design", applicationDetail: "Research-driven design that converts users, with prototypes tested before a line of production code is written." },
     { serviceName: "DevOps Consulting", slug: "devops", description: "Infrastructure and deployment automation", applicationDetail: "CI/CD pipelines, infrastructure-as-code, and monitoring that makes deployments boring and reliable." },
   ];
+
+  const additional = generateAdditionalServices(id, category, primary.map(s => s.slug));
+  return [...primary, ...additional];
+}
+
+function generateAdditionalServices(id: string, category: string, existingSlugs: string[]): StartupServiceApplication[] {
+  const mustIncludeBranding = category === "By Stage" || category === "By Founder Type";
+
+  // Pool of additional service cards by category
+  const additionalByCategory: Record<string, StartupServiceApplication[]> = {
+    "By Vertical": [
+      { serviceName: "Cloud Infrastructure Setup", slug: "cloud-engineering", description: "Production-grade hosting and scaling", applicationDetail: "AWS, GCP, or Azure architecture designed for your traffic patterns. Auto-scaling, multi-region deployment, and the infrastructure that grows with your user base." },
+      { serviceName: "Automated Testing", slug: "automation-testing", description: "Quality assurance at speed", applicationDetail: "End-to-end test suites, integration testing, and CI pipelines that catch regressions before they reach production. Ship daily without manual QA bottlenecks." },
+      { serviceName: "Security Posture Review", slug: "security-audit", description: "Proactive security assessment", applicationDetail: "Vulnerability scanning, dependency auditing, and penetration testing that identifies risks before attackers do. Compliance-ready documentation included." },
+      { serviceName: "Dedicated Engineering Team", slug: "dedicated-teams", description: "Embedded engineers for ongoing work", applicationDetail: "2-8 senior engineers who know your codebase, attend your standups, and ship features continuously. No onboarding lag after the first week." },
+      { serviceName: "Startup Branding", slug: "startup-branding", description: "Visual identity that builds trust", applicationDetail: "Logo, color system, typography, and brand guidelines that position your startup as credible from day one. Designed to scale from pitch deck to product." },
+    ],
+    "By Product Type": [
+      { serviceName: "Cloud Infrastructure", slug: "cloud-engineering", description: "Hosting and deployment architecture", applicationDetail: "Infrastructure designed for your product's specific requirements: compute-heavy workloads, data-intensive pipelines, or globally distributed users." },
+      { serviceName: "Test Automation", slug: "automation-testing", description: "Regression prevention at scale", applicationDetail: "Automated test suites covering critical paths, integration points, and edge cases. Confidence to ship frequently without fear of breaking existing features." },
+      { serviceName: "Dedicated Development Team", slug: "dedicated-teams", description: "Ongoing capacity for product iteration", applicationDetail: "Engineers dedicated to your product roadmap. They understand your architecture because they built it. Velocity increases month over month." },
+      { serviceName: "Software Development Outsourcing", slug: "outsourcing", description: "Full delivery ownership", applicationDetail: "End-to-end project delivery with milestone accountability. We own architecture through deployment. You review working software, not status reports." },
+      { serviceName: "Startup Branding", slug: "startup-branding", description: "Product identity and visual system", applicationDetail: "Brand identity that differentiates your product in a crowded market. Logo, design system, and guidelines that your engineering team can implement consistently." },
+    ],
+    "By Stage": [
+      { serviceName: "Startup Branding", slug: "startup-branding", description: "Brand identity that builds investor confidence", applicationDetail: "Professional visual identity from day one. Logo, brand system, and pitch deck design that signals credibility to investors and early customers." },
+      { serviceName: "Cloud Strategy", slug: "cloud-consulting", description: "Infrastructure planning for your stage", applicationDetail: "Right-sized cloud architecture for your current scale with a clear path to grow. No over-engineering, no premature optimization, no surprise bills." },
+      { serviceName: "Nearshore Engineers", slug: "nearshore", description: "Senior engineers in your timezone", applicationDetail: "Full-stack engineers within 2 hours of your timezone at 40-60% of local rates. Real-time collaboration without the communication overhead of offshore." },
+      { serviceName: "Dedicated Team", slug: "dedicated-teams", description: "Consistent engineering capacity", applicationDetail: "Same engineers month to month who understand your product deeply. Velocity compounds because context never leaves the team." },
+      { serviceName: "Security Audit", slug: "security-audit", description: "Security posture for your growth stage", applicationDetail: "Appropriate security measures for where you are now. Seed stage needs different controls than Series B. We right-size security to your risk profile." },
+    ],
+    "By Founder Type": [
+      { serviceName: "Startup Branding", slug: "startup-branding", description: "Professional identity without the agency markup", applicationDetail: "Logo, color palette, typography, and brand guidelines that make your startup look established. Fixed price, delivered in 2 weeks, yours forever." },
+      { serviceName: "Cloud Consulting", slug: "cloud-consulting", description: "Technical strategy and advisory", applicationDetail: "Architecture decisions, vendor selection, and technology roadmap guidance from engineers who have made these choices 50+ times before." },
+      { serviceName: "Nearshore Partnership", slug: "nearshore", description: "Senior engineers at startup-friendly rates", applicationDetail: "Engineers in your timezone who communicate fluently, follow your process, and cost 40-60% less than equivalent local hires. Quality without the premium." },
+      { serviceName: "Outsourced Delivery", slug: "outsourcing", description: "Full project ownership without daily management", applicationDetail: "We own delivery from requirements to deployment. You review milestones. No hiring, no management overhead, no gaps between roles." },
+      { serviceName: "Software Audit", slug: "software-auditing", description: "Honest assessment of what you have", applicationDetail: "Complete codebase review with findings scored by severity. Know exactly what shape your technology is in before making investment decisions." },
+    ],
+    "By Challenge": [
+      { serviceName: "Cloud Engineering", slug: "cloud-engineering", description: "Infrastructure that matches your challenge", applicationDetail: "Whether scaling, migrating, or rebuilding: cloud architecture designed for the specific technical challenge you face today." },
+      { serviceName: "Dedicated Team", slug: "dedicated-teams", description: "Consistent capacity for sustained effort", applicationDetail: "Challenges that span months need consistent engineers. Our dedicated teams accumulate context that accelerates resolution week over week." },
+      { serviceName: "Nearshore Engineers", slug: "nearshore", description: "Senior engineers at sustainable rates", applicationDetail: "Long-running challenges need affordable senior capacity. Nearshore engineers in your timezone at rates that fit startup budgets." },
+      { serviceName: "Software Audit", slug: "software-auditing", description: "Understand the problem before solving it", applicationDetail: "Most challenges stem from decisions made months ago. We audit your codebase, identify root causes, and propose targeted fixes before writing new code." },
+      { serviceName: "Startup Branding", slug: "startup-branding", description: "Rebrand after your pivot or milestone", applicationDetail: "Post-pivot, post-fundraise, or post-product-market-fit: brand identity that matches where your startup is now, not where it started." },
+    ],
+    "By Engagement": [
+      { serviceName: "Cloud Engineering", slug: "cloud-engineering", description: "Infrastructure included in every engagement", applicationDetail: "Regardless of engagement type, your infrastructure is production-grade: CI/CD, monitoring, auto-scaling, and the operational foundation that keeps things running." },
+      { serviceName: "Security & Compliance", slug: "security-audit", description: "Security built into our delivery process", applicationDetail: "Every engagement includes security best practices: dependency scanning, secret management, access controls, and vulnerability assessment as standard." },
+      { serviceName: "Test Automation", slug: "automation-testing", description: "Quality assurance in every delivery", applicationDetail: "Automated tests on critical paths are standard in all our engagements. No manual QA bottleneck. Confidence to deploy on any day." },
+      { serviceName: "Software Auditing", slug: "software-auditing", description: "Assessment before or after engagement", applicationDetail: "Start with an audit to scope correctly, or end with one to verify quality. Honest assessment that protects both sides." },
+      { serviceName: "Startup Branding", slug: "startup-branding", description: "Brand identity as an add-on", applicationDetail: "Add branding to any engagement: logo, design system, and brand guidelines delivered alongside your product build. One vendor, one timeline." },
+    ],
+  };
+
+  const pool = additionalByCategory[category] || additionalByCategory["By Vertical"];
+
+  // Filter out any slugs already used in primary cards
+  let available = pool.filter(s => !existingSlugs.includes(s.slug));
+
+  // Ensure startup-branding is included for By Stage and By Founder Type
+  if (mustIncludeBranding) {
+    const hasBranding = available.some(s => s.slug === "startup-branding");
+    if (!hasBranding) {
+      const brandingCard = pool.find(s => s.slug === "startup-branding");
+      if (brandingCard) available = [brandingCard, ...available];
+    }
+  }
+
+  // Return first 4 (branding will be first if forced)
+  return available.slice(0, 4);
 }
 
 function generateDeepDive(id: string, title: string): StartupDeepDiveSection[] {
