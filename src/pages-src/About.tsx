@@ -294,7 +294,7 @@ const About = () => {
       </section>
 
       {/* Why partner with us: alternating rows (mirrors ReasonsToChoose) */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-900/50 border-y border-border/50">
+      <section className="py-24 bg-background border-y border-border/50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mb-20">
             <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6">
