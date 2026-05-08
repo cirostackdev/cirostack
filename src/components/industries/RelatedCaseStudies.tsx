@@ -4,12 +4,14 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projects, projectImages } from "@/data/caseStudies";
 import type { IndustryEntry } from "@/data/industries";
+import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
 
 interface RelatedCaseStudiesProps {
     industry: IndustryEntry;
 }
 
 export function RelatedCaseStudies({ industry }: RelatedCaseStudiesProps) {
+    if (HIDE_CASE_STUDIES) return null;
     // Try to find projects related to this industry category. 
     // If none explicitly match by name, just grab the first two generic ones.
     const allProjects = Object.entries(projects);

@@ -27,6 +27,7 @@ import { projects, projectImages } from "@/data/caseStudies";
 import { startupsData } from "@/data/startups";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { allTestimonials } from "@/data/testimonials";
+import { HIDE_TESTIMONIALS, HIDE_CASE_STUDIES } from "@/lib/feature-flags";
 import HeroVisualStack from "@/components/home/HeroVisualStack";
 import LifecycleTimeline from "@/components/home/LifecycleTimeline";
 import BentoProjects from "@/components/home/BentoProjects";
@@ -588,7 +589,7 @@ const Index = () => {
       {/* ══════════════════════════════════════════════
           SECTION 4: FEATURED WORK (bento)
           ══════════════════════════════════════════════ */}
-      <section id="featured-work" className="section-padding section-alt">
+      {!HIDE_CASE_STUDIES && <section id="featured-work" className="section-padding section-alt">
         <div className="container mx-auto px-4 md:px-6">
           <SectionHeading
             badge="Our Work"
@@ -606,7 +607,7 @@ const Index = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* ══════════════════════════════════════════════
           SECTION 6: INSIGHTS
@@ -843,12 +844,14 @@ const Index = () => {
       {/* ══════════════════════════════════════════════
           SECTION: TESTIMONIALS
           ══════════════════════════════════════════════ */}
-      <TestimonialsMarquee
-        items={allTestimonials}
-        heading="What our partners say"
-        subheading="Trusted by founders, CTOs, and engineering teams worldwide."
-        sectionBg="bg-card"
-      />
+      {!HIDE_TESTIMONIALS && (
+        <TestimonialsMarquee
+          items={allTestimonials}
+          heading="What our partners say"
+          subheading="Trusted by founders, CTOs, and engineering teams worldwide."
+          sectionBg="bg-card"
+        />
+      )}
     </Layout>
   );
 };

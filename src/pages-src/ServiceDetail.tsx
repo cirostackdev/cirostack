@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 
 // Import new service data and components
 import { servicesData } from "@/data/services";
+import { HIDE_TESTIMONIALS, HIDE_CASE_STUDIES } from "@/lib/feature-flags";
 import { ServiceIntro } from "@/components/services/ServiceIntro";
 import { OurService } from "@/components/services/OurService";
 import { BookConsultation } from "@/components/services/BookConsultation";
@@ -136,7 +137,7 @@ export default function ServiceDetail() {
       <WhoWeHelped service={service} />
 
       {/* 7. Case Study Section */}
-      {relevantProjects.length > 0 && (
+      {!HIDE_CASE_STUDIES && relevantProjects.length > 0 && (
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-between items-end mb-12">

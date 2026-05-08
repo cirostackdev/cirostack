@@ -2,6 +2,7 @@
 
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
 import { allTestimonials } from "@/data/testimonials";
+import { HIDE_TESTIMONIALS } from "@/lib/feature-flags";
 
 type Props = {
     /** Service slug (e.g. "ai-ml", "websites"). When provided, filters to relevant testimonials. */
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export function ClientReviews({ serviceId }: Props) {
+    if (HIDE_TESTIMONIALS) return null;
     // Filter to testimonials tagged for this service (or untagged: show everywhere).
     // Fall back to the full list if fewer than 3 match.
     const filtered = serviceId
