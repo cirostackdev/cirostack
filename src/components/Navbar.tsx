@@ -262,13 +262,23 @@ const AccordionItem = ({
   );
 };
 
+/* ─── Mobile-specific menu data: Startups children reordered ─── */
+const MOBILE_STARTUPS_ORDER = ["By Vertical", "By Founder Type", "By Product Type", "By Stage", "By Challenge"];
+const mobileMenuData: MenuItem[] = menuData.map((item) => {
+  if (item.label !== "Startups") return item;
+  const reordered = MOBILE_STARTUPS_ORDER
+    .map((label) => item.children!.find((c) => c.label === label))
+    .filter((c): c is MenuItem => !!c);
+  return { ...item, children: reordered };
+});
+
 /* ─── Mobile menu content (exclusive accordions) ─── */
 const MobileMenuContent = ({ onNavigate, pathname }: { onNavigate: () => void; pathname: string }) => {
   const [openParentIndex, setOpenParentIndex] = useState<number | null>(null);
 
   return (
     <div className="container mx-auto px-4 md:px-6 pb-8">
-      {menuData.map((item, i) => (
+      {mobileMenuData.map((item, i) => (
         <div key={item.label}>
           <AccordionItem
             item={item}
@@ -277,7 +287,7 @@ const MobileMenuContent = ({ onNavigate, pathname }: { onNavigate: () => void; p
             isOpen={openParentIndex === i}
             onToggle={() => setOpenParentIndex(openParentIndex === i ? null : i)}
           />
-          {i < menuData.length - 1 && (
+          {i < mobileMenuData.length - 1 && (
             <div className="border-b border-border" />
           )}
         </div>
