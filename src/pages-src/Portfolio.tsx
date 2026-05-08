@@ -5,15 +5,12 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, Briefcase } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
-import PageHero from "@/components/PageHero";
 import { MultiSelectFilter } from "@/components/MultiSelectFilter";
 import { projects, projectImages } from "@/data/caseStudies";
 import { servicesData } from "@/data/services";
-
-import heroPortfolio from "@/assets/hero-portfolio.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -86,16 +83,7 @@ const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All ser
         description="Explore case studies and successful software projects delivered by CiroStack for startups and established businesses."
         url="/portfolio"
       />
-      <PageHero
-        icon={Briefcase}
-        title="Our Portfolio"
-        description="Real results for real businesses. Explore our case studies and see the impact we've made."
-        image={heroPortfolio}
-        ctaText="Contact Us"
-        ctaLink="/contact"
-      />
-
-      <section className="section-padding">
+      <section className="section-padding pt-32">
         <div className="container mx-auto px-4 md:px-6">
           {/* Filter Row */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
