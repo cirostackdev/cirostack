@@ -85,13 +85,13 @@ export default function Startup() {
 
             <IndustryServices industry={startupData as any} />
 
+            <IndustryCTA industry={startupData as any} />
+
             <IndustryClientReviews industry={startupData as any} />
 
             <RelatedCaseStudies industry={startupData as any} />
 
             <IndustryFAQ industry={startupData as any} />
-
-            <IndustryCTA industry={startupData as any} />
         </Layout>
     );
 }
