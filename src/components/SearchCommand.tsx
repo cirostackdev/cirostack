@@ -57,6 +57,13 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
     if (!open) setQuery("");
   }, [open]);
 
+  const listRef = useRef<HTMLDivElement>(null);
+
+  // Reset scroll to top on every query change so the first result is always visible
+  useEffect(() => {
+    if (listRef.current) listRef.current.scrollTop = 0;
+  }, [query]);
+
   const handleSelect = useCallback(
     (href: string) => {
       router.push(href);
@@ -94,7 +101,7 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
         value={query}
         onValueChange={setQuery}
       />
-      <CommandList className="max-h-[420px]">
+      <CommandList ref={listRef} className="max-h-[420px] overflow-y-auto">
         {query.trim() !== "" && grouped.length === 0 && (
           <CommandEmpty>No results found. Try a different search term.</CommandEmpty>
         )}
