@@ -67,7 +67,7 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
       <CommandInput
-        placeholder="Search services, industries, case studies..."
+        placeholder="Search services, startups, case studies..."
         value={query}
         onValueChange={setQuery}
       />
