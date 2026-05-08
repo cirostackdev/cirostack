@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useState, useMemo, useRef } from "react";
+import { useEffect, useLayoutEffect, useCallback, useState, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Fuse from "fuse.js";
 import {
@@ -59,10 +59,10 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
 
   const listRef = useRef<HTMLDivElement>(null);
 
-  // Reset scroll to top on every query change so the first result is always visible
-  useEffect(() => {
+  // Reset scroll to top synchronously before paint so the first result stays visible
+  useLayoutEffect(() => {
     if (listRef.current) listRef.current.scrollTop = 0;
-  }, [query]);
+  }, [grouped]);
 
   const handleSelect = useCallback(
     (href: string) => {
