@@ -72,25 +72,29 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
         onValueChange={setQuery}
       />
       <CommandList className="max-h-[420px]">
-        <CommandEmpty>No results found. Try a different search term.</CommandEmpty>
-        {grouped.map(({ category, items }) => (
-          <CommandGroup key={category} heading={category}>
-            {items.map((item) => (
-              <CommandItem
-                key={item.id}
-                value={item.keywords}
-                onSelect={() => handleSelect(item.href)}
-              >
-                <div className="flex flex-col min-w-0">
-                  <span className="font-medium truncate">{item.title}</span>
-                  <span className="text-xs text-muted-foreground line-clamp-1">
-                    {item.subtitle}
-                  </span>
-                </div>
-              </CommandItem>
+        {query.trim() === "" ? null : (
+          <>
+            <CommandEmpty>No results found. Try a different search term.</CommandEmpty>
+            {grouped.map(({ category, items }) => (
+              <CommandGroup key={category} heading={category}>
+                {items.map((item) => (
+                  <CommandItem
+                    key={item.id}
+                    value={item.keywords}
+                    onSelect={() => handleSelect(item.href)}
+                  >
+                    <div className="flex flex-col min-w-0">
+                      <span className="font-medium truncate">{item.title}</span>
+                      <span className="text-xs text-muted-foreground line-clamp-1">
+                        {item.subtitle}
+                      </span>
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
             ))}
-          </CommandGroup>
-        ))}
+          </>
+        )}
       </CommandList>
       <div className="border-t px-3 py-2 flex items-center justify-between text-xs text-muted-foreground">
         {resultCount !== null ? (
