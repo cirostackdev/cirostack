@@ -270,6 +270,102 @@ const logoSources: Record<string, string[]> = {
     "https://cdn.simpleicons.org/figma",
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
   ],
+  // Website Development
+  "Sanity": [
+    "https://cdn.simpleicons.org/sanity",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sanity/sanity-original.svg",
+  ],
+  // Backend Development
+  "Redis": [
+    "https://cdn.simpleicons.org/redis",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+  ],
+  "Prisma": [
+    "https://cdn.simpleicons.org/prisma",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
+  ],
+  // Mobile Apps
+  "Flutter": [
+    "https://cdn.simpleicons.org/flutter",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+  ],
+  // Generative AI
+  "OpenAI API": [
+    "https://cdn.simpleicons.org/openai",
+    "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/openai.svg",
+  ],
+  "LangChain": [
+    "https://cdn.simpleicons.org/langchain",
+    "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/langchain.svg",
+  ],
+  "Pinecone": [
+    "https://cdn.simpleicons.org/pinecone",
+    "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pinecone.svg",
+  ],
+  "Vercel AI SDK": [
+    "https://cdn.simpleicons.org/vercel",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+  ],
+  "LlamaIndex": [
+    "https://cdn.simpleicons.org/llamaindex",
+    "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/llamaindex.svg",
+  ],
+  // UX/UI Design
+  "Adobe XD": [
+    "https://cdn.simpleicons.org/adobexd",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-original.svg",
+  ],
+  "Framer": [
+    "https://cdn.simpleicons.org/framer",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framermotion/framermotion-original.svg",
+  ],
+  "Maze": [
+    "https://cdn.simpleicons.org/maze",
+    "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/maze.svg",
+  ],
+  "Miro": [
+    "https://cdn.simpleicons.org/miro",
+    "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/miro.svg",
+  ],
+  "Webflow": [
+    "https://cdn.simpleicons.org/webflow",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webflow/webflow-original.svg",
+  ],
+  // Cloud Consulting
+  "Google Cloud": [
+    "https://cdn.simpleicons.org/googlecloud",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+  ],
+  "Azure": [
+    "https://cdn.simpleicons.org/microsoftazure",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+  ],
+  // Startup Branding
+  "Adobe Illustrator": [
+    "https://cdn.simpleicons.org/adobeillustrator",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg",
+  ],
+  "Adobe Photoshop": [
+    "https://cdn.simpleicons.org/adobephotoshop",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg",
+  ],
+  "After Effects": [
+    "https://cdn.simpleicons.org/adobeaftereffects",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg",
+  ],
+  "Notion": [
+    "https://cdn.simpleicons.org/notion",
+    "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/notion.svg",
+  ],
+  // CTO as a Service
+  "GitHub": [
+    "https://cdn.simpleicons.org/github",
+    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+  ],
+  "Linear": [
+    "https://cdn.simpleicons.org/linear",
+    "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linear.svg",
+  ],
 };
 
 function TechLogo({ tech }: { tech: string }) {
