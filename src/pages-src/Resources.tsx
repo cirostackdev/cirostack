@@ -96,7 +96,7 @@ const Resources = () => {
             />
             <PageHero
                 badge="Resources"
-                title="Knowledge to help you build better"
+                title="Resources"
                 description="Free guides, whitepapers, templates, and tools from the CiroStack team. Practical resources to help you make better technology decisions."
                 image={heroResources}
                 ctaText="Browse Resources"

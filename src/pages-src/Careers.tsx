@@ -120,7 +120,7 @@ const Careers = () => {
             />
             <PageHero
                 badge="Careers"
-                title="Build the future with CiroStack"
+                title="Careers"
                 description="We're a remote-first team of builders, designers, and problem-solvers. If you love great software and meaningful work, you might be exactly who we're looking for."
                 image={heroCareers}
                 ctaText="See Open Roles"

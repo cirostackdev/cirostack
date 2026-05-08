@@ -71,7 +71,7 @@ const Sustainability = () => {
             />
             <PageHero
                 badge="Sustainability"
-                title="Tech with a purpose"
+                title="Sustainability"
                 description="Building great software and a better planet aren't mutually exclusive. Here's our commitment to operating responsibly and reducing our environmental impact."
                 image={heroSustainability}
                 ctaText="Our Commitments"
