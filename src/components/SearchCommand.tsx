@@ -69,13 +69,22 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
     const q = query.trim();
     if (!q) return { grouped: [], resultCount: null };
 
-    const results = fuse.search(q).map((r) => r.item);
+    // Keep Fuse results in score order (best first)
+    const fuseResults = fuse.search(q);
 
+    // Build groups, preserving per-item score order within each category
     const groups = CATEGORY_ORDER
-      .map((cat) => ({ category: cat, items: results.filter((item) => item.category === cat) }))
-      .filter(({ items }) => items.length > 0);
+      .map((cat) => ({
+        category: cat,
+        items: fuseResults.filter((r) => r.item.category === cat).map((r) => r.item),
+        bestScore: fuseResults.find((r) => r.item.category === cat)?.score ?? 1,
+      }))
+      .filter(({ items }) => items.length > 0)
+      // Sort groups so the category with the best (lowest) score appears first
+      .sort((a, b) => a.bestScore - b.bestScore)
+      .map(({ category, items }) => ({ category, items }));
 
-    return { grouped: groups, resultCount: results.length };
+    return { grouped: groups, resultCount: fuseResults.length };
   }, [query]);
 
   return (
