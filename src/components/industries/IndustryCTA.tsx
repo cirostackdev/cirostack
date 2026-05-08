@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import type { IndustryEntry } from "@/data/industries";
+import type { StartupCatEntry } from "@/data/industries";
 
 interface IndustryCTAProps {
-    industry: IndustryEntry;
+    industry: StartupCatEntry;
 }
 
 export function IndustryCTA({ industry }: IndustryCTAProps) {

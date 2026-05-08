@@ -1,6 +1,6 @@
 "use client";
 
-import { type IndustryEntry } from "@/data/industries-generated";
+import { type StartupCatEntry } from "@/data/industries-generated";
 import {
     Accordion,
     AccordionContent,
@@ -8,7 +8,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export function IndustryFAQ({ industry }: { industry: IndustryEntry }) {
+export function IndustryFAQ({ industry }: { industry: StartupCatEntry }) {
     if (!industry.faqs || industry.faqs.length === 0) return null;
 
     return (

@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Layers } from "lucide-react";
-import type { IndustryEntry } from "@/data/industries-generated";
+import type { StartupCatEntry } from "@/data/industries-generated";
 import SectionHeading from "@/components/SectionHeading";
 
 interface IndustryServicesProps {
-    industry: IndustryEntry;
+    industry: StartupCatEntry;
 }
 
 const fadeUp = {

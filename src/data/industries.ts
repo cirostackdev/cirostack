@@ -21,7 +21,7 @@ export type IndustryStat = {
     label: string;
 };
 
-export type IndustryEntry = {
+export type StartupCatEntry = {
     id: string; // Internal id matching the navbar category label simplified
     icon: LucideIcon;
     title: string;
@@ -34,7 +34,7 @@ export type IndustryEntry = {
     stats: IndustryStat[];
 };
 
-export const industriesData: Record<string, IndustryEntry> = {
+export const industriesData: Record<string, StartupCatEntry> = {
     "retail-and-e-commerce": {
         id: "retail-and-e-commerce",
         icon: ShoppingCart,

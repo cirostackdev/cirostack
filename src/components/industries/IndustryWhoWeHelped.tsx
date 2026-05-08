@@ -1,10 +1,10 @@
 "use client";
 
-import { type IndustryEntry } from "@/data/industries-generated";
+import { type StartupCatEntry } from "@/data/industries-generated";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
-export function IndustryWhoWeHelped({ industry }: { industry: IndustryEntry }) {
+export function IndustryWhoWeHelped({ industry }: { industry: StartupCatEntry }) {
     if (!industry.whoWeHelped || industry.whoWeHelped.length === 0) return null;
 
     return (

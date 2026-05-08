@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/SectionHeading";
 import { Check } from "lucide-react";
-import type { IndustryEntry } from "@/data/industries";
+import type { StartupCatEntry } from "@/data/industries";
 
 interface IndustrySolutionsProps {
-    industry: IndustryEntry;
+    industry: StartupCatEntry;
 }
 
 const fadeUp = {

@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
-import type { IndustryEntry } from "@/data/industries";
+import type { StartupCatEntry } from "@/data/industries";
 
 interface IndustryChallengesProps {
-    industry: IndustryEntry;
+    industry: StartupCatEntry;
 }
 
 const fadeUp = {

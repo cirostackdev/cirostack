@@ -1,10 +1,10 @@
 "use client";
 
 import { CheckCircle } from "lucide-react";
-import { type IndustryEntry } from "@/data/industries-generated";
+import { type StartupCatEntry } from "@/data/industries-generated";
 import { motion } from "framer-motion";
 
-export function IndustryOurService({ industry }: { industry: IndustryEntry }) {
+export function IndustryOurService({ industry }: { industry: StartupCatEntry }) {
     if (!industry.details || industry.details.length === 0) return null;
 
     return (

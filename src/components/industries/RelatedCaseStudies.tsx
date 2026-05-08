@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projects, projectImages } from "@/data/caseStudies";
-import type { IndustryEntry } from "@/data/industries";
+import type { StartupCatEntry } from "@/data/industries";
 import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
 
 interface RelatedCaseStudiesProps {
-    industry: IndustryEntry;
+    industry: StartupCatEntry;
 }
 
 export function RelatedCaseStudies({ industry }: RelatedCaseStudiesProps) {

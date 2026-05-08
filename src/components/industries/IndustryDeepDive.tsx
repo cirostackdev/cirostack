@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { IndustryEntry } from "@/data/industries-generated";
+import type { StartupCatEntry } from "@/data/industries-generated";
 
 /**
  * Map parent category names to image folder slugs.
@@ -60,7 +60,7 @@ const categoryImageCount: Record<string, number> = {
 };
 
 interface IndustryDeepDiveProps {
-    industry: IndustryEntry;
+    industry: StartupCatEntry;
     /** The industry's index within its parent category (0–9). Used to pick unique images. */
     industryIndexInCategory?: number;
 }

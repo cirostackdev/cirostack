@@ -35,7 +35,7 @@ export type ClientReview = {
     role: string;
 };
 
-export type IndustryEntry = {
+export type StartupCatEntry = {
     id: string;
     icon: LucideIcon;
     title: string;
@@ -61,7 +61,7 @@ export type IndustryEntry = {
     clientReviews: ClientReview[];
 };
 
-export const industriesData: Record<string, IndustryEntry> = {
+export const industriesData: Record<string, StartupCatEntry> = {
     "online-retail-stores": {
         id: "online-retail-stores",
         icon: ShoppingCart,
