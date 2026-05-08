@@ -424,7 +424,7 @@ const Index = () => {
 
             {/* Horizontal scroll showcase */}
             <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
-              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 scrollbar-thin">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 scrollbar-none md:scrollbar-thin">
                 {scrollStartups.map((ind) => (
                   <Link
                     key={ind.title}
