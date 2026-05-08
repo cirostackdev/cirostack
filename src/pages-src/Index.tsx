@@ -409,7 +409,7 @@ const Index = () => {
           {/* ── BY VERTICALS ── */}
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 mb-12">
             <div>
-              <p className="text-7xl md:text-8xl lg:text-9xl font-body font-bold text-gradient leading-none mb-3 tabular-nums">
+              <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
                 1
               </p>
               <p className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-4 leading-tight">
@@ -449,7 +449,7 @@ const Index = () => {
           {/* ── BY FOUNDER TYPE ── */}
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 pt-8 border-t border-border/60 mb-12">
             <div>
-              <p className="text-7xl md:text-8xl lg:text-9xl font-body font-bold text-gradient leading-none mb-3 tabular-nums">
+              <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
                 2
               </p>
               <p className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-4 leading-tight">
@@ -505,7 +505,7 @@ const Index = () => {
           {/* ── BY STAGE ── */}
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 pt-8 border-t border-border/60 mb-12">
             <div>
-              <p className="text-7xl md:text-8xl lg:text-9xl font-body font-bold text-gradient leading-none mb-3 tabular-nums">
+              <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
                 4
               </p>
               <p className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-4 leading-tight">
@@ -545,7 +545,7 @@ const Index = () => {
           {/* ── BY CHALLENGE ── */}
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 pt-8 border-t border-border/60">
             <div>
-              <p className="text-7xl md:text-8xl lg:text-9xl font-body font-bold text-gradient leading-none mb-3 tabular-nums">
+              <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
                 5
               </p>
               <p className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-4 leading-tight">
