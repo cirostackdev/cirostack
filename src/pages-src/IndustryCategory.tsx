@@ -57,13 +57,13 @@ function findRelatedCaseStudy(parentTitle: string) {
   const entries = Object.entries(projects);
   // Try exact match
   let match = entries.find(
-    ([, p]) => p.industry.toLowerCase() === parentTitle.toLowerCase()
+    ([, p]) => p.vertical.toLowerCase() === parentTitle.toLowerCase()
   );
   // Try partial match
   if (!match) {
     const firstWord = parentTitle.split(/\s|&/)[0].toLowerCase();
     match = entries.find(([, p]) =>
-      p.industry.toLowerCase().includes(firstWord)
+      p.vertical.toLowerCase().includes(firstWord)
     );
   }
   return match
@@ -323,7 +323,7 @@ export default function IndustryCategory({ categoryId }: Props) {
                 </div>
                 <div className="p-8 md:p-10 flex flex-col justify-center">
                   <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
-                    {related.project.industry} · {related.project.client}
+                    {related.project.vertical} · {related.project.client}
                   </p>
                   <h3 className="text-2xl md:text-4xl font-display font-bold text-foreground mb-4 leading-tight">
                     {related.project.title}

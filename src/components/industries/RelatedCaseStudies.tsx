@@ -15,12 +15,12 @@ export function RelatedCaseStudies({ industry }: RelatedCaseStudiesProps) {
 
     const allProjects = Object.entries(projects);
 
-    const matched = allProjects.filter(([, p]) => p.industry === industry.title);
+    const matched = allProjects.filter(([, p]) => p.vertical === industry.title);
 
     // Fall back to B2B SaaS entries for non-vertical startup pages
     const displayProjects = matched.length >= 1
         ? matched.slice(0, 2)
-        : allProjects.filter(([, p]) => p.industry === "B2B SaaS").slice(0, 2);
+        : allProjects.filter(([, p]) => p.vertical === "B2B SaaS").slice(0, 2);
 
     if (displayProjects.length === 0) return null;
 

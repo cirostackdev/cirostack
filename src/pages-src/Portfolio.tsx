@@ -22,7 +22,7 @@ const fadeUp = {
 
 // Derive filter options from actual data
 const allProjects = Object.entries(projects).map(([id, p]) => ({ id, ...p }));
-const categoriesList = ["All categories", ...Array.from(new Set(allProjects.map(p => p.industry))).sort()];
+const categoriesList = ["All categories", ...Array.from(new Set(allProjects.map(p => p.vertical))).sort()];
 const countriesList = ["All countries", ...Array.from(new Set(allProjects.map(p => p.country))).sort()];
 const servicesList = ["All services", ...Object.values(servicesData).map(s => s.title).sort()];
 
@@ -37,7 +37,7 @@ const Portfolio = () => {
   );
 
   const filtered = allProjects.filter((p) => {
-    const indMatch = indFilters.length === 0 || indFilters.includes("All categories") || indFilters.includes(p.industry);
+    const indMatch = indFilters.length === 0 || indFilters.includes("All categories") || indFilters.includes(p.vertical);
     const coMatch = countryFilters.length === 0 || countryFilters.includes("All countries") || countryFilters.includes(p.country);
     const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All services") ||
       serviceFilters.some(f => p.service.toLowerCase().includes(f.toLowerCase()) || f.toLowerCase().includes(p.service.toLowerCase()));

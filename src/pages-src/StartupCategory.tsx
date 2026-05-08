@@ -53,7 +53,7 @@ function findRelatedCaseStudy(parentTitle: string) {
   let match = entries.find(([, p]) =>
     searchTerms.some(term =>
       p.description.toLowerCase().includes(term) ||
-      p.industry.toLowerCase().includes(term)
+      p.vertical.toLowerCase().includes(term)
     )
   );
   if (!match) match = entries[0];
@@ -201,7 +201,7 @@ export default function StartupCategory({ categoryId }: Props) {
               </div>
               <div className="p-8 lg:p-10 flex flex-col justify-center">
                 <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-3">
-                  {related.project.industry}
+                  {related.project.vertical}
                 </p>
                 <h3 className="text-2xl font-display font-bold text-foreground mb-3">
                   {related.project.title}
