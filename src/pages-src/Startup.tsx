@@ -15,8 +15,6 @@ import { IndustryIntro } from "@/components/industries/IndustryIntro";
 import { IndustryStats } from "@/components/industries/IndustryStats";
 import { IndustryChallenges } from "@/components/industries/IndustryChallenges";
 import { IndustryDeepDive } from "@/components/industries/IndustryDeepDive";
-import { IndustrySolutions } from "@/components/industries/IndustrySolutions";
-import { IndustryValueProps } from "@/components/industries/IndustryValueProps";
 import { IndustryServices } from "@/components/industries/IndustryServices";
 import { IndustryOurService } from "@/components/industries/IndustryOurService";
 import { IndustryWhoWeHelped } from "@/components/industries/IndustryWhoWeHelped";
@@ -85,11 +83,7 @@ export default function Startup() {
 
             <IndustryWhoWeHelped industry={startupData as any} />
 
-            <IndustrySolutions industry={startupData as any} />
-
             <IndustryServices industry={startupData as any} />
-
-            <IndustryValueProps industry={startupData as any} />
 
             <IndustryClientReviews industry={startupData as any} />
 
