@@ -43,7 +43,6 @@ const CaseStudySidebar = ({ project }: SidebarProps) => (
       <div className="space-y-3">
         {[
           { label: "Client", value: project.client },
-          { label: "Industry", value: project.industry },
           { label: "Location", value: project.location },
           { label: "Company Size", value: project.size },
           { label: "Duration", value: project.duration },

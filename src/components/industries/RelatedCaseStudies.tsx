@@ -11,7 +11,7 @@ interface RelatedCaseStudiesProps {
 }
 
 // Maps startup slugs to the case study industry strings they should match
-const STARTUP_TO_INDUSTRIES: Record<string, string[]> = {
+const STARTUP_SECTOR_MAP: Record<string, string[]> = {
     "fintech":              ["Financial Services"],
     "healthtech":           ["Healthcare", "Health & Fitness"],
     "edtech":               ["Education & E-Learning"],
@@ -59,7 +59,7 @@ const STARTUP_TO_INDUSTRIES: Record<string, string[]> = {
 export function RelatedCaseStudies({ industry }: RelatedCaseStudiesProps) {
     if (HIDE_CASE_STUDIES) return null;
 
-    const targetIndustries = STARTUP_TO_INDUSTRIES[industry.id] ?? [];
+    const targetIndustries = STARTUP_SECTOR_MAP[industry.id] ?? [];
     const allProjects = Object.entries(projects);
 
     const matched = allProjects.filter(([, p]) =>
@@ -105,7 +105,7 @@ export function RelatedCaseStudies({ industry }: RelatedCaseStudiesProps) {
                             <div className="flex gap-3 text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-2">
                                 <span>{project.client}</span>
                                 <span className="opacity-40">•</span>
-                                <span>{project.industry}</span>
+                                <span>{project.category}</span>
                             </div>
                             <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground group-hover:text-primary transition-colors leading-tight mb-2">
                                 {project.title}

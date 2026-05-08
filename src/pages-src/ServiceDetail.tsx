@@ -156,7 +156,7 @@ export default function ServiceDetail() {
                   <img src={projectImages[slug]} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
                 <div className="flex gap-3 text-sm font-bold text-primary mb-2">
-                  <span>{project.industry}</span>
+                  <span>{project.category}</span>
                   <span className="text-muted-foreground">•</span>
                   <span className="text-muted-foreground">{project.category}</span>
                 </div>

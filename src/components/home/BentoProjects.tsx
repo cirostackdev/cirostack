@@ -8,7 +8,7 @@ export interface BentoProject {
   id: string;
   title: string;
   client: string;
-  industry: string;
+  category: string;
   service: string;
   description: string;
   metric: string;
@@ -60,7 +60,7 @@ export default function BentoProjects({ projects }: BentoProjectsProps) {
               <h3 className="font-display font-semibold text-foreground text-xl mb-2">{featured.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">{featured.description}</p>
               <div className="flex flex-wrap gap-2">
-                <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{featured.industry}</span>
+                <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{featured.category}</span>
                 <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{featured.service}</span>
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function BentoProjects({ projects }: BentoProjectsProps) {
                 {/* Text */}
                 <div className="min-w-0">
                   <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1 truncate">
-                    {p.industry}
+                    {p.category}
                   </p>
                   <h4 className="text-base md:text-xl font-display font-semibold text-foreground group-hover:text-primary transition-colors leading-tight truncate">
                     {p.title}

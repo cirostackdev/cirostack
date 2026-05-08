@@ -21,7 +21,7 @@ const fadeUp = {
 
 // Derive filter options from actual data
 const allProjects = Object.entries(projects).map(([id, p]) => ({ id, ...p }));
-const industriesList = ["All industries", ...Array.from(new Set(allProjects.map(p => p.industry))).sort()];
+const categoriesList = ["All categories", ...Array.from(new Set(allProjects.map(p => p.category))).sort()];
 const countriesList = ["All countries", ...Array.from(new Set(allProjects.map(p => p.country))).sort()];
 const servicesList = ["All services", ...Array.from(new Set(allProjects.map(p => p.service))).sort()];
 
@@ -29,14 +29,14 @@ const Portfolio = () => {
   const searchParams = useSearchParams();
   const prefilterService = searchParams.get("service");
 
-  const [indFilters, setIndFilters] = useState<string[]>([]);
+  const [indFilters, setIndFilters] = useState<string[]>([]); // category filter
   const [countryFilters, setCountryFilters] = useState<string[]>([]);
   const [serviceFilters, setServiceFilters] = useState<string[]>(
     prefilterService ? [prefilterService] : []
   );
 
   const filtered = allProjects.filter((p) => {
-    const indMatch = indFilters.length === 0 || indFilters.includes("All industries") || indFilters.includes(p.industry);
+    const indMatch = indFilters.length === 0 || indFilters.includes("All categories") || indFilters.includes(p.category);
     const coMatch = countryFilters.length === 0 || countryFilters.includes("All countries") || countryFilters.includes(p.country);
     const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All services") || serviceFilters.includes(p.service);
     return indMatch && coMatch && svcMatch;
@@ -63,8 +63,8 @@ const Portfolio = () => {
           {/* Filter Row */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12">
             <MultiSelectFilter
-              label="Industries"
-              options={industriesList}
+              label="Category"
+              options={categoriesList}
               selected={indFilters}
               onChange={setIndFilters}
             />
@@ -96,7 +96,7 @@ const Portfolio = () => {
                       <h3 className="font-display font-semibold text-foreground text-lg mb-2">{project.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed mb-4">{project.description}</p>
                       <div className="flex flex-wrap gap-2">
-                        <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{project.industry}</span>
+                        <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{project.category}</span>
                         <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{project.service}</span>
                       </div>
                     </div>
