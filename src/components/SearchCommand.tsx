@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useCallback, useState, useMemo } from "react";
+import { useEffect, useCallback, useState, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Fuse from "fuse.js";
 import {
   CommandDialog,
   CommandInput,
@@ -10,7 +11,7 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
-import { searchIndex, type SearchCategory } from "@/lib/search-data";
+import { searchIndex, type SearchCategory, type SearchItem } from "@/lib/search-data";
 
 interface SearchCommandProps {
   open: boolean;
@@ -23,6 +24,19 @@ const CATEGORY_ORDER: SearchCategory[] = [
   "Case Studies",
   "Blog",
 ];
+
+// Build Fuse instance once — weighted fields so title/tagline rank above body text
+const fuse = new Fuse<SearchItem>(searchIndex, {
+  keys: [
+    { name: "title",    weight: 0.5 },
+    { name: "subtitle", weight: 0.3 },
+    { name: "keywords", weight: 0.2 },
+  ],
+  threshold: 0.35,   // 0 = exact, 1 = match anything; 0.35 is a good balance
+  includeScore: true,
+  minMatchCharLength: 2,
+  ignoreLocation: true,
+});
 
 export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
   const router = useRouter();
@@ -39,7 +53,6 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open, onOpenChange]);
 
-  // Reset query when modal closes
   useEffect(() => {
     if (!open) setQuery("");
   }, [open]);
@@ -53,13 +66,16 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
   );
 
   const { grouped, resultCount } = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = query.trim();
     if (!q) return { grouped: [], resultCount: null };
-    const filtered = searchIndex.filter((item) => item.keywords.includes(q));
+
+    const results = fuse.search(q).map((r) => r.item);
+
     const groups = CATEGORY_ORDER
-      .map((cat) => ({ category: cat, items: filtered.filter((item) => item.category === cat) }))
+      .map((cat) => ({ category: cat, items: results.filter((item) => item.category === cat) }))
       .filter(({ items }) => items.length > 0);
-    return { grouped: groups, resultCount: filtered.length };
+
+    return { grouped: groups, resultCount: results.length };
   }, [query]);
 
   return (
