@@ -12,7 +12,6 @@ import PageHero from "@/components/PageHero";
 import { MultiSelectFilter } from "@/components/MultiSelectFilter";
 import { projects, projectImages } from "@/data/caseStudies";
 import { servicesData } from "@/data/services";
-import { startupsData } from "@/data/startups";
 
 import heroPortfolio from "@/assets/hero-portfolio.jpg";
 
@@ -23,24 +22,7 @@ const fadeUp = {
 
 // Derive filter options from actual data
 const allProjects = Object.entries(projects).map(([id, p]) => ({ id, ...p }));
-const VERTICAL_SECTOR_MAP: Record<string, string[]> = {
-  "fintech":        ["Financial Services"],
-  "healthtech":     ["Healthcare", "Health & Fitness"],
-  "edtech":         ["Education & E-Learning"],
-  "proptech":       ["Real Estate & Property"],
-  "legaltech":      ["Legal"],
-  "ecommerce":      ["E-commerce", "Retail & E-Commerce"],
-  "b2b-saas":       ["Enterprise", "Technology & Startups", "Professional Services"],
-  "consumer-apps":  ["Hospitality & Tourism", "Sports & Recreation", "Beauty & Personal Care"],
-  "logistics-tech": ["Transportation & Logistics", "Manufacturing & Industrial"],
-  "ai-startup":     ["Technology & Startups"],
-};
-
-const BY_VERTICAL_SLUGS = [
-  "fintech", "healthtech", "edtech", "proptech", "legaltech",
-  "ai-startup", "logistics-tech", "ecommerce", "b2b-saas", "consumer-apps",
-];
-const categoriesList = ["All categories", ...BY_VERTICAL_SLUGS.map(slug => startupsData[slug].title)];
+const categoriesList = ["All categories", ...Array.from(new Set(allProjects.map(p => p.industry))).sort()];
 const countriesList = ["All countries", ...Array.from(new Set(allProjects.map(p => p.country))).sort()];
 const servicesList = ["All services", ...Object.values(servicesData).map(s => s.title).sort()];
 
@@ -55,12 +37,7 @@ const Portfolio = () => {
   );
 
   const filtered = allProjects.filter((p) => {
-    const indMatch = indFilters.length === 0 || indFilters.includes("All categories") ||
-      indFilters.some(f => {
-        const slug = BY_VERTICAL_SLUGS.find(s => startupsData[s].title === f);
-        if (!slug) return false;
-        return VERTICAL_SECTOR_MAP[slug]?.some(sector => p.industry === sector) ?? false;
-      });
+    const indMatch = indFilters.length === 0 || indFilters.includes("All categories") || indFilters.includes(p.industry);
     const coMatch = countryFilters.length === 0 || countryFilters.includes("All countries") || countryFilters.includes(p.country);
     const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All services") ||
       serviceFilters.some(f => p.service.toLowerCase().includes(f.toLowerCase()) || f.toLowerCase().includes(p.service.toLowerCase()));

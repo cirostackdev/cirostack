@@ -10,66 +10,17 @@ interface RelatedCaseStudiesProps {
     industry: IndustryEntry;
 }
 
-// Maps startup slugs to the case study industry strings they should match
-const STARTUP_SECTOR_MAP: Record<string, string[]> = {
-    "fintech":              ["Financial Services"],
-    "healthtech":           ["Healthcare", "Health & Fitness"],
-    "edtech":               ["Education & E-Learning"],
-    "proptech":             ["Real Estate & Property"],
-    "legaltech":            ["Legal"],
-    "ecommerce":            ["E-commerce", "Retail & E-Commerce"],
-    "b2b-saas":             ["Enterprise", "Technology & Startups", "Professional Services"],
-    "consumer-apps":        ["Hospitality & Tourism", "Sports & Recreation", "Beauty & Personal Care"],
-    "logistics-tech":       ["Transportation & Logistics", "Manufacturing & Industrial"],
-    "ai-startup":           ["Technology & Startups"],
-    "ai-product":           ["Technology & Startups"],
-    "saas-platform":        ["Technology & Startups", "Professional Services"],
-    "marketplace":          ["E-commerce", "Retail & E-Commerce"],
-    "web-app":              ["Technology & Startups"],
-    "mobile-app":           ["Technology & Startups", "Health & Fitness"],
-    "api-product":          ["Technology & Startups", "Professional Services"],
-    "non-technical-founder":["Technology & Startups"],
-    "first-time-founder":   ["Technology & Startups"],
-    "solo-founder":         ["Technology & Startups"],
-    "repeat-founder":       ["Technology & Startups"],
-    "student-startup":      ["Technology & Startups", "Education & E-Learning"],
-    "corporate-innovator":  ["Enterprise", "Professional Services"],
-    "female-led":           ["Technology & Startups"],
-    "african-startup":      ["Agriculture & Farming", "Technology & Startups"],
-    "diaspora-founder":     ["Technology & Startups"],
-    "social-enterprise":    ["Non-Profit & Social Enterprise"],
-    "mvp":                  ["Technology & Startups"],
-    "validation":           ["Technology & Startups"],
-    "pre-idea":             ["Technology & Startups"],
-    "early-traction":       ["Technology & Startups"],
-    "seed-stage":           ["Technology & Startups"],
-    "growth":               ["Technology & Startups"],
-    "scale-up":             ["Technology & Startups"],
-    "fast-mvp":             ["Technology & Startups"],
-    "scaling-tech":         ["Technology & Startups"],
-    "agency-rescue":        ["Technology & Startups"],
-    "fundraising-ready":    ["Technology & Startups"],
-    "ai-integration":       ["Technology & Startups"],
-    "tech-debt":            ["Technology & Startups"],
-    "post-pivot":           ["Technology & Startups"],
-    "no-tech-team":         ["Technology & Startups"],
-    "africa-launch":        ["Agriculture & Farming", "Technology & Startups"],
-};
-
 export function RelatedCaseStudies({ industry }: RelatedCaseStudiesProps) {
     if (HIDE_CASE_STUDIES) return null;
 
-    const targetIndustries = STARTUP_SECTOR_MAP[industry.id] ?? [];
     const allProjects = Object.entries(projects);
 
-    const matched = allProjects.filter(([, p]) =>
-        targetIndustries.some(ind => p.industry === ind)
-    );
+    const matched = allProjects.filter(([, p]) => p.industry === industry.title);
 
-    // Fall back to Technology & Startups entries if no specific match
+    // Fall back to B2B SaaS entries for non-vertical startup pages
     const displayProjects = matched.length >= 1
         ? matched.slice(0, 2)
-        : allProjects.filter(([, p]) => p.industry === "Technology & Startups").slice(0, 2);
+        : allProjects.filter(([, p]) => p.industry === "B2B SaaS").slice(0, 2);
 
     if (displayProjects.length === 0) return null;
 

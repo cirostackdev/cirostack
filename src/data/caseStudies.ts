@@ -75,7 +75,7 @@ function add(slug: string, p: ProjectEntry) {
 add("healthflow", {
   title: "HealthFlow Dashboard",
   client: "MedTech Startup",
-  industry: "Healthcare",
+  industry: "Healthtech Startups",
   category: "Apps",
   service: "Custom software development",
   country: "Nigeria",
@@ -126,7 +126,7 @@ add("healthflow", {
 add("shoplocal", {
   title: "ShopLocal Marketplace",
   client: "Retail Collective",
-  industry: "E-commerce",
+  industry: "E-commerce & Retail",
   category: "Websites",
   service: "Custom software development",
   country: "Nigeria",
@@ -176,7 +176,7 @@ add("shoplocal", {
 add("autotask", {
   title: "AutoTask AI",
   client: "Operations Corp",
-  industry: "Enterprise",
+  industry: "B2B SaaS",
   category: "AI",
   service: "AI and ML development services",
   country: "UK",
@@ -225,7 +225,7 @@ add("autotask", {
 add("fittrack", {
   title: "FitTrack Pro",
   client: "Fitness Brand",
-  industry: "Health & Fitness",
+  industry: "Healthtech Startups",
   category: "Apps",
   service: "Custom software development",
   country: "Nigeria",
@@ -274,7 +274,7 @@ add("fittrack", {
 add("greenleaf", {
   title: "GreenLeaf Website",
   client: "Sustainability Startup",
-  industry: "Clean Tech",
+  industry: "Consumer Apps",
   category: "Websites",
   service: "Custom software development",
   country: "Kenya",
@@ -323,7 +323,7 @@ add("greenleaf", {
 add("docai", {
   title: "DocAI Processor",
   client: "Legal Firm",
-  industry: "Legal",
+  industry: "Legaltech Startups",
   category: "AI",
   service: "AI and ML development services",
   country: "Nigeria",
@@ -373,7 +373,7 @@ add("docai", {
 add("retailmax", {
   title: "RetailMax Smart POS",
   client: "ChainStore Group",
-  industry: "Retail & E-Commerce",
+  industry: "E-commerce & Retail",
   category: "Apps",
   service: "UX & UI Design Services",
   country: "USA",
@@ -423,7 +423,7 @@ add("retailmax", {
 add("finguard", {
   title: "FinGuard Security Platform",
   client: "NexBank",
-  industry: "Financial Services",
+  industry: "Fintech Startups",
   category: "Security",
   service: "Security Audit & Governance",
   country: "UK",
@@ -473,7 +473,7 @@ add("finguard", {
 add("propview", {
   title: "PropView Real Estate Platform",
   client: "UrbanNest Realty",
-  industry: "Real Estate & Property",
+  industry: "Proptech Startups",
   category: "Cloud",
   service: "Cloud Consulting & Services",
   country: "USA",
@@ -523,7 +523,7 @@ add("propview", {
 add("eduspark", {
   title: "EduSpark Learning Platform",
   client: "EduPrime",
-  industry: "Education & E-Learning",
+  industry: "Edtech Startups",
   category: "Platforms",
   service: "Dedicated Development Teams",
   country: "USA",
@@ -573,7 +573,7 @@ add("eduspark", {
 add("travelease", {
   title: "TravelEase Booking App",
   client: "Safari Adventures",
-  industry: "Hospitality & Tourism",
+  industry: "Consumer Apps",
   category: "Apps",
   service: "Mobile Apps Development",
   country: "Kenya",
@@ -623,7 +623,7 @@ add("travelease", {
 add("factoryiq", {
   title: "FactoryIQ Smart Manufacturing",
   client: "PrecisionMFG",
-  industry: "Manufacturing & Industrial",
+  industry: "Logistics & Supply Chain",
   category: "DevOps",
   service: "DevOps Consulting Services",
   country: "Germany",
@@ -673,7 +673,7 @@ add("factoryiq", {
 add("legalshield", {
   title: "LegalShield Practice Management",
   client: "Morrison & Partners",
-  industry: "Professional Services",
+  industry: "B2B SaaS",
   category: "Platforms",
   service: "Software Auditing Services",
   country: "Canada",
@@ -723,7 +723,7 @@ add("legalshield", {
 add("streamdeck", {
   title: "StreamDeck Media Platform",
   client: "AfriStream",
-  industry: "Media & Entertainment",
+  industry: "Consumer Apps",
   category: "Cloud",
   service: "Cloud Engineering Service",
   country: "Nigeria",
@@ -773,7 +773,7 @@ add("streamdeck", {
 add("givehub", {
   title: "GiveHub Donation Platform",
   client: "HopeFoundation",
-  industry: "Non-Profit & Social Enterprise",
+  industry: "Consumer Apps",
   category: "Platforms",
   service: "Digital Transformation Solutions",
   country: "USA",
@@ -823,7 +823,7 @@ add("givehub", {
 add("launchpad", {
   title: "LaunchPad MVP Platform",
   client: "TechVenture Labs",
-  industry: "Technology & Startups",
+  industry: "B2B SaaS",
   category: "MVP",
   service: "Software Development for Startups",
   country: "USA",
@@ -873,7 +873,7 @@ add("launchpad", {
 add("agriconnect", {
   title: "AgriConnect Smart Farming",
   client: "FarmTech Africa",
-  industry: "Agriculture & Farming",
+  industry: "Logistics & Supply Chain",
   category: "Data",
   service: "Data Engineering & Data Science",
   country: "Kenya",
@@ -923,7 +923,7 @@ add("agriconnect", {
 add("buildsite", {
   title: "BuildSite Pro",
   client: "ConstruTech",
-  industry: "Construction & Engineering",
+  industry: "Logistics & Supply Chain",
   category: "IoT",
   service: "Embedded Software Services",
   country: "Australia",
@@ -973,7 +973,7 @@ add("buildsite", {
 add("logistrack", {
   title: "LogisTrack Fleet Platform",
   client: "SwiftLogix",
-  industry: "Transportation & Logistics",
+  industry: "Logistics & Supply Chain",
   category: "Platforms",
   service: "Automation Testing Services",
   country: "Nigeria",
@@ -1023,7 +1023,7 @@ add("logistrack", {
 add("govportal", {
   title: "GovPortal Citizen Services",
   client: "State Digital Agency",
-  industry: "Government & Public Sector",
+  industry: "B2B SaaS",
   category: "Identity",
   service: "Identity & Access Management",
   country: "Nigeria",
@@ -1073,7 +1073,7 @@ add("govportal", {
 add("sportspulse", {
   title: "SportsPulse Analytics",
   client: "Premier League Club",
-  industry: "Sports & Recreation",
+  industry: "Consumer Apps",
   category: "AI",
   service: "Generative AI Development",
   country: "UK",
@@ -1123,7 +1123,7 @@ add("sportspulse", {
 add("beautybook", {
   title: "BeautyBook Platform",
   client: "GlowUp Inc.",
-  industry: "Beauty & Personal Care",
+  industry: "Consumer Apps",
   category: "Platforms",
   service: "US Nearshore Software Development",
   country: "USA",
@@ -1173,7 +1173,7 @@ add("beautybook", {
 add("autodrive", {
   title: "AutoDrive Connected Car Platform",
   client: "MotorTech Solutions",
-  industry: "Automotive",
+  industry: "Logistics & Supply Chain",
   category: "IoT",
   service: "Software Development Outsourcing",
   country: "Germany",
@@ -1223,7 +1223,7 @@ add("autodrive", {
 add("smallbizos", {
   title: "SmallBizOS All-in-One Platform",
   client: "SME Alliance",
-  industry: "Small Business Solutions",
+  industry: "B2B SaaS",
   category: "AI",
   service: "AI & ML Development Services",
   country: "USA",
@@ -1273,7 +1273,7 @@ add("smallbizos", {
 add("cloudops", {
   title: "CloudOps Multi-Cloud Dashboard",
   client: "CloudFirst Technologies",
-  industry: "Technology & Startups",
+  industry: "B2B SaaS",
   category: "Cloud",
   service: "Cloud Engineering Service",
   country: "USA",
