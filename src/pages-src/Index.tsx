@@ -447,10 +447,23 @@ const Index = () => {
           </div>
 
           {/* ── BY FOUNDER TYPE ── */}
-          <div className="pt-8 border-t border-border/60 mb-12">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">By Founder Type</p>
-            <div className="relative -mx-4 md:-mx-6 lg:-mx-12">
-              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-4 md:px-6 lg:px-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 pt-8 border-t border-border/60 mb-12">
+            <div>
+              <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
+                10+
+              </p>
+              <p className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-4 leading-tight">
+                Your background
+                <br />
+                <span className="text-muted-foreground">shapes the build.</span>
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-2 max-w-md">
+                First-time or repeat, technical or not — we adapt our process, communication, and delivery to match who you are.
+              </p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground">By Founder Type</p>
+            </div>
+            <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
                 {founderSpotlights.map((ind) => (
                   <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
                     <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
@@ -490,10 +503,23 @@ const Index = () => {
           </div>
 
           {/* ── BY STAGE ── */}
-          <div className="pt-8 border-t border-border/60 mb-12">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">By Stage</p>
-            <div className="relative -mx-4 md:-mx-6 lg:-mx-12">
-              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-4 md:px-6 lg:px-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 pt-8 border-t border-border/60 mb-12">
+            <div>
+              <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
+                7
+              </p>
+              <p className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-4 leading-tight">
+                Right-sized for
+                <br />
+                <span className="text-muted-foreground">where you are.</span>
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-2 max-w-md">
+                Pre-revenue and post-Series A need completely different things. We match the engineering approach to your current stage.
+              </p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground">By Stage</p>
+            </div>
+            <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
                 {stageSpotlights.map((ind) => (
                   <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
                     <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
@@ -517,10 +543,23 @@ const Index = () => {
           </div>
 
           {/* ── BY CHALLENGE ── */}
-          <div className="pt-8 border-t border-border/60">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">By Challenge</p>
-            <div className="relative -mx-4 md:-mx-6 lg:-mx-12">
-              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-4 md:px-6 lg:px-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 pt-8 border-t border-border/60">
+            <div>
+              <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
+                9+
+              </p>
+              <p className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-4 leading-tight">
+                We've solved your
+                <br />
+                <span className="text-muted-foreground">problem before.</span>
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-2 max-w-md">
+                Every blocker has a playbook. Find yours and skip the trial-and-error phase entirely.
+              </p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground">By Challenge</p>
+            </div>
+            <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
                 {challengeSpotlights.map((ind) => (
                   <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
                     <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
