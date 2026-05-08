@@ -750,39 +750,30 @@ const Index = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          SECTION 9: FINAL CTA (gradient orb)
+          SECTION 9: FINAL CTA
           ══════════════════════════════════════════════ */}
-      <section className="relative section-padding section-alt overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-primary/25 via-accent/15 to-transparent blur-3xl" />
-          <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-accent/15 blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-primary/15 blur-3xl" />
-        </div>
-
-        <div className="container mx-auto px-4 md:px-6">
+      <section className="py-24 md:py-32 bg-background overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 text-center max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-foreground mb-6 leading-[1.05] tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-foreground mb-6 tracking-tight">
               Let's build something
               <br />
               that <span className="text-gradient italic">matters.</span>
             </h2>
-            <p className="text-muted-foreground text-base md:text-lg mb-10 leading-relaxed max-w-xl mx-auto">
+            <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
               Tell us about your project. We respond within 24 hours with a free, no-obligation quote.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/contact">
-                <Button size="lg" className="rounded-full text-base px-10 group">
-                  Get a Free Quote
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-            </div>
+            <Link href="/contact">
+              <Button size="lg" className="rounded-full px-8 text-base font-semibold group">
+                Get a Free Quote
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>

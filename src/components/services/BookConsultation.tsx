@@ -8,9 +8,6 @@ import { motion } from "framer-motion";
 export function BookConsultation({ bookingType }: { bookingType: string }) {
     return (
         <section className="py-24 md:py-32 bg-background relative overflow-hidden">
-            {/* Decorative gradient orb */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
             <div className="container mx-auto px-4 md:px-6 text-center max-w-4xl relative z-10">
                 <motion.div
@@ -25,9 +22,9 @@ export function BookConsultation({ bookingType }: { bookingType: string }) {
                         Every incredible product sequence starts with a conversation. Book a zero-pressure {bookingType.toLowerCase()} with our senior engineers to discuss your architecture.
                     </p>
                     <Link href="/contact">
-                        <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground h-16 px-10 text-lg rounded-full font-bold transition-all hover:scale-105 shadow-[0_0_40px_-10px_rgba(var(--primary),0.5)]">
+                        <Button size="lg" className="rounded-full px-8 text-base font-semibold group">
                             Book a {bookingType}
-                            <ArrowRight className="ml-3 w-5 h-5" />
+                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Button>
                     </Link>
                 </motion.div>

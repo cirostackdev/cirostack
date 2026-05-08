@@ -13,8 +13,6 @@ interface IndustryCTAProps {
 export function IndustryCTA({ industry }: IndustryCTAProps) {
     return (
         <section className="py-24 md:py-32 bg-background relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
             <div className="container mx-auto px-4 md:px-6 text-center max-w-4xl relative z-10">
                 <motion.div
@@ -31,8 +29,8 @@ export function IndustryCTA({ industry }: IndustryCTAProps) {
                     </p>
 
                     <Link href="/contact">
-                        <Button size="lg" className="h-16 px-10 text-lg rounded-full font-bold shadow-lg hover:-translate-y-1 transition-all">
-                            Schedule a Consultation <ArrowRight className="ml-3 w-5 h-5" />
+                        <Button size="lg" className="rounded-full px-8 text-base font-semibold group">
+                            Schedule a Consultation <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Button>
                     </Link>
                 </motion.div>
