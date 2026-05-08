@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 
 export function BookConsultation({ bookingType }: { bookingType: string }) {
     return (
-        <section className="py-24 md:py-32 bg-foreground text-background border-y border-border relative overflow-hidden">
+        <section className="py-24 md:py-32 bg-background relative overflow-hidden">
             {/* Decorative gradient orb */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
             <div className="container mx-auto px-4 md:px-6 text-center max-w-4xl relative z-10">
                 <motion.div
@@ -18,10 +18,10 @@ export function BookConsultation({ bookingType }: { bookingType: string }) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                 >
-                    <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold mb-6 tracking-tight">
+                    <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold mb-6 tracking-tight text-foreground">
                         Ready to dive deeper?
                     </h2>
-                    <p className="text-xl text-background/60 mb-12 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
                         Every incredible product sequence starts with a conversation. Book a zero-pressure {bookingType.toLowerCase()} with our senior engineers to discuss your architecture.
                     </p>
                     <Link href="/contact">
