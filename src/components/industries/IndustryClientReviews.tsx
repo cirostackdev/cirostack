@@ -9,11 +9,11 @@ export function IndustryClientReviews({ industry }: { industry: IndustryEntry })
     if (HIDE_TESTIMONIALS) return null;
     // Filter to testimonials tagged for this industry's parentCategory.
     // Fall back to full list if fewer than 3 match.
-    const filtered = allTestimonials.filter(
+    const items = allTestimonials.filter(
         t => !t.industries || t.industries.includes(industry.parentCategory)
     );
 
-    const items = filtered.length >= 3 ? filtered : allTestimonials;
+    if (items.length === 0) return null;
 
     return (
         <TestimonialsMarquee

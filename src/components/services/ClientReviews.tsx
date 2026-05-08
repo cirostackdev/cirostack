@@ -13,11 +13,11 @@ export function ClientReviews({ serviceId }: Props) {
     if (HIDE_TESTIMONIALS) return null;
     // Filter to testimonials tagged for this service (or untagged: show everywhere).
     // Fall back to the full list if fewer than 3 match.
-    const filtered = serviceId
+    const items = serviceId
         ? allTestimonials.filter(t => !t.services || t.services.includes(serviceId))
         : allTestimonials;
 
-    const items = filtered.length >= 3 ? filtered : allTestimonials;
+    if (items.length === 0) return null;
 
     return (
         <TestimonialsMarquee
