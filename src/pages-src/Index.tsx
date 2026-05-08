@@ -801,8 +801,8 @@ const Index = () => {
               <div className="grid grid-cols-3 sm:grid-cols-2 gap-4 mb-8">
                 {careerPerks.map((perk) => (
                   <div key={perk.label} className="flex flex-col items-center text-center sm:flex-row sm:text-left gap-2 sm:gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center shrink-0">
-                      <perk.icon className="w-4 h-4 text-success" />
+                    <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center shrink-0">
+                      <perk.icon className="w-6 h-6 text-success" />
                     </div>
                     <div>
                       <p className="text-xs sm:text-sm font-medium text-foreground leading-tight">{perk.label}</p>
