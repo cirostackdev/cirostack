@@ -22,8 +22,46 @@ const fadeUp = {
 
 // Derive filter options from actual data
 const allProjects = Object.entries(projects).map(([id, p]) => ({ id, ...p }));
-const categoriesList = ["All categories", ...Array.from(new Set(allProjects.map(p => p.vertical))).sort()];
-const servicesList = ["All services", ...Object.values(servicesData).map(s => s.title).sort()];
+
+// Ordered to match the By Vertical startup menu
+const categoriesList = [
+  "All categories",
+  "AI Startups",
+  "Fintech Startups",
+  "Healthtech Startups",
+  "Edtech Startups",
+  "Proptech Startups",
+  "Legaltech Startups",
+  "Logistics & Supply Chain",
+  "E-commerce & Retail",
+  "B2B SaaS",
+  "Consumer Apps",
+];
+
+// Ordered to match the Services menu (Ideate → Build → Improve → Operate → Scale)
+const servicesList = [
+  "All services",
+  // Ideate
+  "Startup Branding",
+  "UX & UI Design Services",
+  "Cloud Consulting & Services",
+  // Build
+  "Website Development",
+  "Frontend Development",
+  "Backend Development",
+  "Mobile Apps Development Services",
+  // Improve
+  "Generative AI Development Services",
+  "AI & ML Development Services",
+  // Operate
+  "DevOps Consulting Services",
+  "Software Auditing Services",
+  "CTO as a Service",
+  // Scale
+  "Dedicated Development Teams",
+  "US Nearshore Software Development",
+  "Software Development Outsourcing",
+];
 
 const Portfolio = () => {
   const searchParams = useSearchParams();
