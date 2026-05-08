@@ -52,16 +52,14 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
     [router, onOpenChange]
   );
 
-  const grouped = CATEGORY_ORDER.map((cat) => ({
-    category: cat,
-    items: searchIndex.filter((item) => item.category === cat),
-  }));
-
-  // Approximate match count (mirrors cmdk's contains-word behaviour)
-  const resultCount = useMemo(() => {
+  const { grouped, resultCount } = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return null;
-    return searchIndex.filter((item) => item.keywords.includes(q)).length;
+    if (!q) return { grouped: [], resultCount: null };
+    const filtered = searchIndex.filter((item) => item.keywords.includes(q));
+    const groups = CATEGORY_ORDER
+      .map((cat) => ({ category: cat, items: filtered.filter((item) => item.category === cat) }))
+      .filter(({ items }) => items.length > 0);
+    return { grouped: groups, resultCount: filtered.length };
   }, [query]);
 
   return (
@@ -72,29 +70,27 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
         onValueChange={setQuery}
       />
       <CommandList className="max-h-[420px]">
-        {query.trim() === "" ? null : (
-          <>
-            <CommandEmpty>No results found. Try a different search term.</CommandEmpty>
-            {grouped.map(({ category, items }) => (
-              <CommandGroup key={category} heading={category}>
-                {items.map((item) => (
-                  <CommandItem
-                    key={item.id}
-                    value={item.keywords}
-                    onSelect={() => handleSelect(item.href)}
-                  >
-                    <div className="flex flex-col min-w-0">
-                      <span className="font-medium truncate">{item.title}</span>
-                      <span className="text-xs text-muted-foreground line-clamp-1">
-                        {item.subtitle}
-                      </span>
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            ))}
-          </>
+        {query.trim() !== "" && grouped.length === 0 && (
+          <CommandEmpty>No results found. Try a different search term.</CommandEmpty>
         )}
+        {grouped.map(({ category, items }) => (
+          <CommandGroup key={category} heading={category}>
+            {items.map((item) => (
+              <CommandItem
+                key={item.id}
+                value={item.id}
+                onSelect={() => handleSelect(item.href)}
+              >
+                <div className="flex flex-col min-w-0">
+                  <span className="font-medium truncate">{item.title}</span>
+                  <span className="text-xs text-muted-foreground line-clamp-1">
+                    {item.subtitle}
+                  </span>
+                </div>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        ))}
       </CommandList>
       <div className="border-t px-3 py-2 flex items-center justify-between text-xs text-muted-foreground">
         {resultCount !== null ? (
