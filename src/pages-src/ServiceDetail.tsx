@@ -194,7 +194,10 @@ export default function ServiceDetail() {
       {/* 12. Technologies */}
       <Technologies service={service} />
 
-      {/* 13. Insights Section */}
+      {/* 13. Book Consultation (CTA 2) */}
+      <BookConsultation bookingType={service.bookingType} />
+
+      {/* 14. Insights Section */}
       <section className="py-24 bg-card border-t border-border/50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-between items-end mb-12">
@@ -221,9 +224,6 @@ export default function ServiceDetail() {
           </div>
         </div>
       </section>
-
-      {/* 14. Book Consultation (CTA 2) */}
-      <BookConsultation bookingType={service.bookingType} />
 
       {/* 15. FAQ Section */}
       <ServiceFAQ service={service} />
