@@ -46,8 +46,8 @@ function makeSpotlights(slugs: string[]) {
 }
 
 const verticalSpotlights = makeSpotlights([
-  "fintech", "healthtech", "ecommerce", "b2b-saas",
-  "edtech", "proptech", "legaltech", "logistics-tech", "consumer-apps", "ai-startup",
+  "ai-startup", "fintech", "healthtech", "ecommerce", "b2b-saas",
+  "edtech", "proptech", "legaltech", "logistics-tech", "consumer-apps",
 ]);
 
 const founderSpotlights = makeSpotlights([
