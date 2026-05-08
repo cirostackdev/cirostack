@@ -6,18 +6,37 @@ import Link from "next/link";
 import { startupsData } from "@/data/startups-generated";
 import { startupsParentData } from "@/data/startups";
 
+const VALID_STARTUP_SLUGS = new Set([
+  // by-stage
+  "pre-idea", "validation", "mvp", "early-traction", "seed-stage", "growth", "scale-up",
+  // by-vertical
+  "fintech", "healthtech", "edtech", "proptech", "legaltech",
+  "ai-startup", "logistics-tech", "ecommerce", "b2b-saas", "consumer-apps",
+  // by-product
+  "web-app", "mobile-app", "ai-product", "saas-platform", "marketplace", "api-product",
+  // by-founder
+  "non-technical-founder", "first-time-founder", "solo-founder", "repeat-founder",
+  "student-startup", "corporate-innovator", "female-led", "african-startup",
+  "diaspora-founder", "social-enterprise",
+  // by-challenge
+  "fast-mvp", "scaling-tech", "agency-rescue", "fundraising-ready",
+  "ai-integration", "tech-debt", "post-pivot", "no-tech-team", "africa-launch",
+]);
+
 /* Build the full list of startup entries with their parent icon and hero image */
-const allChips = Object.values(startupsData).map((s) => {
-  const parent = Object.values(startupsParentData).find(
-    (p) => p.title === s.parentCategory
-  );
-  return {
-    label: s.title,
-    icon: parent?.icon ?? s.icon,
-    image: `/images/startups/hero-${s.id}.jpg`,
-    path: `/startups/${s.id}`,
-  };
-});
+const allChips = Object.values(startupsData)
+  .filter((s) => VALID_STARTUP_SLUGS.has(s.id))
+  .map((s) => {
+    const parent = Object.values(startupsParentData).find(
+      (p) => p.title === s.parentCategory
+    );
+    return {
+      label: s.title,
+      icon: parent?.icon ?? s.icon,
+      image: `/images/startups/hero-${s.id}.jpg`,
+      path: `/startups/${s.id}`,
+    };
+  });
 
 interface HeroVisualStackProps {
   image?: string;

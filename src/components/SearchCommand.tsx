@@ -20,7 +20,6 @@ interface SearchCommandProps {
 const CATEGORY_ORDER: SearchCategory[] = [
   "Services",
   "Startups",
-  "Industries",
   "Case Studies",
   "Blog",
 ];

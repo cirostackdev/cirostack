@@ -1,12 +1,10 @@
 import { servicesData } from "@/data/services";
-import { industriesData } from "@/data/industries-generated";
 import { startupsData } from "@/data/startups";
 import { projects } from "@/data/caseStudies";
 import { posts } from "@/pages-src/BlogPost";
 
 export type SearchCategory =
   | "Services"
-  | "Industries"
   | "Startups"
   | "Case Studies"
   | "Blog";
@@ -20,9 +18,35 @@ export type SearchItem = {
   keywords: string;
 };
 
+const VALID_SERVICE_SLUGS = new Set([
+  "website-development", "frontend-development", "backend-development", "apps",
+  "ai", "ux-ui-design", "cloud-consulting", "startup-branding",
+  "dedicated-teams", "ai-ml", "devops", "software-auditing",
+  "cto-as-a-service", "nearshore", "outsourcing",
+]);
+
+const VALID_STARTUP_SLUGS = new Set([
+  // by-stage
+  "pre-idea", "validation", "mvp", "early-traction", "seed-stage", "growth", "scale-up",
+  // by-vertical
+  "fintech", "healthtech", "edtech", "proptech", "legaltech",
+  "ai-startup", "logistics-tech", "ecommerce", "b2b-saas", "consumer-apps",
+  // by-product
+  "web-app", "mobile-app", "ai-product", "saas-platform", "marketplace", "api-product",
+  // by-founder
+  "non-technical-founder", "first-time-founder", "solo-founder", "repeat-founder",
+  "student-startup", "corporate-innovator", "female-led", "african-startup",
+  "diaspora-founder", "social-enterprise",
+  // by-challenge
+  "fast-mvp", "scaling-tech", "agency-rescue", "fundraising-ready",
+  "ai-integration", "tech-debt", "post-pivot", "no-tech-team", "africa-launch",
+]);
+
 export const searchIndex: SearchItem[] = [
   // Services — include introSummary, deliverables, and industry expertise for richer matching
-  ...Object.entries(servicesData).map(([slug, s]) => ({
+  ...Object.entries(servicesData)
+    .filter(([slug]) => VALID_SERVICE_SLUGS.has(slug))
+    .map(([slug, s]) => ({
     id: `services-${slug}`,
     title: s.title,
     subtitle: s.tagline,
@@ -40,27 +64,10 @@ export const searchIndex: SearchItem[] = [
       .toLowerCase(),
   })),
 
-  // Industries — include introSummary, description, and challenges
-  ...Object.entries(industriesData).map(([slug, ind]) => ({
-    id: `industries-${slug}`,
-    title: ind.title,
-    subtitle: ind.tagline,
-    category: "Industries" as const,
-    href: `/industries/${slug}`,
-    keywords: [
-      ind.title,
-      ind.tagline,
-      ind.parentCategory,
-      ind.introSummary,
-      ind.description,
-      ...(ind.challenges ?? []),
-    ]
-      .join(" ")
-      .toLowerCase(),
-  })),
-
   // Startups — include introSummary and description
-  ...Object.entries(startupsData).map(([slug, s]) => ({
+  ...Object.entries(startupsData)
+    .filter(([slug]) => VALID_STARTUP_SLUGS.has(slug))
+    .map(([slug, s]) => ({
     id: `startups-${slug}`,
     title: s.title,
     subtitle: s.tagline,
