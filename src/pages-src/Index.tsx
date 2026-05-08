@@ -763,7 +763,7 @@ const Index = () => {
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-foreground mb-6 tracking-tight">
               Let's build something
               <br />
-              that <span className="text-gradient italic">matters.</span>
+              that <span className="text-gradient">matters.</span>
             </h2>
             <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
               Tell us about your project. We respond within 24 hours with a free, no-obligation quote.
