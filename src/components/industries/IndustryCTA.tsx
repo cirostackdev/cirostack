@@ -30,18 +30,11 @@ export function IndustryCTA({ industry }: IndustryCTAProps) {
                         Let's discuss your specific challenges. Our engineering experts will work with you to architect the perfect solution.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link href="/contact">
-                            <Button size="lg" className="h-16 px-10 text-lg rounded-full font-bold w-full sm:w-auto shadow-lg hover:-translate-y-1 transition-all">
-                                Schedule a Consultation <ArrowRight className="ml-3 w-5 h-5" />
-                            </Button>
-                        </Link>
-                        <Link href="/portfolio">
-                            <Button size="lg" variant="outline" className="h-16 px-10 text-lg rounded-full w-full sm:w-auto">
-                                View Case Studies
-                            </Button>
-                        </Link>
-                    </div>
+                    <Link href="/contact">
+                        <Button size="lg" className="h-16 px-10 text-lg rounded-full font-bold shadow-lg hover:-translate-y-1 transition-all">
+                            Schedule a Consultation <ArrowRight className="ml-3 w-5 h-5" />
+                        </Button>
+                    </Link>
                 </motion.div>
             </div>
         </section>
