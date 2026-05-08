@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MessageSquare } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import type { IndustryEntry } from "@/data/industries";
 
 interface IndustryCTAProps {
@@ -11,38 +12,37 @@ interface IndustryCTAProps {
 
 export function IndustryCTA({ industry }: IndustryCTAProps) {
     return (
-        <section className="py-24 bg-background relative overflow-hidden">
-            {/* Decorative background elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/40 pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
+        <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-                <div className="max-w-4xl mx-auto bg-card border border-border/50 rounded-[2.5rem] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden group hover:border-border transition-all duration-500">
-                    <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-all duration-500">
-                        <MessageSquare className="w-10 h-10 text-foreground" />
-                    </div>
-
-                    <h2 className="text-4xl md:5xl font-display font-bold text-foreground mb-6 leading-tight">
-                        Ready to transform your <span className="text-foreground italic">{industry.title}</span> operations?
+            <div className="container mx-auto px-4 md:px-6 text-center max-w-4xl relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                >
+                    <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold mb-6 tracking-tight text-foreground">
+                        Ready to start your <span className="text-gradient italic">{industry.title}</span> project?
                     </h2>
 
-                    <p className="text-muted-foreground text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
                         Let's discuss your specific challenges. Our engineering experts will work with you to architect the perfect solution.
                     </p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <Link href="/contact">
-                            <Button size="lg" className="h-14 px-8 text-base rounded-full w-full sm:w-auto shadow-lg hover:-translate-y-1 transition-all">
-                                Schedule a Consultation <ArrowRight className="ml-2 h-5 w-5" />
+                            <Button size="lg" className="h-16 px-10 text-lg rounded-full font-bold w-full sm:w-auto shadow-lg hover:-translate-y-1 transition-all">
+                                Schedule a Consultation <ArrowRight className="ml-3 w-5 h-5" />
                             </Button>
                         </Link>
                         <Link href="/portfolio">
-                            <Button size="lg" variant="outline" className="h-14 px-8 text-base rounded-full w-full sm:w-auto">
+                            <Button size="lg" variant="outline" className="h-16 px-10 text-lg rounded-full w-full sm:w-auto">
                                 View Case Studies
                             </Button>
                         </Link>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );
