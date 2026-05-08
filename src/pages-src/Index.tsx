@@ -200,7 +200,7 @@ const Index = () => {
       id,
       title: p.title,
       client: p.client,
-      category: p.category,
+      vertical: p.vertical,
       service: p.service,
       description: p.description,
       metric: p.metrics[0] ? `${p.metrics[0].value} ${p.metrics[0].label}` : "",

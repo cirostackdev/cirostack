@@ -98,7 +98,7 @@ const Portfolio = () => {
                       <h3 className="font-display font-semibold text-foreground text-lg mb-2">{project.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed mb-4">{project.description}</p>
                       <div className="flex flex-wrap gap-2">
-                        <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{project.category}</span>
+                        <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{project.vertical}</span>
                         <span className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{project.service}</span>
                       </div>
                     </div>
