@@ -46,11 +46,17 @@ const categoryOptions = [
 ];
 
 const allTags = [
-  "React", "Next.js", "Node.js", "Python", "OpenAI", "LangChain",
-  "AWS", "Azure", "Kubernetes", "CI/CD",
-  "MVP", "SaaS", "Fixed-Price", "Outsourcing",
-  "Healthcare", "Fintech", "E-Commerce", "Enterprise",
-  "Data Engineering", "Security", "UX Design",
+  // Startup journey
+  "MVP", "Pre-Seed", "Seed Stage", "Series A", "Scaling",
+  // Startup types (By Vertical)
+  "Fintech", "Healthtech", "Edtech", "Proptech", "Legaltech",
+  "AI Startups", "B2B SaaS", "E-Commerce", "Consumer Apps", "Logistics Tech",
+  // Services
+  "Fixed-Price", "Outsourcing", "Dedicated Teams", "CTO as a Service",
+  // Product
+  "AI & ML", "Mobile App", "Web App", "UX Design",
+  // Founder
+  "Non-Technical Founder", "Solo Founder", "First-Time Founder",
 ];
 
 type SortOption = "newest" | "oldest" | "shortest" | "longest";
