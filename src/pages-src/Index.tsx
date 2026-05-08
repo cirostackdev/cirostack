@@ -32,30 +32,42 @@ import LifecycleTimeline from "@/components/home/LifecycleTimeline";
 import BentoProjects from "@/components/home/BentoProjects";
 
 /* ─── data ─── */
-// Startup spotlights — only slugs that have both a page and a hero image.
-// "mvp" is index 0 (always pinned first in scroll).
-const STARTUP_SPOTLIGHT_SLUGS = [
-  "mvp",
+function makeSpotlights(slugs: string[]) {
+  return slugs.map((slug) => {
+    const s = startupsData[slug];
+    return {
+      icon: s.icon,
+      title: s.title,
+      tagline: s.tagline,
+      href: `/startups/${slug}`,
+      image: `/images/startups/hero-${slug}.jpg`,
+    };
+  });
+}
+
+const verticalSpotlights = makeSpotlights([
   "fintech", "healthtech", "ecommerce", "b2b-saas",
-  "edtech", "proptech", "legaltech", "logistics-tech", "consumer-apps",
-  "web-app", "mobile-app", "ai-product", "saas-platform", "marketplace", "api-product",
+  "edtech", "proptech", "legaltech", "logistics-tech", "consumer-apps", "ai-startup",
+]);
+
+const founderSpotlights = makeSpotlights([
   "non-technical-founder", "first-time-founder", "solo-founder", "repeat-founder",
   "student-startup", "corporate-innovator", "female-led", "african-startup",
   "diaspora-founder", "social-enterprise",
-  "early-traction", "seed-stage", "growth", "scale-up", "pre-idea", "validation",
-];
+]);
 
-const allStartupSpotlights = STARTUP_SPOTLIGHT_SLUGS.map((slug) => {
-  const s = startupsData[slug];
-  return {
-    icon: s.icon,
-    label: s.title,
-    title: s.title,
-    tagline: s.tagline,
-    href: `/startups/${slug}`,
-    image: `/images/startups/hero-${slug}.jpg`,
-  };
-});
+const productSpotlights = makeSpotlights([
+  "web-app", "mobile-app", "ai-product", "saas-platform", "marketplace", "api-product",
+]);
+
+const stageSpotlights = makeSpotlights([
+  "pre-idea", "validation", "mvp", "early-traction", "seed-stage", "growth", "scale-up",
+]);
+
+const challengeSpotlights = makeSpotlights([
+  "fast-mvp", "scaling-tech", "agency-rescue", "fundraising-ready",
+  "ai-integration", "tech-debt", "post-pivot", "no-tech-team", "africa-launch",
+]);
 
 const phases = [
   {
@@ -176,19 +188,6 @@ const marqueeWords: { label: string; href: string }[] = [
 
 /* ─── page ─── */
 const Index = () => {
-  const { scrollStartups, alsoServe } = useMemo(() => {
-    const pinned = allStartupSpotlights[0]; // MVP: always first
-    const rest = [...allStartupSpotlights.slice(1)];
-    for (let i = rest.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [rest[i], rest[j]] = [rest[j], rest[i]];
-    }
-    return {
-      scrollStartups: [pinned, ...rest.slice(0, 4)],
-      alsoServe: rest.slice(4),
-    };
-  }, []);
-
   const featuredProjects = useMemo(() => {
     const allEntries = Object.entries(projects);
     // Fisher-Yates shuffle
@@ -406,8 +405,9 @@ const Index = () => {
           ══════════════════════════════════════════════ */}
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">
+
+          {/* ── BY VERTICALS ── */}
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_2fr] gap-12 mb-12">
-            {/* Big number */}
             <div>
               <p className="text-7xl md:text-8xl lg:text-9xl font-display font-bold text-gradient leading-none mb-3 tabular-nums">
                 20+
@@ -417,28 +417,18 @@ const Index = () => {
                 <br />
                 <span className="text-muted-foreground">not ours.</span>
               </p>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-md">
+              <p className="text-sm text-muted-foreground leading-relaxed mb-2 max-w-md">
                 We learn your regulations, your users, your market: then build software that fits.
               </p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground">By Vertical</p>
             </div>
-
-            {/* Horizontal scroll showcase */}
             <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
-              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 scrollbar-none md:scrollbar-thin">
-                {scrollStartups.map((ind) => (
-                  <Link
-                    key={ind.title}
-                    href={ind.href}
-                    className="block group flex-none w-[260px] md:w-[280px] snap-start"
-                  >
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
+                {verticalSpotlights.map((ind) => (
+                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
                     <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
                       <div className="h-48 overflow-hidden">
-                        <img
-                          src={ind.image}
-                          alt={ind.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
+                        <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       </div>
                       <div className="p-5">
                         <div className="flex items-center gap-2 mb-2">
@@ -456,23 +446,103 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Also serve pill cloud */}
-          <div className="text-center pt-6 border-t border-border/60">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">
-              We also serve
-            </p>
+          {/* ── BY FOUNDER TYPE ── */}
+          <div className="pt-8 border-t border-border/60 mb-12">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">By Founder Type</p>
+            <div className="relative -mx-4 md:-mx-6 lg:-mx-12">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-4 md:px-6 lg:px-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
+                {founderSpotlights.map((ind) => (
+                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
+                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
+                      <div className="h-48 overflow-hidden">
+                        <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      </div>
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <ind.icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <h3 className="font-display font-semibold text-foreground text-base leading-tight">{ind.title}</h3>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{ind.tagline}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── BY PRODUCT TYPE (pills) ── */}
+          <div className="text-center py-8 border-t border-border/60 mb-12">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">By Product Type</p>
             <div className="flex flex-wrap justify-center gap-2">
-              {alsoServe.map((item) => (
+              {productSpotlights.map((item) => (
                 <Link
-                  key={item.label}
+                  key={item.title}
                   href={item.href}
                   className="px-3 py-1.5 text-xs font-medium rounded-full bg-muted/80 border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
                 >
-                  {item.label}
+                  {item.title}
                 </Link>
               ))}
             </div>
           </div>
+
+          {/* ── BY STAGE ── */}
+          <div className="pt-8 border-t border-border/60 mb-12">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">By Stage</p>
+            <div className="relative -mx-4 md:-mx-6 lg:-mx-12">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-4 md:px-6 lg:px-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
+                {stageSpotlights.map((ind) => (
+                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
+                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
+                      <div className="h-48 overflow-hidden">
+                        <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      </div>
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <ind.icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <h3 className="font-display font-semibold text-foreground text-base leading-tight">{ind.title}</h3>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{ind.tagline}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── BY CHALLENGE ── */}
+          <div className="pt-8 border-t border-border/60">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">By Challenge</p>
+            <div className="relative -mx-4 md:-mx-6 lg:-mx-12">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-4 md:px-6 lg:px-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
+                {challengeSpotlights.map((ind) => (
+                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
+                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
+                      <div className="h-48 overflow-hidden">
+                        <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      </div>
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <ind.icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <h3 className="font-display font-semibold text-foreground text-base leading-tight">{ind.title}</h3>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{ind.tagline}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
