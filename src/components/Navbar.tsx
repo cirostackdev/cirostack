@@ -89,12 +89,12 @@ const menuData: MenuItem[] = [
       {
         label: "By Vertical",
         children: [
+          { label: "AI Startups", path: "/startups/ai-startup" },
           { label: "Fintech Startups", path: "/startups/fintech" },
           { label: "Healthtech Startups", path: "/startups/healthtech" },
           { label: "Edtech Startups", path: "/startups/edtech" },
           { label: "Proptech Startups", path: "/startups/proptech" },
           { label: "Legaltech Startups", path: "/startups/legaltech" },
-          { label: "AI Startups", path: "/startups/ai-startup" },
           { label: "Logistics & Supply Chain", path: "/startups/logistics-tech" },
           { label: "E-commerce & Retail", path: "/startups/ecommerce" },
           { label: "B2B SaaS", path: "/startups/b2b-saas" },
