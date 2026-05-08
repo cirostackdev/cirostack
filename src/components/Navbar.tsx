@@ -58,12 +58,12 @@ const menuData: MenuItem[] = [
         children: [
           { label: "DevOps Consulting Services", path: "/services/devops" },
           { label: "Software Auditing Services", path: "/services/software-auditing" },
+          { label: "CTO as a Service", path: "/services/cto-as-a-service" },
         ],
       },
       {
         label: "Scale",
         children: [
-          { label: "CTO as a Service", path: "/services/cto-as-a-service" },
           { label: "Dedicated Development Teams", path: "/services/dedicated-teams" },
           { label: "US Nearshore Software Development", path: "/services/nearshore" },
           { label: "Software Development Outsourcing", path: "/services/outsourcing" },

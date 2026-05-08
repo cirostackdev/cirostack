@@ -99,6 +99,7 @@ const phases = [
     services: [
       { label: "DevOps", href: "/services/devops" },
       { label: "Software Auditing", href: "/services/software-auditing" },
+      { label: "CTO as a Service", href: "/services/cto-as-a-service" },
     ],
   },
   {
@@ -107,7 +108,6 @@ const phases = [
       { label: "Nearshore Dev", href: "/services/nearshore" },
       { label: "Outsourcing", href: "/services/outsourcing" },
       { label: "Dedicated Teams", href: "/services/dedicated-teams" },
-      { label: "CTO as a Service", href: "/services/cto-as-a-service" },
     ],
   },
 ];
