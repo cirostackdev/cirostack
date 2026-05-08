@@ -148,7 +148,6 @@
   body {
     @apply bg-background text-foreground font-body antialiased;
     overflow-x: hidden;
-    scrollbar-gutter: stable;
   }
 
   h1,
