@@ -102,7 +102,7 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
         ) : (
           <span>Search across {searchIndex.length} pages</span>
         )}
-        <span className="flex items-center gap-1">
+        <span className="hidden sm:flex items-center gap-1">
           <kbd className="px-1.5 py-0.5 rounded border bg-muted font-mono text-[10px]">
             {typeof navigator !== "undefined" && navigator.platform.includes("Mac") ? "⌘" : "Ctrl"}
           </kbd>
