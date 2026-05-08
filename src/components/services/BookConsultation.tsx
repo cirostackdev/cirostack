@@ -16,7 +16,7 @@ export function BookConsultation({ bookingType }: { bookingType: string }) {
                     viewport={{ once: true }}
                 >
                     <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold mb-6 tracking-tight text-foreground">
-                        Ready to dive deeper?
+                        Ready to start your project?
                     </h2>
                     <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
                         Every incredible product sequence starts with a conversation. Book a zero-pressure {bookingType.toLowerCase()} with our senior engineers to discuss your architecture.

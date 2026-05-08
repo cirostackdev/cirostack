@@ -21,7 +21,7 @@ export function IndustryCTA({ industry }: IndustryCTAProps) {
                     viewport={{ once: true }}
                 >
                     <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold mb-6 tracking-tight text-foreground">
-                        Ready to start your <span className="text-gradient">{industry.title}</span> project?
+                        Ready to start your project?
                     </h2>
 
                     <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
