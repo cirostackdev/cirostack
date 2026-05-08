@@ -11,6 +11,7 @@ import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
 import { MultiSelectFilter } from "@/components/MultiSelectFilter";
 import { projects, projectImages } from "@/data/caseStudies";
+import { servicesData } from "@/data/services";
 
 import heroPortfolio from "@/assets/hero-portfolio.jpg";
 
@@ -23,7 +24,7 @@ const fadeUp = {
 const allProjects = Object.entries(projects).map(([id, p]) => ({ id, ...p }));
 const categoriesList = ["All categories", ...Array.from(new Set(allProjects.map(p => p.category))).sort()];
 const countriesList = ["All countries", ...Array.from(new Set(allProjects.map(p => p.country))).sort()];
-const servicesList = ["All services", ...Array.from(new Set(allProjects.map(p => p.service))).sort()];
+const servicesList = ["All services", ...Object.values(servicesData).map(s => s.title).sort()];
 
 const Portfolio = () => {
   const searchParams = useSearchParams();
@@ -38,7 +39,8 @@ const Portfolio = () => {
   const filtered = allProjects.filter((p) => {
     const indMatch = indFilters.length === 0 || indFilters.includes("All categories") || indFilters.includes(p.category);
     const coMatch = countryFilters.length === 0 || countryFilters.includes("All countries") || countryFilters.includes(p.country);
-    const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All services") || serviceFilters.includes(p.service);
+    const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All services") ||
+      serviceFilters.some(f => p.service.toLowerCase().includes(f.toLowerCase()) || f.toLowerCase().includes(p.service.toLowerCase()));
     return indMatch && coMatch && svcMatch;
   });
 
