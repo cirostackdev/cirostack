@@ -425,12 +425,12 @@ const Index = () => {
             <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
                 {verticalSpotlights.map((ind) => (
-                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
-                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
-                      <div className="h-48 overflow-hidden">
+                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start flex flex-col">
+                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
+                      <div className="h-48 overflow-hidden shrink-0">
                         <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       </div>
-                      <div className="p-5">
+                      <div className="p-5 flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                             <ind.icon className="w-4 h-4 text-primary" />
@@ -465,12 +465,12 @@ const Index = () => {
             <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
                 {founderSpotlights.map((ind) => (
-                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
-                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
-                      <div className="h-48 overflow-hidden">
+                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start flex flex-col">
+                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
+                      <div className="h-48 overflow-hidden shrink-0">
                         <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       </div>
-                      <div className="p-5">
+                      <div className="p-5 flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                             <ind.icon className="w-4 h-4 text-primary" />
@@ -521,12 +521,12 @@ const Index = () => {
             <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
                 {stageSpotlights.map((ind) => (
-                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
-                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
-                      <div className="h-48 overflow-hidden">
+                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start flex flex-col">
+                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
+                      <div className="h-48 overflow-hidden shrink-0">
                         <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       </div>
-                      <div className="p-5">
+                      <div className="p-5 flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                             <ind.icon className="w-4 h-4 text-primary" />
@@ -561,12 +561,12 @@ const Index = () => {
             <div className="relative min-w-0 -mr-4 md:-mr-6 lg:-mr-12">
               <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pr-4 md:pr-6 lg:pr-12 max-md:[&::-webkit-scrollbar]:hidden max-md:[scrollbar-width:none]">
                 {challengeSpotlights.map((ind) => (
-                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start">
-                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
-                      <div className="h-48 overflow-hidden">
+                  <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start flex flex-col">
+                    <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
+                      <div className="h-48 overflow-hidden shrink-0">
                         <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       </div>
-                      <div className="p-5">
+                      <div className="p-5 flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                             <ind.icon className="w-4 h-4 text-primary" />
