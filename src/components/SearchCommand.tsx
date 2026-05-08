@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useCallback, useState, useMemo, useRef } from "react";
+import { useEffect, useCallback, useState, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Fuse from "fuse.js";
 import {
@@ -25,22 +25,28 @@ const CATEGORY_ORDER: SearchCategory[] = [
   "Blog",
 ];
 
-// Build Fuse instance once — weighted fields so title/tagline rank above body text
-const fuse = new Fuse<SearchItem>(searchIndex, {
+const FUSE_OPTIONS = {
   keys: [
     { name: "title",    weight: 0.5 },
     { name: "subtitle", weight: 0.3 },
     { name: "keywords", weight: 0.2 },
   ],
-  threshold: 0.35,   // 0 = exact, 1 = match anything; 0.35 is a good balance
+  threshold: 0.35,
   includeScore: true,
   minMatchCharLength: 2,
   ignoreLocation: true,
-});
+};
 
 export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
+  const listRef = useRef<HTMLDivElement>(null);
+
+  // Lazily initialise Fuse on the client only
+  const fuse = useRef<Fuse<SearchItem> | null>(null);
+  if (typeof window !== "undefined" && !fuse.current) {
+    fuse.current = new Fuse<SearchItem>(searchIndex, FUSE_OPTIONS);
+  }
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -57,13 +63,6 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
     if (!open) setQuery("");
   }, [open]);
 
-  const listRef = useRef<HTMLDivElement>(null);
-
-  // Reset scroll to top synchronously before paint so the first result stays visible
-  useLayoutEffect(() => {
-    if (listRef.current) listRef.current.scrollTop = 0;
-  }, [grouped]);
-
   const handleSelect = useCallback(
     (href: string) => {
       router.push(href);
@@ -74,12 +73,10 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
 
   const { grouped, resultCount } = useMemo(() => {
     const q = query.trim();
-    if (!q) return { grouped: [], resultCount: null };
+    if (!q || !fuse.current) return { grouped: [], resultCount: null };
 
-    // Keep Fuse results in score order (best first)
-    const fuseResults = fuse.search(q);
+    const fuseResults = fuse.current.search(q);
 
-    // Build groups, preserving per-item score order within each category
     const groups = CATEGORY_ORDER
       .map((cat) => ({
         category: cat,
@@ -87,12 +84,16 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
         bestScore: fuseResults.find((r) => r.item.category === cat)?.score ?? 1,
       }))
       .filter(({ items }) => items.length > 0)
-      // Sort groups so the category with the best (lowest) score appears first
       .sort((a, b) => a.bestScore - b.bestScore)
       .map(({ category, items }) => ({ category, items }));
 
     return { grouped: groups, resultCount: fuseResults.length };
   }, [query]);
+
+  // Reset scroll to top after results update
+  useEffect(() => {
+    if (listRef.current) listRef.current.scrollTop = 0;
+  }, [grouped]);
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
