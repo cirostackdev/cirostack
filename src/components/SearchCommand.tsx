@@ -27,15 +27,18 @@ const CATEGORY_ORDER: SearchCategory[] = [
 
 const FUSE_OPTIONS = {
   keys: [
-    { name: "title",    weight: 0.5 },
+    { name: "title",    weight: 0.6 },
     { name: "subtitle", weight: 0.3 },
-    { name: "keywords", weight: 0.2 },
+    { name: "keywords", weight: 0.1 },
   ],
-  threshold: 0.35,
+  threshold: 0.2,
   includeScore: true,
-  minMatchCharLength: 2,
+  minMatchCharLength: 3,
   ignoreLocation: true,
 };
+
+const MIN_QUERY_LENGTH = 3;
+const MAX_PER_CATEGORY = 5;
 
 export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
   const router = useRouter();
@@ -73,21 +76,22 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
 
   const { grouped, resultCount } = useMemo(() => {
     const q = query.trim();
-    if (!q || !fuse.current) return { grouped: [], resultCount: null };
+    if (!q || q.length < MIN_QUERY_LENGTH || !fuse.current) return { grouped: [], resultCount: null };
 
     const fuseResults = fuse.current.search(q);
 
     const groups = CATEGORY_ORDER
       .map((cat) => ({
         category: cat,
-        items: fuseResults.filter((r) => r.item.category === cat).map((r) => r.item),
+        items: fuseResults.filter((r) => r.item.category === cat).map((r) => r.item).slice(0, MAX_PER_CATEGORY),
         bestScore: fuseResults.find((r) => r.item.category === cat)?.score ?? 1,
       }))
       .filter(({ items }) => items.length > 0)
       .sort((a, b) => a.bestScore - b.bestScore)
       .map(({ category, items }) => ({ category, items }));
 
-    return { grouped: groups, resultCount: fuseResults.length };
+    const total = groups.reduce((sum, g) => sum + g.items.length, 0);
+    return { grouped: groups, resultCount: total };
   }, [query]);
 
   // Reset scroll to top after results update
@@ -103,8 +107,11 @@ export function SearchCommand({ open, onOpenChange }: SearchCommandProps) {
         onValueChange={setQuery}
       />
       <CommandList ref={listRef} className="max-h-[420px] overflow-y-auto">
-        {query.trim() !== "" && grouped.length === 0 && (
-          <CommandEmpty>No results found. Try a different search term.</CommandEmpty>
+        {query.trim().length > 0 && query.trim().length < MIN_QUERY_LENGTH && (
+          <CommandEmpty>Keep typing…</CommandEmpty>
+        )}
+        {query.trim().length >= MIN_QUERY_LENGTH && grouped.length === 0 && (
+          <CommandEmpty>No results found.</CommandEmpty>
         )}
         {grouped.map(({ category, items }) => (
           <CommandGroup key={category} heading={category}>
