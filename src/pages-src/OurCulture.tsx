@@ -55,8 +55,7 @@ const OurCulture = () => {
             />
             <PageHero
                 badge="Our Culture"
-                title="Built by people who"
-                highlight="love what they do"
+                title="Built by people who love what they do"
                 description="We're not just a company: we're a community. CiroStack is built on trust, creativity, and the belief that happy teams build extraordinary products."
                 image={heroCulture}
                 ctaText="View Open Roles"

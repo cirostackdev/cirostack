@@ -81,8 +81,7 @@ const Events = () => {
             />
             <PageHero
                 badge="Events"
-                title="Connect with the"
-                highlight="CiroStack team"
+                title="Connect with the CiroStack team"
                 description="Join us at webinars, workshops, and conferences. Learn from our team, connect with industry peers, and stay ahead of the technology curve."
                 image={heroEvents}
                 ctaText="See Upcoming Events"

@@ -72,8 +72,7 @@ const Newsletter = () => {
             />
             <PageHero
                 badge="Newsletter"
-                title="Stay sharp with the"
-                highlight="CiroStack Digest"
+                title="Stay sharp with the CiroStack Digest"
                 description="Join 12,000+ founders, engineers, and business leaders who read our weekly newsletter on technology, AI, and software development."
                 image={heroNewsletter}
                 ctaText="Subscribe Free"
