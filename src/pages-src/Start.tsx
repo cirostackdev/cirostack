@@ -37,7 +37,7 @@ const Start = () => {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
           <svg className="w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="contact-bg-gradient" x1="100%" y1="0%" x2="0%" y2="100%">
+              <linearGradient id="contact-bg-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="hsl(var(--gradient-start))" />
                 <stop offset="100%" stopColor="hsl(var(--gradient-end))" />
               </linearGradient>
