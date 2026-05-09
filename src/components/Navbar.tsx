@@ -672,9 +672,10 @@ const Navbar = () => {
 
             {/* Desktop nav links */}
             <div className="hidden lg:flex items-center gap-1">
-              {menuData.map((item) => {
+              {menuData.map((item, idx) => {
                 const hasChildren = item.children && item.children.length > 0;
                 const active = isItemActive(item, pathname);
+                const itemLight = idx >= menuData.length - 3 ? useRightLight : useLight;
                 return (
                   <div
                     key={item.label}
@@ -689,7 +690,7 @@ const Navbar = () => {
                           "px-3 py-2 text-sm font-medium transition-colors duration-200 flex items-center gap-1",
                           active
                             ? "text-primary font-bold"
-                            : useLight
+                            : itemLight
                               ? "text-white/90 hover:text-white"
                               : "text-foreground hover:text-primary"
                         )}
@@ -702,7 +703,7 @@ const Navbar = () => {
                           "px-3 py-2 text-sm transition-colors duration-200 flex items-center gap-1",
                           active
                             ? "text-primary font-bold"
-                            : useLight
+                            : itemLight
                               ? "text-white/90 hover:text-white"
                               : "text-foreground hover:text-primary",
                           !active && activeDropdown === item.label
