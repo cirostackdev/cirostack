@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
-import { CalendarCheck, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 
@@ -35,18 +35,17 @@ const ContactConsultation = () => {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Book a Free Consultation</h1>
               <p className="text-muted-foreground leading-relaxed mb-10">A 30-minute call with a senior engineer. No sales pitch — just a straight conversation about your idea and whether we're the right fit.</p>
-              <h2 className="text-xl font-display font-bold text-foreground mb-6">What to expect</h2>
-              <div className="space-y-5 mb-8">
+              <div className="divide-y divide-border mb-8">
                 {[
                   "30 minutes, no prep required",
                   "You talk to an engineer, not a salesperson",
                   "We'll tell you honestly if we're not the right fit",
                   "No obligation to proceed after the call",
                   "Follow-up notes sent within 2 hours",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
-                    <p className="text-sm text-muted-foreground">{item}</p>
+                ].map((item, i) => (
+                  <div key={item} className="py-4 flex gap-6">
+                    <span className="text-xs font-bold text-primary tabular-nums shrink-0 mt-0.5">0{i + 1}</span>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item}</p>
                   </div>
                 ))}
               </div>

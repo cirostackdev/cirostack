@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
-import { Rocket, Mail, Clock, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 
@@ -35,20 +35,17 @@ const Start = () => {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Start Your Project</h1>
               <p className="text-muted-foreground leading-relaxed mb-10">Tell us what you're building. We'll respond within 24 hours with a fixed-price proposal — no vague estimates, no bait-and-switch.</p>
-              <h2 className="text-xl font-display font-bold text-foreground mb-6">What happens next</h2>
-              <div className="space-y-6">
+              <div className="divide-y divide-border">
                 {[
-                  { icon: Rocket, title: "We review your brief", body: "A senior engineer reads your submission — not a sales rep." },
-                  { icon: Clock, title: "Proposal in 24 hours", body: "You get a scoped proposal with a fixed price and timeline. No guesswork." },
-                  { icon: Mail, title: "You decide", body: "No pressure. Review the proposal and decide if we're the right fit." },
-                ].map(({ icon: Icon, title, body }) => (
-                  <div key={title} className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-foreground" />
-                    </div>
+                  { title: "We review your brief", body: "A senior engineer reads your submission — not a sales rep." },
+                  { title: "Proposal in 24 hours", body: "You get a scoped proposal with a fixed price and timeline. No guesswork." },
+                  { title: "You decide", body: "No pressure. Review the proposal and decide if we're the right fit." },
+                ].map(({ title, body }, i) => (
+                  <div key={title} className="py-5 flex gap-6">
+                    <span className="text-xs font-bold text-primary tabular-nums shrink-0 mt-0.5">0{i + 1}</span>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{title}</h3>
-                      <p className="text-muted-foreground text-sm">{body}</p>
+                      <p className="font-semibold text-foreground mb-1">{title}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
                     </div>
                   </div>
                 ))}

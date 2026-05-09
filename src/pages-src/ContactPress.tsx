@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
-import { Newspaper, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 
@@ -35,18 +35,20 @@ const ContactPress = () => {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Press & Speaking</h1>
               <p className="text-muted-foreground leading-relaxed mb-10">Media inquiries, speaking engagements, workshops, panel discussions, and partnership requests.</p>
-              <h2 className="text-xl font-display font-bold text-foreground mb-6">How we can collaborate</h2>
-              <div className="space-y-6 mb-8">
+              <div className="divide-y divide-border mb-8">
                 {[
                   { title: "Press & Media", body: "Interviews, quotes, expert commentary on software, AI, and African tech." },
                   { title: "Speaking Engagements", body: "Keynotes and talks on startup software development, AI, and building distributed engineering teams." },
                   { title: "Workshops", body: "Hands-on sessions on MVP development, AI integration, and tech strategy for founder groups and accelerators." },
                   { title: "Panel Discussions", body: "Founders, tech leaders, and investors — we're available for curated panels on relevant topics." },
                   { title: "Partnerships", body: "Accelerators, VCs, and communities working with startups — let's talk about how we can add value to your portfolio." },
-                ].map(({ title, body }) => (
-                  <div key={title}>
-                    <h3 className="font-semibold text-foreground text-sm mb-1">{title}</h3>
-                    <p className="text-muted-foreground text-sm">{body}</p>
+                ].map(({ title, body }, i) => (
+                  <div key={title} className="py-5 flex gap-6">
+                    <span className="text-xs font-bold text-primary tabular-nums shrink-0 mt-0.5">0{i + 1}</span>
+                    <div>
+                      <p className="font-semibold text-foreground mb-1">{title}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
+                    </div>
                   </div>
                 ))}
               </div>
