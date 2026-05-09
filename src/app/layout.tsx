@@ -16,7 +16,7 @@ const sora = Sora({
 import { Suspense } from "react";
 import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { ConditionalFooter } from "@/components/ConditionalFooter";
 import { WhatsAppPopup } from "@/components/WhatsAppPopup";
 import { FacebookPixel } from "@/components/FacebookPixel";
 
@@ -115,7 +115,7 @@ gtag('config', 'G-PXTP0DF4VH');`,
             </a>
             <Navbar />
             <main id="main-content" className="flex-1">{children}</main>
-            <Footer />
+            <ConditionalFooter />
             <WhatsAppPopup />
           </div>
         </Providers>
