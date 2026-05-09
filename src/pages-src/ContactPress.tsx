@@ -38,14 +38,12 @@ const ContactPress = () => {
             {/* Info */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Press & Speaking</h1>
-              <p className="text-muted-foreground leading-relaxed mb-10">Media inquiries, speaking engagements, workshops, panel discussions, and partnership requests.</p>
+              <p className="text-muted-foreground leading-relaxed mb-10">Media inquiries, speaking engagements, and panel discussions.</p>
               <div className="divide-y divide-border mb-8">
                 {[
                   { title: "Press & Media", body: "Interviews, quotes, expert commentary on software, AI, and African tech." },
                   { title: "Speaking Engagements", body: "Keynotes and talks on startup software development, AI, and building distributed engineering teams." },
-                  { title: "Workshops", body: "Hands-on sessions on MVP development, AI integration, and tech strategy for founder groups and accelerators." },
                   { title: "Panel Discussions", body: "Founders, tech leaders, and investors — we're available for curated panels on relevant topics." },
-                  { title: "Partnerships", body: "Accelerators, VCs, and communities working with startups — let's talk about how we can add value to your portfolio." },
                 ].map(({ title, body }, i) => (
                   <div key={title} className="py-5 flex gap-6">
                     <span className="text-xs font-bold text-primary tabular-nums shrink-0 mt-0.5">0{i + 1}</span>
@@ -88,9 +86,7 @@ const ContactPress = () => {
                     <SelectContent>
                       <SelectItem value="press">Press / Media Inquiry</SelectItem>
                       <SelectItem value="speaking">Speaking Engagement</SelectItem>
-                      <SelectItem value="workshop">Workshop</SelectItem>
                       <SelectItem value="panel">Panel Discussion</SelectItem>
-                      <SelectItem value="partnership">Accelerator / VC Partnership</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
