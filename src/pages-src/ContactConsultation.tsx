@@ -9,9 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { motion } from "framer-motion";
 import { CalendarCheck, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import PageHero from "@/components/PageHero";
 import { useToast } from "@/hooks/use-toast";
-import heroContact from "@/assets/hero-contact.jpg";
 
 const ContactConsultation = () => {
   const { toast } = useToast();
@@ -30,12 +28,15 @@ const ContactConsultation = () => {
 
   return (
     <Layout>
-      <PageHero
-        icon={CalendarCheck}
-        title="Book a Free Consultation"
-        description="A 30-minute call with a senior engineer. No sales pitch — just a straight conversation about your idea and whether we're the right fit."
-        image={heroContact}
-      />
+      <section className="pt-32 pb-10 md:pt-40 md:pb-14 border-b border-border">
+        <div className="container mx-auto px-4 md:px-6 max-w-2xl text-center">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
+            <CalendarCheck className="w-6 h-6 text-foreground" />
+          </div>
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Book a Free Consultation</h1>
+          <p className="text-muted-foreground leading-relaxed">A 30-minute call with a senior engineer. No sales pitch — just a straight conversation about your idea and whether we're the right fit.</p>
+        </div>
+      </section>
 
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">

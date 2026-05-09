@@ -9,9 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { motion } from "framer-motion";
 import { Briefcase, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import PageHero from "@/components/PageHero";
 import { useToast } from "@/hooks/use-toast";
-import heroCareers from "@/assets/hero-careers.jpg";
 
 const openRoles = [
   "Senior Full-Stack Engineer",
@@ -43,12 +41,15 @@ const CareersApply = () => {
 
   return (
     <Layout>
-      <PageHero
-        icon={Briefcase}
-        title="Apply to CiroStack"
-        description="We review every application personally. If your skills and values align, you'll hear from us within 5 business days."
-        image={heroCareers}
-      />
+      <section className="pt-32 pb-10 md:pt-40 md:pb-14 border-b border-border">
+        <div className="container mx-auto px-4 md:px-6 max-w-2xl text-center">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
+            <Briefcase className="w-6 h-6 text-foreground" />
+          </div>
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Apply to CiroStack</h1>
+          <p className="text-muted-foreground leading-relaxed">We review every application personally. If your skills and values align, you'll hear from us within 5 business days.</p>
+        </div>
+      </section>
 
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">

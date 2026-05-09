@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Rocket, CalendarCheck, Briefcase, Newspaper, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import PageHero from "@/components/PageHero";
-import heroContact from "@/assets/hero-contact.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -48,11 +46,12 @@ const intents = [
 const Contact = () => {
   return (
     <Layout>
-      <PageHero
-        title="How can we help?"
-        description="Choose the option that best fits what you're looking for."
-        image={heroContact}
-      />
+      <section className="pt-32 pb-10 md:pt-40 md:pb-14 border-b border-border">
+        <div className="container mx-auto px-4 md:px-6 max-w-2xl text-center">
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">How can we help?</h1>
+          <p className="text-muted-foreground leading-relaxed">Choose the option that best fits what you're looking for.</p>
+        </div>
+      </section>
 
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">

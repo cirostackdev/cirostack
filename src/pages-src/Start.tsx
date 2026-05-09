@@ -9,9 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { motion } from "framer-motion";
 import { Rocket, Mail, Clock, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import PageHero from "@/components/PageHero";
 import { useToast } from "@/hooks/use-toast";
-import heroContact from "@/assets/hero-contact.jpg";
 
 const Start = () => {
   const { toast } = useToast();
@@ -30,12 +28,15 @@ const Start = () => {
 
   return (
     <Layout>
-      <PageHero
-        icon={Rocket}
-        title="Start Your Project"
-        description="Tell us what you're building. We'll respond within 24 hours with a fixed-price proposal — no vague estimates, no bait-and-switch."
-        image={heroContact}
-      />
+      <section className="pt-32 pb-10 md:pt-40 md:pb-14 border-b border-border">
+        <div className="container mx-auto px-4 md:px-6 max-w-2xl text-center">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
+            <Rocket className="w-6 h-6 text-foreground" />
+          </div>
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Start Your Project</h1>
+          <p className="text-muted-foreground leading-relaxed">Tell us what you're building. We'll respond within 24 hours with a fixed-price proposal — no vague estimates, no bait-and-switch.</p>
+        </div>
+      </section>
 
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">

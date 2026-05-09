@@ -9,9 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { motion } from "framer-motion";
 import { Newspaper, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import PageHero from "@/components/PageHero";
 import { useToast } from "@/hooks/use-toast";
-import heroNewsroom from "@/assets/hero-newsroom.jpg";
 
 const ContactPress = () => {
   const { toast } = useToast();
@@ -30,12 +28,15 @@ const ContactPress = () => {
 
   return (
     <Layout>
-      <PageHero
-        icon={Newspaper}
-        title="Press & Speaking"
-        description="Media inquiries, speaking engagements, workshops, panel discussions, and partnership requests."
-        image={heroNewsroom}
-      />
+      <section className="pt-32 pb-10 md:pt-40 md:pb-14 border-b border-border">
+        <div className="container mx-auto px-4 md:px-6 max-w-2xl text-center">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
+            <Newspaper className="w-6 h-6 text-foreground" />
+          </div>
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Press & Speaking</h1>
+          <p className="text-muted-foreground leading-relaxed">Media inquiries, speaking engagements, workshops, panel discussions, and partnership requests.</p>
+        </div>
+      </section>
 
       <section className="section-padding">
         <div className="container mx-auto px-4 md:px-6">
