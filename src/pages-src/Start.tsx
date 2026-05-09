@@ -18,6 +18,10 @@ const Start = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!e.currentTarget.checkValidity()) {
+      toast({ title: "Please fill in all required fields.", variant: "destructive" });
+      return;
+    }
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -60,7 +64,7 @@ const Start = () => {
 
             {/* Form */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-              <form onSubmit={handleSubmit} className="surface-glass rounded-2xl p-8 space-y-5">
+              <form onSubmit={handleSubmit} noValidate className="surface-glass rounded-2xl p-8 space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Name *</label>
