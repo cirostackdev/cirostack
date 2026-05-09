@@ -65,10 +65,6 @@ const Contact = () => {
           <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] rounded-full bg-accent/10 blur-3xl" />
         </motion.div>
         <div className="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-center mb-10 md:mb-8">
-            <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">How can we help?</h1>
-            <p className="text-muted-foreground leading-relaxed">Choose the option that best fits what you're looking for.</p>
-          </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-x-[10rem] md:gap-y-10 md:-ml-10">
             {intents.map((item, i) => (
               <motion.div
