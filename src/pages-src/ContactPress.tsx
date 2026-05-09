@@ -37,7 +37,7 @@ const ContactPress = () => {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
           <svg className="w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M 620 0 C 570 150, 700 300, 620 450 C 540 600, 680 750, 620 900 L 1440 900 L 1440 0 Z"
+              d="M 680 0 C 630 150, 760 300, 680 450 C 600 600, 740 750, 680 900 L 1440 900 L 1440 0 Z"
               className="fill-primary"
             />
           </svg>
