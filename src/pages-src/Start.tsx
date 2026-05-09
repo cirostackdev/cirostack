@@ -33,9 +33,6 @@ const Start = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Info */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                <Rocket className="w-6 h-6 text-foreground" />
-              </div>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Start Your Project</h1>
               <p className="text-muted-foreground leading-relaxed mb-10">Tell us what you're building. We'll respond within 24 hours with a fixed-price proposal — no vague estimates, no bait-and-switch.</p>
               <h2 className="text-xl font-display font-bold text-foreground mb-6">What happens next</h2>

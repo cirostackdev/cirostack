@@ -33,9 +33,6 @@ const ContactConsultation = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Info */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                <CalendarCheck className="w-6 h-6 text-foreground" />
-              </div>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Book a Free Consultation</h1>
               <p className="text-muted-foreground leading-relaxed mb-10">A 30-minute call with a senior engineer. No sales pitch — just a straight conversation about your idea and whether we're the right fit.</p>
               <h2 className="text-xl font-display font-bold text-foreground mb-6">What to expect</h2>

@@ -33,9 +33,6 @@ const ContactPress = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Info */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                <Newspaper className="w-6 h-6 text-foreground" />
-              </div>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Press & Speaking</h1>
               <p className="text-muted-foreground leading-relaxed mb-10">Media inquiries, speaking engagements, workshops, panel discussions, and partnership requests.</p>
               <h2 className="text-xl font-display font-bold text-foreground mb-6">How we can collaborate</h2>
