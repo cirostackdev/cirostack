@@ -34,18 +34,18 @@ const ContactConsultation = () => {
     <Layout>
       <section className="relative pt-24 pb-12 md:pt-0 md:pb-0 md:h-[calc(100dvh-5rem)] md:mt-20 md:flex md:items-center overflow-hidden">
         {/* Oblique sine wave background — right side */}
-        <div className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
           <svg className="w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M 700 0 C 650 150, 780 300, 700 450 C 620 600, 760 750, 700 900 L 1440 900 L 1440 0 Z"
               className="fill-primary"
             />
           </svg>
-        </div>
+        </motion.div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Info */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Book a Free Consultation</h1>
               <p className="text-muted-foreground leading-relaxed mb-10">A 30-minute call with a senior engineer. No sales pitch — just a straight conversation about your idea and whether we're the right fit.</p>
               <div className="divide-y divide-border mb-8">
@@ -71,7 +71,7 @@ const ContactConsultation = () => {
             </motion.div>
 
             {/* Form */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+            <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}>
               <form onSubmit={handleSubmit} noValidate className="surface-glass rounded-2xl p-6 md:p-8 space-y-4 md:space-y-5 ">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
