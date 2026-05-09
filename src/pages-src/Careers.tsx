@@ -177,7 +177,7 @@ const Careers = () => {
                                         <p className="text-sm text-muted-foreground leading-relaxed">{role.description}</p>
                                     </div>
                                     <div className="shrink-0">
-                                        <Link href={`/contact?role=${encodeURIComponent(role.title)}`}>
+                                        <Link href={`/careers/apply?role=${encodeURIComponent(role.title)}`}>
                                             <Button size="sm">
                                                 Apply <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                                             </Button>
