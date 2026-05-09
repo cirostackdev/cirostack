@@ -28,22 +28,17 @@ const ContactPress = () => {
 
   return (
     <Layout>
-      <section className="pt-32 pb-10 md:pt-40 md:pb-14 border-b border-border">
-        <div className="container mx-auto px-4 md:px-6 max-w-2xl text-center">
-          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
-            <Newspaper className="w-6 h-6 text-foreground" />
-          </div>
-          <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Press & Speaking</h1>
-          <p className="text-muted-foreground leading-relaxed">Media inquiries, speaking engagements, workshops, panel discussions, and partnership requests.</p>
-        </div>
-      </section>
-
-      <section className="section-padding">
+      <section className="section-padding pt-32 md:pt-40">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Info */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-6">How we can collaborate</h2>
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                <Newspaper className="w-6 h-6 text-foreground" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Press & Speaking</h1>
+              <p className="text-muted-foreground leading-relaxed mb-10">Media inquiries, speaking engagements, workshops, panel discussions, and partnership requests.</p>
+              <h2 className="text-xl font-display font-bold text-foreground mb-6">How we can collaborate</h2>
               <div className="space-y-6 mb-8">
                 {[
                   { title: "Press & Media", body: "Interviews, quotes, expert commentary on software, AI, and African tech." },
