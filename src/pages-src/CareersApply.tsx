@@ -129,20 +129,6 @@ const CareersApply = () => {
                     rows={5}
                   />
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">How did you hear about us?</label>
-                  <Select>
-                    <SelectTrigger><SelectValue placeholder="Optional" /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="linkedin">LinkedIn</SelectItem>
-                      <SelectItem value="referral">Referral</SelectItem>
-                      <SelectItem value="google">Google Search</SelectItem>
-                      <SelectItem value="twitter">X / Twitter</SelectItem>
-                      <SelectItem value="blog">CiroStack Blog</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
                 <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? "Submitting..." : "Submit Application"} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
