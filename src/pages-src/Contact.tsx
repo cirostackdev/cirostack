@@ -46,8 +46,17 @@ const intents = [
 const Contact = () => {
   return (
     <Layout>
-      <section className="pt-24 pb-12 md:pt-0 md:pb-0 md:h-[calc(100dvh-5rem)] md:mt-20 md:flex md:flex-col md:justify-center">
-        <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+      <section className="relative pt-24 pb-12 md:pt-0 md:pb-0 md:h-[calc(100dvh-5rem)] md:mt-20 md:flex md:flex-col md:justify-center overflow-hidden">
+        {/* Oblique sine wave background — right side */}
+        <div className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
+          <svg className="w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M 700 0 C 650 150, 780 300, 700 450 C 620 600, 760 750, 700 900 L 1440 900 L 1440 0 Z"
+              className="fill-primary"
+            />
+          </svg>
+        </div>
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
           <div className="text-center mb-10 md:mb-8">
             <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">How can we help?</h1>
             <p className="text-muted-foreground leading-relaxed">Choose the option that best fits what you're looking for.</p>
