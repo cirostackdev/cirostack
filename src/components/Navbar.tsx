@@ -746,7 +746,7 @@ const Navbar = () => {
                 <Button
                   className={cn(
                     "rounded-full px-6",
-                    useRightLight && "bg-white text-primary hover:bg-white/90"
+                    !showBg && isNoHero && "bg-white text-primary hover:bg-white/90"
                   )}
                   size="sm"
                 >
