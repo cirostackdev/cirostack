@@ -616,12 +616,14 @@ const Navbar = () => {
     ? rawPathname.slice(0, -1)
     : rawPathname;
   const isHome = pathname === "/";
-  const showBg = scrolled || activeDropdown !== null || mobileOpen || isNoHero;
+  const showBg = scrolled || activeDropdown !== null || mobileOpen;
   // Pages with no dark hero — navbar should never use white text on these
   const NO_HERO_PATHS = ["/contact", "/start", "/careers/apply"];
   const isNoHero = NO_HERO_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
   // On non-home pages with a dark hero, use white text when not scrolled
   const useLight = !showBg && !isHome && !isNoHero;
+  // Right section uses white on contact pages (over the red SVG)
+  const useRightLight = useLight || (!showBg && isNoHero);
 
   const handleEnterItem = (label: string) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -730,7 +732,7 @@ const Navbar = () => {
                 onClick={() => setSearchOpen(true)}
                 className={cn(
                   "w-10 h-10 rounded-full border flex items-center justify-center transition-colors duration-300",
-                  useLight
+                  useRightLight
                     ? "border-white/30 text-white hover:bg-white/10"
                     : "border-border text-foreground hover:bg-muted"
                 )}
@@ -738,9 +740,15 @@ const Navbar = () => {
               >
                 <Search size={18} />
               </button>
-              <ThemeToggle useLight={useLight} />
+              <ThemeToggle useLight={useRightLight} />
               <Link href="/contact" className="hidden lg:block">
-                <Button className="rounded-full px-6" size="sm">
+                <Button
+                  className={cn(
+                    "rounded-full px-6",
+                    useRightLight && "bg-white text-primary hover:bg-white/90"
+                  )}
+                  size="sm"
+                >
                   Contact us
                 </Button>
               </Link>
@@ -748,7 +756,7 @@ const Navbar = () => {
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className={cn(
                   "lg:hidden w-10 h-10 flex items-center justify-center transition-colors duration-300",
-                  useLight ? "text-white" : "text-foreground"
+                  useRightLight ? "text-white" : "text-foreground"
                 )}
                 aria-label="Toggle menu"
               >
