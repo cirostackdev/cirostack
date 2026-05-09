@@ -45,7 +45,7 @@ const ContactPress = () => {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Info */}
-            <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}>
+            <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} className="md:pr-16">
               <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Press & Speaking</h1>
               <p className="text-muted-foreground leading-relaxed mb-10">Media inquiries, speaking engagements, and panel discussions.</p>
               <div className="divide-y divide-border mb-8">
