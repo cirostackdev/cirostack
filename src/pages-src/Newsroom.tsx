@@ -187,7 +187,7 @@ const Newsroom = () => {
                     <p className="text-muted-foreground text-lg mb-4 max-w-lg mx-auto">Journalists, analysts, and media partners: we'd love to speak with you. Reach out for interviews, quotes, and exclusive briefings.</p>
                     <p className="text-muted-foreground mb-8">
                         Contact our press team at{" "}
-                        <a href="mailto:cirostack@gmail.com" className="text-primary hover:underline font-medium">cirostack@gmail.com</a>
+                        <a href="mailto:contact@cirostack.com" className="text-primary hover:underline font-medium">contact@cirostack.com</a>
                     </p>
                     <Link href="/contact">
                         <Button size="lg">Contact Press Team <ArrowRight className="ml-2 h-4 w-4" /></Button>

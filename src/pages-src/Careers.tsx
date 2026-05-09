@@ -71,13 +71,6 @@ const openRoles: { title: string; department: Department; type: string; location
         location: "Remote",
         description: "Build mobile apps for iOS and Android using React Native. Work on 3–6 month project engagements with exceptional clients.",
     },
-    {
-        title: "Junior AI Researcher",
-        department: "AI/ML",
-        type: "Full-Time",
-        location: "Remote",
-        description: "A great opportunity for a recent grad or career-switcher to enter the AI field. Support our ML engineering team on applied AI projects.",
-    },
 ];
 
 const deptIcons: Partial<Record<Department, React.ElementType>> = {
@@ -134,10 +127,8 @@ const Careers = () => {
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         {[
-                            { value: "30+", label: "Team Members" },
-                            { value: "18+", label: "Countries" },
-                            { value: "4.9★", label: "Glassdoor Rating" },
-                            { value: "96%", label: "Team Satisfaction" },
+                            { value: "5+", label: "Team Members" },
+                            { value: "5+", label: "Countries" },
                         ].map((s, i) => (
                             <motion.div key={s.label} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
                                 <div className="text-4xl font-display font-bold text-foreground mb-2">{s.value}</div>
@@ -186,7 +177,7 @@ const Careers = () => {
                                         <p className="text-sm text-muted-foreground leading-relaxed">{role.description}</p>
                                     </div>
                                     <div className="shrink-0">
-                                        <Link href="/contact">
+                                        <Link href={`/contact?role=${encodeURIComponent(role.title)}`}>
                                             <Button size="sm">
                                                 Apply <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                                             </Button>

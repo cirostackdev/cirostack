@@ -155,13 +155,13 @@ const Footer = () => {
               We build websites, apps & AI tools for growing businesses. Fixed-price development, no surprises.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="LinkedIn">
+              <a href="https://linkedin.com/company/cirostack" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="LinkedIn">
                 <Linkedin size={16} />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Instagram">
+              <a href="https://instagram.com/cirostack" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Instagram">
                 <Instagram size={16} />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Facebook">
+              <a href="https://facebook.com/cirostack" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Facebook">
                 <Facebook size={16} />
               </a>
             </div>
@@ -258,13 +258,13 @@ const Footer = () => {
               We build websites, apps & AI tools for growing businesses. Fixed-price development, no surprises.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="LinkedIn">
+              <a href="https://linkedin.com/company/cirostack" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="LinkedIn">
                 <Linkedin size={16} />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Instagram">
+              <a href="https://instagram.com/cirostack" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Instagram">
                 <Instagram size={16} />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Facebook">
+              <a href="https://facebook.com/cirostack" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Facebook">
                 <Facebook size={16} />
               </a>
             </div>
@@ -339,10 +339,10 @@ const Footer = () => {
               Terms of Service
             </Link>
             <a
-              href="mailto:cirostack@gmail.com"
+              href="mailto:contact@cirostack.com"
               className="text-xs text-primary hover:underline"
             >
-              cirostack@gmail.com
+              contact@cirostack.com
             </a>
           </div>
         </div>

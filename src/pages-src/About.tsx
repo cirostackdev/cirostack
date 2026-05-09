@@ -178,7 +178,7 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
     });
   }, [rounded, suffix]);
 
-  return <span ref={ref}>0{suffix}</span>;
+  return <span ref={ref}>{target}{suffix}</span>;
 }
 
 /* ─── Page ──────────────────────────────────────────────────────────────── */

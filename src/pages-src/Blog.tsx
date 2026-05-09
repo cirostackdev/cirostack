@@ -43,6 +43,10 @@ const categoryOptions = [
   "Product & UX",
   "Industry Insights",
   "Startup Playbook",
+  "Founder Playbook",
+  "MVP & Launch",
+  "Funding & Tech",
+  "African Startups",
 ];
 
 const allTags = [

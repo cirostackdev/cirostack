@@ -257,7 +257,7 @@ const Index = () => {
               <div className="flex lg:hidden items-center gap-6 text-sm">
                 {[
                   { value: "50+", label: "Projects" },
-                  { value: "20+", label: "Industries" },
+                  { value: "10+", label: "Startup Verticals" },
                   { value: "5", label: "Countries" },
                 ].map((s, i) => (
                   <div key={s.label} className="flex items-center gap-6">
