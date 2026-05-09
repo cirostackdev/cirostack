@@ -51,7 +51,7 @@ const Contact = () => {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
           <svg className="w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M 660 0 C 610 150, 740 300, 660 450 C 580 600, 720 750, 660 900 L 1440 900 L 1440 0 Z"
+              d="M 620 0 C 570 150, 700 300, 620 450 C 540 600, 680 750, 620 900 L 1440 900 L 1440 0 Z"
               className="fill-primary"
             />
           </svg>
