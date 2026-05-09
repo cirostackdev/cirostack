@@ -246,3 +246,8 @@
 .animate-marquee-track {
   animation: marquee-track var(--marquee-duration, 40s) linear infinite;
 }
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 0.4;
+}
