@@ -32,7 +32,7 @@ const ContactConsultation = () => {
 
   return (
     <Layout>
-      <section className="section-padding pt-32 md:pt-40">
+      <section className="pt-24 pb-12 md:pt-0 md:pb-0 md:h-[calc(100dvh-5rem)] md:mt-20 md:flex md:items-center">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Info */}
@@ -63,7 +63,7 @@ const ContactConsultation = () => {
 
             {/* Form */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-              <form onSubmit={handleSubmit} noValidate className="surface-glass rounded-2xl p-8 space-y-5">
+              <form onSubmit={handleSubmit} noValidate className="surface-glass rounded-2xl p-6 md:p-8 space-y-4 md:space-y-5 md:max-h-[calc(100dvh-10rem)] md:overflow-y-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Name *</label>
