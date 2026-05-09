@@ -46,7 +46,7 @@ const intents = [
 const Contact = () => {
   return (
     <Layout>
-      <section className="relative pt-24 pb-12 md:pt-0 md:pb-0 md:h-[calc(100dvh-5rem)] md:mt-20 md:flex md:flex-col md:justify-center overflow-hidden">
+      <section className="relative pt-24 pb-12 md:pt-0 md:pb-0 md:h-screen md:pt-24 md:flex md:flex-col md:justify-center overflow-hidden">
         {/* Oblique sine wave background — right side */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
           <svg className="w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
