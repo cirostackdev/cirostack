@@ -52,7 +52,7 @@ const Contact = () => {
             <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">How can we help?</h1>
             <p className="text-muted-foreground leading-relaxed">Choose the option that best fits what you're looking for.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {intents.map((item, i) => (
               <motion.div
                 key={item.label}
@@ -61,19 +61,19 @@ const Contact = () => {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i}
-                className={`group relative p-8 rounded-2xl border flex flex-col justify-between gap-8 transition-all duration-300 hover:shadow-lg ${
+                className={`group relative p-5 md:p-6 rounded-2xl border flex flex-col justify-between gap-4 transition-all duration-300 hover:shadow-lg ${
                   item.highlight
                     ? "bg-primary text-primary-foreground border-primary"
                     : "surface-glass border-border hover:border-primary/40"
                 }`}
               >
                 <div>
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${
                     item.highlight ? "bg-white/20" : "bg-primary/10"
                   }`}>
-                    <item.icon className={`w-6 h-6 ${item.highlight ? "text-white" : "text-foreground"}`} />
+                    <item.icon className={`w-5 h-5 ${item.highlight ? "text-white" : "text-foreground"}`} />
                   </div>
-                  <h2 className={`text-xl font-display font-bold mb-2 ${item.highlight ? "text-white" : "text-foreground"}`}>
+                  <h2 className={`text-lg font-display font-bold mb-1 ${item.highlight ? "text-white" : "text-foreground"}`}>
                     {item.label}
                   </h2>
                   <p className={`text-sm leading-relaxed ${item.highlight ? "text-white/80" : "text-muted-foreground"}`}>
@@ -92,20 +92,6 @@ const Contact = () => {
               </motion.div>
             ))}
           </div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="text-center text-sm text-muted-foreground mt-10"
-          >
-            Not sure which option fits?{" "}
-            <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">
-              Email us directly
-            </a>{" "}
-            and we'll route you to the right person.
-          </motion.p>
         </div>
       </section>
     </Layout>
