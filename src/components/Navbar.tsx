@@ -327,7 +327,7 @@ const ServicesMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
               <span className="text-primary">to business goals</span>
             </h3>
           </div>
-          <Link href="/contact" onClick={onClose}>
+          <Link href="/start" onClick={onClose}>
             <Button className="rounded-full mt-6">
               Let's work together
             </Button>
@@ -427,7 +427,7 @@ const StartupsMegaMenu = ({ onClose, pathname }: { onClose: () => void; pathname
               Fixed price. Senior engineers. Shipped in weeks.
             </p>
           </div>
-          <Link href="/contact" onClick={onClose}>
+          <Link href="/start" onClick={onClose}>
             <Button className="rounded-full mt-6">
               Start your project
             </Button>

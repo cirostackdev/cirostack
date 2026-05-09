@@ -237,7 +237,7 @@ const Sustainability = () => {
                     <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
                         Partner with a technology company that takes its social and environmental responsibility seriously.
                     </p>
-                    <Link href="/contact">
+                    <Link href="/contact/consultation">
                         <Button size="lg">
                             Start a Conversation <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>

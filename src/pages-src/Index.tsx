@@ -241,7 +241,7 @@ const Index = () => {
               </p>
 
               <div className="flex flex-wrap gap-4 mb-8">
-                <Link href="/contact">
+                <Link href="/start">
                   <Button size="lg" className="rounded-full text-base px-8 group">
                     Start Your Project
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -392,7 +392,7 @@ const Index = () => {
           <LifecycleTimeline phases={phases} />
 
           <div className="text-center mt-16 space-y-4">
-            <Link href="/contact">
+            <Link href="/start">
               <Button className="rounded-full px-8" size="lg">
                 Get a quote <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
@@ -769,7 +769,7 @@ const Index = () => {
             <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
               Tell us about your project. We respond within 24 hours with a free, no-obligation quote.
             </p>
-            <Link href="/contact">
+            <Link href="/start">
               <Button size="lg" className="rounded-full px-8 text-base font-semibold group">
                 Get a Free Quote
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

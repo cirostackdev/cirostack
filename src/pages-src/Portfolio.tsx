@@ -132,7 +132,7 @@ const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All ser
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-display font-bold text-foreground mb-4">Want results like these?</h2>
           <p className="text-muted-foreground mb-8">Let's discuss how we can help your business grow.</p>
-          <Link href="/contact"><Button size="lg">Start Your Project <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+          <Link href="/start"><Button size="lg">Start Your Project <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
         </div>
       </section>
     </Layout>

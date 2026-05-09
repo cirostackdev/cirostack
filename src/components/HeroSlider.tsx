@@ -83,7 +83,7 @@ const HeroSlider = () => {
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
-              <Link href="/contact">
+              <Link href="/start">
                 <Button size="lg" variant="outline" className="rounded-full text-base px-8 border-white/20 text-white hover:bg-white/10 hover:text-white">
                   Book a demo
                 </Button>

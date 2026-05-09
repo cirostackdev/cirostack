@@ -259,7 +259,7 @@ const About = () => {
             <p className="mt-6 text-foreground font-display font-semibold">
              : Jessy Onah, Founder
             </p>
-            <Link href="/contact" className="inline-block mt-6">
+            <Link href="/contact/consultation" className="inline-block mt-6">
               <Button>
                 Start a Conversation <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -511,7 +511,7 @@ const About = () => {
             Book a free consultation and we'll scope your project, no strings attached.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/contact">
+            <Link href="/contact/consultation">
               <Button size="lg">
                 Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" />
               </Button>

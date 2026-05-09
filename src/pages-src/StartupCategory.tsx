@@ -237,7 +237,7 @@ export default function StartupCategory({ categoryId }: Props) {
             <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed">
               Tell us about your startup. We respond within 24 hours with a free, no-obligation quote.
             </p>
-            <Link href="/contact">
+            <Link href="/start">
               <Button size="lg" className="rounded-full px-10 group">
                 Get a Free Quote
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

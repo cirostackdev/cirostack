@@ -256,7 +256,7 @@ const Careers = () => {
                 <div className="container mx-auto px-4 md:px-6 max-w-2xl">
                     <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Don't see the right role?</h2>
                     <p className="text-muted-foreground text-lg mb-8">Send us your resume anyway. We keep a talent network for future openings and always love meeting great people.</p>
-                    <Link href="/contact">
+                    <Link href="/careers/apply">
                         <Button size="lg">Send Open Application <ArrowRight className="ml-2 h-4 w-4" /></Button>
                     </Link>
                 </div>

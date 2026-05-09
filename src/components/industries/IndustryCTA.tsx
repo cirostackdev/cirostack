@@ -28,7 +28,7 @@ export function IndustryCTA({ industry }: IndustryCTAProps) {
                         Let's discuss your specific challenges. Our engineering experts will work with you to architect the perfect solution.
                     </p>
 
-                    <Link href="/contact">
+                    <Link href="/contact/consultation">
                         <Button size="lg" className="rounded-full px-8 text-base font-semibold group">
                             Schedule a Consultation <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Button>

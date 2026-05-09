@@ -189,7 +189,7 @@ const Newsroom = () => {
                         Contact our press team at{" "}
                         <a href="mailto:contact@cirostack.com" className="text-primary hover:underline font-medium">contact@cirostack.com</a>
                     </p>
-                    <Link href="/contact">
+                    <Link href="/contact/press">
                         <Button size="lg">Contact Press Team <ArrowRight className="ml-2 h-4 w-4" /></Button>
                     </Link>
                 </div>

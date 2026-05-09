@@ -21,7 +21,7 @@ export function BookConsultation({ bookingType }: { bookingType: string }) {
                     <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
                         Every incredible product sequence starts with a conversation. Book a zero-pressure {bookingType.toLowerCase()} with our senior engineers to discuss your architecture.
                     </p>
-                    <Link href="/contact">
+                    <Link href="/contact/consultation">
                         <Button size="lg" className="rounded-full px-8 text-base font-semibold group">
                             Book a {bookingType}
                             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

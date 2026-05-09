@@ -189,7 +189,7 @@ const Events = () => {
                 <div className="container mx-auto px-4 md:px-6 max-w-2xl">
                     <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Want CiroStack at your event?</h2>
                     <p className="text-muted-foreground text-lg mb-8">Our team is available for speaking engagements, workshops, and panel discussions on software development, AI, and digital transformation.</p>
-                    <Link href="/contact"><Button size="lg">Get in Touch <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+                    <Link href="/contact/press"><Button size="lg">Get in Touch <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
                 </div>
             </section>
         </Layout>

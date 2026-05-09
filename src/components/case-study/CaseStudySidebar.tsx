@@ -90,7 +90,7 @@ const CaseStudySidebar = ({ project }: SidebarProps) => (
     <div className="surface-glass rounded-2xl p-6">
       <h3 className="font-display font-semibold text-foreground mb-3 text-lg">Want results like these?</h3>
       <p className="text-sm text-muted-foreground mb-5">Let's discuss your project and build something great together.</p>
-      <Link href="/contact">
+      <Link href="/start">
         <Button className="w-full">Start Your Project <ArrowRight className="ml-2 h-4 w-4" /></Button>
       </Link>
     </div>

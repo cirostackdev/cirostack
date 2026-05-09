@@ -292,7 +292,7 @@ const Industries = () => {
             <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed">
               Our engineering team adapts to any domain. Tell us about your business and we'll show you how we can help.
             </p>
-            <Link href="/contact">
+            <Link href="/start">
               <Button size="lg" className="rounded-full text-base px-8 group">
                 Get a Free Quote
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
