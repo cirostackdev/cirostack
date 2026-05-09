@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SearchCommand } from "@/components/SearchCommand";
 import logo from "@/assets/logo.png";
+import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
 
 interface MenuItem {
   label: string;
@@ -143,7 +144,7 @@ const menuData: MenuItem[] = [
       },
     ],
   },
-  { label: "Case studies", path: "/portfolio" },
+  ...(!HIDE_CASE_STUDIES ? [{ label: "Case studies", path: "/portfolio" } as MenuItem] : []),
   {
     label: "Insights",
     children: [

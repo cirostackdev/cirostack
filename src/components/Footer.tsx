@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Linkedin, Instagram, Facebook, ArrowRight } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
+import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
 
 const footerColumns = [
   {
@@ -21,44 +22,94 @@ const footerColumns = [
       { label: "Startup Branding", path: "/services/startup-branding" },
       { label: "UX & UI Design Services", path: "/services/ux-ui-design" },
       { label: "Cloud Consulting & Services", path: "/services/cloud-consulting" },
-      { label: "Custom Software Development", path: "/services/websites" },
-      { label: "Software Development for Startups", path: "/services/startups" },
       { label: "Mobile Apps Development Services", path: "/services/apps" },
-      { label: "Cloud Engineering Service", path: "/services/cloud-engineering" },
-      { label: "Embedded Software Services", path: "/services/embedded-software" },
       { label: "Generative AI Development Services", path: "/services/ai" },
       { label: "AI & ML Development Services", path: "/services/ai-ml" },
-      { label: "Data Engineering and Data Science", path: "/services/data-engineering" },
-      { label: "Digital Transformation Solutions", path: "/services/digital-transformation" },
       { label: "DevOps Consulting Services", path: "/services/devops" },
-      { label: "Automation Testing Services", path: "/services/automation-testing" },
       { label: "Software Auditing Services", path: "/services/software-auditing" },
-      { label: "Identity and Access Management", path: "/services/iam" },
-      { label: "Security Audit and Governance", path: "/services/security-audit" },
       { label: "US Nearshore Software Development", path: "/services/nearshore" },
       { label: "Software Development Outsourcing", path: "/services/outsourcing" },
       { label: "Dedicated Development Teams", path: "/services/dedicated-teams" },
     ],
   },
   {
-    title: "Startups",
-    links: [
-      { label: "By Stage", path: "/startups/by-stage" },
-      { label: "By Vertical", path: "/startups/by-vertical" },
-      { label: "By Product Type", path: "/startups/by-product" },
-      { label: "By Founder Type", path: "/startups/by-founder" },
-      { label: "By Challenge", path: "/startups/by-challenge" },
-      { label: "By Engagement", path: "/startups/by-engagement" },
-    ],
-  },
-  {
     title: "Insights",
     links: [
       { label: "Blog", path: "/blog" },
-      { label: "Case Studies", path: "/portfolio" },
+      ...(!HIDE_CASE_STUDIES ? [{ label: "Case Studies", path: "/portfolio" }] : []),
       { label: "Resources", path: "/resources" },
       { label: "Events", path: "/events" },
       { label: "Newsroom", path: "/newsroom" },
+    ],
+  },
+];
+
+const startupsColumns = [
+  {
+    title: "By Stage",
+    links: [
+      { label: "Pre-Idea Exploration", path: "/startups/pre-idea" },
+      { label: "Validation Stage", path: "/startups/validation" },
+      { label: "MVP Development", path: "/startups/mvp" },
+      { label: "Early Traction", path: "/startups/early-traction" },
+      { label: "Seed Stage", path: "/startups/seed-stage" },
+      { label: "Growth Stage", path: "/startups/growth" },
+      { label: "Scale-Up", path: "/startups/scale-up" },
+    ],
+  },
+  {
+    title: "By Vertical",
+    links: [
+      { label: "AI Startups", path: "/startups/ai-startup" },
+      { label: "Fintech Startups", path: "/startups/fintech" },
+      { label: "Healthtech Startups", path: "/startups/healthtech" },
+      { label: "Edtech Startups", path: "/startups/edtech" },
+      { label: "Proptech Startups", path: "/startups/proptech" },
+      { label: "Legaltech Startups", path: "/startups/legaltech" },
+      { label: "Logistics & Supply Chain", path: "/startups/logistics-tech" },
+      { label: "E-commerce & Retail", path: "/startups/ecommerce" },
+      { label: "B2B SaaS", path: "/startups/b2b-saas" },
+      { label: "Consumer Apps", path: "/startups/consumer-apps" },
+    ],
+  },
+  {
+    title: "By Product Type",
+    links: [
+      { label: "Web Application", path: "/startups/web-app" },
+      { label: "Mobile App", path: "/startups/mobile-app" },
+      { label: "AI-Powered Product", path: "/startups/ai-product" },
+      { label: "SaaS Platform", path: "/startups/saas-platform" },
+      { label: "Marketplace", path: "/startups/marketplace" },
+      { label: "API Product", path: "/startups/api-product" },
+    ],
+  },
+  {
+    title: "By Founder Type",
+    links: [
+      { label: "Non-Technical Founder", path: "/startups/non-technical-founder" },
+      { label: "First-Time Founder", path: "/startups/first-time-founder" },
+      { label: "Solo Founder", path: "/startups/solo-founder" },
+      { label: "Repeat Founder", path: "/startups/repeat-founder" },
+      { label: "Student Startup", path: "/startups/student-startup" },
+      { label: "Corporate Innovator", path: "/startups/corporate-innovator" },
+      { label: "Female-Led Startup", path: "/startups/female-led" },
+      { label: "African Startup", path: "/startups/african-startup" },
+      { label: "Diaspora Founder", path: "/startups/diaspora-founder" },
+      { label: "Social Enterprise", path: "/startups/social-enterprise" },
+    ],
+  },
+  {
+    title: "By Challenge",
+    links: [
+      { label: "Need an MVP Fast", path: "/startups/fast-mvp" },
+      { label: "Outgrowing Current Tech", path: "/startups/scaling-tech" },
+      { label: "Agency Rescue", path: "/startups/agency-rescue" },
+      { label: "Preparing for Funding", path: "/startups/fundraising-ready" },
+      { label: "Adding AI Features", path: "/startups/ai-integration" },
+      { label: "Crushing Tech Debt", path: "/startups/tech-debt" },
+      { label: "Post-Pivot Rebuild", path: "/startups/post-pivot" },
+      { label: "No In-House Tech Team", path: "/startups/no-tech-team" },
+      { label: "Launching in Africa", path: "/startups/africa-launch" },
     ],
   },
 ];
@@ -90,124 +141,110 @@ const Footer = () => {
 
       {/* Main Footer Grid */}
       <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
-        {/* Desktop layout */}
-        <div className="hidden md:block space-y-12">
-          {/* Top row: Brand + Who we are + Insights */}
-          <div className="grid md:grid-cols-4 gap-10">
-            {/* Brand Column */}
-            <div>
-              <Link href="/" className="flex items-center gap-2 mb-6">
-                <img src={logo} alt="CiroStack logo" className="w-8 h-8 object-contain" />
-                <span className="font-display font-bold text-xl text-foreground">
-                  Ciro<span className="text-primary">Stack</span>
-                </span>
-              </Link>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                We build websites, apps & AI tools for growing businesses. Fixed-price development, no surprises.
-              </p>
-              <div className="flex gap-3">
-                <a
-                  href="#"
-                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin size={16} />
-                </a>
-                <a
-                  href="#"
-                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
-                  aria-label="Instagram"
-                >
-                  <Instagram size={16} />
-                </a>
-                <a
-                  href="#"
-                  className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
-                  aria-label="Facebook"
-                >
-                  <Facebook size={16} />
-                </a>
-              </div>
-            </div>
-
-            {/* Who we are */}
-            <div>
-              <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
-                {footerColumns[0].title}
-              </h4>
-              <div className="flex flex-col gap-3">
-                {footerColumns[0].links.map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Insights */}
-            <div>
-              <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
-                {footerColumns[3].title}
-              </h4>
-              <div className="flex flex-col gap-3">
-                {footerColumns[3].links.map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
+        {/* Desktop: top row — Brand | Who we are | Services (×2) | Insights */}
+        <div className="hidden md:grid md:grid-cols-[1.2fr_1fr_1fr_1fr_1fr] gap-10 mb-14">
+          {/* Brand */}
+          <div>
+            <Link href="/" className="flex items-center gap-2 mb-6">
+              <img src={logo} alt="CiroStack logo" className="w-8 h-8 object-contain" />
+              <span className="font-display font-bold text-xl text-foreground">
+                Ciro<span className="text-primary">Stack</span>
+              </span>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              We build websites, apps & AI tools for growing businesses. Fixed-price development, no surprises.
+            </p>
+            <div className="flex gap-3">
+              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="LinkedIn">
+                <Linkedin size={16} />
+              </a>
+              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Instagram">
+                <Instagram size={16} />
+              </a>
+              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Facebook">
+                <Facebook size={16} />
+              </a>
             </div>
           </div>
 
-          {/* Bottom row: Services + Industries (multi-column) */}
-          <div className="grid md:grid-cols-2 gap-10">
-            {/* Services */}
-            <div>
-              <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
-                {footerColumns[1].title}
-              </h4>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-3">
-                {footerColumns[1].links.map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
+          {/* Who we are */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
+              {footerColumns[0].title}
+            </h4>
+            <div className="flex flex-col gap-3">
+              {footerColumns[0].links.map((link) => (
+                <Link key={link.path} href={link.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  {link.label}
+                </Link>
+              ))}
             </div>
+          </div>
 
-            {/* Industries */}
-            <div>
-              <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
-                {footerColumns[2].title}
-              </h4>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-3">
-                {footerColumns[2].links.map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
+          {/* Services — first half */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
+              {footerColumns[1].title}
+            </h4>
+            <div className="flex flex-col gap-3">
+              {footerColumns[1].links.slice(0, 6).map((link) => (
+                <Link key={link.path} href={link.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Services — second half */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
+              {footerColumns[1].title}
+            </h4>
+            <div className="flex flex-col gap-3">
+              {footerColumns[1].links.slice(6).map((link) => (
+                <Link key={link.path} href={link.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Insights */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
+              {footerColumns[2].title}
+            </h4>
+            <div className="flex flex-col gap-3">
+              {footerColumns[2].links.map((link) => (
+                <Link key={link.path} href={link.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Mobile: compact stacked layout */}
+        {/* Desktop: startups row — 6 sub-columns */}
+        <div className="hidden md:block border-t border-border pt-12">
+          <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr_1fr] gap-8">
+            {startupsColumns.map((col) => (
+              <div key={col.title}>
+                <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
+                  {col.title}
+                </h4>
+                <div className="flex flex-col gap-3">
+                  {col.links.map((link) => (
+                    <Link key={link.path} href={link.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile: stacked */}
         <div className="md:hidden space-y-10">
           {/* Brand */}
           <div>
@@ -221,44 +258,28 @@ const Footer = () => {
               We build websites, apps & AI tools for growing businesses. Fixed-price development, no surprises.
             </p>
             <div className="flex gap-3">
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
-                aria-label="LinkedIn"
-              >
+              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="LinkedIn">
                 <Linkedin size={16} />
               </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
-                aria-label="Instagram"
-              >
+              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Instagram">
                 <Instagram size={16} />
               </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
-                aria-label="Facebook"
-              >
+              <a href="#" className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors" aria-label="Facebook">
                 <Facebook size={16} />
               </a>
             </div>
           </div>
 
-          {/* Short columns side by side: Who we are + Insights */}
+          {/* Who we are + Insights side by side */}
           <div className="grid grid-cols-2 gap-10">
-            {[footerColumns[0], footerColumns[3]].map((col) => (
+            {[footerColumns[0], footerColumns[2]].map((col) => (
               <div key={col.title}>
                 <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
                   {col.title}
                 </h4>
                 <div className="flex flex-col gap-3">
                   {col.links.map((link) => (
-                    <Link
-                      key={link.path}
-                      href={link.path}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
+                    <Link key={link.path} href={link.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                       {link.label}
                     </Link>
                   ))}
@@ -267,38 +288,37 @@ const Footer = () => {
             ))}
           </div>
 
-          {/* Services: full width, 2-column sub-grid */}
+          {/* Services */}
           <div>
             <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
               {footerColumns[1].title}
             </h4>
             <div className="grid grid-cols-2 gap-x-6 gap-y-3">
               {footerColumns[1].links.map((link) => (
-                <Link
-                  key={link.path}
-                  href={link.path}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
+                <Link key={link.path} href={link.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   {link.label}
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Industries: full width, 2-column sub-grid */}
-          <div>
-            <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-5">
-              {footerColumns[2].title}
-            </h4>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-              {footerColumns[2].links.map((link) => (
-                <Link
-                  key={link.path}
-                  href={link.path}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </Link>
+          {/* Startups: 2-col grid of sub-sections */}
+          <div className="border-t border-border pt-10">
+            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-8">Startups</p>
+            <div className="grid grid-cols-2 gap-10">
+              {startupsColumns.map((col) => (
+                <div key={col.title}>
+                  <h4 className="font-display font-semibold text-foreground text-sm uppercase tracking-wider mb-4">
+                    {col.title}
+                  </h4>
+                  <div className="flex flex-col gap-2.5">
+                    {col.links.map((link) => (
+                      <Link key={link.path} href={link.path} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>

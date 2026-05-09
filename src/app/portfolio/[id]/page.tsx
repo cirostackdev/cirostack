@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { projects } from "@/data/caseStudies";
 import CaseStudy from "@/pages-src/CaseStudy";
+import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -108,6 +110,7 @@ const PORTFOLIO_OG: Record<string, { ogTitle: string; ogDesc: string }> = {
 };
 
 export async function generateStaticParams() {
+  if (HIDE_CASE_STUDIES) return [];
   return Object.keys(projects).map((id) => ({ id }));
 }
 
@@ -140,6 +143,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CaseStudyPage({ params }: Props) {
+  if (HIDE_CASE_STUDIES) notFound();
   void params;
   return <CaseStudy />;
 }

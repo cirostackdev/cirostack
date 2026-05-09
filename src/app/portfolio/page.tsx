@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 import Portfolio from "@/pages-src/Portfolio";
+import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default function PortfolioPage() {
+  if (HIDE_CASE_STUDIES) notFound();
   return (
     <Suspense fallback={null}>
       <Portfolio />

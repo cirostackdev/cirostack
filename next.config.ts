@@ -1,7 +1,16 @@
 import type { NextConfig } from "next";
 
+const HIDE_CASE_STUDIES = process.env.NEXT_PUBLIC_HIDE_CASE_STUDIES === "true";
+
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  async redirects() {
+    if (!HIDE_CASE_STUDIES) return [];
+    return [
+      { source: "/portfolio", destination: "/", permanent: false },
+      { source: "/portfolio/:path*", destination: "/", permanent: false },
+    ];
+  },
   images: {
     unoptimized: true,
   },
