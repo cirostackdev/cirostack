@@ -43,7 +43,7 @@ const ContactConsultation = () => {
               </linearGradient>
             </defs>
             <path
-              d="M 680 0 C 630 150, 760 300, 680 450 C 600 600, 740 750, 680 900 L 1440 900 L 1440 0 Z"
+              d="M 690 0 C 640 150, 770 300, 690 450 C 610 600, 750 750, 690 900 L 1440 900 L 1440 0 Z"
               fill="url(#contact-bg-gradient)"
             />
           </svg>
