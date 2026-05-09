@@ -36,11 +36,19 @@ const ContactConsultation = () => {
         {/* Oblique sine wave background — right side */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
           <svg className="w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="contact-bg-gradient" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="hsl(var(--gradient-start))" />
+                <stop offset="100%" stopColor="hsl(var(--gradient-end))" />
+              </linearGradient>
+            </defs>
             <path
               d="M 680 0 C 630 150, 760 300, 680 450 C 600 600, 740 750, 680 900 L 1440 900 L 1440 0 Z"
-              className="fill-primary"
+              fill="url(#contact-bg-gradient)"
             />
           </svg>
+          <div className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] rounded-full bg-accent/10 blur-3xl" />
         </motion.div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
