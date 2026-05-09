@@ -616,7 +616,7 @@ const Navbar = () => {
     ? rawPathname.slice(0, -1)
     : rawPathname;
   const isHome = pathname === "/";
-  const showBg = scrolled || activeDropdown !== null || mobileOpen;
+  const showBg = scrolled || activeDropdown !== null || mobileOpen || isNoHero;
   // Pages with no dark hero — navbar should never use white text on these
   const NO_HERO_PATHS = ["/contact", "/start", "/careers/apply"];
   const isNoHero = NO_HERO_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
