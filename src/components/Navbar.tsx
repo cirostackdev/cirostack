@@ -617,8 +617,11 @@ const Navbar = () => {
     : rawPathname;
   const isHome = pathname === "/";
   const showBg = scrolled || activeDropdown !== null || mobileOpen;
-  // On non-home pages, use white text over the dark hero when not scrolled
-  const useLight = !showBg && !isHome;
+  // Pages with no dark hero — navbar should never use white text on these
+  const NO_HERO_PATHS = ["/contact", "/start", "/careers/apply"];
+  const isNoHero = NO_HERO_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
+  // On non-home pages with a dark hero, use white text when not scrolled
+  const useLight = !showBg && !isHome && !isNoHero;
 
   const handleEnterItem = (label: string) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
