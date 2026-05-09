@@ -756,7 +756,7 @@ const Navbar = () => {
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className={cn(
                   "lg:hidden w-10 h-10 flex items-center justify-center transition-colors duration-300",
-                  useRightLight ? "text-white" : "text-foreground"
+                  useLight ? "text-white" : "text-foreground"
                 )}
                 aria-label="Toggle menu"
               >
