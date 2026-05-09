@@ -69,7 +69,7 @@ const Contact = () => {
             <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">How can we help?</h1>
             <p className="text-muted-foreground leading-relaxed">Choose the option that best fits what you're looking for.</p>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-x-[7.5rem] md:gap-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-x-[10rem] md:gap-y-10">
             {intents.map((item, i) => (
               <motion.div
                 key={item.label}
