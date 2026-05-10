@@ -16,18 +16,34 @@ const Start = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [fields, setFields] = useState({
+    name: "", company: "", email: "", phone: "",
+    service: "", budget: "", timeline: "", description: "",
+  });
+
+  const set = (k: keyof typeof fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFields(f => ({ ...f, [k]: e.target.value }));
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!e.currentTarget.checkValidity()) {
+    if (!fields.name || !fields.email || !fields.service || !fields.description) {
       toast({ title: "Please fill in all required fields.", variant: "destructive" });
       return;
     }
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast({ title: "Project brief received!", description: "We'll send you a scoped proposal within 24 hours." });
+    try {
+      const res = await fetch("/api/contact/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
+      if (!res.ok) throw new Error();
       router.push("/thank-you");
-    }, 1000);
+    } catch {
+      toast({ title: "Something went wrong. Please try again or email us directly.", variant: "destructive" });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -42,10 +58,7 @@ const Start = () => {
                 <stop offset="100%" stopColor="hsl(var(--gradient-end))" />
               </linearGradient>
             </defs>
-            <path
-              d="M 695 0 C 645 150, 775 300, 695 450 C 615 600, 755 750, 695 900 L 1440 900 L 1440 0 Z"
-              fill="url(#contact-bg-gradient)"
-            />
+            <path d="M 695 0 C 645 150, 775 300, 695 450 C 615 600, 755 750, 695 900 L 1440 900 L 1440 0 Z" fill="url(#contact-bg-gradient)" />
           </svg>
           <div className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] rounded-full bg-accent/10 blur-3xl" />
@@ -73,82 +86,80 @@ const Start = () => {
               </div>
               <p className="mt-8 text-sm text-muted-foreground">
                 Prefer email?{" "}
-                <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">
-                  contact@cirostack.com
-                </a>
+                <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">contact@cirostack.com</a>
               </p>
             </motion.div>
 
             {/* Form */}
             <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}>
-              <form onSubmit={handleSubmit} noValidate className="surface-glass rounded-2xl p-6 md:p-8 space-y-4 md:space-y-5 ">
+              <form onSubmit={handleSubmit} className="surface-glass rounded-2xl p-6 md:p-8 space-y-4 md:space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Name *</label>
-                    <Input required placeholder="Jane Smith" />
+                    <Input required placeholder="Jane Smith" value={fields.name} onChange={set("name")} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Company</label>
-                    <Input placeholder="Your startup or company" />
+                    <Input placeholder="Your startup or company" value={fields.company} onChange={set("company")} />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Email *</label>
-                    <Input required type="email" placeholder="jane@startup.com" />
+                    <Input required type="email" placeholder="jane@startup.com" value={fields.email} onChange={set("email")} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Phone</label>
-                    <Input type="tel" placeholder="+1 (555) 000-0000" />
+                    <Input type="tel" placeholder="+1 (555) 000-0000" value={fields.phone} onChange={set("phone")} />
                   </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">What are you building? *</label>
-                  <Select required>
+                  <Select required value={fields.service} onValueChange={v => setFields(f => ({ ...f, service: v }))}>
                     <SelectTrigger><SelectValue placeholder="Select a service" /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="website">Website / Landing Page</SelectItem>
-                      <SelectItem value="webapp">Web Application</SelectItem>
-                      <SelectItem value="mobile">Mobile App (iOS / Android)</SelectItem>
-                      <SelectItem value="ai">AI / Automation Tool</SelectItem>
-                      <SelectItem value="saas">SaaS Platform</SelectItem>
-                      <SelectItem value="mvp">MVP / Prototype</SelectItem>
-                      <SelectItem value="devops">DevOps / Cloud Infrastructure</SelectItem>
-                      <SelectItem value="audit">Software Audit</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="Website / Landing Page">Website / Landing Page</SelectItem>
+                      <SelectItem value="Web Application">Web Application</SelectItem>
+                      <SelectItem value="Mobile App (iOS / Android)">Mobile App (iOS / Android)</SelectItem>
+                      <SelectItem value="AI / Automation Tool">AI / Automation Tool</SelectItem>
+                      <SelectItem value="SaaS Platform">SaaS Platform</SelectItem>
+                      <SelectItem value="MVP / Prototype">MVP / Prototype</SelectItem>
+                      <SelectItem value="DevOps / Cloud Infrastructure">DevOps / Cloud Infrastructure</SelectItem>
+                      <SelectItem value="Software Audit">Software Audit</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Budget range</label>
-                    <Select>
+                    <Select value={fields.budget} onValueChange={v => setFields(f => ({ ...f, budget: v }))}>
                       <SelectTrigger><SelectValue placeholder="Select budget" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="under5k">Under $5,000</SelectItem>
-                        <SelectItem value="5k-15k">$5,000 – $15,000</SelectItem>
-                        <SelectItem value="15k-30k">$15,000 – $30,000</SelectItem>
-                        <SelectItem value="30k-60k">$30,000 – $60,000</SelectItem>
-                        <SelectItem value="60k+">$60,000+</SelectItem>
+                        <SelectItem value="Under $5,000">Under $5,000</SelectItem>
+                        <SelectItem value="$5,000 – $15,000">$5,000 – $15,000</SelectItem>
+                        <SelectItem value="$15,000 – $30,000">$15,000 – $30,000</SelectItem>
+                        <SelectItem value="$30,000 – $60,000">$30,000 – $60,000</SelectItem>
+                        <SelectItem value="$60,000+">$60,000+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Timeline</label>
-                    <Select>
+                    <Select value={fields.timeline} onValueChange={v => setFields(f => ({ ...f, timeline: v }))}>
                       <SelectTrigger><SelectValue placeholder="Select timeline" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="asap">ASAP</SelectItem>
-                        <SelectItem value="1-2months">1–2 months</SelectItem>
-                        <SelectItem value="3-6months">3–6 months</SelectItem>
-                        <SelectItem value="flexible">Flexible</SelectItem>
+                        <SelectItem value="ASAP">ASAP</SelectItem>
+                        <SelectItem value="1–2 months">1–2 months</SelectItem>
+                        <SelectItem value="3–6 months">3–6 months</SelectItem>
+                        <SelectItem value="Flexible">Flexible</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Describe your project *</label>
-                  <Textarea required placeholder="What are you building, who is it for, and what problem does it solve?" rows={5} />
+                  <Textarea required placeholder="What are you building, who is it for, and what problem does it solve?" rows={5} value={fields.description} onChange={set("description")} />
                 </div>
                 <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? "Sending..." : "Send Project Brief"} <ArrowRight className="ml-2 h-4 w-4" />

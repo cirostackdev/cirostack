@@ -16,24 +16,38 @@ const ContactPress = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [fields, setFields] = useState({
+    name: "", email: "", organisation: "", requestType: "", eventDate: "", details: "",
+  });
+
+  const set = (k: keyof typeof fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFields(f => ({ ...f, [k]: e.target.value }));
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!e.currentTarget.checkValidity()) {
+    if (!fields.name || !fields.email || !fields.organisation || !fields.requestType || !fields.details) {
       toast({ title: "Please fill in all required fields.", variant: "destructive" });
       return;
     }
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast({ title: "Request received!", description: "Our press team will respond within 48 hours." });
+    try {
+      const res = await fetch("/api/contact/press", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
+      if (!res.ok) throw new Error();
       router.push("/thank-you");
-    }, 1000);
+    } catch {
+      toast({ title: "Something went wrong. Please try again or email us directly.", variant: "destructive" });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <Layout>
       <section className="relative pt-24 pb-12 md:pt-0 md:pb-0 md:h-screen md:pt-24 md:flex md:items-center overflow-hidden">
-        {/* Oblique sine wave background — right side */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="absolute inset-0 pointer-events-none hidden md:block" aria-hidden="true">
           <svg className="w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -42,10 +56,7 @@ const ContactPress = () => {
                 <stop offset="100%" stopColor="hsl(var(--gradient-end))" />
               </linearGradient>
             </defs>
-            <path
-              d="M 695 0 C 645 150, 775 300, 695 450 C 615 600, 755 750, 695 900 L 1440 900 L 1440 0 Z"
-              fill="url(#contact-bg-gradient)"
-            />
+            <path d="M 695 0 C 645 150, 775 300, 695 450 C 615 600, 755 750, 695 900 L 1440 900 L 1440 0 Z" fill="url(#contact-bg-gradient)" />
           </svg>
           <div className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] rounded-full bg-accent/10 blur-3xl" />
@@ -73,52 +84,46 @@ const ContactPress = () => {
               </div>
               <p className="text-sm text-muted-foreground">
                 Direct press contact:{" "}
-                <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">
-                  contact@cirostack.com
-                </a>
+                <a href="mailto:contact@cirostack.com" className="text-primary hover:underline">contact@cirostack.com</a>
               </p>
             </motion.div>
 
             {/* Form */}
             <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}>
-              <form onSubmit={handleSubmit} noValidate className="surface-glass rounded-2xl p-6 md:p-8 space-y-4 md:space-y-5 ">
+              <form onSubmit={handleSubmit} className="surface-glass rounded-2xl p-6 md:p-8 space-y-4 md:space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Name *</label>
-                    <Input required placeholder="Jane Smith" />
+                    <Input required placeholder="Jane Smith" value={fields.name} onChange={set("name")} />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Email *</label>
-                    <Input required type="email" placeholder="jane@outlet.com" />
+                    <Input required type="email" placeholder="jane@outlet.com" value={fields.email} onChange={set("email")} />
                   </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Organisation / Outlet *</label>
-                  <Input required placeholder="e.g. TechCrunch, YC, ALX Africa" />
+                  <Input required placeholder="e.g. TechCrunch, YC, ALX Africa" value={fields.organisation} onChange={set("organisation")} />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Request type *</label>
-                  <Select required>
+                  <Select required value={fields.requestType} onValueChange={v => setFields(f => ({ ...f, requestType: v }))}>
                     <SelectTrigger><SelectValue placeholder="Select type" /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="press">Press / Media Inquiry</SelectItem>
-                      <SelectItem value="speaking">Speaking Engagement</SelectItem>
-                      <SelectItem value="panel">Panel Discussion</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="Press / Media Inquiry">Press / Media Inquiry</SelectItem>
+                      <SelectItem value="Speaking Engagement">Speaking Engagement</SelectItem>
+                      <SelectItem value="Panel Discussion">Panel Discussion</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Event / Deadline date</label>
-                  <Input type="date" />
+                  <Input type="date" value={fields.eventDate} onChange={set("eventDate")} />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Details *</label>
-                  <Textarea
-                    required
-                    placeholder="Tell us about the event, publication, or opportunity. Include audience size, format, and any relevant context."
-                    rows={5}
-                  />
+                  <Textarea required placeholder="Tell us about the event, publication, or opportunity. Include audience size, format, and any relevant context." rows={5} value={fields.details} onChange={set("details")} />
                 </div>
                 <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? "Sending..." : "Send Request"} <ArrowRight className="ml-2 h-4 w-4" />
