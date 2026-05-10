@@ -23,10 +23,12 @@ export async function GET() {
     const articles = (data.articles ?? []).map((a: Record<string, unknown>) => ({
       title: a.title,
       description: a.description,
+      content: a.content,
       url: a.url,
       image: a.image,
       publishedAt: a.publishedAt,
       source: (a.source as { name: string })?.name ?? "Unknown",
+      sourceUrl: (a.source as { url: string })?.url ?? null,
     }));
 
     return NextResponse.json(articles);

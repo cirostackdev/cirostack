@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Newspaper, ArrowRight, Calendar, Tag, ExternalLink, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
@@ -112,6 +113,7 @@ type LiveArticle = {
 const Newsroom = () => {
     const featured = companyNews.filter(n => n.featured);
     const rest = companyNews.filter(n => !n.featured);
+    const router = useRouter();
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const [liveNews, setLiveNews] = useState<LiveArticle[]>([]);
     const [newsLoading, setNewsLoading] = useState(true);
@@ -246,17 +248,15 @@ const Newsroom = () => {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {liveNews.map((article, i) => (
-                                <motion.a
+                                <motion.div
                                     key={article.url}
-                                    href={article.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
                                     initial="hidden"
                                     whileInView="visible"
                                     viewport={{ once: true }}
                                     variants={fadeUp}
                                     custom={i}
-                                    className="block group rounded-2xl surface-glass hover-lift overflow-hidden"
+                                    onClick={() => router.push(`/newsroom/article?src=${encodeURIComponent(article.url)}`)}
+                                    className="block group rounded-2xl surface-glass hover-lift overflow-hidden cursor-pointer"
                                 >
                                     {article.image && (
                                         <div className="h-40 overflow-hidden bg-secondary">
@@ -274,10 +274,10 @@ const Newsroom = () => {
                                         <h3 className="font-display font-semibold text-foreground text-base mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
                                         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{article.description}</p>
                                         <div className="flex items-center gap-1.5 mt-4 text-sm text-primary font-medium">
-                                            Read Article <ExternalLink className="w-3.5 h-3.5" />
+                                            Read Article <ArrowRight className="w-3.5 h-3.5" />
                                         </div>
                                     </div>
-                                </motion.a>
+                                </motion.div>
                             ))}
                         </div>
                     )}
