@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Clock, Users, ArrowRight, Globe, Video, Mic } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
@@ -15,7 +16,20 @@ const fadeUp = {
     visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } }),
 };
 
-const upcomingEvents = [
+type EventItem = {
+    type: string;
+    icon: LucideIcon;
+    title: string;
+    description: string;
+    date: string;
+    time: string;
+    location: string;
+    attendees: number;
+    featured: boolean;
+    registrationUrl: string;
+};
+
+const upcomingEvents: EventItem[] = [
     {
         type: "Webinar",
         icon: Video,
@@ -26,6 +40,7 @@ const upcomingEvents = [
         location: "Online (Zoom)",
         attendees: 320,
         featured: true,
+        registrationUrl: "/contact/consultation",
     },
     {
         type: "Conference Talk",
@@ -37,6 +52,7 @@ const upcomingEvents = [
         location: "San Francisco, CA",
         attendees: 1200,
         featured: true,
+        registrationUrl: "/contact/press",
     },
     {
         type: "Workshop",
@@ -48,6 +64,7 @@ const upcomingEvents = [
         location: "London, UK",
         attendees: 40,
         featured: false,
+        registrationUrl: "/contact/consultation",
     },
     {
         type: "Webinar",
@@ -59,6 +76,7 @@ const upcomingEvents = [
         location: "Online (Zoom)",
         attendees: 180,
         featured: false,
+        registrationUrl: "/contact/consultation",
     },
 ];
 
@@ -124,7 +142,7 @@ const Events = () => {
                                         <span>{event.attendees} registered</span>
                                     </div>
                                 </div>
-                                <Button className="w-full">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                                <Link href={event.registrationUrl}><Button className="w-full">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
                             </motion.div>
                         ))}
                     </div>
@@ -150,7 +168,7 @@ const Events = () => {
                                         <MapPin className="w-4 h-4 text-muted-foreground" />
                                         <span>{event.location}</span>
                                     </div>
-                                    <Button size="sm" variant="outline" className="mt-2">Register</Button>
+                                    <Link href={event.registrationUrl}><Button size="sm" variant="outline" className="mt-2">Register</Button></Link>
                                 </div>
                             </motion.div>
                         ))}

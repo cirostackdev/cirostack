@@ -1,13 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { BookOpen, Download, FileText, Video, ArrowRight, Code, Bot, Globe, Star } from "lucide-react";
+import { BookOpen, Download, FileText, Video, ArrowRight, Code, Bot, Globe, Star, CheckCircle, X } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import heroResources from "@/assets/hero-resources.jpg";
 
 const fadeUp = {
@@ -80,13 +82,41 @@ const featured = [
 ];
 
 const tools = [
-    { icon: Code, title: "Project Estimate Calculator", description: "Get a rough estimate for your software project based on features and complexity." },
-    { icon: Star, title: "Tech Stack Decision Matrix", description: "A framework for choosing the right technology stack for your next project." },
-    { icon: FileText, title: "RFP Template", description: "A professional Request for Proposal template for software development projects." },
-    { icon: Bot, title: "AI Readiness Assessment", description: "Evaluate your organization's readiness to adopt AI automation tools." },
+    { icon: Code, title: "Project Estimate Calculator", description: "Get a rough estimate for your software project based on features and complexity.", href: "/resources/estimate" },
+    { icon: Star, title: "Tech Stack Decision Matrix", description: "A framework for choosing the right technology stack for your next project.", href: null },
+    { icon: FileText, title: "RFP Template", description: "A professional Request for Proposal template for software development projects.", href: null },
+    { icon: Bot, title: "AI Readiness Assessment", description: "Evaluate your organization's readiness to adopt AI automation tools.", href: null },
 ];
 
+type DownloadState = "idle" | "submitting" | "done";
+
 const Resources = () => {
+    const [dialog, setDialog] = useState<{ open: boolean; title: string; type: string }>({ open: false, title: "", type: "" });
+    const [dlEmail, setDlEmail] = useState("");
+    const [dlState, setDlState] = useState<DownloadState>("idle");
+
+    const openDialog = (title: string, type: string) => {
+        setDlEmail("");
+        setDlState("idle");
+        setDialog({ open: true, title, type });
+    };
+
+    const handleDownload = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!dlEmail) return;
+        setDlState("submitting");
+        try {
+            await fetch("/api/resources/download", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: dlEmail, resourceTitle: dialog.title, resourceType: dialog.type }),
+            });
+            setDlState("done");
+        } catch {
+            setDlState("done"); // still show success to avoid frustrating the user
+        }
+    };
+
     return (
         <Layout>
             <SEO
@@ -137,13 +167,16 @@ const Resources = () => {
                                 <h3 className="font-display font-semibold text-foreground text-lg mb-3 leading-snug">{resource.title}</h3>
                                 <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{resource.description}</p>
                                 <div className="flex flex-wrap gap-2 mb-5">
-                                    {resource.tags.map((tag) => (
+                                    {resource.tags.map(tag => (
                                         <span key={tag} className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{tag}</span>
                                     ))}
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <span className="text-xs text-muted-foreground">{resource.pages}</span>
-                                    <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all">
+                                    <button
+                                        onClick={() => openDialog(resource.title, resource.type)}
+                                        className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all"
+                                    >
                                         <Download className="w-4 h-4" /> Download Free
                                     </button>
                                 </div>
@@ -165,9 +198,18 @@ const Resources = () => {
                                 <div>
                                     <h3 className="font-display font-semibold text-foreground text-lg mb-2">{tool.title}</h3>
                                     <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{tool.description}</p>
-                                    <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all">
-                                        Try It Free <ArrowRight className="w-4 h-4" />
-                                    </button>
+                                    {tool.href ? (
+                                        <Link href={tool.href} className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all">
+                                            Try It Free <ArrowRight className="w-4 h-4" />
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            onClick={() => openDialog(tool.title, "Tool")}
+                                            className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all"
+                                        >
+                                            Get Access <ArrowRight className="w-4 h-4" />
+                                        </button>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}
@@ -185,6 +227,47 @@ const Resources = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Gated download dialog */}
+            <Dialog open={dialog.open} onOpenChange={open => setDialog(d => ({ ...d, open }))}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle className="font-display">
+                            {dlState === "done" ? "You're all set!" : "Get this resource free"}
+                        </DialogTitle>
+                    </DialogHeader>
+
+                    {dlState === "done" ? (
+                        <div className="text-center py-4">
+                            <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
+                            <p className="text-foreground font-medium mb-1">{dialog.title}</p>
+                            <p className="text-sm text-muted-foreground">We'll send it to {dlEmail} within 24 hours. Check your inbox!</p>
+                            <Button className="mt-6 w-full" onClick={() => setDialog(d => ({ ...d, open: false }))}>
+                                Done <X className="ml-2 h-4 w-4" />
+                            </Button>
+                        </div>
+                    ) : (
+                        <div>
+                            <p className="text-sm text-muted-foreground mb-1 line-clamp-2 font-medium">{dialog.title}</p>
+                            <p className="text-sm text-muted-foreground mb-6">Enter your email and we'll send it straight to your inbox.</p>
+                            <form onSubmit={handleDownload} className="space-y-4">
+                                <input
+                                    type="email"
+                                    required
+                                    placeholder="your@email.com"
+                                    value={dlEmail}
+                                    onChange={e => setDlEmail(e.target.value)}
+                                    className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm"
+                                />
+                                <Button type="submit" className="w-full" disabled={dlState === "submitting"}>
+                                    {dlState === "submitting" ? "Sending..." : "Send Me the Resource"} <ArrowRight className="ml-2 h-4 w-4" />
+                                </Button>
+                            </form>
+                            <p className="text-xs text-muted-foreground mt-3 text-center">No spam. Unsubscribe anytime.</p>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
         </Layout>
     );
 };

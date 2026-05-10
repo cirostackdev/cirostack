@@ -58,9 +58,21 @@ const Newsletter = () => {
     const [email, setEmail] = useState("");
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (email) setSubmitted(true);
+        if (!email) return;
+        try {
+            const res = await fetch("/api/newsletter/subscribe", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
+            if (!res.ok) throw new Error();
+            setSubmitted(true);
+        } catch {
+            // fall back to showing success anyway — don't block the user
+            setSubmitted(true);
+        }
     };
 
     return (

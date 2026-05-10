@@ -98,6 +98,22 @@ const Blog = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortOption>("newest");
   const [sortOpen, setSortOpen] = useState(false);
+  const [stripEmail, setStripEmail] = useState("");
+  const [stripDone, setStripDone] = useState(false);
+
+  const handleStripSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!stripEmail) return;
+    try {
+      await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: stripEmail }),
+      });
+    } finally {
+      setStripDone(true);
+    }
+  };
 
   const activeFilterCount = useMemo(() => {
     let count = 0;
@@ -263,10 +279,14 @@ const Blog = () => {
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">Stay in the loop</h2>
           <p className="text-muted-foreground mb-6">Get the latest insights delivered to your inbox.</p>
-          <div className="flex gap-3 max-w-md mx-auto">
-            <Input placeholder="your@email.com" type="email" />
-            <Button>Subscribe</Button>
-          </div>
+          {stripDone ? (
+            <p className="text-sm text-primary font-medium">You're subscribed! Check your inbox for a welcome email.</p>
+          ) : (
+            <form onSubmit={handleStripSubscribe} className="flex gap-3 max-w-md mx-auto">
+              <Input placeholder="your@email.com" type="email" required value={stripEmail} onChange={e => setStripEmail(e.target.value)} />
+              <Button type="submit">Subscribe</Button>
+            </form>
+          )}
         </div>
       </section>
     </Layout>
