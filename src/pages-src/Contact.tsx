@@ -33,6 +33,7 @@ const intents = [
     description: "Want to join CiroStack? Browse open roles and submit your application directly.",
     cta: "View Open Roles",
     href: "/careers",
+    highlight: true,
   },
   {
     icon: Newspaper,
