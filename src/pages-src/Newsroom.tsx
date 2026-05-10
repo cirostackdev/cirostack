@@ -108,6 +108,9 @@ type LiveArticle = {
     image: string | null;
     publishedAt: string;
     source: string;
+    type: "guardian" | "hackernews";
+    hnPoints?: number;
+    hnComments?: number;
 };
 
 const Newsroom = () => {
@@ -270,9 +273,17 @@ const Newsroom = () => {
                                         </div>
                                     )}
                                     <div className="p-6">
-                                        <p className="text-xs text-muted-foreground mb-2">{article.source} · {formatDate(article.publishedAt)}</p>
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${article.type === "guardian" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"}`}>
+                                                {article.source}
+                                            </span>
+                                            <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
+                                        </div>
                                         <h3 className="font-display font-semibold text-foreground text-base mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
-                                        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{article.description}</p>
+                                        {article.description && <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{article.description}</p>}
+                                        {article.type === "hackernews" && article.hnPoints !== undefined && (
+                                            <p className="text-xs text-muted-foreground mt-2">{article.hnPoints} points · {article.hnComments} comments</p>
+                                        )}
                                         <div className="flex items-center gap-1.5 mt-4 text-sm text-primary font-medium">
                                             Read Article <ArrowRight className="w-3.5 h-3.5" />
                                         </div>
