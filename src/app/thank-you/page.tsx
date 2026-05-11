@@ -4,6 +4,8 @@ import ThankYou from "@/pages-src/ThankYou";
 export const metadata: Metadata = {
   title: "Thank You | CiroStack",
   description: "Thank you for getting in touch with CiroStack.",
+  alternates: { canonical: "https://cirostack.com/thank-you/" },
+  robots: { index: false, follow: false },
   openGraph: {
     title: "We Got Your Message | CiroStack",
     description: "Thanks for reaching out. Our team will review your project details and get back to you within 24 hours with a clear proposal and a fixed price. Talk soon.",

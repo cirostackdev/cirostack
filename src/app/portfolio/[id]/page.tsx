@@ -126,9 +126,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${project.title} - Case Study | CiroStack`,
     description: project.description,
-    alternates: { canonical: `https://cirostack.com/portfolio/${id}` },
+    alternates: { canonical: `https://cirostack.com/portfolio/${id}/` },
     openGraph: {
-      url: `https://cirostack.com/portfolio/${id}`,
+      url: `https://cirostack.com/portfolio/${id}/`,
       title: ogTitle,
       description: ogDesc,
       images: [{ url: `https://cirostack.com/og/portfolio/${id}.jpg`, width: 1200, height: 630, alt: project.title }],

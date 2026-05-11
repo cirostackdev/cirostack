@@ -10,9 +10,9 @@ const ogImageUrl = "https://cirostack.com/og/services/startup-branding.jpg";
 export const metadata: Metadata = {
   title: service ? `${service.title} | CiroStack` : "Service | CiroStack",
   description: service?.tagline ?? service?.description ?? "",
-  alternates: { canonical: `https://cirostack.com/services/${slug}` },
+  alternates: { canonical: `https://cirostack.com/services/${slug}/` },
   openGraph: {
-    url: `https://cirostack.com/services/${slug}`,
+    url: `https://cirostack.com/services/${slug}/`,
     title: "Startup Branding: Strategy, Identity & Launch | CiroStack",
     description:
       "Founder-speed startup branding: positioning, naming, logo system, brand guidelines, and a launch-ready website rollout. Senior team, fixed scope, no scope drift.",

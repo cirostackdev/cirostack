@@ -11,6 +11,5 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: "https://cirostack.com/sitemap.xml",
-    host: "https://cirostack.com",
   };
 }

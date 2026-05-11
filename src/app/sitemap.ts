@@ -59,21 +59,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map(({ path, priority, changeFrequency }) => ({
-    url: `${SITE_URL}${path}`,
+    url: `${SITE_URL}${path === "/" ? path : path + "/"}`,
     lastModified: now,
     changeFrequency,
     priority,
   }));
 
   const serviceEntries: MetadataRoute.Sitemap = SERVICE_SLUGS.map((slug) => ({
-    url: `${SITE_URL}/services/${slug}`,
+    url: `${SITE_URL}/services/${slug}/`,
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.85,
   }));
 
   const blogEntries: MetadataRoute.Sitemap = BLOG_SLUGS.map((slug) => ({
-    url: `${SITE_URL}/blog/${slug}`,
+    url: `${SITE_URL}/blog/${slug}/`,
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.7,

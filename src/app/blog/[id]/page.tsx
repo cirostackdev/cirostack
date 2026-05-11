@@ -101,10 +101,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.description,
-    alternates: { canonical: `https://cirostack.com/blog/${id}` },
+    alternates: { canonical: `https://cirostack.com/blog/${id}/` },
     openGraph: {
       type: "article",
-      url: `https://cirostack.com/blog/${id}`,
+      url: `https://cirostack.com/blog/${id}/`,
       title: post.title,
       description: post.description,
       images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],

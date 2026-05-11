@@ -100,6 +100,28 @@ gtag('js', new Date());
 gtag('config', 'G-PXTP0DF4VH');`,
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "CiroStack",
+              url: "https://cirostack.com",
+              logo: "https://cirostack.com/favicon.png",
+              sameAs: [
+                "https://www.linkedin.com/company/cirostack",
+                "https://www.instagram.com/cirostack",
+                "https://www.facebook.com/cirostack",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                url: "https://cirostack.com/contact/",
+              },
+            }),
+          }}
+        />
       </head>
       <body>
         <Suspense fallback={null}>
