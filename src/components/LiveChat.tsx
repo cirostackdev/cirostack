@@ -2,14 +2,10 @@
 
 import { useEffect } from "react";
 
-// Tawk.to — 100% free live chat (https://www.tawk.to)
-// Set NEXT_PUBLIC_TAWK_PROPERTY_ID in your env vars (format: abc123/1def456g)
-const TAWK_PROPERTY_ID = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
+const TAWK_SRC = "https://embed.tawk.to/6a022c6fe4a0671c332c59c7/1joc7r5kp";
 
 export function LiveChat() {
   useEffect(() => {
-    if (!TAWK_PROPERTY_ID) return;
-
     const loadTawk = () => {
       if (typeof window === "undefined" || (window as any).Tawk_API) return;
 
@@ -18,7 +14,7 @@ export function LiveChat() {
 
       const script = document.createElement("script");
       script.async = true;
-      script.src = `https://embed.tawk.to/${TAWK_PROPERTY_ID}`;
+      script.src = TAWK_SRC;
       script.charset = "UTF-8";
       script.setAttribute("crossorigin", "*");
       document.head.appendChild(script);
