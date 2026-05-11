@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Linkedin, Instagram, Facebook, ArrowRight } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
@@ -146,7 +147,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <img src={logo} alt="CiroStack logo" className="w-8 h-8 object-contain" />
+              <Image src={logo} alt="CiroStack logo" width={32} height={32} className="object-contain" />
               <span className="font-display font-bold text-xl text-foreground">
                 Ciro<span className="text-primary">Stack</span>
               </span>
@@ -249,7 +250,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <img src={logo} alt="CiroStack logo" className="w-8 h-8 object-contain" />
+              <Image src={logo} alt="CiroStack logo" width={32} height={32} className="object-contain" />
               <span className="font-display font-bold text-xl text-foreground">
                 Ciro<span className="text-primary">Stack</span>
               </span>

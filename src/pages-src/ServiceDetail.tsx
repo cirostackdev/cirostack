@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
@@ -152,8 +153,8 @@ export default function ServiceDetail() {
           <div className="grid md:grid-cols-2 gap-8">
             {relevantProjects.slice(0, 4).map(([slug, project], idx) => (
               <Link href={`/portfolio/${slug}`} key={idx} className="group block">
-                <div className="overflow-hidden rounded-2xl mb-4 aspect-[16/9] border border-border/50">
-                  <img src={projectImages[slug]} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="overflow-hidden rounded-2xl mb-4 aspect-[16/9] border border-border/50 relative">
+                  <Image src={projectImages[slug]} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
                 <div className="flex gap-3 text-sm font-bold text-primary mb-2">
                   <span>{project.category}</span>

@@ -8,27 +8,37 @@ export function FacebookPixel() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Inject the Meta Pixel base code once on mount
+  // Inject the Meta Pixel base code once on mount — only after analytics consent
   useEffect(() => {
-    if (typeof window === "undefined" || window.fbq) return;
+    const initPixel = () => {
+      if (typeof window === "undefined" || window.fbq) return;
 
-    // fbq queue shim (matches Meta's official snippet)
-    const queue: unknown[][] = [];
-    const fbq = (...args: unknown[]) => {
-      queue.push(args);
+      // fbq queue shim (matches Meta's official snippet)
+      const queue: unknown[][] = [];
+      const fbq = (...args: unknown[]) => {
+        queue.push(args);
+      };
+      window.fbq = fbq;
+      if (!window._fbq) window._fbq = fbq;
+
+      // Load the SDK script
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://connect.facebook.net/en_US/fbevents.js";
+      document.head.appendChild(script);
+
+      // Initialize with our Pixel ID
+      window.fbq("init", META_PIXEL_ID);
+      trackPageView();
     };
-    window.fbq = fbq;
-    if (!window._fbq) window._fbq = fbq;
 
-    // Load the SDK script
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://connect.facebook.net/en_US/fbevents.js";
-    document.head.appendChild(script);
+    const consent = localStorage.getItem("cookie-consent");
+    if (consent === "granted") {
+      initPixel();
+    }
 
-    // Initialize with our Pixel ID
-    window.fbq("init", META_PIXEL_ID);
-    trackPageView();
+    window.addEventListener("analytics-consent-granted", initPixel);
+    return () => window.removeEventListener("analytics-consent-granted", initPixel);
   }, []);
 
   // Track page views on route changes (SPA navigation)

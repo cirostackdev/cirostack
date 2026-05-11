@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import {
@@ -428,8 +429,8 @@ const Index = () => {
                 {verticalSpotlights.map((ind) => (
                   <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start flex flex-col">
                     <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
-                      <div className="h-48 overflow-hidden shrink-0">
-                        <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <div className="h-48 overflow-hidden shrink-0 relative">
+                        <Image src={ind.image} alt={ind.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="280px" />
                       </div>
                       <div className="p-5 flex-1">
                         <div className="flex items-center gap-2 mb-2">
@@ -468,8 +469,8 @@ const Index = () => {
                 {founderSpotlights.map((ind) => (
                   <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start flex flex-col">
                     <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
-                      <div className="h-48 overflow-hidden shrink-0">
-                        <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <div className="h-48 overflow-hidden shrink-0 relative">
+                        <Image src={ind.image} alt={ind.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="280px" />
                       </div>
                       <div className="p-5 flex-1">
                         <div className="flex items-center gap-2 mb-2">
@@ -524,8 +525,8 @@ const Index = () => {
                 {stageSpotlights.map((ind) => (
                   <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start flex flex-col">
                     <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
-                      <div className="h-48 overflow-hidden shrink-0">
-                        <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <div className="h-48 overflow-hidden shrink-0 relative">
+                        <Image src={ind.image} alt={ind.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="280px" />
                       </div>
                       <div className="p-5 flex-1">
                         <div className="flex items-center gap-2 mb-2">
@@ -564,8 +565,8 @@ const Index = () => {
                 {challengeSpotlights.map((ind) => (
                   <Link key={ind.title} href={ind.href} className="block group flex-none w-[260px] md:w-[280px] snap-start flex flex-col">
                     <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
-                      <div className="h-48 overflow-hidden shrink-0">
-                        <img src={ind.image} alt={ind.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <div className="h-48 overflow-hidden shrink-0 relative">
+                        <Image src={ind.image} alt={ind.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="280px" />
                       </div>
                       <div className="p-5 flex-1">
                         <div className="flex items-center gap-2 mb-2">

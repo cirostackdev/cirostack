@@ -13,6 +13,7 @@ import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import heroCareers from "@/assets/hero-careers.jpg";
+import careersData from "../../public/content/careers.json";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -21,57 +22,8 @@ const fadeUp = {
 
 type Department = "All" | "Engineering" | "Design" | "AI/ML" | "Sales" | "Operations";
 
-const openRoles: { title: string; department: Department; type: string; location: string; description: string }[] = [
-    {
-        title: "Senior Full-Stack Engineer",
-        department: "Engineering",
-        type: "Full-Time",
-        location: "Remote",
-        description: "Build scalable web applications using React, Node.js, and cloud infrastructure. Lead technical decisions and mentor juniors.",
-    },
-    {
-        title: "AI/ML Engineer",
-        department: "AI/ML",
-        type: "Full-Time",
-        location: "Remote",
-        description: "Design and deploy machine learning models and AI automation pipelines. Work closely with enterprise clients on cutting-edge solutions.",
-    },
-    {
-        title: "Senior Product Designer",
-        department: "Design",
-        type: "Full-Time",
-        location: "Remote",
-        description: "Lead UX/UI design across multiple client projects. Create intuitive, stunning interfaces and define our design systems.",
-    },
-    {
-        title: "DevOps / Cloud Engineer",
-        department: "Engineering",
-        type: "Full-Time",
-        location: "Remote",
-        description: "Manage cloud infrastructure on AWS and GCP. Build CI/CD pipelines, ensure 99.99% uptime, and drive infrastructure-as-code practices.",
-    },
-    {
-        title: "Business Development Manager",
-        department: "Sales",
-        type: "Full-Time",
-        location: "Remote / US",
-        description: "Own the full sales cycle for mid-market and enterprise accounts. Drive pipeline growth and strategic partnerships.",
-    },
-    {
-        title: "Technical Project Manager",
-        department: "Operations",
-        type: "Full-Time",
-        location: "Remote",
-        description: "Coordinate cross-functional teams to deliver client projects on time and budget. Be the bridge between clients and engineering.",
-    },
-    {
-        title: "React Native Developer (Contract)",
-        department: "Engineering",
-        type: "Contract",
-        location: "Remote",
-        description: "Build mobile apps for iOS and Android using React Native. Work on 3–6 month project engagements with exceptional clients.",
-    },
-];
+const openRoles: { title: string; department: Department; type: string; location: string; description: string }[] =
+    careersData as { title: string; department: Department; type: string; location: string; description: string }[];
 
 const deptIcons: Partial<Record<Department, React.ElementType>> = {
     Engineering: Code,

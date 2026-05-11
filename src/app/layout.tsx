@@ -19,6 +19,7 @@ import Navbar from "@/components/Navbar";
 import { ConditionalFooter } from "@/components/ConditionalFooter";
 import { WhatsAppPopup } from "@/components/WhatsAppPopup";
 import { FacebookPixel } from "@/components/FacebookPixel";
+import { CookieBanner } from "@/components/CookieBanner";
 
 const SITE_URL = "https://cirostack.com";
 const OG_IMAGE = `${SITE_URL}/og/home.jpg`;
@@ -91,15 +92,6 @@ export default function RootLayout({
       className={`${bricolageGrotesque.variable} ${sora.variable}`}
     >
       <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXTP0DF4VH" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-PXTP0DF4VH');`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -139,6 +131,7 @@ gtag('config', 'G-PXTP0DF4VH');`,
             <main id="main-content" className="flex-1">{children}</main>
             <ConditionalFooter />
             <WhatsAppPopup />
+            <CookieBanner />
           </div>
         </Providers>
       </body>

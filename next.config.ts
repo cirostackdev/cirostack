@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
-    unoptimized: true,
+    formats: ["image/avif", "image/webp"],
   },
   typescript: {
     // Next.js's global image type declarations (StaticImageData) override src/types/images.d.ts

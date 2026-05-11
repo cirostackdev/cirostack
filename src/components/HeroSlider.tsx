@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -22,7 +23,7 @@ const HeroSlider = () => {
     <section className="relative overflow-hidden -mt-16 md:-mt-20 h-[calc(100dvh+4rem)] md:h-[calc(100dvh+5rem)]">
       {/* Single background image */}
       <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover" fetchPriority="high" />
+        <Image src={heroBg} alt="" fill priority className="object-cover" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
       </div>
 

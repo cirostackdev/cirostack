@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -107,8 +108,8 @@ const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All ser
               <motion.div key={project.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
                 <Link href={`/portfolio/${project.id}`} className="block group">
                   <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
-                    <div className="h-48 overflow-hidden">
-                      <img src={projectImages[project.id]} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    <div className="h-48 overflow-hidden relative">
+                      <Image src={projectImages[project.id]} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     </div>
                     <div className="p-6">
                       <p className="text-xs text-muted-foreground font-medium mb-1">{project.client}</p>

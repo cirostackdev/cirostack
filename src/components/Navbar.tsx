@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -659,7 +660,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 z-50 shrink-0">
-              <img src={logo} alt="CiroStack logo" className="w-8 h-8 object-contain" />
+              <Image src={logo} alt="CiroStack logo" width={32} height={32} className="object-contain" />
               <span
                 className={cn(
                   "font-display font-bold text-2xl md:text-3xl transition-colors duration-300",
