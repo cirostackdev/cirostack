@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
+const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL;
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarDays, MessageSquare } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 
@@ -15,6 +17,15 @@ const ContactConsultation = () => {
   const { toast } = useToast();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [tab, setTab] = useState<"calendly" | "form">(CALENDLY_URL ? "calendly" : "form");
+
+  useEffect(() => {
+    if (!CALENDLY_URL) return;
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }, []);
 
   const [fields, setFields] = useState({
     name: "", email: "", company: "", timezone: "", timeOfDay: "", message: "",
@@ -87,8 +98,38 @@ const ContactConsultation = () => {
               </p>
             </motion.div>
 
-            {/* Form */}
+            {/* Form / Calendly */}
             <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}>
+
+              {/* Tab switcher — only shown when Calendly is configured */}
+              {CALENDLY_URL && (
+                <div className="flex gap-2 mb-5">
+                  <button
+                    onClick={() => setTab("calendly")}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === "calendly" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
+                  >
+                    <CalendarDays className="w-4 h-4" /> Pick a time slot
+                  </button>
+                  <button
+                    onClick={() => setTab("form")}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === "form" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}
+                  >
+                    <MessageSquare className="w-4 h-4" /> Send a message
+                  </button>
+                </div>
+              )}
+
+              {/* Calendly embed */}
+              {tab === "calendly" && CALENDLY_URL && (
+                <div
+                  className="calendly-inline-widget rounded-2xl overflow-hidden border border-border"
+                  data-url={`${CALENDLY_URL}?hide_gdpr_banner=1`}
+                  style={{ minWidth: "320px", height: "660px" }}
+                />
+              )}
+
+              {/* Contact form */}
+              {tab === "form" && (
               <form onSubmit={handleSubmit} className="surface-glass rounded-2xl p-6 md:p-8 space-y-4 md:space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -143,6 +184,8 @@ const ContactConsultation = () => {
                   {isSubmitting ? "Sending..." : "Request a Call"} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </form>
+              )}
+
             </motion.div>
           </div>
         </div>

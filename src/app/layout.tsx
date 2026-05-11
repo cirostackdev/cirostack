@@ -20,6 +20,7 @@ import { ConditionalFooter } from "@/components/ConditionalFooter";
 import { WhatsAppPopup } from "@/components/WhatsAppPopup";
 import { FacebookPixel } from "@/components/FacebookPixel";
 import { CookieBanner } from "@/components/CookieBanner";
+import { LiveChat } from "@/components/LiveChat";
 
 const SITE_URL = "https://cirostack.com";
 const OG_IMAGE = `${SITE_URL}/og/home.jpg`;
@@ -132,6 +133,7 @@ export default function RootLayout({
             <ConditionalFooter />
             <WhatsAppPopup />
             <CookieBanner />
+            <LiveChat />
           </div>
         </Providers>
       </body>

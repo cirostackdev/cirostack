@@ -3,82 +3,18 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock, Users, ArrowRight, Globe, Video, Mic } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Calendar, MapPin, Clock, Users, ArrowRight, Globe } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import heroEvents from "@/assets/hero-events.jpg";
+import { events } from "@/data/events";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } }),
 };
-
-type EventItem = {
-    type: string;
-    icon: LucideIcon;
-    title: string;
-    description: string;
-    date: string;
-    time: string;
-    location: string;
-    attendees: number;
-    featured: boolean;
-    registrationUrl: string;
-};
-
-const upcomingEvents: EventItem[] = [
-    {
-        type: "Webinar",
-        icon: Video,
-        title: "AI Automation for Business Leaders",
-        description: "A hands-on session covering practical AI implementation strategies for non-technical executives. Learn what's possible, what's hype, and how to get started.",
-        date: "March 18, 2026",
-        time: "2:00 PM EST",
-        location: "Online (Zoom)",
-        attendees: 320,
-        featured: true,
-        registrationUrl: "/contact/consultation",
-    },
-    {
-        type: "Conference Talk",
-        icon: Mic,
-        title: "CiroStack at TechSummit 2026",
-        description: "Our CTO will be presenting on the future of AI-assisted software development and what it means for engineering teams.",
-        date: "April 5, 2026",
-        time: "10:30 AM PST",
-        location: "San Francisco, CA",
-        attendees: 1200,
-        featured: true,
-        registrationUrl: "/contact/press",
-    },
-    {
-        type: "Workshop",
-        icon: Users,
-        title: "Building Your MVP: From Idea to Launch",
-        description: "An interactive half-day workshop walking founders through the CiroStack MVP methodology. Bring your idea and leave with a clear action plan.",
-        date: "April 22, 2026",
-        time: "9:00 AM GMT",
-        location: "London, UK",
-        attendees: 40,
-        featured: false,
-        registrationUrl: "/contact/consultation",
-    },
-    {
-        type: "Webinar",
-        icon: Video,
-        title: "Cloud Migration Best Practices in 2026",
-        description: "A deep-dive session with our cloud engineering team covering the latest patterns, tools, and pitfalls to avoid when migrating to the cloud.",
-        date: "May 7, 2026",
-        time: "1:00 PM EST",
-        location: "Online (Zoom)",
-        attendees: 180,
-        featured: false,
-        registrationUrl: "/contact/consultation",
-    },
-];
 
 const pastHighlights = [
     { title: "DevWorld Summit 2025", attendees: "5,000+", talks: 3, year: "2025" },
@@ -87,8 +23,8 @@ const pastHighlights = [
 ];
 
 const Events = () => {
-    const featured = upcomingEvents.filter(e => e.featured);
-    const others = upcomingEvents.filter(e => !e.featured);
+    const featured = events.filter(e => e.featured);
+    const others = events.filter(e => !e.featured);
 
     return (
         <Layout>
