@@ -2,32 +2,35 @@
 
 import { useEffect } from "react";
 
-const CRISP_WEBSITE_ID = process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID;
+// Tawk.to — 100% free live chat (https://www.tawk.to)
+// Set NEXT_PUBLIC_TAWK_PROPERTY_ID in your env vars (format: abc123/1def456g)
+const TAWK_PROPERTY_ID = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
 
 export function LiveChat() {
   useEffect(() => {
-    if (!CRISP_WEBSITE_ID) return;
+    if (!TAWK_PROPERTY_ID) return;
 
-    const loadCrisp = () => {
-      if (typeof window === "undefined" || (window as any).$crisp) return;
+    const loadTawk = () => {
+      if (typeof window === "undefined" || (window as any).Tawk_API) return;
 
-      (window as any).$crisp = [];
-      (window as any).CRISP_WEBSITE_ID = CRISP_WEBSITE_ID;
+      (window as any).Tawk_API = (window as any).Tawk_API || {};
+      (window as any).Tawk_LoadStart = new Date();
 
       const script = document.createElement("script");
-      script.src = "https://client.crisp.chat/l.js";
       script.async = true;
+      script.src = `https://embed.tawk.to/${TAWK_PROPERTY_ID}`;
+      script.charset = "UTF-8";
+      script.setAttribute("crossorigin", "*");
       document.head.appendChild(script);
     };
 
-    // Load after analytics consent if available, otherwise load immediately
     const consent = localStorage.getItem("cookie-consent");
     if (consent === "granted" || consent === null) {
-      loadCrisp();
+      loadTawk();
     }
 
-    window.addEventListener("analytics-consent-granted", loadCrisp);
-    return () => window.removeEventListener("analytics-consent-granted", loadCrisp);
+    window.addEventListener("analytics-consent-granted", loadTawk);
+    return () => window.removeEventListener("analytics-consent-granted", loadTawk);
   }, []);
 
   return null;
