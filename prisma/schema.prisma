@@ -12,9 +12,10 @@ model Admin {
   passwordHash  String
   name          String
   role          String         @default("agent")
-  online        Boolean        @default(false)
-  disabled      Boolean        @default(false)
-  createdAt     DateTime       @default(now())
+  online         Boolean        @default(false)
+  disabled       Boolean        @default(false)
+  lastHeartbeat  DateTime?
+  createdAt      DateTime       @default(now())
   conversations Conversation[]
 }
 

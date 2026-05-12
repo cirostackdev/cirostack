@@ -48,6 +48,15 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     bottomRef.current?.scrollIntoView({ behavior: "instant" });
   }, [messages, visitorTyping]);
 
+  // Heartbeat while admin has a conversation open
+  useEffect(() => {
+    const sendHeartbeat = () =>
+      fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
+    sendHeartbeat();
+    const interval = setInterval(sendHeartbeat, 60_000);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     const init = async () => {
       const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });

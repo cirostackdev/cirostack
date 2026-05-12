@@ -28,7 +28,14 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const [filter, setFilter] = useState<"open" | "closed" | "all">("open");
 
   useEffect(() => {
-    // Connect socket as admin to receive real-time updates
+    // Heartbeat: tell the status API this admin is online (works on Vercel serverless)
+    const sendHeartbeat = () =>
+      fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
+
+    sendHeartbeat();
+    const heartbeatInterval = setInterval(sendHeartbeat, 60_000);
+
+    // Connect socket as admin to receive real-time updates (local dev / self-hosted)
     const initSocket = async () => {
       const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });
       if (!tokenRes.ok) return;
@@ -49,6 +56,8 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
     };
 
     initSocket();
+
+    return () => clearInterval(heartbeatInterval);
   }, []);
 
   const filtered = conversations.filter((c) => {
