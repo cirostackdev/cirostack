@@ -10,12 +10,24 @@ import {
   Settings,
   LogOut,
   LayoutDashboard,
+  BookOpen,
+  Briefcase,
+  FolderKanban,
+  Receipt,
 } from "lucide-react";
 
 const NAV = [
   { href: "/admin/conversations", icon: MessageSquare, label: "Conversations" },
   { href: "/admin/submissions", icon: FileText, label: "Submissions" },
   { href: "/admin/leads", icon: Users, label: "Leads" },
+  { label: "—", divider: true },
+  { href: "/admin/cms/blog", icon: BookOpen, label: "Blog" },
+  { href: "/admin/cms/jobs", icon: Briefcase, label: "Jobs" },
+  { label: "—", divider: true },
+  { href: "/admin/clients", icon: Users, label: "Clients" },
+  { href: "/admin/projects", icon: FolderKanban, label: "Projects" },
+  { href: "/admin/invoices", icon: Receipt, label: "Invoices" },
+  { label: "—", divider: true },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];
 
@@ -40,7 +52,9 @@ export function AdminShell({
         </div>
 
         <nav className="flex-1 p-2 space-y-0.5">
-          {NAV.map(({ href, icon: Icon, label }) => {
+          {NAV.map((item) => {
+            if ("divider" in item) return <div key={Math.random()} className="my-1 border-t border-border/50" />;
+            const { href, icon: Icon, label } = item as { href: string; icon: React.ElementType; label: string };
             const active = pathname === href || pathname.startsWith(href + "/");
             return (
               <Link

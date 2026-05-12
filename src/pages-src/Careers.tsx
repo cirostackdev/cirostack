@@ -22,7 +22,7 @@ const fadeUp = {
 
 type Department = "All" | "Engineering" | "Design" | "AI/ML" | "Sales" | "Operations";
 
-const openRoles: { title: string; department: Department; type: string; location: string; description: string }[] =
+const staticRoles: { title: string; department: Department; type: string; location: string; description: string }[] =
     careersData as { title: string; department: Department; type: string; location: string; description: string }[];
 
 const deptIcons: Partial<Record<Department, React.ElementType>> = {
@@ -50,7 +50,12 @@ const process = [
     { step: "05", title: "Offer & Onboarding", description: "If it's a match, you'll receive an offer within 48 hours and a smooth, structured onboarding experience." },
 ];
 
-const Careers = () => {
+interface CareersProps {
+    serverJobs?: { title: string; department: Department; type: string; location: string; description: string }[] | null;
+}
+
+const Careers = ({ serverJobs }: CareersProps) => {
+    const openRoles = (serverJobs && serverJobs.length > 0) ? serverJobs : staticRoles;
     const [activeFilter, setActiveFilter] = useState<Department>("All");
     const departments: Department[] = ["All", "Engineering", "Design", "AI/ML", "Sales", "Operations"];
 

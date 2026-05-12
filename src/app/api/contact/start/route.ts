@@ -17,6 +17,11 @@ export async function POST(req: Request) {
     prisma.formSubmission.create({ data: { type: "start", data: { name, company, email, phone, service, budget, timeline, description } } }).catch(console.error);
     prisma.lead.upsert({ where: { email }, update: { name, source: "start-project" }, create: { email, name, source: "start-project", tags: ["project-brief"] } }).catch(console.error);
 
+    // Push notification to all admins
+    import("@/lib/push").then(({ sendPushToAllAdmins }) =>
+      sendPushToAllAdmins({ title: "New Project Brief", body: `${name}${company ? ` (${company})` : ""} submitted a project brief`, url: "/admin/submissions" })
+    ).catch(console.error);
+
     await resend.emails.send({
       from: FROM,
       to: TO,

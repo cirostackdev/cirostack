@@ -65,3 +65,133 @@ model Lead {
   metadata  Json?
   createdAt DateTime @default(now())
 }
+
+// ── CMS ──────────────────────────────────────────────────────────────────────
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  excerpt   String
+  category  String
+  author    String   @default("CiroStack Team")
+  date      String
+  dateSort  DateTime
+  readMin   Int      @default(5)
+  imageUrl  String?
+  featured  Boolean  @default(false)
+  published Boolean  @default(false)
+  tags      String[]
+  body      String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Job {
+  id          String   @id @default(cuid())
+  title       String
+  department  String
+  type        String   @default("Full-Time")
+  location    String   @default("Remote")
+  description String
+  body        String?  @db.Text
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ── Client Portal ─────────────────────────────────────────────────────────────
+
+model Client {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String?
+  emailVerified DateTime?
+  avatarUrl     String?
+  company       String?
+  otpCode       String?
+  otpExpiry     DateTime?
+  createdAt     DateTime  @default(now())
+  projects      Project[]
+  invoices      Invoice[]
+}
+
+model Project {
+  id          String          @id @default(cuid())
+  clientId    String
+  client      Client          @relation(fields: [clientId], references: [id])
+  title       String
+  description String?
+  status      String          @default("discovery")
+  startDate   DateTime?
+  dueDate     DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  milestones  Milestone[]
+  updates     ProjectUpdate[]
+  files       ProjectFile[]
+  invoices    Invoice[]
+}
+
+model Milestone {
+  id          String    @id @default(cuid())
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id])
+  title       String
+  dueDate     DateTime?
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  order       Int       @default(0)
+}
+
+model ProjectUpdate {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  authorId  String?
+  body      String
+  internal  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ProjectFile {
+  id         String   @id @default(cuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  name       String
+  url        String
+  size       Int?
+  uploadedBy String?
+  createdAt  DateTime @default(now())
+}
+
+model Invoice {
+  id         String    @id @default(cuid())
+  clientId   String
+  client     Client    @relation(fields: [clientId], references: [id])
+  projectId  String?
+  project    Project?  @relation(fields: [projectId], references: [id])
+  number     String    @unique
+  amount     Int
+  currency   String    @default("USD")
+  status     String    @default("unpaid")
+  dueDate    DateTime?
+  paidAt     DateTime?
+  paymentRef String?
+  lineItems  Json
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+// ── Push Notifications ────────────────────────────────────────────────────────
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  ownerType String
+  ownerId   String
+  createdAt DateTime @default(now())
+}

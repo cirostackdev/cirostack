@@ -14,7 +14,7 @@ import { MultiSelectFilter } from "@/components/MultiSelectFilter";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import heroBlog from "@/assets/hero-blog.jpg";
-import { posts } from "@/data/blog";
+import { posts as staticPosts, BlogPost as BlogPostType } from "@/data/blog";
 import imgScalingStartup from "@/assets/blog-scaling-startup.jpg";
 
 const fadeUp = {
@@ -59,7 +59,31 @@ const sortLabels: Record<SortOption, string> = {
 };
 
 
-const Blog = () => {
+interface BlogProps {
+  serverPosts?: any[] | null;
+}
+
+const Blog = ({ serverPosts }: BlogProps = {}) => {
+  // Prefer DB posts if available, fall back to static data
+  const posts: BlogPostType[] = useMemo(() => {
+    if (serverPosts && serverPosts.length > 0) {
+      return serverPosts.map((p: any) => ({
+        id: p.slug,
+        title: p.title,
+        excerpt: p.excerpt,
+        category: p.category,
+        author: p.author,
+        date: p.date,
+        dateSort: new Date(p.dateSort),
+        readTime: `${p.readMin} min read`,
+        readMin: p.readMin,
+        image: p.imageUrl || "/placeholder.svg",
+        featured: p.featured,
+        tags: p.tags || [],
+      }));
+    }
+    return staticPosts;
+  }, [serverPosts]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(categoryOptions);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [search, setSearch] = useState("");

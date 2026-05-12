@@ -19,6 +19,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CareersPage() {
-  return <Careers />;
+async function getJobs() {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const res = await fetch(`${baseUrl}/api/cms/jobs`, { next: { revalidate: 60 } });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export default async function CareersPage() {
+  const jobs = await getJobs();
+  return <Careers serverJobs={jobs} />;
 }

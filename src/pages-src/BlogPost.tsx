@@ -829,8 +829,20 @@ function ShareButtonsInline({ title }: { title: string }) {
 const BlogPost = () => {
   const { id } = useParams();
   const post = posts[id || ""];
+  const [dbPost, setDbPost] = useState<any>(null);
 
-  if (!post) {
+  useEffect(() => {
+    if (id) {
+      fetch(`/api/cms/posts/${id}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (data) setDbPost(data);
+        })
+        .catch(() => {});
+    }
+  }, [id]);
+
+  if (!post && !dbPost) {
     return (
       <Layout>
         <SEO title="Post Not Found" description="The blog post you are looking for does not exist." />
@@ -846,14 +858,24 @@ const BlogPost = () => {
     );
   }
 
-  const firstParagraph = post.content.find(b => b.type === "paragraph") as { type: "paragraph"; text: string } | undefined;
+  // Resolve display values: prefer DB post data, fallback to hardcoded
+  const displayTitle = dbPost?.title || post?.title || "Blog Post";
+  const displayCategory = dbPost?.category || post?.category || "";
+  const displayAuthor = dbPost?.author || post?.author || "CiroStack Team";
+  const displayDate = dbPost?.date || post?.date || "";
+  const displayReadTime = dbPost?.readMin ? `${dbPost.readMin} min read` : post?.readTime || "";
+  const displayTags = dbPost?.tags || post?.tags || [];
+  const displayContent = post?.content || [];
+
+  const firstParagraph = displayContent.find(b => b.type === "paragraph") as { type: "paragraph"; text: string } | undefined;
+  const seoDescription = dbPost?.excerpt || (firstParagraph ? firstParagraph.text.substring(0, 155) + "..." : displayTitle);
 
   // Find related posts by shared tags, then same category, excluding current
   const relatedPosts = Object.entries(posts)
     .filter(([postId]) => postId !== id)
     .map(([postId, p]) => {
-      const sharedTags = p.tags.filter(t => post.tags.includes(t)).length;
-      const sameCategory = p.category === post.category ? 1 : 0;
+      const sharedTags = p.tags.filter(t => displayTags.includes(t)).length;
+      const sameCategory = p.category === displayCategory ? 1 : 0;
       return { id: postId, ...p, score: sharedTags * 2 + sameCategory };
     })
     .sort((a, b) => b.score - a.score)
@@ -863,15 +885,15 @@ const BlogPost = () => {
     <Layout>
       <ReadingProgressBar />
       <SEO
-        title={post.title}
-        description={firstParagraph ? firstParagraph.text.substring(0, 155) + "..." : post.title}
+        title={displayTitle}
+        description={seoDescription}
         type="article"
         url={`/blog/${id}`}
       />
       <PageHero
         icon={BookOpen}
-        title={post.title}
-        description={`By ${post.author} · ${post.date} · ${post.readTime}`}
+        title={displayTitle}
+        description={`By ${displayAuthor} · ${displayDate} · ${displayReadTime}`}
         image={postImages[id || ""] || imgFixedPrice}
         ctaText="Back to Blog"
         ctaLink="/blog"
@@ -881,8 +903,10 @@ const BlogPost = () => {
           <div className="flex gap-10">
             {/* Table of Contents Sidebar */}
             <aside className="hidden lg:block w-56 shrink-0 sticky top-24 self-start">
-              <TableOfContents blocks={post.content} />
-              <ShareButtons title={post.title} />
+              {!dbPost?.body && displayContent.length > 0 && (
+                <TableOfContents blocks={displayContent} />
+              )}
+              <ShareButtons title={displayTitle} />
             </aside>
 
             {/* Main Content */}
@@ -893,13 +917,20 @@ const BlogPost = () => {
                 transition={{ duration: 0.5 }}
               >
                 <div className="flex items-center gap-3 mb-8">
-                  <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-muted text-muted-foreground">{post.category}</span>
+                  <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-muted text-muted-foreground">{displayCategory}</span>
                   {/* Mobile share buttons */}
                   <div className="lg:hidden ml-auto">
-                    <ShareButtonsInline title={post.title} />
+                    <ShareButtonsInline title={displayTitle} />
                   </div>
                 </div>
-                <ContentRenderer blocks={post.content} />
+                {dbPost?.body ? (
+                  <div
+                    className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary"
+                    dangerouslySetInnerHTML={{ __html: dbPost.body }}
+                  />
+                ) : (
+                  <ContentRenderer blocks={displayContent} />
+                )}
               </motion.div>
             </div>
           </div>

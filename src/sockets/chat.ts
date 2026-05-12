@@ -126,6 +126,11 @@ export function setupChatSocket(io: SocketServer) {
 
           // Broadcast to agents in this conversation room
           io.to(`conv:${data.conversationId}`).except(socket.id).emit("visitor:message", { message });
+
+          // Push notification to all admins
+          import("../lib/push").then(({ sendPushToAllAdmins }) =>
+            sendPushToAllAdmins({ title: "New chat message", body: message.body.slice(0, 100), url: `/admin/conversations/${data.conversationId}` })
+          ).catch(() => {});
         } catch (err) {
           console.error("[socket visitor:message]", err);
         }
