@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
@@ -46,6 +47,7 @@ export async function POST(req: Request) {
         body: postBody ?? null,
       },
     });
+    revalidatePath("/blog");
     return NextResponse.json(post, { status: 201 });
   } catch (err: any) {
     if (err?.code === "P2002") {

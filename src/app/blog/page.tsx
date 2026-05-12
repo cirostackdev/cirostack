@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
 import Blog from "@/pages-src/Blog";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -23,10 +26,11 @@ export const metadata: Metadata = {
 
 async function getPosts() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/cms/posts`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return res.json();
+    const posts = await prisma.blogPost.findMany({
+      where: { published: true },
+      orderBy: { dateSort: "desc" },
+    });
+    return posts;
   } catch {
     return null;
   }

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
@@ -37,6 +38,7 @@ export async function POST(req: Request) {
         active: active ?? true,
       },
     });
+    revalidatePath("/careers");
     return NextResponse.json(job, { status: 201 });
   } catch (err) {
     console.error("[POST /api/admin/cms/jobs]", err);

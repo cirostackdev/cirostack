@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
 import Careers from "@/pages-src/Careers";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -21,10 +24,11 @@ export const metadata: Metadata = {
 
 async function getJobs() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/cms/jobs`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return res.json();
+    const jobs = await prisma.job.findMany({
+      where: { active: true },
+      orderBy: { createdAt: "desc" },
+    });
+    return jobs;
   } catch {
     return null;
   }

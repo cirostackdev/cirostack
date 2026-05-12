@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
@@ -20,6 +21,8 @@ export async function PATCH(req: Request, { params }: Params) {
         ...(dateSort ? { dateSort: new Date(dateSort) } : {}),
       },
     });
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${post.slug}`);
     return NextResponse.json(post);
   } catch (err: any) {
     if (err?.code === "P2025") return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -34,7 +37,10 @@ export async function DELETE(_req: Request, { params }: Params) {
 
   const { id } = await params;
   try {
+    const post = await prisma.blogPost.findUnique({ where: { id }, select: { slug: true } });
     await prisma.blogPost.delete({ where: { id } });
+    revalidatePath("/blog");
+    if (post?.slug) revalidatePath(`/blog/${post.slug}`);
     return NextResponse.json({ ok: true });
   } catch (err: any) {
     if (err?.code === "P2025") return NextResponse.json({ error: "Not found" }, { status: 404 });

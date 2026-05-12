@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
@@ -12,6 +13,7 @@ export async function PATCH(req: Request, { params }: Params) {
   try {
     const body = await req.json();
     const job = await prisma.job.update({ where: { id }, data: body });
+    revalidatePath("/careers");
     return NextResponse.json(job);
   } catch (err: any) {
     if (err?.code === "P2025") return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -27,6 +29,7 @@ export async function DELETE(_req: Request, { params }: Params) {
   const { id } = await params;
   try {
     await prisma.job.delete({ where: { id } });
+    revalidatePath("/careers");
     return NextResponse.json({ ok: true });
   } catch (err: any) {
     if (err?.code === "P2025") return NextResponse.json({ error: "Not found" }, { status: 404 });

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
@@ -12,6 +13,8 @@ export async function PATCH(req: Request, { params }: Params) {
   try {
     const body = await req.json();
     const project = await prisma.portfolioProject.update({ where: { id }, data: body });
+    revalidatePath("/portfolio");
+    revalidatePath(`/portfolio/${project.slug}`);
     return NextResponse.json(project);
   } catch (err) {
     console.error("[PATCH /api/admin/cms/portfolio/[id]]", err);
@@ -25,7 +28,10 @@ export async function DELETE(_req: Request, { params }: Params) {
 
   const { id } = await params;
   try {
+    const project = await prisma.portfolioProject.findUnique({ where: { id }, select: { slug: true } });
     await prisma.portfolioProject.delete({ where: { id } });
+    revalidatePath("/portfolio");
+    if (project?.slug) revalidatePath(`/portfolio/${project.slug}`);
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("[DELETE /api/admin/cms/portfolio/[id]]", err);

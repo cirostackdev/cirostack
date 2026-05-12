@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
@@ -43,6 +44,7 @@ export async function POST(req: Request) {
     if (existing) return NextResponse.json({ error: "Slug already exists" }, { status: 409 });
 
     const project = await prisma.portfolioProject.create({ data: body });
+    revalidatePath("/portfolio");
     return NextResponse.json(project, { status: 201 });
   } catch (err) {
     console.error("[POST /api/admin/cms/portfolio]", err);

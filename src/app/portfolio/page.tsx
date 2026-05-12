@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { prisma } from "@/lib/prisma";
 import Portfolio from "@/pages-src/Portfolio";
 import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -25,10 +28,11 @@ export const metadata: Metadata = {
 
 async function getPortfolio() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/cms/portfolio`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return res.json();
+    const projects = await prisma.portfolioProject.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+    });
+    return projects;
   } catch {
     return null;
   }
