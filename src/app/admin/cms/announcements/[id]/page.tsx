@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { AdminFormSkeleton } from "@/components/admin/AdminSkeletons";
 
 export default function EditAnnouncementPage() {
   const { id } = useParams();
@@ -50,7 +51,7 @@ export default function EditAnnouncementPage() {
     }
   }
 
-  if (loading) return <AdminShell title="Edit Announcement"><p>Loading...</p></AdminShell>;
+  if (loading) return <AdminShell title="Edit Announcement"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
   if (!form) return <AdminShell title="Edit Announcement"><p>Announcement not found</p></AdminShell>;
 
   return (

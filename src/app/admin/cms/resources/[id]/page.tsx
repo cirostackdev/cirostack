@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { AdminFormSkeleton } from "@/components/admin/AdminSkeletons";
 
 export default function EditResourcePage() {
   const { id } = useParams();
@@ -61,7 +62,7 @@ export default function EditResourcePage() {
     }
   }
 
-  if (loading) return <AdminShell title="Edit Resource"><p>Loading...</p></AdminShell>;
+  if (loading) return <AdminShell title="Edit Resource"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
   if (!form) return <AdminShell title="Edit Resource"><p>Resource not found</p></AdminShell>;
 
   return (

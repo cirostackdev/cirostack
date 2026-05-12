@@ -6,6 +6,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus } from "lucide-react";
+import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
 type Invoice = {
   id: string; number: string; amount: number; currency: string; status: string;
@@ -49,7 +50,7 @@ export default function AdminInvoicesPage() {
           </div>
         </div>
 
-        {loading ? <p className="text-sm text-muted-foreground">Loading…</p> : (
+        {loading ? <AdminTableSkeleton cols={6} /> : (
           <div className="rounded-xl border border-border overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-muted/40">

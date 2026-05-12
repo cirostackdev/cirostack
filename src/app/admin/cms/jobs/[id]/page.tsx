@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { AdminFormSkeleton } from "@/components/admin/AdminSkeletons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,7 +39,7 @@ export default function EditJobPage() {
     setSaving(false);
   }
 
-  if (!form) return <AdminShell title="Edit Job"><div className="p-6 text-sm text-muted-foreground">Loading…</div></AdminShell>;
+  if (!form) return <AdminShell title="Edit Job"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
 
   return (
     <AdminShell title="Edit Job">

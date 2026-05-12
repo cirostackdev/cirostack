@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { AdminDetailSkeleton } from "@/components/admin/AdminSkeletons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -83,7 +84,7 @@ export default function ProjectDetailPage() {
     setUploading(false);
   }
 
-  if (!project) return <AdminShell title="Project"><div className="p-6 text-sm text-muted-foreground">Loading…</div></AdminShell>;
+  if (!project) return <AdminShell title="Project"><div className="p-6"><AdminDetailSkeleton /></div></AdminShell>;
 
   return (
     <AdminShell title={project.title}>

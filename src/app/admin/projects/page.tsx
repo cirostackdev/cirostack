@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
+import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
 type Project = { id: string; title: string; status: string; client: { email: string; name?: string; company?: string }; _count: { updates: number; files: number; invoices: number } };
 
@@ -29,7 +30,7 @@ export default function AdminProjectsPage() {
     <AdminShell title="Projects">
       <div className="p-6">
         <p className="text-sm text-muted-foreground mb-6">{projects.length} projects</p>
-        {loading ? <p className="text-sm text-muted-foreground">Loading…</p> : (
+        {loading ? <AdminTableSkeleton cols={5} /> : (
           <div className="rounded-xl border border-border overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-muted/40">

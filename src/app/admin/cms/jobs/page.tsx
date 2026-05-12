@@ -6,6 +6,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
 type Job = { id: string; title: string; department: string; type: string; active: boolean };
 
@@ -35,7 +36,7 @@ export default function AdminJobsPage() {
             <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Job</Button>
           </Link>
         </div>
-        {loading ? <p className="text-sm text-muted-foreground">Loading…</p> : (
+        {loading ? <AdminTableSkeleton cols={5} /> : (
           <div className="rounded-xl border border-border overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-muted/40">

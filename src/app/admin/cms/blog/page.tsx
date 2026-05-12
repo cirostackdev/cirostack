@@ -6,6 +6,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
 type Post = {
   id: string;
@@ -46,7 +47,7 @@ export default function AdminBlogPage() {
         </div>
 
         {loading ? (
-          <p className="text-sm text-muted-foreground">Loading…</p>
+          <AdminTableSkeleton cols={5} />
         ) : (
           <div className="rounded-xl border border-border overflow-hidden">
             <table className="w-full text-sm">

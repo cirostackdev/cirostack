@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Plus, ChevronRight } from "lucide-react";
+import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { toast } from "sonner";
 
 type Client = { id: string; email: string; name?: string; company?: string; _count: { projects: number; invoices: number }; createdAt: string };
@@ -56,7 +57,7 @@ export default function AdminClientsPage() {
           </Dialog>
         </div>
 
-        {loading ? <p className="text-sm text-muted-foreground">Loading…</p> : (
+        {loading ? <AdminTableSkeleton cols={6} /> : (
           <div className="rounded-xl border border-border overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-muted/40">

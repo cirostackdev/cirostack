@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
 interface EventItem {
   id: string;
@@ -42,7 +43,7 @@ export default function AdminEventsPage() {
       </div>
 
       {loading ? (
-        <p className="text-muted-foreground text-sm">Loading...</p>
+        <AdminTableSkeleton cols={5} />
       ) : (
         <div className="border rounded-lg overflow-hidden">
           <table className="w-full text-sm">
