@@ -133,6 +133,55 @@ model PortfolioProject {
   updatedAt        DateTime @updatedAt
 }
 
+model Event {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  type            String   @default("Webinar")
+  title           String
+  description     String
+  date            String
+  time            String   @default("")
+  location        String   @default("Online")
+  attendees       Int      @default(0)
+  featured        Boolean  @default(false)
+  published       Boolean  @default(true)
+  registrationUrl String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Resource {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  type        String   @default("Guide")
+  title       String
+  description String
+  pages       String   @default("")
+  tags        String[]
+  isNew       Boolean  @default(true)
+  published   Boolean  @default(true)
+  downloadUrl String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Announcement {
+  id       String   @id @default(cuid())
+  slug     String   @unique
+  type     String   @default("Press Release")
+  title    String
+  summary  String
+  body     String?  @db.Text
+  date     String
+  source   String?
+  tag      String   @default("")
+  featured Boolean  @default(false)
+  published Boolean @default(true)
+  url      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // ── Client Portal ─────────────────────────────────────────────────────────────
 
 model Client {

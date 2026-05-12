@@ -15,17 +15,26 @@ import {
   FolderKanban,
   Receipt,
   Image,
+  Calendar,
+  Download,
+  Megaphone,
 } from "lucide-react";
 
 const NAV = [
+  // Inbox
   { href: "/admin/conversations", icon: MessageSquare, label: "Conversations" },
   { href: "/admin/submissions", icon: FileText, label: "Submissions" },
   { href: "/admin/leads", icon: Users, label: "Leads" },
   { label: "—", divider: true },
+  // CMS
   { href: "/admin/cms/blog", icon: BookOpen, label: "Blog" },
-  { href: "/admin/cms/jobs", icon: Briefcase, label: "Jobs" },
   { href: "/admin/cms/portfolio", icon: Image, label: "Portfolio" },
+  { href: "/admin/cms/jobs", icon: Briefcase, label: "Jobs" },
+  { href: "/admin/cms/events", icon: Calendar, label: "Events" },
+  { href: "/admin/cms/resources", icon: Download, label: "Resources" },
+  { href: "/admin/cms/announcements", icon: Megaphone, label: "Announcements" },
   { label: "—", divider: true },
+  // Client Portal
   { href: "/admin/clients", icon: Users, label: "Clients" },
   { href: "/admin/projects", icon: FolderKanban, label: "Projects" },
   { href: "/admin/invoices", icon: Receipt, label: "Invoices" },

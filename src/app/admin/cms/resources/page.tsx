@@ -1,0 +1,87 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Plus, Pencil, Trash2 } from "lucide-react";
+import { AdminShell } from "@/components/admin/AdminShell";
+
+interface ResourceItem {
+  id: string;
+  slug: string;
+  type: string;
+  title: string;
+  tags: string[];
+  published: boolean;
+  isNew: boolean;
+}
+
+export default function AdminResourcesPage() {
+  const [resources, setResources] = useState<ResourceItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/admin/cms/resources")
+      .then((r) => r.json())
+      .then(setResources)
+      .finally(() => setLoading(false));
+  }, []);
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this resource?")) return;
+    await fetch(`/api/admin/cms/resources/${id}`, { method: "DELETE" });
+    setResources((prev) => prev.filter((r) => r.id !== id));
+  }
+
+  return (
+    <AdminShell title="Resources">
+      <div className="flex justify-between items-center mb-6">
+        <p className="text-sm text-muted-foreground">{resources.length} resources</p>
+        <Link href="/admin/cms/resources/new">
+          <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Resource</Button>
+        </Link>
+      </div>
+
+      {loading ? (
+        <p className="text-muted-foreground text-sm">Loading...</p>
+      ) : (
+        <div className="border rounded-lg overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/50">
+              <tr>
+                <th className="text-left p-3 font-medium">Title</th>
+                <th className="text-left p-3 font-medium">Type</th>
+                <th className="text-left p-3 font-medium">Tags</th>
+                <th className="text-left p-3 font-medium">Status</th>
+                <th className="text-right p-3 font-medium">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {resources.map((r) => (
+                <tr key={r.id} className="border-t">
+                  <td className="p-3 font-medium">{r.title}</td>
+                  <td className="p-3 text-muted-foreground">{r.type}</td>
+                  <td className="p-3 text-muted-foreground">{r.tags?.join(", ")}</td>
+                  <td className="p-3">
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${r.published ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                      {r.published ? "Published" : "Draft"}
+                    </span>
+                    {r.isNew && <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">New</span>}
+                  </td>
+                  <td className="p-3 text-right space-x-1">
+                    <Link href={`/admin/cms/resources/${r.id}`}>
+                      <Button variant="ghost" size="sm"><Pencil className="w-4 h-4" /></Button>
+                    </Link>
+                    <Button variant="ghost" size="sm" onClick={() => handleDelete(r.id)}>
+                      <Trash2 className="w-4 h-4 text-destructive" />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </AdminShell>
+  );
+}

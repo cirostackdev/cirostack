@@ -1,0 +1,90 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Plus, Pencil, Trash2 } from "lucide-react";
+import { AdminShell } from "@/components/admin/AdminShell";
+
+interface AnnouncementItem {
+  id: string;
+  slug: string;
+  type: string | null;
+  title: string;
+  date: string;
+  tag: string | null;
+  featured: boolean;
+  published: boolean;
+}
+
+export default function AdminAnnouncementsPage() {
+  const [announcements, setAnnouncements] = useState<AnnouncementItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/admin/cms/announcements")
+      .then((r) => r.json())
+      .then(setAnnouncements)
+      .finally(() => setLoading(false));
+  }, []);
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this announcement?")) return;
+    await fetch(`/api/admin/cms/announcements/${id}`, { method: "DELETE" });
+    setAnnouncements((prev) => prev.filter((a) => a.id !== id));
+  }
+
+  return (
+    <AdminShell title="Announcements / Newsroom">
+      <div className="flex justify-between items-center mb-6">
+        <p className="text-sm text-muted-foreground">{announcements.length} announcements</p>
+        <Link href="/admin/cms/announcements/new">
+          <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Announcement</Button>
+        </Link>
+      </div>
+
+      {loading ? (
+        <p className="text-muted-foreground text-sm">Loading...</p>
+      ) : (
+        <div className="border rounded-lg overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/50">
+              <tr>
+                <th className="text-left p-3 font-medium">Title</th>
+                <th className="text-left p-3 font-medium">Type</th>
+                <th className="text-left p-3 font-medium">Date</th>
+                <th className="text-left p-3 font-medium">Tag</th>
+                <th className="text-left p-3 font-medium">Status</th>
+                <th className="text-right p-3 font-medium">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {announcements.map((a) => (
+                <tr key={a.id} className="border-t">
+                  <td className="p-3 font-medium">{a.title}</td>
+                  <td className="p-3 text-muted-foreground">{a.type || "—"}</td>
+                  <td className="p-3 text-muted-foreground">{new Date(a.date).toLocaleDateString()}</td>
+                  <td className="p-3 text-muted-foreground">{a.tag || "—"}</td>
+                  <td className="p-3">
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${a.published ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                      {a.published ? "Published" : "Draft"}
+                    </span>
+                    {a.featured && <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Featured</span>}
+                  </td>
+                  <td className="p-3 text-right space-x-1">
+                    <Link href={`/admin/cms/announcements/${a.id}`}>
+                      <Button variant="ghost" size="sm"><Pencil className="w-4 h-4" /></Button>
+                    </Link>
+                    <Button variant="ghost" size="sm" onClick={() => handleDelete(a.id)}>
+                      <Trash2 className="w-4 h-4 text-destructive" />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </AdminShell>
+  );
+}
