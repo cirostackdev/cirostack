@@ -100,6 +100,39 @@ model Job {
   updatedAt   DateTime @updatedAt
 }
 
+model PortfolioProject {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  title            String
+  client           String
+  vertical         String
+  category         String
+  service          String
+  country          String   @default("")
+  location         String   @default("")
+  size             String   @default("")
+  duration         String   @default("")
+  year             String   @default("")
+  description      String
+  aboutClient      String?  @db.Text
+  challenge        String?  @db.Text
+  solution         String?  @db.Text
+  result           String?  @db.Text
+  imageUrl         String?
+  featured         Boolean  @default(false)
+  published        Boolean  @default(true)
+  keyFeatures      Json?
+  metrics          Json?
+  technologies     Json?
+  process          Json?
+  whatClientLoved   Json?
+  challengesOvercome Json?
+  testimonial      Json?
+  relatedProjects  Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
 // ── Client Portal ─────────────────────────────────────────────────────────────
 
 model Client {

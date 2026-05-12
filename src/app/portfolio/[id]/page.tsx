@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { projects } from "@/data/caseStudies";
 import CaseStudy from "@/pages-src/CaseStudy";
 import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
+import { prisma } from "@/lib/prisma";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -111,12 +112,29 @@ const PORTFOLIO_OG: Record<string, { ogTitle: string; ogDesc: string }> = {
 
 export async function generateStaticParams() {
   if (HIDE_CASE_STUDIES) return [];
+  try {
+    const dbProjects = await prisma.portfolioProject.findMany({
+      where: { published: true },
+      select: { slug: true },
+    });
+    if (dbProjects.length > 0) return dbProjects.map((p) => ({ id: p.slug }));
+  } catch {}
   return Object.keys(projects).map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const project = projects[id];
+
+  // Try DB first
+  let dbProject: { title: string; description: string } | null = null;
+  try {
+    dbProject = await prisma.portfolioProject.findFirst({
+      where: { slug: id, published: true },
+      select: { title: true, description: true },
+    });
+  } catch {}
+
+  const project = dbProject || projects[id];
   if (!project) return { title: "Case Study | CiroStack" };
 
   const og = PORTFOLIO_OG[id];

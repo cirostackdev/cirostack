@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -10,7 +10,7 @@ import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import { MultiSelectFilter } from "@/components/MultiSelectFilter";
-import { projects, projectImages } from "@/data/caseStudies";
+import { projects as staticProjects, projectImages } from "@/data/caseStudies";
 import { servicesData } from "@/data/services";
 
 const fadeUp = {
@@ -18,8 +18,8 @@ const fadeUp = {
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } }),
 };
 
-// Derive filter options from actual data
-const allProjects = Object.entries(projects).map(([id, p]) => ({ id, ...p }));
+// Derive filter options from actual data (static fallback)
+const staticAllProjects = Object.entries(staticProjects).map(([id, p]) => ({ id, ...p }));
 
 // Ordered to match the By Vertical startup menu
 const categoriesList = [
@@ -61,7 +61,27 @@ const servicesList = [
   "Software Development Outsourcing",
 ];
 
-const Portfolio = () => {
+interface PortfolioProps {
+  serverProjects?: any[] | null;
+}
+
+const Portfolio = ({ serverProjects }: PortfolioProps = {}) => {
+  // Prefer DB projects if available, fall back to static data
+  const allProjects = useMemo(() => {
+    if (serverProjects && serverProjects.length > 0) {
+      return serverProjects.map((p: any) => ({
+        id: p.slug,
+        title: p.title,
+        client: p.client,
+        vertical: p.vertical,
+        category: p.category,
+        service: p.service,
+        description: p.description,
+        imageUrl: p.imageUrl,
+      }));
+    }
+    return staticAllProjects;
+  }, [serverProjects]);
   const searchParams = useSearchParams();
   const prefilterService = searchParams.get("service");
 
@@ -109,7 +129,7 @@ const svcMatch = serviceFilters.length === 0 || serviceFilters.includes("All ser
                 <Link href={`/portfolio/${project.id}`} className="block group">
                   <div className="rounded-2xl overflow-hidden surface-glass hover-lift">
                     <div className="h-48 overflow-hidden relative">
-                      <Image src={projectImages[project.id]} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                      <Image src={project.imageUrl || projectImages[project.id] || "/placeholder.svg"} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     </div>
                     <div className="p-6">
                       <p className="text-xs text-muted-foreground font-medium mb-1">{project.client}</p>

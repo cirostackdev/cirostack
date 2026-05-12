@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
@@ -21,7 +22,47 @@ export { projects, projectImages };
 
 const CaseStudy = () => {
   const { id } = useParams();
-  const project = projects[id || ""];
+  const staticProject = projects[id || ""];
+  const [dbProject, setDbProject] = useState<any>(null);
+
+  useEffect(() => {
+    if (id) {
+      fetch(`/api/cms/portfolio/${id}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => { if (data) setDbProject(data); })
+        .catch(() => {});
+    }
+  }, [id]);
+
+  // Merge: prefer DB data, fallback to static
+  const project = dbProject
+    ? {
+        ...staticProject,
+        title: dbProject.title,
+        client: dbProject.client,
+        vertical: dbProject.vertical,
+        category: dbProject.category,
+        service: dbProject.service,
+        country: dbProject.country,
+        location: dbProject.location,
+        size: dbProject.size,
+        duration: dbProject.duration,
+        year: dbProject.year,
+        description: dbProject.description,
+        aboutClient: dbProject.aboutClient || staticProject?.aboutClient,
+        challenge: dbProject.challenge || staticProject?.challenge,
+        solution: dbProject.solution || staticProject?.solution,
+        result: dbProject.result || staticProject?.result,
+        keyFeatures: dbProject.keyFeatures || staticProject?.keyFeatures || [],
+        metrics: dbProject.metrics || staticProject?.metrics || [],
+        technologies: dbProject.technologies || staticProject?.technologies || [],
+        process: dbProject.process || staticProject?.process || [],
+        whatClientLoved: dbProject.whatClientLoved || staticProject?.whatClientLoved || [],
+        challengesOvercome: dbProject.challengesOvercome || staticProject?.challengesOvercome || [],
+        testimonial: dbProject.testimonial || staticProject?.testimonial,
+        relatedProjects: dbProject.relatedProjects || staticProject?.relatedProjects || [],
+      }
+    : staticProject;
 
   if (!project) {
     return (

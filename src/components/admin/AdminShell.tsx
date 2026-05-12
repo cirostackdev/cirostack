@@ -14,6 +14,7 @@ import {
   Briefcase,
   FolderKanban,
   Receipt,
+  Image,
 } from "lucide-react";
 
 const NAV = [
@@ -23,6 +24,7 @@ const NAV = [
   { label: "—", divider: true },
   { href: "/admin/cms/blog", icon: BookOpen, label: "Blog" },
   { href: "/admin/cms/jobs", icon: Briefcase, label: "Jobs" },
+  { href: "/admin/cms/portfolio", icon: Image, label: "Portfolio" },
   { label: "—", divider: true },
   { href: "/admin/clients", icon: Users, label: "Clients" },
   { href: "/admin/projects", icon: FolderKanban, label: "Projects" },

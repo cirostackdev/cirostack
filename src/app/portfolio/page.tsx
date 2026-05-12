@@ -23,11 +23,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PortfolioPage() {
+async function getPortfolio() {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const res = await fetch(`${baseUrl}/api/cms/portfolio`, { next: { revalidate: 60 } });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export default async function PortfolioPage() {
   if (HIDE_CASE_STUDIES) notFound();
+  const serverProjects = await getPortfolio();
   return (
     <Suspense fallback={null}>
-      <Portfolio />
+      <Portfolio serverProjects={serverProjects} />
     </Suspense>
   );
 }
