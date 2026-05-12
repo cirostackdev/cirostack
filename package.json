@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "node --env-file=.env.local --import=tsx server.ts",
-    "build": "prisma generate && prisma db push && tsx prisma/seed-portfolio.ts && next build",
+    "build": "prisma generate && prisma db push && next build",
     "build:dev": "next build",
     "start": "NODE_ENV=production node --env-file=.env.local --import=tsx server.ts",
     "lint": "next lint",
