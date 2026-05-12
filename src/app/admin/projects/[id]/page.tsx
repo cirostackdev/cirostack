@@ -84,7 +84,7 @@ export default function ProjectDetailPage() {
     setUploading(false);
   }
 
-  if (!project) return <AdminShell title="Project"><div className="p-6"><AdminDetailSkeleton /></div></AdminShell>;
+  if (!project) return <AdminShell title="Project"><AdminDetailSkeleton /></AdminShell>;
 
   return (
     <AdminShell title={project.title}>

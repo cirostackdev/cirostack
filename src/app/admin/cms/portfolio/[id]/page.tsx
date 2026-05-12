@@ -58,7 +58,7 @@ export default function EditPortfolioPage() {
     }
   }
 
-  if (loading) return <AdminShell title="Edit Project"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
+  if (loading) return <AdminShell title="Edit Project"><AdminFormSkeleton /></AdminShell>;
   if (!form) return <AdminShell title="Edit Project"><p>Project not found</p></AdminShell>;
 
   return (

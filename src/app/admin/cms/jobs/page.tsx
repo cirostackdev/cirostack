@@ -29,7 +29,6 @@ export default function AdminJobsPage() {
 
   return (
     <AdminShell title="Jobs">
-      <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <p className="text-sm text-muted-foreground">{jobs.length} jobs</p>
           <Link href="/admin/cms/jobs/new">
@@ -70,7 +69,6 @@ export default function AdminJobsPage() {
             </table>
           </div>
         )}
-      </div>
     </AdminShell>
   );
 }

@@ -28,7 +28,6 @@ export default function AdminProjectsPage() {
 
   return (
     <AdminShell title="Projects">
-      <div className="p-6">
         <p className="text-sm text-muted-foreground mb-6">{projects.length} projects</p>
         {loading ? <AdminTableSkeleton cols={5} /> : (
           <div className="rounded-xl border border-border overflow-hidden">
@@ -61,7 +60,6 @@ export default function AdminProjectsPage() {
             </table>
           </div>
         )}
-      </div>
     </AdminShell>
   );
 }

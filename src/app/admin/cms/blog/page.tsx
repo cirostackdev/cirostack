@@ -38,7 +38,6 @@ export default function AdminBlogPage() {
 
   return (
     <AdminShell title="Blog Posts">
-      <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <p className="text-sm text-muted-foreground">{posts.length} posts</p>
           <Link href="/admin/cms/blog/new">
@@ -97,7 +96,6 @@ export default function AdminBlogPage() {
             </table>
           </div>
         )}
-      </div>
     </AdminShell>
   );
 }

@@ -32,7 +32,6 @@ export default function AdminInvoicesPage() {
 
   return (
     <AdminShell title="Invoices">
-      <div className="p-6">
         {/* Summary */}
         <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="rounded-xl border border-border p-4">
@@ -79,7 +78,6 @@ export default function AdminInvoicesPage() {
             </table>
           </div>
         )}
-      </div>
     </AdminShell>
   );
 }

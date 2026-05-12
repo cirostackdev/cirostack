@@ -62,7 +62,7 @@ export default function EditResourcePage() {
     }
   }
 
-  if (loading) return <AdminShell title="Edit Resource"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
+  if (loading) return <AdminShell title="Edit Resource"><AdminFormSkeleton /></AdminShell>;
   if (!form) return <AdminShell title="Edit Resource"><p>Resource not found</p></AdminShell>;
 
   return (

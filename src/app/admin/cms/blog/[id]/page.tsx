@@ -80,7 +80,7 @@ export default function EditBlogPostPage() {
     setSaving(false);
   }
 
-  if (!form) return <AdminShell title="Edit Post"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
+  if (!form) return <AdminShell title="Edit Post"><AdminFormSkeleton /></AdminShell>;
 
   return (
     <AdminShell title="Edit Blog Post">

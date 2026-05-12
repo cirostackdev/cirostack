@@ -54,7 +54,7 @@ export default function ClientDetailPage() {
     setSaving(false);
   }
 
-  if (!client) return <AdminShell title="Client"><div className="p-6"><AdminDetailSkeleton /></div></AdminShell>;
+  if (!client) return <AdminShell title="Client"><AdminDetailSkeleton /></AdminShell>;
 
   return (
     <AdminShell title={client.name ?? client.email}>

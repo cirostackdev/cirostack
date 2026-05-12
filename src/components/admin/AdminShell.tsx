@@ -102,7 +102,7 @@ export function AdminShell({
             <h1 className="text-lg font-semibold">{title}</h1>
           </div>
         )}
-        <div className="flex-1 overflow-y-auto">{children}</div>
+        <div className="flex-1 overflow-y-auto p-6">{children}</div>
       </main>
     </div>
   );

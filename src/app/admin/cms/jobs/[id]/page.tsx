@@ -39,7 +39,7 @@ export default function EditJobPage() {
     setSaving(false);
   }
 
-  if (!form) return <AdminShell title="Edit Job"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
+  if (!form) return <AdminShell title="Edit Job"><AdminFormSkeleton /></AdminShell>;
 
   return (
     <AdminShell title="Edit Job">

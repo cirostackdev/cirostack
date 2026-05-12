@@ -51,7 +51,7 @@ export default function EditEventPage() {
     }
   }
 
-  if (loading) return <AdminShell title="Edit Event"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
+  if (loading) return <AdminShell title="Edit Event"><AdminFormSkeleton /></AdminShell>;
   if (!form) return <AdminShell title="Edit Event"><p>Event not found</p></AdminShell>;
 
   return (

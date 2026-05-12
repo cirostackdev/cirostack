@@ -51,7 +51,7 @@ export default function EditAnnouncementPage() {
     }
   }
 
-  if (loading) return <AdminShell title="Edit Announcement"><div className="p-6"><AdminFormSkeleton /></div></AdminShell>;
+  if (loading) return <AdminShell title="Edit Announcement"><AdminFormSkeleton /></AdminShell>;
   if (!form) return <AdminShell title="Edit Announcement"><p>Announcement not found</p></AdminShell>;
 
   return (

@@ -38,7 +38,6 @@ export default function AdminClientsPage() {
 
   return (
     <AdminShell title="Clients">
-      <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <p className="text-sm text-muted-foreground">{clients.length} clients</p>
           <Dialog open={open} onOpenChange={setOpen}>
@@ -90,7 +89,6 @@ export default function AdminClientsPage() {
             </table>
           </div>
         )}
-      </div>
     </AdminShell>
   );
 }
