@@ -15,12 +15,8 @@ const sora = Sora({
 });
 import { Suspense } from "react";
 import { Providers } from "./providers";
-import Navbar from "@/components/Navbar";
-import { ConditionalFooter } from "@/components/ConditionalFooter";
-import { WhatsAppPopup } from "@/components/WhatsAppPopup";
 import { FacebookPixel } from "@/components/FacebookPixel";
-import { CookieBanner } from "@/components/CookieBanner";
-import { LiveChat } from "@/components/LiveChat";
+import { SiteNav, SiteFooterWidgets } from "@/components/SiteFrame";
 
 const SITE_URL = "https://cirostack.com";
 const OG_IMAGE = `${SITE_URL}/og/home.jpg`;
@@ -128,12 +124,9 @@ export default function RootLayout({
             >
               Skip to content
             </a>
-            <Navbar />
+            <SiteNav />
             <main id="main-content" className="flex-1">{children}</main>
-            <ConditionalFooter />
-            <WhatsAppPopup />
-            <CookieBanner />
-            <LiveChat />
+            <SiteFooterWidgets />
           </div>
         </Providers>
       </body>

@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TO = "contact@cirostack.com";
@@ -12,6 +13,9 @@ export async function POST(req: Request) {
     if (!name || !email || !service || !description) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }
+
+    prisma.formSubmission.create({ data: { type: "start", data: { name, company, email, phone, service, budget, timeline, description } } }).catch(console.error);
+    prisma.lead.upsert({ where: { email }, update: { name, source: "start-project" }, create: { email, name, source: "start-project", tags: ["project-brief"] } }).catch(console.error);
 
     await resend.emails.send({
       from: FROM,

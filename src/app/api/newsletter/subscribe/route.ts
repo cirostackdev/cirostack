@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID ?? "";
@@ -15,6 +16,9 @@ export async function POST(req: Request) {
     if (AUDIENCE_ID) {
       await resend.contacts.create({ audienceId: AUDIENCE_ID, email, unsubscribed: false });
     }
+
+    prisma.lead.upsert({ where: { email }, update: { source: "newsletter" }, create: { email, source: "newsletter", tags: ["newsletter"] } }).catch(console.error);
+    prisma.formSubmission.create({ data: { type: "newsletter", data: { email } } }).catch(console.error);
 
     await Promise.all([
       // Email 1: Welcome (immediate)

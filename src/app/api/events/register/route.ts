@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EVENTS = "CiroStack Events <events@cirostack.com>";
@@ -12,6 +13,9 @@ export async function POST(req: Request) {
     if (!name || !email || !eventTitle) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }
+
+    prisma.formSubmission.create({ data: { type: "events", data: { name, email, company, eventTitle, eventDate, eventLocation } } }).catch(console.error);
+    prisma.lead.upsert({ where: { email }, update: { name, source: "events" }, create: { email, name, source: "events", tags: ["event-registrant"] } }).catch(console.error);
 
     await Promise.all([
       // Confirmation to registrant

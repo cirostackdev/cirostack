@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  passwordHash  String
+  name          String
+  role          String         @default("agent")
+  online        Boolean        @default(false)
+  disabled      Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  conversations Conversation[]
+}
+
+model Conversation {
+  id           String    @id @default(cuid())
+  visitorId    String
+  visitorName  String?
+  visitorEmail String?
+  topic        String?
+  status       String    @default("open")
+  assignedToId String?
+  assignedTo   Admin?    @relation(fields: [assignedToId], references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  messages     Message[]
+  metadata     Json?
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderType     String
+  senderId       String?
+  senderName     String?
+  body           String
+  fileUrl        String?
+  read           Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+}
+
+model FormSubmission {
+  id        String   @id @default(cuid())
+  type      String
+  data      Json
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  source    String?
+  tags      String[]
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
