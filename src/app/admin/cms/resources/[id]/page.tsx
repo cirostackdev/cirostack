@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RESOURCE_TYPES } from "@/lib/admin-options";
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminFormSkeleton } from "@/components/admin/AdminSkeletons";
@@ -82,16 +84,10 @@ export default function EditResourcePage() {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Type</Label>
-            <select
-              className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              value={form.type || "Whitepaper"}
-              onChange={(e) => update("type", e.target.value)}
-            >
-              <option value="Whitepaper">Whitepaper</option>
-              <option value="Guide">Guide</option>
-              <option value="Template">Template</option>
-              <option value="Webinar">Webinar</option>
-            </select>
+            <Select value={form.type || "Whitepaper"} onValueChange={(v) => update("type", v)}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>{RESOURCE_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
           <div className="space-y-1.5">
             <Label>Pages / Duration</Label>

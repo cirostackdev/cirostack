@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BLOG_CATEGORIES } from "@/lib/admin-options";
 import { toast } from "sonner";
 
 export default function NewBlogPostPage() {
@@ -93,8 +95,11 @@ export default function NewBlogPostPage() {
 
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-1.5">
-            <Label htmlFor="category">Category *</Label>
-            <Input id="category" value={form.category} onChange={(e) => set("category", e.target.value)} required />
+            <Label>Category *</Label>
+            <Select value={form.category} onValueChange={(v) => set("category", v)} required>
+              <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
+              <SelectContent>{BLOG_CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="author">Author</Label>

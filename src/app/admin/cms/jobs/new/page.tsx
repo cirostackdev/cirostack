@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { JOB_DEPARTMENTS, JOB_TYPES } from "@/lib/admin-options";
 import { toast } from "sonner";
 
 export default function NewJobPage() {
@@ -39,18 +40,14 @@ export default function NewJobPage() {
       <form onSubmit={handleSubmit} className="p-6 max-w-2xl space-y-5">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5"><Label>Title *</Label><Input value={form.title} onChange={(e) => set("title", e.target.value)} required /></div>
-          <div className="space-y-1.5"><Label>Department *</Label><Input value={form.department} onChange={(e) => set("department", e.target.value)} required placeholder="Engineering" /></div>
+          <div className="space-y-1.5"><Label>Department *</Label><Select value={form.department} onValueChange={(v) => set("department", v)}><SelectTrigger><SelectValue placeholder="Select department" /></SelectTrigger><SelectContent>{JOB_DEPARTMENTS.map((d) => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent></Select></div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Type</Label>
             <Select value={form.type} onValueChange={(v) => set("type", v)}>
               <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Full-Time">Full-Time</SelectItem>
-                <SelectItem value="Part-Time">Part-Time</SelectItem>
-                <SelectItem value="Contract">Contract</SelectItem>
-              </SelectContent>
+              <SelectContent>{JOB_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
             </Select>
           </div>
           <div className="space-y-1.5"><Label>Location</Label><Input value={form.location} onChange={(e) => set("location", e.target.value)} /></div>

@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { EVENT_TYPES } from "@/lib/admin-options";
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminFormSkeleton } from "@/components/admin/AdminSkeletons";
@@ -71,16 +73,10 @@ export default function EditEventPage() {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Type</Label>
-            <select
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-              value={form.type || "Webinar"}
-              onChange={(e) => update("type", e.target.value)}
-            >
-              <option value="Webinar">Webinar</option>
-              <option value="Conference Talk">Conference Talk</option>
-              <option value="Workshop">Workshop</option>
-              <option value="Meetup">Meetup</option>
-            </select>
+            <Select value={form.type || "Webinar"} onValueChange={(v) => update("type", v)}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>{EVENT_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
           <div className="space-y-1.5">
             <Label>Date</Label>

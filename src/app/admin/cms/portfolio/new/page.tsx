@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PORTFOLIO_VERTICALS, PORTFOLIO_SERVICES, PORTFOLIO_SIZES, PORTFOLIO_CATEGORIES } from "@/lib/admin-options";
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
 
@@ -81,18 +83,27 @@ export default function NewPortfolioPage() {
           </div>
           <div className="space-y-1.5">
             <Label>Vertical *</Label>
-            <Input value={form.vertical} onChange={(e) => update("vertical", e.target.value)} placeholder="Healthtech Startups" required />
+            <Select value={form.vertical} onValueChange={(v) => update("vertical", v)}>
+              <SelectTrigger><SelectValue placeholder="Select vertical" /></SelectTrigger>
+              <SelectContent>{PORTFOLIO_VERTICALS.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Category</Label>
-            <Input value={form.category} onChange={(e) => update("category", e.target.value)} placeholder="Apps" />
+            <Select value={form.category} onValueChange={(v) => update("category", v)}>
+              <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
+              <SelectContent>{PORTFOLIO_CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
           <div className="space-y-1.5">
             <Label>Service *</Label>
-            <Input value={form.service} onChange={(e) => update("service", e.target.value)} placeholder="Custom software development" required />
+            <Select value={form.service} onValueChange={(v) => update("service", v)}>
+              <SelectTrigger><SelectValue placeholder="Select service" /></SelectTrigger>
+              <SelectContent>{PORTFOLIO_SERVICES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
         </div>
 
@@ -107,7 +118,10 @@ export default function NewPortfolioPage() {
           </div>
           <div className="space-y-1.5">
             <Label>Size</Label>
-            <Input value={form.size} onChange={(e) => update("size", e.target.value)} placeholder="Startup" />
+            <Select value={form.size} onValueChange={(v) => update("size", v)}>
+              <SelectTrigger><SelectValue placeholder="Select size" /></SelectTrigger>
+              <SelectContent>{PORTFOLIO_SIZES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
         </div>
 
