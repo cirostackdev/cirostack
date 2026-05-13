@@ -26,19 +26,26 @@ export function ChatWidget() {
     <>
       {/* Floating launcher button */}
       {!isOpen && (
-        <button
-          onClick={openChat}
-          aria-label="Open chat"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-primary text-primary-foreground shadow-lg rounded-full pl-4 pr-5 py-3 hover:opacity-90 active:scale-95 transition-all duration-150 group"
-        >
-          <MessageSquare className="w-5 h-5" />
-          <span className="text-sm font-semibold">
+        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+          {/* Tooltip label */}
+          <span className="bg-foreground text-background text-xs font-medium px-3 py-1.5 rounded-lg shadow-md pointer-events-none select-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap">
             {agentOnline ? "Chat with us" : "Leave a message"}
           </span>
-          {agentOnline && (
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-background rounded-full" />
-          )}
-        </button>
+
+          <button
+            onClick={openChat}
+            aria-label={agentOnline ? "Chat with us" : "Leave a message"}
+            className="group relative w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-200 flex items-center justify-center"
+          >
+            <MessageSquare className="w-6 h-6" />
+            {/* Online indicator */}
+            {agentOnline && (
+              <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-background rounded-full">
+                <span className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75" />
+              </span>
+            )}
+          </button>
+        </div>
       )}
 
       {/* Chat panel */}
