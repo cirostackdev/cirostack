@@ -52,7 +52,7 @@ export function ChatWidget() {
       {/* Chat panel */}
       {isOpen && (
         <div
-          className="fixed bottom-6 right-6 z-50 flex flex-col w-[340px] h-[520px] max-h-[80vh] bg-background border border-border rounded-2xl shadow-2xl overflow-hidden"
+          className="fixed z-50 flex flex-col bg-background border border-border shadow-2xl overflow-hidden bottom-0 right-0 left-0 h-[85vh] rounded-t-2xl sm:bottom-6 sm:right-6 sm:left-auto sm:w-[340px] sm:h-[520px] sm:max-h-[80vh] sm:rounded-2xl"
           style={{ animation: "slideUp 0.2s ease-out" }}
         >
           {/* Header */}
