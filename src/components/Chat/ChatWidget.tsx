@@ -58,8 +58,8 @@ export function ChatWidget() {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-primary text-primary-foreground">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary-foreground/20 rounded-full flex items-center justify-center">
-                <img src="/live-chat.png" alt="" className="w-4 h-4" />
+              <div className="w-8 h-8 flex items-center justify-center">
+                <img src="/live-chat-white.png" alt="" className="w-8 h-8" />
               </div>
               <div>
                 <p className="text-sm font-semibold">CiroStack Support</p>
