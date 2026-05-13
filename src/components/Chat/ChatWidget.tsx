@@ -36,9 +36,9 @@ export function ChatWidget() {
           <button
             onClick={openChat}
             aria-label={agentOnline ? "Chat with us" : "Leave a message"}
-            className="group relative w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-200 flex items-center justify-center"
+            className="group relative hover:scale-110 active:scale-95 transition-all duration-200"
           >
-            <img src="/live-chat.png" alt="" className="w-6 h-6" />
+            <img src="/live-chat.png" alt="" className="w-14 h-14" />
             {/* Online indicator */}
             {agentOnline && (
               <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-background rounded-full">
