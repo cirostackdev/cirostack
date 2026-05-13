@@ -294,9 +294,14 @@ const MobileMenuContent = ({ onNavigate, pathname }: { onNavigate: () => void; p
           )}
         </div>
       ))}
-      <div className="mt-6">
+      <div className="mt-6 flex flex-col gap-3">
+        <Link href="/portal/login" onClick={onNavigate}>
+          <Button variant="outline" className="rounded-full px-8 w-full" size="lg">
+            Client Portal
+          </Button>
+        </Link>
         <Link href="/contact" onClick={onNavigate}>
-          <Button className="rounded-full px-8" size="lg">
+          <Button className="rounded-full px-8 w-full" size="lg">
             Contact us
           </Button>
         </Link>
@@ -743,6 +748,18 @@ const Navbar = () => {
                 <Search size={18} />
               </button>
               <ThemeToggle useLight={useRightLight} />
+              <Link href="/portal/login" className="hidden lg:block">
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "rounded-full px-6",
+                    !showBg && isNoHero && "border-white text-white hover:bg-white/10"
+                  )}
+                  size="sm"
+                >
+                  Client Portal
+                </Button>
+              </Link>
               <Link href="/contact" className="hidden lg:block">
                 <Button
                   className={cn(

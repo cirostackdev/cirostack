@@ -15,10 +15,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
     }
 
-    // Auto-create client if they don't exist
-    let client = await prisma.client.findUnique({ where: { email } });
+    const client = await prisma.client.findUnique({ where: { email } });
     if (!client) {
-      client = await prisma.client.create({ data: { email } });
+      // Return 200 with ok:true to avoid leaking which emails are registered
+      return NextResponse.json({ ok: true });
     }
 
     const otp = generateOtp();
