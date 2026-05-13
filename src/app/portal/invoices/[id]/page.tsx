@@ -6,6 +6,7 @@ import { ArrowLeft, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import PayButton from "./PayButton";
+import { PortalShell } from "@/components/portal/PortalShell";
 
 export default async function InvoiceDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await clientAuth();
@@ -15,101 +16,113 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
   const invoice = await prisma.invoice.findFirst({
     where: { id, clientId },
-    include: { project: { select: { title: true } }, client: { select: { name: true, email: true, company: true } } },
+    include: {
+      project: { select: { title: true } },
+      client: { select: { name: true, email: true, company: true } },
+    },
   });
   if (!invoice) notFound();
 
   const lineItems = invoice.lineItems as { description: string; qty: number; unitPrice: number }[];
 
+  const statusVariant: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
+    paid: "default", unpaid: "secondary", overdue: "destructive", cancelled: "outline",
+  };
+
   return (
-    <div className="container mx-auto px-4 md:px-6 py-10 max-w-2xl">
-      <Link href="/portal/invoices" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
-        <ArrowLeft className="w-4 h-4" /> Invoices
-      </Link>
+    <PortalShell title={invoice.number}>
+      <div className="max-w-2xl space-y-6">
+        <Link href="/portal/invoices" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="w-4 h-4" /> Invoices
+        </Link>
 
-      <div className="rounded-xl border border-border p-6 space-y-6">
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="text-xl font-bold">{invoice.number}</h1>
-            {invoice.project && <p className="text-sm text-muted-foreground mt-0.5">{invoice.project.title}</p>}
-          </div>
-          <Badge variant={invoice.status === "paid" ? "default" : "secondary"} className="text-sm px-3 py-1">
-            {invoice.status.toUpperCase()}
-          </Badge>
-        </div>
-
-        {/* Client info */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-          <div>
-            <p className="text-muted-foreground">Billed to</p>
-            <p className="font-medium mt-1">{invoice.client.name ?? invoice.client.email}</p>
-            {invoice.client.company && <p className="text-muted-foreground">{invoice.client.company}</p>}
-          </div>
-          <div>
-            <p className="text-muted-foreground">Due date</p>
-            <p className="font-medium mt-1">{invoice.dueDate ? new Date(invoice.dueDate).toLocaleDateString() : "—"}</p>
-          </div>
-        </div>
-
-        {/* Line items — desktop table */}
-        <div className="hidden sm:block rounded-lg border border-border overflow-hidden text-sm">
-          <table className="w-full">
-            <thead className="bg-muted/40">
-              <tr>
-                <th className="text-left px-4 py-2 font-medium text-muted-foreground">Description</th>
-                <th className="text-right px-4 py-2 font-medium text-muted-foreground">Qty</th>
-                <th className="text-right px-4 py-2 font-medium text-muted-foreground">Unit</th>
-                <th className="text-right px-4 py-2 font-medium text-muted-foreground">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {lineItems.map((l, i) => (
-                <tr key={i} className="border-t border-border">
-                  <td className="px-4 py-3">{l.description}</td>
-                  <td className="px-4 py-3 text-right text-muted-foreground">{l.qty}</td>
-                  <td className="px-4 py-3 text-right text-muted-foreground">{invoice.currency} {(l.unitPrice / 100).toFixed(2)}</td>
-                  <td className="px-4 py-3 text-right font-medium">{invoice.currency} {((l.qty * l.unitPrice) / 100).toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot className="border-t-2 border-border bg-muted/20">
-              <tr>
-                <td colSpan={3} className="px-4 py-3 text-right font-semibold">Total</td>
-                <td className="px-4 py-3 text-right font-bold">{invoice.currency} {(invoice.amount / 100).toFixed(2)}</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-
-        {/* Line items — mobile cards */}
-        <div className="sm:hidden space-y-2 text-sm">
-          {lineItems.map((l, i) => (
-            <div key={i} className="flex items-start justify-between p-3 rounded-lg border border-border gap-2">
-              <div className="min-w-0">
-                <p className="font-medium">{l.description}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{l.qty} × {invoice.currency} {(l.unitPrice / 100).toFixed(2)}</p>
-              </div>
-              <p className="font-medium shrink-0">{invoice.currency} {((l.qty * l.unitPrice) / 100).toFixed(2)}</p>
+        <div className="rounded-xl border border-border p-6 space-y-6">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h2 className="text-xl font-bold">{invoice.number}</h2>
+              {invoice.project && <p className="text-sm text-muted-foreground mt-0.5">{invoice.project.title}</p>}
             </div>
-          ))}
-          <div className="flex items-center justify-between px-3 pt-2 border-t border-border font-semibold">
-            <span>Total</span>
-            <span>{invoice.currency} {(invoice.amount / 100).toFixed(2)}</span>
+            <Badge variant={statusVariant[invoice.status] ?? "secondary"} className="text-sm px-3 py-1">
+              {invoice.status.toUpperCase()}
+            </Badge>
           </div>
-        </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-3">
-          {invoice.status !== "paid" && <PayButton invoiceId={id} />}
-          <Link href={`/api/portal/invoices/${id}/pdf`} target="_blank">
-            <Button variant="outline" size="sm"><Download className="w-4 h-4 mr-1.5" /> Download</Button>
-          </Link>
-        </div>
+          {/* Meta */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div>
+              <p className="text-muted-foreground">Billed to</p>
+              <p className="font-medium mt-1">{invoice.client.name ?? invoice.client.email}</p>
+              {invoice.client.company && <p className="text-muted-foreground">{invoice.client.company}</p>}
+            </div>
+            <div>
+              <p className="text-muted-foreground">Due date</p>
+              <p className="font-medium mt-1">{invoice.dueDate ? new Date(invoice.dueDate).toLocaleDateString() : "—"}</p>
+            </div>
+          </div>
 
-        {invoice.paidAt && (
-          <p className="text-xs text-muted-foreground">Paid on {new Date(invoice.paidAt).toLocaleString()} · Ref: {invoice.paymentRef}</p>
-        )}
+          {/* Line items — desktop */}
+          <div className="hidden sm:block rounded-lg border border-border overflow-hidden text-sm">
+            <table className="w-full">
+              <thead className="bg-muted/40">
+                <tr>
+                  <th className="text-left px-4 py-2 font-medium text-muted-foreground">Description</th>
+                  <th className="text-right px-4 py-2 font-medium text-muted-foreground">Qty</th>
+                  <th className="text-right px-4 py-2 font-medium text-muted-foreground">Unit</th>
+                  <th className="text-right px-4 py-2 font-medium text-muted-foreground">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {lineItems.map((l, i) => (
+                  <tr key={i} className="border-t border-border">
+                    <td className="px-4 py-3">{l.description}</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground">{l.qty}</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground">{invoice.currency} {(l.unitPrice / 100).toFixed(2)}</td>
+                    <td className="px-4 py-3 text-right font-medium">{invoice.currency} {((l.qty * l.unitPrice) / 100).toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot className="border-t-2 border-border bg-muted/20">
+                <tr>
+                  <td colSpan={3} className="px-4 py-3 text-right font-semibold">Total</td>
+                  <td className="px-4 py-3 text-right font-bold">{invoice.currency} {(invoice.amount / 100).toFixed(2)}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          {/* Line items — mobile */}
+          <div className="sm:hidden space-y-2 text-sm">
+            {lineItems.map((l, i) => (
+              <div key={i} className="flex items-start justify-between p-3 rounded-lg border border-border gap-2">
+                <div className="min-w-0">
+                  <p className="font-medium">{l.description}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{l.qty} × {invoice.currency} {(l.unitPrice / 100).toFixed(2)}</p>
+                </div>
+                <p className="font-medium shrink-0">{invoice.currency} {((l.qty * l.unitPrice) / 100).toFixed(2)}</p>
+              </div>
+            ))}
+            <div className="flex items-center justify-between px-3 pt-2 border-t border-border font-semibold text-sm">
+              <span>Total</span>
+              <span>{invoice.currency} {(invoice.amount / 100).toFixed(2)}</span>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex flex-wrap items-center gap-3">
+            {invoice.status !== "paid" && <PayButton invoiceId={id} />}
+            <Link href={`/api/portal/invoices/${id}/pdf`} target="_blank">
+              <Button variant="outline" size="sm"><Download className="w-4 h-4 mr-1.5" /> Download PDF</Button>
+            </Link>
+          </div>
+
+          {invoice.paidAt && (
+            <p className="text-xs text-muted-foreground">
+              Paid on {new Date(invoice.paidAt).toLocaleString()} · Ref: {invoice.paymentRef}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    </PortalShell>
   );
 }
