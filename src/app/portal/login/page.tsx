@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { verifyPortalOtp } from "./actions";
 
 export default function PortalLoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -55,25 +53,18 @@ export default function PortalLoginPage() {
 }
 
 function OtpForm({ email, onBack }: { email: string; onBack: () => void }) {
-  const router = useRouter();
   const [otp, setOtp] = useState("");
   const [verifying, setVerifying] = useState(false);
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
     setVerifying(true);
-    const result = await signIn("portal-credentials", {
-      email,
-      otp,
-      redirect: false,
-      callbackUrl: "/portal/dashboard",
-    });
-    if (result?.ok) {
-      router.push("/portal/dashboard");
-    } else {
-      toast.error("Invalid or expired code. Try again.");
+    const result = await verifyPortalOtp(email, otp);
+    if (result?.error) {
+      toast.error(result.error);
       setVerifying(false);
     }
+    // On success the server action redirects — no client-side navigation needed
   }
 
   return (
