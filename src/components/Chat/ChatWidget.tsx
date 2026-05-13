@@ -1,6 +1,19 @@
 "use client";
 
-import { X, MessageSquare } from "lucide-react";
+import { X } from "lucide-react";
+
+function ChatIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <path
+        d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+      />
+      <path d="M8 10l2.5 2.5L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="13" y1="15" x2="16" y2="15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
 import { useChat } from "./useChat";
 import { PreChatForm } from "./PreChatForm";
 import { ChatPanel } from "./ChatPanel";
@@ -37,7 +50,7 @@ export function ChatWidget() {
             aria-label={agentOnline ? "Chat with us" : "Leave a message"}
             className="group relative w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-200 flex items-center justify-center"
           >
-            <MessageSquare className="w-6 h-6" />
+            <ChatIcon className="w-6 h-6" />
             {/* Online indicator */}
             {agentOnline && (
               <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-background rounded-full">
@@ -58,7 +71,7 @@ export function ChatWidget() {
           <div className="flex items-center justify-between px-4 py-3 bg-primary text-primary-foreground">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary-foreground/20 rounded-full flex items-center justify-center">
-                <MessageSquare className="w-4 h-4" />
+                <ChatIcon className="w-4 h-4" />
               </div>
               <div>
                 <p className="text-sm font-semibold">CiroStack Support</p>
