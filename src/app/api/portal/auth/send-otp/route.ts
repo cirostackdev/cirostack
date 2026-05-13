@@ -8,11 +8,33 @@ function generateOtp(): string {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
 
+// Simple in-memory rate limiter: max 3 OTPs per email per 10 minutes
+const otpRateMap = new Map<string, { count: number; resetAt: number }>();
+
+function isRateLimited(email: string): boolean {
+  const now = Date.now();
+  const record = otpRateMap.get(email);
+  if (!record || now >= record.resetAt) {
+    otpRateMap.set(email, { count: 1, resetAt: now + 10 * 60_000 });
+    return false;
+  }
+  if (record.count >= 3) return true;
+  record.count++;
+  return false;
+}
+
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
     if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
+    }
+
+    if (isRateLimited(email.toLowerCase())) {
+      return NextResponse.json(
+        { error: "Too many requests. Please wait before requesting another code." },
+        { status: 429 }
+      );
     }
 
     const client = await prisma.client.findUnique({ where: { email } });

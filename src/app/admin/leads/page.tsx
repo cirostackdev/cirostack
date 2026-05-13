@@ -1,95 +1,297 @@
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+"use client";
+
+import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import { Mail, Tag } from "lucide-react";
+import { Mail, Tag, Plus, Pencil, Trash2, Download, X } from "lucide-react";
+import { toast } from "sonner";
+import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
-export default async function LeadsPage() {
-  const session = await auth();
-  if (!session?.user) redirect("/admin/login");
+type Lead = {
+  id: string;
+  email: string;
+  name: string | null;
+  source: string | null;
+  tags: string[];
+  createdAt: string;
+};
 
-  const leads = await prisma.lead.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 500,
+function exportCsv(leads: Lead[]) {
+  const header = "Email,Name,Source,Tags,Added";
+  const rows = leads.map((l) =>
+    [l.email, l.name ?? "", l.source ?? "", l.tags.join(";"), format(new Date(l.createdAt), "yyyy-MM-dd")].map((v) => `"${v}"`).join(",")
+  );
+  const blob = new Blob([[header, ...rows].join("\n")], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `leads-${format(new Date(), "yyyy-MM-dd")}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export default function LeadsPage() {
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [filterSource, setFilterSource] = useState("");
+  const [filterTag, setFilterTag] = useState("");
+
+  // Create dialog
+  const [createOpen, setCreateOpen] = useState(false);
+  const [createForm, setCreateForm] = useState({ email: "", name: "", source: "", tags: "" });
+  const [creating, setCreating] = useState(false);
+
+  // Edit dialog
+  const [editLead, setEditLead] = useState<Lead | null>(null);
+  const [editForm, setEditForm] = useState({ name: "", source: "", tags: "" });
+  const [saving, setSaving] = useState(false);
+
+  async function load() {
+    const res = await fetch("/api/admin/leads");
+    if (res.ok) setLeads(await res.json());
+    setLoading(false);
+  }
+
+  useEffect(() => { load(); }, []);
+
+  async function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+    setCreating(true);
+    const res = await fetch("/api/admin/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...createForm,
+        tags: createForm.tags.split(",").map((t) => t.trim()).filter(Boolean),
+      }),
+    });
+    if (res.ok) {
+      toast.success("Lead created");
+      setCreateOpen(false);
+      setCreateForm({ email: "", name: "", source: "", tags: "" });
+      load();
+    } else {
+      const { error } = await res.json();
+      toast.error(error ?? "Failed");
+    }
+    setCreating(false);
+  }
+
+  async function handleSaveEdit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!editLead) return;
+    setSaving(true);
+    const res = await fetch(`/api/admin/leads/${editLead.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: editForm.name || null,
+        source: editForm.source || null,
+        tags: editForm.tags.split(",").map((t) => t.trim()).filter(Boolean),
+      }),
+    });
+    if (res.ok) {
+      toast.success("Lead updated");
+      setEditLead(null);
+      load();
+    } else {
+      toast.error("Failed to update");
+    }
+    setSaving(false);
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this lead?")) return;
+    const res = await fetch(`/api/admin/leads/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      toast.success("Lead deleted");
+      setLeads((prev) => prev.filter((l) => l.id !== id));
+    } else {
+      toast.error("Failed to delete");
+    }
+  }
+
+  const allSources = Array.from(new Set(leads.map((l) => l.source).filter(Boolean))) as string[];
+  const allTags = Array.from(new Set(leads.flatMap((l) => l.tags)));
+
+  const filtered = leads.filter((l) => {
+    const q = search.toLowerCase();
+    const matchSearch = !q || l.email.toLowerCase().includes(q) || (l.name ?? "").toLowerCase().includes(q);
+    const matchSource = !filterSource || l.source === filterSource;
+    const matchTag = !filterTag || l.tags.includes(filterTag);
+    return matchSearch && matchSource && matchTag;
   });
 
   return (
     <AdminShell title="Leads">
-      <p className="text-sm text-muted-foreground mb-4">
-        {leads.length} total lead{leads.length !== 1 ? "s" : ""}
-      </p>
-
-      {/* Desktop table */}
-      <div className="hidden md:block border border-border rounded-xl overflow-hidden">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-border bg-muted/40">
-              <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Email</th>
-              <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Name</th>
-              <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Source</th>
-              <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Tags</th>
-              <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Added</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leads.length === 0 && (
-              <tr><td colSpan={5} className="px-4 py-12 text-center text-muted-foreground text-xs">No leads yet.</td></tr>
-            )}
-            {leads.map((lead, i) => (
-              <tr key={lead.id} className={`border-b border-border last:border-0 ${i % 2 === 0 ? "" : "bg-muted/20"}`}>
-                <td className="px-4 py-2.5">
-                  <div className="flex items-center gap-1.5">
-                    <Mail className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                    <span className="font-medium">{lead.email}</span>
-                  </div>
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">{lead.name || "—"}</td>
-                <td className="px-4 py-2.5">
-                  {lead.source ? <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span> : <span className="text-muted-foreground">—</span>}
-                </td>
-                <td className="px-4 py-2.5">
-                  <div className="flex flex-wrap gap-1">
-                    {lead.tags.length > 0 ? lead.tags.map((tag) => (
-                      <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-primary/10 text-primary rounded">
-                        <Tag className="w-2.5 h-2.5" />{tag}
-                      </span>
-                    )) : <span className="text-muted-foreground text-xs">—</span>}
-                  </div>
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground text-xs">{format(new Date(lead.createdAt), "MMM d, yyyy")}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+        <p className="text-sm text-muted-foreground shrink-0">{leads.length} total lead{leads.length !== 1 ? "s" : ""}</p>
+        <div className="flex flex-wrap gap-2 flex-1">
+          <Input
+            placeholder="Search email or name…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="h-8 text-sm w-full sm:w-48"
+          />
+          {allSources.length > 0 && (
+            <select
+              value={filterSource}
+              onChange={(e) => setFilterSource(e.target.value)}
+              className="h-8 text-xs bg-muted border border-border rounded-lg px-2 outline-none"
+            >
+              <option value="">All sources</option>
+              {allSources.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+          )}
+          {allTags.length > 0 && (
+            <select
+              value={filterTag}
+              onChange={(e) => setFilterTag(e.target.value)}
+              className="h-8 text-xs bg-muted border border-border rounded-lg px-2 outline-none"
+            >
+              <option value="">All tags</option>
+              {allTags.map((t) => <option key={t} value={t}>{t}</option>)}
+            </select>
+          )}
+          {(search || filterSource || filterTag) && (
+            <Button variant="ghost" size="sm" className="h-8 px-2 text-xs" onClick={() => { setSearch(""); setFilterSource(""); setFilterTag(""); }}>
+              <X className="w-3 h-3 mr-1" /> Clear
+            </Button>
+          )}
+        </div>
+        <div className="flex gap-2 shrink-0">
+          <Button variant="outline" size="sm" onClick={() => exportCsv(filtered)}>
+            <Download className="w-4 h-4 mr-1" /> Export CSV
+          </Button>
+          <Dialog open={createOpen} onOpenChange={setCreateOpen}>
+            <DialogTrigger asChild>
+              <Button size="sm"><Plus className="w-4 h-4 mr-1" /> Add Lead</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader><DialogTitle>Add Lead</DialogTitle></DialogHeader>
+              <form onSubmit={handleCreate} className="space-y-4 mt-2">
+                <div className="space-y-1.5"><Label>Email *</Label><Input type="email" value={createForm.email} onChange={(e) => setCreateForm((f) => ({ ...f, email: e.target.value }))} required /></div>
+                <div className="space-y-1.5"><Label>Name</Label><Input value={createForm.name} onChange={(e) => setCreateForm((f) => ({ ...f, name: e.target.value }))} /></div>
+                <div className="space-y-1.5"><Label>Source</Label><Input value={createForm.source} placeholder="e.g. website, referral" onChange={(e) => setCreateForm((f) => ({ ...f, source: e.target.value }))} /></div>
+                <div className="space-y-1.5"><Label>Tags <span className="text-muted-foreground text-xs">(comma-separated)</span></Label><Input value={createForm.tags} placeholder="newsletter, warm, demo" onChange={(e) => setCreateForm((f) => ({ ...f, tags: e.target.value }))} /></div>
+                <Button type="submit" disabled={creating} className="w-full">{creating ? "Creating…" : "Add Lead"}</Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
-      {/* Mobile cards */}
-      <div className="md:hidden space-y-2">
-        {leads.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No leads yet.</p>}
-        {leads.map((lead) => (
-          <div key={lead.id} className="p-4 rounded-xl border border-border">
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                  <p className="font-medium text-sm truncate">{lead.email}</p>
-                </div>
-                {lead.name && <p className="text-xs text-muted-foreground mt-0.5">{lead.name}</p>}
-              </div>
-              <p className="text-xs text-muted-foreground shrink-0">{format(new Date(lead.createdAt), "MMM d")}</p>
-            </div>
-            <div className="flex flex-wrap items-center gap-1.5 mt-2">
-              {lead.source && <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span>}
-              {lead.tags.map((tag) => (
-                <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-primary/10 text-primary rounded">
-                  <Tag className="w-2.5 h-2.5" />{tag}
-                </span>
-              ))}
-            </div>
+      {/* Edit dialog */}
+      <Dialog open={!!editLead} onOpenChange={(o) => !o && setEditLead(null)}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>Edit Lead — {editLead?.email}</DialogTitle></DialogHeader>
+          <form onSubmit={handleSaveEdit} className="space-y-4 mt-2">
+            <div className="space-y-1.5"><Label>Name</Label><Input value={editForm.name} onChange={(e) => setEditForm((f) => ({ ...f, name: e.target.value }))} /></div>
+            <div className="space-y-1.5"><Label>Source</Label><Input value={editForm.source} onChange={(e) => setEditForm((f) => ({ ...f, source: e.target.value }))} /></div>
+            <div className="space-y-1.5"><Label>Tags <span className="text-muted-foreground text-xs">(comma-separated)</span></Label><Input value={editForm.tags} onChange={(e) => setEditForm((f) => ({ ...f, tags: e.target.value }))} /></div>
+            <Button type="submit" disabled={saving} className="w-full">{saving ? "Saving…" : "Save Changes"}</Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {loading ? <AdminTableSkeleton cols={5} /> : (
+        <>
+          {/* Desktop table */}
+          <div className="hidden md:block border border-border rounded-xl overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border bg-muted/40">
+                  <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Email</th>
+                  <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Name</th>
+                  <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Source</th>
+                  <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Tags</th>
+                  <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Added</th>
+                  <th className="px-4 py-2.5" />
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.length === 0 && (
+                  <tr><td colSpan={6} className="px-4 py-12 text-center text-muted-foreground text-xs">No leads found.</td></tr>
+                )}
+                {filtered.map((lead, i) => (
+                  <tr key={lead.id} className={`border-b border-border last:border-0 ${i % 2 === 0 ? "" : "bg-muted/20"}`}>
+                    <td className="px-4 py-2.5">
+                      <div className="flex items-center gap-1.5">
+                        <Mail className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                        <span className="font-medium">{lead.email}</span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-2.5 text-muted-foreground">{lead.name || "—"}</td>
+                    <td className="px-4 py-2.5">
+                      {lead.source ? <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span> : <span className="text-muted-foreground">—</span>}
+                    </td>
+                    <td className="px-4 py-2.5">
+                      <div className="flex flex-wrap gap-1">
+                        {lead.tags.length > 0 ? lead.tags.map((tag) => (
+                          <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-primary/10 text-primary rounded">
+                            <Tag className="w-2.5 h-2.5" />{tag}
+                          </span>
+                        )) : <span className="text-muted-foreground text-xs">—</span>}
+                      </div>
+                    </td>
+                    <td className="px-4 py-2.5 text-muted-foreground text-xs">{format(new Date(lead.createdAt), "MMM d, yyyy")}</td>
+                    <td className="px-4 py-2.5">
+                      <div className="flex items-center gap-1 justify-end">
+                        <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.join(", ") }); }}>
+                          <Pencil className="w-3.5 h-3.5" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive" onClick={() => handleDelete(lead.id)}>
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        ))}
-      </div>
+
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-2">
+            {filtered.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No leads found.</p>}
+            {filtered.map((lead) => (
+              <div key={lead.id} className="p-4 rounded-xl border border-border">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <Mail className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                      <p className="font-medium text-sm truncate">{lead.email}</p>
+                    </div>
+                    {lead.name && <p className="text-xs text-muted-foreground mt-0.5">{lead.name}</p>}
+                  </div>
+                  <p className="text-xs text-muted-foreground shrink-0">{format(new Date(lead.createdAt), "MMM d")}</p>
+                </div>
+                <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                  {lead.source && <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span>}
+                  {lead.tags.map((tag) => (
+                    <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-primary/10 text-primary rounded">
+                      <Tag className="w-2.5 h-2.5" />{tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex items-center gap-2 mt-3 justify-end">
+                  <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.join(", ") }); }}>
+                    <Pencil className="w-3.5 h-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive" onClick={() => handleDelete(lead.id)}>
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </AdminShell>
   );
 }

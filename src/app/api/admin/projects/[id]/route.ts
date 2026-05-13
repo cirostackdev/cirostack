@@ -48,7 +48,6 @@ export async function PATCH(req: Request, { params }: Params) {
       include: { client: true },
     });
 
-    // If milestones array provided, update completion
     if (Array.isArray(milestones)) {
       for (const m of milestones) {
         if (m.id && m.completed !== undefined) {
@@ -57,13 +56,9 @@ export async function PATCH(req: Request, { params }: Params) {
 
           await prisma.milestone.update({
             where: { id: m.id },
-            data: {
-              completed: m.completed,
-              completedAt: m.completed ? new Date() : null,
-            },
+            data: { completed: m.completed, completedAt: m.completed ? new Date() : null },
           });
 
-          // Push notification to client on milestone completion
           if (justCompleted) {
             sendPush("client", project.clientId, {
               title: "Milestone completed",
@@ -80,5 +75,20 @@ export async function PATCH(req: Request, { params }: Params) {
     if (err?.code === "P2025") return NextResponse.json({ error: "Not found" }, { status: 404 });
     console.error("[PATCH /api/admin/projects/[id]]", err);
     return NextResponse.json({ error: "Failed to update project" }, { status: 500 });
+  }
+}
+
+export async function DELETE(_req: Request, { params }: Params) {
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { id } = await params;
+  try {
+    await prisma.project.delete({ where: { id } });
+    return NextResponse.json({ ok: true });
+  } catch (err: any) {
+    if (err?.code === "P2025") return NextResponse.json({ error: "Not found" }, { status: 404 });
+    console.error("[DELETE /api/admin/projects/[id]]", err);
+    return NextResponse.json({ error: "Failed to delete project" }, { status: 500 });
   }
 }

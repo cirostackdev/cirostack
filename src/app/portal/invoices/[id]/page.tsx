@@ -39,7 +39,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
         </div>
 
         {/* Client info */}
-        <div className="grid grid-cols-2 gap-4 text-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div>
             <p className="text-muted-foreground">Billed to</p>
             <p className="font-medium mt-1">{invoice.client.name ?? invoice.client.email}</p>
@@ -51,8 +51,8 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
           </div>
         </div>
 
-        {/* Line items */}
-        <div className="rounded-lg border border-border overflow-hidden text-sm">
+        {/* Line items — desktop table */}
+        <div className="hidden sm:block rounded-lg border border-border overflow-hidden text-sm">
           <table className="w-full">
             <thead className="bg-muted/40">
               <tr>
@@ -79,6 +79,23 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               </tr>
             </tfoot>
           </table>
+        </div>
+
+        {/* Line items — mobile cards */}
+        <div className="sm:hidden space-y-2 text-sm">
+          {lineItems.map((l, i) => (
+            <div key={i} className="flex items-start justify-between p-3 rounded-lg border border-border gap-2">
+              <div className="min-w-0">
+                <p className="font-medium">{l.description}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{l.qty} × {invoice.currency} {(l.unitPrice / 100).toFixed(2)}</p>
+              </div>
+              <p className="font-medium shrink-0">{invoice.currency} {((l.qty * l.unitPrice) / 100).toFixed(2)}</p>
+            </div>
+          ))}
+          <div className="flex items-center justify-between px-3 pt-2 border-t border-border font-semibold">
+            <span>Total</span>
+            <span>{invoice.currency} {(invoice.amount / 100).toFixed(2)}</span>
+          </div>
         </div>
 
         {/* Actions */}

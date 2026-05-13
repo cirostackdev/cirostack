@@ -41,6 +41,26 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [claimed, setClaimed] = useState(!!conversation.assignedTo);
   const [status, setStatus] = useState(conversation.status);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [assignedTo, setAssignedTo] = useState(conversation.assignedTo);
+  const [admins, setAdmins] = useState<{ id: string; name: string }[]>([]);
+
+  useEffect(() => {
+    fetch("/api/admin/admins").then((r) => r.ok ? r.json() : []).then((data) => {
+      if (Array.isArray(data)) setAdmins(data);
+    }).catch(() => {});
+  }, []);
+
+  async function handleAssign(adminId: string) {
+    const res = await fetch(`/api/admin/conversations/${conversation.id}/assign`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ adminId: adminId || null }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setAssignedTo(data.assignedTo);
+    }
+  }
   const socketRef = useRef<ReturnType<typeof getSocket> | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -270,13 +290,25 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
         <div>
           <p className="text-xs text-muted-foreground uppercase font-semibold mb-2">Assignment</p>
-          {conversation.assignedTo ? (
-            <div className="flex items-center gap-1.5">
+          {assignedTo ? (
+            <div className="flex items-center gap-1.5 mb-2">
               <UserCheck className="w-3.5 h-3.5 text-green-500" />
-              <span className="text-xs">{conversation.assignedTo.name}</span>
+              <span className="text-xs">{assignedTo.name}</span>
             </div>
           ) : (
-            <span className="text-xs text-muted-foreground">Unassigned</span>
+            <p className="text-xs text-muted-foreground mb-2">Unassigned</p>
+          )}
+          {admins.length > 0 && (
+            <select
+              value={assignedTo?.id ?? ""}
+              onChange={(e) => handleAssign(e.target.value)}
+              className="w-full text-xs bg-muted border border-border rounded-lg px-2 py-1.5 outline-none"
+            >
+              <option value="">Unassigned</option>
+              {admins.map((a) => (
+                <option key={a.id} value={a.id}>{a.name}</option>
+              ))}
+            </select>
           )}
         </div>
       </aside>

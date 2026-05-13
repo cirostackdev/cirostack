@@ -19,6 +19,7 @@ export default function AdminClientsPage() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ email: "", name: "", company: "" });
   const [saving, setSaving] = useState(false);
+  const [search, setSearch] = useState("");
 
   async function load() {
     const res = await fetch("/api/admin/clients");
@@ -36,10 +37,22 @@ export default function AdminClientsPage() {
     setSaving(false);
   }
 
+  const filtered = clients.filter((c) => {
+    const q = search.toLowerCase();
+    return !q || c.email.toLowerCase().includes(q) || (c.name ?? "").toLowerCase().includes(q) || (c.company ?? "").toLowerCase().includes(q);
+  });
+
   return (
     <AdminShell title="Clients">
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-sm text-muted-foreground">{clients.length} clients</p>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+          <p className="text-sm text-muted-foreground shrink-0">{clients.length} clients</p>
+          <Input
+            placeholder="Search email, name or company…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="h-8 text-sm w-full sm:w-64"
+          />
+          <div className="sm:ml-auto">
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Client</Button>
@@ -54,6 +67,7 @@ export default function AdminClientsPage() {
               </form>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
 
         {loading ? <AdminTableSkeleton cols={6} /> : (
@@ -72,7 +86,7 @@ export default function AdminClientsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {clients.map((c) => (
+                  {filtered.map((c) => (
                     <tr key={c.id} className="border-t border-border hover:bg-muted/20 transition-colors">
                       <td className="px-4 py-3 font-medium">{c.email}</td>
                       <td className="px-4 py-3 text-muted-foreground">{c.name ?? "—"}</td>
@@ -86,14 +100,14 @@ export default function AdminClientsPage() {
                       </td>
                     </tr>
                   ))}
-                  {clients.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No clients yet.</td></tr>}
+                  {filtered.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No clients found.</td></tr>}
                 </tbody>
               </table>
             </div>
             {/* Mobile cards */}
             <div className="md:hidden space-y-2">
-              {clients.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No clients yet.</p>}
-              {clients.map((c) => (
+              {filtered.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No clients found.</p>}
+              {filtered.map((c) => (
                 <Link key={c.id} href={`/admin/clients/${c.id}`} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors">
                   <div className="min-w-0">
                     <p className="font-medium text-sm truncate">{c.email}</p>

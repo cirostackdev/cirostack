@@ -3,6 +3,23 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+export async function GET() {
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  try {
+    const admins = await prisma.admin.findMany({
+      where: { disabled: false },
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, email: true, role: true, online: true },
+    });
+    return NextResponse.json(admins);
+  } catch (err) {
+    console.error("[GET /api/admin/admins]", err);
+    return NextResponse.json({ error: "Failed" }, { status: 500 });
+  }
+}
+
 export async function POST(req: Request) {
   const session = await auth();
   const user = session?.user as any;

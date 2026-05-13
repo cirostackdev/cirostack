@@ -24,9 +24,19 @@ export default async function SettingsPage() {
     select: { id: true, name: true, email: true, role: true, disabled: true, online: true, createdAt: true },
   });
 
+  const me = await prisma.admin.findUnique({
+    where: { id: currentAdmin.id },
+    select: { name: true, email: true },
+  });
+
   return (
     <AdminShell title="Settings">
-      <SettingsClient admins={admins as any} currentAdminId={currentAdmin.id} />
+      <SettingsClient
+        admins={admins as any}
+        currentAdminId={currentAdmin.id}
+        currentAdminName={me?.name ?? currentAdmin.name ?? ""}
+        currentAdminEmail={me?.email ?? currentAdmin.email ?? ""}
+      />
     </AdminShell>
   );
 }

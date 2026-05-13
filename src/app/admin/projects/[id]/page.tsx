@@ -11,11 +11,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { ArrowLeft, CheckCircle, Circle, Plus, Upload } from "lucide-react";
+import { ArrowLeft, CheckCircle, Circle, Plus, Upload, Trash2, Pencil } from "lucide-react";
 
 type Project = {
   id: string; title: string; status: string; description?: string;
+  startDate?: string; dueDate?: string;
   client: { id: string; email: string; name?: string };
   milestones: Milestone[];
   updates: Update[];
@@ -36,26 +38,120 @@ export default function ProjectDetailPage() {
   const [internal, setInternal] = useState(false);
   const [posting, setPosting] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  // Edit project dialog
+  const [editOpen, setEditOpen] = useState(false);
+  const [editForm, setEditForm] = useState({ title: "", description: "", startDate: "", dueDate: "" });
+  const [editSaving, setEditSaving] = useState(false);
+
+  // Add milestone dialog
+  const [milestoneOpen, setMilestoneOpen] = useState(false);
+  const [milestoneForm, setMilestoneForm] = useState({ title: "", dueDate: "" });
+  const [milestoneAdding, setMilestoneAdding] = useState(false);
+
+  // Edit milestone dialog
+  const [editMilestone, setEditMilestone] = useState<Milestone | null>(null);
+  const [editMilestoneForm, setEditMilestoneForm] = useState({ title: "", dueDate: "" });
+  const [editMilestoneSaving, setEditMilestoneSaving] = useState(false);
 
   async function load() {
     const res = await fetch(`/api/admin/projects/${id}`);
-    if (res.ok) { const data = await res.json(); setProject(data); setStatus(data.status); }
+    if (res.ok) {
+      const data = await res.json();
+      setProject(data);
+      setStatus(data.status);
+      setEditForm({
+        title: data.title,
+        description: data.description ?? "",
+        startDate: data.startDate ? data.startDate.slice(0, 10) : "",
+        dueDate: data.dueDate ? data.dueDate.slice(0, 10) : "",
+      });
+    }
   }
   useEffect(() => { load(); }, [id]);
 
   async function handleStatusChange(s: string) {
     setStatus(s);
-    await fetch(`/api/admin/projects/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status: s }) });
-    toast.success("Status updated");
-  }
-
-  async function handleMilestoneToggle(m: Milestone) {
     await fetch(`/api/admin/projects/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ milestones: [{ id: m.id, completed: !m.completed }] }),
+      body: JSON.stringify({ status: s }),
+    });
+    toast.success("Status updated");
+  }
+
+  async function handleEditProject(e: React.FormEvent) {
+    e.preventDefault();
+    setEditSaving(true);
+    const res = await fetch(`/api/admin/projects/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: editForm.title,
+        description: editForm.description || null,
+        startDate: editForm.startDate || null,
+        dueDate: editForm.dueDate || null,
+      }),
+    });
+    if (res.ok) { toast.success("Project updated"); setEditOpen(false); load(); }
+    else toast.error("Failed to update project");
+    setEditSaving(false);
+  }
+
+  async function handleDeleteProject() {
+    if (!confirm("Delete this project and all its milestones, updates, and files?")) return;
+    setDeleting(true);
+    const res = await fetch(`/api/admin/projects/${id}`, { method: "DELETE" });
+    if (res.ok) { toast.success("Project deleted"); router.push("/admin/projects"); }
+    else { toast.error("Failed to delete"); setDeleting(false); }
+  }
+
+  async function handleMilestoneToggle(m: Milestone) {
+    await fetch(`/api/admin/projects/${id}/milestones/${m.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ completed: !m.completed }),
     });
     load();
+  }
+
+  async function handleAddMilestone(e: React.FormEvent) {
+    e.preventDefault();
+    setMilestoneAdding(true);
+    const res = await fetch(`/api/admin/projects/${id}/milestones`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: milestoneForm.title, dueDate: milestoneForm.dueDate || null }),
+    });
+    if (res.ok) {
+      toast.success("Milestone added");
+      setMilestoneOpen(false);
+      setMilestoneForm({ title: "", dueDate: "" });
+      load();
+    } else toast.error("Failed to add milestone");
+    setMilestoneAdding(false);
+  }
+
+  async function handleEditMilestoneSave(e: React.FormEvent) {
+    e.preventDefault();
+    if (!editMilestone) return;
+    setEditMilestoneSaving(true);
+    const res = await fetch(`/api/admin/projects/${id}/milestones/${editMilestone.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: editMilestoneForm.title, dueDate: editMilestoneForm.dueDate || null }),
+    });
+    if (res.ok) { toast.success("Milestone updated"); setEditMilestone(null); load(); }
+    else toast.error("Failed to update milestone");
+    setEditMilestoneSaving(false);
+  }
+
+  async function handleDeleteMilestone(milestoneId: string) {
+    if (!confirm("Delete this milestone?")) return;
+    const res = await fetch(`/api/admin/projects/${id}/milestones/${milestoneId}`, { method: "DELETE" });
+    if (res.ok) { toast.success("Milestone deleted"); load(); }
+    else toast.error("Failed to delete milestone");
   }
 
   async function handlePostUpdate(e: React.FormEvent) {
@@ -72,6 +168,13 @@ export default function ProjectDetailPage() {
     setPosting(false);
   }
 
+  async function handleDeleteUpdate(updateId: string) {
+    if (!confirm("Delete this update?")) return;
+    const res = await fetch(`/api/admin/projects/${id}/updates/${updateId}`, { method: "DELETE" });
+    if (res.ok) { toast.success("Update deleted"); load(); }
+    else toast.error("Failed to delete update");
+  }
+
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -82,6 +185,13 @@ export default function ProjectDetailPage() {
     if (res.ok) { toast.success("File uploaded"); load(); }
     else toast.error("Upload failed");
     setUploading(false);
+  }
+
+  async function handleDeleteFile(fileId: string) {
+    if (!confirm("Remove this file?")) return;
+    const res = await fetch(`/api/admin/projects/${id}/files/${fileId}`, { method: "DELETE" });
+    if (res.ok) { toast.success("File removed"); load(); }
+    else toast.error("Failed to remove file");
   }
 
   if (!project) return <AdminShell title="Project"><AdminDetailSkeleton /></AdminShell>;
@@ -98,16 +208,75 @@ export default function ProjectDetailPage() {
           <div>
             <h2 className="text-xl font-semibold">{project.title}</h2>
             <p className="text-sm text-muted-foreground mt-1">Client: {project.client.name ?? project.client.email}</p>
+            {project.description && <p className="text-sm text-muted-foreground mt-0.5">{project.description}</p>}
+            {(project.startDate || project.dueDate) && (
+              <p className="text-xs text-muted-foreground mt-1">
+                {project.startDate && `Start: ${project.startDate.slice(0, 10)}`}
+                {project.startDate && project.dueDate && " · "}
+                {project.dueDate && `Due: ${project.dueDate.slice(0, 10)}`}
+              </p>
+            )}
           </div>
-          <Select value={status} onValueChange={handleStatusChange}>
-            <SelectTrigger className="w-full sm:w-40"><SelectValue /></SelectTrigger>
-            <SelectContent>{STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
-          </Select>
+          <div className="flex flex-wrap items-center gap-2">
+            <Select value={status} onValueChange={handleStatusChange}>
+              <SelectTrigger className="w-full sm:w-40"><SelectValue /></SelectTrigger>
+              <SelectContent>{STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
+            </Select>
+            <Button variant="outline" size="sm" onClick={() => setEditOpen(true)}>Edit</Button>
+            <Button variant="outline" size="sm" className="text-destructive hover:text-destructive" onClick={handleDeleteProject} disabled={deleting}>
+              <Trash2 className="w-3.5 h-3.5 mr-1" />{deleting ? "Deleting…" : "Delete"}
+            </Button>
+          </div>
         </div>
+
+        {/* Edit project dialog */}
+        <Dialog open={editOpen} onOpenChange={setEditOpen}>
+          <DialogContent>
+            <DialogHeader><DialogTitle>Edit Project</DialogTitle></DialogHeader>
+            <form onSubmit={handleEditProject} className="space-y-4 mt-2">
+              <div className="space-y-1.5"><Label>Title *</Label><Input value={editForm.title} onChange={(e) => setEditForm((f) => ({ ...f, title: e.target.value }))} required /></div>
+              <div className="space-y-1.5"><Label>Description</Label><Textarea value={editForm.description} onChange={(e) => setEditForm((f) => ({ ...f, description: e.target.value }))} rows={2} /></div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5"><Label>Start Date</Label><Input type="date" value={editForm.startDate} onChange={(e) => setEditForm((f) => ({ ...f, startDate: e.target.value }))} /></div>
+                <div className="space-y-1.5"><Label>Due Date</Label><Input type="date" value={editForm.dueDate} onChange={(e) => setEditForm((f) => ({ ...f, dueDate: e.target.value }))} /></div>
+              </div>
+              <Button type="submit" disabled={editSaving} className="w-full">{editSaving ? "Saving…" : "Save Changes"}</Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit milestone dialog */}
+        <Dialog open={!!editMilestone} onOpenChange={(o) => !o && setEditMilestone(null)}>
+          <DialogContent>
+            <DialogHeader><DialogTitle>Edit Milestone</DialogTitle></DialogHeader>
+            <form onSubmit={handleEditMilestoneSave} className="space-y-4 mt-2">
+              <div className="space-y-1.5"><Label>Title *</Label><Input value={editMilestoneForm.title} onChange={(e) => setEditMilestoneForm((f) => ({ ...f, title: e.target.value }))} required /></div>
+              <div className="space-y-1.5"><Label>Due Date</Label><Input type="date" value={editMilestoneForm.dueDate} onChange={(e) => setEditMilestoneForm((f) => ({ ...f, dueDate: e.target.value }))} /></div>
+              <Button type="submit" disabled={editMilestoneSaving} className="w-full">{editMilestoneSaving ? "Saving…" : "Save"}</Button>
+            </form>
+          </DialogContent>
+        </Dialog>
 
         {/* Milestones */}
         <div>
-          <h3 className="font-semibold mb-3">Milestones</h3>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-semibold">Milestones</h3>
+            <Button size="sm" variant="outline" onClick={() => setMilestoneOpen(true)}>
+              <Plus className="w-4 h-4 mr-1" /> Add Milestone
+            </Button>
+          </div>
+
+          <Dialog open={milestoneOpen} onOpenChange={setMilestoneOpen}>
+            <DialogContent>
+              <DialogHeader><DialogTitle>Add Milestone</DialogTitle></DialogHeader>
+              <form onSubmit={handleAddMilestone} className="space-y-4 mt-2">
+                <div className="space-y-1.5"><Label>Title *</Label><Input value={milestoneForm.title} onChange={(e) => setMilestoneForm((f) => ({ ...f, title: e.target.value }))} required autoFocus /></div>
+                <div className="space-y-1.5"><Label>Due Date</Label><Input type="date" value={milestoneForm.dueDate} onChange={(e) => setMilestoneForm((f) => ({ ...f, dueDate: e.target.value }))} /></div>
+                <Button type="submit" disabled={milestoneAdding} className="w-full">{milestoneAdding ? "Adding…" : "Add Milestone"}</Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+
           <div className="space-y-2">
             {project.milestones.map((m) => (
               <div key={m.id} className="flex items-center gap-3 p-3 rounded-lg border border-border">
@@ -116,9 +285,17 @@ export default function ProjectDetailPage() {
                 </button>
                 <span className={`text-sm flex-1 ${m.completed ? "line-through text-muted-foreground" : ""}`}>{m.title}</span>
                 {m.dueDate && <span className="text-xs text-muted-foreground">{m.dueDate.slice(0, 10)}</span>}
+                <div className="flex items-center gap-1">
+                  <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditMilestone(m); setEditMilestoneForm({ title: m.title, dueDate: m.dueDate?.slice(0, 10) ?? "" }); }}>
+                    <Pencil className="w-3.5 h-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive" onClick={() => handleDeleteMilestone(m.id)}>
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </Button>
+                </div>
               </div>
             ))}
-            {project.milestones.length === 0 && <p className="text-sm text-muted-foreground">No milestones.</p>}
+            {project.milestones.length === 0 && <p className="text-sm text-muted-foreground">No milestones yet.</p>}
           </div>
         </div>
 
@@ -140,9 +317,14 @@ export default function ProjectDetailPage() {
           <div className="space-y-3">
             {project.updates.map((u) => (
               <div key={u.id} className={`p-4 rounded-xl border ${u.internal ? "border-dashed border-muted-foreground/30 bg-muted/10" : "border-border"}`}>
-                <div className="flex items-center gap-2 mb-1">
-                  {u.internal && <Badge variant="outline" className="text-xs">Internal</Badge>}
-                  <span className="text-xs text-muted-foreground">{new Date(u.createdAt).toLocaleString()}</span>
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <div className="flex items-center gap-2">
+                    {u.internal && <Badge variant="outline" className="text-xs">Internal</Badge>}
+                    <span className="text-xs text-muted-foreground">{new Date(u.createdAt).toLocaleString()}</span>
+                  </div>
+                  <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive shrink-0" onClick={() => handleDeleteUpdate(u.id)}>
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </Button>
                 </div>
                 <p className="text-sm">{u.body}</p>
               </div>
@@ -164,10 +346,13 @@ export default function ProjectDetailPage() {
           </div>
           <div className="space-y-2">
             {project.files.map((f) => (
-              <a key={f.id} href={f.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/20 transition-colors">
-                <span className="text-sm font-medium">{f.name}</span>
-                <span className="text-xs text-muted-foreground">{f.size ? `${(f.size / 1024).toFixed(1)} KB` : ""}</span>
-              </a>
+              <div key={f.id} className="flex items-center gap-3 p-3 rounded-lg border border-border">
+                <a href={f.url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium flex-1 hover:underline truncate">{f.name}</a>
+                <span className="text-xs text-muted-foreground shrink-0">{f.size ? `${(f.size / 1024).toFixed(1)} KB` : ""}</span>
+                <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive shrink-0" onClick={() => handleDeleteFile(f.id)}>
+                  <Trash2 className="w-3.5 h-3.5" />
+                </Button>
+              </div>
             ))}
             {project.files.length === 0 && <p className="text-sm text-muted-foreground">No files yet.</p>}
           </div>

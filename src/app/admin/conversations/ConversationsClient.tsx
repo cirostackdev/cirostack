@@ -26,6 +26,7 @@ interface Props {
 export function ConversationsClient({ initialConversations, unreadMap }: Props) {
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [filter, setFilter] = useState<"open" | "closed" | "all">("open");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     // Heartbeat: tell the status API this admin is online (works on Vercel serverless)
@@ -61,14 +62,29 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   }, []);
 
   const filtered = conversations.filter((c) => {
-    if (filter === "all") return true;
-    return c.status === filter;
+    const matchFilter = filter === "all" || c.status === filter;
+    if (!matchFilter) return false;
+    if (!search) return true;
+    const q = search.toLowerCase();
+    return (
+      (c.visitorName ?? "").toLowerCase().includes(q) ||
+      (c.visitorEmail ?? "").toLowerCase().includes(q) ||
+      (c.topic ?? "").toLowerCase().includes(q)
+    );
   });
 
   return (
     <div className="p-4">
-      {/* Filter tabs */}
-      <div className="flex gap-2 mb-4">
+      {/* Filter tabs + search */}
+      <div className="flex flex-col sm:flex-row gap-2 mb-4">
+        <input
+          type="text"
+          placeholder="Search name, email or topic…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="h-8 text-sm px-3 rounded-lg bg-muted border border-border outline-none w-full sm:w-56 focus:ring-1 focus:ring-primary"
+        />
+      <div className="flex gap-2">
         {(["open", "closed", "all"] as const).map((f) => (
           <button
             key={f}
@@ -85,6 +101,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
             </span>
           </button>
         ))}
+      </div>
       </div>
 
       {/* List */}
