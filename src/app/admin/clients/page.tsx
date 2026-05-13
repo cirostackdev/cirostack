@@ -57,37 +57,54 @@ export default function AdminClientsPage() {
         </div>
 
         {loading ? <AdminTableSkeleton cols={6} /> : (
-          <div className="rounded-xl border border-border overflow-hidden">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/40">
-                <tr>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">Email</th>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">Name</th>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">Company</th>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">Projects</th>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground">Invoices</th>
-                  <th className="px-4 py-3" />
-                </tr>
-              </thead>
-              <tbody>
-                {clients.map((c) => (
-                  <tr key={c.id} className="border-t border-border hover:bg-muted/20 transition-colors">
-                    <td className="px-4 py-3 font-medium">{c.email}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{c.name ?? "—"}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{c.company ?? "—"}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{c._count.projects}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{c._count.invoices}</td>
-                    <td className="px-4 py-3">
-                      <Link href={`/admin/clients/${c.id}`}>
-                        <Button variant="ghost" size="icon" className="w-8 h-8"><ChevronRight className="w-4 h-4" /></Button>
-                      </Link>
-                    </td>
+          <>
+            {/* Desktop table */}
+            <div className="hidden md:block rounded-xl border border-border overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/40">
+                  <tr>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Email</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Name</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Company</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Projects</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Invoices</th>
+                    <th className="px-4 py-3" />
                   </tr>
-                ))}
-                {clients.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No clients yet.</td></tr>}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {clients.map((c) => (
+                    <tr key={c.id} className="border-t border-border hover:bg-muted/20 transition-colors">
+                      <td className="px-4 py-3 font-medium">{c.email}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{c.name ?? "—"}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{c.company ?? "—"}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{c._count.projects}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{c._count.invoices}</td>
+                      <td className="px-4 py-3">
+                        <Link href={`/admin/clients/${c.id}`}>
+                          <Button variant="ghost" size="icon" className="w-8 h-8"><ChevronRight className="w-4 h-4" /></Button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                  {clients.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No clients yet.</td></tr>}
+                </tbody>
+              </table>
+            </div>
+            {/* Mobile cards */}
+            <div className="md:hidden space-y-2">
+              {clients.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No clients yet.</p>}
+              {clients.map((c) => (
+                <Link key={c.id} href={`/admin/clients/${c.id}`} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors">
+                  <div className="min-w-0">
+                    <p className="font-medium text-sm truncate">{c.email}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{[c.name, c.company].filter(Boolean).join(" · ") || "—"}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{c._count.projects} project{c._count.projects !== 1 ? "s" : ""} · {c._count.invoices} invoice{c._count.invoices !== 1 ? "s" : ""}</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 ml-3" />
+                </Link>
+              ))}
+            </div>
+          </>
         )}
     </AdminShell>
   );

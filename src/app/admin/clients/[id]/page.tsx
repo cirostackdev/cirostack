@@ -58,7 +58,7 @@ export default function ClientDetailPage() {
 
   return (
     <AdminShell title={client.name ?? client.email}>
-      <div className="p-6 max-w-4xl space-y-8">
+      <div className="max-w-4xl space-y-8">
         <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
@@ -66,8 +66,8 @@ export default function ClientDetailPage() {
         {/* Client info */}
         <div className="rounded-xl border border-border p-5 space-y-2">
           <h2 className="font-semibold">Client Details</h2>
-          <div className="grid grid-cols-3 gap-4 text-sm">
-            <div><p className="text-muted-foreground">Email</p><p>{client.email}</p></div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+            <div><p className="text-muted-foreground">Email</p><p className="break-all">{client.email}</p></div>
             <div><p className="text-muted-foreground">Name</p><p>{client.name ?? "—"}</p></div>
             <div><p className="text-muted-foreground">Company</p><p>{client.company ?? "—"}</p></div>
           </div>

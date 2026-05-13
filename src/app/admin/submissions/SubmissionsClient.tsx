@@ -67,25 +67,27 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
         {filtered.map((sub) => (
           <div key={sub.id} className="border border-border rounded-xl overflow-hidden">
             <div
-              className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-muted/30 transition-colors"
+              className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-3 cursor-pointer hover:bg-muted/30 transition-colors gap-2"
               onClick={() => setExpanded(expanded === sub.id ? null : sub.id)}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
                 <span
-                  className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${
+                  className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium capitalize ${
                     TYPE_COLORS[sub.type] || "bg-muted text-muted-foreground"
                   }`}
                 >
                   {sub.type}
                 </span>
-                <span className="text-sm font-medium">
-                  {sub.data?.name || sub.data?.fullName || sub.data?.email || "—"}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {sub.data?.email && sub.data?.name ? sub.data.email : ""}
-                </span>
+                <div className="min-w-0">
+                  <span className="text-sm font-medium truncate block">
+                    {sub.data?.name || sub.data?.fullName || sub.data?.email || "—"}
+                  </span>
+                  {sub.data?.email && sub.data?.name && (
+                    <span className="text-xs text-muted-foreground truncate block">{sub.data.email}</span>
+                  )}
+                </div>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 shrink-0">
                 <select
                   value={statuses[sub.id]}
                   onClick={(e) => e.stopPropagation()}

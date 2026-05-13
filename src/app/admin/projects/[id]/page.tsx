@@ -88,19 +88,19 @@ export default function ProjectDetailPage() {
 
   return (
     <AdminShell title={project.title}>
-      <div className="p-6 max-w-4xl space-y-8">
+      <div className="max-w-4xl space-y-8">
         <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
 
         {/* Header */}
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
           <div>
             <h2 className="text-xl font-semibold">{project.title}</h2>
             <p className="text-sm text-muted-foreground mt-1">Client: {project.client.name ?? project.client.email}</p>
           </div>
           <Select value={status} onValueChange={handleStatusChange}>
-            <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-full sm:w-40"><SelectValue /></SelectTrigger>
             <SelectContent>{STATUSES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
           </Select>
         </div>
@@ -127,9 +127,9 @@ export default function ProjectDetailPage() {
           <h3 className="font-semibold mb-3">Post Update</h3>
           <form onSubmit={handlePostUpdate} className="space-y-3">
             <Textarea value={updateText} onChange={(e) => setUpdateText(e.target.value)} rows={3} placeholder="Write an update for the client…" />
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <div className="flex items-center gap-2"><Switch checked={internal} onCheckedChange={setInternal} /><Label>Internal (not shown to client)</Label></div>
-              <Button type="submit" size="sm" disabled={posting}>{posting ? "Posting…" : "Post Update"}</Button>
+              <Button type="submit" size="sm" disabled={posting} className="sm:ml-auto">{posting ? "Posting…" : "Post Update"}</Button>
             </div>
           </form>
         </div>

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow, format } from "date-fns";
-import { Send, ArrowLeft, UserCheck, X } from "lucide-react";
+import { Send, ArrowLeft, UserCheck, X, Info } from "lucide-react";
 import { getSocket } from "@/lib/socket";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 
@@ -40,6 +40,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [visitorTyping, setVisitorTyping] = useState(false);
   const [claimed, setClaimed] = useState(!!conversation.assignedTo);
   const [status, setStatus] = useState(conversation.status);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const socketRef = useRef<ReturnType<typeof getSocket> | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -171,6 +172,13 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                 <X className="w-4 h-4" />
               </button>
             )}
+            <button
+              onClick={() => setSidebarOpen((v) => !v)}
+              className="lg:hidden text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Toggle visitor info"
+            >
+              <Info className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
@@ -249,8 +257,8 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
         )}
       </div>
 
-      {/* Sidebar: visitor info */}
-      <aside className="w-56 shrink-0 p-4 space-y-4 text-sm">
+      {/* Sidebar: visitor info — hidden on mobile unless toggled */}
+      <aside className={`${sidebarOpen ? "flex" : "hidden"} lg:flex w-full lg:w-56 shrink-0 flex-col absolute lg:static inset-0 z-10 bg-background lg:bg-transparent border-l border-border p-4 space-y-4 text-sm`}>
         <div>
           <p className="text-xs text-muted-foreground uppercase font-semibold mb-2">Visitor</p>
           <div className="space-y-1.5">
