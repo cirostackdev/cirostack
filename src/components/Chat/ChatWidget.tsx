@@ -2,25 +2,6 @@
 
 import { X } from "lucide-react";
 
-function ChatIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
-      {/* Head */}
-      <circle cx="12" cy="7" r="3.5" />
-      {/* Headset arc */}
-      <path d="M5.5 10a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      {/* Left ear cup */}
-      <rect x="4" y="10" width="2.5" height="4" rx="1.25" />
-      {/* Right ear cup */}
-      <rect x="17.5" y="10" width="2.5" height="4" rx="1.25" />
-      {/* Speech bubble with dots */}
-      <path d="M9 16.5h6a2 2 0 0 1 2 2v.5a2 2 0 0 1-2 2H9.8l-1.8 1.5V19a2 2 0 0 1 2-2.5z" />
-      <circle cx="10.5" cy="19" r="0.6" fill="white" />
-      <circle cx="12" cy="19" r="0.6" fill="white" />
-      <circle cx="13.5" cy="19" r="0.6" fill="white" />
-    </svg>
-  );
-}
 import { useChat } from "./useChat";
 import { PreChatForm } from "./PreChatForm";
 import { ChatPanel } from "./ChatPanel";
@@ -57,7 +38,7 @@ export function ChatWidget() {
             aria-label={agentOnline ? "Chat with us" : "Leave a message"}
             className="group relative w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-200 flex items-center justify-center"
           >
-            <ChatIcon className="w-6 h-6" />
+            <img src="/live-chat.png" alt="" className="w-6 h-6" />
             {/* Online indicator */}
             {agentOnline && (
               <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-background rounded-full">
@@ -78,7 +59,7 @@ export function ChatWidget() {
           <div className="flex items-center justify-between px-4 py-3 bg-primary text-primary-foreground">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary-foreground/20 rounded-full flex items-center justify-center">
-                <ChatIcon className="w-4 h-4" />
+                <img src="/live-chat.png" alt="" className="w-4 h-4" />
               </div>
               <div>
                 <p className="text-sm font-semibold">CiroStack Support</p>
