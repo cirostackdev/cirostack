@@ -4,13 +4,20 @@ import { X } from "lucide-react";
 
 function ChatIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-      <path
-        d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-      />
-      <path d="M8 10l2.5 2.5L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <line x1="13" y1="15" x2="16" y2="15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
+      {/* Head */}
+      <circle cx="12" cy="7" r="3.5" />
+      {/* Headset arc */}
+      <path d="M5.5 10a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      {/* Left ear cup */}
+      <rect x="4" y="10" width="2.5" height="4" rx="1.25" />
+      {/* Right ear cup */}
+      <rect x="17.5" y="10" width="2.5" height="4" rx="1.25" />
+      {/* Speech bubble with dots */}
+      <path d="M9 16.5h6a2 2 0 0 1 2 2v.5a2 2 0 0 1-2 2H9.8l-1.8 1.5V19a2 2 0 0 1 2-2.5z" />
+      <circle cx="10.5" cy="19" r="0.6" fill="white" />
+      <circle cx="12" cy="19" r="0.6" fill="white" />
+      <circle cx="13.5" cy="19" r="0.6" fill="white" />
     </svg>
   );
 }
