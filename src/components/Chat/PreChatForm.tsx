@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { MessageSquare } from "lucide-react";
 
 interface PreChatFormProps {
   onSubmit: (data: { name?: string; email?: string; topic?: string }) => void;
@@ -20,9 +19,6 @@ export function PreChatForm({ onSubmit }: PreChatFormProps) {
   return (
     <div className="flex flex-col h-full p-4">
       <div className="mb-4 text-center">
-        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-          <MessageSquare className="w-5 h-5 text-primary" />
-        </div>
         <h3 className="font-semibold text-sm">Start a conversation</h3>
         <p className="text-xs text-muted-foreground mt-1">
           Fill in a few details to help us assist you better, or skip and start chatting right away.
