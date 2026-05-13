@@ -1,6 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
+
+const TOPICS = [
+  "Project enquiry",
+  "Pricing & budget",
+  "Technical question",
+  "Partnership",
+  "Other",
+];
 
 interface PreChatFormProps {
   onSubmit: (data: { name?: string; email?: string; topic?: string }) => void;
@@ -10,6 +19,18 @@ export function PreChatForm({ onSubmit }: PreChatFormProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [topic, setTopic] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,22 +73,36 @@ export function PreChatForm({ onSubmit }: PreChatFormProps) {
           />
         </div>
 
-        <div>
+        <div ref={dropdownRef} className="relative">
           <label className="text-xs font-medium text-muted-foreground block mb-1">
             What do you need help with? <span className="text-muted-foreground/60">(optional)</span>
           </label>
-          <select
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-            className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-lg outline-none focus:ring-1 focus:ring-primary"
+          <button
+            type="button"
+            onClick={() => setDropdownOpen((o) => !o)}
+            className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-lg outline-none focus:ring-1 focus:ring-primary flex items-center justify-between text-left"
           >
-            <option value="">Select a topic</option>
-            <option value="Project enquiry">Project enquiry</option>
-            <option value="Pricing & budget">Pricing &amp; budget</option>
-            <option value="Technical question">Technical question</option>
-            <option value="Partnership">Partnership</option>
-            <option value="Other">Other</option>
-          </select>
+            <span className={topic ? "text-foreground" : "text-muted-foreground"}>
+              {topic || "Select a topic"}
+            </span>
+            <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-150 ${dropdownOpen ? "rotate-180" : ""}`} />
+          </button>
+
+          {dropdownOpen && (
+            <ul className="absolute left-0 right-0 top-full mt-1 bg-background border border-border rounded-lg shadow-lg overflow-hidden z-10">
+              {TOPICS.map((t) => (
+                <li key={t}>
+                  <button
+                    type="button"
+                    onClick={() => { setTopic(t); setDropdownOpen(false); }}
+                    className={`w-full text-left px-3 py-2 text-sm hover:bg-muted transition-colors ${topic === t ? "text-primary font-medium" : "text-foreground"}`}
+                  >
+                    {t}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="mt-auto pt-2 flex flex-col gap-2">
