@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Send, Paperclip, MessageSquare, Plus, ChevronLeft, FileText } from "lucide-react";
 import { format, formatDistanceToNow } from "date-fns";
-import { getSocket } from "@/lib/socket";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 
 interface Message {
@@ -34,10 +33,12 @@ interface Props {
   initialConversation: Conversation | null;
 }
 
-function Bubble({ msg, isAgent }: { msg: Message; isAgent: boolean }) {
+function Bubble({ msg }: { msg: Message }) {
+  const isAgent = msg.senderType === "agent";
+  const isSystem = msg.senderType === "system";
   const time = format(new Date(msg.createdAt), "HH:mm");
 
-  if (msg.senderType === "system") {
+  if (isSystem) {
     return (
       <div className="flex justify-center my-3">
         <span className="text-[11px] text-muted-foreground bg-muted/60 px-3 py-1 rounded-full border border-border/40">
@@ -56,11 +57,10 @@ function Bubble({ msg, isAgent }: { msg: Message; isAgent: boolean }) {
         {isAgent && msg.senderName && (
           <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">{msg.senderName}</p>
         )}
-
         {isImage ? (
           <div className={`p-2 rounded-2xl ${isAgent ? "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md" : "bg-primary/10 rounded-tr-md"}`}>
             <img src={msg.fileUrl!} alt="attachment" className="rounded-xl max-w-full max-h-48 object-cover" />
-            <p className="text-[10px] mt-1.5 opacity-60 text-left">{time}</p>
+            <p className="text-[10px] mt-1.5 opacity-60">{time}</p>
           </div>
         ) : isFile ? (
           <div className={`p-3.5 rounded-2xl ${isAgent ? "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md" : "bg-primary/10 rounded-tr-md"} max-w-[220px] w-full`}>
@@ -69,8 +69,7 @@ function Bubble({ msg, isAgent }: { msg: Message; isAgent: boolean }) {
                 <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
               </div>
               <div className="min-w-0">
-                <a href={msg.fileUrl!} target="_blank" rel="noopener noreferrer"
-                  className="text-xs font-semibold truncate block hover:underline">View attachment</a>
+                <a href={msg.fileUrl!} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold truncate block hover:underline">View attachment</a>
                 <p className="text-[10px] text-muted-foreground mt-0.5">Document</p>
               </div>
             </div>
@@ -95,148 +94,119 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   const [conversation, setConversation] = useState<Conversation | null>(initialConversation);
   const [messages, setMessages] = useState<Message[]>(initialConversation?.messages ?? []);
   const [agentOnline, setAgentOnline] = useState(false);
-  const [agentTyping, setAgentTyping] = useState(false);
   const [input, setInput] = useState("");
-  const [status, setStatus] = useState<"idle" | "connecting" | "connected">("idle");
+  const [sending, setSending] = useState(false);
   const [view, setView] = useState<"chat" | "history">("chat");
   const [history, setHistory] = useState<Conversation[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
 
-  const socketRef = useRef<ReturnType<typeof getSocket> | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const conversationIdRef = useRef<string | null>(initialConversation?.id ?? null);
-  // Stable refs so connectSocket never needs to change identity
-  const clientIdRef = useRef(clientId);
-  const clientNameRef = useRef(clientName);
-  const clientEmailRef = useRef(clientEmail);
+  const lastMessageIdRef = useRef<string | null>(
+    initialConversation?.messages.at(-1)?.id ?? null
+  );
 
+  // Check agent online status
   useEffect(() => {
-    fetch("/api/chat/status").then((r) => r.json()).then((d) => setAgentOnline(d.online)).catch(() => {});
-    const t = setInterval(() => {
-      fetch("/api/chat/status").then((r) => r.json()).then((d) => setAgentOnline(d.online)).catch(() => {});
-    }, 30_000);
+    const check = () => fetch("/api/chat/status").then((r) => r.json()).then((d) => setAgentOnline(d.online)).catch(() => {});
+    check();
+    const t = setInterval(check, 30_000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Poll for new messages every 3 seconds
+  useEffect(() => {
+    const poll = async () => {
+      const res = await fetch("/api/portal/chat");
+      if (!res.ok) return;
+      const { conversation: conv } = await res.json();
+      if (!conv) return;
+
+      conversationIdRef.current = conv.id;
+      setConversation(conv);
+
+      // Only update if there are new messages
+      const latestId = conv.messages.at(-1)?.id;
+      if (latestId && latestId !== lastMessageIdRef.current) {
+        lastMessageIdRef.current = latestId;
+        setMessages(conv.messages);
+      }
+    };
+
+    poll(); // immediate on mount
+    const t = setInterval(poll, 3000);
     return () => clearInterval(t);
   }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, agentTyping]);
+  }, [messages]);
 
-  const connectSocket = useCallback(() => {
-    const socket = getSocket();
-    socketRef.current = socket;
+  const sendMessage = async () => {
+    if (!input.trim() || sending) return;
+    const body = input.trim();
+    setInput("");
+    setSending(true);
 
-    const doJoin = () => {
-      setStatus("connected");
-      socket.emit("visitor:join", {
-        visitorId: clientIdRef.current,
-        conversationId: conversationIdRef.current ?? undefined,
-        name: clientNameRef.current,
-        email: clientEmailRef.current,
-        topic: "Portal message",
-      });
-    };
-
-    socket.off("connect");
-    socket.off("conversation:created");
-    socket.off("agent:message");
-    socket.off("agent:typing");
-    socket.off("agent:online");
-    socket.off("conversation:closed");
-
-    socket.on("connect", doJoin);
-
-    socket.on("conversation:created", ({ conversationId: cid }: { conversationId: string }) => {
-      conversationIdRef.current = cid;
-      setConversation((prev) => prev ?? { id: cid, status: "open", topic: "Portal message", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), messages: [], assignedTo: null });
-    });
-
-    socket.on("agent:message", ({ message }: { message: Message }) => {
-      setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
-      setAgentTyping(false);
-    });
-
-    socket.on("agent:typing", ({ typing }: { typing: boolean }) => setAgentTyping(typing));
-    socket.on("agent:online", ({ online }: { online: boolean }) => setAgentOnline(online));
-    socket.on("conversation:closed", () => setConversation((c) => c ? { ...c, status: "closed" } : c));
-
-    if (socket.connected) {
-      // Already connected — emit join immediately, don't wait for connect event
-      doJoin();
-    } else {
-      setStatus("connecting");
-      socket.connect();
-    }
-  }, []); // stable — uses refs for client data
-
-  // Connect once on mount
-  useEffect(() => {
-    connectSocket();
-    return () => { if (typingTimerRef.current) clearTimeout(typingTimerRef.current); };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const sendMessage = () => {
-    const convId = conversationIdRef.current;
-    if (!input.trim() || !socketRef.current?.connected) return;
-
+    // Optimistic update
     const optimistic: Message = {
       id: `opt-${Date.now()}`,
-      conversationId: convId ?? "",
+      conversationId: conversationIdRef.current ?? "",
       senderType: "visitor",
-      body: input.trim(),
+      senderName: clientName || null,
+      body,
       read: false,
       createdAt: new Date().toISOString(),
     };
     setMessages((prev) => [...prev, optimistic]);
-    socketRef.current.emit("visitor:message", { conversationId: convId, body: input.trim() });
-    setInput("");
-    inputRef.current?.focus();
-  };
 
-  const handleTyping = (val: string) => {
-    setInput(val);
-    const convId = conversationIdRef.current;
-    if (!socketRef.current?.connected || !convId) return;
-    socketRef.current.emit("visitor:typing", { conversationId: convId, typing: val.length > 0 });
-    if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
-    typingTimerRef.current = setTimeout(() => {
-      socketRef.current?.emit("visitor:typing", { conversationId: convId, typing: false });
-    }, 3000);
+    try {
+      const res = await fetch("/api/portal/chat", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body, conversationId: conversationIdRef.current }),
+      });
+      if (res.ok) {
+        const { message, conversationId: cid } = await res.json();
+        conversationIdRef.current = cid;
+        lastMessageIdRef.current = message.id;
+        // Replace optimistic with real message
+        setMessages((prev) => prev.map((m) => m.id === optimistic.id ? message : m));
+      }
+    } catch {
+      // Remove optimistic on error
+      setMessages((prev) => prev.filter((m) => m.id !== optimistic.id));
+    }
+
+    setSending(false);
+    inputRef.current?.focus();
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file || !conversationIdRef.current) return;
+    if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
     const res = await fetch("/api/chat/upload", { method: "POST", body: formData });
     if (res.ok) {
       const { url } = await res.json();
-      socketRef.current?.emit("visitor:message", { conversationId: conversationIdRef.current, body: url });
+      const body = url;
+      await fetch("/api/portal/chat", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body, conversationId: conversationIdRef.current }),
+      });
     }
     e.target.value = "";
   };
 
-  const startNewConversation = () => {
+  const startNewConversation = async () => {
     conversationIdRef.current = null;
+    lastMessageIdRef.current = null;
     setConversation(null);
     setMessages([]);
-    // Re-join as a fresh visitor with no conversationId
-    const socket = socketRef.current;
-    if (socket?.connected) {
-      socket.emit("visitor:join", {
-        visitorId: clientIdRef.current,
-        conversationId: undefined,
-        name: clientNameRef.current,
-        email: clientEmailRef.current,
-        topic: "Portal message",
-      });
-    } else {
-      connectSocket();
-    }
   };
 
   const loadHistory = async () => {
@@ -268,7 +238,8 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
             <p className="text-sm text-muted-foreground text-center py-8">No past conversations.</p>
           )}
           {history.map((c) => (
-            <button key={c.id} onClick={() => { setConversation(c); setMessages(c.messages); conversationIdRef.current = c.id; setView("chat"); }}
+            <button key={c.id}
+              onClick={() => { setConversation(c); setMessages(c.messages); conversationIdRef.current = c.id; lastMessageIdRef.current = c.messages.at(-1)?.id ?? null; setView("chat"); }}
               className="w-full flex items-start gap-3 px-4 py-4 hover:bg-muted/40 transition-colors text-left">
               <div className={`mt-1 w-2 h-2 rounded-full shrink-0 ${c.status === "open" ? "bg-green-500" : "bg-muted-foreground/40"}`} />
               <div className="min-w-0 flex-1">
@@ -307,8 +278,8 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
           {conversation && !isClosed && (
             <span className="text-[11px] px-2.5 py-1 rounded-full font-semibold bg-green-500/15 text-green-500">active</span>
           )}
-          <button onClick={loadHistory} title="View history"
-            className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors text-xs font-medium">
+          <button onClick={loadHistory}
+            className="text-xs font-medium px-2.5 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors">
             History
           </button>
           {(isClosed || !conversation) && (
@@ -333,17 +304,12 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                 Have a question about your project or invoice? Send us a message and we'll get back to you.
               </p>
             </div>
-            {status !== "connected" && (
-              <p className="text-xs text-muted-foreground animate-pulse">Connecting…</p>
-            )}
           </div>
         )}
 
         {messages.map((msg) => (
-          <Bubble key={msg.id} msg={msg} isAgent={msg.senderType === "agent"} />
+          <Bubble key={msg.id} msg={msg} />
         ))}
-
-        {agentTyping && <TypingIndicator />}
 
         {isClosed && (
           <div className="flex justify-center my-4">
@@ -365,11 +331,10 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                 ref={inputRef}
                 type="text"
                 value={input}
-                onChange={(e) => handleTyping(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); sendMessage(); } }}
-                placeholder={status === "connected" ? "Type a message…" : "Connecting…"}
-                disabled={status !== "connected"}
-                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:opacity-50"
+                placeholder="Type a message…"
+                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
               />
               <button
                 type="button"
@@ -383,7 +348,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
             <button
               type="button"
               onClick={sendMessage}
-              disabled={!input.trim() || status !== "connected"}
+              disabled={!input.trim() || sending}
               className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 hover:opacity-90 transition-opacity"
             >
               <Send className="w-4 h-4" />

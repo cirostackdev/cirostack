@@ -83,19 +83,16 @@ export function useChat() {
       const socket = getSocket();
       socketRef.current = socket;
 
-      if (!socket.connected) {
-        socket.connect();
-        setStatus("connecting");
-      }
-
       socket.off("connect");
+      socket.off("connect_error");
       socket.off("conversation:created");
       socket.off("agent:message");
       socket.off("agent:typing");
       socket.off("agent:online");
       socket.off("conversation:closed");
+      socket.off("disconnect");
 
-      socket.on("connect", () => {
+      const doJoin = () => {
         setStatus("connected");
         const visitorId = getVisitorId();
         socket.emit("visitor:join", {
@@ -106,6 +103,14 @@ export function useChat() {
           topic: visitorData?.topic,
           pageUrl: window.location.href,
         });
+      };
+
+      socket.on("connect", doJoin);
+
+      // Fall back to offline mode on connection error
+      socket.on("connect_error", () => {
+        setStatus("offline");
+        setAgentOnline(false);
       });
 
       socket.on("conversation:created", ({ conversationId: cid }: { conversationId: string }) => {
@@ -136,6 +141,25 @@ export function useChat() {
       socket.on("disconnect", () => {
         setStatus("idle");
       });
+
+      if (socket.connected) {
+        // Already connected — join immediately
+        doJoin();
+      } else {
+        setStatus("connecting");
+        socket.connect();
+
+        // 8-second timeout: if still not connected, fall back to offline mode
+        const timeout = setTimeout(() => {
+          if (socketRef.current && !socketRef.current.connected) {
+            setStatus("offline");
+            setAgentOnline(false);
+          }
+        }, 8000);
+
+        socket.once("connect", () => clearTimeout(timeout));
+        socket.once("connect_error", () => clearTimeout(timeout));
+      }
     },
     []
   );

@@ -74,7 +74,7 @@ export function ChatPanel({
     e.target.value = "";
   };
 
-  const showOfflineForm = !agentOnline && !conversationId;
+  const showOfflineForm = (!agentOnline && !conversationId) || isConnected === false && !conversationId;
 
   return (
     <div className="flex flex-col h-full">
