@@ -38,15 +38,25 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
       const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });
       if (!tokenRes.ok) return;
       const { token } = await tokenRes.json();
+
       const socket = getSocket();
-      socket.connect();
-      socket.on("connect", () => { socket.emit("admin:join", { token }); });
+
+      const doJoin = () => socket.emit("admin:join", { token });
+
+      socket.off("connect");
+      socket.on("connect", doJoin);
       socket.on("conversation:new", ({ conversation }: { conversation: Conversation }) => {
         setConversations((prev) => {
           if (prev.find((c) => c.id === conversation.id)) return prev;
           return [conversation, ...prev];
         });
       });
+
+      if (socket.connected) {
+        doJoin(); // already connected — join immediately
+      } else {
+        socket.connect();
+      }
     };
     initSocket();
 

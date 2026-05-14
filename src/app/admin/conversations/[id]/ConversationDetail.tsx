@@ -145,16 +145,30 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });
       if (!tokenRes.ok) return;
       const { token } = await tokenRes.json();
+
       const socket = getSocket();
       socketRef.current = socket;
-      socket.connect();
-      socket.on("connect", () => {
+
+      const doJoin = () => {
         socket.emit("admin:join", { token });
         socket.emit("admin:read", { conversationId: conversation.id });
-      });
+      };
+
+      // Always re-register handlers for this conversation
+      socket.off("connect");
+      socket.off("conversations:list");
+      socket.off("visitor:message");
+      socket.off("agent:message");
+      socket.off("visitor:typing");
+      socket.off("conversation:closed");
+
+      socket.on("connect", doJoin);
+
       socket.on("conversations:list", () => {
+        // Server sends this after admin:join — use it to claim the conversation room
         socket.emit("admin:claim", { conversationId: conversation.id });
       });
+
       socket.on("visitor:message", ({ message }: { message: Message }) => {
         setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
       });
@@ -163,7 +177,16 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       });
       socket.on("visitor:typing", ({ typing }: { typing: boolean }) => setVisitorTyping(typing));
       socket.on("conversation:closed", () => setStatus("closed"));
+
+      if (socket.connected) {
+        // Already connected — emit admin:join immediately.
+        // Server will respond with conversations:list which triggers admin:claim.
+        doJoin();
+      } else {
+        socket.connect();
+      }
     };
+
     init();
     return () => { if (typingTimerRef.current) clearTimeout(typingTimerRef.current); };
   }, [conversation.id]);
