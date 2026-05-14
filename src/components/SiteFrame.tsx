@@ -7,20 +7,20 @@ import { WhatsAppPopup } from "@/components/WhatsAppPopup";
 import { CookieBanner } from "@/components/CookieBanner";
 import { ChatWidget } from "@/components/Chat/ChatWidget";
 
-function useIsAdmin() {
+function useHideFrame() {
   const pathname = usePathname();
-  return pathname?.startsWith("/admin");
+  return pathname?.startsWith("/admin") || pathname?.startsWith("/portal");
 }
 
 export function SiteNav() {
-  const isAdmin = useIsAdmin();
-  if (isAdmin) return null;
+  const hide = useHideFrame();
+  if (hide) return null;
   return <Navbar />;
 }
 
 export function SiteFooterWidgets() {
-  const isAdmin = useIsAdmin();
-  if (isAdmin) return null;
+  const hide = useHideFrame();
+  if (hide) return null;
   return (
     <>
       <ConditionalFooter />
