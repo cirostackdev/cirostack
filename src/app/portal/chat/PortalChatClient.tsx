@@ -108,6 +108,10 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   const fileInputRef = useRef<HTMLInputElement>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const conversationIdRef = useRef<string | null>(initialConversation?.id ?? null);
+  // Stable refs so connectSocket never needs to change identity
+  const clientIdRef = useRef(clientId);
+  const clientNameRef = useRef(clientName);
+  const clientEmailRef = useRef(clientEmail);
 
   useEffect(() => {
     fetch("/api/chat/status").then((r) => r.json()).then((d) => setAgentOnline(d.online)).catch(() => {});
@@ -124,9 +128,17 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   const connectSocket = useCallback(() => {
     const socket = getSocket();
     socketRef.current = socket;
-    setStatus("connecting");
 
-    if (!socket.connected) socket.connect();
+    const doJoin = () => {
+      setStatus("connected");
+      socket.emit("visitor:join", {
+        visitorId: clientIdRef.current,
+        conversationId: conversationIdRef.current ?? undefined,
+        name: clientNameRef.current,
+        email: clientEmailRef.current,
+        topic: "Portal message",
+      });
+    };
 
     socket.off("connect");
     socket.off("conversation:created");
@@ -135,20 +147,11 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     socket.off("agent:online");
     socket.off("conversation:closed");
 
-    socket.on("connect", () => {
-      setStatus("connected");
-      socket.emit("visitor:join", {
-        visitorId: clientId,
-        conversationId: conversationIdRef.current ?? undefined,
-        name: clientName,
-        email: clientEmail,
-        topic: "Portal message",
-      });
-    });
+    socket.on("connect", doJoin);
 
     socket.on("conversation:created", ({ conversationId: cid }: { conversationId: string }) => {
       conversationIdRef.current = cid;
-      setConversation((prev) => prev ? prev : ({ id: cid, status: "open", topic: "Portal message", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), messages: [], assignedTo: null }));
+      setConversation((prev) => prev ?? { id: cid, status: "open", topic: "Portal message", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), messages: [], assignedTo: null });
     });
 
     socket.on("agent:message", ({ message }: { message: Message }) => {
@@ -159,13 +162,21 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     socket.on("agent:typing", ({ typing }: { typing: boolean }) => setAgentTyping(typing));
     socket.on("agent:online", ({ online }: { online: boolean }) => setAgentOnline(online));
     socket.on("conversation:closed", () => setConversation((c) => c ? { ...c, status: "closed" } : c));
-  }, [clientId, clientName, clientEmail]);
 
-  // Auto-connect on mount
+    if (socket.connected) {
+      // Already connected — emit join immediately, don't wait for connect event
+      doJoin();
+    } else {
+      setStatus("connecting");
+      socket.connect();
+    }
+  }, []); // stable — uses refs for client data
+
+  // Connect once on mount
   useEffect(() => {
     connectSocket();
     return () => { if (typingTimerRef.current) clearTimeout(typingTimerRef.current); };
-  }, [connectSocket]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sendMessage = () => {
     const convId = conversationIdRef.current;
@@ -213,7 +224,19 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     conversationIdRef.current = null;
     setConversation(null);
     setMessages([]);
-    connectSocket();
+    // Re-join as a fresh visitor with no conversationId
+    const socket = socketRef.current;
+    if (socket?.connected) {
+      socket.emit("visitor:join", {
+        visitorId: clientIdRef.current,
+        conversationId: undefined,
+        name: clientNameRef.current,
+        email: clientEmailRef.current,
+        topic: "Portal message",
+      });
+    } else {
+      connectSocket();
+    }
   };
 
   const loadHistory = async () => {
