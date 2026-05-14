@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
@@ -10,12 +12,11 @@ import {
   Users,
   Settings,
   LogOut,
-  LayoutDashboard,
   BookOpen,
   Briefcase,
   FolderKanban,
   Receipt,
-  Image,
+  ImageIcon,
   Calendar,
   Download,
   Megaphone,
@@ -31,7 +32,7 @@ const NAV = [
   { href: "/admin/leads", icon: Users, label: "Leads" },
   { label: "—", divider: true },
   { href: "/admin/cms/blog", icon: BookOpen, label: "Blog" },
-  { href: "/admin/cms/portfolio", icon: Image, label: "Portfolio" },
+  { href: "/admin/cms/portfolio", icon: ImageIcon, label: "Portfolio" },
   { href: "/admin/cms/jobs", icon: Briefcase, label: "Jobs" },
   { href: "/admin/cms/events", icon: Calendar, label: "Events" },
   { href: "/admin/cms/resources", icon: Download, label: "Resources" },
@@ -61,9 +62,7 @@ export function AdminShell({
         {mobile ? (
           <>
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center shrink-0">
-                <LayoutDashboard className="w-4 h-4 text-primary-foreground" />
-              </div>
+              <Image src={logo} alt="CiroStack" width={28} height={28} className="rounded-lg object-contain shrink-0" />
               <span className="font-semibold text-sm">Admin Panel</span>
             </div>
             <button
@@ -85,9 +84,7 @@ export function AdminShell({
         ) : (
           <>
             <div className="flex items-center gap-2 min-w-0">
-              <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center shrink-0">
-                <LayoutDashboard className="w-4 h-4 text-primary-foreground" />
-              </div>
+              <Image src={logo} alt="CiroStack" width={28} height={28} className="rounded-lg object-contain shrink-0" />
               <span className="font-semibold text-sm truncate">Admin Panel</span>
             </div>
             <button
