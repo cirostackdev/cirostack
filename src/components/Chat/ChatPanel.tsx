@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Send, Paperclip, RefreshCw } from "lucide-react";
+import { Send, Paperclip, RefreshCw, MessageSquare } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
 import { TypingIndicator } from "./TypingIndicator";
 import type { ChatMessage as Msg } from "./useChat";
@@ -30,7 +30,7 @@ export function ChatPanel({
   const [input, setInput] = useState("");
   const [uploading, setUploading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -45,14 +45,14 @@ export function ChatPanel({
     inputRef.current?.focus();
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
       e.preventDefault();
       handleSend();
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     onSendTyping(e.target.value.length > 0);
   };
@@ -60,17 +60,11 @@ export function ChatPanel({
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !conversationId) return;
-
     setUploading(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
-
-      const res = await fetch("/api/chat/upload", {
-        method: "POST",
-        body: formData,
-      });
-
+      const res = await fetch("/api/chat/upload", { method: "POST", body: formData });
       if (res.ok) {
         const { url } = await res.json();
         onSendMessage(url);
@@ -85,20 +79,18 @@ export function ChatPanel({
   return (
     <div className="flex flex-col h-full">
       {/* Status bar */}
-      <div className="flex items-center justify-between px-3 py-1.5 border-b border-border bg-muted/30">
-        <div className="flex items-center gap-1.5">
-          <span
-            className={`w-2 h-2 rounded-full ${agentOnline ? "bg-green-500" : "bg-yellow-500"}`}
-          />
-          <span className="text-xs text-muted-foreground">
-            {agentOnline ? "We're online" : "Leave a message"}
+      <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/20">
+        <div className="flex items-center gap-2">
+          <span className={`w-2 h-2 rounded-full ${agentOnline ? "bg-green-500" : "bg-amber-400"}`} />
+          <span className="text-xs text-muted-foreground font-medium">
+            {agentOnline ? "We're online · Usually replies in minutes" : "Leave a message"}
           </span>
         </div>
         {conversationId && (
           <button
             onClick={onReset}
-            title="Start new conversation"
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            title="New conversation"
+            className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-muted rounded-full"
           >
             <RefreshCw className="w-3.5 h-3.5" />
           </button>
@@ -106,13 +98,18 @@ export function ChatPanel({
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-1">
+      <div className="flex-1 overflow-y-auto px-4 py-4">
         {messages.length === 0 && !showOfflineForm && (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4">
-            <p className="text-sm font-medium">How can we help?</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Send a message to start chatting with our team.
-            </p>
+          <div className="flex flex-col items-center justify-center h-full text-center px-4 gap-3">
+            <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
+              <MessageSquare className="w-7 h-7 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold">How can we help?</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Send a message to start chatting with our team.
+              </p>
+            </div>
           </div>
         )}
 
@@ -121,27 +118,46 @@ export function ChatPanel({
         ))}
 
         {agentTyping && <TypingIndicator />}
-
         <div ref={bottomRef} />
       </div>
 
-      {/* Input or offline form */}
+      {/* Input */}
       {showOfflineForm ? (
         <OfflineForm />
       ) : (
-        <div className="border-t border-border p-2">
-          <div className="flex items-end gap-2">
-            <textarea
-              ref={inputRef}
-              value={input}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              placeholder={isConnected ? "Type a message…" : "Connecting…"}
-              disabled={!isConnected}
-              rows={1}
-              className="flex-1 resize-none bg-muted rounded-xl px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-primary placeholder:text-muted-foreground disabled:opacity-50 max-h-24 overflow-y-auto"
-              style={{ fieldSizing: "content" } as any}
-            />
+        <div className="border-t border-border px-3 py-3">
+          <div className="flex items-center gap-2">
+            <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                placeholder={isConnected ? "Type a message…" : "Connecting…"}
+                disabled={!isConnected}
+                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:opacity-50"
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={!isConnected || uploading}
+                className="text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors shrink-0"
+                title="Attach file"
+              >
+                <Paperclip className="w-4 h-4" />
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleSend}
+              disabled={!input.trim() || !isConnected}
+              className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 hover:opacity-90 transition-opacity"
+            >
+              <Send className="w-4 h-4" />
+            </button>
+
             <input
               ref={fileInputRef}
               type="file"
@@ -149,25 +165,8 @@ export function ChatPanel({
               accept="image/*,application/pdf"
               onChange={handleFileUpload}
             />
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={!isConnected || uploading}
-              className="p-2 text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors"
-              title="Attach file"
-            >
-              <Paperclip className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={handleSend}
-              disabled={!input.trim() || !isConnected}
-              className="p-2 bg-primary text-primary-foreground rounded-xl disabled:opacity-40 hover:opacity-90 transition-opacity"
-            >
-              <Send className="w-4 h-4" />
-            </button>
           </div>
-          <p className="text-[10px] text-muted-foreground/50 text-center mt-1.5">
+          <p className="text-[10px] text-muted-foreground/40 text-center mt-2">
             Powered by CiroStack
           </p>
         </div>
@@ -190,12 +189,7 @@ function OfflineForm() {
       await fetch("/api/contact/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: "Chat visitor",
-          email,
-          service: "Chat enquiry",
-          description: message,
-        }),
+        body: JSON.stringify({ name: "Chat visitor", email, service: "Chat enquiry", description: message }),
       });
       setSent(true);
     } catch {}
@@ -204,40 +198,34 @@ function OfflineForm() {
 
   if (sent) {
     return (
-      <div className="p-4 text-center">
+      <div className="p-6 text-center">
+        <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg className="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
         <p className="text-sm font-semibold">Message sent!</p>
-        <p className="text-xs text-muted-foreground mt-1">
-          We'll get back to you at {email} as soon as possible.
-        </p>
+        <p className="text-xs text-muted-foreground mt-1">We'll get back to you at {email}.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-3 border-t border-border">
-      <p className="text-xs text-muted-foreground mb-2">
-        We're offline right now. Leave us a message:
-      </p>
+    <form onSubmit={handleSubmit} className="p-3 border-t border-border space-y-2">
+      <p className="text-xs text-muted-foreground">We're offline right now — leave us a message:</p>
       <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
         placeholder="your@email.com"
-        className="w-full mb-2 px-3 py-2 text-sm bg-muted border border-border rounded-lg outline-none focus:ring-1 focus:ring-primary"
+        className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-xl outline-none focus:ring-1 focus:ring-primary"
       />
       <textarea
-        required
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Your message…"
-        rows={3}
-        className="w-full mb-2 px-3 py-2 text-sm bg-muted border border-border rounded-lg resize-none outline-none focus:ring-1 focus:ring-primary"
+        required value={message} onChange={(e) => setMessage(e.target.value)}
+        placeholder="Your message…" rows={3}
+        className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-xl resize-none outline-none focus:ring-1 focus:ring-primary"
       />
       <button
-        type="submit"
-        disabled={loading}
-        className="w-full py-2 bg-primary text-primary-foreground text-sm font-semibold rounded-lg hover:opacity-90 disabled:opacity-50 transition-opacity"
+        type="submit" disabled={loading}
+        className="w-full py-2.5 bg-primary text-primary-foreground text-sm font-semibold rounded-full hover:opacity-90 disabled:opacity-50 transition-opacity"
       >
         {loading ? "Sending…" : "Send message"}
       </button>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
-import { MessageSquare, User, Circle } from "lucide-react";
+import { MessageSquare, X } from "lucide-react";
 import { getSocket } from "@/lib/socket";
 
 interface Conversation {
@@ -29,25 +29,18 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    // Heartbeat: tell the status API this admin is online (works on Vercel serverless)
     const sendHeartbeat = () =>
       fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
-
     sendHeartbeat();
     const heartbeatInterval = setInterval(sendHeartbeat, 60_000);
 
-    // Connect socket as admin to receive real-time updates (local dev / self-hosted)
     const initSocket = async () => {
       const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });
       if (!tokenRes.ok) return;
       const { token } = await tokenRes.json();
-
       const socket = getSocket();
       socket.connect();
-      socket.on("connect", () => {
-        socket.emit("admin:join", { token });
-      });
-
+      socket.on("connect", () => { socket.emit("admin:join", { token }); });
       socket.on("conversation:new", ({ conversation }: { conversation: Conversation }) => {
         setConversations((prev) => {
           if (prev.find((c) => c.id === conversation.id)) return prev;
@@ -55,7 +48,6 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
         });
       });
     };
-
     initSocket();
 
     return () => clearInterval(heartbeatInterval);
@@ -74,89 +66,110 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   });
 
   return (
-    <div className="p-4">
-      {/* Filter tabs + search */}
-      <div className="flex flex-col sm:flex-row gap-2 mb-4">
-        <input
-          type="text"
-          placeholder="Search name, email or topic…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="h-8 text-sm px-3 rounded-lg bg-muted border border-border outline-none w-full sm:w-56 focus:ring-1 focus:ring-primary"
-        />
-      <div className="flex gap-2">
-        {(["open", "closed", "all"] as const).map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium capitalize transition-colors ${
-              filter === f
-                ? "bg-primary text-primary-foreground"
-                : "bg-muted text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {f}
-            <span className="ml-1.5 opacity-60">
-              ({conversations.filter((c) => f === "all" || c.status === f).length})
-            </span>
-          </button>
-        ))}
-      </div>
+    <div className="flex flex-col h-full">
+      {/* Toolbar */}
+      <div className="flex flex-col sm:flex-row gap-2 px-4 pt-4 pb-3 border-b border-border">
+        <div className="relative flex-1 max-w-xs">
+          <input
+            type="text"
+            placeholder="Search name, email or topic…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full h-8 text-sm pl-3 pr-8 rounded-lg bg-muted border border-border outline-none focus:ring-1 focus:ring-primary"
+          />
+          {search && (
+            <button className="absolute right-2 top-1/2 -translate-y-1/2" onClick={() => setSearch("")}>
+              <X className="w-3.5 h-3.5 text-muted-foreground" />
+            </button>
+          )}
+        </div>
+        <div className="flex gap-1.5">
+          {(["open", "closed", "all"] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-colors ${
+                filter === f
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {f}
+              <span className="ml-1.5 opacity-60">
+                ({conversations.filter((c) => f === "all" || c.status === f).length})
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* List */}
-      <div className="space-y-2">
+      <div className="flex-1 overflow-y-auto divide-y divide-border/50">
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-muted-foreground text-sm">
-            No conversations yet.
+          <div className="flex flex-col items-center justify-center py-16 text-center px-6">
+            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <MessageSquare className="w-8 h-8 text-primary" />
+            </div>
+            <p className="text-sm font-semibold text-foreground">No conversations</p>
+            <p className="text-xs text-muted-foreground mt-1 max-w-xs">
+              {search ? "Try a different search term." : "Conversations will appear here when visitors start chatting."}
+            </p>
           </div>
         )}
 
         {filtered.map((conv) => {
           const unread = unreadMap[conv.id] || 0;
           const lastMsg = conv.messages[0];
+          const initials = conv.visitorName
+            ? conv.visitorName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
+            : "?";
+
           return (
             <Link
               key={conv.id}
               href={`/admin/conversations/${conv.id}`}
-              className="flex items-start gap-3 p-3 rounded-xl border border-border hover:bg-muted/50 transition-colors"
+              className={`flex items-start gap-3.5 px-4 py-4 hover:bg-muted/40 transition-colors ${
+                unread > 0 ? "bg-primary/5 hover:bg-primary/10" : ""
+              }`}
             >
-              <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center shrink-0 mt-0.5">
-                <User className="w-4 h-4 text-muted-foreground" />
+              {/* Avatar with presence dot */}
+              <div className="relative shrink-0 mt-0.5">
+                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">
+                  {initials}
+                </div>
+                <span
+                  className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-background ${
+                    conv.status === "open" ? "bg-green-500" : "bg-muted-foreground/40"
+                  }`}
+                />
               </div>
 
+              {/* Content */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium text-sm truncate">
+                <div className="flex items-center justify-between gap-2 mb-0.5">
+                  <span className={`text-sm truncate ${unread > 0 ? "font-bold text-foreground" : "font-semibold text-foreground"}`}>
                     {conv.visitorName || "Anonymous visitor"}
                   </span>
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     {unread > 0 && (
-                      <span className="w-5 h-5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+                      <span className="w-5 h-5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
                         {unread > 9 ? "9+" : unread}
                       </span>
                     )}
-                    <span className="text-[11px] text-muted-foreground">
+                    <span className={`text-[11px] font-medium ${unread > 0 ? "text-primary" : "text-muted-foreground"}`}>
                       {formatDistanceToNow(new Date(conv.updatedAt), { addSuffix: true })}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 mt-0.5">
-                  <Circle
-                    className={`w-2 h-2 shrink-0 ${
-                      conv.status === "open" ? "fill-green-500 text-green-500" : "fill-muted-foreground text-muted-foreground"
-                    }`}
-                  />
-                  <span className="text-xs text-muted-foreground truncate">
-                    {lastMsg ? lastMsg.body : conv.topic || "No messages yet"}
-                  </span>
-                </div>
+                <p className={`text-xs truncate ${unread > 0 ? "text-foreground font-medium" : "text-muted-foreground"}`}>
+                  {lastMsg ? lastMsg.body : conv.topic || "No messages yet"}
+                </p>
 
                 {conv.assignedTo && (
-                  <span className="text-[11px] text-muted-foreground/60 mt-0.5 block">
+                  <p className="text-[11px] text-muted-foreground/60 mt-0.5">
                     Assigned to {conv.assignedTo.name}
-                  </span>
+                  </p>
                 )}
               </div>
             </Link>
