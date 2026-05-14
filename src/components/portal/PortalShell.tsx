@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   FolderKanban,
   Receipt,
+  MessageSquare,
   Settings,
   LogOut,
   PanelLeftClose,
@@ -22,6 +23,7 @@ const NAV = [
   { href: "/portal/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/portal/projects", icon: FolderKanban, label: "Projects" },
   { href: "/portal/invoices", icon: Receipt, label: "Invoices" },
+  { href: "/portal/chat", icon: MessageSquare, label: "Messages" },
   { label: "—", divider: true },
   { href: "/portal/settings", icon: Settings, label: "Settings" },
 ];
