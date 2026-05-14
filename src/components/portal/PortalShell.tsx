@@ -43,7 +43,7 @@ export function PortalShell({
         {mobile ? (
           <>
             <div className="flex items-center gap-2">
-              <Image src={logo} alt="CiroStack" width={28} height={28} className="rounded-lg object-contain shrink-0" />
+              <Image src={logo} alt="CiroStack" width={22} height={22} className="object-contain shrink-0" />
               <span className="font-semibold text-sm">Client Portal</span>
             </div>
             <button
@@ -65,7 +65,7 @@ export function PortalShell({
         ) : (
           <>
             <div className="flex items-center gap-2 min-w-0">
-              <Image src={logo} alt="CiroStack" width={28} height={28} className="rounded-lg object-contain shrink-0" />
+              <Image src={logo} alt="CiroStack" width={22} height={22} className="object-contain shrink-0" />
               <span className="font-semibold text-sm truncate">Client Portal</span>
             </div>
             <button
