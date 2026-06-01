@@ -501,6 +501,28 @@ const About = () => {
       />
       */}
 
+      {/* Work Policy Banner */}
+      <section className="py-16 bg-card border-y border-border/40">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row items-center justify-between gap-6"
+          >
+            <div>
+              <h3 className="text-2xl font-display font-bold text-foreground mb-2">How we operate, in detail</h3>
+              <p className="text-muted-foreground">Our Work Policy covers communication, code standards, security, and conduct expectations.</p>
+            </div>
+            <Link href="/work-policy">
+              <Button variant="outline">
+                Read Work Policy <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6 text-center">

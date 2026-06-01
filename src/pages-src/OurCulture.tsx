@@ -167,6 +167,29 @@ const OurCulture = () => {
                 </div>
             </section>
 
+            {/* Work Policy */}
+            <section className="section-padding">
+                <div className="container mx-auto px-4 md:px-6 max-w-3xl text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
+                            Want to know exactly how we operate?
+                        </h2>
+                        <p className="text-muted-foreground leading-relaxed mb-6">
+                            Our Work Policy covers communication standards, code quality expectations, security rules, and professional conduct. No surprises on day one.
+                        </p>
+                        <Link href="/work-policy">
+                            <Button variant="outline" size="lg">
+                                Read Our Work Policy <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                        </Link>
+                    </motion.div>
+                </div>
+            </section>
+
             {/* CTA */}
             <section className="section-padding section-alt text-center">
                 <div className="container mx-auto px-4 md:px-6">

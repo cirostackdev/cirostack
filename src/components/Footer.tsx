@@ -13,6 +13,7 @@ const footerColumns = [
     links: [
       { label: "Our Company", path: "/about" },
       { label: "Our Culture", path: "/our-culture" },
+      { label: "Work Policy", path: "/work-policy" },
       { label: "Sustainability", path: "/sustainability" },
       { label: "Careers", path: "/careers" },
     ],
