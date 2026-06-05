@@ -80,16 +80,50 @@ function rewriteGuardianLinks(html: string, availableUrls: Set<string>): string 
   );
 }
 
+function stripGuardianBoilerplate(html: string): string {
+  // Remove "Essential reads" / "Read more:" / "Topics" / newsletter sections
+  // These are typically <h2> or <strong> followed by a <ul> list
+  let cleaned = html;
+
+  // Remove sections starting with known headings and their following <ul>
+  const boilerplatePatterns = [
+    // <h2>Essential reads</h2> ... <ul>...</ul>
+    /<h2[^>]*>\s*Essential reads\s*<\/h2>\s*<ul[\s\S]*?<\/ul>/gi,
+    // <p><strong>Read more:</strong></p> ... <ul>...</ul>
+    /<p[^>]*>\s*<strong>\s*Read more:?\s*<\/strong>\s*<\/p>\s*<ul[\s\S]*?<\/ul>/gi,
+    // <h2>Read more:</h2> ... <ul>...</ul>
+    /<h2[^>]*>\s*Read more:?\s*<\/h2>\s*<ul[\s\S]*?<\/ul>/gi,
+    // <p><strong>Essential reads</strong></p> ... <ul>...</ul>
+    /<p[^>]*>\s*<strong>\s*Essential reads\s*<\/strong>\s*<\/p>\s*<ul[\s\S]*?<\/ul>/gi,
+    // Newsletter subscribe prompts
+    /<p[^>]*>[^<]*subscribe to receive[^<]*<\/p>/gi,
+    /<p[^>]*>[^<]*sign up for[^<]*newsletter[^<]*<\/p>/gi,
+    /<p[^>]*>\s*[•▪]\s*To read the complete version[^<]*<\/p>/gi,
+    // "Topics" footer section
+    /<h2[^>]*>\s*Topics\s*<\/h2>\s*<ul[\s\S]*?<\/ul>/gi,
+    // After the newsletter line (bullet point style)
+    /<p[^>]*>\s*<em>[^<]*subscribe[^<]*<\/em>\s*<\/p>/gi,
+  ];
+
+  for (const pattern of boilerplatePatterns) {
+    cleaned = cleaned.replace(pattern, "");
+  }
+
+  return cleaned;
+}
+
 // ── Fetchers ────────────────────────────────────────────────────────────────
 
 function mapGuardianResult(a: any): GuardianArticle {
   const mainHtml = (a.fields?.main as string) ?? "";
   const mainImage = extractMainImage(mainHtml, (a.fields?.thumbnail as string) ?? null);
+  const rawBody = (a.fields?.body as string) ?? "";
+  const content = stripGuardianBoilerplate(rawBody);
 
   return {
     title: a.webTitle as string,
     description: (a.fields?.trailText as string) ?? "",
-    content: (a.fields?.body as string) ?? "",
+    content,
     url: a.webUrl as string,
     image: mainImage,
     publishedAt: a.webPublicationDate as string,
