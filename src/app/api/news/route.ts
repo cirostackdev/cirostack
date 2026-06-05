@@ -104,7 +104,7 @@ async function fetchGuardian(key: string): Promise<GuardianArticle[]> {
   url.searchParams.set("q", GUARDIAN_QUERY);
   url.searchParams.set("section", "technology");
   url.searchParams.set("show-fields", "thumbnail,body,trailText,main");
-  url.searchParams.set("page-size", "15");
+  url.searchParams.set("page-size", "20");
   url.searchParams.set("order-by", "newest");
   url.searchParams.set("api-key", key);
 
@@ -170,7 +170,7 @@ async function fetchLinkedGuardianArticles(
 }
 
 async function fetchHackerNews(): Promise<HNArticle[]> {
-  const url = `https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(HN_QUERY)}&tags=story&hitsPerPage=15&numericFilters=points%3E10`;
+  const url = `https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(HN_QUERY)}&tags=story&hitsPerPage=20&numericFilters=points%3E10`;
   const res = await fetch(url, { next: { revalidate: 3600 } });
   if (!res.ok) { console.error("[api/news] HN:", res.status); return []; }
 
