@@ -199,6 +199,10 @@ const NewsroomArticle = () => {
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [src]);
+
+  useEffect(() => {
     if (!src) { setNotFound(true); setLoading(false); return; }
     const targetUrl = decodeURIComponent(src);
     fetch("/api/news")
