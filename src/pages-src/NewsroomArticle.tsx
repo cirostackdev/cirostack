@@ -149,8 +149,23 @@ function ShareButtonsInline({ title }: { title: string }) {
 // ── Guardian body renderer ───────────────────────────────────────────────────
 
 function GuardianBody({ content }: { content: string }) {
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    const anchor = target.closest("a");
+    if (!anchor) return;
+
+    const href = anchor.getAttribute("href");
+    if (href?.startsWith("/newsroom/article")) {
+      e.preventDefault();
+      router.push(href);
+    }
+  };
+
   return (
     <div
+      onClick={handleClick}
       className="guardian-article prose prose-lg dark:prose-invert max-w-none
         prose-headings:font-display prose-headings:text-foreground prose-headings:font-bold
         prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
