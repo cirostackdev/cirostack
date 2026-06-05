@@ -278,6 +278,30 @@ textarea::placeholder {
   @apply my-8;
 }
 
+.guardian-article .element-embed iframe,
+.guardian-article .element-interactive iframe,
+.guardian-article iframe {
+  @apply w-full rounded-xl;
+  aspect-ratio: 16 / 9;
+  min-height: 360px;
+}
+
+.guardian-article .element-video,
+.guardian-article .element-atom {
+  @apply my-8;
+}
+
+.guardian-article .element-video iframe,
+.guardian-article .element-atom iframe {
+  @apply w-full rounded-xl;
+  aspect-ratio: 16 / 9;
+  min-height: 360px;
+}
+
+.guardian-article video {
+  @apply w-full rounded-xl my-8;
+}
+
 .guardian-article .element-image {
   @apply my-8;
 }
