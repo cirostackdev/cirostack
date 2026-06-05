@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, LucideIcon } from "lucide-react";
@@ -40,7 +39,7 @@ const PageHero = ({
   return (
     <section className="relative flex items-center justify-center overflow-hidden -mt-16 md:-mt-20 h-[calc(100dvh+4rem)] md:h-[calc(100dvh+5rem)]">
       <div className="absolute inset-0">
-        <Image src={image} alt={title} fill priority className="object-cover" sizes="100vw" />
+        <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/60" />
       </div>
       <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
