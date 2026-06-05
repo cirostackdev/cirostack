@@ -123,9 +123,12 @@ const Newsroom = () => {
     const [newsLoading, setNewsLoading] = useState(true);
 
     useEffect(() => {
-        fetch("/api/news")
+        fetch("/api/news?limit=30")
             .then(r => r.json())
-            .then(data => setLiveNews(Array.isArray(data) ? data : []))
+            .then(data => {
+                const articles = data?.articles ?? data;
+                setLiveNews(Array.isArray(articles) ? articles : []);
+            })
             .catch(() => setLiveNews([]))
             .finally(() => setNewsLoading(false));
     }, []);

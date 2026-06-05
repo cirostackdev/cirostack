@@ -205,11 +205,12 @@ const NewsroomArticle = () => {
   useEffect(() => {
     if (!src) { setNotFound(true); setLoading(false); return; }
     const targetUrl = decodeURIComponent(src);
-    fetch("/api/news")
+    fetch("/api/news?limit=30")
       .then(r => r.json())
-      .then((articles: Article[]) => {
-        setAllArticles(articles);
-        const match = articles.find(a => a.url === targetUrl);
+      .then((data) => {
+        const articles: Article[] = data?.articles ?? data;
+        setAllArticles(Array.isArray(articles) ? articles : []);
+        const match = (Array.isArray(articles) ? articles : []).find(a => a.url === targetUrl);
         match ? setArticle(match) : setNotFound(true);
       })
       .catch(() => setNotFound(true))

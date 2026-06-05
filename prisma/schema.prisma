@@ -182,6 +182,26 @@ model Announcement {
   updatedAt DateTime @updatedAt
 }
 
+// ── Newsroom ─────────────────────────────────────────────────────────────────
+
+model NewsArticle {
+  id            String   @id @default(cuid())
+  url           String   @unique
+  title         String
+  description   String   @default("")
+  content       String   @db.Text
+  image         String?
+  publishedAt   DateTime
+  source        String
+  sourceUrl     String?
+  type          String
+  hnPoints      Int?
+  hnComments    Int?
+  hnDiscussionUrl String?
+  fetchedAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
 // ── Client Portal ─────────────────────────────────────────────────────────────
 
 model Client {
