@@ -24,7 +24,7 @@ type Article = {
   publishedAt: string;
   source: string;
   sourceUrl: string | null;
-  type: "guardian" | "hackernews";
+  type: "guardian" | "hackernews" | "techcrunch";
   hnPoints?: number;
   hnComments?: number;
   hnDiscussionUrl?: string;
@@ -294,8 +294,8 @@ const NewsroomArticle = () => {
                   </div>
                 )}
 
-                {/* Guardian: full article body */}
-                {article.type === "guardian" && article.content && (
+                {/* Full article body (Guardian / TechCrunch) */}
+                {(article.type === "guardian" || article.type === "techcrunch") && article.content && (
                   <GuardianBody content={article.content} />
                 )}
 

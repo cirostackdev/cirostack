@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { extract } from "@extractus/article-extractor";
+import { XMLParser } from "fast-xml-parser";
 
 export const maxDuration = 60;
 
@@ -159,6 +161,83 @@ async function fetchLinkedGuardianArticles(
   return linked;
 }
 
+async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]> {
+  try {
+    const res = await fetch("https://techcrunch.com/feed/");
+    if (!res.ok) { console.error("[news/sync] TechCrunch RSS:", res.status); return []; }
+
+    const xml = await res.text();
+    const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
+    const feed = parser.parse(xml);
+
+    const items = feed?.rss?.channel?.item ?? [];
+    const entries = Array.isArray(items) ? items.slice(0, 10) : [items];
+
+    const articles: ArticleData[] = [];
+
+    for (const item of entries) {
+      const url = item.link as string;
+      if (!url || existingUrls.has(url)) continue;
+
+      // Rate limit: 2s between extractions
+      if (articles.length > 0) {
+        await new Promise(r => setTimeout(r, 2000));
+      }
+
+      try {
+        const extracted = await extract(url);
+
+        if (!extracted) {
+          // Fallback: store RSS data only
+          articles.push({
+            url,
+            title: (item.title as string) ?? "",
+            description: (item.description as string)?.replace(/<[^>]+>/g, "").slice(0, 300) ?? "",
+            content: "",
+            image: item["media:content"]?.["@_url"] ?? item["media:thumbnail"]?.["@_url"] ?? null,
+            publishedAt: new Date(item.pubDate),
+            source: "TechCrunch",
+            sourceUrl: "https://techcrunch.com",
+            type: "techcrunch",
+          });
+          continue;
+        }
+
+        articles.push({
+          url,
+          title: extracted.title ?? (item.title as string) ?? "",
+          description: extracted.description ?? (item.description as string)?.replace(/<[^>]+>/g, "").slice(0, 300) ?? "",
+          content: extracted.content ?? "",
+          image: extracted.image ?? item["media:content"]?.["@_url"] ?? item["media:thumbnail"]?.["@_url"] ?? null,
+          publishedAt: new Date(extracted.published ?? item.pubDate),
+          source: "TechCrunch",
+          sourceUrl: "https://techcrunch.com",
+          type: "techcrunch",
+        });
+      } catch (err) {
+        console.error(`[news/sync] TechCrunch extract failed for ${url}:`, err);
+        // Fallback: store RSS metadata
+        articles.push({
+          url,
+          title: (item.title as string) ?? "",
+          description: (item.description as string)?.replace(/<[^>]+>/g, "").slice(0, 300) ?? "",
+          content: "",
+          image: null,
+          publishedAt: new Date(item.pubDate),
+          source: "TechCrunch",
+          sourceUrl: "https://techcrunch.com",
+          type: "techcrunch",
+        });
+      }
+    }
+
+    return articles;
+  } catch (err) {
+    console.error("[news/sync] TechCrunch:", err);
+    return [];
+  }
+}
+
 async function fetchHackerNews(): Promise<ArticleData[]> {
   const url = `https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(HN_QUERY)}&tags=story&hitsPerPage=20&numericFilters=points%3E10`;
   const res = await fetch(url);
@@ -195,18 +274,20 @@ export async function GET(req: NextRequest) {
   try {
     const guardianKey = process.env.GUARDIAN_API_KEY;
 
+    // Get existing URLs to avoid re-fetching articles we already have
+    const existingRecords = await prisma.newsArticle.findMany({ select: { url: true } });
+    const existingUrls = new Set(existingRecords.map(r => r.url));
+
     // Fetch from sources
-    const [guardianArticles, hnArticles] = await Promise.allSettled([
+    const [guardianArticles, hnArticles, tcArticles] = await Promise.allSettled([
       guardianKey ? fetchGuardian(guardianKey) : Promise.resolve([]),
       fetchHackerNews(),
+      fetchTechCrunch(existingUrls),
     ]);
 
     const guardian = guardianArticles.status === "fulfilled" ? guardianArticles.value : [];
     const hn = hnArticles.status === "fulfilled" ? hnArticles.value : [];
-
-    // Get existing URLs to avoid re-fetching linked articles we already have
-    const existingRecords = await prisma.newsArticle.findMany({ select: { url: true } });
-    const existingUrls = new Set(existingRecords.map(r => r.url));
+    const techcrunch = tcArticles.status === "fulfilled" ? tcArticles.value : [];
 
     // Fetch linked Guardian articles
     let linkedGuardian: ArticleData[] = [];
@@ -233,7 +314,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Upsert all articles into database
-    const allArticles = [...allGuardian, ...hn];
+    const allArticles = [...allGuardian, ...hn, ...techcrunch];
     let upserted = 0;
 
     for (const article of allArticles) {
@@ -271,7 +352,7 @@ export async function GET(req: NextRequest) {
       success: true,
       synced: upserted,
       total,
-      sources: { guardian: guardian.length, linked: linkedGuardian.length, hn: hn.length },
+      sources: { guardian: guardian.length, linked: linkedGuardian.length, hn: hn.length, techcrunch: techcrunch.length },
     });
   } catch (err) {
     console.error("[news/sync]", err);
