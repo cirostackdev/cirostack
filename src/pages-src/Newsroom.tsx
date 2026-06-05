@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -8,9 +8,9 @@ import { motion } from "framer-motion";
 import { Newspaper, ArrowRight, Calendar, Tag, ExternalLink, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
-import { HIDE_ANNOUNCEMENTS } from "@/lib/feature-flags";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
+import { HIDE_ANNOUNCEMENTS } from "@/lib/feature-flags";
 import heroNewsroom from "@/assets/hero-newsroom.jpg";
 
 const fadeUp = {
@@ -114,6 +114,32 @@ type LiveArticle = {
     hnComments?: number;
 };
 
+// ── Date grouping helpers ────────────────────────────────────────────────────
+
+function getDateGroup(iso: string): string {
+    const date = new Date(iso);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 7) return "This Week";
+    if (diffDays < 14) return "Last Week";
+
+    return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
+function groupByDate(articles: LiveArticle[]): { label: string; articles: LiveArticle[] }[] {
+    const groups: Map<string, LiveArticle[]> = new Map();
+    for (const article of articles) {
+        const label = getDateGroup(article.publishedAt);
+        if (!groups.has(label)) groups.set(label, []);
+        groups.get(label)!.push(article);
+    }
+    return Array.from(groups.entries()).map(([label, articles]) => ({ label, articles }));
+}
+
+// ── Component ────────────────────────────────────────────────────────────────
+
 const Newsroom = () => {
     const featured = companyNews.filter(n => n.featured);
     const rest = companyNews.filter(n => !n.featured);
@@ -121,17 +147,44 @@ const Newsroom = () => {
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const [liveNews, setLiveNews] = useState<LiveArticle[]>([]);
     const [newsLoading, setNewsLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+
+    const fetchNews = useCallback(async (pageNum: number) => {
+        try {
+            const res = await fetch(`/api/news?page=${pageNum}&limit=12`);
+            const data = await res.json();
+            const articles: LiveArticle[] = data?.articles ?? data;
+            const pagination = data?.pagination;
+
+            if (pageNum === 1) {
+                setLiveNews(Array.isArray(articles) ? articles : []);
+            } else {
+                setLiveNews(prev => [...prev, ...(Array.isArray(articles) ? articles : [])]);
+            }
+
+            if (pagination) {
+                setHasMore(pagination.page < pagination.pages);
+            } else {
+                setHasMore(false);
+            }
+        } catch {
+            if (pageNum === 1) setLiveNews([]);
+        }
+    }, []);
 
     useEffect(() => {
-        fetch("/api/news?limit=30")
-            .then(r => r.json())
-            .then(data => {
-                const articles = data?.articles ?? data;
-                setLiveNews(Array.isArray(articles) ? articles : []);
-            })
-            .catch(() => setLiveNews([]))
-            .finally(() => setNewsLoading(false));
-    }, []);
+        fetchNews(1).finally(() => setNewsLoading(false));
+    }, [fetchNews]);
+
+    const loadMore = async () => {
+        const nextPage = page + 1;
+        setLoadingMore(true);
+        await fetchNews(nextPage);
+        setPage(nextPage);
+        setLoadingMore(false);
+    };
 
     const formatDate = (iso: string) => {
         try {
@@ -140,6 +193,11 @@ const Newsroom = () => {
             return iso;
         }
     };
+
+    // Split into featured (top 3) and rest
+    const featuredArticles = liveNews.slice(0, 3);
+    const restArticles = liveNews.slice(3);
+    const grouped = groupByDate(restArticles);
 
     return (
         <Layout>
@@ -222,7 +280,6 @@ const Newsroom = () => {
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-1">
                                         <span className="text-xs text-muted-foreground">{item.type}</span>
-                                        {item.source && (<><span className="text-muted-foreground text-xs">·</span><span className="text-xs font-medium text-muted-foreground">{item.source}</span></>)}
                                     </div>
                                     <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{item.title}</h3>
                                     <p className="text-sm text-muted-foreground">{item.summary}</p>
@@ -245,7 +302,7 @@ const Newsroom = () => {
             </>
             )}
 
-            {/* Live Industry News */}
+            {/* Industry News */}
             <section className="section-padding section-alt">
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Industry News" title="What's happening in tech" description="Live news relevant to startups, software development, AI, and the services we provide." />
@@ -257,48 +314,102 @@ const Newsroom = () => {
                     ) : liveNews.length === 0 ? (
                         <p className="text-center text-muted-foreground py-12">No articles available right now. Check back soon.</p>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {liveNews.map((article, i) => (
-                                <motion.div
-                                    key={article.url}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true }}
-                                    variants={fadeUp}
-                                    custom={i}
-                                    onClick={() => router.push(`/newsroom/article?src=${encodeURIComponent(article.url)}`)}
-                                    className="block group rounded-2xl surface-glass hover-lift overflow-hidden cursor-pointer"
-                                >
-                                    {article.image && (
-                                        <div className="h-40 overflow-hidden bg-secondary">
-                                            <img
-                                                src={article.image}
-                                                alt={article.title}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-                                                loading="lazy"
-                                            />
-                                        </div>
-                                    )}
-                                    <div className="p-6">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${article.type === "guardian" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"}`}>
-                                                {article.source}
-                                            </span>
-                                            <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
-                                        </div>
-                                        <h3 className="font-display font-semibold text-foreground text-base mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
-                                        {article.description && <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{article.description}</p>}
-                                        {article.type === "hackernews" && article.hnPoints !== undefined && (
-                                            <p className="text-xs text-muted-foreground mt-2">{article.hnPoints} points · {article.hnComments} comments</p>
+                        <>
+                            {/* Featured top 3 — large hero cards */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
+                                {featuredArticles.map((article, i) => (
+                                    <motion.div
+                                        key={article.url}
+                                        initial="hidden"
+                                        whileInView="visible"
+                                        viewport={{ once: true }}
+                                        variants={fadeUp}
+                                        custom={i}
+                                        onClick={() => router.push(`/newsroom/article?src=${encodeURIComponent(article.url)}`)}
+                                        className="group rounded-2xl surface-glass hover-lift overflow-hidden cursor-pointer"
+                                    >
+                                        {article.image && (
+                                            <div className="h-52 overflow-hidden bg-secondary">
+                                                <img
+                                                    src={article.image}
+                                                    alt={article.title}
+                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                    onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                                                    loading="lazy"
+                                                />
+                                            </div>
                                         )}
-                                        <div className="flex items-center gap-1.5 mt-4 text-sm text-primary font-medium">
-                                            Read Article <ArrowRight className="w-3.5 h-3.5" />
+                                        <div className="p-6">
+                                            <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
+                                            <h3 className="font-display font-semibold text-foreground text-lg mt-2 mb-3 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
+                                            {article.description && <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{article.description}</p>}
+                                            <div className="flex items-center gap-1.5 mt-4 text-sm text-primary font-medium">
+                                                Read Article <ArrowRight className="w-3.5 h-3.5" />
+                                            </div>
                                         </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Grouped by date */}
+                            {grouped.map((group) => (
+                                <div key={group.label} className="mb-12">
+                                    <h3 className="text-lg font-display font-semibold text-foreground mb-6 border-b border-border pb-3">{group.label}</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                        {group.articles.map((article, i) => (
+                                            <motion.div
+                                                key={article.url}
+                                                initial="hidden"
+                                                whileInView="visible"
+                                                viewport={{ once: true }}
+                                                variants={fadeUp}
+                                                custom={i % 3}
+                                                onClick={() => router.push(`/newsroom/article?src=${encodeURIComponent(article.url)}`)}
+                                                className="group rounded-2xl surface-glass hover-lift overflow-hidden cursor-pointer"
+                                            >
+                                                {article.image && (
+                                                    <div className="h-40 overflow-hidden bg-secondary">
+                                                        <img
+                                                            src={article.image}
+                                                            alt={article.title}
+                                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                            onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                                                            loading="lazy"
+                                                        />
+                                                    </div>
+                                                )}
+                                                <div className="p-5">
+                                                    <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
+                                                    <h3 className="font-display font-semibold text-foreground text-base mt-1.5 mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
+                                                    {article.description && <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{article.description}</p>}
+                                                    <div className="flex items-center gap-1.5 mt-3 text-sm text-primary font-medium">
+                                                        Read Article <ArrowRight className="w-3.5 h-3.5" />
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        ))}
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
-                        </div>
+
+                            {/* Load More */}
+                            {hasMore && (
+                                <div className="text-center mt-8">
+                                    <Button
+                                        variant="outline"
+                                        size="lg"
+                                        onClick={loadMore}
+                                        disabled={loadingMore}
+                                    >
+                                        {loadingMore ? (
+                                            <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Loading...</>
+                                        ) : (
+                                            <>Load More Articles <ChevronDown className="w-4 h-4 ml-2" /></>
+                                        )}
+                                    </Button>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
             </section>

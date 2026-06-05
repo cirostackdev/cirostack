@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, ExternalLink, Loader2, AlertCircle,
-  TrendingUp, MessageSquare, Twitter, Linkedin, LinkIcon, Check, Newspaper,
+  Twitter, Linkedin, LinkIcon, Check, Newspaper,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
@@ -247,7 +247,6 @@ const NewsroomArticle = () => {
   if (!article) return null;
 
   const heroImage = article.image ?? heroNewsroom;
-  const metaDescription = article.description || `${article.source} · ${formatDate(article.publishedAt)}`;
 
   return (
     <Layout>
@@ -256,7 +255,7 @@ const NewsroomArticle = () => {
       <PageHero
         icon={Newspaper}
         title={article.title}
-        description={`${article.source} · ${formatDate(article.publishedAt)}${article.type === "hackernews" && article.hnPoints ? ` · ${article.hnPoints} points` : ""}`}
+        description={formatDate(article.publishedAt)}
         image={heroImage}
         ctaText="Back to Newsroom"
         ctaLink="/newsroom"
@@ -269,23 +268,9 @@ const NewsroomArticle = () => {
             {/* Sticky sidebar */}
             <aside className="hidden lg:block w-56 shrink-0 sticky top-24 self-start">
               <div className="mb-8">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Source</p>
-                <span className={`text-xs font-medium px-3 py-1.5 rounded-full ${article.type === "guardian" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"}`}>
-                  {article.source}
-                </span>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Published</p>
+                <span className="text-sm text-muted-foreground">{formatDate(article.publishedAt)}</span>
               </div>
-
-              {article.type === "hackernews" && (
-                <div className="mb-8 space-y-2">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Stats</p>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <TrendingUp className="w-4 h-4" /> {article.hnPoints} points
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MessageSquare className="w-4 h-4" /> {article.hnComments} comments
-                  </div>
-                </div>
-              )}
 
               <ShareButtons title={article.title} />
             </aside>
@@ -294,11 +279,9 @@ const NewsroomArticle = () => {
             <div className="flex-1 max-w-3xl">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
 
-                {/* Mobile: source badge + share */}
+                {/* Mobile: share buttons */}
                 <div className="flex items-center gap-3 mb-8 lg:hidden">
-                  <span className={`text-xs font-medium px-3 py-1 rounded-full ${article.type === "guardian" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"}`}>
-                    {article.source}
-                  </span>
+                  <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
                   <div className="ml-auto">
                     <ShareButtonsInline title={article.title} />
                   </div>
@@ -316,12 +299,12 @@ const NewsroomArticle = () => {
                   <GuardianBody content={article.content} />
                 )}
 
-                {/* HackerNews: external article card */}
+                {/* External article card (no full body available) */}
                 {article.type === "hackernews" && (
                   <div className="surface-glass rounded-2xl p-10 text-center">
                     <p className="text-sm text-muted-foreground mb-2">This article is hosted on</p>
                     <p className="text-2xl font-display font-bold text-foreground mb-2">{sourceDomain(article.url)}</p>
-                    <p className="text-sm text-muted-foreground mb-8">Hacker News doesn't provide the full article body. Read it at the original source.</p>
+                    <p className="text-sm text-muted-foreground mb-8">The full article body is available at the original source.</p>
                     <a href={article.url} target="_blank" rel="noopener noreferrer">
                       <Button size="lg" className="w-full sm:w-auto">
                         Read Full Article <ExternalLink className="ml-2 h-4 w-4" />
@@ -333,28 +316,15 @@ const NewsroomArticle = () => {
                 {/* Attribution footer */}
                 <div className="mt-12 surface-glass rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm font-medium text-foreground mb-1">
-                      {article.type === "guardian" ? "Originally published by The Guardian" : "Shared via Hacker News"}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {article.type === "guardian"
-                        ? "Content reproduced with attribution under the Guardian Open Platform."
-                        : "Visit the original source or join the Hacker News discussion."}
-                    </p>
+                    <p className="text-sm font-medium text-foreground mb-1">Original Article</p>
+                    <p className="text-xs text-muted-foreground">Read this article at the original source.</p>
                   </div>
                   <div className="flex gap-2 shrink-0">
                     <a href={article.url} target="_blank" rel="noopener noreferrer">
                       <Button variant="outline" size="sm">
-                        {article.type === "guardian" ? "Original Article" : "Read Article"} <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+                        View Original <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
                       </Button>
                     </a>
-                    {article.type === "hackernews" && article.hnDiscussionUrl && (
-                      <a href={article.hnDiscussionUrl} target="_blank" rel="noopener noreferrer">
-                        <Button variant="outline" size="sm">
-                          HN Discussion <MessageSquare className="ml-1.5 h-3.5 w-3.5" />
-                        </Button>
-                      </a>
-                    )}
                   </div>
                 </div>
 
@@ -395,16 +365,8 @@ const NewsroomArticle = () => {
                         </div>
                       )}
                       <div className="p-5">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${a.type === "guardian" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"}`}>
-                            {a.source}
-                          </span>
-                        </div>
-                        <h3 className="font-display font-semibold text-foreground text-sm mb-2 group-hover:text-primary transition-colors leading-snug line-clamp-2">{a.title}</h3>
-                        <div className="flex items-center justify-between text-xs text-muted-foreground">
-                          <span>{formatDateShort(a.publishedAt)}</span>
-                          {a.type === "hackernews" && a.hnPoints && <span>{a.hnPoints} pts</span>}
-                        </div>
+                        <span className="text-xs text-muted-foreground">{formatDateShort(a.publishedAt)}</span>
+                        <h3 className="font-display font-semibold text-foreground text-sm mt-1.5 mb-2 group-hover:text-primary transition-colors leading-snug line-clamp-2">{a.title}</h3>
                       </div>
                     </div>
                   </div>
