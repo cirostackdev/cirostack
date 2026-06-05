@@ -313,20 +313,7 @@ const NewsroomArticle = () => {
                   </div>
                 )}
 
-                {/* Attribution footer */}
-                <div className="mt-12 surface-glass rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-medium text-foreground mb-1">Original Article</p>
-                    <p className="text-xs text-muted-foreground">Read this article at the original source.</p>
-                  </div>
-                  <div className="flex gap-2 shrink-0">
-                    <a href={article.url} target="_blank" rel="noopener noreferrer">
-                      <Button variant="outline" size="sm">
-                        View Original <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
-                      </Button>
-                    </a>
-                  </div>
-                </div>
+
 
               </motion.div>
             </div>
