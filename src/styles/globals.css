@@ -251,3 +251,37 @@ input::placeholder,
 textarea::placeholder {
   opacity: 0.4;
 }
+
+/* ── Guardian article styles ── */
+.guardian-article figure {
+  @apply my-8 rounded-2xl overflow-hidden;
+}
+
+.guardian-article figure img {
+  @apply w-full h-auto rounded-xl;
+}
+
+.guardian-article figcaption {
+  @apply text-sm text-muted-foreground mt-3 px-1 leading-relaxed;
+}
+
+.guardian-article span[data-spacefinder-role="inline"] img {
+  @apply w-full h-auto rounded-xl my-6;
+}
+
+.guardian-article aside {
+  @apply border-l-4 border-primary bg-primary/5 rounded-r-xl px-6 py-4 my-8;
+}
+
+.guardian-article .element-embed,
+.guardian-article .element-interactive {
+  @apply my-8;
+}
+
+.guardian-article .element-image {
+  @apply my-8;
+}
+
+.guardian-article .element-image img {
+  @apply w-full h-auto rounded-xl;
+}

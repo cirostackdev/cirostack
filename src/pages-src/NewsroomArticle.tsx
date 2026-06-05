@@ -149,13 +149,25 @@ function ShareButtonsInline({ title }: { title: string }) {
 // ── Guardian body renderer ───────────────────────────────────────────────────
 
 function GuardianBody({ content }: { content: string }) {
-  const paragraphs = content.split("\n\n").map(p => p.trim()).filter(Boolean);
   return (
-    <div className="space-y-6">
-      {paragraphs.map((para, i) => (
-        <p key={i} className="text-muted-foreground leading-relaxed text-lg">{para}</p>
-      ))}
-    </div>
+    <div
+      className="guardian-article prose prose-lg dark:prose-invert max-w-none
+        prose-headings:font-display prose-headings:text-foreground prose-headings:font-bold
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+        prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6
+        prose-a:text-primary prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-primary/80
+        prose-strong:text-foreground prose-strong:font-semibold
+        prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-primary/5
+        prose-blockquote:rounded-r-xl prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:not-italic
+        prose-blockquote:text-foreground
+        prose-figure:my-8 prose-figure:rounded-2xl prose-figure:overflow-hidden
+        prose-img:rounded-xl prose-img:w-full prose-img:my-0
+        prose-figcaption:text-sm prose-figcaption:text-muted-foreground prose-figcaption:mt-3 prose-figcaption:px-1
+        prose-ul:space-y-2 prose-ol:space-y-2
+        prose-li:text-muted-foreground"
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
   );
 }
 

@@ -9,7 +9,7 @@ async function fetchGuardian(key: string) {
   const url = new URL("https://content.guardianapis.com/search");
   url.searchParams.set("q", GUARDIAN_QUERY);
   url.searchParams.set("section", "technology");
-  url.searchParams.set("show-fields", "thumbnail,bodyText,trailText");
+  url.searchParams.set("show-fields", "thumbnail,body,trailText,main");
   url.searchParams.set("page-size", "15");
   url.searchParams.set("order-by", "newest");
   url.searchParams.set("api-key", key);
@@ -19,17 +19,24 @@ async function fetchGuardian(key: string) {
 
   const data = await res.json();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (data.response?.results ?? []).map((a: any) => ({
-    title: a.webTitle as string,
-    description: (a.fields?.trailText as string) ?? "",
-    content: (a.fields?.bodyText as string) ?? "",
-    url: a.webUrl as string,
-    image: (a.fields?.thumbnail as string) ?? null,
-    publishedAt: a.webPublicationDate as string,
-    source: "The Guardian",
-    sourceUrl: "https://theguardian.com",
-    type: "guardian" as const,
-  }));
+  return (data.response?.results ?? []).map((a: any) => {
+    // Extract the main image from the <figure> in the main field
+    const mainHtml = (a.fields?.main as string) ?? "";
+    const mainImgMatch = mainHtml.match(/src="([^"]+)"/);
+    const mainImage = mainImgMatch?.[1] ?? (a.fields?.thumbnail as string) ?? null;
+
+    return {
+      title: a.webTitle as string,
+      description: (a.fields?.trailText as string) ?? "",
+      content: (a.fields?.body as string) ?? "",
+      url: a.webUrl as string,
+      image: mainImage,
+      publishedAt: a.webPublicationDate as string,
+      source: "The Guardian",
+      sourceUrl: "https://theguardian.com",
+      type: "guardian" as const,
+    };
+  });
 }
 
 async function fetchHackerNews() {
