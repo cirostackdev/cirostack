@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { Newspaper, ArrowRight, Calendar, Tag, ExternalLink, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
+import { HIDE_ANNOUNCEMENTS } from "@/lib/feature-flags";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import heroNewsroom from "@/assets/hero-newsroom.jpg";
@@ -153,6 +154,8 @@ const Newsroom = () => {
                 ctaLink="/contact"
             />
 
+            {!HIDE_ANNOUNCEMENTS && (
+            <>
             {/* Stats */}
             <section className="py-16 border-y border-border section-alt">
                 <div className="container mx-auto px-4 md:px-6">
@@ -236,6 +239,8 @@ const Newsroom = () => {
                     </div>
                 </div>
             </section>
+            </>
+            )}
 
             {/* Live Industry News */}
             <section className="section-padding section-alt">
