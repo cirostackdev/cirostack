@@ -27,7 +27,7 @@ const SOURCE_COLORS: Record<string, string> = {
 export default function AdminNewsPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
-  const [syncing, setSyncing] = useState(false);
+  const [syncing, setSyncing] = useState<string | null>(null); // tracks which source is syncing
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
 
   async function load() {
@@ -46,7 +46,7 @@ export default function AdminNewsPage() {
   }
 
   async function handleSync(source: "guardian" | "techcrunch" | "all") {
-    setSyncing(true);
+    setSyncing(source);
     setSyncStatus(null);
     try {
       const sources = source === "all" ? ["guardian", "techcrunch"] : [source];
@@ -67,7 +67,7 @@ export default function AdminNewsPage() {
     } catch {
       setSyncStatus("Sync failed");
     } finally {
-      setSyncing(false);
+      setSyncing(null);
     }
   }
 
@@ -90,16 +90,16 @@ export default function AdminNewsPage() {
           )}
         </div>
         <div className="flex items-center gap-2">
-          <Button size="sm" variant="outline" onClick={() => handleSync("guardian")} disabled={syncing}>
-            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing ? "animate-spin" : ""}`} />
+          <Button size="sm" variant="outline" onClick={() => handleSync("guardian")} disabled={syncing !== null}>
+            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing === "guardian" || syncing === "all" ? "animate-spin" : ""}`} />
             Guardian
           </Button>
-          <Button size="sm" variant="outline" onClick={() => handleSync("techcrunch")} disabled={syncing}>
-            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing ? "animate-spin" : ""}`} />
+          <Button size="sm" variant="outline" onClick={() => handleSync("techcrunch")} disabled={syncing !== null}>
+            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing === "techcrunch" || syncing === "all" ? "animate-spin" : ""}`} />
             TechCrunch
           </Button>
-          <Button size="sm" onClick={() => handleSync("all")} disabled={syncing}>
-            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing ? "animate-spin" : ""}`} />
+          <Button size="sm" onClick={() => handleSync("all")} disabled={syncing !== null}>
+            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing === "all" ? "animate-spin" : ""}`} />
             Sync All
           </Button>
         </div>
