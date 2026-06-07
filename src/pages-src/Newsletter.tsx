@@ -6,9 +6,7 @@ import { Mail, CheckCircle, ArrowRight, Zap, BookOpen, Star, Bot } from "lucide-
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
-import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
-import heroNewsletter from "@/assets/hero-newsletter.jpg";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -81,14 +79,6 @@ const Newsletter = () => {
                 title="CiroStack Digest Newsletter"
                 description="Join 12,000+ readers getting weekly insights on software development, AI, and technology trends."
                 url="/newsletter"
-            />
-            <PageHero
-                badge="Newsletter"
-                title="Newsletter"
-                description="Join 12,000+ founders, engineers, and business leaders who read our weekly newsletter on technology, AI, and software development."
-                image={heroNewsletter}
-                ctaText="Subscribe Free"
-                ctaLink="#subscribe"
             />
 
             {/* Subscribe Form */}

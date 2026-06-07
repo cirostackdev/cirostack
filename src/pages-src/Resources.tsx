@@ -7,10 +7,8 @@ import { motion } from "framer-motion";
 import { BookOpen, Download, FileText, Video, ArrowRight, Code, Bot, Globe, Star, CheckCircle, X } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
-import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import heroResources from "@/assets/hero-resources.jpg";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -123,16 +121,6 @@ const Resources = () => {
                 title="Resources for Product Builders"
                 description="Free guides, whitepapers, templates, and tools to help you make better software decisions."
                 url="/resources"
-            />
-            <PageHero
-                badge="Resources"
-                title="Resources"
-                description="Free guides, whitepapers, templates, and tools from the CiroStack team. Practical resources to help you make better technology decisions."
-                image={heroResources}
-                ctaText="Browse Resources"
-                ctaLink="#resources"
-                secondaryCtaText="Visit Our Blog"
-                secondaryCtaLink="/blog"
             />
 
             <section className="py-12 border-y border-border section-alt">

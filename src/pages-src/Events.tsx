@@ -6,9 +6,7 @@ import { motion } from "framer-motion";
 import { Calendar, MapPin, Clock, Users, ArrowRight, Globe } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
-import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
-import heroEvents from "@/assets/hero-events.jpg";
 import { events } from "@/data/events";
 
 const fadeUp = {
@@ -32,16 +30,6 @@ const Events = () => {
                 title="Events, Webinars & Workshops"
                 description="Join the CiroStack team at upcoming tech conferences, development workshops, and exclusive online webinars."
                 url="/events"
-            />
-            <PageHero
-                badge="Events"
-                title="Events"
-                description="Join us at webinars, workshops, and conferences. Learn from our team, connect with industry peers, and stay ahead of the technology curve."
-                image={heroEvents}
-                ctaText="See Upcoming Events"
-                ctaLink="#events"
-                secondaryCtaText="Contact Us"
-                secondaryCtaLink="/contact"
             />
 
             {/* Featured Events */}
