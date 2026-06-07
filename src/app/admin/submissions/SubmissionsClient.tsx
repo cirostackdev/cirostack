@@ -191,9 +191,24 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
 
             {expanded === sub.id && (
               <div className="px-4 pb-4 pt-2 border-t border-border bg-muted/20 space-y-3">
-                <pre className="text-xs text-muted-foreground whitespace-pre-wrap overflow-auto">
-                  {JSON.stringify(sub.data, null, 2)}
-                </pre>
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                  {Object.entries(sub.data).map(([key, value]) => (
+                    <div key={key} className="min-w-0">
+                      <dt className="text-xs font-medium text-muted-foreground capitalize">
+                        {key.replace(/([A-Z])/g, " $1").replace(/_/g, " ").trim()}
+                      </dt>
+                      <dd className="text-sm text-foreground break-words mt-0.5">
+                        {value === null || value === undefined || value === ""
+                          ? <span className="text-muted-foreground/50">—</span>
+                          : typeof value === "boolean"
+                            ? value ? "Yes" : "No"
+                            : typeof value === "object"
+                              ? <pre className="text-xs text-muted-foreground whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</pre>
+                              : String(value)}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
                 {sub.data?.email && (
                   <div className="flex gap-2">
                     <Button
