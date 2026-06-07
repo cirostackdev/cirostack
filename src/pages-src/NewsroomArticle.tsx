@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -225,7 +225,25 @@ const NewsroomArticle = () => {
       .finally(() => setLoading(false));
   }, [src]);
 
-  const related = allArticles.filter(a => a.url !== article?.url).slice(0, 3);
+  const related = useMemo(() => {
+    if (!article) return [];
+    const others = allArticles.filter(a => a.url !== article.url);
+    const currentCategory = getCategoryLabel(article);
+
+    // Score: same category = 3, same source = 1, base = 0
+    const scored = others.map(a => ({
+      article: a,
+      score: (getCategoryLabel(a) === currentCategory ? 3 : 0) + (a.type === article.type ? 1 : 0),
+    }));
+
+    // Sort by score desc, then by date desc
+    scored.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return new Date(b.article.publishedAt).getTime() - new Date(a.article.publishedAt).getTime();
+    });
+
+    return scored.slice(0, 3).map(s => s.article);
+  }, [allArticles, article]);
 
   if (loading) {
     return (
