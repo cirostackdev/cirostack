@@ -48,6 +48,17 @@ function sourceDomain(url: string) {
   catch { return url; }
 }
 
+function getCategoryLabel(article: { title: string; description: string }): string {
+  const text = `${article.title} ${article.description}`.toLowerCase();
+  if (/\bai\b|machine learning|llm|gpt|anthropic|openai/.test(text)) return "AI & Machine Learning";
+  if (/startup|venture|fundrais|seed round|series [abc]/.test(text)) return "Startups & Funding";
+  if (/fintech|payment|banking|crypto|blockchain/.test(text)) return "Fintech";
+  if (/security|hack|breach|ransomware|cyber|privacy/.test(text)) return "Cybersecurity";
+  if (/software|saas|developer|devtools|api/.test(text)) return "Software & Apps";
+  if (/enterprise|data center|cloud|infrastructure/.test(text)) return "Enterprise & Cloud";
+  return "Tech";
+}
+
 // ── Reading progress bar ─────────────────────────────────────────────────────
 
 function ReadingProgressBar() {
@@ -392,8 +403,12 @@ const NewsroomArticle = () => {
                         </div>
                       )}
                       <div className="p-5">
-                        <span className="text-xs text-muted-foreground">{formatDateShort(a.publishedAt)}</span>
-                        <h3 className="font-display font-semibold text-foreground text-sm mt-1.5 mb-2 group-hover:text-primary transition-colors leading-snug line-clamp-2">{a.title}</h3>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="text-xs font-medium text-primary">{getCategoryLabel(a)}</span>
+                          <span className="text-muted-foreground/40">·</span>
+                          <span className="text-xs text-muted-foreground">{formatDateShort(a.publishedAt)}</span>
+                        </div>
+                        <h3 className="font-display font-semibold text-foreground text-sm mb-2 group-hover:text-primary transition-colors leading-snug line-clamp-2">{a.title}</h3>
                       </div>
                     </div>
                   </div>

@@ -112,6 +112,17 @@ type LiveArticle = {
 
 // ── Date grouping helpers ────────────────────────────────────────────────────
 
+function getCategoryLabel(article: { title: string; description: string }): string {
+    const text = `${article.title} ${article.description}`.toLowerCase();
+    if (/\bai\b|machine learning|llm|gpt|anthropic|openai/.test(text)) return "AI & Machine Learning";
+    if (/startup|venture|fundrais|seed round|series [abc]/.test(text)) return "Startups & Funding";
+    if (/fintech|payment|banking|crypto|blockchain/.test(text)) return "Fintech";
+    if (/security|hack|breach|ransomware|cyber|privacy/.test(text)) return "Cybersecurity";
+    if (/software|saas|developer|devtools|api/.test(text)) return "Software & Apps";
+    if (/enterprise|data center|cloud|infrastructure/.test(text)) return "Enterprise & Cloud";
+    return "Tech";
+}
+
 function getDateGroup(iso: string): string {
     const date = new Date(iso);
     const now = new Date();
@@ -389,8 +400,12 @@ const Newsroom = () => {
                                             </div>
                                         )}
                                         <div className="p-6">
-                                            <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
-                                            <h3 className="font-display font-semibold text-foreground text-lg mt-2 mb-3 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <span className="text-xs font-medium text-primary">{getCategoryLabel(article)}</span>
+                                                <span className="text-muted-foreground/40">·</span>
+                                                <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
+                                            </div>
+                                            <h3 className="font-display font-semibold text-foreground text-lg mb-3 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
                                             {article.description && <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{article.description}</p>}
                                             <div className="flex items-center gap-1.5 mt-4 text-sm text-primary font-medium">
                                                 Read Article <ArrowRight className="w-3.5 h-3.5" />
@@ -428,8 +443,12 @@ const Newsroom = () => {
                                                     </div>
                                                 )}
                                                 <div className="p-5">
-                                                    <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
-                                                    <h3 className="font-display font-semibold text-foreground text-base mt-1.5 mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
+                                                    <div className="flex items-center gap-2 mb-1.5">
+                                                        <span className="text-xs font-medium text-primary">{getCategoryLabel(article)}</span>
+                                                        <span className="text-muted-foreground/40">·</span>
+                                                        <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
+                                                    </div>
+                                                    <h3 className="font-display font-semibold text-foreground text-base mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
                                                     {article.description && <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{article.description}</p>}
                                                     <div className="flex items-center gap-1.5 mt-3 text-sm text-primary font-medium">
                                                         Read Article <ArrowRight className="w-3.5 h-3.5" />
