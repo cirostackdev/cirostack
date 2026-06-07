@@ -37,34 +37,44 @@ export async function GET(
   const { slug } = await params;
 
   try {
-    const article = await prisma.newsArticle.findUnique({
-      where: { slug },
-      select: { image: true },
+    const post = await prisma.blogPost.findFirst({
+      where: { slug, published: true },
+      select: { imageUrl: true },
     });
 
-    if (!article?.image) {
-      // Fallback to default newsroom OG
-      const fallback = path.join(process.cwd(), "public/og/pages/newsroom.jpg");
+    if (!post?.imageUrl) {
+      const fallback = path.join(process.cwd(), "public/og/pages/blog.jpg");
       const buf = fs.readFileSync(fallback);
       return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
     }
 
-    // Fetch the article image (request a smaller version for speed)
-    let imageUrl = article.image;
-    if (imageUrl.includes("wp-content/uploads") && !imageUrl.includes("?w=")) {
-      imageUrl += "?w=1200";
-    }
-    const res = await fetch(imageUrl);
-    if (!res.ok) {
-      const fallback = path.join(process.cwd(), "public/og/pages/newsroom.jpg");
-      const buf = fs.readFileSync(fallback);
-      return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
+    // If it's a local path, read from filesystem
+    let imageBuffer: Buffer;
+    if (post.imageUrl.startsWith("/")) {
+      const localPath = path.join(process.cwd(), "public", post.imageUrl);
+      if (!fs.existsSync(localPath)) {
+        const fallback = path.join(process.cwd(), "public/og/pages/blog.jpg");
+        const buf = fs.readFileSync(fallback);
+        return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
+      }
+      imageBuffer = fs.readFileSync(localPath);
+    } else {
+      // Fetch remote image, request a smaller version if possible
+      let imageUrl = post.imageUrl;
+      if (imageUrl.includes("wp-content/uploads") && !imageUrl.includes("?w=")) {
+        imageUrl += "?w=1200";
+      }
+      const res = await fetch(imageUrl);
+      if (!res.ok) {
+        const fallback = path.join(process.cwd(), "public/og/pages/blog.jpg");
+        const buf = fs.readFileSync(fallback);
+        return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
+      }
+      imageBuffer = Buffer.from(await res.arrayBuffer());
     }
 
-    const imageBuffer = Buffer.from(await res.arrayBuffer());
     const badge = await createBadge();
 
-    // Resize to OG dimensions and composite the logo badge
     const og = await sharp(imageBuffer)
       .resize(OG_WIDTH, OG_HEIGHT, { fit: "cover", position: "center" })
       .composite([{ input: badge, left: BADGE_X, top: BADGE_Y }])
@@ -78,7 +88,7 @@ export async function GET(
       },
     });
   } catch {
-    const fallback = path.join(process.cwd(), "public/og/pages/newsroom.jpg");
+    const fallback = path.join(process.cwd(), "public/og/pages/blog.jpg");
     const buf = fs.readFileSync(fallback);
     return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400" } });
   }
