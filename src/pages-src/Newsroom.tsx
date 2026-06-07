@@ -330,9 +330,36 @@ const Newsroom = () => {
                     </div>
 
                     {newsLoading ? (
-                        <div className="flex items-center justify-center py-16">
-                            <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" />
-                        </div>
+                        <>
+                            {/* Skeleton: featured top 3 */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
+                                {[0, 1, 2].map((i) => (
+                                    <div key={i} className="rounded-2xl surface-glass overflow-hidden animate-pulse">
+                                        <div className="h-52 bg-muted" />
+                                        <div className="p-6 space-y-3">
+                                            <div className="h-3 w-24 bg-muted rounded" />
+                                            <div className="h-5 w-full bg-muted rounded" />
+                                            <div className="h-5 w-3/4 bg-muted rounded" />
+                                            <div className="h-3 w-32 bg-muted rounded mt-4" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Skeleton: rest grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {[0, 1, 2, 3, 4, 5].map((i) => (
+                                    <div key={i} className="rounded-2xl surface-glass overflow-hidden animate-pulse">
+                                        <div className="h-40 bg-muted" />
+                                        <div className="p-5 space-y-3">
+                                            <div className="h-3 w-20 bg-muted rounded" />
+                                            <div className="h-4 w-full bg-muted rounded" />
+                                            <div className="h-4 w-2/3 bg-muted rounded" />
+                                            <div className="h-3 w-28 bg-muted rounded mt-3" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
                     ) : liveNews.length === 0 ? (
                         <p className="text-center text-muted-foreground py-12">No articles available right now. Check back soon.</p>
                     ) : (
