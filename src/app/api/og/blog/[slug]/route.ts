@@ -48,30 +48,21 @@ export async function GET(
       return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
     }
 
-    // If it's a local path, read from filesystem
-    let imageBuffer: Buffer;
-    if (post.imageUrl.startsWith("/")) {
-      const localPath = path.join(process.cwd(), "public", post.imageUrl);
-      if (!fs.existsSync(localPath)) {
-        const fallback = path.join(process.cwd(), "public/og/pages/blog.jpg");
-        const buf = fs.readFileSync(fallback);
-        return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
-      }
-      imageBuffer = fs.readFileSync(localPath);
-    } else {
-      // Fetch remote image, request a smaller version if possible
-      let imageUrl = post.imageUrl;
-      if (imageUrl.includes("wp-content/uploads") && !imageUrl.includes("?w=")) {
-        imageUrl += "?w=1200";
-      }
-      const res = await fetch(imageUrl);
-      if (!res.ok) {
-        const fallback = path.join(process.cwd(), "public/og/pages/blog.jpg");
-        const buf = fs.readFileSync(fallback);
-        return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
-      }
-      imageBuffer = Buffer.from(await res.arrayBuffer());
+    // Fetch the image via HTTP (local paths served from site, remote as-is)
+    let imageUrl = post.imageUrl;
+    if (imageUrl.startsWith("/")) {
+      imageUrl = `https://www.cirostack.com${imageUrl}`;
+    } else if (imageUrl.includes("wp-content/uploads") && !imageUrl.includes("?w=")) {
+      imageUrl += "?w=1200";
     }
+
+    const res = await fetch(imageUrl);
+    if (!res.ok) {
+      const fallback = path.join(process.cwd(), "public/og/pages/blog.jpg");
+      const buf = fs.readFileSync(fallback);
+      return new NextResponse(buf, { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400, s-maxage=604800" } });
+    }
+    const imageBuffer = Buffer.from(await res.arrayBuffer());
 
     const badge = await createBadge();
 
