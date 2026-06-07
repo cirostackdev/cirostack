@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { Plus, Trash2 } from "lucide-react";
 
 type Client = { id: string; email: string; name?: string; projects: { id: string; title: string }[] };
-type LineItem = { description: string; qty: string; unitPrice: string };
+type LineItem = { description: string; amount: string };
 
 export default function NewInvoicePage() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function NewInvoicePage() {
   const [number, setNumber] = useState(`INV-${new Date().getFullYear()}-${String(Date.now()).slice(-4)}`);
   const [currency, setCurrency] = useState("USD");
   const [dueDate, setDueDate] = useState("");
-  const [lineItems, setLineItems] = useState<LineItem[]>([{ description: "", qty: "1", unitPrice: "" }]);
+  const [lineItems, setLineItems] = useState<LineItem[]>([{ description: "", amount: "" }]);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -39,8 +39,7 @@ export default function NewInvoicePage() {
   }, []);
 
   const selectedClient = clients.find((c) => c.id === clientId);
-  const parseLine = (l: LineItem) => ({ qty: parseFloat(l.qty) || 0, unitPrice: parseFloat(l.unitPrice) || 0 });
-  const total = lineItems.reduce((s, l) => { const p = parseLine(l); return s + p.qty * p.unitPrice; }, 0);
+  const total = lineItems.reduce((s, l) => s + (parseFloat(l.amount) || 0), 0);
 
   function updateLine(i: number, key: keyof LineItem, val: string) {
     setLineItems((prev) => prev.map((l, idx) => idx === i ? { ...l, [key]: val } : l));
@@ -60,7 +59,7 @@ export default function NewInvoicePage() {
         amount: Math.round(total * 100),
         currency,
         dueDate: dueDate || null,
-        lineItems: lineItems.map((l) => { const p = parseLine(l); return { description: l.description, qty: p.qty, unitPrice: Math.round(p.unitPrice * 100) }; }),
+        lineItems: lineItems.map((l) => ({ description: l.description, amount: Math.round((parseFloat(l.amount) || 0) * 100) })),
       }),
     });
     if (res.ok) { toast.success("Invoice created"); router.push("/admin/invoices"); }
@@ -101,34 +100,32 @@ export default function NewInvoicePage() {
         </div>
 
         {/* Line items */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <Label>Line Items</Label>
           {lineItems.map((l, i) => (
-            <div key={i} className="space-y-2 p-3 rounded-lg border border-border sm:p-0 sm:border-0 sm:space-y-0 sm:grid sm:grid-cols-[1fr_80px_110px_36px] sm:gap-2 sm:items-center">
-              <Input placeholder="Description" value={l.description} onChange={(e) => updateLine(i, "description", e.target.value)} />
-              <div className="grid grid-cols-[1fr_1fr_36px] gap-2 sm:contents">
-                <Input
-                  inputMode="numeric"
-                  placeholder="Qty"
-                  value={l.qty}
-                  onChange={(e) => updateLine(i, "qty", e.target.value)}
-                  onBlur={(e) => { const n = parseFloat(e.target.value); updateLine(i, "qty", isNaN(n) || n < 1 ? "1" : String(n)); }}
-                />
-                <Input
-                  inputMode="decimal"
-                  placeholder="Unit price"
-                  value={l.unitPrice}
-                  onChange={(e) => updateLine(i, "unitPrice", e.target.value)}
-                  onBlur={(e) => { const n = parseFloat(e.target.value); updateLine(i, "unitPrice", isNaN(n) ? "0" : String(n)); }}
-                />
-                <Button type="button" variant="ghost" size="icon" className="w-9 h-9 text-destructive self-center" onClick={() => setLineItems((p) => p.filter((_, idx) => idx !== i))} disabled={lineItems.length === 1}><Trash2 className="w-3.5 h-3.5" /></Button>
-              </div>
+            <div key={i} className="grid grid-cols-[1fr_140px_36px] gap-2 items-center">
+              <Input
+                placeholder="Description (e.g. Frontend Development — Phase 1)"
+                value={l.description}
+                onChange={(e) => updateLine(i, "description", e.target.value)}
+              />
+              <Input
+                inputMode="decimal"
+                placeholder="Amount"
+                value={l.amount}
+                onChange={(e) => updateLine(i, "amount", e.target.value)}
+                onBlur={(e) => { const n = parseFloat(e.target.value); updateLine(i, "amount", isNaN(n) ? "" : String(n)); }}
+                className="text-right"
+              />
+              <Button type="button" variant="ghost" size="icon" className="w-9 h-9 text-destructive" onClick={() => setLineItems((p) => p.filter((_, idx) => idx !== i))} disabled={lineItems.length === 1}>
+                <Trash2 className="w-3.5 h-3.5" />
+              </Button>
             </div>
           ))}
-          <Button type="button" variant="outline" size="sm" onClick={() => setLineItems((p) => [...p, { description: "", qty: "1", unitPrice: "" }])}>
-            <Plus className="w-4 h-4 mr-1" /> Add Line Item
-          </Button>
-          <div className="flex justify-end">
+          <div className="flex items-center justify-between pt-1">
+            <Button type="button" variant="outline" size="sm" onClick={() => setLineItems((p) => [...p, { description: "", amount: "" }])}>
+              <Plus className="w-4 h-4 mr-1" /> Add Line Item
+            </Button>
             <div className="text-sm font-semibold">{currency} {total.toFixed(2)}</div>
           </div>
         </div>

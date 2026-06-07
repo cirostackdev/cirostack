@@ -21,7 +21,7 @@ type Invoice = {
   paidAt: string | null;
   paymentRef: string | null;
   createdAt: string;
-  lineItems: { description: string; qty: number; unitPrice: number }[];
+  lineItems: { description: string; amount: number; qty?: number; unitPrice?: number }[];
   client: { id: string; email: string; name?: string; company?: string };
   project?: { id: string; title: string };
 };
@@ -157,30 +157,32 @@ export default function AdminInvoiceDetailPage() {
           </div>
         </div>
 
-        {/* Line items — scrollable on mobile */}
-        <div className="rounded-xl border border-border overflow-x-auto">
-          <table className="w-full text-sm min-w-[400px]">
+        {/* Line items */}
+        <div className="rounded-xl border border-border overflow-hidden">
+          <table className="w-full text-sm">
             <thead className="bg-muted/40">
               <tr>
                 <th className="text-left px-4 py-3 font-medium text-muted-foreground">Description</th>
-                <th className="text-right px-4 py-3 font-medium text-muted-foreground">Qty</th>
-                <th className="text-right px-4 py-3 font-medium text-muted-foreground">Unit</th>
-                <th className="text-right px-4 py-3 font-medium text-muted-foreground">Total</th>
+                <th className="text-right px-4 py-3 font-medium text-muted-foreground">Amount</th>
               </tr>
             </thead>
             <tbody>
-              {invoice.lineItems.map((l, i) => (
-                <tr key={i} className="border-t border-border">
-                  <td className="px-4 py-3">{l.description}</td>
-                  <td className="px-4 py-3 text-right text-muted-foreground">{l.qty}</td>
-                  <td className="px-4 py-3 text-right text-muted-foreground">{invoice.currency} {(l.unitPrice / 100).toFixed(2)}</td>
-                  <td className="px-4 py-3 text-right font-medium">{invoice.currency} {((l.qty * l.unitPrice) / 100).toFixed(2)}</td>
-                </tr>
-              ))}
+              {invoice.lineItems.map((l, i) => {
+                // Support both old format (qty * unitPrice) and new format (amount)
+                const amt = l.amount != null
+                  ? l.amount
+                  : ((l.qty ?? 1) * (l.unitPrice ?? 0));
+                return (
+                  <tr key={i} className="border-t border-border">
+                    <td className="px-4 py-3">{l.description}</td>
+                    <td className="px-4 py-3 text-right font-medium">{invoice.currency} {(amt / 100).toFixed(2)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
             <tfoot className="border-t-2 border-border bg-muted/20">
               <tr>
-                <td colSpan={3} className="px-4 py-3 text-right font-semibold">Total</td>
+                <td className="px-4 py-3 text-right font-semibold">Total</td>
                 <td className="px-4 py-3 text-right font-bold">{invoice.currency} {(invoice.amount / 100).toFixed(2)}</td>
               </tr>
             </tfoot>
