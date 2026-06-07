@@ -35,15 +35,15 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 
     const title = `${article.title} | CiroStack Newsroom`;
     const description = article.description || `Read this article on CiroStack Newsroom.`;
-    const image = article.image || "https://cirostack.com/og/pages/newsroom.jpg";
+    const image = article.image || "https://www.cirostack.com/og/pages/newsroom.jpg";
 
     return {
       title,
       description,
-      alternates: { canonical: `https://cirostack.com/newsroom/${article.slug}` },
+      alternates: { canonical: `https://www.cirostack.com/newsroom/${article.slug}` },
       openGraph: {
         type: "article",
-        url: `https://cirostack.com/newsroom/${article.slug}`,
+        url: `https://www.cirostack.com/newsroom/${article.slug}`,
         title: article.title,
         description,
         images: [{ url: image, width: 1200, height: 630, alt: article.title }],

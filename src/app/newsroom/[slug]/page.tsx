@@ -25,17 +25,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const title = `${article.title} | CiroStack Newsroom`;
     const description = article.description || `Read this article on CiroStack Newsroom.`;
-    const image = article.image || "https://cirostack.com/og/pages/newsroom.jpg";
+    const image = article.image || "https://www.cirostack.com/og/pages/newsroom.jpg";
 
-    const ogImage = `https://cirostack.com/api/og/news/${article.slug}`;
+    const ogImage = `https://www.cirostack.com/api/og/news/${article.slug}/`;
 
     return {
       title,
       description,
-      alternates: { canonical: `https://cirostack.com/newsroom/${article.slug}` },
+      alternates: { canonical: `https://www.cirostack.com/newsroom/${article.slug}` },
       openGraph: {
         type: "article",
-        url: `https://cirostack.com/newsroom/${article.slug}`,
+        url: `https://www.cirostack.com/newsroom/${article.slug}`,
         title: article.title,
         description,
         images: [{ url: ogImage, width: 1200, height: 630, alt: article.title }],
@@ -48,10 +48,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         images: [ogImage],
       },
     };
-  } catch {
+  } catch (err) {
+    console.error("[newsroom/slug] generateMetadata error:", err);
     return {
       title: "Industry News | CiroStack Newsroom",
       description: "Stay up to date with the latest news in startups, software development, AI, and the tech industry.",
+      openGraph: {
+        images: [{ url: "https://www.cirostack.com/og/pages/newsroom.jpg", width: 1200, height: 630 }],
+      },
     };
   }
 }
@@ -75,13 +79,13 @@ export default async function NewsroomSlugPage({ params }: Props) {
         image: article.image || undefined,
         datePublished: article.publishedAt.toISOString(),
         dateModified: article.updatedAt.toISOString(),
-        url: `https://cirostack.com/newsroom/${article.slug}`,
-        mainEntityOfPage: `https://cirostack.com/newsroom/${article.slug}`,
+        url: `https://www.cirostack.com/newsroom/${article.slug}`,
+        mainEntityOfPage: `https://www.cirostack.com/newsroom/${article.slug}`,
         publisher: {
           "@type": "Organization",
           name: "CiroStack",
-          url: "https://cirostack.com",
-          logo: { "@type": "ImageObject", url: "https://cirostack.com/logo.png" },
+          url: "https://www.cirostack.com",
+          logo: { "@type": "ImageObject", url: "https://www.cirostack.com/logo.png" },
         },
         author: { "@type": "Organization", name: article.source },
         isAccessibleForFree: true,
