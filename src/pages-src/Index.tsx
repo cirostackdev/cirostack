@@ -189,8 +189,19 @@ const marqueeWords: { label: string; href: string }[] = [
 ];
 
 /* ─── News section (fetches latest articles) ─── */
+function getCategoryLabel(article: { title: string; description: string }): string {
+  const text = `${article.title} ${article.description}`.toLowerCase();
+  if (/\bai\b|machine learning|llm|gpt|anthropic|openai/.test(text)) return "AI & Machine Learning";
+  if (/startup|venture|fundrais|seed round|series [abc]/.test(text)) return "Startups & Funding";
+  if (/fintech|payment|banking|crypto|blockchain/.test(text)) return "Fintech";
+  if (/security|hack|breach|ransomware|cyber|privacy/.test(text)) return "Cybersecurity";
+  if (/software|saas|developer|devtools|api/.test(text)) return "Software & Apps";
+  if (/enterprise|data center|cloud|infrastructure/.test(text)) return "Enterprise & Cloud";
+  return "Tech";
+}
+
 function NewsSection() {
-  const [articles, setArticles] = useState<{ title: string; url: string; image: string | null; publishedAt: string; source: string; description: string }[]>([]);
+  const [articles, setArticles] = useState<{ title: string; url: string; image: string | null; publishedAt: string; source: string; description: string; type: string }[]>([]);
 
   useEffect(() => {
     fetch("/api/news?limit=3")
@@ -234,7 +245,7 @@ function NewsSection() {
                   )}
                   <div className="p-6 flex flex-col flex-1">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xs font-medium text-primary">{article.source}</span>
+                      <span className="text-xs font-medium text-primary">{getCategoryLabel(article)}</span>
                       <span className="text-muted-foreground/40">·</span>
                       <span className="text-xs text-muted-foreground">
                         {new Date(article.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
@@ -244,7 +255,7 @@ function NewsSection() {
                       {article.title}
                     </h3>
                     <span className="text-primary text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Read article <ArrowRight className="w-4 h-4" />
+                      Read news <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>
                 </div>
