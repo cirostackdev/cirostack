@@ -6,7 +6,7 @@ import { XMLParser } from "fast-xml-parser";
 export const maxDuration = 60;
 
 const GUARDIAN_QUERY = `startup OR SaaS OR "software development" OR fintech OR "AI automation" OR healthtech OR "tech startup"`;
-const HN_QUERY = "startup software development SaaS AI fintech";
+const HN_QUERIES = ["startup", "SaaS", "AI", "fintech", "software"];
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -140,7 +140,7 @@ async function fetchLinkedGuardianArticles(
     }
   }
 
-  const toFetch = linkedUrls.slice(0, 20);
+  const toFetch = linkedUrls.slice(0, 5);
   const linked: ArticleData[] = [];
 
   for (let i = 0; i < toFetch.length; i += 5) {
@@ -171,7 +171,7 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
     const feed = parser.parse(xml);
 
     const items = feed?.rss?.channel?.item ?? [];
-    const entries = Array.isArray(items) ? items.slice(0, 10) : [items];
+    const entries = Array.isArray(items) ? items.slice(0, 5) : [items];
 
     const articles: ArticleData[] = [];
 
@@ -179,13 +179,12 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
       const url = item.link as string;
       if (!url || existingUrls.has(url)) continue;
 
-      // Rate limit: 2s between extractions
-      if (articles.length > 0) {
-        await new Promise(r => setTimeout(r, 2000));
-      }
-
+      // Extract with a 5s timeout per article to stay within serverless limits
       try {
-        const extracted = await extract(url);
+        const extracted = await Promise.race([
+          extract(url),
+          new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000)),
+        ]);
 
         if (!extracted) {
           // Fallback: store RSS data only
@@ -239,12 +238,27 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
 }
 
 async function fetchHackerNews(): Promise<ArticleData[]> {
-  const url = `https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(HN_QUERY)}&tags=story&hitsPerPage=20&numericFilters=points%3E10`;
-  const res = await fetch(url);
-  if (!res.ok) { console.error("[news/sync] HN:", res.status); return []; }
+  const results = await Promise.allSettled(
+    HN_QUERIES.map(async (q) => {
+      const url = `https://hn.algolia.com/api/v1/search_by_date?query=${encodeURIComponent(q)}&tags=story&hitsPerPage=10&numericFilters=points%3E20`;
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const data = await res.json();
+      return data.hits ?? [];
+    })
+  );
 
-  const data = await res.json();
-  return (data.hits ?? []).filter((h: any) => !!h.url).map((h: any) => ({
+  const allHits = results.flatMap(r => r.status === "fulfilled" ? r.value : []);
+
+  // Deduplicate by objectID
+  const seen = new Set<string>();
+  const unique = allHits.filter((h: any) => {
+    if (!h.url || seen.has(h.objectID)) return false;
+    seen.add(h.objectID);
+    return true;
+  });
+
+  return unique.slice(0, 20).map((h: any) => ({
     url: h.url as string,
     title: h.title as string,
     description: "",
