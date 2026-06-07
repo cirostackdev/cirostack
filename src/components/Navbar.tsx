@@ -626,9 +626,12 @@ const Navbar = () => {
   // Pages with no dark hero — navbar should never use white text on these
   const NO_HERO_PATHS = ["/contact", "/start", "/careers/apply"];
   const isNoHero = NO_HERO_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
+  // Pages with plain/light background — all nav elements dark (no hero, no colored bg)
+  const PLAIN_BG_PATHS = ["/newsroom", "/newsletter", "/events", "/resources"];
+  const isPlainBg = PLAIN_BG_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"));
   // On non-home pages with a dark hero, use white text when not scrolled
-  const useLight = !showBg && !isHome && !isNoHero;
-  // Right section uses white on contact pages (over the red SVG)
+  const useLight = !showBg && !isHome && !isNoHero && !isPlainBg;
+  // Right section uses white on contact pages (over the red SVG), but NOT on plain bg pages
   const useRightLight = useLight || (!showBg && isNoHero);
 
   const handleEnterItem = (label: string) => {
