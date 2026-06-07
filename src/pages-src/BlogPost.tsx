@@ -870,15 +870,22 @@ const BlogPost = () => {
   const firstParagraph = displayContent.find(b => b.type === "paragraph") as { type: "paragraph"; text: string } | undefined;
   const seoDescription = dbPost?.excerpt || (firstParagraph ? firstParagraph.text.substring(0, 155) + "..." : displayTitle);
 
-  // Find related posts by shared tags, then same category, excluding current
+  // Find related posts: shared tags (progressive), same category, same author, recency
   const relatedPosts = Object.entries(posts)
     .filter(([postId]) => postId !== id)
     .map(([postId, p]) => {
       const sharedTags = p.tags.filter(t => displayTags.includes(t)).length;
-      const sameCategory = p.category === displayCategory ? 1 : 0;
-      return { id: postId, ...p, score: sharedTags * 2 + sameCategory };
+      const sameCategory = p.category === displayCategory ? 2 : 0;
+      const sameAuthor = (p.author || "CiroStack Team") === displayAuthor ? 1 : 0;
+      // Progressive tag scoring: 1 tag = 3, 2 tags = 7, 3+ tags = 12
+      const tagScore = sharedTags === 0 ? 0 : sharedTags === 1 ? 3 : sharedTags === 2 ? 7 : 12;
+      return { id: postId, ...p, score: tagScore + sameCategory + sameAuthor };
     })
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      // Tiebreaker: more recent posts first
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
     .slice(0, 3);
 
   return (
