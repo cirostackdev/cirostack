@@ -211,13 +211,6 @@ const Newsroom = () => {
                 description="Latest company news, press releases, media features, and industry recognition for CiroStack."
                 url="/newsroom"
             />
-            {/* Page header */}
-            <section className="pt-32 pb-12 md:pt-40 md:pb-16">
-                <div className="container mx-auto px-4 md:px-6 text-center">
-                    <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">Newsroom</h1>
-                    <p className="text-lg text-muted-foreground max-w-xl mx-auto">The latest news, press releases, media coverage, and announcements from CiroStack.</p>
-                </div>
-            </section>
 
             {!HIDE_ANNOUNCEMENTS && (
             <>
