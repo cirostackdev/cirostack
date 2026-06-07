@@ -5,13 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Newspaper, ArrowRight, Calendar, Tag, ExternalLink, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import { ArrowRight, Calendar, Tag, ExternalLink, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
-import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import { HIDE_ANNOUNCEMENTS } from "@/lib/feature-flags";
-import heroNewsroom from "@/assets/hero-newsroom.jpg";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -213,14 +211,13 @@ const Newsroom = () => {
                 description="Latest company news, press releases, media features, and industry recognition for CiroStack."
                 url="/newsroom"
             />
-            <PageHero
-                icon={Newspaper}
-                title="Newsroom"
-                description="The latest news, press releases, media coverage, and announcements from CiroStack."
-                image={heroNewsroom}
-                ctaText="Press Inquiries"
-                ctaLink="/contact"
-            />
+            {/* Page header */}
+            <section className="pt-32 pb-12 md:pt-40 md:pb-16">
+                <div className="container mx-auto px-4 md:px-6 text-center">
+                    <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">Newsroom</h1>
+                    <p className="text-lg text-muted-foreground max-w-xl mx-auto">The latest news, press releases, media coverage, and announcements from CiroStack.</p>
+                </div>
+            </section>
 
             {!HIDE_ANNOUNCEMENTS && (
             <>
