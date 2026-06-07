@@ -88,12 +88,16 @@ export default function AdminInvoicesPage() {
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="flex-1 rounded-xl border border-border p-4">
           <p className="text-xs text-muted-foreground">Total Invoiced</p>
-          <p className="text-2xl font-bold mt-1">{fmtUsd(totalUsd)}</p>
+          {loading
+            ? <div className="h-8 w-32 bg-muted rounded animate-pulse mt-1" />
+            : <p className="text-2xl font-bold mt-1">{fmtUsd(totalUsd)}</p>}
           <p className="text-xs text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
         </div>
         <div className="flex-1 rounded-xl border border-border p-4">
           <p className="text-xs text-muted-foreground">Total Collected</p>
-          <p className="text-2xl font-bold mt-1 text-green-600">{fmtUsd(paidUsd)}</p>
+          {loading
+            ? <div className="h-8 w-28 bg-muted rounded animate-pulse mt-1" />
+            : <p className="text-2xl font-bold mt-1 text-green-600">{fmtUsd(paidUsd)}</p>}
           <p className="text-xs text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
         </div>
         <div className="sm:self-center">

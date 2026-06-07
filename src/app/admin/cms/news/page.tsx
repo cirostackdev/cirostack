@@ -89,7 +89,7 @@ export default function AdminNewsPage() {
             <span className="text-xs text-green-600 dark:text-green-400 font-medium">{syncStatus}</span>
           )}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button size="sm" variant="outline" onClick={() => handleSync("guardian")} disabled={syncing !== null}>
             <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing === "guardian" || syncing === "all" ? "animate-spin" : ""}`} />
             Guardian
