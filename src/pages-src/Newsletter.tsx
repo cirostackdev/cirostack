@@ -82,7 +82,7 @@ const Newsletter = () => {
             />
 
             {/* Subscribe Form */}
-            <section id="subscribe" className="section-padding">
+            <section id="subscribe" className="section-padding mt-10">
                 <div className="container mx-auto px-4 md:px-6 max-w-xl text-center">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
                         {submitted ? (

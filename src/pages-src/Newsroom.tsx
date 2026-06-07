@@ -300,7 +300,7 @@ const Newsroom = () => {
             )}
 
             {/* Industry News */}
-            <section className="section-padding section-alt">
+            <section className={`section-padding section-alt ${HIDE_ANNOUNCEMENTS ? "mt-10" : ""}`}>
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Industry News" title="What's happening in tech" description="Live news relevant to startups, software development, AI, and the services we provide." />
 

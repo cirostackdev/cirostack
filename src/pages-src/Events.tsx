@@ -33,7 +33,7 @@ const Events = () => {
             />
 
             {/* Featured Events */}
-            <section id="events" className="section-padding">
+            <section id="events" className="section-padding mt-10">
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited: register early." />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
