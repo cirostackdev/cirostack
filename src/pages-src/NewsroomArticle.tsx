@@ -294,13 +294,13 @@ const NewsroomArticle = () => {
                   </div>
                 )}
 
-                {/* Full article body (Guardian / TechCrunch) */}
-                {(article.type === "guardian" || article.type === "techcrunch") && article.content && (
+                {/* Full article body */}
+                {article.content && (
                   <GuardianBody content={article.content} />
                 )}
 
                 {/* External article card (no full body available) */}
-                {article.type === "hackernews" && (
+                {!article.content && (
                   <div className="surface-glass rounded-2xl p-10 text-center">
                     <p className="text-sm text-muted-foreground mb-2">This article is hosted on</p>
                     <p className="text-2xl font-display font-bold text-foreground mb-2">{sourceDomain(article.url)}</p>
