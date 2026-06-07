@@ -86,18 +86,18 @@ export default function EditBlogPostPage() {
 
   return (
     <AdminShell title="Edit Blog Post">
-      <form onSubmit={handleSubmit} className="p-6 max-w-3xl space-y-5">
-        <div className="grid grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="max-w-3xl space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5"><Label>Title *</Label><Input value={form.title} onChange={(e) => set("title", e.target.value)} required /></div>
           <div className="space-y-1.5"><Label>Slug *</Label><Input value={form.slug} onChange={(e) => set("slug", e.target.value)} required /></div>
         </div>
         <div className="space-y-1.5"><Label>Excerpt *</Label><Textarea value={form.excerpt} onChange={(e) => set("excerpt", e.target.value)} required rows={2} /></div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1.5"><Label>Category *</Label><Select value={form.category} onValueChange={(v) => set("category", v)}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{BLOG_CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent></Select></div>
           <div className="space-y-1.5"><Label>Author</Label><Input value={form.author} onChange={(e) => set("author", e.target.value)} /></div>
           <div className="space-y-1.5"><Label>Read (min)</Label><Input type="number" min={1} value={form.readMin} onChange={(e) => set("readMin", Number(e.target.value))} /></div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5"><Label>Display Date</Label><Input value={form.date} onChange={(e) => set("date", e.target.value)} /></div>
           <div className="space-y-1.5"><Label>Sort Date</Label><Input type="date" value={form.dateSort} onChange={(e) => set("dateSort", e.target.value)} /></div>
         </div>

@@ -44,12 +44,12 @@ export default function EditJobPage() {
 
   return (
     <AdminShell title="Edit Job">
-      <form onSubmit={handleSubmit} className="p-6 max-w-2xl space-y-5">
-        <div className="grid grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="max-w-2xl space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5"><Label>Title *</Label><Input value={form.title} onChange={(e) => set("title", e.target.value)} required /></div>
           <div className="space-y-1.5"><Label>Department *</Label><Select value={form.department} onValueChange={(v) => set("department", v)}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{JOB_DEPARTMENTS.map((d) => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent></Select></div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Type</Label>
             <Select value={form.type} onValueChange={(v) => set("type", v)}>

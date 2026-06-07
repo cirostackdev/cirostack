@@ -76,8 +76,8 @@ export default function NewBlogPostPage() {
 
   return (
     <AdminShell title="New Blog Post">
-      <form onSubmit={handleSubmit} className="p-6 max-w-3xl space-y-5">
-        <div className="grid grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="max-w-3xl space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label htmlFor="title">Title *</Label>
             <Input id="title" value={form.title} onChange={(e) => set("title", e.target.value)} required />
@@ -93,7 +93,7 @@ export default function NewBlogPostPage() {
           <Textarea id="excerpt" value={form.excerpt} onChange={(e) => set("excerpt", e.target.value)} required rows={2} />
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1.5">
             <Label>Category *</Label>
             <Select value={form.category} onValueChange={(v) => set("category", v)} required>
@@ -111,7 +111,7 @@ export default function NewBlogPostPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label htmlFor="date">Display Date *</Label>
             <Input id="date" value={form.date} onChange={(e) => set("date", e.target.value)} required />

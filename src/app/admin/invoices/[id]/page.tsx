@@ -100,7 +100,7 @@ export default function AdminInvoiceDetailPage() {
   return (
     <AdminShell title={invoice.number}>
       <div className="max-w-3xl space-y-6">
-        <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <button onClick={() => router.back()} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors py-1">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
 
@@ -157,9 +157,9 @@ export default function AdminInvoiceDetailPage() {
           </div>
         </div>
 
-        {/* Line items */}
-        <div className="rounded-xl border border-border overflow-hidden">
-          <table className="w-full text-sm">
+        {/* Line items — scrollable on mobile */}
+        <div className="rounded-xl border border-border overflow-x-auto">
+          <table className="w-full text-sm min-w-[400px]">
             <thead className="bg-muted/40">
               <tr>
                 <th className="text-left px-4 py-3 font-medium text-muted-foreground">Description</th>

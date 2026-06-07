@@ -25,7 +25,7 @@ export function AdminFormSkeleton({ fields = 6 }: { fields?: number }) {
   return (
     <div className="max-w-3xl space-y-6">
       {Array.from({ length: Math.ceil(fields / 2) }).map((_, i) => (
-        <div key={i} className="grid grid-cols-2 gap-4">
+        <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Skeleton className="h-4 w-20" />
             <Skeleton className="h-10 w-full" />
@@ -48,7 +48,7 @@ export function AdminFormSkeleton({ fields = 6 }: { fields?: number }) {
 export function AdminDetailSkeleton() {
   return (
     <div className="space-y-6">
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-3">
         <Skeleton className="h-10 w-48" />
         <Skeleton className="h-10 w-32" />
       </div>

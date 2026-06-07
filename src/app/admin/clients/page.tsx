@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Plus, ChevronRight } from "lucide-react";
+import { Plus, ChevronRight, Users } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { toast } from "sonner";
 
@@ -100,13 +100,31 @@ export default function AdminClientsPage() {
                       </td>
                     </tr>
                   ))}
-                  {filtered.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No clients found.</td></tr>}
+                  {filtered.length === 0 && (
+                    <tr>
+                      <td colSpan={6} className="px-4 py-12 text-center">
+                        <div className="flex flex-col items-center gap-2">
+                          <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
+                            <Users className="w-6 h-6 text-muted-foreground" />
+                          </div>
+                          <p className="text-sm font-medium text-muted-foreground">No clients found</p>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
             {/* Mobile cards */}
             <div className="md:hidden space-y-2">
-              {filtered.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No clients found.</p>}
+              {filtered.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-16 text-center px-4">
+                  <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-3">
+                    <Users className="w-6 h-6 text-muted-foreground" />
+                  </div>
+                  <p className="text-sm font-medium text-foreground">No clients found</p>
+                </div>
+              )}
               {filtered.map((c) => (
                 <Link key={c.id} href={`/admin/clients/${c.id}`} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors">
                   <div className="min-w-0">

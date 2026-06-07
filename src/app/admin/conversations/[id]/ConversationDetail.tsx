@@ -53,7 +53,7 @@ function MessageBubble({ msg, visitorName }: { msg: Message; visitorName: string
 
   return (
     <div className={`flex ${isAgent ? "justify-end" : "justify-start"} mb-3`}>
-      <div className={`max-w-[72%] flex flex-col ${isAgent ? "items-end" : "items-start"}`}>
+      <div className={`max-w-[85%] sm:max-w-[72%] flex flex-col ${isAgent ? "items-end" : "items-start"}`}>
         {!isAgent && (
           <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
             {visitorName || "Visitor"}
@@ -224,7 +224,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-background sticky top-0 z-10">
-          <button onClick={() => router.back()} className="p-1.5 -ml-1 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
+          <button onClick={() => router.back()} className="min-w-[36px] min-h-[36px] flex items-center justify-center -ml-1 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
             <ArrowLeft className="w-4 h-4" />
           </button>
 
@@ -323,9 +323,24 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       </div>
 
       {/* Sidebar */}
-      <aside className={`${sidebarOpen ? "flex" : "hidden"} lg:flex w-full lg:w-60 shrink-0 flex-col absolute lg:static inset-0 z-10 bg-background border-l border-border`}>
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-10 bg-black/40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      <aside className={`${sidebarOpen ? "flex" : "hidden"} lg:flex w-72 lg:w-60 shrink-0 flex-col fixed lg:static right-0 inset-y-0 z-20 lg:z-auto bg-background border-l border-border overflow-y-auto`}>
         <div className="p-4 border-b border-border">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Visitor Info</p>
+          <div className="flex items-center justify-between mb-3 lg:block">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Visitor Info</p>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="lg:hidden min-w-[36px] min-h-[36px] flex items-center justify-center text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
+              aria-label="Close sidebar"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
           <div className="bg-muted/40 rounded-xl p-3 space-y-2">
             <InfoRow label="Name" value={conversation.visitorName || "—"} />
             <InfoRow label="Email" value={conversation.visitorEmail || "—"} />

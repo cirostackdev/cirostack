@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, ChevronRight, Send, CheckCircle, Trash2 } from "lucide-react";
+import { Plus, ChevronRight, Send, CheckCircle, Trash2, Receipt } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { toast } from "sonner";
 
@@ -163,14 +163,32 @@ export default function AdminInvoicesPage() {
                     </td>
                   </tr>
                 ))}
-                {filtered.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No invoices found.</td></tr>}
+                {filtered.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-12 text-center">
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
+                          <Receipt className="w-6 h-6 text-muted-foreground" />
+                        </div>
+                        <p className="text-sm font-medium text-muted-foreground">No invoices found</p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
 
           {/* Mobile cards */}
           <div className="md:hidden space-y-2">
-            {filtered.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No invoices found.</p>}
+            {filtered.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-16 text-center px-4">
+                <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-3">
+                  <Receipt className="w-6 h-6 text-muted-foreground" />
+                </div>
+                <p className="text-sm font-medium text-foreground">No invoices found</p>
+              </div>
+            )}
             {filtered.map((inv) => (
               <div key={inv.id} className="p-4 rounded-xl border border-border">
                 <div className="flex items-start justify-between gap-2">
@@ -185,17 +203,17 @@ export default function AdminInvoicesPage() {
                   </div>
                 </div>
                 {inv.dueDate && <p className="text-xs text-muted-foreground mt-2">Due {inv.dueDate.slice(0, 10)}</p>}
-                <div className="flex items-center gap-2 mt-3 justify-end">
+                <div className="flex items-center gap-1 mt-3 justify-end">
                   {inv.effectiveStatus !== "paid" && (
-                    <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => handleMarkPaid(inv.id)}>
-                      <CheckCircle className="w-3.5 h-3.5 text-green-600" />
+                    <Button variant="ghost" size="sm" className="h-9 px-2.5 gap-1.5 text-xs" onClick={() => handleMarkPaid(inv.id)}>
+                      <CheckCircle className="w-3.5 h-3.5 text-green-600" /> Mark Paid
                     </Button>
                   )}
-                  <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => handleSend(inv.id)}>
-                    <Send className="w-3.5 h-3.5" />
+                  <Button variant="ghost" size="sm" className="h-9 px-2.5 gap-1.5 text-xs" onClick={() => handleSend(inv.id)}>
+                    <Send className="w-3.5 h-3.5" /> Send
                   </Button>
-                  <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive" onClick={() => handleDelete(inv.id)}>
-                    <Trash2 className="w-3.5 h-3.5" />
+                  <Button variant="ghost" size="sm" className="h-9 px-2.5 gap-1.5 text-xs text-destructive hover:text-destructive" onClick={() => handleDelete(inv.id)}>
+                    <Trash2 className="w-3.5 h-3.5" /> Delete
                   </Button>
                 </div>
               </div>

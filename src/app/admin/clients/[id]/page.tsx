@@ -19,12 +19,12 @@ type Project = { id: string; title: string; status: string; _count: { updates: n
 type Invoice = { id: string; number: string; amount: number; currency: string; status: string };
 
 const statusColors: Record<string, string> = {
-  discovery: "bg-blue-100 text-blue-700",
-  proposal: "bg-yellow-100 text-yellow-700",
-  active: "bg-green-100 text-green-700",
-  review: "bg-purple-100 text-purple-700",
-  complete: "bg-gray-100 text-gray-700",
-  paused: "bg-orange-100 text-orange-700",
+  discovery: "bg-blue-500/15 text-blue-500",
+  proposal: "bg-yellow-500/15 text-yellow-500",
+  active: "bg-green-500/15 text-green-500",
+  review: "bg-purple-500/15 text-purple-500",
+  complete: "bg-muted text-muted-foreground",
+  paused: "bg-orange-500/15 text-orange-500",
 };
 
 export default function ClientDetailPage() {
@@ -106,15 +106,15 @@ export default function ClientDetailPage() {
   return (
     <AdminShell title={client.name ?? client.email}>
       <div className="max-w-4xl space-y-8">
-        <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <button onClick={() => router.back()} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors py-1">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
 
         {/* Client info */}
         <div className="rounded-xl border border-border p-5 space-y-3">
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <h2 className="font-semibold">Client Details</h2>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
               <Button variant="outline" size="sm" onClick={handleInvite} disabled={inviting}>
                 <Send className="w-3.5 h-3.5 mr-1" />{inviting ? "Sending…" : "Send Portal Invite"}
               </Button>
@@ -172,7 +172,9 @@ export default function ClientDetailPage() {
                 <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[p.status] ?? "bg-gray-100 text-gray-700"}`}>{p.status}</span>
               </Link>
             ))}
-            {client.projects.length === 0 && <p className="text-sm text-muted-foreground">No projects yet.</p>}
+            {client.projects.length === 0 && (
+              <p className="text-sm text-muted-foreground py-4 text-center border border-dashed border-border rounded-xl">No projects yet.</p>
+            )}
           </div>
         </div>
 
@@ -189,7 +191,9 @@ export default function ClientDetailPage() {
                 </div>
               </Link>
             ))}
-            {client.invoices.length === 0 && <p className="text-sm text-muted-foreground">No invoices yet.</p>}
+            {client.invoices.length === 0 && (
+              <p className="text-sm text-muted-foreground py-4 text-center border border-dashed border-border rounded-xl">No invoices yet.</p>
+            )}
           </div>
         </div>
       </div>

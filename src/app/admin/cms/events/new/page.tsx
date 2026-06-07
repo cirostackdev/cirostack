@@ -57,7 +57,7 @@ export default function NewEventPage() {
   return (
     <AdminShell title="New Event">
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Slug *</Label>
             <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="my-event-slug" required />
@@ -68,7 +68,7 @@ export default function NewEventPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Type</Label>
             <Select value={form.type} onValueChange={(v) => update("type", v)}>
@@ -82,7 +82,7 @@ export default function NewEventPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Time</Label>
             <Input value={form.time} onChange={(e) => update("time", e.target.value)} placeholder="2:00 PM WAT" />
@@ -93,7 +93,7 @@ export default function NewEventPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Attendees</Label>
             <Input type="number" value={form.attendees} onChange={(e) => update("attendees", parseInt(e.target.value) || 0)} placeholder="0" />

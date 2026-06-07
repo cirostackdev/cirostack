@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { ChevronDown, ChevronUp, Download, Search, X, UserPlus } from "lucide-react";
+import { ChevronDown, ChevronUp, Download, Search, X, UserPlus, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -101,7 +101,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
   }
 
   return (
-    <div className="p-4">
+    <div>
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="flex flex-wrap gap-2 flex-1">
@@ -126,7 +126,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
               placeholder="Search…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="h-8 text-xs pl-8 w-36"
+              className="h-8 text-xs pl-8 w-full sm:w-40"
             />
             {search && (
               <button className="absolute right-2 top-1/2 -translate-y-1/2" onClick={() => setSearch("")}>
@@ -142,7 +142,13 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
 
       <div className="space-y-2">
         {filtered.length === 0 && (
-          <p className="text-center py-12 text-muted-foreground text-sm">No submissions found.</p>
+          <div className="flex flex-col items-center justify-center py-16 text-center px-4">
+            <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center mb-3">
+              <FileText className="w-7 h-7 text-muted-foreground" />
+            </div>
+            <p className="text-sm font-medium text-foreground">No submissions found</p>
+            <p className="text-xs text-muted-foreground mt-1">Try adjusting your filters or search term.</p>
+          </div>
         )}
         {filtered.map((sub) => (
           <div key={sub.id} className="border border-border rounded-xl overflow-hidden">
@@ -242,19 +248,19 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                   </div>
                 )}
                 {sub.data?.email && (
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <Button
                       size="sm"
                       variant="outline"
-                      className="text-xs h-7"
+                      className="h-9 text-xs"
                       disabled={converting === sub.id}
                       onClick={() => handleConvertToLead(sub)}
                     >
-                      <UserPlus className="w-3.5 h-3.5 mr-1" />
+                      <UserPlus className="w-3.5 h-3.5 mr-1.5" />
                       {converting === sub.id ? "Adding…" : "Add to Leads"}
                     </Button>
                     <a href={`mailto:${sub.data.email}`}>
-                      <Button size="sm" variant="outline" className="text-xs h-7">Reply by Email</Button>
+                      <Button size="sm" variant="outline" className="h-9 text-xs">Reply by Email</Button>
                     </a>
                   </div>
                 )}

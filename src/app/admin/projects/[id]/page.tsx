@@ -29,6 +29,15 @@ type ProjectFile = { id: string; name: string; url: string; size?: number; creat
 
 const STATUSES = ["discovery", "proposal", "active", "review", "complete", "paused"];
 
+const statusColors: Record<string, string> = {
+  discovery: "bg-blue-500/15 text-blue-500",
+  proposal: "bg-yellow-500/15 text-yellow-500",
+  active: "bg-green-500/15 text-green-500",
+  review: "bg-purple-500/15 text-purple-500",
+  complete: "bg-muted text-muted-foreground",
+  paused: "bg-orange-500/15 text-orange-500",
+};
+
 export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -199,7 +208,7 @@ export default function ProjectDetailPage() {
   return (
     <AdminShell title={project.title}>
       <div className="max-w-4xl space-y-8">
-        <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <button onClick={() => router.back()} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors py-1">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
 
@@ -236,7 +245,7 @@ export default function ProjectDetailPage() {
             <form onSubmit={handleEditProject} className="space-y-4 mt-2">
               <div className="space-y-1.5"><Label>Title *</Label><Input value={editForm.title} onChange={(e) => setEditForm((f) => ({ ...f, title: e.target.value }))} required /></div>
               <div className="space-y-1.5"><Label>Description</Label><Textarea value={editForm.description} onChange={(e) => setEditForm((f) => ({ ...f, description: e.target.value }))} rows={2} /></div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1.5"><Label>Start Date</Label><Input type="date" value={editForm.startDate} onChange={(e) => setEditForm((f) => ({ ...f, startDate: e.target.value }))} /></div>
                 <div className="space-y-1.5"><Label>Due Date</Label><Input type="date" value={editForm.dueDate} onChange={(e) => setEditForm((f) => ({ ...f, dueDate: e.target.value }))} /></div>
               </div>
@@ -279,23 +288,28 @@ export default function ProjectDetailPage() {
 
           <div className="space-y-2">
             {project.milestones.map((m) => (
-              <div key={m.id} className="flex items-center gap-3 p-3 rounded-lg border border-border">
-                <button onClick={() => handleMilestoneToggle(m)}>
+              <div key={m.id} className="flex items-center gap-3 px-3 py-2 rounded-lg border border-border">
+                <button
+                  onClick={() => handleMilestoneToggle(m)}
+                  className="min-w-[36px] min-h-[36px] flex items-center justify-center shrink-0 rounded-lg hover:bg-muted transition-colors"
+                >
                   {m.completed ? <CheckCircle className="w-5 h-5 text-green-600" /> : <Circle className="w-5 h-5 text-muted-foreground" />}
                 </button>
-                <span className={`text-sm flex-1 ${m.completed ? "line-through text-muted-foreground" : ""}`}>{m.title}</span>
-                {m.dueDate && <span className="text-xs text-muted-foreground">{m.dueDate.slice(0, 10)}</span>}
-                <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditMilestone(m); setEditMilestoneForm({ title: m.title, dueDate: m.dueDate?.slice(0, 10) ?? "" }); }}>
+                <span className={`text-sm flex-1 min-w-0 ${m.completed ? "line-through text-muted-foreground" : ""}`}>{m.title}</span>
+                {m.dueDate && <span className="text-xs text-muted-foreground shrink-0 hidden sm:block">{m.dueDate.slice(0, 10)}</span>}
+                <div className="flex items-center gap-0.5 shrink-0">
+                  <Button variant="ghost" size="icon" className="w-8 h-8" onClick={() => { setEditMilestone(m); setEditMilestoneForm({ title: m.title, dueDate: m.dueDate?.slice(0, 10) ?? "" }); }}>
                     <Pencil className="w-3.5 h-3.5" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive" onClick={() => handleDeleteMilestone(m.id)}>
+                  <Button variant="ghost" size="icon" className="w-8 h-8 text-destructive hover:text-destructive" onClick={() => handleDeleteMilestone(m.id)}>
                     <Trash2 className="w-3.5 h-3.5" />
                   </Button>
                 </div>
               </div>
             ))}
-            {project.milestones.length === 0 && <p className="text-sm text-muted-foreground">No milestones yet.</p>}
+            {project.milestones.length === 0 && (
+              <p className="text-sm text-muted-foreground py-4 text-center border border-dashed border-border rounded-xl">No milestones yet.</p>
+            )}
           </div>
         </div>
 
@@ -329,7 +343,9 @@ export default function ProjectDetailPage() {
                 <p className="text-sm">{u.body}</p>
               </div>
             ))}
-            {project.updates.length === 0 && <p className="text-sm text-muted-foreground">No updates yet.</p>}
+            {project.updates.length === 0 && (
+              <p className="text-sm text-muted-foreground py-4 text-center border border-dashed border-border rounded-xl">No updates yet.</p>
+            )}
           </div>
         </div>
 
@@ -354,7 +370,9 @@ export default function ProjectDetailPage() {
                 </Button>
               </div>
             ))}
-            {project.files.length === 0 && <p className="text-sm text-muted-foreground">No files yet.</p>}
+            {project.files.length === 0 && (
+              <p className="text-sm text-muted-foreground py-4 text-center border border-dashed border-border rounded-xl">No files yet.</p>
+            )}
           </div>
         </div>
       </div>

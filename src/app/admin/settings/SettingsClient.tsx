@@ -99,7 +99,7 @@ export function SettingsClient({
   };
 
   return (
-    <div className="p-4 max-w-2xl space-y-8">
+    <div className="max-w-2xl space-y-8">
 
       {/* My Profile */}
       <div>
@@ -117,7 +117,7 @@ export function SettingsClient({
           </div>
           <div>
             <p className="text-xs font-medium text-muted-foreground mb-2">Change Password</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               <div>
                 <Label className="text-xs text-muted-foreground block mb-1">Current password</Label>
                 <Input type="password" value={currentPw} onChange={(e) => setCurrentPw(e.target.value)} className="text-sm" />
@@ -193,41 +193,37 @@ export function SettingsClient({
         {/* Admin list */}
         <div className="space-y-2">
           {admins.map((admin) => (
-            <div key={admin.id} className="flex items-center justify-between p-3 border border-border rounded-xl">
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center">
-                    {admin.role === "super" ? (
-                      <ShieldCheck className="w-4 h-4 text-primary" />
-                    ) : (
-                      <User className="w-4 h-4 text-muted-foreground" />
-                    )}
-                  </div>
-                  <Circle className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 ${admin.online ? "fill-green-500 text-green-500" : "fill-muted text-muted"}`} />
+            <div key={admin.id} className="flex items-center gap-3 p-3 border border-border rounded-xl">
+              <div className="relative shrink-0">
+                <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center">
+                  {admin.role === "super" ? (
+                    <ShieldCheck className="w-4 h-4 text-primary" />
+                  ) : (
+                    <User className="w-4 h-4 text-muted-foreground" />
+                  )}
                 </div>
-                <div>
-                  <p className="text-sm font-medium">
-                    {admin.name}
-                    {admin.id === currentAdminId && <span className="ml-2 text-xs text-muted-foreground">(you)</span>}
-                  </p>
-                  <p className="text-xs text-muted-foreground">{admin.email}</p>
+                <Circle className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 ${admin.online ? "fill-green-500 text-green-500" : "fill-muted text-muted"}`} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <p className="text-sm font-medium truncate">{admin.name}</p>
+                  {admin.id === currentAdminId && <span className="text-xs text-muted-foreground shrink-0">(you)</span>}
+                  <span className="text-xs text-muted-foreground capitalize shrink-0">{admin.role}</span>
                 </div>
+                <p className="text-xs text-muted-foreground truncate">{admin.email}</p>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-xs text-muted-foreground capitalize">{admin.role}</span>
-                {admin.id !== currentAdminId && (
-                  <button
-                    onClick={() => toggleDisabled(admin.id, !admin.disabled)}
-                    className={`text-xs px-2.5 py-1 rounded-lg font-medium transition-colors ${
-                      admin.disabled
-                        ? "bg-green-500/20 text-green-400 hover:bg-green-500/30"
-                        : "bg-red-500/20 text-red-400 hover:bg-red-500/30"
-                    }`}
-                  >
-                    {admin.disabled ? "Enable" : "Disable"}
-                  </button>
-                )}
-              </div>
+              {admin.id !== currentAdminId && (
+                <button
+                  onClick={() => toggleDisabled(admin.id, !admin.disabled)}
+                  className={`shrink-0 text-xs px-3 py-2 min-h-[36px] rounded-lg font-medium transition-colors ${
+                    admin.disabled
+                      ? "bg-green-500/20 text-green-400 hover:bg-green-500/30"
+                      : "bg-red-500/20 text-red-400 hover:bg-red-500/30"
+                  }`}
+                >
+                  {admin.disabled ? "Enable" : "Disable"}
+                </button>
+              )}
             </div>
           ))}
         </div>

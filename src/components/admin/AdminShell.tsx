@@ -69,7 +69,7 @@ export function AdminShell({
             </div>
             <button
               onClick={() => setMobileOpen(false)}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -180,10 +180,10 @@ export function AdminShell({
       {/* Main */}
       <main className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-border">
+        <div className="lg:hidden flex items-center gap-3 px-4 py-2.5 border-b border-border">
           <button
             onClick={() => setMobileOpen(true)}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center -ml-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
             aria-label="Open menu"
           >
             <Menu className="w-5 h-5" />

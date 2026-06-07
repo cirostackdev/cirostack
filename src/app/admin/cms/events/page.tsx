@@ -65,7 +65,7 @@ export default function AdminEventsPage() {
                     <td className="p-3 text-muted-foreground">{e.type || "—"}</td>
                     <td className="p-3 text-muted-foreground">{e.date}</td>
                     <td className="p-3">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${e.published ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${e.published ? "bg-green-500/15 text-green-500" : "bg-yellow-500/15 text-yellow-500"}`}>
                         {e.published ? "Published" : "Draft"}
                       </span>
                     </td>
@@ -87,7 +87,9 @@ export default function AdminEventsPage() {
           </div>
           {/* Mobile cards */}
           <div className="md:hidden space-y-2">
-            {events.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No events yet.</p>}
+            {events.length === 0 && (
+              <p className="text-sm text-muted-foreground text-center py-8 border border-dashed border-border rounded-xl">No events yet.</p>
+            )}
             {events.map((e) => (
               <div key={e.id} className="p-4 rounded-xl border border-border">
                 <div className="flex items-start justify-between gap-2">
@@ -95,16 +97,16 @@ export default function AdminEventsPage() {
                     <p className="font-medium text-sm truncate">{e.title}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{e.type || "—"} · {e.date}</p>
                   </div>
-                  <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full ${e.published ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                  <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium ${e.published ? "bg-green-500/15 text-green-500" : "bg-yellow-500/15 text-yellow-500"}`}>
                     {e.published ? "Published" : "Draft"}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 mt-3 justify-end">
+                <div className="flex items-center gap-1 mt-3 justify-end">
                   <Link href={`/admin/cms/events/${e.id}`}>
-                    <Button variant="ghost" size="icon" className="w-8 h-8"><Pencil className="w-3.5 h-3.5" /></Button>
+                    <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs"><Pencil className="w-3.5 h-3.5" /> Edit</Button>
                   </Link>
-                  <Button variant="ghost" size="icon" className="w-8 h-8 text-destructive hover:text-destructive" onClick={() => handleDelete(e.id)}>
-                    <Trash2 className="w-3.5 h-3.5" />
+                  <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs text-destructive hover:text-destructive" onClick={() => handleDelete(e.id)}>
+                    <Trash2 className="w-3.5 h-3.5" /> Delete
                   </Button>
                 </div>
               </div>

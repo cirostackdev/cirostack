@@ -70,7 +70,7 @@ export default function EditResourcePage() {
   return (
     <AdminShell title={`Edit: ${form.title}`}>
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Slug</Label>
             <Input value={form.slug || ""} onChange={(e) => update("slug", e.target.value)} />
@@ -81,7 +81,7 @@ export default function EditResourcePage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Type</Label>
             <Select value={form.type || "Whitepaper"} onValueChange={(v) => update("type", v)}>
@@ -100,7 +100,7 @@ export default function EditResourcePage() {
           <Textarea value={form.description || ""} onChange={(e) => update("description", e.target.value)} rows={3} />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Tags (comma-separated)</Label>
             <Input value={form.tags || ""} onChange={(e) => update("tags", e.target.value)} />

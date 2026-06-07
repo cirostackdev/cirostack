@@ -69,7 +69,7 @@ export default function NewInvoicePage() {
 
   return (
     <AdminShell title="New Invoice">
-      <form onSubmit={handleSubmit} className="p-4 sm:p-6 max-w-3xl space-y-5">
+      <form onSubmit={handleSubmit} className="max-w-3xl space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Client *</Label>
@@ -87,7 +87,7 @@ export default function NewInvoicePage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="space-y-1.5"><Label>Invoice Number *</Label><Input value={number} onChange={(e) => setNumber(e.target.value)} required /></div>
           <div className="space-y-1.5">
             <Label>Currency</Label>
@@ -103,12 +103,12 @@ export default function NewInvoicePage() {
         <div className="space-y-3">
           <Label>Line Items</Label>
           {lineItems.map((l, i) => (
-            <div key={i} className="flex flex-col sm:grid sm:grid-cols-[1fr_80px_100px_32px] gap-2">
+            <div key={i} className="space-y-2 p-3 rounded-lg border border-border sm:p-0 sm:border-0 sm:space-y-0 sm:grid sm:grid-cols-[1fr_80px_110px_36px] sm:gap-2 sm:items-center">
               <Input placeholder="Description" value={l.description} onChange={(e) => updateLine(i, "description", e.target.value)} />
-              <div className="grid grid-cols-[1fr_1fr_32px] sm:contents gap-2">
+              <div className="grid grid-cols-[1fr_1fr_36px] gap-2 sm:contents">
                 <Input type="number" min={1} placeholder="Qty" value={l.qty} onChange={(e) => updateLine(i, "qty", Number(e.target.value))} />
                 <Input type="number" min={0} step="0.01" placeholder="Unit price" value={l.unitPrice} onChange={(e) => updateLine(i, "unitPrice", Number(e.target.value))} />
-                <Button type="button" variant="ghost" size="icon" className="w-8 h-8 text-destructive self-center" onClick={() => setLineItems((p) => p.filter((_, idx) => idx !== i))} disabled={lineItems.length === 1}><Trash2 className="w-3.5 h-3.5" /></Button>
+                <Button type="button" variant="ghost" size="icon" className="w-9 h-9 text-destructive self-center" onClick={() => setLineItems((p) => p.filter((_, idx) => idx !== i))} disabled={lineItems.length === 1}><Trash2 className="w-3.5 h-3.5" /></Button>
               </div>
             </div>
           ))}

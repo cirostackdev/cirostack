@@ -66,7 +66,7 @@ export default function EditPortfolioPage() {
   return (
     <AdminShell title={`Edit: ${form.title}`}>
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Slug</Label>
             <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} />
@@ -77,7 +77,7 @@ export default function EditPortfolioPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Client</Label>
             <Input value={form.client} onChange={(e) => update("client", e.target.value)} />
@@ -91,7 +91,7 @@ export default function EditPortfolioPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Category</Label>
             <Select value={form.category || ""} onValueChange={(v) => update("category", v)}>
@@ -108,7 +108,7 @@ export default function EditPortfolioPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1.5">
             <Label>Country</Label>
             <Input value={form.country || ""} onChange={(e) => update("country", e.target.value)} />
@@ -126,7 +126,7 @@ export default function EditPortfolioPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1.5">
             <Label>Duration</Label>
             <Input value={form.duration || ""} onChange={(e) => update("duration", e.target.value)} />

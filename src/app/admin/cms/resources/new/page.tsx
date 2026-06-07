@@ -62,7 +62,7 @@ export default function NewResourcePage() {
   return (
     <AdminShell title="New Resource">
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Slug *</Label>
             <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="ai-integration-guide" required />
@@ -73,7 +73,7 @@ export default function NewResourcePage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Type</Label>
             <Select value={form.type} onValueChange={(v) => update("type", v)}>
@@ -92,7 +92,7 @@ export default function NewResourcePage() {
           <Textarea value={form.description} onChange={(e) => update("description", e.target.value)} placeholder="Brief description of the resource" required rows={3} />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Tags (comma-separated)</Label>
             <Input value={form.tags} onChange={(e) => update("tags", e.target.value)} placeholder="AI, Integration, Strategy" />

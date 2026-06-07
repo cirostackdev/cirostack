@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import { Mail, Tag, Plus, Pencil, Trash2, Download, X } from "lucide-react";
+import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users } from "lucide-react";
 import { toast } from "sonner";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
@@ -216,7 +216,17 @@ export default function LeadsPage() {
               </thead>
               <tbody>
                 {filtered.length === 0 && (
-                  <tr><td colSpan={6} className="px-4 py-12 text-center text-muted-foreground text-xs">No leads found.</td></tr>
+                  <tr>
+                    <td colSpan={6} className="px-4 py-12 text-center">
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
+                          <Users className="w-6 h-6 text-muted-foreground" />
+                        </div>
+                        <p className="text-sm font-medium text-muted-foreground">No leads found</p>
+                        <p className="text-xs text-muted-foreground/70">Try adjusting your search or filters.</p>
+                      </div>
+                    </td>
+                  </tr>
                 )}
                 {filtered.map((lead, i) => (
                   <tr key={lead.id} className={`border-b border-border last:border-0 ${i % 2 === 0 ? "" : "bg-muted/20"}`}>
@@ -258,7 +268,15 @@ export default function LeadsPage() {
 
           {/* Mobile cards */}
           <div className="md:hidden space-y-2">
-            {filtered.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No leads found.</p>}
+            {filtered.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-16 text-center px-4">
+                <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-3">
+                  <Users className="w-6 h-6 text-muted-foreground" />
+                </div>
+                <p className="text-sm font-medium text-foreground">No leads found</p>
+                <p className="text-xs text-muted-foreground mt-1">Try adjusting your search or filters.</p>
+              </div>
+            )}
             {filtered.map((lead) => (
               <div key={lead.id} className="p-4 rounded-xl border border-border">
                 <div className="flex items-start justify-between gap-2">
@@ -279,12 +297,12 @@ export default function LeadsPage() {
                     </span>
                   ))}
                 </div>
-                <div className="flex items-center gap-2 mt-3 justify-end">
-                  <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.join(", ") }); }}>
-                    <Pencil className="w-3.5 h-3.5" />
+                <div className="flex items-center gap-1 mt-3 justify-end">
+                  <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.join(", ") }); }}>
+                    <Pencil className="w-3.5 h-3.5" /> Edit
                   </Button>
-                  <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive" onClick={() => handleDelete(lead.id)}>
-                    <Trash2 className="w-3.5 h-3.5" />
+                  <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs text-destructive hover:text-destructive" onClick={() => handleDelete(lead.id)}>
+                    <Trash2 className="w-3.5 h-3.5" /> Delete
                   </Button>
                 </div>
               </div>

@@ -59,7 +59,7 @@ export default function EditAnnouncementPage() {
   return (
     <AdminShell title={`Edit: ${form.title}`}>
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Slug</Label>
             <Input value={form.slug || ""} onChange={(e) => update("slug", e.target.value)} />
@@ -88,7 +88,7 @@ export default function EditAnnouncementPage() {
           <Textarea value={form.body || ""} onChange={(e) => update("body", e.target.value)} rows={8} />
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1.5">
             <Label>Date</Label>
             <Input type="date" value={form.date ? new Date(form.date).toISOString().split("T")[0] : ""} onChange={(e) => update("date", e.target.value)} />

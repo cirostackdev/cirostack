@@ -57,7 +57,7 @@ export default function NewAnnouncementPage() {
   return (
     <AdminShell title="New Announcement">
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Slug *</Label>
             <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="company-raises-series-a" required />
@@ -86,7 +86,7 @@ export default function NewAnnouncementPage() {
           <Textarea value={form.body} onChange={(e) => update("body", e.target.value)} placeholder="Full article content (optional)" rows={8} />
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1.5">
             <Label>Date *</Label>
             <Input type="date" value={form.date} onChange={(e) => update("date", e.target.value)} required />

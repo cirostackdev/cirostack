@@ -110,12 +110,12 @@ export default function AdminBlogPage() {
                       {post.featured && <Badge variant="outline" className="text-xs">Featured</Badge>}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 mt-3 justify-end">
+                  <div className="flex items-center gap-1 mt-3 justify-end">
                     <Link href={`/admin/cms/blog/${post.id}`}>
-                      <Button variant="ghost" size="icon" className="w-8 h-8"><Pencil className="w-3.5 h-3.5" /></Button>
+                      <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs"><Pencil className="w-3.5 h-3.5" /> Edit</Button>
                     </Link>
-                    <Button variant="ghost" size="icon" className="w-8 h-8 text-destructive hover:text-destructive" onClick={() => handleDelete(post.id)}>
-                      <Trash2 className="w-3.5 h-3.5" />
+                    <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs text-destructive hover:text-destructive" onClick={() => handleDelete(post.id)}>
+                      <Trash2 className="w-3.5 h-3.5" /> Delete
                     </Button>
                   </div>
                 </div>
