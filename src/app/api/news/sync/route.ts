@@ -34,16 +34,28 @@ function stripGuardianBoilerplate(html: string): string {
 }
 
 function stripTechCrunchBoilerplate(html: string): string {
+  let cleaned = html;
+
   // Strip everything from the affiliate commission disclaimer onward
-  const disclaimerPatterns = [
+  const cutoffPatterns = [
     /When you purchase through links in our articles,[\s\S]*/i,
     /<p[^>]*>[^<]*When you purchase through links[^<]*<\/p>[\s\S]*/i,
-    /<[^>]*>When you purchase through links in our articles, we may earn a small commission\.?\s*This doesn['']t affect our editorial independence\.<\/[^>]*>[\s\S]*/i,
   ];
-  let cleaned = html;
-  for (const pattern of disclaimerPatterns) {
+  for (const pattern of cutoffPatterns) {
     cleaned = cleaned.replace(pattern, "");
   }
+
+  // Strip footer boilerplate sections
+  const stripPatterns = [
+    /<[^>]*>Topics<\/[^>]*>[\s\S]*/i,
+    /<[^>]*>Subscribe for the industry['']s biggest tech news<\/[^>]*>[\s\S]*/i,
+    /<[^>]*>Latest in AI<\/[^>]*>[\s\S]*/i,
+    /<[^>]*>Latest in [^<]*<\/[^>]*>\s*(<[^>]*>[\s\S]*)?$/i,
+  ];
+  for (const pattern of stripPatterns) {
+    cleaned = cleaned.replace(pattern, "");
+  }
+
   return cleaned.trim();
 }
 
