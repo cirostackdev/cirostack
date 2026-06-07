@@ -10,8 +10,20 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger news sync
+      - name: Sync Guardian
         run: |
           curl -sf -X GET \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
-            "${{ secrets.SITE_URL }}/api/news/sync"
+            "${{ secrets.SITE_URL }}/api/news/sync?source=guardian"
+
+      - name: Sync Hacker News
+        run: |
+          curl -sf -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "${{ secrets.SITE_URL }}/api/news/sync?source=hackernews"
+
+      - name: Sync TechCrunch
+        run: |
+          curl -sf -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "${{ secrets.SITE_URL }}/api/news/sync?source=techcrunch"

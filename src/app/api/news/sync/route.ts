@@ -258,20 +258,49 @@ async function fetchHackerNews(): Promise<ArticleData[]> {
     return true;
   });
 
-  return unique.slice(0, 20).map((h: any) => ({
-    url: h.url as string,
-    title: h.title as string,
-    description: "",
-    content: "",
-    image: null,
-    publishedAt: new Date(h.created_at),
-    source: "Hacker News",
-    sourceUrl: "https://news.ycombinator.com",
-    type: "hackernews",
-    hnPoints: h.points as number,
-    hnComments: h.num_comments as number,
-    hnDiscussionUrl: `https://news.ycombinator.com/item?id=${h.objectID}`,
-  }));
+  const articles: ArticleData[] = [];
+
+  for (const h of unique.slice(0, 10)) {
+    try {
+      const extracted = await Promise.race([
+        extract(h.url),
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000)),
+      ]);
+
+      articles.push({
+        url: h.url as string,
+        title: extracted?.title ?? (h.title as string),
+        description: extracted?.description ?? "",
+        content: extracted?.content ?? "",
+        image: extracted?.image ?? null,
+        publishedAt: new Date(h.created_at),
+        source: "Hacker News",
+        sourceUrl: "https://news.ycombinator.com",
+        type: "hackernews",
+        hnPoints: h.points as number,
+        hnComments: h.num_comments as number,
+        hnDiscussionUrl: `https://news.ycombinator.com/item?id=${h.objectID}`,
+      });
+    } catch {
+      // Fallback: store metadata only
+      articles.push({
+        url: h.url as string,
+        title: h.title as string,
+        description: "",
+        content: "",
+        image: null,
+        publishedAt: new Date(h.created_at),
+        source: "Hacker News",
+        sourceUrl: "https://news.ycombinator.com",
+        type: "hackernews",
+        hnPoints: h.points as number,
+        hnComments: h.num_comments as number,
+        hnDiscussionUrl: `https://news.ycombinator.com/item?id=${h.objectID}`,
+      });
+    }
+  }
+
+  return articles;
 }
 
 // ── Handler ─────────────────────────────────────────────────────────────────
@@ -285,6 +314,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Optional: sync a single source to stay within serverless timeout
+  const { searchParams } = new URL(req.url);
+  const source = searchParams.get("source"); // "guardian" | "hackernews" | "techcrunch" | null (all)
+
   try {
     const guardianKey = process.env.GUARDIAN_API_KEY;
 
@@ -292,43 +325,45 @@ export async function GET(req: NextRequest) {
     const existingRecords = await prisma.newsArticle.findMany({ select: { url: true } });
     const existingUrls = new Set(existingRecords.map(r => r.url));
 
-    // Fetch from sources
-    const [guardianArticles, hnArticles, tcArticles] = await Promise.allSettled([
-      guardianKey ? fetchGuardian(guardianKey) : Promise.resolve([]),
-      fetchHackerNews(),
-      fetchTechCrunch(existingUrls),
-    ]);
-
-    const guardian = guardianArticles.status === "fulfilled" ? guardianArticles.value : [];
-    const hn = hnArticles.status === "fulfilled" ? hnArticles.value : [];
-    const techcrunch = tcArticles.status === "fulfilled" ? tcArticles.value : [];
-
-    // Fetch linked Guardian articles
+    let guardian: ArticleData[] = [];
     let linkedGuardian: ArticleData[] = [];
-    if (guardianKey && guardian.length > 0) {
-      linkedGuardian = await fetchLinkedGuardianArticles(guardianKey, guardian, existingUrls);
+    let hn: ArticleData[] = [];
+    let techcrunch: ArticleData[] = [];
+
+    if (!source || source === "guardian") {
+      guardian = guardianKey ? await fetchGuardian(guardianKey) : [];
+      if (guardianKey && guardian.length > 0) {
+        linkedGuardian = await fetchLinkedGuardianArticles(guardianKey, guardian, existingUrls);
+      }
+      // Rewrite Guardian links
+      const allGuardian = [...guardian, ...linkedGuardian];
+      const availableUrls = new Set([...allGuardian.map(a => a.url), ...existingUrls]);
+      for (const article of allGuardian) {
+        if (article.content) {
+          article.content = article.content.replace(
+            /href="(https?:\/\/(?:www\.)?theguardian\.com\/[^"]+)"/g,
+            (match, url) => {
+              if (availableUrls.has(url)) {
+                return `href="/newsroom/article?src=${encodeURIComponent(url)}"`;
+              }
+              return match;
+            }
+          );
+        }
+      }
+      guardian = allGuardian;
     }
 
-    // Rewrite Guardian links in all articles
-    const allGuardian = [...guardian, ...linkedGuardian];
-    const availableUrls = new Set([...allGuardian.map(a => a.url), ...existingUrls]);
+    if (!source || source === "hackernews") {
+      hn = await fetchHackerNews();
+    }
 
-    for (const article of allGuardian) {
-      if (article.content) {
-        article.content = article.content.replace(
-          /href="(https?:\/\/(?:www\.)?theguardian\.com\/[^"]+)"/g,
-          (match, url) => {
-            if (availableUrls.has(url)) {
-              return `href="/newsroom/article?src=${encodeURIComponent(url)}"`;
-            }
-            return match;
-          }
-        );
-      }
+    if (!source || source === "techcrunch") {
+      techcrunch = await fetchTechCrunch(existingUrls);
     }
 
     // Upsert all articles into database
-    const allArticles = [...allGuardian, ...hn, ...techcrunch];
+    const allArticles = [...guardian, ...linkedGuardian.filter(a => !guardian.includes(a)), ...hn, ...techcrunch];
     let upserted = 0;
 
     for (const article of allArticles) {
@@ -366,7 +401,8 @@ export async function GET(req: NextRequest) {
       success: true,
       synced: upserted,
       total,
-      sources: { guardian: guardian.length, linked: linkedGuardian.length, hn: hn.length, techcrunch: techcrunch.length },
+      source: source ?? "all",
+      breakdown: { guardian: guardian.length, hn: hn.length, techcrunch: techcrunch.length },
     });
   } catch (err) {
     console.error("[news/sync]", err);
