@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -187,6 +187,81 @@ const marqueeWords: { label: string; href: string }[] = [
   { label: "Diaspora Founder", href: "/startups/diaspora-founder" },
   { label: "Africa Launch", href: "/startups/africa-launch" },
 ];
+
+/* ─── News section (fetches latest articles) ─── */
+function NewsSection() {
+  const [articles, setArticles] = useState<{ title: string; url: string; image: string | null; publishedAt: string; source: string; description: string }[]>([]);
+
+  useEffect(() => {
+    fetch("/api/news?limit=3")
+      .then(r => r.json())
+      .then(data => setArticles(data?.articles?.slice(0, 3) ?? []))
+      .catch(() => {});
+  }, []);
+
+  if (articles.length === 0) return null;
+
+  return (
+    <section className="section-padding section-alt">
+      <div className="container mx-auto px-4 md:px-6">
+        <SectionHeading
+          badge="Industry News"
+          title="What's happening in tech."
+          description="The latest from the world of startups, AI, and software development."
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+          {articles.map((article, i) => (
+            <motion.div
+              key={article.url}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+            >
+              <Link href={`/newsroom/article?src=${encodeURIComponent(article.url)}`} className="group block h-full">
+                <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
+                  {article.image && (
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onError={e => { (e.currentTarget as HTMLImageElement).parentElement!.style.display = "none"; }}
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xs font-medium text-primary">{article.source}</span>
+                      <span className="text-muted-foreground/40">·</span>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(article.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                      </span>
+                    </div>
+                    <h3 className="font-display font-semibold text-foreground text-base leading-snug mb-4 flex-1 line-clamp-2">
+                      {article.title}
+                    </h3>
+                    <span className="text-primary text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                      Read article <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <Link href="/newsroom" className="text-primary text-sm font-medium inline-flex items-center gap-1 hover:gap-2 transition-all">
+            View all news <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* ─── page ─── */
 const Index = () => {
@@ -666,6 +741,11 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* ══════════════════════════════════════════════
+          SECTION 6b: INDUSTRY NEWS
+          ══════════════════════════════════════════════ */}
+      <NewsSection />
 
       {/* ══════════════════════════════════════════════
           SECTION 7: WHY FIXED PRICE
