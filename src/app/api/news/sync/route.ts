@@ -209,6 +209,13 @@ async function fetchLinkedGuardianArticles(
 }
 
 async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]> {
+  const RELEVANT_CATEGORIES = new Set([
+    "AI", "AI compute", "Anthropic", "Apps", "Fintech", "Fundraising",
+    "Fundraising Advice", "Government & Policy", "In Brief", "Microsoft",
+    "OpenAI", "Security", "Startup Battlefield", "Startups", "Venture",
+    "cybersecurity", "data centers", "Google", "Biotech & Health",
+  ]);
+
   try {
     const res = await fetch("https://techcrunch.com/feed/");
     if (!res.ok) { console.error("[news/sync] TechCrunch RSS:", res.status); return []; }
@@ -218,7 +225,15 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
     const feed = parser.parse(xml);
 
     const items = feed?.rss?.channel?.item ?? [];
-    const entries = Array.isArray(items) ? items.slice(0, 5) : [items];
+    const candidates = Array.isArray(items) ? items.slice(0, 20) : [items];
+
+    // Filter to only articles with at least one relevant category
+    const entries = candidates.filter((item: any) => {
+      const cats = item.category;
+      if (!cats) return false;
+      const catArray: string[] = Array.isArray(cats) ? cats : [cats];
+      return catArray.some(c => RELEVANT_CATEGORIES.has(c));
+    }).slice(0, 10);
 
     const articles: ArticleData[] = [];
 

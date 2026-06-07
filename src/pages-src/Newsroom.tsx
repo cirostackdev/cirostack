@@ -148,10 +148,13 @@ const Newsroom = () => {
     const [loadingMore, setLoadingMore] = useState(false);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [filter, setFilter] = useState<string | null>(null);
 
-    const fetchNews = useCallback(async (pageNum: number) => {
+    const fetchNews = useCallback(async (pageNum: number, type?: string | null) => {
         try {
-            const res = await fetch(`/api/news?page=${pageNum}&limit=12`);
+            let url = `/api/news?page=${pageNum}&limit=12`;
+            if (type) url += `&type=${type}`;
+            const res = await fetch(url);
             const data = await res.json();
             const articles: LiveArticle[] = data?.articles ?? data;
             const pagination = data?.pagination;
@@ -173,13 +176,19 @@ const Newsroom = () => {
     }, []);
 
     useEffect(() => {
-        fetchNews(1).finally(() => setNewsLoading(false));
-    }, [fetchNews]);
+        fetchNews(1, filter).finally(() => setNewsLoading(false));
+    }, [fetchNews, filter]);
+
+    const handleFilterChange = (newFilter: string | null) => {
+        setFilter(newFilter);
+        setPage(1);
+        setNewsLoading(true);
+    };
 
     const loadMore = async () => {
         const nextPage = page + 1;
         setLoadingMore(true);
-        await fetchNews(nextPage);
+        await fetchNews(nextPage, filter);
         setPage(nextPage);
         setLoadingMore(false);
     };
@@ -304,6 +313,27 @@ const Newsroom = () => {
             <section className="section-padding section-alt">
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Industry News" title="What's happening in tech" description="Live news relevant to startups, software development, AI, and the services we provide." />
+
+                    {/* Filter Tabs */}
+                    <div className="flex flex-wrap gap-2 mb-8">
+                        {[
+                            { label: "All", value: null },
+                            { label: "The Guardian", value: "guardian" },
+                            { label: "TechCrunch", value: "techcrunch" },
+                        ].map((tab) => (
+                            <button
+                                key={tab.label}
+                                onClick={() => handleFilterChange(tab.value)}
+                                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                                    filter === tab.value
+                                        ? "bg-primary text-primary-foreground"
+                                        : "bg-muted text-muted-foreground hover:bg-muted/80"
+                                }`}
+                            >
+                                {tab.label}
+                            </button>
+                        ))}
+                    </div>
 
                     {newsLoading ? (
                         <div className="flex items-center justify-center py-16">
