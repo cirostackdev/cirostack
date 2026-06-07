@@ -1,0 +1,17 @@
+name: News Sync
+
+on:
+  schedule:
+    # Runs every 12 hours (midnight and noon UTC)
+    - cron: "0 0,12 * * *"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger news sync
+        run: |
+          curl -sf -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "${{ secrets.SITE_URL }}/api/news/sync"

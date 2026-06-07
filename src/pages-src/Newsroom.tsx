@@ -109,7 +109,7 @@ type LiveArticle = {
     image: string | null;
     publishedAt: string;
     source: string;
-    type: "guardian" | "hackernews";
+    type: "guardian" | "hackernews" | "techcrunch";
     hnPoints?: number;
     hnComments?: number;
 };
