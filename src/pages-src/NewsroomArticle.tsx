@@ -24,10 +24,7 @@ type Article = {
   publishedAt: string;
   source: string;
   sourceUrl: string | null;
-  type: "guardian" | "hackernews" | "techcrunch";
-  hnPoints?: number;
-  hnComments?: number;
-  hnDiscussionUrl?: string;
+  type: "guardian" | "techcrunch";
 };
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

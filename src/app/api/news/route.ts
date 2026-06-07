@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const page = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10));
     const limit = Math.min(50, Math.max(1, parseInt(searchParams.get("limit") ?? "30", 10)));
-    const type = searchParams.get("type"); // "guardian" | "hackernews" | null (all)
+    const type = searchParams.get("type"); // "guardian" | "techcrunch" | null (all)
 
     const where = type ? { type } : {};
 
@@ -31,11 +31,6 @@ export async function GET(req: NextRequest) {
       source: a.source,
       sourceUrl: a.sourceUrl,
       type: a.type,
-      ...(a.type === "hackernews" ? {
-        hnPoints: a.hnPoints,
-        hnComments: a.hnComments,
-        hnDiscussionUrl: a.hnDiscussionUrl,
-      } : {}),
     }));
 
     return NextResponse.json({

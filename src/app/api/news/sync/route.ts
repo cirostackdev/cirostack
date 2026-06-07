@@ -6,7 +6,6 @@ import { XMLParser } from "fast-xml-parser";
 export const maxDuration = 60;
 
 const GUARDIAN_QUERY = `startup OR SaaS OR "software development" OR fintech OR "AI automation" OR healthtech OR "tech startup"`;
-const HN_QUERIES = ["startup", "SaaS", "AI", "fintech", "software"];
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -32,6 +31,45 @@ function stripGuardianBoilerplate(html: string): string {
     cleaned = cleaned.replace(pattern, "");
   }
   return cleaned;
+}
+
+function stripTechCrunchBoilerplate(html: string): string {
+  // Strip everything from the affiliate commission disclaimer onward
+  const disclaimerPatterns = [
+    /When you purchase through links in our articles,[\s\S]*/i,
+    /<p[^>]*>[^<]*When you purchase through links[^<]*<\/p>[\s\S]*/i,
+    /<[^>]*>When you purchase through links in our articles, we may earn a small commission\.?\s*This doesn['']t affect our editorial independence\.<\/[^>]*>[\s\S]*/i,
+  ];
+  let cleaned = html;
+  for (const pattern of disclaimerPatterns) {
+    cleaned = cleaned.replace(pattern, "");
+  }
+  return cleaned.trim();
+}
+
+/** Upgrade TechCrunch image URL to full resolution */
+function upgradeTcImage(url: string | null): string | null {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    // Remove WordPress resize params to get full-res
+    u.searchParams.delete("w");
+    u.searchParams.delete("h");
+    u.searchParams.delete("crop");
+    u.searchParams.delete("resize");
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
+
+/** Upgrade all image URLs inside TechCrunch HTML content */
+function upgradeTcContentImages(html: string): string {
+  // Replace ?w=small with ?w=1200 for inline images
+  return html.replace(
+    /(https:\/\/techcrunch\.com\/wp-content\/uploads\/[^"'\s]+)\?w=\d+/g,
+    "$1?w=1200"
+  );
 }
 
 function extractGuardianLinks(html: string): string[] {
@@ -69,9 +107,6 @@ type ArticleData = {
   source: string;
   sourceUrl: string | null;
   type: string;
-  hnPoints?: number;
-  hnComments?: number;
-  hnDiscussionUrl?: string;
 };
 
 function mapGuardianResult(a: any): ArticleData {
@@ -193,7 +228,7 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
             title: (item.title as string) ?? "",
             description: (item.description as string)?.replace(/<[^>]+>/g, "").slice(0, 300) ?? "",
             content: "",
-            image: item["media:content"]?.["@_url"] ?? item["media:thumbnail"]?.["@_url"] ?? null,
+            image: upgradeTcImage(item["media:content"]?.["@_url"] ?? item["media:thumbnail"]?.["@_url"] ?? null),
             publishedAt: new Date(item.pubDate),
             source: "TechCrunch",
             sourceUrl: "https://techcrunch.com",
@@ -202,12 +237,15 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
           continue;
         }
 
+        const rawContent = extracted.content ?? "";
+        const cleanedContent = upgradeTcContentImages(stripTechCrunchBoilerplate(rawContent));
+
         articles.push({
           url,
           title: extracted.title ?? (item.title as string) ?? "",
           description: extracted.description ?? (item.description as string)?.replace(/<[^>]+>/g, "").slice(0, 300) ?? "",
-          content: extracted.content ?? "",
-          image: extracted.image ?? item["media:content"]?.["@_url"] ?? item["media:thumbnail"]?.["@_url"] ?? null,
+          content: cleanedContent,
+          image: upgradeTcImage(extracted.image ?? item["media:content"]?.["@_url"] ?? item["media:thumbnail"]?.["@_url"] ?? null),
           publishedAt: new Date(extracted.published ?? item.pubDate),
           source: "TechCrunch",
           sourceUrl: "https://techcrunch.com",
@@ -237,72 +275,6 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
   }
 }
 
-async function fetchHackerNews(): Promise<ArticleData[]> {
-  const results = await Promise.allSettled(
-    HN_QUERIES.map(async (q) => {
-      const url = `https://hn.algolia.com/api/v1/search_by_date?query=${encodeURIComponent(q)}&tags=story&hitsPerPage=10&numericFilters=points%3E20`;
-      const res = await fetch(url);
-      if (!res.ok) return [];
-      const data = await res.json();
-      return data.hits ?? [];
-    })
-  );
-
-  const allHits = results.flatMap(r => r.status === "fulfilled" ? r.value : []);
-
-  // Deduplicate by objectID
-  const seen = new Set<string>();
-  const unique = allHits.filter((h: any) => {
-    if (!h.url || seen.has(h.objectID)) return false;
-    seen.add(h.objectID);
-    return true;
-  });
-
-  const articles: ArticleData[] = [];
-
-  for (const h of unique.slice(0, 10)) {
-    try {
-      const extracted = await Promise.race([
-        extract(h.url),
-        new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000)),
-      ]);
-
-      articles.push({
-        url: h.url as string,
-        title: extracted?.title ?? (h.title as string),
-        description: extracted?.description ?? "",
-        content: extracted?.content ?? "",
-        image: extracted?.image ?? null,
-        publishedAt: new Date(h.created_at),
-        source: "Hacker News",
-        sourceUrl: "https://news.ycombinator.com",
-        type: "hackernews",
-        hnPoints: h.points as number,
-        hnComments: h.num_comments as number,
-        hnDiscussionUrl: `https://news.ycombinator.com/item?id=${h.objectID}`,
-      });
-    } catch {
-      // Fallback: store metadata only
-      articles.push({
-        url: h.url as string,
-        title: h.title as string,
-        description: "",
-        content: "",
-        image: null,
-        publishedAt: new Date(h.created_at),
-        source: "Hacker News",
-        sourceUrl: "https://news.ycombinator.com",
-        type: "hackernews",
-        hnPoints: h.points as number,
-        hnComments: h.num_comments as number,
-        hnDiscussionUrl: `https://news.ycombinator.com/item?id=${h.objectID}`,
-      });
-    }
-  }
-
-  return articles;
-}
-
 // ── Handler ─────────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
@@ -316,7 +288,7 @@ export async function GET(req: NextRequest) {
 
   // Optional: sync a single source to stay within serverless timeout
   const { searchParams } = new URL(req.url);
-  const source = searchParams.get("source"); // "guardian" | "hackernews" | "techcrunch" | null (all)
+  const source = searchParams.get("source"); // "guardian" | "techcrunch" | null (all)
 
   try {
     const guardianKey = process.env.GUARDIAN_API_KEY;
@@ -327,7 +299,6 @@ export async function GET(req: NextRequest) {
 
     let guardian: ArticleData[] = [];
     let linkedGuardian: ArticleData[] = [];
-    let hn: ArticleData[] = [];
     let techcrunch: ArticleData[] = [];
 
     if (!source || source === "guardian") {
@@ -354,16 +325,12 @@ export async function GET(req: NextRequest) {
       guardian = allGuardian;
     }
 
-    if (!source || source === "hackernews") {
-      hn = await fetchHackerNews();
-    }
-
     if (!source || source === "techcrunch") {
       techcrunch = await fetchTechCrunch(existingUrls);
     }
 
     // Upsert all articles into database
-    const allArticles = [...guardian, ...linkedGuardian.filter(a => !guardian.includes(a)), ...hn, ...techcrunch];
+    const allArticles = [...guardian, ...linkedGuardian.filter(a => !guardian.includes(a)), ...techcrunch];
     let upserted = 0;
 
     for (const article of allArticles) {
@@ -379,17 +346,12 @@ export async function GET(req: NextRequest) {
           source: article.source,
           sourceUrl: article.sourceUrl,
           type: article.type,
-          hnPoints: article.hnPoints ?? null,
-          hnComments: article.hnComments ?? null,
-          hnDiscussionUrl: article.hnDiscussionUrl ?? null,
         },
         update: {
           title: article.title,
           description: article.description,
           content: article.content,
           image: article.image,
-          hnPoints: article.hnPoints ?? undefined,
-          hnComments: article.hnComments ?? undefined,
         },
       });
       upserted++;
@@ -402,7 +364,7 @@ export async function GET(req: NextRequest) {
       synced: upserted,
       total,
       source: source ?? "all",
-      breakdown: { guardian: guardian.length, hn: hn.length, techcrunch: techcrunch.length },
+      breakdown: { guardian: guardian.length, techcrunch: techcrunch.length },
     });
   } catch (err) {
     console.error("[news/sync]", err);
