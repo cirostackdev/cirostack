@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import NewsroomArticle from "@/pages-src/NewsroomArticle";
 
@@ -77,7 +77,7 @@ export default async function NewsroomArticlePage({ searchParams }: Props) {
       });
 
       if (article?.slug) {
-        redirect(`/newsroom/${article.slug}`);
+        permanentRedirect(`/newsroom/${article.slug}`);
       }
     } catch {
       // Fall through to legacy rendering if redirect fails
