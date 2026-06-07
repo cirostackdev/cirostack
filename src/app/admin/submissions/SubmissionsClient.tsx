@@ -190,25 +190,57 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
             </div>
 
             {expanded === sub.id && (
-              <div className="px-4 pb-4 pt-2 border-t border-border bg-muted/20 space-y-3">
-                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
-                  {Object.entries(sub.data).map(([key, value]) => (
-                    <div key={key} className="min-w-0">
-                      <dt className="text-xs font-medium text-muted-foreground capitalize">
-                        {key.replace(/([A-Z])/g, " $1").replace(/_/g, " ").trim()}
-                      </dt>
-                      <dd className="text-sm text-foreground break-words mt-0.5">
-                        {value === null || value === undefined || value === ""
-                          ? <span className="text-muted-foreground/50">—</span>
-                          : typeof value === "boolean"
-                            ? value ? "Yes" : "No"
-                            : typeof value === "object"
-                              ? <pre className="text-xs text-muted-foreground whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</pre>
-                              : String(value)}
-                      </dd>
-                    </div>
-                  ))}
+              <div className="px-4 pb-4 pt-3 border-t border-border bg-muted/20 space-y-4">
+                {/* Key fields grid — skip base64 and long text */}
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+                  {Object.entries(sub.data)
+                    .filter(([key]) => !["cvBase64", "coverLetter", "message", "body"].includes(key))
+                    .map(([key, value]) => {
+                      const label = key.replace(/([A-Z])/g, " $1").replace(/_/g, " ").trim();
+                      const isUrl = typeof value === "string" && value.startsWith("http");
+                      return (
+                        <div key={key} className="min-w-0">
+                          <dt className="text-xs font-medium text-muted-foreground capitalize mb-0.5">{label}</dt>
+                          <dd className="text-sm text-foreground break-words">
+                            {!value && value !== 0
+                              ? <span className="text-muted-foreground/40">—</span>
+                              : typeof value === "boolean"
+                                ? value ? "Yes" : "No"
+                                : isUrl
+                                  ? <a href={String(value)} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline truncate block">{String(value)}</a>
+                                  : typeof value === "object"
+                                    ? <pre className="text-xs text-muted-foreground whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</pre>
+                                    : String(value)}
+                          </dd>
+                        </div>
+                      );
+                    })}
                 </dl>
+
+                {/* CV download */}
+                {sub.data?.cvBase64 && sub.data?.cvFileName && (
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground mb-1">CV / Resume</p>
+                    <a
+                      href={`data:${sub.data.cvMimeType ?? "application/pdf"};base64,${sub.data.cvBase64}`}
+                      download={sub.data.cvFileName}
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>
+                      Download {sub.data.cvFileName}
+                    </a>
+                  </div>
+                )}
+
+                {/* Cover letter / message — full width, capped height */}
+                {(sub.data?.coverLetter || sub.data?.message || sub.data?.body) && (
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground mb-1">{sub.data?.coverLetter ? "Cover Letter" : "Message"}</p>
+                    <div className="max-h-48 overflow-y-auto rounded-lg bg-background border border-border p-3 text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+                      {sub.data?.coverLetter || sub.data?.message || sub.data?.body}
+                    </div>
+                  </div>
+                )}
                 {sub.data?.email && (
                   <div className="flex gap-2">
                     <Button

@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Upload, X, FileText } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 
@@ -28,32 +28,56 @@ const CareersApply = () => {
   const searchParams = useSearchParams();
   const prefilledRole = searchParams.get("role") ?? "";
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const cvInputRef = useRef<HTMLInputElement>(null);
 
   const [fields, setFields] = useState({
     fullName: "", email: "", role: prefilledRole,
-    linkedin: "", portfolio: "", experience: "", coverLetter: "",
+    linkedin: "", github: "", experience: "", coverLetter: "",
   });
+  const [cvFile, setCvFile] = useState<File | null>(null);
 
   const set = (k: keyof typeof fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setFields(f => ({ ...f, [k]: e.target.value }));
 
+  const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    if (!file) return;
+    const allowed = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    if (!allowed.includes(file.type)) {
+      toast({ title: "CV must be a PDF or Word document.", variant: "destructive" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "CV must be under 5 MB.", variant: "destructive" });
+      return;
+    }
+    setCvFile(file);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!fields.fullName || !fields.email || !fields.role || !fields.experience || !fields.coverLetter) {
+    if (!fields.fullName || !fields.email || !fields.role || !fields.linkedin || !fields.github || !fields.experience || !fields.coverLetter) {
       toast({ title: "Please fill in all required fields.", variant: "destructive" });
+      return;
+    }
+    if (!cvFile) {
+      toast({ title: "Please attach your CV.", variant: "destructive" });
       return;
     }
     setIsSubmitting(true);
     try {
-      const res = await fetch("/api/contact/careers", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(fields),
-      });
-      if (!res.ok) throw new Error();
+      const formData = new FormData();
+      Object.entries(fields).forEach(([k, v]) => formData.append(k, v));
+      formData.append("cv", cvFile);
+
+      const res = await fetch("/api/contact/careers", { method: "POST", body: formData });
+      if (!res.ok) {
+        const { error } = await res.json();
+        throw new Error(error);
+      }
       router.push("/thank-you");
-    } catch {
-      toast({ title: "Something went wrong. Please try again or email us directly.", variant: "destructive" });
+    } catch (err: any) {
+      toast({ title: err?.message || "Something went wrong. Please try again or email us directly.", variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
@@ -127,12 +151,12 @@ const CareersApply = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">LinkedIn profile</label>
-                    <Input type="url" placeholder="https://linkedin.com/in/you" value={fields.linkedin} onChange={set("linkedin")} />
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">LinkedIn *</label>
+                    <Input required type="url" placeholder="https://linkedin.com/in/you" value={fields.linkedin} onChange={set("linkedin")} />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-1.5 block">Portfolio / GitHub</label>
-                    <Input type="url" placeholder="https://github.com/you" value={fields.portfolio} onChange={set("portfolio")} />
+                    <label className="text-sm font-medium text-foreground mb-1.5 block">GitHub *</label>
+                    <Input required type="url" placeholder="https://github.com/you" value={fields.github} onChange={set("github")} />
                   </div>
                 </div>
                 <div>
@@ -148,6 +172,37 @@ const CareersApply = () => {
                     </SelectContent>
                   </Select>
                 </div>
+
+                {/* CV upload */}
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">CV / Resume * <span className="text-muted-foreground font-normal">(PDF or Word, max 5 MB)</span></label>
+                  <input
+                    ref={cvInputRef}
+                    type="file"
+                    accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    className="hidden"
+                    onChange={handleCvChange}
+                  />
+                  {cvFile ? (
+                    <div className="flex items-center gap-3 p-3 rounded-xl border border-border bg-muted/30">
+                      <FileText className="w-4 h-4 text-primary shrink-0" />
+                      <span className="text-sm text-foreground truncate flex-1">{cvFile.name}</span>
+                      <button type="button" onClick={() => { setCvFile(null); if (cvInputRef.current) cvInputRef.current.value = ""; }}>
+                        <X className="w-4 h-4 text-muted-foreground hover:text-destructive transition-colors" />
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => cvInputRef.current?.click()}
+                      className="w-full flex flex-col items-center gap-2 p-5 rounded-xl border-2 border-dashed border-border hover:border-primary hover:bg-primary/5 transition-colors text-muted-foreground"
+                    >
+                      <Upload className="w-5 h-5" />
+                      <span className="text-sm">Click to upload your CV</span>
+                    </button>
+                  )}
+                </div>
+
                 <div>
                   <label className="text-sm font-medium text-foreground mb-1.5 block">Cover letter *</label>
                   <Textarea required placeholder="Why CiroStack? What have you built that you're most proud of? What excites you about this role?" rows={5} value={fields.coverLetter} onChange={set("coverLetter")} />
