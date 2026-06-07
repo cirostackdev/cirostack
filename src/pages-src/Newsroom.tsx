@@ -150,10 +150,10 @@ const Newsroom = () => {
     const [hasMore, setHasMore] = useState(true);
     const [filter, setFilter] = useState<string | null>(null);
 
-    const fetchNews = useCallback(async (pageNum: number, type?: string | null) => {
+    const fetchNews = useCallback(async (pageNum: number, category?: string | null) => {
         try {
             let url = `/api/news?page=${pageNum}&limit=12`;
-            if (type) url += `&type=${type}`;
+            if (category) url += `&category=${category}`;
             const res = await fetch(url);
             const data = await res.json();
             const articles: LiveArticle[] = data?.articles ?? data;
@@ -318,8 +318,12 @@ const Newsroom = () => {
                     <div className="flex flex-wrap gap-2 mb-8">
                         {[
                             { label: "All", value: null },
-                            { label: "The Guardian", value: "guardian" },
-                            { label: "TechCrunch", value: "techcrunch" },
+                            { label: "AI & Machine Learning", value: "ai" },
+                            { label: "Startups & Funding", value: "startups" },
+                            { label: "Fintech", value: "fintech" },
+                            { label: "Cybersecurity", value: "security" },
+                            { label: "Software & Apps", value: "software" },
+                            { label: "Enterprise & Cloud", value: "enterprise" },
                         ].map((tab) => (
                             <button
                                 key={tab.label}

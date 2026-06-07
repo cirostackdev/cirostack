@@ -1,14 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+// Category keyword mappings for content-based filtering
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  ai: ["AI", "machine learning", "LLM", "GPT", "neural", "automation", "Anthropic", "OpenAI", "Claude"],
+  startups: ["startup", "venture", "fundrais", "seed round", "Series A", "Series B", "Series C", "YC", "accelerator"],
+  fintech: ["fintech", "payment", "banking", "crypto", "blockchain", "neobank"],
+  security: ["security", "hack", "breach", "ransomware", "cyber", "privacy", "vulnerability"],
+  software: ["software", "SaaS", "app", "developer", "devtools", "API", "cloud computing"],
+  enterprise: ["enterprise", "data center", "cloud", "Microsoft", "Google Cloud", "AWS", "infrastructure"],
+};
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const page = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10));
     const limit = Math.min(50, Math.max(1, parseInt(searchParams.get("limit") ?? "30", 10)));
     const type = searchParams.get("type"); // "guardian" | "techcrunch" | null (all)
+    const category = searchParams.get("category"); // "ai" | "startups" | "fintech" | "security" | "software" | "enterprise" | null
 
-    const where = type ? { type } : {};
+    // Build the where clause
+    let where: any = {};
+
+    // Type filter (source-based)
+    if (type) {
+      where.type = type;
+    }
+
+    // Category filter (keyword-based)
+    if (category && CATEGORY_KEYWORDS[category]) {
+      const keywords = CATEGORY_KEYWORDS[category];
+      where.OR = keywords.flatMap(keyword => [
+        { title: { contains: keyword } },
+        { description: { contains: keyword } },
+      ]);
+    }
 
     const [articles, total] = await Promise.all([
       prisma.newsArticle.findMany({

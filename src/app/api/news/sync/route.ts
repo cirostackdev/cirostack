@@ -140,20 +140,46 @@ function mapGuardianResult(a: any): ArticleData {
   };
 }
 
-async function fetchGuardian(key: string): Promise<ArticleData[]> {
+async function fetchGuardianSection(key: string, section: string, pageSize: number): Promise<ArticleData[]> {
   const url = new URL("https://content.guardianapis.com/search");
   url.searchParams.set("q", GUARDIAN_QUERY);
-  url.searchParams.set("section", "technology");
+  url.searchParams.set("section", section);
   url.searchParams.set("show-fields", "thumbnail,body,trailText,main");
-  url.searchParams.set("page-size", "20");
+  url.searchParams.set("page-size", String(pageSize));
   url.searchParams.set("order-by", "newest");
   url.searchParams.set("api-key", key);
 
   const res = await fetch(url.toString());
-  if (!res.ok) { console.error("[news/sync] Guardian:", res.status); return []; }
+  if (!res.ok) { console.error(`[news/sync] Guardian (${section}):`, res.status); return []; }
 
   const data = await res.json();
   return (data.response?.results ?? []).map(mapGuardianResult);
+}
+
+async function fetchGuardian(key: string): Promise<ArticleData[]> {
+  const PRIMARY_SECTIONS = ["technology", "business", "science"];
+  const PARTIAL_SECTIONS = ["money", "global-development", "media"];
+
+  // Fetch all sections in parallel
+  const [primaryResults, partialResults] = await Promise.all([
+    Promise.all(PRIMARY_SECTIONS.map(s => fetchGuardianSection(key, s, 15))),
+    Promise.all(PARTIAL_SECTIONS.map(s => fetchGuardianSection(key, s, 10))),
+  ]);
+
+  // Combine and deduplicate by URL
+  const allResults = [...primaryResults.flat(), ...partialResults.flat()];
+  const seen = new Set<string>();
+  const deduplicated: ArticleData[] = [];
+
+  for (const article of allResults) {
+    if (!seen.has(article.url)) {
+      seen.add(article.url);
+      deduplicated.push(article);
+    }
+  }
+
+  // Limit total Guardian articles to 30
+  return deduplicated.slice(0, 30);
 }
 
 async function fetchGuardianByPath(key: string, path: string): Promise<ArticleData | null> {
@@ -214,6 +240,7 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
     "Fundraising Advice", "Government & Policy", "In Brief", "Microsoft",
     "OpenAI", "Security", "Startup Battlefield", "Startups", "Venture",
     "cybersecurity", "data centers", "Google", "Biotech & Health",
+    "Exclusive", "Equity", "Roundup", "TC", "TechCrunch Disrupt 2026",
   ]);
 
   try {
