@@ -75,8 +75,18 @@ export default function AdminInvoicesPage() {
 
   const filtered = filter === "all" ? withEffectiveStatus : withEffectiveStatus.filter((inv) => inv.effectiveStatus === filter);
 
-  const total = invoices.reduce((s, i) => s + i.amount, 0);
-  const paid = invoices.filter((i) => i.status === "paid").reduce((s, i) => s + i.amount, 0);
+  // Group totals by currency to avoid mixing different currencies
+  const totalsByCurrency: Record<string, number> = {};
+  const paidByCurrency: Record<string, number> = {};
+  for (const inv of invoices) {
+    const cur = inv.currency ?? "USD";
+    totalsByCurrency[cur] = (totalsByCurrency[cur] ?? 0) + inv.amount;
+    if (inv.status === "paid") {
+      paidByCurrency[cur] = (paidByCurrency[cur] ?? 0) + inv.amount;
+    }
+  }
+  const formatByCurrency = (map: Record<string, number>) =>
+    Object.entries(map).map(([cur, amt]) => `${cur} ${(amt / 100).toFixed(2)}`).join("  ·  ") || "—";
 
   const FILTERS = ["all", "unpaid", "overdue", "paid", "cancelled"];
 
@@ -86,11 +96,11 @@ export default function AdminInvoicesPage() {
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="flex-1 rounded-xl border border-border p-4">
           <p className="text-xs text-muted-foreground">Total Invoiced</p>
-          <p className="text-2xl font-bold mt-1">${(total / 100).toFixed(2)}</p>
+          <p className="text-lg font-bold mt-1 leading-snug">{formatByCurrency(totalsByCurrency)}</p>
         </div>
         <div className="flex-1 rounded-xl border border-border p-4">
           <p className="text-xs text-muted-foreground">Total Collected</p>
-          <p className="text-2xl font-bold mt-1 text-green-600">${(paid / 100).toFixed(2)}</p>
+          <p className="text-lg font-bold mt-1 leading-snug text-green-600">{formatByCurrency(paidByCurrency)}</p>
         </div>
         <div className="sm:self-center">
           <Link href="/admin/invoices/new">
