@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const article = await prisma.newsArticle.findUnique({
       where: { slug },
-      select: { title: true, description: true, image: true, publishedAt: true, slug: true },
+      select: { title: true, description: true, image: true, publishedAt: true, slug: true, source: true },
     });
 
     if (!article) {
@@ -57,9 +57,47 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function NewsroomSlugPage({ params }: Props) {
   const { slug } = await params;
 
+  // Fetch article for JSON-LD
+  let jsonLd = null;
+  try {
+    const article = await prisma.newsArticle.findUnique({
+      where: { slug },
+      select: { title: true, description: true, image: true, publishedAt: true, updatedAt: true, slug: true, source: true, url: true },
+    });
+    if (article) {
+      jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        headline: article.title,
+        description: article.description || undefined,
+        image: article.image || undefined,
+        datePublished: article.publishedAt.toISOString(),
+        dateModified: article.updatedAt.toISOString(),
+        url: `https://cirostack.com/newsroom/${article.slug}`,
+        mainEntityOfPage: `https://cirostack.com/newsroom/${article.slug}`,
+        publisher: {
+          "@type": "Organization",
+          name: "CiroStack",
+          url: "https://cirostack.com",
+          logo: { "@type": "ImageObject", url: "https://cirostack.com/logo.png" },
+        },
+        author: { "@type": "Organization", name: article.source },
+        isAccessibleForFree: true,
+      };
+    }
+  } catch {}
+
   return (
-    <Suspense>
-      <NewsroomArticle slug={slug} />
-    </Suspense>
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      <Suspense>
+        <NewsroomArticle slug={slug} />
+      </Suspense>
+    </>
   );
 }

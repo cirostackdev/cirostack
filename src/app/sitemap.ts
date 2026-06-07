@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { HIDE_CASE_STUDIES } from "@/lib/feature-flags";
+import { prisma } from "@/lib/prisma";
 
-export const dynamic = 'force-static'
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // revalidate every hour
 
 const SITE_URL = "https://cirostack.com";
 
@@ -55,7 +57,7 @@ const BLOG_SLUGS = [
   "scaling-saas-post-funding",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map(({ path, priority, changeFrequency }) => ({
@@ -79,5 +81,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...serviceEntries, ...blogEntries];
+  // Dynamic news articles from database
+  let newsEntries: MetadataRoute.Sitemap = [];
+  try {
+    const articles = await prisma.newsArticle.findMany({
+      select: { slug: true, updatedAt: true },
+      where: { slug: { not: null } },
+      orderBy: { publishedAt: "desc" },
+    });
+    newsEntries = articles
+      .filter(a => a.slug)
+      .map((a) => ({
+        url: `${SITE_URL}/newsroom/${a.slug}`,
+        lastModified: a.updatedAt,
+        changeFrequency: "weekly" as const,
+        priority: 0.6,
+      }));
+  } catch {}
+
+  return [...staticEntries, ...serviceEntries, ...blogEntries, ...newsEntries];
 }
