@@ -52,8 +52,10 @@ export default function AdminNewsPage() {
       const sources = source === "all" ? ["guardian", "techcrunch"] : [source];
       let totalSynced = 0;
       for (const s of sources) {
-        const res = await fetch(`/api/news/sync?source=${s}`, {
-          headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_CRON_SECRET ?? ""}` },
+        const res = await fetch("/api/admin/cms/news/sync", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ source: s }),
         });
         if (res.ok) {
           const data = await res.json();
