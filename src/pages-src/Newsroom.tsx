@@ -408,7 +408,7 @@ const Newsroom = () => {
                                             <h3 className="font-display font-semibold text-foreground text-lg mb-3 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
                                             {article.description && <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{article.description}</p>}
                                             <div className="flex items-center gap-1.5 mt-4 text-sm text-primary font-medium">
-                                                Read Article <ArrowRight className="w-3.5 h-3.5" />
+                                                Read News <ArrowRight className="w-3.5 h-3.5" />
                                             </div>
                                         </div>
                                     </motion.div>
@@ -451,7 +451,7 @@ const Newsroom = () => {
                                                     <h3 className="font-display font-semibold text-foreground text-base mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">{article.title}</h3>
                                                     {article.description && <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{article.description}</p>}
                                                     <div className="flex items-center gap-1.5 mt-3 text-sm text-primary font-medium">
-                                                        Read Article <ArrowRight className="w-3.5 h-3.5" />
+                                                        Read News <ArrowRight className="w-3.5 h-3.5" />
                                                     </div>
                                                 </div>
                                             </motion.div>
