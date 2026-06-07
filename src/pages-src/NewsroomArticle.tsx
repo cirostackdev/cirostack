@@ -219,8 +219,51 @@ const NewsroomArticle = () => {
   if (loading) {
     return (
       <Layout>
-        <div className="flex items-center justify-center min-h-screen">
-          <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" />
+        <div className="pt-28 pb-16">
+          <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+            {/* Hero skeleton */}
+            <div className="animate-pulse">
+              <div className="h-6 w-32 bg-muted rounded mb-4" />
+              <div className="h-10 w-full bg-muted rounded mb-3" />
+              <div className="h-10 w-3/4 bg-muted rounded mb-6" />
+              <div className="h-4 w-48 bg-muted rounded mb-10" />
+            </div>
+
+            <div className="flex gap-10">
+              {/* Sidebar skeleton */}
+              <aside className="hidden lg:block w-56 shrink-0 animate-pulse">
+                <div className="h-3 w-16 bg-muted rounded mb-3" />
+                <div className="h-4 w-36 bg-muted rounded mb-8" />
+                <div className="h-3 w-12 bg-muted rounded mb-3" />
+                <div className="flex gap-2">
+                  <div className="w-9 h-9 bg-muted rounded-lg" />
+                  <div className="w-9 h-9 bg-muted rounded-lg" />
+                  <div className="w-9 h-9 bg-muted rounded-lg" />
+                </div>
+              </aside>
+
+              {/* Content skeleton */}
+              <div className="flex-1 max-w-3xl animate-pulse space-y-6">
+                <div className="border-l-4 border-muted rounded-r-xl px-6 py-5">
+                  <div className="h-5 w-full bg-muted rounded mb-2" />
+                  <div className="h-5 w-4/5 bg-muted rounded" />
+                </div>
+                <div className="space-y-4">
+                  <div className="h-4 w-full bg-muted rounded" />
+                  <div className="h-4 w-full bg-muted rounded" />
+                  <div className="h-4 w-5/6 bg-muted rounded" />
+                  <div className="h-4 w-full bg-muted rounded" />
+                  <div className="h-4 w-3/4 bg-muted rounded" />
+                </div>
+                <div className="h-64 w-full bg-muted rounded-xl" />
+                <div className="space-y-4">
+                  <div className="h-4 w-full bg-muted rounded" />
+                  <div className="h-4 w-full bg-muted rounded" />
+                  <div className="h-4 w-2/3 bg-muted rounded" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </Layout>
     );
