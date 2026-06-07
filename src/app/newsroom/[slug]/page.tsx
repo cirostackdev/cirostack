@@ -27,6 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const description = article.description || `Read this article on CiroStack Newsroom.`;
     const image = article.image || "https://cirostack.com/og/pages/newsroom.jpg";
 
+    const ogImage = `https://cirostack.com/api/og/news/${article.slug}`;
+
     return {
       title,
       description,
@@ -36,12 +38,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         url: `https://cirostack.com/newsroom/${article.slug}`,
         title: article.title,
         description,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: article.title }],
         publishedTime: article.publishedAt.toISOString(),
       },
       twitter: {
         card: "summary_large_image",
         title: article.title,
         description,
+        images: [ogImage],
       },
     };
   } catch {
