@@ -104,6 +104,7 @@ type LiveArticle = {
     title: string;
     description: string;
     url: string;
+    slug?: string;
     image: string | null;
     publishedAt: string;
     source: string;
@@ -385,7 +386,7 @@ const Newsroom = () => {
                                         viewport={{ once: true }}
                                         variants={fadeUp}
                                         custom={i}
-                                        onClick={() => router.push(`/newsroom/article?src=${encodeURIComponent(article.url)}`)}
+                                        onClick={() => router.push(article.slug ? `/newsroom/${article.slug}` : `/newsroom/article?src=${encodeURIComponent(article.url)}`)}
                                         className="group rounded-2xl surface-glass hover-lift overflow-hidden cursor-pointer"
                                     >
                                         {article.image && (
@@ -428,7 +429,7 @@ const Newsroom = () => {
                                                 viewport={{ once: true }}
                                                 variants={fadeUp}
                                                 custom={i % 3}
-                                                onClick={() => router.push(`/newsroom/article?src=${encodeURIComponent(article.url)}`)}
+                                                onClick={() => router.push(article.slug ? `/newsroom/${article.slug}` : `/newsroom/article?src=${encodeURIComponent(article.url)}`)}
                                                 className="group rounded-2xl surface-glass hover-lift overflow-hidden cursor-pointer"
                                             >
                                                 {article.image && (

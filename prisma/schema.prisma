@@ -187,6 +187,7 @@ model Announcement {
 model NewsArticle {
   id            String   @id @default(cuid())
   url           String   @unique
+  slug          String   @unique
   title         String
   description   String   @default("")
   content       String   @db.Text

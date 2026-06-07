@@ -201,7 +201,7 @@ function getCategoryLabel(article: { title: string; description: string }): stri
 }
 
 function NewsSection() {
-  const [articles, setArticles] = useState<{ title: string; url: string; image: string | null; publishedAt: string; source: string; description: string; type: string }[]>([]);
+  const [articles, setArticles] = useState<{ title: string; url: string; slug?: string; image: string | null; publishedAt: string; source: string; description: string; type: string }[]>([]);
 
   useEffect(() => {
     fetch("/api/news?limit=3")
@@ -230,7 +230,7 @@ function NewsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
             >
-              <Link href={`/newsroom/article?src=${encodeURIComponent(article.url)}`} className="group block h-full">
+              <Link href={article.slug ? `/newsroom/${article.slug}` : `/newsroom/article?src=${encodeURIComponent(article.url)}`} className="group block h-full">
                 <div className="rounded-2xl overflow-hidden surface-glass hover-lift h-full flex flex-col">
                   {article.image && (
                     <div className="h-48 overflow-hidden">

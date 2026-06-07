@@ -52,6 +52,7 @@ export async function GET(req: NextRequest) {
       description: a.description,
       content: a.content,
       url: a.url,
+      slug: a.slug,
       image: a.image,
       publishedAt: a.publishedAt.toISOString(),
       source: a.source,

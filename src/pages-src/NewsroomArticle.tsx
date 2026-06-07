@@ -20,6 +20,7 @@ type Article = {
   description: string;
   content: string;
   url: string;
+  slug?: string;
   image: string | null;
   publishedAt: string;
   source: string;
@@ -165,7 +166,7 @@ function GuardianBody({ content }: { content: string }) {
     if (!anchor) return;
 
     const href = anchor.getAttribute("href");
-    if (href?.startsWith("/newsroom/article")) {
+    if (href?.startsWith("/newsroom/")) {
       e.preventDefault();
       router.push(href);
     }
@@ -196,7 +197,7 @@ function GuardianBody({ content }: { content: string }) {
 
 // ── Main component ───────────────────────────────────────────────────────────
 
-const NewsroomArticle = () => {
+const NewsroomArticle = ({ slug }: { slug?: string }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const src = searchParams.get("src");
@@ -208,22 +209,46 @@ const NewsroomArticle = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [src]);
+  }, [slug, src]);
 
   useEffect(() => {
-    if (!src) { setNotFound(true); setLoading(false); return; }
-    const targetUrl = decodeURIComponent(src);
-    fetch("/api/news?limit=30")
-      .then(r => r.json())
-      .then((data) => {
-        const articles: Article[] = data?.articles ?? data;
-        setAllArticles(Array.isArray(articles) ? articles : []);
-        const match = (Array.isArray(articles) ? articles : []).find(a => a.url === targetUrl);
-        match ? setArticle(match) : setNotFound(true);
-      })
-      .catch(() => setNotFound(true))
-      .finally(() => setLoading(false));
-  }, [src]);
+    if (slug) {
+      // New slug-based flow: fetch article by slug
+      fetch(`/api/news/${slug}`)
+        .then(r => {
+          if (!r.ok) throw new Error("Not found");
+          return r.json();
+        })
+        .then((data: Article) => {
+          setArticle(data);
+          // Fetch related articles separately
+          return fetch("/api/news?limit=10");
+        })
+        .then(r => r.json())
+        .then((data) => {
+          const articles: Article[] = data?.articles ?? data;
+          setAllArticles(Array.isArray(articles) ? articles : []);
+        })
+        .catch(() => setNotFound(true))
+        .finally(() => setLoading(false));
+    } else if (src) {
+      // Legacy flow: fetch by URL query param
+      const targetUrl = decodeURIComponent(src);
+      fetch("/api/news?limit=30")
+        .then(r => r.json())
+        .then((data) => {
+          const articles: Article[] = data?.articles ?? data;
+          setAllArticles(Array.isArray(articles) ? articles : []);
+          const match = (Array.isArray(articles) ? articles : []).find(a => a.url === targetUrl);
+          match ? setArticle(match) : setNotFound(true);
+        })
+        .catch(() => setNotFound(true))
+        .finally(() => setLoading(false));
+    } else {
+      setNotFound(true);
+      setLoading(false);
+    }
+  }, [slug, src]);
 
   const related = useMemo(() => {
     if (!article) return [];
@@ -405,7 +430,7 @@ const NewsroomArticle = () => {
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                 >
                   <div
-                    onClick={() => router.push(`/newsroom/article?src=${encodeURIComponent(a.url)}`)}
+                    onClick={() => router.push(a.slug ? `/newsroom/${a.slug}` : `/newsroom/article?src=${encodeURIComponent(a.url)}`)}
                     className="block group cursor-pointer"
                   >
                     <div className="rounded-2xl surface-glass hover-lift overflow-hidden">

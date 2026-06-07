@@ -9,6 +9,14 @@ const GUARDIAN_QUERY = `startup OR SaaS OR "software development" OR fintech OR 
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 80);
+}
+
 function extractMainImage(mainHtml: string, thumbnail: string | null): string | null {
   const match = mainHtml.match(/src="([^"]+)"/);
   return match?.[1] ?? thumbnail ?? null;
@@ -388,10 +396,12 @@ export async function GET(req: NextRequest) {
     let upserted = 0;
 
     for (const article of allArticles) {
+      const slug = generateSlug(article.title);
       await prisma.newsArticle.upsert({
         where: { url: article.url },
         create: {
           url: article.url,
+          slug,
           title: article.title,
           description: article.description,
           content: article.content,
@@ -403,6 +413,7 @@ export async function GET(req: NextRequest) {
         },
         update: {
           title: article.title,
+          slug,
           description: article.description,
           content: article.content,
           image: article.image,

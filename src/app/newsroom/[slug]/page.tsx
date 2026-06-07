@@ -1,28 +1,18 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import NewsroomArticle from "@/pages-src/NewsroomArticle";
 
 type Props = {
-  searchParams: Promise<{ src?: string }>;
+  params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const { src } = await searchParams;
-
-  if (!src) {
-    return {
-      title: "Article Not Found | CiroStack Newsroom",
-      description: "This article could not be found.",
-    };
-  }
-
-  const articleUrl = decodeURIComponent(src);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
 
   try {
     const article = await prisma.newsArticle.findUnique({
-      where: { url: articleUrl },
+      where: { slug },
       select: { title: true, description: true, image: true, publishedAt: true, slug: true },
     });
 
@@ -64,30 +54,12 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   }
 }
 
-export default async function NewsroomArticlePage({ searchParams }: Props) {
-  const { src } = await searchParams;
+export default async function NewsroomSlugPage({ params }: Props) {
+  const { slug } = await params;
 
-  // If we have a src param, try to redirect to the slug-based URL
-  if (src) {
-    const articleUrl = decodeURIComponent(src);
-    try {
-      const article = await prisma.newsArticle.findUnique({
-        where: { url: articleUrl },
-        select: { slug: true },
-      });
-
-      if (article?.slug) {
-        redirect(`/newsroom/${article.slug}`);
-      }
-    } catch {
-      // Fall through to legacy rendering if redirect fails
-    }
-  }
-
-  // Fallback: render the legacy component (in case article isn't found by URL)
   return (
     <Suspense>
-      <NewsroomArticle />
+      <NewsroomArticle slug={slug} />
     </Suspense>
   );
 }
