@@ -278,6 +278,7 @@ model Invoice {
   number     String    @unique
   amount     Int
   currency   String    @default("USD")
+  usdRate    Float     @default(1) // exchange rate to USD at time of invoice creation
   status     String    @default("unpaid")
   dueDate    DateTime?
   paidAt     DateTime?

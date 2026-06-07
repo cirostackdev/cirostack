@@ -10,7 +10,7 @@ import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { toast } from "sonner";
 
 type Invoice = {
-  id: string; number: string; amount: number; currency: string; status: string;
+  id: string; number: string; amount: number; currency: string; usdRate: number; status: string;
   dueDate?: string; createdAt: string;
   client: { email: string; name?: string; company?: string };
   project?: { title: string };
@@ -75,18 +75,10 @@ export default function AdminInvoicesPage() {
 
   const filtered = filter === "all" ? withEffectiveStatus : withEffectiveStatus.filter((inv) => inv.effectiveStatus === filter);
 
-  // Group totals by currency to avoid mixing different currencies
-  const totalsByCurrency: Record<string, number> = {};
-  const paidByCurrency: Record<string, number> = {};
-  for (const inv of invoices) {
-    const cur = inv.currency ?? "USD";
-    totalsByCurrency[cur] = (totalsByCurrency[cur] ?? 0) + inv.amount;
-    if (inv.status === "paid") {
-      paidByCurrency[cur] = (paidByCurrency[cur] ?? 0) + inv.amount;
-    }
-  }
-  const formatByCurrency = (map: Record<string, number>) =>
-    Object.entries(map).map(([cur, amt]) => `${cur} ${(amt / 100).toFixed(2)}`).join("  ·  ") || "—";
+  // Sum all invoices in USD using the stored exchange rate at time of creation
+  const totalUsd = invoices.reduce((s, i) => s + (i.amount / 100) * (i.usdRate ?? 1), 0);
+  const paidUsd = invoices.filter(i => i.status === "paid").reduce((s, i) => s + (i.amount / 100) * (i.usdRate ?? 1), 0);
+  const fmtUsd = (n: number) => `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   const FILTERS = ["all", "unpaid", "overdue", "paid", "cancelled"];
 
@@ -96,11 +88,13 @@ export default function AdminInvoicesPage() {
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="flex-1 rounded-xl border border-border p-4">
           <p className="text-xs text-muted-foreground">Total Invoiced</p>
-          <p className="text-lg font-bold mt-1 leading-snug">{formatByCurrency(totalsByCurrency)}</p>
+          <p className="text-2xl font-bold mt-1">{fmtUsd(totalUsd)}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
         </div>
         <div className="flex-1 rounded-xl border border-border p-4">
           <p className="text-xs text-muted-foreground">Total Collected</p>
-          <p className="text-lg font-bold mt-1 leading-snug text-green-600">{formatByCurrency(paidByCurrency)}</p>
+          <p className="text-2xl font-bold mt-1 text-green-600">{fmtUsd(paidUsd)}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
         </div>
         <div className="sm:self-center">
           <Link href="/admin/invoices/new">
@@ -150,7 +144,12 @@ export default function AdminInvoicesPage() {
                       {inv.project && <p className="text-xs text-muted-foreground">{inv.project.title}</p>}
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{inv.client.name ?? inv.client.email}</td>
-                    <td className="px-4 py-3 font-medium">{inv.currency} {(inv.amount / 100).toFixed(2)}</td>
+                    <td className="px-4 py-3 font-medium">
+                      <span>{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
+                      {inv.currency !== "USD" && inv.usdRate && (
+                        <p className="text-xs text-muted-foreground">≈ ${((inv.amount / 100) * inv.usdRate).toFixed(2)}</p>
+                      )}
+                    </td>
                     <td className="px-4 py-3"><Badge variant={statusVariant[inv.effectiveStatus] ?? "secondary"}>{inv.effectiveStatus}</Badge></td>
                     <td className="px-4 py-3 text-muted-foreground">{inv.dueDate ? inv.dueDate.slice(0, 10) : "—"}</td>
                     <td className="px-4 py-3">
@@ -209,6 +208,9 @@ export default function AdminInvoicesPage() {
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     <p className="font-semibold text-sm">{inv.currency} {(inv.amount / 100).toFixed(2)}</p>
+                    {inv.currency !== "USD" && inv.usdRate && (
+                      <p className="text-xs text-muted-foreground">≈ ${((inv.amount / 100) * inv.usdRate).toFixed(2)}</p>
+                    )}
                     <Badge variant={statusVariant[inv.effectiveStatus] ?? "secondary"}>{inv.effectiveStatus}</Badge>
                   </div>
                 </div>
