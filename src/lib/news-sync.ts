@@ -127,13 +127,14 @@ function mapGuardianResult(a: any): ArticleData {
   };
 }
 
-async function fetchGuardianSection(key: string, section: string, pageSize: number): Promise<ArticleData[]> {
+async function fetchGuardianSection(key: string, section: string, pageSize: number, fromDate: string): Promise<ArticleData[]> {
   const url = new URL("https://content.guardianapis.com/search");
   url.searchParams.set("q", GUARDIAN_QUERY);
   url.searchParams.set("section", section);
   url.searchParams.set("show-fields", "thumbnail,body,trailText,main");
   url.searchParams.set("page-size", String(pageSize));
   url.searchParams.set("order-by", "newest");
+  url.searchParams.set("from-date", fromDate);
   url.searchParams.set("api-key", key);
   const res = await fetch(url.toString());
   if (!res.ok) { console.error(`[news/sync] Guardian (${section}):`, res.status); return []; }
@@ -142,9 +143,10 @@ async function fetchGuardianSection(key: string, section: string, pageSize: numb
 }
 
 async function fetchGuardian(key: string): Promise<ArticleData[]> {
+  const fromDate = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split("T")[0];
   const [primaryResults, partialResults] = await Promise.all([
-    Promise.all(["technology", "business", "science"].map(s => fetchGuardianSection(key, s, 15))),
-    Promise.all(["money", "global-development", "media"].map(s => fetchGuardianSection(key, s, 10))),
+    Promise.all(["technology", "business", "science"].map(s => fetchGuardianSection(key, s, 15, fromDate))),
+    Promise.all(["money", "global-development", "media"].map(s => fetchGuardianSection(key, s, 10, fromDate))),
   ]);
   const allResults = [...primaryResults.flat(), ...partialResults.flat()];
   const seen = new Set<string>();
@@ -202,7 +204,10 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
     const feed = parser.parse(xml);
     const items = feed?.rss?.channel?.item ?? [];
     const candidates = Array.isArray(items) ? items.slice(0, 20) : [items];
+    const cutoff = Date.now() - 24 * 60 * 60 * 1000;
     const entries = candidates.filter((item: any) => {
+      const pubDate = new Date(item.pubDate).getTime();
+      if (isNaN(pubDate) || pubDate < cutoff) return false;
       const cats = item.category;
       if (!cats) return false;
       const catArray: string[] = Array.isArray(cats) ? cats : [cats];
