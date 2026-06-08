@@ -59,8 +59,21 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
 
       const { ngnKobo, reference } = await res.json();
 
+      const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
+      if (!publicKey) {
+        toast.error("Payment is not configured. Please contact support.");
+        setLoading(false);
+        return;
+      }
+
+      if (!(window as any).PaystackPop) {
+        toast.error("Payment gateway failed to load. Please refresh and try again.");
+        setLoading(false);
+        return;
+      }
+
       const handler = (window as any).PaystackPop.setup({
-        key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+        key: publicKey,
         email,
         amount: ngnKobo,
         currency: "NGN",
