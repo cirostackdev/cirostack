@@ -9,6 +9,7 @@ import { Plus, ChevronRight, Send, CheckCircle, Trash2, Receipt } from "lucide-r
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { fmtMoney } from "@/lib/format";
 import { toast } from "sonner";
+import { INVOICE_BADGE_VARIANT } from "@/lib/colors";
 
 type Invoice = {
   id: string; number: string; amount: number; currency: string; usdRate: number; status: string;
@@ -17,9 +18,7 @@ type Invoice = {
   project?: { title: string };
 };
 
-const statusVariant: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-  paid: "default", unpaid: "secondary", overdue: "destructive", cancelled: "outline", partial: "outline",
-};
+const statusVariant = INVOICE_BADGE_VARIANT;
 
 function isOverdue(inv: Invoice) {
   return inv.status === "unpaid" && inv.dueDate && new Date(inv.dueDate) < new Date();
@@ -98,7 +97,7 @@ export default function AdminInvoicesPage() {
           <p className="text-xs text-muted-foreground">Total Collected</p>
           {loading
             ? <div className="h-8 w-28 bg-muted rounded animate-pulse mt-1" />
-            : <p className="text-2xl font-bold mt-1 text-green-600">{fmtUsd(paidUsd)}</p>}
+            : <p className="text-2xl font-bold mt-1 text-green-500">{fmtUsd(paidUsd)}</p>}
           <p className="text-xs text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
         </div>
         <div className="sm:self-center">
@@ -158,7 +157,7 @@ export default function AdminInvoicesPage() {
                       <div className="flex items-center gap-1 justify-end">
                         {inv.effectiveStatus !== "paid" && (
                           <Button variant="ghost" size="icon" className="w-7 h-7" title="Mark paid" onClick={() => handleMarkPaid(inv.id)}>
-                            <CheckCircle className="w-3.5 h-3.5 text-green-600" />
+                            <CheckCircle className="w-3.5 h-3.5 text-green-500" />
                           </Button>
                         )}
                         <Button variant="ghost" size="icon" className="w-7 h-7" title="Send to client" onClick={() => handleSend(inv.id)}>
@@ -217,7 +216,7 @@ export default function AdminInvoicesPage() {
                 <div className="flex items-center gap-1 mt-3 justify-end">
                   {inv.effectiveStatus !== "paid" && (
                     <Button variant="ghost" size="sm" className="h-9 px-2.5 gap-1.5 text-xs" onClick={() => handleMarkPaid(inv.id)}>
-                      <CheckCircle className="w-3.5 h-3.5 text-green-600" /> Mark Paid
+                      <CheckCircle className="w-3.5 h-3.5 text-green-500" /> Mark Paid
                     </Button>
                   )}
                   <Button variant="ghost" size="sm" className="h-9 px-2.5 gap-1.5 text-xs" onClick={() => handleSend(inv.id)}>

@@ -5,22 +5,11 @@ import Link from "next/link";
 import { ArrowLeft, Download, FileText, Bell } from "lucide-react";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { MilestoneApproval } from "./MilestoneApproval";
+import { ProjectComments } from "./ProjectComments";
+import { PROJECT_STATUS_COLORS, INVOICE_STATUS_COLORS } from "@/lib/colors";
 
-const statusColors: Record<string, string> = {
-  discovery: "bg-blue-500/15 text-blue-500",
-  proposal: "bg-yellow-500/15 text-yellow-500",
-  active: "bg-green-500/15 text-green-500",
-  review: "bg-purple-500/15 text-purple-500",
-  complete: "bg-muted text-muted-foreground",
-  paused: "bg-orange-500/15 text-orange-500",
-};
-
-const invoiceStatusColors: Record<string, string> = {
-  paid: "bg-green-500/15 text-green-500",
-  unpaid: "bg-yellow-500/15 text-yellow-500",
-  overdue: "bg-red-500/15 text-red-500",
-  cancelled: "bg-muted text-muted-foreground",
-};
+const statusColors = PROJECT_STATUS_COLORS;
+const invoiceStatusColors = INVOICE_STATUS_COLORS;
 
 export default async function PortalProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await clientAuth();
@@ -101,6 +90,9 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
             </div>
           )}
         </div>
+
+        {/* Comments & Feedback */}
+        <ProjectComments projectId={project.id} />
 
         {/* Files */}
         {project.files.length > 0 && (

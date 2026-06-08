@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle, Circle, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { INTERACTIVE } from "@/lib/colors";
 
 type Milestone = {
   id: string;
@@ -65,7 +66,7 @@ export function MilestoneApproval({
         {milestones.map((m) => (
           <div key={m.id} className="flex items-center gap-3 p-3 rounded-lg border border-border">
             {m.completed
-              ? <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
+              ? <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
               : <Circle className="w-5 h-5 text-muted-foreground shrink-0" />}
             <span className={`text-sm flex-1 ${m.completed ? "line-through text-muted-foreground" : ""}`}>{m.title}</span>
             {m.dueDate && <span className="text-xs text-muted-foreground">{new Date(m.dueDate).toLocaleDateString()}</span>}
@@ -73,7 +74,7 @@ export function MilestoneApproval({
               <Button
                 size="sm"
                 variant="outline"
-                className="h-7 px-2.5 text-xs gap-1 text-green-600 border-green-200 hover:bg-green-50 hover:border-green-300"
+                className={`h-7 px-2.5 text-xs gap-1 ${INTERACTIVE.success}`}
                 disabled={approving === m.id}
                 onClick={() => handleApprove(m.id)}
               >

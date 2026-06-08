@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { ArrowLeft, CheckCircle, Circle, Plus, Upload, Trash2, Pencil } from "lucide-react";
+import { PROJECT_STATUS_COLORS, SEMANTIC } from "@/lib/colors";
 
 type Project = {
   id: string; title: string; status: string; description?: string;
@@ -29,14 +30,7 @@ type ProjectFile = { id: string; name: string; url: string; size?: number; creat
 
 const STATUSES = ["discovery", "proposal", "active", "review", "complete", "paused"];
 
-const statusColors: Record<string, string> = {
-  discovery: "bg-blue-500/15 text-blue-500",
-  proposal: "bg-yellow-500/15 text-yellow-500",
-  active: "bg-green-500/15 text-green-500",
-  review: "bg-purple-500/15 text-purple-500",
-  complete: "bg-muted text-muted-foreground",
-  paused: "bg-orange-500/15 text-orange-500",
-};
+const statusColors = PROJECT_STATUS_COLORS;
 
 export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -293,7 +287,7 @@ export default function ProjectDetailPage() {
                   onClick={() => handleMilestoneToggle(m)}
                   className="min-w-[36px] min-h-[36px] flex items-center justify-center shrink-0 rounded-lg hover:bg-muted transition-colors"
                 >
-                  {m.completed ? <CheckCircle className="w-5 h-5 text-green-600" /> : <Circle className="w-5 h-5 text-muted-foreground" />}
+                  {m.completed ? <CheckCircle className="w-5 h-5 text-green-500" /> : <Circle className="w-5 h-5 text-muted-foreground" />}
                 </button>
                 <span className={`text-sm flex-1 min-w-0 ${m.completed ? "line-through text-muted-foreground" : ""}`}>{m.title}</span>
                 {m.dueDate && <span className="text-xs text-muted-foreground shrink-0 hidden sm:block">{m.dueDate.slice(0, 10)}</span>}

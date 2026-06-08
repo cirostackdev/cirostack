@@ -6,17 +6,11 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, FolderKanban } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { PROJECT_STATUS_COLORS } from "@/lib/colors";
 
 type Project = { id: string; title: string; status: string; client: { email: string; name?: string; company?: string }; _count: { updates: number; files: number; invoices: number } };
 
-const statusColors: Record<string, string> = {
-  discovery: "bg-blue-500/15 text-blue-500",
-  proposal: "bg-yellow-500/15 text-yellow-500",
-  active: "bg-green-500/15 text-green-500",
-  review: "bg-purple-500/15 text-purple-500",
-  complete: "bg-muted text-muted-foreground",
-  paused: "bg-orange-500/15 text-orange-500",
-};
+const statusColors = PROJECT_STATUS_COLORS;
 
 export default function AdminProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -49,7 +43,7 @@ export default function AdminProjectsPage() {
                       <td className="px-4 py-3 font-medium">{p.title}</td>
                       <td className="px-4 py-3 text-muted-foreground">{p.client.name ?? p.client.email}</td>
                       <td className="px-4 py-3">
-                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[p.status] ?? "bg-gray-100 text-gray-700"}`}>{p.status}</span>
+                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground text-xs">{p._count.updates} updates · {p._count.files} files · {p._count.invoices} invoices</td>
                       <td className="px-4 py-3">
@@ -87,7 +81,7 @@ export default function AdminProjectsPage() {
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <p className="font-medium text-sm">{p.title}</p>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[p.status] ?? "bg-gray-100 text-gray-700"}`}>{p.status}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-0.5">{p.client.name ?? p.client.email}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{p._count.updates} updates · {p._count.files} files · {p._count.invoices} invoices</p>

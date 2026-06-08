@@ -260,7 +260,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                   {c.messages.length} message{c.messages.length !== 1 ? "s" : ""} · {formatDistanceToNow(new Date(c.updatedAt), { addSuffix: true })}
                 </p>
               </div>
-              <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0 ${c.status === "open" ? "bg-green-500/15 text-green-600" : "bg-muted text-muted-foreground"}`}>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0 ${c.status === "open" ? "bg-green-500/15 text-green-500" : "bg-muted text-muted-foreground"}`}>
                 {c.status}
               </span>
             </button>

@@ -13,19 +13,13 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { ArrowLeft, Plus, Trash2, Mail, Send } from "lucide-react";
+import { PROJECT_STATUS_COLORS } from "@/lib/colors";
 
 type Client = { id: string; email: string; name?: string; company?: string; projects: Project[]; invoices: Invoice[] };
 type Project = { id: string; title: string; status: string; _count: { updates: number; files: number } };
 type Invoice = { id: string; number: string; amount: number; currency: string; status: string };
 
-const statusColors: Record<string, string> = {
-  discovery: "bg-blue-500/15 text-blue-500",
-  proposal: "bg-yellow-500/15 text-yellow-500",
-  active: "bg-green-500/15 text-green-500",
-  review: "bg-purple-500/15 text-purple-500",
-  complete: "bg-muted text-muted-foreground",
-  paused: "bg-orange-500/15 text-orange-500",
-};
+const statusColors = PROJECT_STATUS_COLORS;
 
 export default function ClientDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -169,7 +163,7 @@ export default function ClientDetailPage() {
                   <p className="font-medium">{p.title}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{p._count.updates} updates · {p._count.files} files</p>
                 </div>
-                <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[p.status] ?? "bg-gray-100 text-gray-700"}`}>{p.status}</span>
+                <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
               </Link>
             ))}
             {client.projects.length === 0 && (

@@ -5,13 +5,9 @@ import Link from "next/link";
 import { ArrowRight, Receipt } from "lucide-react";
 import { fmtMoney } from "@/lib/format";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { INVOICE_STATUS_COLORS, SEMANTIC } from "@/lib/colors";
 
-const statusColors: Record<string, string> = {
-  paid: "bg-green-500/15 text-green-500",
-  unpaid: "bg-yellow-500/15 text-yellow-500",
-  overdue: "bg-red-500/15 text-red-500",
-  cancelled: "bg-muted text-muted-foreground",
-};
+const statusColors = INVOICE_STATUS_COLORS;
 
 export default async function PortalInvoicesPage() {
   const session = await clientAuth();
@@ -43,12 +39,12 @@ export default async function PortalInvoicesPage() {
             </div>
             <div className="rounded-2xl border border-border bg-card p-4">
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Paid</p>
-              <p className="text-2xl font-bold mt-1.5 text-green-500">{fmtUsd(paidUsd)}</p>
+              <p className={`text-2xl font-bold mt-1.5 ${SEMANTIC.success}`}>{fmtUsd(paidUsd)}</p>
               <p className="text-[10px] text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-4">
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Outstanding</p>
-              <p className="text-2xl font-bold mt-1.5 text-amber-500">{fmtUsd(outstandingUsd)}</p>
+              <p className={`text-2xl font-bold mt-1.5 ${SEMANTIC.warning}`}>{fmtUsd(outstandingUsd)}</p>
               <p className="text-[10px] text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
             </div>
           </div>

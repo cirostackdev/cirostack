@@ -12,6 +12,7 @@ import {
   CheckCircle,
   UserPlus,
 } from "lucide-react";
+import { SEMANTIC } from "@/lib/colors";
 
 export default async function AdminDashboardPage() {
   const session = await auth();
@@ -53,7 +54,7 @@ export default async function AdminDashboardPage() {
       value: fmtUsd(totalRevenue),
       sub: "From paid invoices",
       icon: DollarSign,
-      color: "text-green-600",
+      color: SEMANTIC.success,
       href: "/admin/invoices",
     },
     {
@@ -61,7 +62,7 @@ export default async function AdminDashboardPage() {
       value: String(activeProjects),
       sub: "In progress or review",
       icon: FolderKanban,
-      color: "text-blue-600",
+      color: SEMANTIC.info,
       href: "/admin/projects",
     },
     {
@@ -69,7 +70,7 @@ export default async function AdminDashboardPage() {
       value: String(leads),
       sub: "Total in pipeline",
       icon: Users,
-      color: "text-purple-600",
+      color: SEMANTIC.accent,
       href: "/admin/leads",
     },
     {
@@ -77,7 +78,7 @@ export default async function AdminDashboardPage() {
       value: String(unpaidInvoices._count.id),
       sub: `${fmtUsd(unpaidTotal)} outstanding`,
       icon: Receipt,
-      color: "text-amber-600",
+      color: SEMANTIC.warning,
       href: "/admin/invoices",
     },
   ];
@@ -114,7 +115,7 @@ export default async function AdminDashboardPage() {
           <div className="rounded-xl border border-border overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
               <p className="text-sm font-semibold flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-green-600" /> Recent Payments
+                <CheckCircle className={`w-4 h-4 ${SEMANTIC.success}`} /> Recent Payments
               </p>
               <Link href="/admin/invoices" className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-0.5">
                 View all <ArrowRight className="w-3 h-3" />
@@ -137,7 +138,7 @@ export default async function AdminDashboardPage() {
                     </p>
                   </div>
                   <div className="text-right shrink-0 ml-3">
-                    <p className="font-semibold text-green-600">
+                    <p className={`font-semibold ${SEMANTIC.success}`}>
                       {inv.currency} {(inv.amount / 100).toFixed(2)}
                     </p>
                     {inv.paidAt && (
@@ -155,7 +156,7 @@ export default async function AdminDashboardPage() {
           <div className="rounded-xl border border-border overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
               <p className="text-sm font-semibold flex items-center gap-1.5">
-                <UserPlus className="w-4 h-4 text-purple-600" /> Recent Leads
+                <UserPlus className={`w-4 h-4 ${SEMANTIC.accent}`} /> Recent Leads
               </p>
               <Link href="/admin/leads" className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-0.5">
                 View all <ArrowRight className="w-3 h-3" />

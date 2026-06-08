@@ -8,6 +8,7 @@ import PayButton from "./PayButton";
 import DownloadPdfButton from "./DownloadPdfButton";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { fmtMoney } from "@/lib/format";
+import { INVOICE_STATUS_COLORS } from "@/lib/colors";
 
 export default async function InvoiceDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await clientAuth();
@@ -35,12 +36,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
     isNewFormat: l.amount !== undefined,
   }));
 
-  const statusColors: Record<string, string> = {
-    paid: "bg-green-500/15 text-green-500",
-    unpaid: "bg-yellow-500/15 text-yellow-500",
-    overdue: "bg-red-500/15 text-red-500",
-    cancelled: "bg-muted text-muted-foreground",
-  };
+  const statusColors = INVOICE_STATUS_COLORS;
 
   return (
     <PortalShell title={invoice.number}>

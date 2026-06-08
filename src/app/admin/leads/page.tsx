@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { LEAD_STATUS_COLORS as LEAD_COLORS } from "@/lib/colors";
 
 type Lead = {
   id: string;
@@ -21,13 +22,7 @@ type Lead = {
 };
 
 const LEAD_STATUSES = ["new", "contacted", "qualified", "won", "lost"];
-const LEAD_STATUS_COLORS: Record<string, string> = {
-  new: "bg-blue-500/15 text-blue-600",
-  contacted: "bg-yellow-500/15 text-yellow-600",
-  qualified: "bg-green-500/15 text-green-600",
-  won: "bg-emerald-500/15 text-emerald-600",
-  lost: "bg-red-500/15 text-red-600",
-};
+const LEAD_STATUS_COLORS = LEAD_COLORS;
 
 function getLeadStatus(tags: string[]): string {
   return LEAD_STATUSES.find((s) => tags.includes(s)) ?? "new";

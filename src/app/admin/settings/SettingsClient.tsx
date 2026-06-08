@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { INTERACTIVE } from "@/lib/colors";
 
 interface Admin {
   id: string;
@@ -217,8 +218,8 @@ export function SettingsClient({
                   onClick={() => toggleDisabled(admin.id, !admin.disabled)}
                   className={`shrink-0 text-xs px-3 py-2 min-h-[36px] rounded-lg font-medium transition-colors ${
                     admin.disabled
-                      ? "bg-green-500/20 text-green-400 hover:bg-green-500/30"
-                      : "bg-red-500/20 text-red-400 hover:bg-red-500/30"
+                      ? INTERACTIVE.enable
+                      : INTERACTIVE.disable
                   }`}
                 >
                   {admin.disabled ? "Enable" : "Disable"}

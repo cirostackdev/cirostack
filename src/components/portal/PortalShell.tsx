@@ -19,6 +19,7 @@ import {
   Sun,
   Moon,
   FolderOpen,
+  Bell,
 } from "lucide-react";
 
 const NAV = [
@@ -27,6 +28,7 @@ const NAV = [
   { href: "/portal/invoices", icon: Receipt, label: "Invoices" },
   { href: "/portal/files", icon: FolderOpen, label: "Files" },
   { href: "/portal/chat", icon: MessageSquare, label: "Messages" },
+  { href: "/portal/notifications", icon: Bell, label: "Notifications" },
   { label: "—", divider: true },
   { href: "/portal/settings", icon: Settings, label: "Settings" },
 ];

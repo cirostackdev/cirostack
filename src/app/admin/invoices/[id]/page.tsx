@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { ArrowLeft, Send, Trash2, CheckCircle, Pencil, X } from "lucide-react";
+import { INVOICE_BADGE_VARIANT } from "@/lib/colors";
 
 type Invoice = {
   id: string;
@@ -29,9 +30,7 @@ type Invoice = {
   project?: { id: string; title: string };
 };
 
-const statusVariant: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-  paid: "default", unpaid: "secondary", overdue: "destructive", cancelled: "outline", partial: "outline",
-};
+const statusVariant = INVOICE_BADGE_VARIANT;
 
 export default function AdminInvoiceDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -188,7 +187,7 @@ export default function AdminInvoiceDetailPage() {
               <p className="text-xs text-muted-foreground mb-1">Dates</p>
               <p className="text-xs">Created {new Date(invoice.createdAt).toLocaleDateString()}</p>
               {invoice.dueDate && <p className="text-xs">Due {new Date(invoice.dueDate).toLocaleDateString()}</p>}
-              {invoice.paidAt && <p className="text-xs text-green-600 font-medium">Paid {new Date(invoice.paidAt).toLocaleDateString()}</p>}
+              {invoice.paidAt && <p className="text-xs text-green-500 font-medium">Paid {new Date(invoice.paidAt).toLocaleDateString()}</p>}
               {invoice.paymentRef && <p className="text-xs text-muted-foreground">Ref: {invoice.paymentRef}</p>}
             </div>
           </div>

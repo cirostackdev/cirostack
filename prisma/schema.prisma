@@ -218,6 +218,7 @@ model Client {
   createdAt     DateTime  @default(now())
   projects      Project[]
   invoices      Invoice[]
+  notifications Notification[]
 }
 
 model Project {
@@ -234,6 +235,7 @@ model Project {
   milestones  Milestone[]
   updates     ProjectUpdate[]
   files       ProjectFile[]
+  comments    ProjectComment[]
   invoices    Invoice[]
 }
 
@@ -269,6 +271,15 @@ model ProjectFile {
   createdAt  DateTime @default(now())
 }
 
+model ProjectComment {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  clientId  String
+  body      String
+  createdAt DateTime @default(now())
+}
+
 model Invoice {
   id         String    @id @default(cuid())
   clientId   String
@@ -297,5 +308,16 @@ model PushSubscription {
   auth      String
   ownerType String
   ownerId   String
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id])
+  title     String
+  body      String
+  href      String?
+  read      Boolean  @default(false)
   createdAt DateTime @default(now())
 }

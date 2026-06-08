@@ -6,6 +6,7 @@ import { formatDistanceToNow, format } from "date-fns";
 import { Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip } from "lucide-react";
 import { getSocket } from "@/lib/socket";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
+import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
 
 interface Message {
   id: string;
@@ -233,7 +234,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
             <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">
               {initials}
             </div>
-            <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-background ${status === "open" ? "bg-green-500" : "bg-muted-foreground/40"}`} />
+            <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-background ${status === "open" ? PRESENCE.online : PRESENCE.offline}`} />
           </div>
 
           <div className="flex-1 min-w-0">
@@ -247,7 +248,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
           <div className="flex items-center gap-1.5">
             <span className={`text-[11px] px-2.5 py-1 rounded-full font-semibold ${
-              status === "open" ? "bg-green-500/15 text-green-500" : "bg-muted text-muted-foreground"
+              CONVERSATION_STATUS_COLORS[status] ?? "bg-muted text-muted-foreground"
             }`}>
               {status}
             </span>
@@ -353,7 +354,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
           {assignedTo ? (
             <div className="flex items-center gap-1.5 mb-2.5 bg-green-500/10 rounded-lg px-2.5 py-2">
               <UserCheck className="w-3.5 h-3.5 text-green-500 shrink-0" />
-              <span className="text-xs font-medium text-green-600">{assignedTo.name}</span>
+              <span className="text-xs font-medium text-green-500">{assignedTo.name}</span>
             </div>
           ) : (
             <p className="text-xs text-muted-foreground mb-2.5">Unassigned</p>

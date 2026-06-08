@@ -18,6 +18,7 @@ import {
   Briefcase,
   FolderKanban,
   Receipt,
+  TrendingUp,
   ImageIcon,
   Calendar,
   Download,
@@ -48,6 +49,7 @@ const NAV = [
   { href: "/admin/clients", icon: Users, label: "Clients" },
   { href: "/admin/projects", icon: FolderKanban, label: "Projects" },
   { href: "/admin/invoices", icon: Receipt, label: "Invoices" },
+  { href: "/admin/revenue", icon: TrendingUp, label: "Revenue" },
   { label: "—", divider: true },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];

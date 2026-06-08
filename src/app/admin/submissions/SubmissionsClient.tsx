@@ -6,6 +6,7 @@ import { ChevronDown, ChevronUp, Download, Search, X, UserPlus, FileText } from 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { SUBMISSION_TYPE_COLORS } from "@/lib/colors";
 
 interface Submission {
   id: string;
@@ -15,15 +16,7 @@ interface Submission {
   createdAt: string;
 }
 
-const TYPE_COLORS: Record<string, string> = {
-  start: "bg-blue-500/20 text-blue-400",
-  consultation: "bg-purple-500/20 text-purple-400",
-  careers: "bg-yellow-500/20 text-yellow-400",
-  press: "bg-pink-500/20 text-pink-400",
-  events: "bg-orange-500/20 text-orange-400",
-  newsletter: "bg-green-500/20 text-green-400",
-  resources: "bg-teal-500/20 text-teal-400",
-};
+const TYPE_COLORS = SUBMISSION_TYPE_COLORS;
 
 function exportCsv(submissions: Submission[]) {
   const header = "ID,Type,Name,Email,Status,Date";

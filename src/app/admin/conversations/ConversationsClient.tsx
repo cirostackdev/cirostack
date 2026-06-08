@@ -5,6 +5,7 @@ import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { MessageSquare, X } from "lucide-react";
 import { getSocket } from "@/lib/socket";
+import { PRESENCE } from "@/lib/colors";
 
 interface Conversation {
   id: string;
@@ -149,7 +150,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
                 </div>
                 <span
                   className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-background ${
-                    conv.status === "open" ? "bg-green-500" : "bg-muted-foreground/40"
+                    conv.status === "open" ? PRESENCE.online : PRESENCE.offline
                   }`}
                 />
               </div>

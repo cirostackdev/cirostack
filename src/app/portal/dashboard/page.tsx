@@ -6,15 +6,9 @@ import { ArrowRight, MessageSquare, Download, CreditCard, FileText, FolderOpen, 
 import { formatDistanceToNow } from "date-fns";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { SetPasswordModal } from "@/app/portal/SetPasswordModal";
+import { PROJECT_STATUS_COLORS, ALERT } from "@/lib/colors";
 
-const statusColors: Record<string, string> = {
-  discovery: "bg-blue-500/15 text-blue-500",
-  proposal: "bg-yellow-500/15 text-yellow-500",
-  active: "bg-green-500/15 text-green-500",
-  review: "bg-purple-500/15 text-purple-500",
-  complete: "bg-muted text-muted-foreground",
-  paused: "bg-orange-500/15 text-orange-500",
-};
+const statusColors = PROJECT_STATUS_COLORS;
 
 export default async function PortalDashboard() {
   const session = await clientAuth();
@@ -80,11 +74,11 @@ export default async function PortalDashboard() {
 
         {/* Unpaid invoices alert */}
         {unpaidInvoices.length > 0 && (
-          <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30 dark:border-amber-900">
-            <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+          <div className={`mb-6 p-4 rounded-xl border ${ALERT.warning}`}>
+            <p className="text-sm font-medium">
               {unpaidInvoices.length} unpaid invoice{unpaidInvoices.length > 1 ? "s" : ""} awaiting payment
             </p>
-            <Link href="/portal/invoices" className="text-xs text-amber-700 dark:text-amber-400 underline mt-1 inline-block">
+            <Link href="/portal/invoices" className="text-xs underline mt-1 inline-block opacity-80 hover:opacity-100">
               View invoices →
             </Link>
           </div>
@@ -100,22 +94,22 @@ export default async function PortalDashboard() {
           </Link>
           <Link href="/portal/invoices" className="flex flex-col items-center gap-2 p-4 rounded-xl border border-border hover:bg-muted/30 transition-colors text-center">
             <div className="w-9 h-9 rounded-lg bg-green-500/10 flex items-center justify-center">
-              <CreditCard className="w-4 h-4 text-green-600" />
+              <CreditCard className="w-4 h-4 text-green-500" />
             </div>
             <span className="text-xs font-medium">Invoices</span>
           </Link>
           {recentFiles[0] && (
             <a href={recentFiles[0].url} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 rounded-xl border border-border hover:bg-muted/30 transition-colors text-center">
               <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                <Download className="w-4 h-4 text-blue-600" />
+                <Download className="w-4 h-4 text-blue-500" />
               </div>
               <span className="text-xs font-medium truncate w-full">Latest File</span>
             </a>
           )}
           {unpaidInvoices[0] && (
-            <Link href={`/portal/invoices/${unpaidInvoices[0].id}`} className="flex flex-col items-center gap-2 p-4 rounded-xl border border-amber-200 bg-amber-50/50 dark:bg-amber-950/20 hover:bg-amber-100/50 transition-colors text-center">
+            <Link href={`/portal/invoices/${unpaidInvoices[0].id}`} className="flex flex-col items-center gap-2 p-4 rounded-xl border border-amber-500/25 bg-amber-500/5 hover:bg-amber-500/10 transition-colors text-center">
               <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                <CreditCard className="w-4 h-4 text-amber-600" />
+                <CreditCard className="w-4 h-4 text-amber-500" />
               </div>
               <span className="text-xs font-medium">Pay Now</span>
             </Link>
@@ -194,7 +188,7 @@ export default async function PortalDashboard() {
                   >
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${item.icon === "file" ? "bg-blue-500/10" : "bg-primary/10"}`}>
                       {item.icon === "file"
-                        ? <Download className="w-3.5 h-3.5 text-blue-600" />
+                        ? <Download className="w-3.5 h-3.5 text-blue-500" />
                         : <MessageSquare className="w-3.5 h-3.5 text-primary" />}
                     </div>
                     <div className="min-w-0 flex-1">
