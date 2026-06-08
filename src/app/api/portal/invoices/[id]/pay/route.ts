@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { clientAuth } from "@/auth-client";
 import { initializeTransaction } from "@/lib/paystack";
 
+export const runtime = "nodejs";
+
 type Params = { params: Promise<{ id: string }> };
 
 export async function POST(_req: Request, { params }: Params) {
@@ -30,7 +32,8 @@ export async function POST(_req: Request, { params }: Params) {
     });
 
     if (!result.status) {
-      return NextResponse.json({ error: "Failed to initialize payment" }, { status: 502 });
+      console.error("[Paystack init error]", result);
+      return NextResponse.json({ error: result.message || "Failed to initialize payment" }, { status: 502 });
     }
 
     return NextResponse.json({ authorization_url: result.data.authorization_url });

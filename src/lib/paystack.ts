@@ -1,9 +1,12 @@
+import crypto from "crypto";
+
 const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY!;
 const BASE = "https://api.paystack.co";
 
 async function paystackFetch(path: string, options?: RequestInit) {
   const res = await fetch(`${BASE}${path}`, {
     ...options,
+    cache: "no-store",
     headers: {
       Authorization: `Bearer ${PAYSTACK_SECRET}`,
       "Content-Type": "application/json",
@@ -30,8 +33,6 @@ export async function initializeTransaction(params: {
 export async function verifyTransaction(reference: string) {
   return paystackFetch(`/transaction/verify/${encodeURIComponent(reference)}`);
 }
-
-import crypto from "crypto";
 
 export function verifyWebhookSignature(body: string, signature: string): boolean {
   const hash = crypto

@@ -9,12 +9,18 @@ export default function PayButton({ invoiceId }: { invoiceId: string }) {
 
   async function handlePay() {
     setLoading(true);
-    const res = await fetch(`/api/portal/invoices/${invoiceId}/pay`, { method: "POST" });
-    if (res.ok) {
-      const { authorization_url } = await res.json();
-      window.location.href = authorization_url;
-    } else {
-      toast.error("Failed to initiate payment. Please try again.");
+    try {
+      const res = await fetch(`/api/portal/invoices/${invoiceId}/pay`, { method: "POST" });
+      if (res.ok) {
+        const { authorization_url } = await res.json();
+        window.location.href = authorization_url;
+      } else {
+        const data = await res.json().catch(() => null);
+        toast.error(data?.error || "Failed to initiate payment. Please try again.");
+        setLoading(false);
+      }
+    } catch {
+      toast.error("Network error. Please check your connection and try again.");
       setLoading(false);
     }
   }
