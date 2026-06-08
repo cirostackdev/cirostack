@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { allTestimonials } from "@/data/testimonials";
 import { TestimonialsMarquee } from "@/components/TestimonialsMarquee";
+import { HIDE_TEAM } from "@/lib/feature-flags";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import PageHero from "@/components/PageHero";
@@ -429,7 +430,7 @@ const About = () => {
       </section>
 
       {/* Team */}
-      <section className="py-24 bg-background">
+      {!HIDE_TEAM && <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mb-16">
             <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-3">The Team</h2>
@@ -490,7 +491,7 @@ const About = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* TODO: Uncomment when real testimonials are collected
       <TestimonialsMarquee
