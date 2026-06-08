@@ -79,6 +79,7 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
         currency: "NGN",
         ref: reference,
         callback: function(response: { reference: string }) {
+          document.getElementById("paystack-backdrop")?.remove();
           fetch(`/api/portal/invoices/${invoiceId}/pay`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -96,20 +97,19 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
           });
         },
         onClose: () => {
+          document.getElementById("paystack-backdrop")?.remove();
           setLoading(false);
         },
       });
 
-      // Watch for Paystack's overlay and apply theme-aware background
-      const observer = new MutationObserver(() => {
-        const overlay = document.getElementById("paystackIframe") as HTMLElement | null;
-        if (overlay) {
-          const isDark = document.documentElement.classList.contains("dark");
-          overlay.style.background = isDark ? "rgba(2,6,23,0.92)" : "rgba(0,0,0,0.5)";
-          observer.disconnect();
-        }
-      });
-      observer.observe(document.body, { childList: true });
+      // Inject theme-aware backdrop before opening Paystack popup
+      const isDark = document.documentElement.classList.contains("dark");
+      const backdrop = document.createElement("div");
+      backdrop.id = "paystack-backdrop";
+      backdrop.style.cssText = `position:fixed;inset:0;z-index:99998;background:${
+        isDark ? "rgba(2,6,23,0.92)" : "rgba(0,0,0,0.55)"
+      };`;
+      document.body.appendChild(backdrop);
 
       handler.openIframe();
     } catch (err: any) {
