@@ -288,7 +288,7 @@ export default function LeadsPage() {
                       <div className="flex flex-wrap gap-1">
                         {lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).length > 0
                           ? lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).map((tag) => (
-                          <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-primary/10 text-primary rounded">
+                          <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-blue-500/15 text-blue-500 rounded">
                             <Tag className="w-2.5 h-2.5" />{tag}
                           </span>
                         )) : <span className="text-muted-foreground text-xs">—</span>}
@@ -347,7 +347,7 @@ export default function LeadsPage() {
                   </button>
                   {lead.source && <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span>}
                   {lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).map((tag) => (
-                    <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-primary/10 text-primary rounded">
+                    <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-blue-500/15 text-blue-500 rounded">
                       <Tag className="w-2.5 h-2.5" />{tag}
                     </span>
                   ))}
