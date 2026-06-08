@@ -46,8 +46,8 @@ export async function POST(req: Request) {
           html: `
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet"></head>
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:'Sora',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:40px 16px;">
     <tr><td align="center">
       <table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
     <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
   </td>
   <td style="vertical-align:middle;padding-right:14px;">
-    <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span</p>
+    <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span</p>
   </td>
   <td style="vertical-align:middle;border-left:1px solid rgba(255,255,255,0.3);padding-left:14px;">
     <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.7);">Receipt</p>
