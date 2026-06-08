@@ -25,23 +25,30 @@ export async function POST(req: Request) {
 
     if (invoiceId) {
       try {
-        const invoice = await prisma.invoice.update({
-          where: { id: invoiceId },
-          data: {
-            status: "paid",
-            paidAt: new Date(),
-            paymentRef: reference ?? null,
-          },
-          include: { client: { select: { id: true } } },
+        // Only update if not already paid — guards against webhook retries and
+        // race with inline verify path
+        const updated = await prisma.invoice.updateMany({
+          where: { id: invoiceId, status: { not: "paid" } },
+          data: { status: "paid", paidAt: new Date(), paymentRef: reference ?? null },
         });
 
-        // Notify client
-        sendPush("client", invoice.clientId, {
-          title: "Payment confirmed",
-          body: `Invoice ${invoice.number} has been marked as paid.`,
-          url: `/portal/invoices/${invoiceId}`,
-        }).catch(console.error);
-        createNotification(invoice.clientId, "Payment confirmed", `Invoice ${invoice.number} has been marked as paid.`, `/portal/invoices/${invoiceId}`).catch(console.error);
+        if (updated.count === 0) {
+          // Already marked paid (inline verify beat the webhook) — skip notifications
+          return NextResponse.json({ received: true });
+        }
+
+        const invoice = await prisma.invoice.findUnique({
+          where: { id: invoiceId },
+          select: { clientId: true, number: true },
+        });
+        if (invoice) {
+          sendPush("client", invoice.clientId, {
+            title: "Payment confirmed",
+            body: `Invoice ${invoice.number} has been marked as paid.`,
+            url: `/portal/invoices/${invoiceId}`,
+          }).catch(console.error);
+          createNotification(invoice.clientId, "Payment confirmed", `Invoice ${invoice.number} has been marked as paid.`, `/portal/invoices/${invoiceId}`).catch(console.error);
+        }
       } catch (err) {
         console.error("[Paystack webhook] Failed to update invoice:", err);
         return NextResponse.json({ error: "DB error" }, { status: 500 });

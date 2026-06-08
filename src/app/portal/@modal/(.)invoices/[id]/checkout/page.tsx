@@ -11,6 +11,7 @@ export default function CheckoutModal() {
   const invoiceId = params.id;
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [verifying, setVerifying] = useState(false);
   const initialized = useRef(false);
 
   // Initialize transaction and get authorization_url
@@ -41,6 +42,7 @@ export default function CheckoutModal() {
       if (e.data?.type !== "paystack-success") return;
 
       const reference = e.data.reference;
+      setVerifying(true);
       fetch(`/api/portal/invoices/${invoiceId}/pay`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -75,13 +77,16 @@ export default function CheckoutModal() {
           <X className="w-5 h-5" />
         </button>
 
-        {loading && (
-          <div className="flex items-center justify-center h-[520px]">
+        {(loading || verifying) && (
+          <div className="flex flex-col items-center justify-center h-[520px] gap-3">
             <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+            <p className="text-sm text-muted-foreground">
+              {verifying ? "Confirming payment…" : "Loading checkout…"}
+            </p>
           </div>
         )}
 
-        {checkoutUrl && (
+        {!loading && !verifying && checkoutUrl && (
           <iframe
             src={checkoutUrl}
             className="w-full border-0 rounded-lg"

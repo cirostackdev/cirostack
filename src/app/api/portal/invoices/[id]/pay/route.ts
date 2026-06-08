@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { clientAuth } from "@/auth-client";
 import { initializeTransaction, verifyTransaction } from "@/lib/paystack";
 import { fetchUsdToNgn } from "@/lib/exchange-rate";
+import { sendPush } from "@/lib/push";
+import { createNotification } from "@/lib/notify";
 
 export const runtime = "nodejs";
 
@@ -34,6 +36,13 @@ export async function POST(req: Request, { params }: Params) {
         where: { id },
         data: { status: "paid", paidAt: new Date(), paymentRef: body.reference },
       });
+      // Notify client — webhook will deduplicate on its side
+      sendPush("client", clientId, {
+        title: "Payment confirmed",
+        body: `Invoice ${invoice.number} has been marked as paid.`,
+        url: `/portal/invoices/${id}`,
+      }).catch(console.error);
+      createNotification(clientId, "Payment confirmed", `Invoice ${invoice.number} has been marked as paid.`, `/portal/invoices/${id}`).catch(console.error);
       return NextResponse.json({ success: true });
     } catch (err) {
       console.error("[POST /api/portal/invoices/[id]/pay] verify error", err);
@@ -51,7 +60,8 @@ export async function POST(req: Request, { params }: Params) {
       email: invoice.client.email,
       amount: ngnKobo,
       currency: "NGN",
-      callback_url: `${portalUrl}/portal/payment-callback`,
+      reference: `${id}-${Date.now()}`,
+      callback_url: `${portalUrl}/portal/payment-callback?invoiceId=${id}`,
       metadata: { invoiceId: id, invoiceNumber: invoice.number },
     });
 
