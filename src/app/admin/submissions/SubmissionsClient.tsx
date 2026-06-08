@@ -206,7 +206,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                               : typeof value === "boolean"
                                 ? value ? "Yes" : "No"
                                 : isUrl
-                                  ? <a href={String(value)} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline truncate block">{String(value)}</a>
+                                  ? <a href={String(value)} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline truncate block">{String(value)}</a>
                                   : typeof value === "object"
                                     ? <pre className="text-xs text-muted-foreground whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</pre>
                                     : String(value)}
@@ -223,7 +223,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                     <a
                       href={`data:${sub.data.cvMimeType ?? "application/pdf"};base64,${sub.data.cvBase64}`}
                       download={sub.data.cvFileName}
-                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                      className="inline-flex items-center gap-2 text-sm text-blue-500 hover:underline"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>
                       Download {sub.data.cvFileName}
