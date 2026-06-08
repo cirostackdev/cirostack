@@ -48,22 +48,26 @@ export default function NewInvoicePage() {
     e.preventDefault();
     if (!clientId || !number) return;
     setSaving(true);
-    const res = await fetch("/api/admin/invoices", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        clientId,
-        projectId: projectId || null,
-        number,
-        amount: Math.round(total * 100),
-        currency,
-        dueDate: dueDate || null,
-        lineItems: lineItems.map((l) => ({ description: l.description, amount: Math.round((parseFloat(l.amount) || 0) * 100) })),
-      }),
-    });
-    if (res.ok) { toast.success("Invoice created"); router.push("/admin/invoices"); }
-    else { const { error } = await res.json(); toast.error(error ?? "Failed"); }
-    setSaving(false);
+    try {
+      const res = await fetch("/api/admin/invoices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientId,
+          projectId: projectId || null,
+          number,
+          amount: Math.round(total * 100),
+          dueDate: dueDate || null,
+          lineItems: lineItems.map((l) => ({ description: l.description, amount: Math.round((parseFloat(l.amount) || 0) * 100) })),
+        }),
+      });
+      if (res.ok) { toast.success("Invoice created"); router.push("/admin/invoices"); }
+      else { const { error } = await res.json(); toast.error(error ?? "Failed"); }
+    } catch {
+      toast.error("Network error. Please try again.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
