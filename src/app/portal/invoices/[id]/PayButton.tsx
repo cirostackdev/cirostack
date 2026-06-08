@@ -116,15 +116,6 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
             />
           </div>
 
-          {/* Footer */}
-          <div className="px-4 py-3 border-t border-border">
-            <button
-              onClick={handlePaymentDone}
-              className="w-full bg-primary text-primary-foreground font-medium text-sm py-2.5 rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              I&apos;ve completed payment
-            </button>
-          </div>
         </div>
       </div>
     );
