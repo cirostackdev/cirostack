@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { FilterDropdown } from "@/components/admin/FilterDropdown";
 import { LEAD_STATUS_COLORS as LEAD_COLORS } from "@/lib/colors";
 
 type Lead = {
@@ -170,24 +171,20 @@ export default function LeadsPage() {
             className="h-8 text-sm w-full sm:w-48"
           />
           {allSources.length > 0 && (
-            <select
+            <FilterDropdown
+              label="All sources"
               value={filterSource}
-              onChange={(e) => setFilterSource(e.target.value)}
-              className="h-8 text-xs bg-muted border border-border rounded-lg px-2 outline-none"
-            >
-              <option value="">All sources</option>
-              {allSources.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
+              options={allSources}
+              onChange={setFilterSource}
+            />
           )}
           {allTags.length > 0 && (
-            <select
+            <FilterDropdown
+              label="All tags"
               value={filterTag}
-              onChange={(e) => setFilterTag(e.target.value)}
-              className="h-8 text-xs bg-muted border border-border rounded-lg px-2 outline-none"
-            >
-              <option value="">All tags</option>
-              {allTags.map((t) => <option key={t} value={t}>{t}</option>)}
-            </select>
+              options={allTags}
+              onChange={setFilterTag}
+            />
           )}
           {(search || filterSource || filterTag) && (
             <Button variant="ghost" size="sm" className="h-8 px-2 text-xs" onClick={() => { setSearch(""); setFilterSource(""); setFilterTag(""); }}>
