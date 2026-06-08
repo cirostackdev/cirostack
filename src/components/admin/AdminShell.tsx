@@ -8,6 +8,7 @@ import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import {
+  LayoutDashboard,
   MessageSquare,
   FileText,
   Users,
@@ -31,6 +32,7 @@ import {
 } from "lucide-react";
 
 const NAV = [
+  { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/admin/conversations", icon: MessageSquare, label: "Conversations" },
   { href: "/admin/submissions", icon: FileText, label: "Submissions" },
   { href: "/admin/leads", icon: Users, label: "Leads" },
@@ -115,7 +117,7 @@ export function AdminShell({
             icon: React.ElementType;
             label: string;
           };
-          const active = pathname === href || pathname.startsWith(href + "/");
+          const active = href === "/admin" ? pathname === "/admin" : pathname === href || pathname.startsWith(href + "/");
           const isCollapsed = !mobile && collapsed;
           return (
             <Link
