@@ -58,15 +58,11 @@ export default function CheckoutModal() {
           return;
         }
 
-        // Make Paystack's injected overlay transparent so our backdrop shows through
-        const observer = new MutationObserver(() => {
-          const overlay = document.getElementById("paystackIframe") as HTMLElement | null;
-          if (overlay) {
-            overlay.style.background = "transparent";
-            observer.disconnect();
-          }
-        });
-        observer.observe(document.body, { childList: true });
+        // Inject CSS to make Paystack's overlay transparent so our backdrop shows through
+        const style = document.createElement("style");
+        style.id = "paystack-transparent-overlay";
+        style.textContent = "#paystackIframe { background: transparent !important; }";
+        document.head.appendChild(style);
 
         const handler = (window as any).PaystackPop.setup({
           key: publicKey,
@@ -75,6 +71,7 @@ export default function CheckoutModal() {
           currency: "NGN",
           ref: reference,
           callback: function (response: { reference: string }) {
+            document.getElementById("paystack-transparent-overlay")?.remove();
             fetch(`/api/portal/invoices/${invoiceId}/pay`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -92,6 +89,7 @@ export default function CheckoutModal() {
             });
           },
           onClose: function () {
+            document.getElementById("paystack-transparent-overlay")?.remove();
             router.back();
           },
         });
