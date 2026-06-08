@@ -174,8 +174,8 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                   )}
                 </div>
               </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <div onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center gap-0 shrink-0">
+                <div className="w-[96px]" onClick={(e) => e.stopPropagation()}>
                   <InlineStatusSelect
                     id={sub.id}
                     value={statuses[sub.id] ?? "new"}
@@ -184,13 +184,13 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                     onChange={(id, status) => updateStatus(id, status)}
                   />
                 </div>
-                <span className="text-xs text-muted-foreground">
+                <span className="flex-1 text-xs text-muted-foreground text-right px-3">
                   {format(new Date(sub.createdAt), "MMM d, HH:mm")}
                 </span>
                 {expanded === sub.id ? (
-                  <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                  <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                  <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
                 )}
               </div>
             </div>
