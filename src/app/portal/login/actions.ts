@@ -14,9 +14,27 @@ export async function verifyPortalOtp(
       redirectTo: "/portal/dashboard",
     });
   } catch (err) {
-    // NEXT_REDIRECT is not an AuthError — re-throw so Next.js can handle the redirect
     if (err instanceof AuthError) {
       return { error: "Invalid or expired code. Try again." };
+    }
+    throw err;
+  }
+  return {};
+}
+
+export async function verifyPortalPassword(
+  email: string,
+  password: string
+): Promise<{ error?: string }> {
+  try {
+    await clientSignIn("credentials", {
+      email,
+      password,
+      redirectTo: "/portal/dashboard",
+    });
+  } catch (err) {
+    if (err instanceof AuthError) {
+      return { error: "Incorrect password. Try again or use an email code." };
     }
     throw err;
   }

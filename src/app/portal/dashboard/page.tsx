@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, MessageSquare, Download, CreditCard, FileText, FolderOpen, Inbox } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { SetPasswordModal } from "@/app/portal/SetPasswordModal";
 
 const statusColors: Record<string, string> = {
   discovery: "bg-blue-500/15 text-blue-500",
@@ -21,7 +22,8 @@ export default async function PortalDashboard() {
 
   const clientId = (session.user as any).id as string;
 
-  const [projects, unpaidInvoices, recentUpdates, recentFiles] = await Promise.all([
+  const [clientData, projects, unpaidInvoices, recentUpdates, recentFiles] = await Promise.all([
+    prisma.client.findUnique({ where: { id: clientId }, select: { passwordHash: true } }),
     prisma.project.findMany({
       where: { clientId },
       orderBy: { updatedAt: "desc" },
@@ -68,8 +70,11 @@ export default async function PortalDashboard() {
 
   const firstName = session.user.name ? session.user.name.split(" ")[0] : null;
 
+  const needsPassword = !clientData?.passwordHash;
+
   return (
     <PortalShell title={`Welcome back${firstName ? `, ${firstName}` : ""}`}>
+      {needsPassword && <SetPasswordModal />}
       <div className="max-w-4xl">
         <p className="text-sm text-muted-foreground mb-6">{session.user.email}</p>
 
