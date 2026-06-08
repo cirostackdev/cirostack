@@ -102,9 +102,9 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
       });
 
       handler.openIframe();
-    } catch (err) {
+    } catch (err: any) {
       console.error("[PayButton]", err);
-      toast.error("Could not open payment. Please try again.");
+      toast.error(err?.message || "Could not open payment. Please try again.");
       setLoading(false);
     }
   }
