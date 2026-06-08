@@ -37,7 +37,10 @@ export default function PortalLoginPage() {
         setHasPassword(hp);
         if (hp) { setStep("password"); setSending(false); return; }
       }
-      if (otpRes.ok) {
+      if (otpRes.status === 404) {
+        const { error } = await otpRes.json();
+        toast.error(error ?? "No account found for this email.");
+      } else if (otpRes.ok) {
         toast.success("Check your email for the login code");
         setStep("otp");
       } else {

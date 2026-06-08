@@ -39,8 +39,7 @@ export async function POST(req: Request) {
 
     const client = await prisma.client.findUnique({ where: { email } });
     if (!client) {
-      // Return 200 with ok:true to avoid leaking which emails are registered
-      return NextResponse.json({ ok: true });
+      return NextResponse.json({ error: "No client account found for this email. Contact your project manager." }, { status: 404 });
     }
 
     const otp = generateOtp();
