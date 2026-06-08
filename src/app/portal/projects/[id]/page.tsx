@@ -2,8 +2,9 @@ import { clientAuth } from "@/auth-client";
 import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle, Circle, Download, FileText, Bell } from "lucide-react";
+import { ArrowLeft, Download, FileText, Bell } from "lucide-react";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { MilestoneApproval } from "./MilestoneApproval";
 
 const statusColors: Record<string, string> = {
   discovery: "bg-blue-500/15 text-blue-500",
@@ -39,8 +40,6 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
   });
   if (!project) notFound();
 
-  const doneMilestones = project.milestones.filter((m) => m.completed).length;
-
   return (
     <PortalShell title={project.title}>
       <div className="max-w-3xl space-y-8">
@@ -68,29 +67,17 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
 
         {/* Milestones */}
         {project.milestones.length > 0 && (
-          <div>
-            <h3 className="font-semibold mb-3">
-              Milestones{" "}
-              <span className="text-muted-foreground font-normal text-sm">({doneMilestones}/{project.milestones.length})</span>
-            </h3>
-            <div className="h-2 rounded-full bg-muted mb-4 overflow-hidden">
-              <div
-                className="h-full bg-primary rounded-full"
-                style={{ width: `${(doneMilestones / project.milestones.length) * 100}%` }}
-              />
-            </div>
-            <div className="space-y-2">
-              {project.milestones.map((m) => (
-                <div key={m.id} className="flex items-center gap-3 p-3 rounded-lg border border-border">
-                  {m.completed
-                    ? <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
-                    : <Circle className="w-5 h-5 text-muted-foreground shrink-0" />}
-                  <span className={`text-sm flex-1 ${m.completed ? "line-through text-muted-foreground" : ""}`}>{m.title}</span>
-                  {m.dueDate && <span className="text-xs text-muted-foreground">{new Date(m.dueDate).toLocaleDateString()}</span>}
-                </div>
-              ))}
-            </div>
-          </div>
+          <MilestoneApproval
+            projectId={project.id}
+            initialMilestones={project.milestones.map((m) => ({
+              id: m.id,
+              title: m.title,
+              dueDate: m.dueDate,
+              completed: m.completed,
+              completedAt: m.completedAt,
+              order: m.order,
+            }))}
+          />
         )}
 
         {/* Updates */}

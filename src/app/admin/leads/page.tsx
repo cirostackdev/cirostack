@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users } from "lucide-react";
+import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
@@ -19,6 +19,25 @@ type Lead = {
   tags: string[];
   createdAt: string;
 };
+
+const LEAD_STATUSES = ["new", "contacted", "qualified", "won", "lost"];
+const LEAD_STATUS_COLORS: Record<string, string> = {
+  new: "bg-blue-500/15 text-blue-600",
+  contacted: "bg-yellow-500/15 text-yellow-600",
+  qualified: "bg-green-500/15 text-green-600",
+  won: "bg-emerald-500/15 text-emerald-600",
+  lost: "bg-red-500/15 text-red-600",
+};
+
+function getLeadStatus(tags: string[]): string {
+  return LEAD_STATUSES.find((s) => tags.includes(s)) ?? "new";
+}
+
+function nextLeadStatus(current: string): string {
+  if (current === "qualified") return "won";
+  const idx = LEAD_STATUSES.indexOf(current);
+  return idx >= 0 && idx < LEAD_STATUSES.length - 1 ? LEAD_STATUSES[idx + 1] : "new";
+}
 
 function exportCsv(leads: Lead[]) {
   const header = "Email,Name,Source,Tags,Added";
@@ -116,6 +135,23 @@ export default function LeadsPage() {
     }
   }
 
+  async function handleCycleStatus(lead: Lead) {
+    const current = getLeadStatus(lead.tags);
+    const next = nextLeadStatus(current);
+    const newTags = lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).concat(next);
+    const res = await fetch(`/api/admin/leads/${lead.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tags: newTags }),
+    });
+    if (res.ok) {
+      setLeads((prev) => prev.map((l) => l.id === lead.id ? { ...l, tags: newTags } : l));
+      toast.success(`Status updated to ${next}`);
+    } else {
+      toast.error("Failed to update status");
+    }
+  }
+
   const allSources = Array.from(new Set(leads.map((l) => l.source).filter(Boolean))) as string[];
   const allTags = Array.from(new Set(leads.flatMap((l) => l.tags)));
 
@@ -208,6 +244,7 @@ export default function LeadsPage() {
                 <tr className="border-b border-border bg-muted/40">
                   <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Email</th>
                   <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Name</th>
+                  <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Status</th>
                   <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Source</th>
                   <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Tags</th>
                   <th className="px-4 py-2.5 text-left text-xs font-semibold text-muted-foreground">Added</th>
@@ -217,7 +254,7 @@ export default function LeadsPage() {
               <tbody>
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-12 text-center">
+                    <td colSpan={7} className="px-4 py-12 text-center">
                       <div className="flex flex-col items-center gap-2">
                         <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
                           <Users className="w-6 h-6 text-muted-foreground" />
@@ -228,7 +265,9 @@ export default function LeadsPage() {
                     </td>
                   </tr>
                 )}
-                {filtered.map((lead, i) => (
+                {filtered.map((lead, i) => {
+                  const leadStatus = getLeadStatus(lead.tags);
+                  return (
                   <tr key={lead.id} className={`border-b border-border last:border-0 ${i % 2 === 0 ? "" : "bg-muted/20"}`}>
                     <td className="px-4 py-2.5">
                       <div className="flex items-center gap-1.5">
@@ -238,11 +277,22 @@ export default function LeadsPage() {
                     </td>
                     <td className="px-4 py-2.5 text-muted-foreground">{lead.name || "—"}</td>
                     <td className="px-4 py-2.5">
+                      <button
+                        onClick={() => handleCycleStatus(lead)}
+                        title="Click to advance status"
+                        className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-semibold capitalize hover:opacity-80 transition-opacity ${LEAD_STATUS_COLORS[leadStatus] ?? "bg-muted text-muted-foreground"}`}
+                      >
+                        {leadStatus}
+                        <ChevronRight className="w-2.5 h-2.5 opacity-60" />
+                      </button>
+                    </td>
+                    <td className="px-4 py-2.5">
                       {lead.source ? <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span> : <span className="text-muted-foreground">—</span>}
                     </td>
                     <td className="px-4 py-2.5">
                       <div className="flex flex-wrap gap-1">
-                        {lead.tags.length > 0 ? lead.tags.map((tag) => (
+                        {lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).length > 0
+                          ? lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).map((tag) => (
                           <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-primary/10 text-primary rounded">
                             <Tag className="w-2.5 h-2.5" />{tag}
                           </span>
@@ -252,7 +302,7 @@ export default function LeadsPage() {
                     <td className="px-4 py-2.5 text-muted-foreground text-xs">{format(new Date(lead.createdAt), "MMM d, yyyy")}</td>
                     <td className="px-4 py-2.5">
                       <div className="flex items-center gap-1 justify-end">
-                        <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.join(", ") }); }}>
+                        <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).join(", ") }); }}>
                           <Pencil className="w-3.5 h-3.5" />
                         </Button>
                         <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive" onClick={() => handleDelete(lead.id)}>
@@ -261,7 +311,8 @@ export default function LeadsPage() {
                       </div>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -277,7 +328,9 @@ export default function LeadsPage() {
                 <p className="text-xs text-muted-foreground mt-1">Try adjusting your search or filters.</p>
               </div>
             )}
-            {filtered.map((lead) => (
+            {filtered.map((lead) => {
+              const leadStatus = getLeadStatus(lead.tags);
+              return (
               <div key={lead.id} className="p-4 rounded-xl border border-border">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
@@ -290,15 +343,22 @@ export default function LeadsPage() {
                   <p className="text-xs text-muted-foreground shrink-0">{format(new Date(lead.createdAt), "MMM d")}</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                  <button
+                    onClick={() => handleCycleStatus(lead)}
+                    className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-semibold capitalize hover:opacity-80 transition-opacity ${LEAD_STATUS_COLORS[leadStatus] ?? "bg-muted text-muted-foreground"}`}
+                  >
+                    {leadStatus}
+                    <ChevronRight className="w-2.5 h-2.5 opacity-60" />
+                  </button>
                   {lead.source && <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span>}
-                  {lead.tags.map((tag) => (
+                  {lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).map((tag) => (
                     <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-primary/10 text-primary rounded">
                       <Tag className="w-2.5 h-2.5" />{tag}
                     </span>
                   ))}
                 </div>
                 <div className="flex items-center gap-1 mt-3 justify-end">
-                  <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.join(", ") }); }}>
+                  <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).join(", ") }); }}>
                     <Pencil className="w-3.5 h-3.5" /> Edit
                   </Button>
                   <Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs text-destructive hover:text-destructive" onClick={() => handleDelete(lead.id)}>
@@ -306,6 +366,8 @@ export default function LeadsPage() {
                   </Button>
                 </div>
               </div>
+              );
+            })}
             ))}
           </div>
         </>

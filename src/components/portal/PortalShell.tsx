@@ -18,12 +18,14 @@ import {
   PanelLeftOpen,
   Sun,
   Moon,
+  FolderOpen,
 } from "lucide-react";
 
 const NAV = [
   { href: "/portal/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/portal/projects", icon: FolderKanban, label: "Projects" },
   { href: "/portal/invoices", icon: Receipt, label: "Invoices" },
+  { href: "/portal/files", icon: FolderOpen, label: "Files" },
   { href: "/portal/chat", icon: MessageSquare, label: "Messages" },
   { label: "—", divider: true },
   { href: "/portal/settings", icon: Settings, label: "Settings" },
@@ -33,8 +35,8 @@ const NAV = [
 const BOTTOM_NAV = [
   { href: "/portal/dashboard", icon: LayoutDashboard, label: "Home" },
   { href: "/portal/projects", icon: FolderKanban, label: "Projects" },
+  { href: "/portal/files", icon: FolderOpen, label: "Files" },
   { href: "/portal/invoices", icon: Receipt, label: "Invoices" },
-  { href: "/portal/chat", icon: MessageSquare, label: "Messages" },
   { href: "/portal/settings", icon: Settings, label: "Settings" },
 ];
 

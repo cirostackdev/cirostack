@@ -8,9 +8,11 @@ import { AdminDetailSkeleton } from "@/components/admin/AdminSkeletons";
 import { fmtMoney } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { ArrowLeft, Send, Trash2, CheckCircle } from "lucide-react";
+import { ArrowLeft, Send, Trash2, CheckCircle, Pencil, X } from "lucide-react";
 
 type Invoice = {
   id: string;
@@ -39,6 +41,11 @@ export default function AdminInvoiceDetailPage() {
   const [saving, setSaving] = useState(false);
   const [sending, setSending] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [editNumber, setEditNumber] = useState("");
+  const [editDueDate, setEditDueDate] = useState("");
+  const [editStatus, setEditStatus] = useState("");
+  const [editSaving, setEditSaving] = useState(false);
 
   async function load() {
     const res = await fetch(`/api/admin/invoices/${id}`);
@@ -46,9 +53,35 @@ export default function AdminInvoiceDetailPage() {
       const data = await res.json();
       setInvoice(data);
       setStatus(data.status);
+      setEditNumber(data.number);
+      setEditDueDate(data.dueDate ? data.dueDate.slice(0, 10) : "");
+      setEditStatus(data.status);
     }
   }
   useEffect(() => { load(); }, [id]);
+
+  async function handleSaveEdit(e: React.FormEvent) {
+    e.preventDefault();
+    setEditSaving(true);
+    const res = await fetch(`/api/admin/invoices/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        number: editNumber,
+        dueDate: editDueDate || null,
+        status: editStatus,
+        ...(editStatus === "paid" && invoice?.status !== "paid" ? { paidAt: new Date().toISOString() } : {}),
+      }),
+    });
+    if (res.ok) {
+      toast.success("Invoice updated");
+      setEditOpen(false);
+      load();
+    } else {
+      toast.error("Failed to update invoice");
+    }
+    setEditSaving(false);
+  }
 
   async function handleStatusChange(s: string) {
     setSaving(true);
@@ -131,6 +164,9 @@ export default function AdminInvoiceDetailPage() {
                 <CheckCircle className="w-4 h-4 mr-1" /> Mark Paid
               </Button>
             )}
+            <Button size="sm" variant="outline" onClick={() => setEditOpen((v) => !v)}>
+              {editOpen ? <><X className="w-4 h-4 mr-1" /> Cancel</> : <><Pencil className="w-4 h-4 mr-1" /> Edit</>}
+            </Button>
           </div>
         </div>
 
@@ -157,6 +193,40 @@ export default function AdminInvoiceDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Inline edit form */}
+        {editOpen && (
+          <form onSubmit={handleSaveEdit} className="rounded-xl border border-border p-5 space-y-4 bg-muted/10">
+            <p className="text-sm font-semibold">Edit Invoice</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs text-muted-foreground">Invoice Number</Label>
+                <Input value={editNumber} onChange={(e) => setEditNumber(e.target.value)} required className="text-sm" />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs text-muted-foreground">Due Date</Label>
+                <Input type="date" value={editDueDate} onChange={(e) => setEditDueDate(e.target.value)} className="text-sm" />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs text-muted-foreground">Status</Label>
+                <Select value={editStatus} onValueChange={setEditStatus}>
+                  <SelectTrigger className="text-sm"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="unpaid">Unpaid</SelectItem>
+                    <SelectItem value="paid">Paid</SelectItem>
+                    <SelectItem value="overdue">Overdue</SelectItem>
+                    <SelectItem value="partial">Partial</SelectItem>
+                    <SelectItem value="cancelled">Cancelled</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button type="submit" size="sm" disabled={editSaving}>{editSaving ? "Saving..." : "Save Changes"}</Button>
+              <Button type="button" size="sm" variant="outline" onClick={() => setEditOpen(false)}>Cancel</Button>
+            </div>
+          </form>
+        )}
 
         {/* Line items */}
         <div className="rounded-xl border border-border overflow-hidden">
