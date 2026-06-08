@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -12,31 +12,38 @@ interface PayButtonProps {
   currency: string;
 }
 
-export default function PayButton({ invoiceId, email, amount, currency }: PayButtonProps) {
-  const [loading, setLoading] = useState(false);
-  const scriptLoaded = useRef(false);
-  const router = useRouter();
-
-  // Pre-load the Paystack inline script on mount
-  useEffect(() => {
-    if (scriptLoaded.current || document.getElementById("paystack-inline-script")) {
-      scriptLoaded.current = true;
+function loadPaystackScript(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if ((window as any).PaystackPop) { resolve(); return; }
+    const existing = document.getElementById("paystack-inline-script");
+    if (existing) {
+      // Script tag exists but may still be loading — wait for it
+      existing.addEventListener("load", () => resolve());
+      existing.addEventListener("error", reject);
       return;
     }
     const script = document.createElement("script");
     script.id = "paystack-inline-script";
     script.src = "https://js.paystack.co/v1/inline.js";
-    script.onload = () => { scriptLoaded.current = true; };
+    script.onload = () => resolve();
+    script.onerror = reject;
     document.body.appendChild(script);
-  }, []);
+  });
+}
+
+export default function PayButton({ invoiceId, email, amount, currency }: PayButtonProps) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  // Pre-load on mount
+  useEffect(() => { loadPaystackScript().catch(() => {}); }, []);
 
   async function handlePay() {
-    if (!scriptLoaded.current) {
-      toast.error("Payment gateway not ready. Please try again.");
-      return;
-    }
     setLoading(true);
     try {
+      // Ensure script is ready
+      await loadPaystackScript();
+
       const res = await fetch(`/api/portal/invoices/${invoiceId}/pay`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -82,8 +89,9 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
       });
 
       handler.openIframe();
-    } catch {
-      toast.error("Network error. Please try again.");
+    } catch (err) {
+      console.error("[PayButton]", err);
+      toast.error("Could not open payment. Please try again.");
       setLoading(false);
     }
   }
