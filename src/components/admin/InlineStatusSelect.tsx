@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface Props {
   id: string;
@@ -12,27 +12,47 @@ interface Props {
   size?: "sm" | "md";
 }
 
-export function InlineStatusSelect({ id, value, options, colorMap, onChange, saving, size = "sm" }: Props) {
+export function InlineStatusSelect({ id, value, options, colorMap, onChange, saving }: Props) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const dropRef = useRef<HTMLDivElement>(null);
+
+  const handleOpen = useCallback(() => {
+    if (saving) return;
+    if (!open && btnRef.current) {
+      const rect = btnRef.current.getBoundingClientRect();
+      setPos({ top: rect.bottom + 6, left: rect.left });
+    }
+    setOpen((v) => !v);
+  }, [open, saving]);
 
   useEffect(() => {
+    if (!open) return;
     function onMouseDown(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (
+        btnRef.current?.contains(e.target as Node) ||
+        dropRef.current?.contains(e.target as Node)
+      ) return;
+      setOpen(false);
     }
+    function onScroll() { setOpen(false); }
     document.addEventListener("mousedown", onMouseDown);
-    return () => document.removeEventListener("mousedown", onMouseDown);
-  }, []);
-
-  const badgeCls = "text-xs px-2 py-0.5 rounded-full font-medium w-[76px] text-center";
+    window.addEventListener("scroll", onScroll, true);
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("scroll", onScroll, true);
+    };
+  }, [open]);
 
   return (
-    <div ref={ref} className="relative inline-block">
+    <>
       <button
-        onClick={() => !saving && setOpen((v) => !v)}
+        ref={btnRef}
+        onClick={handleOpen}
         disabled={saving}
         title="Click to change status"
-        className={`${badgeCls} cursor-pointer hover:opacity-75 transition-opacity disabled:opacity-40 ${
+        className={`text-xs px-2 py-0.5 rounded-full font-medium w-[76px] text-center cursor-pointer hover:opacity-75 transition-opacity disabled:opacity-40 ${
           colorMap[value] ?? "bg-muted text-muted-foreground"
         }`}
       >
@@ -40,7 +60,11 @@ export function InlineStatusSelect({ id, value, options, colorMap, onChange, sav
       </button>
 
       {open && (
-        <div className="absolute top-full mt-1.5 left-0 z-50 bg-popover border border-border rounded-xl shadow-lg py-1 min-w-[130px]">
+        <div
+          ref={dropRef}
+          className="fixed z-[9999] bg-popover border border-border rounded-xl shadow-lg py-1 min-w-[130px]"
+          style={{ top: pos.top, left: pos.left }}
+        >
           {options.map((opt) => (
             <button
               key={opt}
@@ -59,6 +83,6 @@ export function InlineStatusSelect({ id, value, options, colorMap, onChange, sav
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 }
