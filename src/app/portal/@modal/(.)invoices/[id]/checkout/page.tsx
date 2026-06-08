@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { X } from "lucide-react";
 import { toast } from "sonner";
 
 function loadPaystackScript(): Promise<void> {
@@ -59,13 +58,22 @@ export default function CheckoutModal() {
           return;
         }
 
+        // Make Paystack's injected overlay transparent so our backdrop shows through
+        const observer = new MutationObserver(() => {
+          const overlay = document.getElementById("paystackIframe") as HTMLElement | null;
+          if (overlay) {
+            overlay.style.background = "transparent";
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.body, { childList: true });
+
         const handler = (window as any).PaystackPop.setup({
           key: publicKey,
           email,
           amount: ngnKobo,
           currency: "NGN",
           ref: reference,
-          container: "paystack-checkout-container",
           callback: function (response: { reference: string }) {
             fetch(`/api/portal/invoices/${invoiceId}/pay`, {
               method: "POST",
@@ -97,17 +105,6 @@ export default function CheckoutModal() {
   }, [invoiceId, router]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-background/90 backdrop-blur-sm flex items-center justify-center">
-      <div className="relative w-full max-w-lg">
-        <button
-          onClick={() => router.back()}
-          className="absolute -top-10 right-0 text-muted-foreground hover:text-foreground transition-colors"
-          aria-label="Close"
-        >
-          <X className="w-5 h-5" />
-        </button>
-        <div id="paystack-checkout-container" className="w-full min-h-[520px]" />
-      </div>
-    </div>
+    <div className="fixed inset-0 z-50 bg-background/90 backdrop-blur-sm" />
   );
 }
