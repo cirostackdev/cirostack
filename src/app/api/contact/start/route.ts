@@ -160,7 +160,7 @@ export async function POST(req: Request) {
           <td style="padding:32px;">
             <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${name},</p>
             <p style="margin:0 0 16px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for submitting your project brief. Our team will review the details and get back to you within one business day.</p>
-            <p style="margin:0 0 24px 0;font-size:15px;color:#334155;line-height:1.6;">In the meantime, feel free to </p>
+            
             <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px;background:#f8fafc;border-radius:8px;overflow:hidden;">
               <tr>
                 <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:140px;">Service requested</td>
