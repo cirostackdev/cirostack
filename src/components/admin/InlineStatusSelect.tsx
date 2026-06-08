@@ -53,7 +53,7 @@ export function InlineStatusSelect({ id, value, options, colorMap, onChange, sav
         onClick={handleOpen}
         disabled={saving}
         title="Click to change status"
-        className={`text-xs px-2 py-0.5 rounded-full font-medium cursor-pointer hover:opacity-75 transition-opacity disabled:opacity-40 ${
+        className={`text-xs px-2 py-0.5 rounded-full font-medium cursor-pointer hover:opacity-75 transition-opacity disabled:opacity-40 whitespace-nowrap ${
           dynamicWidth ? "text-center" : "w-[76px] text-center"
         } ${colorMap[value] ?? "bg-muted text-muted-foreground"}`}
       >
