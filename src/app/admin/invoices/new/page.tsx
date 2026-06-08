@@ -19,7 +19,6 @@ export default function NewInvoicePage() {
   const [clientId, setClientId] = useState("");
   const [projectId, setProjectId] = useState("");
   const [number, setNumber] = useState(`INV-${new Date().getFullYear()}-${String(Date.now()).slice(-4)}`);
-  const [currency, setCurrency] = useState("USD");
   const [dueDate, setDueDate] = useState("");
   const [lineItems, setLineItems] = useState<LineItem[]>([{ description: "", amount: "" }]);
   const [saving, setSaving] = useState(false);
@@ -87,15 +86,8 @@ export default function NewInvoicePage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5"><Label>Invoice Number *</Label><Input value={number} onChange={(e) => setNumber(e.target.value)} required /></div>
-          <div className="space-y-1.5">
-            <Label>Currency</Label>
-            <Select value={currency} onValueChange={setCurrency}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent><SelectItem value="USD">USD</SelectItem><SelectItem value="NGN">NGN</SelectItem><SelectItem value="GBP">GBP</SelectItem><SelectItem value="EUR">EUR</SelectItem></SelectContent>
-            </Select>
-          </div>
           <div className="space-y-1.5"><Label>Due Date</Label><Input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} /></div>
         </div>
 
@@ -126,7 +118,7 @@ export default function NewInvoicePage() {
             <Button type="button" variant="outline" size="sm" onClick={() => setLineItems((p) => [...p, { description: "", amount: "" }])}>
               <Plus className="w-4 h-4 mr-1" /> Add Line Item
             </Button>
-            <div className="text-sm font-semibold">{currency} {total.toFixed(2)}</div>
+            <div className="text-sm font-semibold">USD {total.toFixed(2)}</div>
           </div>
         </div>
 
