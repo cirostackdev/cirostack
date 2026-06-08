@@ -92,7 +92,7 @@ export async function POST(req: Request) {
                         </table>
 
                         <p style="margin:0 0 24px 0;font-size:15px;color:#475569;line-height:1.7;">
-                          We'll send you a reminder with joining instructions 24 hours before the event. If you have any questions in the meantime, simply reply to this email.
+                          We'll send you a reminder with joining instructions 24 hours before the event.
                         </p>
 
                         <table cellpadding="0" cellspacing="0">
