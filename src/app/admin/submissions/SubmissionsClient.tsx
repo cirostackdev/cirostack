@@ -42,7 +42,9 @@ function exportCsv(submissions: Submission[]) {
 }
 
 export function SubmissionsClient({ submissions }: { submissions: Submission[] }) {
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState(() =>
+    submissions.some((s) => s.type === "resources") ? "resources" : ""
+  );
   const [search, setSearch] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [statuses, setStatuses] = useState<Record<string, string>>(

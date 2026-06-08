@@ -7,18 +7,38 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight, FolderKanban } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { PROJECT_STATUS_COLORS } from "@/lib/colors";
+import { InlineStatusSelect } from "@/components/admin/InlineStatusSelect";
+import { toast } from "sonner";
 
 type Project = { id: string; title: string; status: string; client: { email: string; name?: string; company?: string }; _count: { updates: number; files: number; invoices: number } };
 
 const statusColors = PROJECT_STATUS_COLORS;
+const PROJECT_STATUSES = ["discovery", "proposal", "active", "review", "complete", "paused"];
 
 export default function AdminProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/projects").then((r) => r.json()).then((data) => { setProjects(data); setLoading(false); });
   }, []);
+
+  async function handleStatusChange(id: string, status: string) {
+    setSaving(id);
+    const res = await fetch(`/api/admin/projects/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+    if (res.ok) {
+      setProjects((prev) => prev.map((p) => p.id === id ? { ...p, status } : p));
+      toast.success("Status updated");
+    } else {
+      toast.error("Failed to update status");
+    }
+    setSaving(null);
+  }
 
   return (
     <AdminShell title="Projects">
@@ -43,7 +63,15 @@ export default function AdminProjectsPage() {
                       <td className="px-4 py-3 font-medium">{p.title}</td>
                       <td className="px-4 py-3 text-muted-foreground">{p.client.name ?? p.client.email}</td>
                       <td className="px-4 py-3">
-                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
+                        <InlineStatusSelect
+                          id={p.id}
+                          value={p.status}
+                          options={PROJECT_STATUSES}
+                          colorMap={statusColors}
+                          onChange={handleStatusChange}
+                          saving={saving === p.id}
+                          size="md"
+                        />
                       </td>
                       <td className="px-4 py-3 text-muted-foreground text-xs">{p._count.updates} updates · {p._count.files} files · {p._count.invoices} invoices</td>
                       <td className="px-4 py-3">
@@ -77,17 +105,24 @@ export default function AdminProjectsPage() {
                 </div>
               )}
               {projects.map((p) => (
-                <Link key={p.id} href={`/admin/projects/${p.id}`} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors">
-                  <div className="min-w-0">
+                <div key={p.id} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors">
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <p className="font-medium text-sm">{p.title}</p>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
+                      <Link href={`/admin/projects/${p.id}`} className="font-medium text-sm hover:underline">{p.title}</Link>
+                      <InlineStatusSelect
+                        id={p.id}
+                        value={p.status}
+                        options={PROJECT_STATUSES}
+                        colorMap={statusColors}
+                        onChange={handleStatusChange}
+                        saving={saving === p.id}
+                      />
                     </div>
                     <p className="text-xs text-muted-foreground mt-0.5">{p.client.name ?? p.client.email}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{p._count.updates} updates · {p._count.files} files · {p._count.invoices} invoices</p>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 ml-3" />
-                </Link>
+                  <Link href={`/admin/projects/${p.id}`}><ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 ml-3" /></Link>
+                </div>
               ))}
             </div>
           </>

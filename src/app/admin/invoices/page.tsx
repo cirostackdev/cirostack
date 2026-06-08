@@ -8,7 +8,8 @@ import { Plus, ChevronRight, Send, CheckCircle, Trash2, Receipt } from "lucide-r
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { fmtMoney } from "@/lib/format";
 import { toast } from "sonner";
-import { INVOICE_BADGE_VARIANT, INVOICE_STATUS_COLORS } from "@/lib/colors";
+import { INVOICE_STATUS_COLORS } from "@/lib/colors";
+import { InlineStatusSelect } from "@/components/admin/InlineStatusSelect";
 
 type Invoice = {
   id: string; number: string; amount: number; currency: string; usdRate: number; status: string;
@@ -17,7 +18,7 @@ type Invoice = {
   project?: { title: string };
 };
 
-const statusVariant = INVOICE_BADGE_VARIANT;
+const INVOICE_STATUSES = ["unpaid", "paid", "overdue", "partial", "cancelled"];
 
 function isOverdue(inv: Invoice) {
   return inv.status === "unpaid" && inv.dueDate && new Date(inv.dueDate) < new Date();
@@ -27,6 +28,7 @@ export default function AdminInvoicesPage() {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>("all");
+  const [saving, setSaving] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/invoices").then((r) => r.json()).then((data) => {
@@ -34,6 +36,24 @@ export default function AdminInvoicesPage() {
       setLoading(false);
     });
   }, []);
+
+  async function handleStatusChange(id: string, status: string) {
+    setSaving(id);
+    const body: Record<string, unknown> = { status };
+    if (status === "paid") body.paidAt = new Date().toISOString();
+    const res = await fetch(`/api/admin/invoices/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) {
+      setInvoices((prev) => prev.map((inv) => inv.id === id ? { ...inv, status } : inv));
+      toast.success("Status updated");
+    } else {
+      toast.error("Failed to update status");
+    }
+    setSaving(null);
+  }
 
   async function handleMarkPaid(id: string) {
     const res = await fetch(`/api/admin/invoices/${id}`, {
@@ -150,7 +170,17 @@ export default function AdminInvoicesPage() {
                     <td className="px-4 py-3 font-medium">
                       <span>{fmtMoney(inv.amount, inv.currency)}</span>
                     </td>
-                    <td className="px-4 py-3"><span className={`text-xs px-2 py-0.5 rounded-full font-medium ${INVOICE_STATUS_COLORS[inv.effectiveStatus] ?? "bg-muted text-muted-foreground"}`}>{inv.effectiveStatus}</span></td>
+                    <td className="px-4 py-3">
+                      <InlineStatusSelect
+                        id={inv.id}
+                        value={inv.effectiveStatus}
+                        options={INVOICE_STATUSES}
+                        colorMap={INVOICE_STATUS_COLORS}
+                        onChange={handleStatusChange}
+                        saving={saving === inv.id}
+                        size="md"
+                      />
+                    </td>
                     <td className="px-4 py-3 text-muted-foreground">{inv.dueDate ? inv.dueDate.slice(0, 10) : "—"}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 justify-end">
@@ -206,9 +236,16 @@ export default function AdminInvoicesPage() {
                     <p className="text-xs text-muted-foreground mt-0.5">{inv.client.name ?? inv.client.email}</p>
                     {inv.project && <p className="text-xs text-muted-foreground">{inv.project.title}</p>}
                   </div>
-                  <div className="flex flex-col items-end gap-1 shrink-0">
+                  <div className="flex flex-col items-end gap-1.5 shrink-0">
                     <p className="font-semibold text-sm">{fmtMoney(inv.amount, inv.currency)}</p>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${INVOICE_STATUS_COLORS[inv.effectiveStatus] ?? "bg-muted text-muted-foreground"}`}>{inv.effectiveStatus}</span>
+                    <InlineStatusSelect
+                      id={inv.id}
+                      value={inv.effectiveStatus}
+                      options={INVOICE_STATUSES}
+                      colorMap={INVOICE_STATUS_COLORS}
+                      onChange={handleStatusChange}
+                      saving={saving === inv.id}
+                    />
                   </div>
                 </div>
                 {inv.dueDate && <p className="text-xs text-muted-foreground mt-2">Due {inv.dueDate.slice(0, 10)}</p>}
