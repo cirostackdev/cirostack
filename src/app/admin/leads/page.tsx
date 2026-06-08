@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
-import { FilterDropdown } from "@/components/admin/FilterDropdown";
+import { InlineStatusSelect } from "@/components/admin/InlineStatusSelect";
 import { LEAD_STATUS_COLORS as LEAD_COLORS, SUBMISSION_TYPE_COLORS } from "@/lib/colors";
 
 type Lead = {
@@ -151,12 +151,12 @@ export default function LeadsPage() {
   const allSources = Array.from(new Set(leads.map((l) => l.source).filter(Boolean))) as string[];
   const allTags = Array.from(new Set(leads.flatMap((l) => l.tags)));
 
-  // Create colorMaps for sources (from SUBMISSION_TYPE_COLORS) and tags (from LEAD_STATUS_COLORS)
+  // Create colorMaps for sources and tags
   const sourceColorMap = Object.fromEntries(
-    allSources.map((s) => [s, SUBMISSION_TYPE_COLORS[s] ?? "bg-muted text-muted-foreground"])
+    [""].concat(allSources).map((s) => [s, s === "" ? "bg-muted text-muted-foreground" : (SUBMISSION_TYPE_COLORS[s] ?? "bg-muted text-muted-foreground")])
   );
   const tagColorMap = Object.fromEntries(
-    allTags.map((t) => [t, LEAD_COLORS[t] ?? "bg-muted text-muted-foreground"])
+    [""].concat(allTags).map((t) => [t, t === "" ? "bg-muted text-muted-foreground" : (LEAD_COLORS[t] ?? "bg-muted text-muted-foreground")])
   );
 
   const filtered = leads.filter((l) => {
@@ -179,21 +179,21 @@ export default function LeadsPage() {
             className="h-8 text-sm w-full sm:w-48"
           />
           {allSources.length > 0 && (
-            <FilterDropdown
-              label="All sources"
-              value={filterSource}
-              options={allSources}
-              onChange={setFilterSource}
+            <InlineStatusSelect
+              id="source-filter"
+              value={filterSource || "All sources"}
+              options={["All sources"].concat(allSources)}
               colorMap={sourceColorMap}
+              onChange={(_, val) => setFilterSource(val === "All sources" ? "" : val)}
             />
           )}
           {allTags.length > 0 && (
-            <FilterDropdown
-              label="All tags"
-              value={filterTag}
-              options={allTags}
-              onChange={setFilterTag}
+            <InlineStatusSelect
+              id="tag-filter"
+              value={filterTag || "All tags"}
+              options={["All tags"].concat(allTags)}
               colorMap={tagColorMap}
+              onChange={(_, val) => setFilterTag(val === "All tags" ? "" : val)}
             />
           )}
           {(search || filterSource || filterTag) && (
