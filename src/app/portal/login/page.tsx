@@ -58,8 +58,29 @@ export default function PortalLoginPage() {
     setSending(false);
   }
 
+  async function handleUseCode() {
+    setSending(true);
+    try {
+      const res = await fetch("/api/portal/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        toast.success("Check your email for the login code");
+        setStep("otp");
+      } else {
+        const { error } = await res.json().catch(() => ({}));
+        toast.error(error ?? "Failed to send code. Try again.");
+      }
+    } catch {
+      toast.error("Something went wrong.");
+    }
+    setSending(false);
+  }
+
   if (step === "otp") return <OtpForm email={email} onBack={() => setStep("email")} />;
-  if (step === "password") return <PasswordForm email={email} onUseCode={() => { setStep("otp"); }} onBack={() => setStep("email")} />;
+  if (step === "password") return <PasswordForm email={email} onUseCode={handleUseCode} onBack={() => setStep("email")} />;
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -114,7 +135,7 @@ function OtpForm({ email, onBack }: { email: string; onBack: () => void }) {
   );
 }
 
-function PasswordForm({ email, onUseCode, onBack }: { email: string; onUseCode: () => void; onBack: () => void }) {
+function PasswordForm({ email, onUseCode, onBack }: { email: string; onUseCode: () => Promise<void>; onBack: () => void }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [verifying, setVerifying] = useState(false);
@@ -161,7 +182,7 @@ function PasswordForm({ email, onUseCode, onBack }: { email: string; onUseCode: 
             </div>
           </div>
           <Button type="submit" className="w-full" disabled={verifying}>{verifying ? "Signing in…" : "Sign in"}</Button>
-          <button type="button" onClick={onUseCode} className="w-full text-sm text-muted-foreground hover:text-foreground">
+          <button type="button" onClick={onUseCode} disabled={verifying} className="w-full text-sm text-muted-foreground hover:text-foreground disabled:opacity-50">
             Use email code instead
           </button>
           <button type="button" onClick={onBack} className="w-full text-sm text-muted-foreground hover:text-foreground">
