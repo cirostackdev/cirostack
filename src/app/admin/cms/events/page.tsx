@@ -36,7 +36,7 @@ export default function AdminEventsPage() {
   return (
     <AdminShell title="Events">
       <div className="flex justify-between items-center mb-6">
-        <p className="text-sm text-muted-foreground">{events.length} events</p>
+        <p className="text-sm text-muted-foreground">{loading ? <span className="inline-block h-4 w-12 rounded bg-muted animate-pulse" /> : <>{events.length} events</>}</p>
         <Link href="/admin/cms/events/new">
           <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Event</Button>
         </Link>

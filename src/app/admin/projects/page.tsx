@@ -28,7 +28,7 @@ export default function AdminProjectsPage() {
 
   return (
     <AdminShell title="Projects">
-        <p className="text-sm text-muted-foreground mb-6">{projects.length} projects</p>
+        <p className="text-sm text-muted-foreground mb-6">{loading ? <span className="inline-block h-4 w-14 rounded bg-muted animate-pulse" /> : <>{projects.length} projects</>}</p>
         {loading ? <AdminTableSkeleton cols={5} /> : (
           <>
             {/* Desktop table */}

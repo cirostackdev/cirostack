@@ -82,8 +82,7 @@ export default function AdminNewsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3 flex-wrap">
           <p className="text-sm text-muted-foreground">
-            {articles.length} articles
-            <span className="ml-2 text-muted-foreground/60">({guardian.length} Guardian · {techcrunch.length} TechCrunch)</span>
+            {loading ? <span className="inline-block h-4 w-20 rounded bg-muted animate-pulse" /> : <>{articles.length} articles<span className="ml-2 text-muted-foreground/60">({guardian.length} Guardian · {techcrunch.length} TechCrunch)</span></>}
           </p>
           {syncStatus && (
             <span className="text-xs text-green-600 dark:text-green-400 font-medium">{syncStatus}</span>

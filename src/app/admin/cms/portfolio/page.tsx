@@ -38,7 +38,7 @@ export default function AdminPortfolioPage() {
   return (
     <AdminShell title="Portfolio / Case Studies">
       <div className="flex justify-between items-center mb-6">
-        <p className="text-sm text-muted-foreground">{projects.length} projects</p>
+        <p className="text-sm text-muted-foreground">{loading ? <span className="inline-block h-4 w-14 rounded bg-muted animate-pulse" /> : <>{projects.length} projects</>}</p>
         <Link href="/admin/cms/portfolio/new">
           <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Project</Button>
         </Link>

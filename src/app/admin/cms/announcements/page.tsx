@@ -38,7 +38,7 @@ export default function AdminAnnouncementsPage() {
   return (
     <AdminShell title="Announcements / Newsroom">
       <div className="flex justify-between items-center mb-6">
-        <p className="text-sm text-muted-foreground">{announcements.length} announcements</p>
+        <p className="text-sm text-muted-foreground">{loading ? <span className="inline-block h-4 w-16 rounded bg-muted animate-pulse" /> : <>{announcements.length} announcements</>}</p>
         <Link href="/admin/cms/announcements/new">
           <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Announcement</Button>
         </Link>

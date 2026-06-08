@@ -39,7 +39,7 @@ export default function AdminBlogPage() {
   return (
     <AdminShell title="Blog Posts">
         <div className="flex items-center justify-between mb-6">
-          <p className="text-sm text-muted-foreground">{posts.length} posts</p>
+          <p className="text-sm text-muted-foreground">{loading ? <span className="inline-block h-4 w-12 rounded bg-muted animate-pulse" /> : <>{posts.length} posts</>}</p>
           <Link href="/admin/cms/blog/new">
             <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Post</Button>
           </Link>

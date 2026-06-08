@@ -37,7 +37,7 @@ export default function AdminResourcesPage() {
   return (
     <AdminShell title="Resources">
       <div className="flex justify-between items-center mb-6">
-        <p className="text-sm text-muted-foreground">{resources.length} resources</p>
+        <p className="text-sm text-muted-foreground">{loading ? <span className="inline-block h-4 w-16 rounded bg-muted animate-pulse" /> : <>{resources.length} resources</>}</p>
         <Link href="/admin/cms/resources/new">
           <Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Resource</Button>
         </Link>

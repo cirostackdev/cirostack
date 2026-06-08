@@ -45,7 +45,7 @@ export default function AdminClientsPage() {
   return (
     <AdminShell title="Clients">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
-          <p className="text-sm text-muted-foreground shrink-0">{clients.length} clients</p>
+          <p className="text-sm text-muted-foreground shrink-0">{loading ? <span className="inline-block h-4 w-14 rounded bg-muted animate-pulse" /> : <>{clients.length} clients</>}</p>
           <Input
             placeholder="Search email, name or company…"
             value={search}

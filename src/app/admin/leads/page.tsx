@@ -130,7 +130,7 @@ export default function LeadsPage() {
   return (
     <AdminShell title="Leads">
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
-        <p className="text-sm text-muted-foreground shrink-0">{leads.length} total lead{leads.length !== 1 ? "s" : ""}</p>
+        <p className="text-sm text-muted-foreground shrink-0">{loading ? <span className="inline-block h-4 w-14 rounded bg-muted animate-pulse" /> : <>{leads.length} total lead{leads.length !== 1 ? "s" : ""}</>}</p>
         <div className="flex flex-wrap gap-2 flex-1">
           <Input
             placeholder="Search email or name…"
