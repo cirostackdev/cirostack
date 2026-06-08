@@ -29,13 +29,71 @@ export async function POST(req: Request) {
       replyTo: email,
       subject: `Resource Request: ${resourceTitle}`,
       html: `
-        <h2>Resource Download Request</h2>
-        <table cellpadding="8" style="border-collapse:collapse;width:100%;font-family:sans-serif;font-size:14px;">
-          <tr><td style="font-weight:bold;width:140px;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-          <tr style="background:#f9f9f9"><td style="font-weight:bold;">Resource</td><td>${resourceTitle}</td></tr>
-          ${resourceType ? `<tr><td style="font-weight:bold;">Type</td><td>${resourceType}</td></tr>` : ""}
-        </table>
-        <p style="font-family:sans-serif;font-size:14px;color:#555;margin-top:16px;">Send the resource to this person within 24 hours.</p>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /></head>
+        <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:32px 16px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+
+                  <!-- Header -->
+                  <tr>
+                    <td style="background:#0f172a;border-radius:10px 10px 0 0;padding:20px 28px;">
+                      <table cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="padding-right:10px;">
+                            <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="36" height="36" style="display:block;border-radius:8px;" />
+                          </td>
+                          <td>
+                            <span style="color:#ffffff;font-size:16px;font-weight:700;">CiroStack</span>
+                            <span style="color:#94a3b8;font-size:13px;margin-left:8px;">Internal Notification</span>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Body -->
+                  <tr>
+                    <td style="background:#ffffff;padding:28px 28px 24px 28px;">
+                      <h2 style="margin:0 0 4px 0;font-size:18px;font-weight:700;color:#0f172a;">Resource Download Request</h2>
+                      <p style="margin:0 0 20px 0;font-size:13px;color:#64748b;">Submitted via cirostack.com/resources - send within 24 hours</p>
+
+                      <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:14px;">
+                        <tr>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:150px;">Email</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="mailto:${email}" style="color:#3b82f6;text-decoration:none;">${email}</a></td>
+                        </tr>
+                        <tr>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Resource</td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;font-weight:600;">${resourceTitle}</td>
+                        </tr>
+                        ${resourceType ? `
+                        <tr>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Type</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${resourceType}</td>
+                        </tr>` : ""}
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td style="background:#f8fafc;border-radius:0 0 10px 10px;padding:16px 28px;border-top:1px solid #e2e8f0;">
+                      <p style="margin:0;font-size:12px;color:#94a3b8;">
+                        CiroStack | <a href="https://cirostack.com" style="color:#94a3b8;text-decoration:none;">cirostack.com</a>
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
       `,
     });
 
@@ -43,18 +101,73 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: FROM,
       to: email,
-      subject: `Your CiroStack resource: ${resourceTitle}`,
+      subject: `Your resource is on its way: ${resourceTitle}`,
       html: `
-        <div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;color:#111;">
-          <h2 style="font-size:20px;font-weight:700;margin-bottom:8px;">Your resource is on its way</h2>
-          <p style="color:#555;line-height:1.6;margin-bottom:12px;">
-            Thanks for downloading <strong>${resourceTitle}</strong>. Our team will send it to this email address within 24 hours.
-          </p>
-          <p style="color:#555;line-height:1.6;">In the meantime, check out our blog for free insights on software, AI, and startup building.</p>
-          <a href="https://cirostack.com/blog" style="display:inline-block;margin-top:20px;padding:10px 20px;background:#e03333;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;">Visit the Blog</a>
-          <hr style="border:none;border-top:1px solid #eee;margin:24px 0;" />
-          <p style="font-size:12px;color:#999;">CiroStack · <a href="https://cirostack.com" style="color:#999;">cirostack.com</a></p>
-        </div>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /></head>
+        <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:40px 16px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
+
+                  <!-- Header -->
+                  <tr>
+                    <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:28px 32px;">
+                      <table cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="padding-right:12px;">
+                            <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="36" height="36" style="display:block;border-radius:8px;" />
+                          </td>
+                          <td>
+                            <span style="color:#ffffff;font-size:18px;font-weight:700;letter-spacing:-0.3px;">CiroStack</span>
+                            <span style="display:block;color:#94a3b8;font-size:12px;margin-top:2px;">Resources</span>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Body -->
+                  <tr>
+                    <td style="background:#ffffff;padding:40px 32px;">
+                      <h1 style="margin:0 0 16px 0;font-size:24px;font-weight:700;color:#0f172a;line-height:1.3;">
+                        Your resource is on its way
+                      </h1>
+                      <p style="margin:0 0 16px 0;font-size:15px;color:#334155;line-height:1.7;">
+                        Thanks for requesting <strong style="color:#0f172a;">${resourceTitle}</strong>. Our team will send it to this email address within 24 hours.
+                      </p>
+                      <p style="margin:0 0 28px 0;font-size:15px;color:#334155;line-height:1.7;">
+                        In the meantime, our blog covers practical insights on software development, AI, and building products that scale. Take a look when you get a moment.
+                      </p>
+                      <table cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td>
+                            <a href="https://cirostack.com/blog" style="display:inline-block;background:#0f172a;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;">
+                              Visit the Blog
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td style="background:#f8fafc;border-radius:0 0 12px 12px;padding:20px 32px;border-top:1px solid #e2e8f0;">
+                      <p style="margin:0;font-size:12px;color:#94a3b8;text-align:center;">
+                        CiroStack | <a href="https://cirostack.com" style="color:#94a3b8;text-decoration:none;">cirostack.com</a>
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
       `,
     });
 

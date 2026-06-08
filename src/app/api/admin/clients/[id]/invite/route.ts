@@ -23,20 +23,105 @@ export async function POST(_req: Request, { params }: Params) {
       to: client.email,
       subject: "You've been invited to the CiroStack Client Portal",
       html: `
-        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px;">
-          <h2 style="margin-bottom:8px;">Welcome to your Client Portal</h2>
-          <p style="color:#555;margin-bottom:24px;">
-            ${client.name ? `Hi ${client.name},` : "Hi,"}<br/><br/>
-            Your account has been set up on the CiroStack Client Portal. You can track your projects,
-            view invoices, and download deliverables — all in one place.
-          </p>
-          <a href="${portalUrl}/portal/login" style="display:inline-block;background:#000;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;">
-            Access your Portal
-          </a>
-          <p style="color:#999;font-size:12px;margin-top:24px;">
-            Sign in with your email address (${client.email}) using a one-time code sent to your inbox.
-          </p>
-        </div>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /></head>
+        <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:40px 16px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
+
+                  <!-- Header -->
+                  <tr>
+                    <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:28px 32px;">
+                      <table cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="padding-right:12px;">
+                            <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="36" height="36" style="display:block;border-radius:8px;" />
+                          </td>
+                          <td>
+                            <span style="color:#ffffff;font-size:18px;font-weight:700;letter-spacing:-0.3px;">CiroStack</span>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Body -->
+                  <tr>
+                    <td style="background:#ffffff;padding:40px 32px;">
+                      <h1 style="margin:0 0 8px 0;font-size:24px;font-weight:700;color:#0f172a;line-height:1.3;">
+                        Your client portal is ready
+                      </h1>
+                      <p style="margin:0 0 24px 0;font-size:15px;color:#64748b;line-height:1.6;">
+                        ${client.name ? `Hi ${client.name},` : "Hi there,"}
+                      </p>
+                      <p style="margin:0 0 20px 0;font-size:15px;color:#334155;line-height:1.7;">
+                        We've set up a dedicated portal for you on CiroStack. It's your central hub for everything related to your project:
+                      </p>
+                      <table cellpadding="0" cellspacing="0" style="margin:0 0 28px 0;width:100%;">
+                        <tr>
+                          <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
+                            <table cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td style="padding-right:12px;font-size:18px;">&#128202;</td>
+                                <td style="font-size:14px;color:#334155;line-height:1.5;"><strong style="color:#0f172a;">Project tracking</strong> - follow progress in real time</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding:10px 0;border-bottom:1px solid #f1f5f9;">
+                            <table cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td style="padding-right:12px;font-size:18px;">&#128196;</td>
+                                <td style="font-size:14px;color:#334155;line-height:1.5;"><strong style="color:#0f172a;">Invoices</strong> - view and download your billing history</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding:10px 0;">
+                            <table cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td style="padding-right:12px;font-size:18px;">&#128229;</td>
+                                <td style="font-size:14px;color:#334155;line-height:1.5;"><strong style="color:#0f172a;">Deliverables</strong> - download files and completed work</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                      <table cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td>
+                            <a href="${portalUrl}/portal/login" style="display:inline-block;background:#0f172a;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-size:15px;font-weight:600;letter-spacing:-0.2px;">
+                              Access Your Portal
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                      <p style="margin:28px 0 0 0;font-size:13px;color:#94a3b8;line-height:1.6;">
+                        Sign in using your email address (${client.email}). We'll send a one-time login code to your inbox each time you access the portal - no password needed.
+                      </p>
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td style="background:#f8fafc;border-radius:0 0 12px 12px;padding:20px 32px;border-top:1px solid #e2e8f0;">
+                      <p style="margin:0;font-size:12px;color:#94a3b8;text-align:center;">
+                        CiroStack | <a href="https://cirostack.com" style="color:#94a3b8;text-decoration:none;">cirostack.com</a>
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
       `,
     });
 

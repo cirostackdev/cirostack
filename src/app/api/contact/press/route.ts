@@ -21,18 +21,86 @@ export async function POST(req: Request) {
       from: FROM,
       to: TO,
       replyTo: email,
-      subject: `Press / Speaking Request from ${name} (${organisation})`,
+      subject: `Press Inquiry: ${name} (${organisation})`,
       html: `
-        <h2>New Press & Speaking Request</h2>
-        <table cellpadding="8" style="border-collapse:collapse;width:100%;font-family:sans-serif;font-size:14px;">
-          <tr><td style="font-weight:bold;width:160px;">Name</td><td>${name}</td></tr>
-          <tr style="background:#f9f9f9"><td style="font-weight:bold;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-          <tr><td style="font-weight:bold;">Organisation</td><td>${organisation}</td></tr>
-          <tr style="background:#f9f9f9"><td style="font-weight:bold;">Request Type</td><td>${requestType}</td></tr>
-          ${eventDate ? `<tr><td style="font-weight:bold;">Event Date</td><td>${eventDate}</td></tr>` : ""}
-        </table>
-        <h3 style="margin-top:24px;">Details</h3>
-        <p style="font-family:sans-serif;font-size:14px;line-height:1.6;white-space:pre-wrap;">${details}</p>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /></head>
+        <body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:32px 16px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+
+                  <!-- Header -->
+                  <tr>
+                    <td style="background:#0f172a;border-radius:10px 10px 0 0;padding:20px 28px;">
+                      <table cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="padding-right:10px;">
+                            <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="36" height="36" style="display:block;border-radius:8px;" />
+                          </td>
+                          <td>
+                            <span style="color:#ffffff;font-size:16px;font-weight:700;">CiroStack</span>
+                            <span style="color:#94a3b8;font-size:13px;margin-left:8px;">Internal Notification</span>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Body -->
+                  <tr>
+                    <td style="background:#ffffff;padding:28px 28px 24px 28px;">
+                      <h2 style="margin:0 0 4px 0;font-size:18px;font-weight:700;color:#0f172a;">New Press and Speaking Request</h2>
+                      <p style="margin:0 0 20px 0;font-size:13px;color:#64748b;">Submitted via cirostack.com/contact/press</p>
+
+                      <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:14px;">
+                        <tr>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:150px;">Name</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${name}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Email</td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="mailto:${email}" style="color:#3b82f6;text-decoration:none;">${email}</a></td>
+                        </tr>
+                        <tr>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Organisation</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${organisation}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Request Type</td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;font-weight:600;">${requestType}</td>
+                        </tr>
+                        ${eventDate ? `
+                        <tr>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Event Date</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${eventDate}</td>
+                        </tr>` : ""}
+                      </table>
+
+                      <h3 style="margin:24px 0 8px 0;font-size:14px;font-weight:700;color:#0f172a;text-transform:uppercase;letter-spacing:0.05em;">Details</h3>
+                      <div style="background:#f8fafc;border-left:3px solid #0f172a;padding:16px;border-radius:0 6px 6px 0;">
+                        <p style="margin:0;font-size:14px;color:#334155;line-height:1.7;white-space:pre-wrap;">${details}</p>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td style="background:#f8fafc;border-radius:0 0 10px 10px;padding:16px 28px;border-top:1px solid #e2e8f0;">
+                      <p style="margin:0;font-size:12px;color:#94a3b8;">
+                        CiroStack | <a href="https://cirostack.com" style="color:#94a3b8;text-decoration:none;">cirostack.com</a>
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
       `,
     });
 
