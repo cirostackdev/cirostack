@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { clientAuth } from "@/auth-client";
-import { initializeTransaction } from "@/lib/paystack";
+import { verifyTransaction } from "@/lib/paystack";
 
 export const runtime = "nodejs";
 
 type Params = { params: Promise<{ id: string }> };
 
-export async function POST(_req: Request, { params }: Params) {
+export async function POST(req: Request, { params }: Params) {
   const session = await clientAuth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -15,30 +15,39 @@ export async function POST(_req: Request, { params }: Params) {
   const { id } = await params;
 
   try {
+    const { reference } = await req.json();
+    if (!reference) return NextResponse.json({ error: "Reference required" }, { status: 400 });
+
     const invoice = await prisma.invoice.findFirst({
       where: { id, clientId },
-      include: { client: { select: { email: true } } },
     });
     if (!invoice) return NextResponse.json({ error: "Not found" }, { status: 404 });
     if (invoice.status === "paid") return NextResponse.json({ error: "Invoice already paid" }, { status: 400 });
 
-    const portalUrl = process.env.PORTAL_URL ?? "http://localhost:3000";
-    const result = await initializeTransaction({
-      email: invoice.client.email,
-      amount: invoice.amount,
-      currency: invoice.currency,
-      callback_url: `${portalUrl}/portal/invoices/${id}/success`,
-      metadata: { invoiceId: id, invoiceNumber: invoice.number },
-    });
-
-    if (!result.status) {
-      console.error("[Paystack init error]", result);
-      return NextResponse.json({ error: result.message || "Failed to initialize payment" }, { status: 502 });
+    // Verify with Paystack
+    const result = await verifyTransaction(reference);
+    if (!result.status || result.data?.status !== "success") {
+      return NextResponse.json({ error: "Payment verification failed" }, { status: 402 });
     }
 
-    return NextResponse.json({ authorization_url: result.data.authorization_url });
+    // Confirm amount matches
+    if (result.data.amount !== invoice.amount) {
+      return NextResponse.json({ error: "Amount mismatch" }, { status: 400 });
+    }
+
+    // Mark as paid
+    await prisma.invoice.update({
+      where: { id },
+      data: {
+        status: "paid",
+        paidAt: new Date(),
+        paymentRef: reference,
+      },
+    });
+
+    return NextResponse.json({ success: true });
   } catch (err) {
     console.error("[POST /api/portal/invoices/[id]/pay]", err);
-    return NextResponse.json({ error: "Payment initialization failed" }, { status: 500 });
+    return NextResponse.json({ error: "Payment verification failed" }, { status: 500 });
   }
 }

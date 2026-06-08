@@ -145,7 +145,14 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
           {/* Actions */}
           <div className="flex flex-wrap items-center gap-3">
-            {invoice.status !== "paid" && <PayButton invoiceId={id} />}
+            {invoice.status !== "paid" && (
+              <PayButton
+                invoiceId={id}
+                email={invoice.client.email}
+                amount={invoice.amount}
+                currency={invoice.currency}
+              />
+            )}
             <a href={`/api/portal/invoices/${id}/pdf`} download>
               <Button variant="outline" size="sm"><Download className="w-4 h-4 mr-1.5" /> Download PDF</Button>
             </a>
