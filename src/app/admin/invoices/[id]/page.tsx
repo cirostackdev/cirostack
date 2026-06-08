@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminDetailSkeleton } from "@/components/admin/AdminSkeletons";
+import { fmtMoney } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -144,7 +145,7 @@ export default function AdminInvoiceDetailPage() {
             </div>
             <div>
               <p className="text-xs text-muted-foreground mb-1">Amount</p>
-              <p className="text-xl font-bold">{invoice.currency} {(invoice.amount / 100).toFixed(2)}</p>
+              <p className="text-xl font-bold">{fmtMoney(invoice.amount, invoice.currency)}</p>
               <Badge variant={statusVariant[status] ?? "secondary"} className="mt-1">{status}</Badge>
             </div>
             <div>
@@ -175,7 +176,7 @@ export default function AdminInvoiceDetailPage() {
                 return (
                   <tr key={i} className="border-t border-border">
                     <td className="px-4 py-3">{l.description}</td>
-                    <td className="px-4 py-3 text-right font-medium">{invoice.currency} {(amt / 100).toFixed(2)}</td>
+                    <td className="px-4 py-3 text-right font-medium">{fmtMoney(amt, invoice.currency)}</td>
                   </tr>
                 );
               })}
@@ -183,7 +184,7 @@ export default function AdminInvoiceDetailPage() {
             <tfoot className="border-t-2 border-border bg-muted/20">
               <tr>
                 <td className="px-4 py-3 text-right font-semibold">Total</td>
-                <td className="px-4 py-3 text-right font-bold">{invoice.currency} {(invoice.amount / 100).toFixed(2)}</td>
+                <td className="px-4 py-3 text-right font-bold">{fmtMoney(invoice.amount, invoice.currency)}</td>
               </tr>
             </tfoot>
           </table>

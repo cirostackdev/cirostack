@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, ChevronRight, Send, CheckCircle, Trash2, Receipt } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { fmtMoney } from "@/lib/format";
 import { toast } from "sonner";
 
 type Invoice = {
@@ -149,10 +150,7 @@ export default function AdminInvoicesPage() {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{inv.client.name ?? inv.client.email}</td>
                     <td className="px-4 py-3 font-medium">
-                      <span>{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
-                      {inv.currency !== "USD" && inv.usdRate && (
-                        <p className="text-xs text-muted-foreground">≈ ${((inv.amount / 100) * inv.usdRate).toFixed(2)}</p>
-                      )}
+                      <span>{fmtMoney(inv.amount, inv.currency)}</span>
                     </td>
                     <td className="px-4 py-3"><Badge variant={statusVariant[inv.effectiveStatus] ?? "secondary"}>{inv.effectiveStatus}</Badge></td>
                     <td className="px-4 py-3 text-muted-foreground">{inv.dueDate ? inv.dueDate.slice(0, 10) : "—"}</td>
@@ -211,10 +209,7 @@ export default function AdminInvoicesPage() {
                     {inv.project && <p className="text-xs text-muted-foreground">{inv.project.title}</p>}
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
-                    <p className="font-semibold text-sm">{inv.currency} {(inv.amount / 100).toFixed(2)}</p>
-                    {inv.currency !== "USD" && inv.usdRate && (
-                      <p className="text-xs text-muted-foreground">≈ ${((inv.amount / 100) * inv.usdRate).toFixed(2)}</p>
-                    )}
+                    <p className="font-semibold text-sm">{fmtMoney(inv.amount, inv.currency)}</p>
                     <Badge variant={statusVariant[inv.effectiveStatus] ?? "secondary"}>{inv.effectiveStatus}</Badge>
                   </div>
                 </div>

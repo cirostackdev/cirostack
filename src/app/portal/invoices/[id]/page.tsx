@@ -7,6 +7,7 @@ import { ArrowLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PayButton from "./PayButton";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { fmtMoney } from "@/lib/format";
 
 export default async function InvoiceDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await clientAuth();
@@ -96,7 +97,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                       <>
                         <td className="px-4 py-3 text-right text-muted-foreground">{l.qty ?? 1}</td>
                         <td className="px-4 py-3 text-right text-muted-foreground">
-                          {invoice.currency} {((l.unitPrice ?? 0) / 100).toFixed(2)}
+                          {fmtMoney(l.unitPrice ?? 0, invoice.currency)}
                         </td>
                       </>
                     )}
@@ -104,7 +105,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                       <td colSpan={2} />
                     )}
                     <td className="px-4 py-3 text-right font-medium">
-                      {invoice.currency} {(l.total / 100).toFixed(2)}
+                      {fmtMoney(l.total, invoice.currency)}
                     </td>
                   </tr>
                 ))}
@@ -115,7 +116,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                     Total
                   </td>
                   <td className="px-4 py-3 text-right font-bold text-base">
-                    {invoice.currency} {(invoice.amount / 100).toFixed(2)}
+                    {fmtMoney(invoice.amount, invoice.currency)}
                   </td>
                 </tr>
               </tfoot>
@@ -130,16 +131,16 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                   <p className="font-medium">{l.description}</p>
                   {!l.isNewFormat && (
                     <p className="text-xs text-muted-foreground mt-0.5">
-                      {l.qty ?? 1} × {invoice.currency} {((l.unitPrice ?? 0) / 100).toFixed(2)}
+                      {l.qty ?? 1} × {fmtMoney(l.unitPrice ?? 0, invoice.currency)}
                     </p>
                   )}
                 </div>
-                <p className="font-semibold shrink-0">{invoice.currency} {(l.total / 100).toFixed(2)}</p>
+                <p className="font-semibold shrink-0">{fmtMoney(l.total, invoice.currency)}</p>
               </div>
             ))}
             <div className="flex items-center justify-between px-3 pt-3 border-t border-border font-bold text-sm">
               <span>Total</span>
-              <span>{invoice.currency} {(invoice.amount / 100).toFixed(2)}</span>
+              <span>{fmtMoney(invoice.amount, invoice.currency)}</span>
             </div>
           </div>
 

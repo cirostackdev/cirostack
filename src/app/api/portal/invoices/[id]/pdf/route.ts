@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 });
 
 function InvoiceDocument({ invoice, lineItems }: { invoice: any; lineItems: any[] }) {
-  const fmt = (amount: number) => `${invoice.currency} ${(amount / 100).toFixed(2)}`;
+  const fmt = (amount: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: invoice.currency }).format(amount / 100);
 
   return React.createElement(
     Document,

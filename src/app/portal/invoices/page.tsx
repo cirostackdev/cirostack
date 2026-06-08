@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowRight, Receipt } from "lucide-react";
+import { fmtMoney } from "@/lib/format";
 import { PortalShell } from "@/components/portal/PortalShell";
 
 const statusColors: Record<string, string> = {
@@ -61,7 +62,7 @@ export default async function PortalInvoicesPage() {
                 {inv.project && <p className="text-xs text-muted-foreground mt-0.5 truncate">{inv.project.title}</p>}
               </div>
               <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-                <span className="text-sm font-semibold">{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
+                <span className="text-sm font-semibold">{fmtMoney(inv.amount, inv.currency)}</span>
                 <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${statusColors[inv.status] ?? "bg-muted text-muted-foreground"}`}>
                   {inv.status}
                 </span>
