@@ -20,23 +20,29 @@ export default function PortalLoginPage() {
     e.preventDefault();
     setSending(true);
     try {
-      const [otpRes, pwRes] = await Promise.all([
-        fetch("/api/portal/auth/send-otp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        }),
-        fetch("/api/portal/auth/has-password", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        }),
-      ]);
+      // Check password first — only send OTP if the user doesn't have one
+      const pwRes = await fetch("/api/portal/auth/has-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
       if (pwRes.ok) {
         const { hasPassword: hp } = await pwRes.json();
         setHasPassword(hp);
         if (hp) { setStep("password"); setSending(false); return; }
+      } else if (pwRes.status === 404) {
+        const { error } = await pwRes.json();
+        toast.error(error ?? "No account found for this email.");
+        setSending(false);
+        return;
       }
+
+      // No password — send OTP
+      const otpRes = await fetch("/api/portal/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
       if (otpRes.status === 404) {
         const { error } = await otpRes.json();
         toast.error(error ?? "No account found for this email.");
