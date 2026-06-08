@@ -2,10 +2,10 @@ import { clientAuth } from "@/auth-client";
 import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { ArrowLeft, Download } from "lucide-react";
-/* eslint-disable @next/next/no-html-link-for-pages */
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PayButton from "./PayButton";
+import DownloadPdfButton from "./DownloadPdfButton";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { fmtMoney } from "@/lib/format";
 
@@ -154,9 +154,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
                 currency={invoice.currency}
               />
             )}
-            <a href={`/api/portal/invoices/${id}/pdf`} download>
-              <Button variant="outline" size="sm"><Download className="w-4 h-4 mr-1.5" /> Download PDF</Button>
-            </a>
+            <DownloadPdfButton invoiceId={id} invoiceNumber={invoice.number} />
           </div>
 
           {invoice.paidAt && (
