@@ -90,7 +90,7 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
         <div className="bg-white w-full h-full md:h-[90vh] md:max-w-[520px] md:rounded-2xl shadow-2xl flex flex-col relative overflow-hidden">
           {/* Header */}
           <div className="px-4 py-3 flex items-center justify-between border-b border-border">
-            <h2 className="text-sm font-semibold">Complete Payment</h2>
+            <h2 className="text-sm font-semibold text-gray-900">Complete Payment</h2>
             <button
               onClick={closeCheckout}
               className="text-muted-foreground hover:text-foreground p-1.5 rounded-full hover:bg-muted transition-colors"

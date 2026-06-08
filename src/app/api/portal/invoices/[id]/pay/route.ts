@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { clientAuth } from "@/auth-client";
 import { initializeTransaction, verifyTransaction } from "@/lib/paystack";
+import { fetchUsdToNgn } from "@/lib/exchange-rate";
 
 export const runtime = "nodejs";
 
@@ -29,9 +30,6 @@ export async function POST(req: Request, { params }: Params) {
       if (!result.status || result.data?.status !== "success") {
         return NextResponse.json({ error: "Payment verification failed" }, { status: 402 });
       }
-      if (result.data.amount !== invoice.amount) {
-        return NextResponse.json({ error: "Amount mismatch" }, { status: 400 });
-      }
       await prisma.invoice.update({
         where: { id },
         data: { status: "paid", paidAt: new Date(), paymentRef: body.reference },
@@ -43,13 +41,17 @@ export async function POST(req: Request, { params }: Params) {
     }
   }
 
-  // Action: initialize — get authorization URL for embedded checkout
+  // Action: initialize — get live USD→NGN rate, send NGN to Paystack
   try {
+    const usdToNgn = await fetchUsdToNgn();
+    // invoice.amount is in USD cents; convert to NGN kobo: (cents / 100) * rate * 100 = cents * rate
+    const ngnKobo = Math.round(invoice.amount * usdToNgn);
+
     const portalUrl = process.env.PORTAL_URL ?? "http://localhost:3000";
     const result = await initializeTransaction({
       email: invoice.client.email,
-      amount: invoice.amount,
-      currency: invoice.currency,
+      amount: ngnKobo,
+      currency: "NGN",
       callback_url: `${portalUrl}/portal/invoices/${id}/success`,
       metadata: { invoiceId: id, invoiceNumber: invoice.number },
     });

@@ -1,4 +1,21 @@
 /**
+ * Fetch the current USD → NGN exchange rate (NGN per 1 USD).
+ */
+export async function fetchUsdToNgn(): Promise<number> {
+  try {
+    const res = await fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.rates?.NGN) return data.rates.NGN;
+    }
+  } catch {}
+
+  // Fallback: frankfurter (NGN not supported, returns error) — use a conservative hardcoded fallback
+  console.error("[exchange-rate] Could not fetch USD→NGN rate, using fallback 1600");
+  return 1600;
+}
+
+/**
  * Fetch the USD exchange rate for a given currency at a given date.
  * Tries frankfurter.app first (supports historical rates for major currencies).
  * Falls back to open.er-api.com (supports more currencies incl. NGN, no API key needed).

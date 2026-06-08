@@ -19,7 +19,7 @@ export default function NewInvoicePage() {
   const [clientId, setClientId] = useState("");
   const [projectId, setProjectId] = useState("");
   const [number, setNumber] = useState(`INV-${new Date().getFullYear()}-${String(Date.now()).slice(-4)}`);
-  const [currency, setCurrency] = useState("NGN");
+  const [currency, setCurrency] = useState("USD");
   const [dueDate, setDueDate] = useState("");
   const [lineItems, setLineItems] = useState<LineItem[]>([{ description: "", amount: "" }]);
   const [saving, setSaving] = useState(false);

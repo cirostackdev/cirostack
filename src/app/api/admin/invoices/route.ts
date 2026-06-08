@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { sendPush } from "@/lib/push";
-import { fetchUsdRate } from "@/lib/exchange-rate";
 
 export async function GET() {
   const session = await auth();
@@ -33,8 +32,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "clientId, number, amount, lineItems required" }, { status: 400 });
     }
 
-    const cur = currency ?? "NGN";
-    const usdRate = await fetchUsdRate(cur);
+    const cur = "USD";
 
     const invoice = await prisma.invoice.create({
       data: {
@@ -43,7 +41,6 @@ export async function POST(req: Request) {
         number,
         amount,
         currency: cur,
-        usdRate,
         dueDate: dueDate ? new Date(dueDate) : null,
         lineItems,
         status: "unpaid",
