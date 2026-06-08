@@ -6,7 +6,8 @@ import { ChevronDown, ChevronUp, Download, Search, X, UserPlus, FileText } from 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { SUBMISSION_TYPE_COLORS } from "@/lib/colors";
+import { SUBMISSION_TYPE_COLORS, SUBMISSION_REVIEW_STATUS_COLORS } from "@/lib/colors";
+import { InlineStatusSelect } from "@/components/admin/InlineStatusSelect";
 
 interface Submission {
   id: string;
@@ -153,7 +154,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
             >
               <div className="flex items-center gap-3 min-w-0">
                 <span
-                  className={`inline-block w-[86px] text-center text-xs px-2 py-0.5 rounded-full font-medium capitalize ${
+                  className={`inline-block w-[96px] text-center text-xs px-2 py-0.5 rounded-full font-medium capitalize ${
                     TYPE_COLORS[sub.type] || "bg-muted text-muted-foreground"
                   }`}
                 >
@@ -169,16 +170,15 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                 </div>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <select
-                  value={statuses[sub.id]}
-                  onClick={(e) => e.stopPropagation()}
-                  onChange={(e) => updateStatus(sub.id, e.target.value)}
-                  className="text-xs bg-muted border border-border rounded-lg px-2 py-1 outline-none"
-                >
-                  <option value="new">New</option>
-                  <option value="reviewed">Reviewed</option>
-                  <option value="actioned">Actioned</option>
-                </select>
+                <div onClick={(e) => e.stopPropagation()}>
+                  <InlineStatusSelect
+                    id={sub.id}
+                    value={statuses[sub.id] ?? "new"}
+                    options={["new", "reviewed", "actioned"]}
+                    colorMap={SUBMISSION_REVIEW_STATUS_COLORS}
+                    onChange={(id, status) => updateStatus(id, status)}
+                  />
+                </div>
                 <span className="text-xs text-muted-foreground">
                   {format(new Date(sub.createdAt), "MMM d, HH:mm")}
                 </span>

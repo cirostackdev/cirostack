@@ -109,6 +109,14 @@ export const INTERACTIVE = {
   disable: "bg-red-500/15 text-red-500 hover:bg-red-500/20",
 } as const;
 
+// ─── Submission Review Status ────────────────────────────────────────────────
+
+export const SUBMISSION_REVIEW_STATUS_COLORS: Record<string, string> = {
+  new: "bg-blue-500/15 text-blue-500",
+  reviewed: "bg-amber-500/15 text-amber-500",
+  actioned: "bg-green-500/15 text-green-500",
+};
+
 // ─── Publish Status (CMS) ────────────────────────────────────────────────────
 
 export const PUBLISH_STATUS_COLORS = {
