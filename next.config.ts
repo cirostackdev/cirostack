@@ -4,6 +4,16 @@ const HIDE_CASE_STUDIES = process.env.NEXT_PUBLIC_HIDE_CASE_STUDIES === "true";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  async headers() {
+    return [
+      {
+        source: "/.well-known/:path*",
+        headers: [
+          { key: "Content-Type", value: "application/octet-stream" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     if (!HIDE_CASE_STUDIES) return [];
     return [
