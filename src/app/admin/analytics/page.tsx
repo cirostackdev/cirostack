@@ -91,7 +91,11 @@ export default function AnalyticsPage() {
     setLoading(true);
     fetch(`/api/admin/analytics?days=${days}`)
       .then((r) => r.json())
-      .then((d) => { setData(d); setLoading(false); });
+      .then((d) => { setData(d); setLoading(false); })
+      .catch((err) => {
+        console.error("[Analytics] Failed to fetch:", err);
+        setLoading(false);
+      });
   }, [days]);
 
   const RANGE_OPTS = [
