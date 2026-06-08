@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { PUBLISH_STATUS_COLORS } from "@/lib/colors";
 
 interface AnnouncementItem {
   id: string;
@@ -69,10 +70,10 @@ export default function AdminAnnouncementsPage() {
                     <td className="p-3 text-muted-foreground">{new Date(a.date).toLocaleDateString()}</td>
                     <td className="p-3 text-muted-foreground">{a.tag || "—"}</td>
                     <td className="p-3">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${a.published ? "bg-green-500/15 text-green-500" : "bg-yellow-500/15 text-yellow-500"}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${a.published ? PUBLISH_STATUS_COLORS.published : PUBLISH_STATUS_COLORS.draft}`}>
                         {a.published ? "Published" : "Draft"}
                       </span>
-                      {a.featured && <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-500">Featured</span>}
+                      {a.featured && <span className={`ml-1 text-xs px-2 py-0.5 rounded-full ${PUBLISH_STATUS_COLORS.featured}`}>Featured</span>}
                     </td>
                     <td className="p-3 text-right space-x-1">
                       <Link href={`/admin/cms/announcements/${a.id}`}>
@@ -103,10 +104,10 @@ export default function AdminAnnouncementsPage() {
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${a.published ? "bg-green-500/15 text-green-500" : "bg-yellow-500/15 text-yellow-500"}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${a.published ? PUBLISH_STATUS_COLORS.published : PUBLISH_STATUS_COLORS.draft}`}>
                       {a.published ? "Published" : "Draft"}
                     </span>
-                    {a.featured && <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-500">Featured</span>}
+                    {a.featured && <span className={`text-xs px-2 py-0.5 rounded-full ${PUBLISH_STATUS_COLORS.featured}`}>Featured</span>}
                   </div>
                 </div>
                 <div className="flex items-center gap-1 mt-3 justify-end">

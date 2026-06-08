@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { PUBLISH_STATUS_COLORS } from "@/lib/colors";
 
 interface EventItem {
   id: string;
@@ -65,7 +66,7 @@ export default function AdminEventsPage() {
                     <td className="p-3 text-muted-foreground">{e.type || "—"}</td>
                     <td className="p-3 text-muted-foreground">{e.date}</td>
                     <td className="p-3">
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${e.published ? "bg-green-500/15 text-green-500" : "bg-yellow-500/15 text-yellow-500"}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${e.published ? PUBLISH_STATUS_COLORS.published : PUBLISH_STATUS_COLORS.draft}`}>
                         {e.published ? "Published" : "Draft"}
                       </span>
                     </td>
@@ -97,7 +98,7 @@ export default function AdminEventsPage() {
                     <p className="font-medium text-sm truncate">{e.title}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{e.type || "—"} · {e.date}</p>
                   </div>
-                  <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium ${e.published ? "bg-green-500/15 text-green-500" : "bg-yellow-500/15 text-yellow-500"}`}>
+                  <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium ${e.published ? PUBLISH_STATUS_COLORS.published : PUBLISH_STATUS_COLORS.draft}`}>
                     {e.published ? "Published" : "Draft"}
                   </span>
                 </div>

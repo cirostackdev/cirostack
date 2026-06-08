@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { Send, Paperclip, MessageSquare, Plus, ChevronLeft, FileText } from "lucide-react";
 import { format, formatDistanceToNow } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
+import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
 
 interface Message {
   id: string;
@@ -253,14 +254,14 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
             <button key={c.id}
               onClick={() => { setConversation(c); setMessages(c.messages); conversationIdRef.current = c.id; lastMessageIdRef.current = c.messages.at(-1)?.id ?? null; setView("chat"); }}
               className="w-full flex items-start gap-3 px-4 py-4 hover:bg-muted/40 transition-colors text-left">
-              <div className={`mt-1 w-2 h-2 rounded-full shrink-0 ${c.status === "open" ? "bg-green-500" : "bg-muted-foreground/40"}`} />
+              <div className={`mt-1 w-2 h-2 rounded-full shrink-0 ${c.status === "open" ? PRESENCE.online : PRESENCE.offline}`} />
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium truncate">{c.topic || "Support conversation"}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {c.messages.length} message{c.messages.length !== 1 ? "s" : ""} · {formatDistanceToNow(new Date(c.updatedAt), { addSuffix: true })}
                 </p>
               </div>
-              <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0 ${c.status === "open" ? "bg-green-500/15 text-green-500" : "bg-muted text-muted-foreground"}`}>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0 ${CONVERSATION_STATUS_COLORS[c.status] ?? "bg-muted text-muted-foreground"}`}>
                 {c.status}
               </span>
             </button>
@@ -278,7 +279,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
           <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
             <MessageSquare className="w-4 h-4 text-primary" />
           </div>
-          <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-background ${agentOnline ? "bg-green-500" : "bg-amber-400"}`} />
+          <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-background ${agentOnline ? PRESENCE.online : PRESENCE.offline}`} />
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-sm">CiroStack Support</p>
@@ -288,7 +289,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
         </div>
         <div className="flex items-center gap-1.5">
           {conversation && !isClosed && (
-            <span className="text-[11px] px-2.5 py-1 rounded-full font-semibold bg-green-500/15 text-green-500">active</span>
+            <span className={`text-[11px] px-2.5 py-1 rounded-full font-semibold ${CONVERSATION_STATUS_COLORS.open}`}>active</span>
           )}
           <button onClick={loadHistory}
             className="text-xs font-medium px-2.5 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors">

@@ -4,15 +4,9 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowRight, FolderOpen } from "lucide-react";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { PROJECT_STATUS_COLORS } from "@/lib/colors";
 
-const statusColors: Record<string, string> = {
-  discovery: "bg-blue-500/15 text-blue-500",
-  proposal: "bg-yellow-500/15 text-yellow-500",
-  active: "bg-green-500/15 text-green-500",
-  review: "bg-purple-500/15 text-purple-500",
-  complete: "bg-muted text-muted-foreground",
-  paused: "bg-orange-500/15 text-orange-500",
-};
+const statusColors = PROJECT_STATUS_COLORS;
 
 export default async function PortalProjectsPage() {
   const session = await clientAuth();

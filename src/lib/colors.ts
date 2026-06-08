@@ -109,6 +109,17 @@ export const INTERACTIVE = {
   disable: "bg-red-500/15 text-red-500 hover:bg-red-500/20",
 } as const;
 
+// ─── Publish Status (CMS) ────────────────────────────────────────────────────
+
+export const PUBLISH_STATUS_COLORS = {
+  published: "bg-green-500/15 text-green-500",
+  draft: "bg-amber-500/15 text-amber-500",
+  featured: "bg-blue-500/15 text-blue-500",
+  isNew: "bg-blue-500/15 text-blue-500",
+  active: "bg-green-500/15 text-green-500",
+  inactive: "bg-amber-500/15 text-amber-500",
+} as const;
+
 // ─── Presence / online indicators ────────────────────────────────────────────
 
 export const PRESENCE = {
