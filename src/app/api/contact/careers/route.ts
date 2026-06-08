@@ -86,7 +86,7 @@ export async function POST(req: Request) {
       <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
     </td>
     <td style="vertical-align:middle;padding-right:14px;">
-      <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;">CiroStack</p>
+      <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span</p>
     </td>
     <td style="vertical-align:middle;border-left:1px solid #334155;padding-left:14px;">
       <p style="margin:0;font-size:13px;color:#94a3b8;">Job Application</p>
