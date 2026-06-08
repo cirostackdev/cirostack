@@ -70,7 +70,7 @@ export default function AdminAnnouncementsPage() {
                     <td className="px-4 py-3 text-muted-foreground">{a.tag || "—"}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1.5">
-                        <CmsBooleanToggle id={a.id} value={a.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${a.id}-published`} />
+                        <CmsBooleanToggle id={a.id} value={a.published} onLabel="Published" offLabel="Draft" className="w-[76px] text-center" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${a.id}-published`} />
                         <CmsBooleanToggle id={a.id} value={a.featured} onLabel="Featured" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.featured} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "featured", v)} saving={saving === `${a.id}-featured`} />
                       </div>
                     </td>
@@ -96,7 +96,7 @@ export default function AdminAnnouncementsPage() {
                     <p className="text-xs text-muted-foreground mt-0.5">{[a.type, a.tag, new Date(a.date).toLocaleDateString()].filter(Boolean).join(" · ")}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
-                    <CmsBooleanToggle id={a.id} value={a.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${a.id}-published`} />
+                    <CmsBooleanToggle id={a.id} value={a.published} onLabel="Published" offLabel="Draft" className="w-[76px] text-center" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${a.id}-published`} />
                     <CmsBooleanToggle id={a.id} value={a.featured} onLabel="Featured" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.featured} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "featured", v)} saving={saving === `${a.id}-featured`} />
                   </div>
                 </div>
