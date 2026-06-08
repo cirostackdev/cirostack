@@ -5,6 +5,8 @@ import { auth } from "@/auth";
 import React from "react";
 import { Document, Page, Text, View, StyleSheet, renderToBuffer } from "@react-pdf/renderer";
 
+export const runtime = "nodejs";
+
 type Params = { params: Promise<{ id: string }> };
 
 const styles = StyleSheet.create({

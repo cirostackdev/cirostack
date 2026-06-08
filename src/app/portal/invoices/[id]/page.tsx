@@ -3,6 +3,7 @@ import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowLeft, Download } from "lucide-react";
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { Button } from "@/components/ui/button";
 import PayButton from "./PayButton";
 import { PortalShell } from "@/components/portal/PortalShell";
@@ -145,9 +146,9 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
           {/* Actions */}
           <div className="flex flex-wrap items-center gap-3">
             {invoice.status !== "paid" && <PayButton invoiceId={id} />}
-            <Link href={`/api/portal/invoices/${id}/pdf`} target="_blank">
+            <a href={`/api/portal/invoices/${id}/pdf`} download>
               <Button variant="outline" size="sm"><Download className="w-4 h-4 mr-1.5" /> Download PDF</Button>
-            </Link>
+            </a>
           </div>
 
           {invoice.paidAt && (
