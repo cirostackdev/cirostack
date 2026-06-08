@@ -190,7 +190,7 @@ export async function GET(_req: Request, { params }: Params) {
     }));
 
     const pdfBuffer = await renderToBuffer(
-      InvoiceDocument({ invoice, lineItems }) as any
+      React.createElement(InvoiceDocument, { invoice, lineItems })
     );
 
     return new NextResponse(new Uint8Array(pdfBuffer), {
