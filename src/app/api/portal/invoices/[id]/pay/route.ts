@@ -48,7 +48,7 @@ export async function POST(req: Request, { params }: Params) {
     const ngnKobo = Math.round(invoice.amount * usdToNgn);
     const reference = `inv_${id}_${Date.now()}`;
 
-    return NextResponse.json({ ngnKobo, reference });
+    return NextResponse.json({ ngnKobo, reference, email: invoice.client.email });
   } catch (err) {
     console.error("[POST /api/portal/invoices/[id]/pay] init error", err);
     return NextResponse.json({ error: "Payment initialization failed" }, { status: 500 });
