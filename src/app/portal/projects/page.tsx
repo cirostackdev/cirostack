@@ -2,16 +2,16 @@ import { clientAuth } from "@/auth-client";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, FolderOpen } from "lucide-react";
 import { PortalShell } from "@/components/portal/PortalShell";
 
 const statusColors: Record<string, string> = {
-  discovery: "bg-blue-100 text-blue-700",
-  proposal: "bg-yellow-100 text-yellow-700",
-  active: "bg-green-100 text-green-700",
-  review: "bg-purple-100 text-purple-700",
-  complete: "bg-gray-200 text-gray-600",
-  paused: "bg-orange-100 text-orange-700",
+  discovery: "bg-blue-500/15 text-blue-500",
+  proposal: "bg-yellow-500/15 text-yellow-500",
+  active: "bg-green-500/15 text-green-500",
+  review: "bg-purple-500/15 text-purple-500",
+  complete: "bg-muted text-muted-foreground",
+  paused: "bg-orange-500/15 text-orange-500",
 };
 
 export default async function PortalProjectsPage() {
@@ -33,8 +33,16 @@ export default async function PortalProjectsPage() {
     <PortalShell title="Projects">
       <div className="max-w-3xl">
         {projects.length === 0 ? (
-          <div className="rounded-xl border border-border p-8 text-center text-muted-foreground text-sm">
-            No projects yet. Your project manager will set this up for you.
+          <div className="rounded-xl border border-dashed border-border p-12 text-center space-y-4">
+            <div className="w-14 h-14 rounded-2xl bg-muted mx-auto flex items-center justify-center">
+              <FolderOpen className="w-7 h-7 text-muted-foreground" />
+            </div>
+            <div>
+              <p className="font-semibold text-foreground">No projects yet</p>
+              <p className="text-sm text-muted-foreground mt-1.5 max-w-xs mx-auto">
+                Your project manager will create your first project and you&apos;ll see it here.
+              </p>
+            </div>
           </div>
         ) : (
           <div className="space-y-4">
@@ -51,7 +59,7 @@ export default async function PortalProjectsPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
                         <h2 className="font-semibold truncate">{p.title}</h2>
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${statusColors[p.status] ?? "bg-gray-100 text-gray-700"}`}>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>
                           {p.status}
                         </span>
                       </div>

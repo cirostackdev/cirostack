@@ -2,17 +2,17 @@ import { clientAuth } from "@/auth-client";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { ArrowRight, MessageSquare, Download, CreditCard, FileText } from "lucide-react";
+import { ArrowRight, MessageSquare, Download, CreditCard, FileText, FolderOpen, Inbox } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { PortalShell } from "@/components/portal/PortalShell";
 
 const statusColors: Record<string, string> = {
-  discovery: "bg-blue-100 text-blue-700",
-  proposal: "bg-yellow-100 text-yellow-700",
-  active: "bg-green-100 text-green-700",
-  review: "bg-purple-100 text-purple-700",
-  complete: "bg-gray-200 text-gray-600",
-  paused: "bg-orange-100 text-orange-700",
+  discovery: "bg-blue-500/15 text-blue-500",
+  proposal: "bg-yellow-500/15 text-yellow-500",
+  active: "bg-green-500/15 text-green-500",
+  review: "bg-purple-500/15 text-purple-500",
+  complete: "bg-muted text-muted-foreground",
+  paused: "bg-orange-500/15 text-orange-500",
 };
 
 export default async function PortalDashboard() {
@@ -125,8 +125,14 @@ export default async function PortalDashboard() {
               <Link href="/portal/projects" className="text-xs text-muted-foreground hover:text-foreground">View all →</Link>
             </div>
             {projects.length === 0 ? (
-              <div className="rounded-xl border border-border p-8 text-center text-muted-foreground text-sm">
-                No projects yet.
+              <div className="rounded-xl border border-dashed border-border p-8 text-center space-y-3">
+                <div className="w-10 h-10 rounded-full bg-muted mx-auto flex items-center justify-center">
+                  <FolderOpen className="w-5 h-5 text-muted-foreground" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground">No projects yet</p>
+                  <p className="text-xs text-muted-foreground mt-1">Your project manager will set this up for you.</p>
+                </div>
               </div>
             ) : (
               <div className="space-y-3">
@@ -139,7 +145,7 @@ export default async function PortalDashboard() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1 flex-wrap">
                             <h3 className="font-medium text-sm truncate">{p.title}</h3>
-                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${statusColors[p.status] ?? "bg-gray-100 text-gray-700"}`}>{p.status}</span>
+                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
                           </div>
                           {total > 0 && (
                             <div>
@@ -165,7 +171,12 @@ export default async function PortalDashboard() {
           <div className="lg:col-span-2">
             <h2 className="font-semibold mb-4">Recent Activity</h2>
             {activity.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No recent activity.</p>
+              <div className="rounded-xl border border-dashed border-border p-6 text-center space-y-2">
+                <div className="w-8 h-8 rounded-full bg-muted mx-auto flex items-center justify-center">
+                  <Inbox className="w-4 h-4 text-muted-foreground" />
+                </div>
+                <p className="text-xs text-muted-foreground">No recent activity to show.</p>
+              </div>
             ) : (
               <div className="space-y-3">
                 {activity.map((item) => (

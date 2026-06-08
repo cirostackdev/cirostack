@@ -28,6 +28,15 @@ const NAV = [
   { href: "/portal/settings", icon: Settings, label: "Settings" },
 ];
 
+// Nav items shown in the mobile bottom bar (main 4 only)
+const BOTTOM_NAV = [
+  { href: "/portal/dashboard", icon: LayoutDashboard, label: "Home" },
+  { href: "/portal/projects", icon: FolderKanban, label: "Projects" },
+  { href: "/portal/invoices", icon: Receipt, label: "Invoices" },
+  { href: "/portal/chat", icon: MessageSquare, label: "Messages" },
+  { href: "/portal/settings", icon: Settings, label: "Settings" },
+];
+
 export function PortalShell({
   children,
   title,
@@ -50,7 +59,7 @@ export function PortalShell({
             </div>
             <button
               onClick={() => setMobileOpen(false)}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -59,7 +68,7 @@ export function PortalShell({
         ) : collapsed ? (
           <button
             onClick={() => setCollapsed(false)}
-            className="mx-auto text-muted-foreground hover:text-foreground transition-colors"
+            className="mx-auto p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
             aria-label="Expand sidebar"
           >
             <PanelLeftOpen className="w-4 h-4" />
@@ -72,7 +81,7 @@ export function PortalShell({
             </div>
             <button
               onClick={() => setCollapsed(true)}
-              className="shrink-0 ml-1 text-muted-foreground hover:text-foreground transition-colors"
+              className="shrink-0 ml-1 p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
               aria-label="Collapse sidebar"
             >
               <PanelLeftClose className="w-4 h-4" />
@@ -100,7 +109,7 @@ export function PortalShell({
               href={href}
               title={isCollapsed ? label : undefined}
               onClick={() => mobile && setMobileOpen(false)}
-              className={`flex items-center gap-2.5 py-2 rounded-lg text-sm transition-colors ${
+              className={`flex items-center gap-2.5 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[44px] ${
                 isCollapsed ? "justify-center px-2" : "px-3"
               } ${
                 active
@@ -119,7 +128,7 @@ export function PortalShell({
         <button
           onClick={() => signOut({ callbackUrl: "/portal/login" })}
           title={!mobile && collapsed ? "Sign out" : undefined}
-          className={`flex items-center gap-2.5 py-2 w-full rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors ${
+          className={`flex items-center gap-2.5 py-2.5 w-full rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors min-h-[44px] ${
             !mobile && collapsed ? "justify-center px-2" : "px-3"
           }`}
         >
@@ -161,10 +170,10 @@ export function PortalShell({
       {/* Main */}
       <main className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-border">
+        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-border shrink-0">
           <button
             onClick={() => setMobileOpen(true)}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="p-1.5 -ml-1.5 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
             aria-label="Open menu"
           >
             <Menu className="w-5 h-5" />
@@ -174,13 +183,32 @@ export function PortalShell({
 
         {/* Desktop title bar */}
         {title && (
-          <div className="hidden lg:block px-6 py-4 border-b border-border">
-            <h1 className="text-lg font-semibold">{title}</h1>
+          <div className="hidden lg:block px-6 py-4 border-b border-border shrink-0">
+            <h1 className="text-xl font-semibold">{title}</h1>
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto p-4 md:p-6">{children}</div>
+        <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-20 lg:pb-6">{children}</div>
       </main>
+
+      {/* Mobile bottom navigation bar */}
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-background/95 backdrop-blur border-t border-border flex items-stretch safe-bottom">
+        {BOTTOM_NAV.map(({ href, icon: Icon, label }) => {
+          const active = pathname === href || pathname.startsWith(href + "/");
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 min-h-[56px] text-[10px] font-medium transition-colors ${
+                active ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Icon className={`w-5 h-5 ${active ? "text-primary" : ""}`} />
+              <span>{label}</span>
+            </Link>
+          );
+        })}
+      </nav>
     </div>
   );
 }

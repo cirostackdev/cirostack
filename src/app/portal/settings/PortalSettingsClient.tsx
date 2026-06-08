@@ -35,16 +35,39 @@ export function PortalSettingsClient({
   }
 
   return (
-    <form onSubmit={handleSave} className="space-y-4 mt-6">
-      <div className="space-y-1.5">
-        <Label>Display name</Label>
-        <Input value={name} onChange={(e) => setName(e.target.value)} />
+    <div className="mt-6 rounded-2xl border border-border bg-card p-6">
+      <div className="mb-5">
+        <h2 className="font-semibold text-base">Profile</h2>
+        <p className="text-sm text-muted-foreground mt-0.5">Update your display name visible to the team.</p>
       </div>
-      <div className="space-y-1.5">
-        <Label>Email</Label>
-        <Input value={email} disabled className="opacity-60" />
-      </div>
-      <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save Changes"}</Button>
-    </form>
+      <form onSubmit={handleSave} className="space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-1.5">
+            <Label htmlFor="display-name">Display name</Label>
+            <Input
+              id="display-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your name"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="email-field">Email address</Label>
+            <Input
+              id="email-field"
+              value={email}
+              disabled
+              className="opacity-60 cursor-not-allowed"
+            />
+            <p className="text-[11px] text-muted-foreground">Email cannot be changed here.</p>
+          </div>
+        </div>
+        <div className="pt-1">
+          <Button type="submit" disabled={saving} className="min-w-[120px]">
+            {saving ? "Saving…" : "Save Changes"}
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 }

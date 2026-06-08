@@ -2,12 +2,14 @@ import { clientAuth } from "@/auth-client";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Receipt } from "lucide-react";
 import { PortalShell } from "@/components/portal/PortalShell";
 
-const statusVariant: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-  paid: "default", unpaid: "secondary", overdue: "destructive", cancelled: "outline",
+const statusColors: Record<string, string> = {
+  paid: "bg-green-500/15 text-green-500",
+  unpaid: "bg-yellow-500/15 text-yellow-500",
+  overdue: "bg-red-500/15 text-red-500",
+  cancelled: "bg-muted text-muted-foreground",
 };
 
 export default async function PortalInvoicesPage() {
@@ -21,6 +23,9 @@ export default async function PortalInvoicesPage() {
     include: { project: { select: { title: true } } },
   });
 
+  // Group totals by currency to handle multi-currency correctly
+  const currencies = [...new Set(invoices.map((i) => i.currency))];
+  const singleCurrency = currencies.length === 1 ? currencies[0] : null;
   const total = invoices.reduce((s, i) => s + i.amount, 0);
   const paid = invoices.filter((i) => i.status === "paid").reduce((s, i) => s + i.amount, 0);
   const outstanding = total - paid;
@@ -28,36 +33,59 @@ export default async function PortalInvoicesPage() {
   return (
     <PortalShell title="Invoices">
       <div className="max-w-3xl">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div className="rounded-xl border border-border p-4">
-            <p className="text-xs text-muted-foreground">Total</p>
-            <p className="text-xl font-bold mt-1">USD {(total / 100).toFixed(2)}</p>
+        {invoices.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div className="rounded-2xl border border-border bg-card p-4">
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Total</p>
+              <p className="text-2xl font-bold mt-1.5">
+                {singleCurrency ?? ""} {(total / 100).toFixed(2)}
+              </p>
+              {!singleCurrency && <p className="text-[10px] text-muted-foreground mt-0.5">mixed currencies</p>}
+            </div>
+            <div className="rounded-2xl border border-border bg-card p-4">
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Paid</p>
+              <p className="text-2xl font-bold mt-1.5 text-green-500">
+                {singleCurrency ?? ""} {(paid / 100).toFixed(2)}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border bg-card p-4">
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Outstanding</p>
+              <p className="text-2xl font-bold mt-1.5 text-amber-500">
+                {singleCurrency ?? ""} {(outstanding / 100).toFixed(2)}
+              </p>
+            </div>
           </div>
-          <div className="rounded-xl border border-border p-4">
-            <p className="text-xs text-muted-foreground">Paid</p>
-            <p className="text-xl font-bold mt-1 text-green-600">USD {(paid / 100).toFixed(2)}</p>
-          </div>
-          <div className="rounded-xl border border-border p-4">
-            <p className="text-xs text-muted-foreground">Outstanding</p>
-            <p className="text-xl font-bold mt-1 text-amber-600">USD {(outstanding / 100).toFixed(2)}</p>
-          </div>
-        </div>
+        )}
 
         <div className="space-y-3">
           {invoices.map((inv) => (
-            <Link key={inv.id} href={`/portal/invoices/${inv.id}`} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors gap-3">
+            <Link key={inv.id} href={`/portal/invoices/${inv.id}`} className="flex items-center justify-between p-4 rounded-2xl border border-border bg-card hover:bg-muted/20 transition-colors gap-3">
               <div className="min-w-0">
-                <p className="font-medium truncate">{inv.number}</p>
+                <p className="font-semibold truncate">{inv.number}</p>
                 {inv.project && <p className="text-xs text-muted-foreground mt-0.5 truncate">{inv.project.title}</p>}
               </div>
               <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-                <span className="text-sm font-medium">{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
-                <Badge variant={statusVariant[inv.status] ?? "secondary"}>{inv.status}</Badge>
+                <span className="text-sm font-semibold">{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
+                <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${statusColors[inv.status] ?? "bg-muted text-muted-foreground"}`}>
+                  {inv.status}
+                </span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground hidden sm:block" />
               </div>
             </Link>
           ))}
-          {invoices.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No invoices yet.</p>}
+          {invoices.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-border p-14 text-center space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-muted mx-auto flex items-center justify-center">
+                <Receipt className="w-7 h-7 text-muted-foreground" />
+              </div>
+              <div>
+                <p className="font-semibold text-foreground">No invoices yet</p>
+                <p className="text-sm text-muted-foreground mt-1.5 max-w-xs mx-auto">
+                  When your team sends you an invoice, it will appear here.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </PortalShell>

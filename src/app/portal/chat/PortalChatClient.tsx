@@ -233,7 +233,19 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
           <h2 className="font-semibold text-sm">Conversation History</h2>
         </div>
         <div className="flex-1 overflow-y-auto divide-y divide-border/50">
-          {historyLoading && <p className="text-sm text-muted-foreground text-center py-8">Loading…</p>}
+          {historyLoading && (
+            <div className="space-y-1 p-2">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="flex items-start gap-3 px-4 py-4 animate-pulse">
+                  <div className="mt-1 w-2 h-2 rounded-full bg-muted shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-3.5 bg-muted rounded w-3/4" />
+                    <div className="h-3 bg-muted rounded w-1/2" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           {!historyLoading && history.length === 0 && (
             <p className="text-sm text-muted-foreground text-center py-8">No past conversations.</p>
           )}
@@ -324,9 +336,9 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
 
       {/* Input */}
       {!isClosed ? (
-        <div className="border-t border-border px-3 py-3">
+        <div className="border-t border-border px-3 py-3 pb-[max(12px,env(safe-area-inset-bottom))] shrink-0">
           <div className="flex items-center gap-2">
-            <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2">
+            <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2 focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/20 transition-all">
               <input
                 ref={inputRef}
                 type="text"
@@ -335,11 +347,13 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                 onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); sendMessage(); } }}
                 placeholder="Type a message…"
                 className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                autoComplete="off"
+                enterKeyHint="send"
               />
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-muted-foreground hover:text-foreground transition-colors shrink-0"
+                className="text-muted-foreground hover:text-foreground transition-colors shrink-0 p-1"
                 title="Attach file"
               >
                 <Paperclip className="w-4 h-4" />
@@ -350,6 +364,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
               onClick={sendMessage}
               disabled={!input.trim() || sending}
               className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 hover:opacity-90 transition-opacity"
+              aria-label="Send message"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -357,10 +372,10 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
           </div>
         </div>
       ) : (
-        <div className="border-t border-border px-4 py-3 bg-muted/20 flex items-center justify-between gap-3">
+        <div className="border-t border-border px-4 py-3 pb-[max(12px,env(safe-area-inset-bottom))] bg-muted/20 flex items-center justify-between gap-3 shrink-0">
           <p className="text-xs text-muted-foreground">This conversation is closed.</p>
           <button onClick={startNewConversation}
-            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity shrink-0">
+            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity shrink-0 min-h-[36px]">
             <Plus className="w-3.5 h-3.5" /> New chat
           </button>
         </div>

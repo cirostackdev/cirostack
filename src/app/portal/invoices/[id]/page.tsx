@@ -3,7 +3,6 @@ import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowLeft, Download } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import PayButton from "./PayButton";
 import { PortalShell } from "@/components/portal/PortalShell";
@@ -23,10 +22,22 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
   });
   if (!invoice) notFound();
 
-  const lineItems = invoice.lineItems as { description: string; qty: number; unitPrice: number }[];
+  // Support both old format { description, qty, unitPrice } and new format { description, amount }
+  type LineItemRaw = { description: string; qty?: number; unitPrice?: number; amount?: number };
+  const lineItems = (invoice.lineItems as LineItemRaw[]).map((l) => ({
+    description: l.description,
+    // New format provides amount directly; old format computes it from qty × unitPrice
+    total: l.amount !== undefined ? l.amount : (l.qty ?? 1) * (l.unitPrice ?? 0),
+    qty: l.qty,
+    unitPrice: l.unitPrice,
+    isNewFormat: l.amount !== undefined,
+  }));
 
-  const statusVariant: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-    paid: "default", unpaid: "secondary", overdue: "destructive", cancelled: "outline",
+  const statusColors: Record<string, string> = {
+    paid: "bg-green-500/15 text-green-500",
+    unpaid: "bg-yellow-500/15 text-yellow-500",
+    overdue: "bg-red-500/15 text-red-500",
+    cancelled: "bg-muted text-muted-foreground",
   };
 
   return (
@@ -43,9 +54,9 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <h2 className="text-xl font-bold">{invoice.number}</h2>
               {invoice.project && <p className="text-sm text-muted-foreground mt-0.5">{invoice.project.title}</p>}
             </div>
-            <Badge variant={statusVariant[invoice.status] ?? "secondary"} className="text-sm px-3 py-1">
+            <span className={`text-sm px-3 py-1 rounded-full font-semibold ${statusColors[invoice.status] ?? "bg-muted text-muted-foreground"}`}>
               {invoice.status.toUpperCase()}
-            </Badge>
+            </span>
           </div>
 
           {/* Meta */}
@@ -66,26 +77,45 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
             <table className="w-full">
               <thead className="bg-muted/40">
                 <tr>
-                  <th className="text-left px-4 py-2 font-medium text-muted-foreground">Description</th>
-                  <th className="text-right px-4 py-2 font-medium text-muted-foreground">Qty</th>
-                  <th className="text-right px-4 py-2 font-medium text-muted-foreground">Unit</th>
-                  <th className="text-right px-4 py-2 font-medium text-muted-foreground">Total</th>
+                  <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Description</th>
+                  {lineItems.some((l) => !l.isNewFormat) && (
+                    <>
+                      <th className="text-right px-4 py-2.5 font-medium text-muted-foreground">Qty</th>
+                      <th className="text-right px-4 py-2.5 font-medium text-muted-foreground">Unit</th>
+                    </>
+                  )}
+                  <th className="text-right px-4 py-2.5 font-medium text-muted-foreground">Amount</th>
                 </tr>
               </thead>
               <tbody>
                 {lineItems.map((l, i) => (
                   <tr key={i} className="border-t border-border">
                     <td className="px-4 py-3">{l.description}</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground">{l.qty}</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground">{invoice.currency} {(l.unitPrice / 100).toFixed(2)}</td>
-                    <td className="px-4 py-3 text-right font-medium">{invoice.currency} {((l.qty * l.unitPrice) / 100).toFixed(2)}</td>
+                    {!l.isNewFormat && (
+                      <>
+                        <td className="px-4 py-3 text-right text-muted-foreground">{l.qty ?? 1}</td>
+                        <td className="px-4 py-3 text-right text-muted-foreground">
+                          {invoice.currency} {((l.unitPrice ?? 0) / 100).toFixed(2)}
+                        </td>
+                      </>
+                    )}
+                    {l.isNewFormat && lineItems.some((x) => !x.isNewFormat) && (
+                      <td colSpan={2} />
+                    )}
+                    <td className="px-4 py-3 text-right font-medium">
+                      {invoice.currency} {(l.total / 100).toFixed(2)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
               <tfoot className="border-t-2 border-border bg-muted/20">
                 <tr>
-                  <td colSpan={3} className="px-4 py-3 text-right font-semibold">Total</td>
-                  <td className="px-4 py-3 text-right font-bold">{invoice.currency} {(invoice.amount / 100).toFixed(2)}</td>
+                  <td colSpan={lineItems.some((l) => !l.isNewFormat) ? 3 : 1} className="px-4 py-3 text-right font-semibold">
+                    Total
+                  </td>
+                  <td className="px-4 py-3 text-right font-bold text-base">
+                    {invoice.currency} {(invoice.amount / 100).toFixed(2)}
+                  </td>
                 </tr>
               </tfoot>
             </table>
@@ -94,15 +124,19 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
           {/* Line items — mobile */}
           <div className="sm:hidden space-y-2 text-sm">
             {lineItems.map((l, i) => (
-              <div key={i} className="flex items-start justify-between p-3 rounded-lg border border-border gap-2">
+              <div key={i} className="flex items-start justify-between p-3 rounded-xl border border-border gap-2">
                 <div className="min-w-0">
                   <p className="font-medium">{l.description}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{l.qty} × {invoice.currency} {(l.unitPrice / 100).toFixed(2)}</p>
+                  {!l.isNewFormat && (
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {l.qty ?? 1} × {invoice.currency} {((l.unitPrice ?? 0) / 100).toFixed(2)}
+                    </p>
+                  )}
                 </div>
-                <p className="font-medium shrink-0">{invoice.currency} {((l.qty * l.unitPrice) / 100).toFixed(2)}</p>
+                <p className="font-semibold shrink-0">{invoice.currency} {(l.total / 100).toFixed(2)}</p>
               </div>
             ))}
-            <div className="flex items-center justify-between px-3 pt-2 border-t border-border font-semibold text-sm">
+            <div className="flex items-center justify-between px-3 pt-3 border-t border-border font-bold text-sm">
               <span>Total</span>
               <span>{invoice.currency} {(invoice.amount / 100).toFixed(2)}</span>
             </div>

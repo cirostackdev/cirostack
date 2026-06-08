@@ -2,17 +2,23 @@ import { clientAuth } from "@/auth-client";
 import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle, Circle, Download, FileText } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, CheckCircle, Circle, Download, FileText, Bell } from "lucide-react";
 import { PortalShell } from "@/components/portal/PortalShell";
 
 const statusColors: Record<string, string> = {
-  discovery: "bg-blue-100 text-blue-700",
-  proposal: "bg-yellow-100 text-yellow-700",
-  active: "bg-green-100 text-green-700",
-  review: "bg-purple-100 text-purple-700",
-  complete: "bg-gray-200 text-gray-600",
-  paused: "bg-orange-100 text-orange-700",
+  discovery: "bg-blue-500/15 text-blue-500",
+  proposal: "bg-yellow-500/15 text-yellow-500",
+  active: "bg-green-500/15 text-green-500",
+  review: "bg-purple-500/15 text-purple-500",
+  complete: "bg-muted text-muted-foreground",
+  paused: "bg-orange-500/15 text-orange-500",
+};
+
+const invoiceStatusColors: Record<string, string> = {
+  paid: "bg-green-500/15 text-green-500",
+  unpaid: "bg-yellow-500/15 text-yellow-500",
+  overdue: "bg-red-500/15 text-red-500",
+  cancelled: "bg-muted text-muted-foreground",
 };
 
 export default async function PortalProjectPage({ params }: { params: Promise<{ id: string }> }) {
@@ -55,7 +61,7 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
               </p>
             )}
           </div>
-          <span className={`text-xs px-3 py-1 rounded-full font-medium shrink-0 ${statusColors[project.status] ?? "bg-gray-100 text-gray-700"}`}>
+          <span className={`text-xs px-3 py-1 rounded-full font-medium shrink-0 ${statusColors[project.status] ?? "bg-muted text-muted-foreground"}`}>
             {project.status}
           </span>
         </div>
@@ -91,7 +97,12 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
         <div>
           <h3 className="font-semibold mb-3">Updates</h3>
           {project.updates.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No updates yet.</p>
+            <div className="rounded-xl border border-dashed border-border p-6 text-center space-y-2">
+              <div className="w-9 h-9 rounded-full bg-muted mx-auto flex items-center justify-center">
+                <Bell className="w-4 h-4 text-muted-foreground" />
+              </div>
+              <p className="text-sm text-muted-foreground">No updates from your team yet.</p>
+            </div>
           ) : (
             <div className="space-y-3">
               {project.updates.map((u) => (
@@ -132,7 +143,9 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
                   <span className="text-sm font-medium">{inv.number}</span>
                   <div className="flex items-center gap-3">
                     <span className="text-sm text-muted-foreground">{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
-                    <Badge variant={inv.status === "paid" ? "default" : "secondary"}>{inv.status}</Badge>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${invoiceStatusColors[inv.status] ?? "bg-muted text-muted-foreground"}`}>
+                      {inv.status}
+                    </span>
                   </div>
                 </Link>
               ))}
