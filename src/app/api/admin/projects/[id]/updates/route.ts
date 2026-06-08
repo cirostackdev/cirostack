@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { sendPush } from "@/lib/push";
+import { createNotification } from "@/lib/notify";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -36,6 +37,7 @@ export async function POST(req: Request, { params }: Params) {
         body: `${project.title}: ${body.slice(0, 100)}`,
         url: `/portal/projects/${id}`,
       }).catch(console.error);
+      createNotification(project.clientId, "New project update", `${project.title}: ${body.slice(0, 100)}`, `/portal/projects/${id}`).catch(console.error);
     }
 
     return NextResponse.json(update, { status: 201 });

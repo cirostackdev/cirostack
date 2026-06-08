@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminDetailSkeleton } from "@/components/admin/AdminSkeletons";
 import { Button } from "@/components/ui/button";
@@ -339,6 +340,14 @@ export default function ProjectDetailPage() {
             {project.updates.length === 0 && (
               <p className="text-sm text-muted-foreground py-4 text-center border border-dashed border-border rounded-xl">No updates yet.</p>
             )}
+          </div>
+        </div>
+
+        {/* Invoices */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold">Invoices</h2>
+            <Link href={`/admin/invoices/new?projectId=${project.id}&clientId=${project.client.id}`}><Button size="sm" variant="outline"><Plus className="w-4 h-4 mr-1" /> New Invoice</Button></Link>
           </div>
         </div>
 

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { sendPush } from "@/lib/push";
+import { createNotification } from "@/lib/notify";
 
 export async function GET() {
   const session = await auth();
@@ -53,6 +54,7 @@ export async function POST(req: Request) {
       body: `Invoice ${number} for ${cur} ${(amount / 100).toFixed(2)} is ready`,
       url: `/portal/invoices/${invoice.id}`,
     }).catch(console.error);
+    createNotification(clientId, "New invoice", `Invoice ${number} for ${cur} ${(amount / 100).toFixed(2)} is ready`, `/portal/invoices/${invoice.id}`).catch(console.error);
 
     return NextResponse.json(invoice, { status: 201 });
   } catch (err: any) {

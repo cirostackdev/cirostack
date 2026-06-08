@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyWebhookSignature } from "@/lib/paystack";
 import { sendPush } from "@/lib/push";
+import { createNotification } from "@/lib/notify";
 
 export async function POST(req: Request) {
   const signature = req.headers.get("x-paystack-signature") ?? "";
@@ -40,6 +41,7 @@ export async function POST(req: Request) {
           body: `Invoice ${invoice.number} has been marked as paid.`,
           url: `/portal/invoices/${invoiceId}`,
         }).catch(console.error);
+        createNotification(invoice.clientId, "Payment confirmed", `Invoice ${invoice.number} has been marked as paid.`, `/portal/invoices/${invoiceId}`).catch(console.error);
       } catch (err) {
         console.error("[Paystack webhook] Failed to update invoice:", err);
         return NextResponse.json({ error: "DB error" }, { status: 500 });

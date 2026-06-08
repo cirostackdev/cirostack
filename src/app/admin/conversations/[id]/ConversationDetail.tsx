@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow, format } from "date-fns";
-import { Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip } from "lucide-react";
+import { Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { getSocket } from "@/lib/socket";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
@@ -214,6 +215,21 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     setStatus("closed");
   };
 
+  async function reopenConversation() {
+    const res = await fetch(`/api/admin/conversations/${conversation.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: "open" }),
+    });
+    if (res.ok) setStatus("open");
+  }
+
+  async function deleteConversation() {
+    if (!confirm("Delete this conversation? This cannot be undone.")) return;
+    await fetch(`/api/admin/conversations/${conversation.id}`, { method: "DELETE" });
+    router.push("/admin/conversations");
+  }
+
   const initials = conversation.visitorName
     ? conversation.visitorName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
     : "?";
@@ -258,6 +274,10 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                 <X className="w-4 h-4" />
               </button>
             )}
+            <button onClick={deleteConversation} title="Delete conversation"
+              className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-muted rounded-full transition-colors">
+              <Trash2 className="w-4 h-4" />
+            </button>
             <button onClick={() => setSidebarOpen((v) => !v)}
               className="lg:hidden p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
               <Info className="w-4 h-4" />
@@ -313,12 +333,33 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
               >
                 <Send className="w-4 h-4" />
               </button>
-              <input ref={fileInputRef} type="file" className="hidden" accept="image/*,application/pdf" />
+              <input
+                ref={fileInputRef}
+                type="file"
+                className="hidden"
+                accept="image/*,application/pdf"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file || !socketRef.current?.connected) return;
+                  const formData = new FormData();
+                  formData.append("file", file);
+                  try {
+                    const res = await fetch("/api/admin/chat-upload", { method: "POST", body: formData });
+                    if (!res.ok) { toast.error("Upload failed"); return; }
+                    const { url, name } = await res.json();
+                    socketRef.current.emit("admin:message", { conversationId: conversation.id, body: name, fileUrl: url });
+                  } catch {
+                    toast.error("Upload failed");
+                  }
+                  e.target.value = "";
+                }}
+              />
             </div>
           </div>
         ) : (
-          <div className="border-t border-border px-4 py-3 bg-muted/20">
-            <p className="text-xs text-muted-foreground text-center">This conversation is closed.</p>
+          <div className="border-t border-border px-4 py-3 bg-muted/20 flex items-center justify-between">
+            <p className="text-xs text-muted-foreground">This conversation is closed.</p>
+            <button onClick={reopenConversation} className="text-xs text-muted-foreground hover:text-foreground transition-colors">Reopen</button>
           </div>
         )}
       </div>

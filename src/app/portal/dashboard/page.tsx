@@ -72,6 +72,22 @@ export default async function PortalDashboard() {
       <div className="max-w-4xl">
         <p className="text-sm text-muted-foreground mb-6">{session.user.email}</p>
 
+        {/* Welcome callout for empty workspace */}
+        {projects.length === 0 && unpaidInvoices.length === 0 && activity.length === 0 && (
+          <div className="mb-6 p-5 rounded-xl border border-border bg-muted/20">
+            <p className="text-sm font-semibold mb-1">Welcome to your client portal</p>
+            <p className="text-sm text-muted-foreground mb-4">Your workspace is being set up. Here&apos;s what you can do while you wait:</p>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/portal/chat" className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity">
+                <MessageSquare className="w-3.5 h-3.5" /> Message your team
+              </Link>
+              <Link href="/portal/settings" className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-muted text-muted-foreground hover:text-foreground rounded-lg transition-colors">
+                Set your password
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* Unpaid invoices alert */}
         {unpaidInvoices.length > 0 && (
           <div className={`mb-6 p-4 rounded-xl border ${ALERT.warning}`}>

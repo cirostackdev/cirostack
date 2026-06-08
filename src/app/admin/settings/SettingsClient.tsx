@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { UserPlus, ShieldCheck, User, Circle } from "lucide-react";
+import { UserPlus, ShieldCheck, User, Circle, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -61,6 +61,15 @@ export function SettingsClient({
     setShowForm(false);
     setForm({ name: "", email: "", password: "", role: "agent" });
     toast.success("Admin account created");
+  };
+
+  const deleteAdmin = async (id: string) => {
+    if (!confirm("Permanently delete this admin account?")) return;
+    const res = await fetch(`/api/admin/admins/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      setAdmins((prev) => prev.filter((a) => a.id !== id));
+      toast.success("Admin account deleted");
+    }
   };
 
   const toggleDisabled = async (id: string, disabled: boolean) => {
@@ -214,16 +223,25 @@ export function SettingsClient({
                 <p className="text-xs text-muted-foreground truncate">{admin.email}</p>
               </div>
               {admin.id !== currentAdminId && (
-                <button
-                  onClick={() => toggleDisabled(admin.id, !admin.disabled)}
-                  className={`shrink-0 text-xs px-3 py-2 min-h-[36px] rounded-lg font-medium transition-colors ${
-                    admin.disabled
-                      ? INTERACTIVE.enable
-                      : INTERACTIVE.disable
-                  }`}
-                >
-                  {admin.disabled ? "Enable" : "Disable"}
-                </button>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={() => toggleDisabled(admin.id, !admin.disabled)}
+                    className={`text-xs px-3 py-2 min-h-[36px] rounded-lg font-medium transition-colors ${
+                      admin.disabled
+                        ? INTERACTIVE.enable
+                        : INTERACTIVE.disable
+                    }`}
+                  >
+                    {admin.disabled ? "Enable" : "Disable"}
+                  </button>
+                  <button
+                    onClick={() => deleteAdmin(admin.id)}
+                    className="p-2 min-h-[36px] rounded-lg text-muted-foreground hover:text-destructive hover:bg-muted transition-colors"
+                    title="Delete admin"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               )}
             </div>
           ))}

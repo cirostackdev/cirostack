@@ -66,12 +66,17 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
   });
 
   const updateStatus = async (id: string, status: string) => {
-    setStatuses((prev) => ({ ...prev, [id]: status }));
-    await fetch(`/api/admin/submissions/${id}`, {
+    const prev = statuses[id];
+    setStatuses((s) => ({ ...s, [id]: status }));
+    const res = await fetch(`/api/admin/submissions/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
     });
+    if (!res.ok) {
+      setStatuses((s) => ({ ...s, [id]: prev }));
+      toast.error("Failed to update status");
+    }
   };
 
   async function handleConvertToLead(sub: Submission) {

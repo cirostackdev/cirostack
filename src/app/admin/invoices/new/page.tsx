@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,8 +13,9 @@ import { Plus, Trash2 } from "lucide-react";
 type Client = { id: string; email: string; name?: string; projects: { id: string; title: string }[] };
 type LineItem = { description: string; amount: string };
 
-export default function NewInvoicePage() {
+function NewInvoicePageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [clients, setClients] = useState<Client[]>([]);
   const [clientId, setClientId] = useState("");
   const [projectId, setProjectId] = useState("");
@@ -22,6 +23,13 @@ export default function NewInvoicePage() {
   const [dueDate, setDueDate] = useState("");
   const [lineItems, setLineItems] = useState<LineItem[]>([{ description: "", amount: "" }]);
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const cId = searchParams.get("clientId");
+    const pId = searchParams.get("projectId");
+    if (cId) setClientId(cId);
+    if (pId) setProjectId(pId);
+  }, [searchParams]);
 
   useEffect(() => {
     fetch("/api/admin/clients").then((r) => r.json()).then(async (cs: Client[]) => {
@@ -132,5 +140,13 @@ export default function NewInvoicePage() {
         </div>
       </form>
     </AdminShell>
+  );
+}
+
+export default function NewInvoicePage() {
+  return (
+    <Suspense>
+      <NewInvoicePageInner />
+    </Suspense>
   );
 }

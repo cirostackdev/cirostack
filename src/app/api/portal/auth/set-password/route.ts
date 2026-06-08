@@ -7,18 +7,21 @@ export async function POST(req: Request) {
   const session = await clientAuth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { password } = await req.json();
+  const { password, currentPassword } = await req.json();
   if (!password || password.length < 8) {
     return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
   }
 
   const clientId = (session.user as any).id as string;
+  const client = await prisma.client.findUnique({ where: { id: clientId }, select: { passwordHash: true } });
+
+  if (client?.passwordHash) {
+    if (!currentPassword) return NextResponse.json({ error: "Current password is required." }, { status: 400 });
+    const valid = await bcrypt.compare(currentPassword, client.passwordHash);
+    if (!valid) return NextResponse.json({ error: "Current password is incorrect." }, { status: 400 });
+  }
+
   const passwordHash = await bcrypt.hash(password, 12);
-
-  await prisma.client.update({
-    where: { id: clientId },
-    data: { passwordHash },
-  });
-
+  await prisma.client.update({ where: { id: clientId }, data: { passwordHash } });
   return NextResponse.json({ ok: true });
 }

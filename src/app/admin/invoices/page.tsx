@@ -99,7 +99,7 @@ export default function AdminInvoicesPage() {
   const paidUsd = invoices.filter(i => i.status === "paid").reduce((s, i) => s + (i.amount / 100) * (i.usdRate ?? 1), 0);
   const fmtUsd = (n: number) => `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-  const FILTERS = ["all", "unpaid", "overdue", "paid", "cancelled"];
+  const FILTERS = ["all", "unpaid", "partial", "overdue", "paid", "cancelled"];
 
   return (
     <AdminShell title="Invoices">

@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import {
   LayoutDashboard,
@@ -33,13 +33,13 @@ const NAV = [
   { href: "/portal/settings", icon: Settings, label: "Settings" },
 ];
 
-// Nav items shown in the mobile bottom bar (main 4 only)
+// Nav items shown in the mobile bottom bar (main 5 only)
 const BOTTOM_NAV = [
   { href: "/portal/dashboard", icon: LayoutDashboard, label: "Home" },
   { href: "/portal/projects", icon: FolderKanban, label: "Projects" },
   { href: "/portal/files", icon: FolderOpen, label: "Files" },
   { href: "/portal/invoices", icon: Receipt, label: "Invoices" },
-  { href: "/portal/settings", icon: Settings, label: "Settings" },
+  { href: "/portal/notifications", icon: Bell, label: "Alerts" },
 ];
 
 export function PortalShell({
@@ -52,6 +52,18 @@ export function PortalShell({
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const { theme, setTheme } = useTheme();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    fetch("/api/portal/notifications")
+      .then((r) => r.ok ? r.json() : [])
+      .then((data: { read: boolean }[]) => {
+        if (Array.isArray(data)) {
+          setUnreadCount(data.filter((n) => n.read === false).length);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const SidebarContent = () => (
     <>
@@ -106,8 +118,18 @@ export function PortalShell({
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               }`}
             >
-              <Icon className="w-4 h-4 shrink-0" />
+              <div className="relative shrink-0">
+                <Icon className="w-4 h-4" />
+                {href === "/portal/notifications" && unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500" />
+                )}
+              </div>
               {!collapsed && label}
+              {href === "/portal/notifications" && !collapsed && unreadCount > 0 && (
+                <span className="ml-auto text-[10px] font-bold bg-red-500 text-white rounded-full px-1.5 py-0.5 min-w-[18px] text-center">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
+              )}
             </Link>
           );
         })}
@@ -182,7 +204,12 @@ export function PortalShell({
                 active ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Icon className={`w-5 h-5 ${active ? "text-primary" : ""}`} />
+              <div className="relative">
+                <Icon className={`w-5 h-5 ${active ? "text-primary" : ""}`} />
+                {href === "/portal/notifications" && unreadCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-red-500" />
+                )}
+              </div>
               <span>{label}</span>
             </Link>
           );

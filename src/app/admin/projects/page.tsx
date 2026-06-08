@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, FolderKanban } from "lucide-react";
+import { ChevronRight, FolderKanban, Plus } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { PROJECT_STATUS_COLORS } from "@/lib/colors";
 import { InlineStatusSelect } from "@/components/admin/InlineStatusSelect";
@@ -42,7 +42,10 @@ export default function AdminProjectsPage() {
 
   return (
     <AdminShell title="Projects">
-        <p className="text-sm text-muted-foreground mb-6">{loading ? <span className="inline-block h-4 w-14 rounded bg-muted animate-pulse" /> : <>{projects.length} projects</>}</p>
+        <div className="flex items-center justify-between mb-6">
+          <p className="text-sm text-muted-foreground">{loading ? <span className="inline-block h-4 w-14 rounded bg-muted animate-pulse" /> : <>{projects.length} projects</>}</p>
+          <Link href="/admin/projects/new"><Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Project</Button></Link>
+        </div>
         {loading ? <AdminTableSkeleton cols={5} /> : (
           <>
             {/* Desktop table */}

@@ -173,7 +173,10 @@ export default function ClientDetailPage() {
 
         {/* Invoices */}
         <div>
-          <h2 className="font-semibold mb-3">Invoices</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold">Invoices</h2>
+            <Link href={`/admin/invoices/new?clientId=${id}`}><Button size="sm" variant="outline"><Plus className="w-4 h-4 mr-1" /> New Invoice</Button></Link>
+          </div>
           <div className="space-y-2">
             {client.invoices.map((inv) => (
               <Link key={inv.id} href={`/admin/invoices/${inv.id}`} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors">
