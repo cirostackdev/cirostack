@@ -144,7 +144,7 @@ export async function POST(req: Request) {
         <tr>
           <td style="padding:32px;">
             <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${name},</p>
-            <p style="margin:0 0 24px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for requesting a consultation. A member of our team will reach out within one business day to confirm a time that works for you.</p>
+            <p style="margin:0 0 24px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for requesting a consultation. A member of our team will reach out within one business day to confirm a date that works for you.</p>
             <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px;background:#f8fafc;border-radius:8px;overflow:hidden;">
               <tr>
                 <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:140px;">Timezone</td>
