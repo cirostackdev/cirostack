@@ -55,6 +55,14 @@ export async function POST(req: Request) {
         <!-- Header -->
         <tr>
           <td style="background:#16a34a;padding:28px 32px;">
+            <table cellpadding="0" cellspacing="0" style="margin-bottom:16px;"><tr>
+              <td style="padding-right:12px;vertical-align:middle;">
+                <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="36" height="36" style="display:block;border-radius:8px;" />
+              </td>
+              <td style="vertical-align:middle;">
+                <p style="margin:0;font-size:13px;font-weight:600;color:#ffffff;">CiroStack</p>
+              </td>
+            </tr></table>
             <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:-0.3px;">Payment Confirmed</p>
             <p style="margin:4px 0 0;font-size:13px;color:#bbf7d0;">Your payment was received successfully.</p>
           </td>
