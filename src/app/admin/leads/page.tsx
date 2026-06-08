@@ -291,7 +291,7 @@ export default function LeadsPage() {
                       </button>
                     </td>
                     <td className="px-4 py-2.5">
-                      {lead.source ? <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span> : <span className="text-muted-foreground">—</span>}
+                      {lead.source ? <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize whitespace-nowrap">{lead.source}</span> : <span className="text-muted-foreground">—</span>}
                     </td>
                     <td className="px-4 py-2.5">
                       <div className="flex flex-wrap gap-1">
@@ -354,7 +354,7 @@ export default function LeadsPage() {
                     {leadStatus}
                     <ChevronRight className="w-2.5 h-2.5 opacity-60" />
                   </button>
-                  {lead.source && <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize">{lead.source}</span>}
+                  {lead.source && <span className="text-xs px-2 py-0.5 bg-muted rounded-full capitalize whitespace-nowrap">{lead.source}</span>}
                   {lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).map((tag) => (
                     <span key={tag} className="flex items-center gap-1 text-xs px-1.5 py-0.5 bg-blue-500/15 text-blue-500 rounded">
                       <Tag className="w-2.5 h-2.5" />{tag}
