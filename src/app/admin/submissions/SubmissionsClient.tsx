@@ -184,7 +184,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                     onChange={(id, status) => updateStatus(id, status)}
                   />
                 </div>
-                <span className="w-[140px] text-xs text-muted-foreground text-right px-3">
+                <span className="w-[140px] text-xs text-muted-foreground text-left px-3">
                   {format(new Date(sub.createdAt), "MMM d, HH:mm")}
                 </span>
                 <div className="w-6 flex items-center justify-center">
