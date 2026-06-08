@@ -15,8 +15,6 @@ import {
   LogOut,
   PanelLeftClose,
   PanelLeftOpen,
-  Menu,
-  X,
 } from "lucide-react";
 
 const NAV = [
@@ -46,26 +44,11 @@ export function PortalShell({
 }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const SidebarContent = ({ mobile = false }: { mobile?: boolean }) => (
+  const SidebarContent = () => (
     <>
       <div className="flex items-center justify-between px-3 py-4 border-b border-border min-h-[57px]">
-        {mobile ? (
-          <>
-            <div className="flex items-center gap-2">
-              <Image src={logo} alt="CiroStack" width={22} height={22} className="object-contain shrink-0" />
-              <span className="font-semibold text-sm">Client Portal</span>
-            </div>
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
-              aria-label="Close menu"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </>
-        ) : collapsed ? (
+        {collapsed ? (
           <button
             onClick={() => setCollapsed(false)}
             className="mx-auto p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
@@ -102,15 +85,13 @@ export function PortalShell({
             label: string;
           };
           const active = pathname === href || pathname.startsWith(href + "/");
-          const isCollapsed = !mobile && collapsed;
           return (
             <Link
               key={href}
               href={href}
-              title={isCollapsed ? label : undefined}
-              onClick={() => mobile && setMobileOpen(false)}
+              title={collapsed ? label : undefined}
               className={`flex items-center gap-2.5 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[44px] ${
-                isCollapsed ? "justify-center px-2" : "px-3"
+                collapsed ? "justify-center px-2" : "px-3"
               } ${
                 active
                   ? "bg-primary text-primary-foreground"
@@ -118,7 +99,7 @@ export function PortalShell({
               }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
-              {!isCollapsed && label}
+              {!collapsed && label}
             </Link>
           );
         })}
@@ -127,13 +108,13 @@ export function PortalShell({
       <div className="p-2 border-t border-border">
         <button
           onClick={() => signOut({ callbackUrl: "/portal/login" })}
-          title={!mobile && collapsed ? "Sign out" : undefined}
+          title={collapsed ? "Sign out" : undefined}
           className={`flex items-center gap-2.5 py-2.5 w-full rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors min-h-[44px] ${
-            !mobile && collapsed ? "justify-center px-2" : "px-3"
+            collapsed ? "justify-center px-2" : "px-3"
           }`}
         >
           <LogOut className="w-4 h-4" />
-          {(mobile || !collapsed) && "Sign out"}
+          {!collapsed && "Sign out"}
         </button>
       </div>
     </>
@@ -141,24 +122,7 @@ export function PortalShell({
 
   return (
     <div className="flex h-screen bg-background text-foreground overflow-hidden">
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
-
-      {/* Mobile drawer */}
-      <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 flex flex-col bg-background border-r border-border transition-transform duration-200 lg:hidden ${
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <SidebarContent mobile />
-      </aside>
-
-      {/* Desktop sidebar */}
+      {/* Desktop sidebar only */}
       <aside
         className={`hidden lg:flex ${
           collapsed ? "w-14" : "w-56"
@@ -169,15 +133,8 @@ export function PortalShell({
 
       {/* Main */}
       <main className="flex-1 flex flex-col overflow-hidden min-w-0">
-        {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-border shrink-0">
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="p-1.5 -ml-1.5 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
-            aria-label="Open menu"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
+        {/* Mobile top bar — title only, no hamburger */}
+        <div className="lg:hidden flex items-center px-4 py-3 border-b border-border shrink-0">
           {title && <h1 className="text-base font-semibold truncate">{title}</h1>}
         </div>
 
