@@ -67,7 +67,7 @@ export default function AdminJobsPage() {
                     <td className="px-4 py-3 text-muted-foreground">{job.department}</td>
                     <td className="px-4 py-3 text-muted-foreground">{job.type}</td>
                     <td className="px-4 py-3">
-                      <CmsBooleanToggle id={job.id} value={job.active} onLabel="Active" offLabel="Inactive" onClass={PUBLISH_STATUS_COLORS.active} offClass={PUBLISH_STATUS_COLORS.inactive} onChange={(id, v) => handleToggle(id, v)} saving={saving === job.id} />
+                      <CmsBooleanToggle id={job.id} value={job.active} onLabel="Active" offLabel="Inactive" onClass={PUBLISH_STATUS_COLORS.active} offClass={PUBLISH_STATUS_COLORS.inactive} onChange={(id, v) => handleToggle(id, v)} className="w-[76px] text-center" saving={saving === job.id} />
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2 justify-end">
@@ -90,7 +90,7 @@ export default function AdminJobsPage() {
                     <p className="font-medium text-sm truncate">{job.title}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{job.department} · {job.type}</p>
                   </div>
-                  <CmsBooleanToggle id={job.id} value={job.active} onLabel="Active" offLabel="Inactive" onClass={PUBLISH_STATUS_COLORS.active} offClass={PUBLISH_STATUS_COLORS.inactive} onChange={(id, v) => handleToggle(id, v)} saving={saving === job.id} />
+                  <CmsBooleanToggle id={job.id} value={job.active} onLabel="Active" offLabel="Inactive" onClass={PUBLISH_STATUS_COLORS.active} offClass={PUBLISH_STATUS_COLORS.inactive} onChange={(id, v) => handleToggle(id, v)} className="w-[76px] text-center" saving={saving === job.id} />
                 </div>
                 <div className="flex items-center gap-1 mt-3 justify-end">
                   <Link href={`/admin/cms/jobs/${job.id}`}><Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs"><Pencil className="w-3.5 h-3.5" /> Edit</Button></Link>

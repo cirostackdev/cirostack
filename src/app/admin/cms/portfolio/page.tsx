@@ -69,7 +69,7 @@ export default function AdminPortfolioPage() {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1.5">
                         <CmsBooleanToggle id={p.id} value={p.published} onLabel="Published" offLabel="Draft" className="w-[76px] text-center" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${p.id}-published`} />
-                        <CmsBooleanToggle id={p.id} value={p.featured} onLabel="Featured" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.featured} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "featured", v)} saving={saving === `${p.id}-featured`} />
+                        <CmsBooleanToggle id={p.id} value={p.featured} onLabel="Featured" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.featured} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "featured", v)} className="w-[76px] text-center" saving={saving === `${p.id}-featured`} />
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -95,7 +95,7 @@ export default function AdminPortfolioPage() {
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     <CmsBooleanToggle id={p.id} value={p.published} onLabel="Published" offLabel="Draft" className="w-[76px] text-center" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${p.id}-published`} />
-                    <CmsBooleanToggle id={p.id} value={p.featured} onLabel="Featured" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.featured} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "featured", v)} saving={saving === `${p.id}-featured`} />
+                    <CmsBooleanToggle id={p.id} value={p.featured} onLabel="Featured" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.featured} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "featured", v)} className="w-[76px] text-center" saving={saving === `${p.id}-featured`} />
                   </div>
                 </div>
                 <div className="flex items-center gap-1 mt-3 justify-end">

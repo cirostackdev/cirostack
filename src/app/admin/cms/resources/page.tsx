@@ -69,7 +69,7 @@ export default function AdminResourcesPage() {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1.5">
                         <CmsBooleanToggle id={r.id} value={r.published} onLabel="Published" offLabel="Draft" className="w-[76px] text-center" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${r.id}-published`} />
-                        <CmsBooleanToggle id={r.id} value={r.isNew} onLabel="New" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.isNew} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "isNew", v)} saving={saving === `${r.id}-isNew`} />
+                        <CmsBooleanToggle id={r.id} value={r.isNew} onLabel="New" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.isNew} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "isNew", v)} className="w-[76px] text-center" saving={saving === `${r.id}-isNew`} />
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -95,7 +95,7 @@ export default function AdminResourcesPage() {
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     <CmsBooleanToggle id={r.id} value={r.published} onLabel="Published" offLabel="Draft" className="w-[76px] text-center" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${r.id}-published`} />
-                    <CmsBooleanToggle id={r.id} value={r.isNew} onLabel="New" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.isNew} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "isNew", v)} saving={saving === `${r.id}-isNew`} />
+                    <CmsBooleanToggle id={r.id} value={r.isNew} onLabel="New" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.isNew} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "isNew", v)} className="w-[76px] text-center" saving={saving === `${r.id}-isNew`} />
                   </div>
                 </div>
                 <div className="flex items-center gap-1 mt-3 justify-end">

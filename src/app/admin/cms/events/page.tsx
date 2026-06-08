@@ -67,7 +67,7 @@ export default function AdminEventsPage() {
                     <td className="px-4 py-3 text-muted-foreground">{e.type || "—"}</td>
                     <td className="px-4 py-3 text-muted-foreground">{e.date}</td>
                     <td className="px-4 py-3">
-                      <CmsBooleanToggle id={e.id} value={e.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, v)} saving={saving === e.id} />
+                      <CmsBooleanToggle id={e.id} value={e.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, v)} className="w-[76px] text-center" saving={saving === e.id} />
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2 justify-end">
@@ -90,7 +90,7 @@ export default function AdminEventsPage() {
                     <p className="font-medium text-sm truncate">{e.title}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{e.type || "—"} · {e.date}</p>
                   </div>
-                  <CmsBooleanToggle id={e.id} value={e.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, v)} saving={saving === e.id} />
+                  <CmsBooleanToggle id={e.id} value={e.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, v)} className="w-[76px] text-center" saving={saving === e.id} />
                 </div>
                 <div className="flex items-center gap-1 mt-3 justify-end">
                   <Link href={`/admin/cms/events/${e.id}`}><Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs"><Pencil className="w-3.5 h-3.5" /> Edit</Button></Link>
