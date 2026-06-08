@@ -40,19 +40,19 @@ export async function POST(req: Request) {
 
                   <!-- Header -->
                   <tr>
-                    <td style="background:#0f172a;border-radius:10px 10px 0 0;padding:20px 28px;">
-                      <table cellpadding="0" cellspacing="0">
-                        <tr>
-                          <td style="padding-right:10px;">
-                            <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="36" height="36" style="display:block;border-radius:8px;" />
-                          </td>
-                          <td>
-                            <span style="color:#ffffff;font-size:16px;font-weight:700;">CiroStack</span>
-                            <span style="color:#94a3b8;font-size:13px;margin-left:8px;">Internal Notification</span>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
+                    <td style="background:#0f172a;border-radius:10px 10px 0 0;padding:24px 32px;">
+  <table cellpadding="0" cellspacing="0"><tr>
+    <td style="padding-right:10px;vertical-align:middle;">
+      <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+    </td>
+    <td style="vertical-align:middle;padding-right:14px;">
+      <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;">CiroStack</p>
+    </td>
+    <td style="vertical-align:middle;border-left:1px solid #334155;padding-left:14px;">
+      <p style="margin:0;font-size:13px;color:#94a3b8;">Resource Request</p>
+    </td>
+  </tr></table>
+</td>
                   </tr>
 
                   <!-- Body -->
@@ -114,19 +114,19 @@ export async function POST(req: Request) {
 
                   <!-- Header -->
                   <tr>
-                    <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:28px 32px;">
-                      <table cellpadding="0" cellspacing="0">
-                        <tr>
-                          <td style="padding-right:12px;">
-                            <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="36" height="36" style="display:block;border-radius:8px;" />
-                          </td>
-                          <td>
-                            <span style="color:#ffffff;font-size:18px;font-weight:700;letter-spacing:-0.3px;">CiroStack</span>
-                            <span style="display:block;color:#94a3b8;font-size:12px;margin-top:2px;">Resources</span>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
+                    <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:24px 32px;">
+  <table cellpadding="0" cellspacing="0"><tr>
+    <td style="padding-right:10px;vertical-align:middle;">
+      <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+    </td>
+    <td style="vertical-align:middle;padding-right:14px;">
+      <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;">CiroStack</p>
+    </td>
+    <td style="vertical-align:middle;border-left:1px solid #334155;padding-left:14px;">
+      <p style="margin:0;font-size:13px;color:#94a3b8;">Resources</p>
+    </td>
+  </tr></table>
+</td>
                   </tr>
 
                   <!-- Body -->
