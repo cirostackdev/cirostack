@@ -6,6 +6,7 @@ import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { useTheme } from "next-themes";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -15,6 +16,8 @@ import {
   LogOut,
   PanelLeftClose,
   PanelLeftOpen,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 const NAV = [
@@ -44,6 +47,7 @@ export function PortalShell({
 }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   const SidebarContent = () => (
     <>
@@ -105,7 +109,17 @@ export function PortalShell({
         })}
       </nav>
 
-      <div className="p-2 border-t border-border">
+      <div className="p-2 border-t border-border space-y-0.5">
+        <button
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          title={collapsed ? "Toggle theme" : undefined}
+          className={`flex items-center gap-2.5 py-2.5 w-full rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors min-h-[44px] ${
+            collapsed ? "justify-center px-2" : "px-3"
+          }`}
+        >
+          {theme === "dark" ? <Sun className="w-4 h-4 shrink-0" /> : <Moon className="w-4 h-4 shrink-0" />}
+          {!collapsed && (theme === "dark" ? "Light mode" : "Dark mode")}
+        </button>
         <button
           onClick={() => signOut({ callbackUrl: "/portal/login" })}
           title={collapsed ? "Sign out" : undefined}

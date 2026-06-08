@@ -6,6 +6,7 @@ import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { useTheme } from "next-themes";
 import {
   MessageSquare,
   FileText,
@@ -25,6 +26,8 @@ import {
   PanelLeftOpen,
   Menu,
   X,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 const NAV = [
@@ -57,6 +60,7 @@ export function AdminShell({
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   const SidebarContent = ({ mobile = false }: { mobile?: boolean }) => (
     <>
@@ -134,7 +138,17 @@ export function AdminShell({
         })}
       </nav>
 
-      <div className="p-2 border-t border-border">
+      <div className="p-2 border-t border-border space-y-0.5">
+        <button
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          title={!mobile && collapsed ? "Toggle theme" : undefined}
+          className={`flex items-center gap-2.5 py-2 w-full rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors ${
+            !mobile && collapsed ? "justify-center px-2" : "px-3"
+          }`}
+        >
+          {theme === "dark" ? <Sun className="w-4 h-4 shrink-0" /> : <Moon className="w-4 h-4 shrink-0" />}
+          {(mobile || !collapsed) && (theme === "dark" ? "Light mode" : "Dark mode")}
+        </button>
         <button
           onClick={() => signOut({ callbackUrl: "/admin/login" })}
           title={!mobile && collapsed ? "Sign out" : undefined}
