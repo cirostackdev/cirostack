@@ -30,7 +30,7 @@ export async function POST(_req: Request, { params }: Params) {
           <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:40px 16px;">
             <tr>
               <td align="center">
-                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;">
 
                   <!-- Header -->
                   <tr>
