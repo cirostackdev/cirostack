@@ -22,11 +22,15 @@ export async function initializeTransaction(params: {
   currency?: string;
   reference?: string;
   callback_url?: string;
+  channels?: string[];
   metadata?: Record<string, unknown>;
 }) {
   return paystackFetch("/transaction/initialize", {
     method: "POST",
-    body: JSON.stringify(params),
+    body: JSON.stringify({
+      channels: ["card", "bank", "ussd", "bank_transfer"],
+      ...params,
+    }),
   });
 }
 
