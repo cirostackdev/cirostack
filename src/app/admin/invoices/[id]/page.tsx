@@ -7,13 +7,12 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminDetailSkeleton } from "@/components/admin/AdminSkeletons";
 import { fmtMoney } from "@/lib/format";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { ArrowLeft, Send, Trash2, CheckCircle, Pencil, X } from "lucide-react";
-import { INVOICE_BADGE_VARIANT } from "@/lib/colors";
+import { INVOICE_BADGE_VARIANT, INVOICE_STATUS_COLORS } from "@/lib/colors";
 
 type Invoice = {
   id: string;
@@ -181,7 +180,7 @@ export default function AdminInvoiceDetailPage() {
             <div>
               <p className="text-xs text-muted-foreground mb-1">Amount</p>
               <p className="text-xl font-bold">{fmtMoney(invoice.amount, invoice.currency)}</p>
-              <Badge variant={statusVariant[status] ?? "secondary"} className="mt-1">{status}</Badge>
+              <span className={`text-xs px-2.5 py-1 rounded-full font-medium mt-1 inline-block ${INVOICE_STATUS_COLORS[status] ?? "bg-muted text-muted-foreground"}`}>{status}</span>
             </div>
             <div>
               <p className="text-xs text-muted-foreground mb-1">Dates</p>

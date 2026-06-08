@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { ArrowLeft, CheckCircle, Circle, Plus, Upload, Trash2, Pencil } from "lucide-react";
@@ -327,7 +326,7 @@ export default function ProjectDetailPage() {
               <div key={u.id} className={`p-4 rounded-xl border ${u.internal ? "border-dashed border-muted-foreground/30 bg-muted/10" : "border-border"}`}>
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <div className="flex items-center gap-2">
-                    {u.internal && <Badge variant="outline" className="text-xs">Internal</Badge>}
+                    {u.internal && <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">Internal</span>}
                     <span className="text-xs text-muted-foreground">{new Date(u.createdAt).toLocaleString()}</span>
                   </div>
                   <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive shrink-0" onClick={() => handleDeleteUpdate(u.id)}>

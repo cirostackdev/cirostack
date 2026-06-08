@@ -9,11 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { ArrowLeft, Plus, Trash2, Mail, Send } from "lucide-react";
-import { PROJECT_STATUS_COLORS } from "@/lib/colors";
+import { PROJECT_STATUS_COLORS, INVOICE_STATUS_COLORS } from "@/lib/colors";
 
 type Client = { id: string; email: string; name?: string; company?: string; projects: Project[]; invoices: Invoice[] };
 type Project = { id: string; title: string; status: string; _count: { updates: number; files: number } };
@@ -181,7 +180,7 @@ export default function ClientDetailPage() {
                 <p className="font-medium">{inv.number}</p>
                 <div className="flex items-center gap-3">
                   <span className="text-sm text-muted-foreground">{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
-                  <Badge variant={inv.status === "paid" ? "default" : "secondary"}>{inv.status}</Badge>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${INVOICE_STATUS_COLORS[inv.status] ?? "bg-muted text-muted-foreground"}`}>{inv.status}</span>
                 </div>
               </Link>
             ))}

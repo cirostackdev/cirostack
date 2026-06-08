@@ -136,6 +136,31 @@
   }
 }
 
+/* ── Admin & Portal: override brand-red primary with slate-blue ── */
+.admin-root,
+.portal-root {
+  --primary: 221 83% 53%;          /* blue-600 equivalent */
+  --primary-foreground: 0 0% 100%;
+  --ring: 221 83% 53%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .admin-root,
+  .portal-root {
+    --primary: 217 91% 60%;        /* blue-500 equivalent — brighter on dark */
+    --primary-foreground: 0 0% 100%;
+    --ring: 217 91% 60%;
+  }
+}
+
+/* Respect .dark class too (next-themes) */
+.dark .admin-root,
+.dark .portal-root {
+  --primary: 217 91% 60%;
+  --primary-foreground: 0 0% 100%;
+  --ring: 217 91% 60%;
+}
+
 @layer base {
   * {
     @apply border-border;

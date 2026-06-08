@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { PUBLISH_STATUS_COLORS } from "@/lib/colors";
 
 type Job = { id: string; title: string; department: string; type: string; active: boolean };
 
@@ -56,7 +56,7 @@ export default function AdminJobsPage() {
                       <td className="px-4 py-3 text-muted-foreground">{job.department}</td>
                       <td className="px-4 py-3 text-muted-foreground">{job.type}</td>
                       <td className="px-4 py-3">
-                        <Badge variant={job.active ? "default" : "secondary"}>{job.active ? "Active" : "Inactive"}</Badge>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${job.active ? PUBLISH_STATUS_COLORS.active : PUBLISH_STATUS_COLORS.inactive}`}>{job.active ? "Active" : "Inactive"}</span>
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2 justify-end">
@@ -80,7 +80,7 @@ export default function AdminJobsPage() {
                       <p className="font-medium text-sm truncate">{job.title}</p>
                       <p className="text-xs text-muted-foreground mt-0.5">{job.department} · {job.type}</p>
                     </div>
-                    <Badge variant={job.active ? "default" : "secondary"} className="shrink-0">{job.active ? "Active" : "Inactive"}</Badge>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${job.active ? PUBLISH_STATUS_COLORS.active : PUBLISH_STATUS_COLORS.inactive}`}>{job.active ? "Active" : "Inactive"}</span>
                   </div>
                   <div className="flex items-center gap-1 mt-3 justify-end">
                     <Link href={`/admin/cms/jobs/${job.id}`}><Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs"><Pencil className="w-3.5 h-3.5" /> Edit</Button></Link>

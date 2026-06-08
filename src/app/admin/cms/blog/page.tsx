@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { PUBLISH_STATUS_COLORS } from "@/lib/colors";
 
 type Post = {
   id: string;
@@ -66,13 +66,11 @@ export default function AdminBlogPage() {
                     <tr key={post.id} className="border-t border-border hover:bg-muted/20 transition-colors">
                       <td className="px-4 py-3 font-medium">
                         {post.title}
-                        {post.featured && <Badge variant="outline" className="ml-2 text-xs">Featured</Badge>}
+                        {post.featured && <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${PUBLISH_STATUS_COLORS.featured}`}>Featured</span>}
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{post.category}</td>
                       <td className="px-4 py-3">
-                        <Badge variant={post.published ? "default" : "secondary"}>
-                          {post.published ? "Published" : "Draft"}
-                        </Badge>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${post.published ? PUBLISH_STATUS_COLORS.published : PUBLISH_STATUS_COLORS.draft}`}>{post.published ? "Published" : "Draft"}</span>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{post.date}</td>
                       <td className="px-4 py-3">
@@ -104,10 +102,8 @@ export default function AdminBlogPage() {
                       <p className="text-xs text-muted-foreground mt-0.5">{post.category} · {post.date}</p>
                     </div>
                     <div className="flex flex-col items-end gap-1 shrink-0">
-                      <Badge variant={post.published ? "default" : "secondary"}>
-                        {post.published ? "Published" : "Draft"}
-                      </Badge>
-                      {post.featured && <Badge variant="outline" className="text-xs">Featured</Badge>}
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${post.published ? PUBLISH_STATUS_COLORS.published : PUBLISH_STATUS_COLORS.draft}`}>{post.published ? "Published" : "Draft"}</span>
+                      {post.featured && <span className={`text-xs px-2 py-0.5 rounded-full ${PUBLISH_STATUS_COLORS.featured}`}>Featured</span>}
                     </div>
                   </div>
                   <div className="flex items-center gap-1 mt-3 justify-end">

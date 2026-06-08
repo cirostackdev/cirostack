@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Plus, ChevronRight, Send, CheckCircle, Trash2, Receipt } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { fmtMoney } from "@/lib/format";
 import { toast } from "sonner";
-import { INVOICE_BADGE_VARIANT } from "@/lib/colors";
+import { INVOICE_BADGE_VARIANT, INVOICE_STATUS_COLORS } from "@/lib/colors";
 
 type Invoice = {
   id: string; number: string; amount: number; currency: string; usdRate: number; status: string;
@@ -151,7 +150,7 @@ export default function AdminInvoicesPage() {
                     <td className="px-4 py-3 font-medium">
                       <span>{fmtMoney(inv.amount, inv.currency)}</span>
                     </td>
-                    <td className="px-4 py-3"><Badge variant={statusVariant[inv.effectiveStatus] ?? "secondary"}>{inv.effectiveStatus}</Badge></td>
+                    <td className="px-4 py-3"><span className={`text-xs px-2 py-0.5 rounded-full font-medium ${INVOICE_STATUS_COLORS[inv.effectiveStatus] ?? "bg-muted text-muted-foreground"}`}>{inv.effectiveStatus}</span></td>
                     <td className="px-4 py-3 text-muted-foreground">{inv.dueDate ? inv.dueDate.slice(0, 10) : "—"}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 justify-end">
@@ -209,7 +208,7 @@ export default function AdminInvoicesPage() {
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     <p className="font-semibold text-sm">{fmtMoney(inv.amount, inv.currency)}</p>
-                    <Badge variant={statusVariant[inv.effectiveStatus] ?? "secondary"}>{inv.effectiveStatus}</Badge>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${INVOICE_STATUS_COLORS[inv.effectiveStatus] ?? "bg-muted text-muted-foreground"}`}>{inv.effectiveStatus}</span>
                   </div>
                 </div>
                 {inv.dueDate && <p className="text-xs text-muted-foreground mt-2">Due {inv.dueDate.slice(0, 10)}</p>}
