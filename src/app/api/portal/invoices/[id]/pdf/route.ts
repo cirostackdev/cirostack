@@ -122,18 +122,14 @@ function InvoiceDocument({ invoice, lineItems }: { invoice: any; lineItems: any[
           View,
           { style: styles.headerRow },
           React.createElement(Text, { style: styles.col1 }, "Description"),
-          React.createElement(Text, { style: styles.col2 }, "Qty"),
-          React.createElement(Text, { style: styles.col3 }, "Unit Price"),
           React.createElement(Text, { style: styles.col4 }, "Amount")
         ),
         ...lineItems.map((item: any, i: number) =>
           React.createElement(
             View,
             { style: styles.row, key: i },
-            React.createElement(Text, { style: styles.col1 }, item.description),
-            React.createElement(Text, { style: styles.col2 }, String(item.qty)),
-            React.createElement(Text, { style: styles.col3 }, fmt(item.unitPrice)),
-            React.createElement(Text, { style: styles.col4 }, fmt(item.qty * item.unitPrice))
+            React.createElement(Text, { style: styles.col1 }, item.description || ""),
+            React.createElement(Text, { style: styles.col4 }, fmt(item.amount))
           )
         ),
         React.createElement(
@@ -184,7 +180,14 @@ export async function GET(_req: Request, { params }: Params) {
     });
     if (!invoice) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-    const lineItems = invoice.lineItems as { description: string; qty: number; unitPrice: number }[];
+    type RawItem = { description: string; qty?: number; unitPrice?: number; amount?: number };
+    const lineItems = (invoice.lineItems as RawItem[]).map((l) => ({
+      description: l.description,
+      amount: l.amount !== undefined ? l.amount : (l.qty ?? 1) * (l.unitPrice ?? 0),
+      qty: l.qty,
+      unitPrice: l.unitPrice,
+      isNewFormat: l.amount !== undefined,
+    }));
 
     const pdfBuffer = await renderToBuffer(
       InvoiceDocument({ invoice, lineItems }) as any
@@ -196,8 +199,8 @@ export async function GET(_req: Request, { params }: Params) {
         "Content-Disposition": `attachment; filename="invoice-${invoice.number}.pdf"`,
       },
     });
-  } catch (err) {
+  } catch (err: any) {
     console.error("[GET /api/portal/invoices/[id]/pdf]", err);
-    return NextResponse.json({ error: "Failed to generate PDF" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to generate PDF", detail: err?.message }, { status: 500 });
   }
 }
