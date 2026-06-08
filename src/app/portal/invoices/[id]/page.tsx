@@ -40,7 +40,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
   return (
     <PortalShell title={invoice.number}>
-      <div className="max-w-2xl space-y-6">
+      <div className="w-full space-y-6">
         <Link href="/portal/invoices" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="w-4 h-4" /> Invoices
         </Link>

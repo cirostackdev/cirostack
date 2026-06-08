@@ -68,7 +68,7 @@ export default function RevenuePage() {
 
   return (
     <AdminShell title="Revenue">
-      <div className="max-w-5xl space-y-8">
+      <div className="space-y-8">
         {/* Summary Cards */}
         {loading ? (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

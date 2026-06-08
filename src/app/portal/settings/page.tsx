@@ -17,7 +17,7 @@ export default async function PortalSettingsPage() {
 
   return (
     <PortalShell title="Settings">
-      <div className="max-w-xl">
+      <div className="max-w-2xl">
         <PushPermissionBanner ownerType="client" />
         <PortalSettingsClient
           initialName={client?.name ?? ""}

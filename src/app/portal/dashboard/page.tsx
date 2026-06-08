@@ -69,7 +69,7 @@ export default async function PortalDashboard() {
   return (
     <PortalShell title={`Welcome back${firstName ? `, ${firstName}` : ""}`}>
       {needsPassword && <SetPasswordModal />}
-      <div className="max-w-4xl">
+      <div className="w-full">
         <p className="text-sm text-muted-foreground mb-6">{session.user.email}</p>
 
         {/* Welcome callout for empty workspace */}

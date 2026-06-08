@@ -31,7 +31,7 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
 
   return (
     <PortalShell title={project.title}>
-      <div className="max-w-3xl space-y-8">
+      <div className="w-full space-y-8">
         <Link href="/portal/projects" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="w-4 h-4" /> Projects
         </Link>

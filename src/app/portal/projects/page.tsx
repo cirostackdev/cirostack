@@ -25,7 +25,7 @@ export default async function PortalProjectsPage() {
 
   return (
     <PortalShell title="Projects">
-      <div className="max-w-3xl">
+      <div className="w-full">
         {projects.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border p-12 text-center space-y-4">
             <div className="w-14 h-14 rounded-2xl bg-muted mx-auto flex items-center justify-center">

@@ -103,7 +103,7 @@ export default function AnalyticsPage() {
 
   return (
     <AdminShell title="Analytics">
-      <div className="max-w-6xl space-y-10">
+      <div className="space-y-10">
 
         {/* Date range */}
         <div className="flex items-center gap-1.5">

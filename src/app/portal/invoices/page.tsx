@@ -29,7 +29,7 @@ export default async function PortalInvoicesPage() {
 
   return (
     <PortalShell title="Invoices">
-      <div className="max-w-3xl">
+      <div className="w-full">
         {invoices.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             <div className="rounded-2xl border border-border bg-card p-4">

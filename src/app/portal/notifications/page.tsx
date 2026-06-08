@@ -66,7 +66,7 @@ export default function PortalNotificationsPage() {
 
   return (
     <PortalShell title="Notifications">
-      <div className="max-w-3xl">
+      <div className="w-full">
         {/* Header with filter tabs and mark all read */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-1 bg-muted rounded-lg p-1">

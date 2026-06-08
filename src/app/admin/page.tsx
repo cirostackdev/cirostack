@@ -85,7 +85,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <AdminShell title="Dashboard">
-      <div className="max-w-5xl space-y-8">
+      <div className="space-y-8">
 
         {/* KPI Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

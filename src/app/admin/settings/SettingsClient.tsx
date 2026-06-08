@@ -109,7 +109,7 @@ export function SettingsClient({
   };
 
   return (
-    <div className="max-w-2xl space-y-8">
+    <div className="max-w-3xl space-y-8">
 
       {/* My Profile */}
       <div>
