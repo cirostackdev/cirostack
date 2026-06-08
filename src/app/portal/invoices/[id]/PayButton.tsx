@@ -78,23 +78,22 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
         amount: ngnKobo,
         currency: "NGN",
         ref: reference,
-        callback: async (response: { reference: string }) => {
-          try {
-            const verifyRes = await fetch(`/api/portal/invoices/${invoiceId}/pay`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ reference: response.reference }),
-            });
+        callback: function(response: { reference: string }) {
+          fetch(`/api/portal/invoices/${invoiceId}/pay`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ reference: response.reference }),
+          }).then(function(verifyRes) {
             if (verifyRes.ok) {
               router.push(`/portal/invoices/${invoiceId}/success`);
             } else {
               toast.error("Payment received but verification failed. Contact support.");
               router.refresh();
             }
-          } catch {
+          }).catch(function() {
             toast.error("Payment received but verification failed. Contact support.");
             router.refresh();
-          }
+          });
         },
         onClose: () => {
           setLoading(false);
