@@ -70,13 +70,13 @@ export const CONVERSATION_STATUS_COLORS: Record<string, string> = {
 // ─── Submission Type ─────────────────────────────────────────────────────────
 
 export const SUBMISSION_TYPE_COLORS: Record<string, string> = {
-  start: "bg-blue-500/15 text-blue-500",
-  consultation: "bg-purple-500/15 text-purple-500",
-  careers: "bg-amber-500/15 text-amber-500",
-  press: "bg-red-500/15 text-red-500",
-  events: "bg-orange-500/15 text-orange-500",
-  newsletter: "bg-green-500/15 text-green-500",
-  resources: "bg-emerald-500/15 text-emerald-500",
+  start:        "bg-blue-500/15 text-blue-500",      // new project inquiry
+  consultation: "bg-purple-500/15 text-purple-500",  // advisory / booking
+  careers:      "bg-emerald-500/15 text-emerald-500", // opportunity / growth
+  press:        "bg-orange-500/15 text-orange-500",  // media / outreach (not danger)
+  events:       "bg-amber-500/15 text-amber-500",    // time-sensitive
+  newsletter:   "bg-green-500/15 text-green-500",    // positive signup
+  resources:    "bg-blue-500/15 text-blue-500",      // informational download
 };
 
 // ─── KPI / Semantic icon + value colors ──────────────────────────────────────

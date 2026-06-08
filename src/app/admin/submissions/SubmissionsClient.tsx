@@ -42,7 +42,7 @@ function exportCsv(submissions: Submission[]) {
 }
 
 export function SubmissionsClient({ submissions }: { submissions: Submission[] }) {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [statuses, setStatuses] = useState<Record<string, string>>(
@@ -53,7 +53,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
   const types = Array.from(new Set(submissions.map((s) => s.type)));
 
   const filtered = submissions.filter((s) => {
-    const matchType = filter === "all" || s.type === filter;
+    const matchType = filter === "" || s.type === filter;
     if (!matchType) return false;
     if (!search) return true;
     const q = search.toLowerCase();
@@ -98,10 +98,10 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="flex flex-wrap gap-2 flex-1">
-          {["all", ...types].map((t) => (
+          {types.map((t) => (
             <button
               key={t}
-              onClick={() => setFilter(t)}
+              onClick={() => setFilter(filter === t ? "" : t)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-colors ${
                 filter === t
                   ? "bg-primary text-primary-foreground"
