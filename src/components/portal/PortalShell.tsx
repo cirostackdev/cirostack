@@ -76,7 +76,7 @@ export function PortalShell({
       <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
         {NAV.map((item, i) => {
           if ("divider" in item)
-            return !mobile && collapsed ? null : (
+            return collapsed ? null : (
               <div key={i} className="my-1 border-t border-border/50" />
             );
           const { href, icon: Icon, label } = item as {
