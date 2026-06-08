@@ -40,6 +40,8 @@ export async function GET(req: Request) {
     resourceTotal, resourcePub,
     annoTotal, annoPub, annoFeat,
     convPeriod, convOpen, unreadMsgs,
+    projectsCreatedRaw, projectsCompletedRaw,
+    clientComments, clientUpdates, totalMessages,
   ] = await Promise.all([
     prisma.formSubmission.findMany({
       where: { createdAt: { gte: from } },
@@ -91,6 +93,18 @@ export async function GET(req: Request) {
     prisma.conversation.count({ where: { createdAt: { gte: from } } }),
     prisma.conversation.count({ where: { status: "open" } }),
     prisma.message.count({ where: { read: false, senderType: "visitor" } }),
+    // extra
+    prisma.project.findMany({
+      where: { createdAt: { gte: from } },
+      select: { createdAt: true, status: true },
+    }),
+    prisma.project.findMany({
+      where: { status: "complete", updatedAt: { gte: from } },
+      select: { updatedAt: true },
+    }),
+    prisma.projectComment.count({ where: { createdAt: { gte: from } } }),
+    prisma.projectUpdate.count({ where: { internal: false, createdAt: { gte: from } } }),
+    prisma.message.count({ where: { createdAt: { gte: from } } }),
   ]);
 
   // ── Pipeline ────────────────────────────────────────────────────────────────
@@ -113,9 +127,30 @@ export async function GET(req: Request) {
 
   const subsByType: Record<string, number> = {};
   const subsByStatus: Record<string, number> = { new: 0, reviewed: 0, actioned: 0 };
+  const subActionedByType: Record<string, number> = {};
   for (const s of submissions) {
     subsByType[s.type] = (subsByType[s.type] ?? 0) + 1;
     subsByStatus[s.status] = (subsByStatus[s.status] ?? 0) + 1;
+    if (s.status === "actioned") subActionedByType[s.type] = (subActionedByType[s.type] ?? 0) + 1;
+  }
+
+  // Lead velocity — weekly buckets within the period
+  const weekCount = Math.max(1, Math.ceil(days / 7));
+  const leadVelocity: { week: string; new: number; won: number }[] = [];
+  for (let i = 0; i < weekCount; i++) {
+    const wStart = new Date(from);
+    wStart.setDate(wStart.getDate() + i * 7);
+    const wEnd = new Date(wStart);
+    wEnd.setDate(wEnd.getDate() + 7);
+    const weekLeads = periodLeads.filter((l) => {
+      const d = new Date(l.createdAt);
+      return d >= wStart && d < wEnd;
+    });
+    leadVelocity.push({
+      week: wStart.toLocaleString("en-US", { month: "short", day: "numeric" }),
+      new: weekLeads.length,
+      won: weekLeads.filter((l) => l.tags.includes("won")).length,
+    });
   }
 
   // ── Financial ───────────────────────────────────────────────────────────────
@@ -178,6 +213,21 @@ export async function GET(req: Request) {
     ? Math.round((completedMilestones / totalMilestones) * 100)
     : 0;
 
+  // ── Projects timeline (created vs completed, monthly) ───────────────────────
+
+  const projectTimeline: { label: string; created: number; completed: number }[] = [];
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const end = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+    const created = projectsCreatedRaw.filter((p) => new Date(p.createdAt) >= d && new Date(p.createdAt) < end).length;
+    const completed = projectsCompletedRaw.filter((p) => new Date(p.updatedAt) >= d && new Date(p.updatedAt) < end).length;
+    projectTimeline.push({ label: d.toLocaleString("en-US", { month: "short" }), created, completed });
+  }
+
+  // ── Avg messages per conversation ────────────────────────────────────────────
+
+  const avgMsgsPerConv = convPeriod > 0 ? +(totalMessages / convPeriod).toFixed(1) : 0;
+
   // ── KPIs ────────────────────────────────────────────────────────────────────
 
   const totalLeads = leads.length;
@@ -201,7 +251,10 @@ export async function GET(req: Request) {
       },
       leadsByStatus,
       leadSources,
-      subsByType: Object.entries(subsByType).map(([type, count]) => ({ type, count })).sort((a, b) => b.count - a.count),
+      leadVelocity,
+      subsByType: Object.entries(subsByType).map(([type, count]) => ({
+        type, count, actioned: subActionedByType[type] ?? 0,
+      })).sort((a, b) => b.count - a.count),
       subsByStatus,
     },
     financial: {
@@ -214,8 +267,10 @@ export async function GET(req: Request) {
     },
     projects: {
       byStatus: projectsByStatus.map((p) => ({ status: p.status, count: p._count.id })),
+      timeline: projectTimeline,
       overdueList,
       milestones: { total: totalMilestones, completed: completedMilestones, rate: milestoneRate },
+      engagement: { comments: clientComments, updates: clientUpdates },
     },
     content: {
       blog: { total: blogTotal, published: blogPub, draft: blogTotal - blogPub, featured: blogFeat },
@@ -229,6 +284,7 @@ export async function GET(req: Request) {
       periodTotal: convPeriod,
       openNow: convOpen,
       unreadMessages: unreadMsgs,
+      avgMsgsPerConv,
     },
   });
 }

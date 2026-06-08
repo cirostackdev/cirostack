@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/admin/AdminShell";
 import {
   DollarSign, Users, TrendingUp, FolderKanban, AlertTriangle,
-  Clock, CheckCircle2, ArrowRight, BarChart2,
+  Clock, CheckCircle2, BarChart2, MessageCircle, FileEdit,
 } from "lucide-react";
 import { PROJECT_STATUS_COLORS, SEMANTIC } from "@/lib/colors";
 
@@ -17,7 +17,8 @@ type AnalyticsData = {
     funnel: { submissions: number; leads: number; qualified: number; won: number };
     leadsByStatus: Record<string, number>;
     leadSources: { source: string; total: number; won: number }[];
-    subsByType: { type: string; count: number }[];
+    leadVelocity: { week: string; new: number; won: number }[];
+    subsByType: { type: string; count: number; actioned: number }[];
     subsByStatus: Record<string, number>;
   };
   financial: {
@@ -28,11 +29,13 @@ type AnalyticsData = {
   };
   projects: {
     byStatus: { status: string; count: number }[];
+    timeline: { label: string; created: number; completed: number }[];
     overdueList: { id: string; title: string; status: string; client: string; daysOverdue: number | null }[];
     milestones: { total: number; completed: number; rate: number };
+    engagement: { comments: number; updates: number };
   };
   content: Record<string, { total: number; published?: number; draft?: number; featured?: number; active?: number; inactive?: number }>;
-  conversations: { periodTotal: number; openNow: number; unreadMessages: number };
+  conversations: { periodTotal: number; openNow: number; unreadMessages: number; avgMsgsPerConv: number };
 };
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -211,6 +214,38 @@ export default function AnalyticsPage() {
             </div>
           </div>
 
+          {/* Lead velocity */}
+          <div className="rounded-xl border border-border p-5 mt-6">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Lead Velocity — New vs Won (Weekly)</p>
+            {loading ? (
+              <div className="h-28 bg-muted/30 rounded animate-pulse" />
+            ) : (data?.pipeline.leadVelocity.every(w => w.new === 0)) ? (
+              <p className="text-xs text-muted-foreground text-center py-6">No leads in this period.</p>
+            ) : (
+              <div className="space-y-3">
+                {/* Legend */}
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-2 rounded-sm bg-purple-500/60" />New</span>
+                  <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-2 rounded-sm bg-emerald-500" />Won</span>
+                </div>
+                <div className="flex items-end gap-1 h-24">
+                  {data?.pipeline.leadVelocity.map((w, i) => {
+                    const maxNew = Math.max(...(data.pipeline.leadVelocity.map(x => x.new)), 1);
+                    return (
+                      <div key={i} className="flex-1 flex flex-col items-center gap-0.5 h-full justify-end group" title={`${w.week}: ${w.new} new, ${w.won} won`}>
+                        <div className="w-full flex items-end gap-0.5 justify-center h-full">
+                          <div className="w-[45%] bg-purple-500/60 rounded-t-sm min-h-[2px]" style={{ height: `${Math.max((w.new / maxNew) * 100, w.new > 0 ? 4 : 0)}%` }} />
+                          <div className="w-[45%] bg-emerald-500 rounded-t-sm min-h-[2px]" style={{ height: `${Math.max((w.won / maxNew) * 100, w.won > 0 ? 4 : 0)}%` }} />
+                        </div>
+                        <span className="text-[9px] text-muted-foreground truncate w-full text-center">{w.week}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* Lead sources + submission types */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
             <div className="rounded-xl border border-border p-5">
@@ -229,16 +264,28 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="rounded-xl border border-border p-5">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Submissions by Type</p>
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Submissions by Type + Actioned Rate</p>
               {loading ? (
                 <div className="space-y-3">{[...Array(5)].map((_, i) => <Skeleton key={i} className="h-5 w-full" />)}</div>
               ) : data?.pipeline.subsByType.length === 0 ? (
                 <p className="text-xs text-muted-foreground text-center py-4">No submissions in this period.</p>
               ) : (
-                <div className="space-y-2.5">
-                  {data?.pipeline.subsByType.map((s) => (
-                    <BarRow key={s.type} label={s.type} value={s.count} max={data.pipeline.subsByType[0]?.count || 1} color="bg-blue-500" />
-                  ))}
+                <div className="space-y-3">
+                  {data?.pipeline.subsByType.map((s) => {
+                    const actionedPct = s.count > 0 ? Math.round((s.actioned / s.count) * 100) : 0;
+                    return (
+                      <div key={s.type}>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs text-muted-foreground capitalize">{s.type}</span>
+                          <span className="text-xs text-muted-foreground">{s.count} total · <span className="text-green-500 font-medium">{actionedPct}% actioned</span></span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden relative">
+                          <div className="h-full bg-blue-500/40 rounded-full absolute" style={{ width: "100%" }} />
+                          <div className="h-full bg-green-500 rounded-full absolute" style={{ width: `${actionedPct}%` }} />
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -354,6 +401,35 @@ export default function AnalyticsPage() {
         <div>
           <SectionHeader title="Projects & Delivery" sub="Project pipeline, milestone health, and overdue work" />
 
+          {/* Projects created vs completed timeline */}
+          <div className="rounded-xl border border-border p-5 mb-6">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Projects Created vs Completed (Monthly)</p>
+            {loading ? (
+              <div className="h-28 bg-muted/30 rounded animate-pulse" />
+            ) : (
+              <div className="space-y-3">
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-2 rounded-sm bg-blue-500/60" />Created</span>
+                  <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-2 rounded-sm bg-green-500" />Completed</span>
+                </div>
+                <div className="flex items-end gap-1.5 h-24">
+                  {data?.projects.timeline.map((m, i) => {
+                    const maxVal = Math.max(...(data.projects.timeline.flatMap(x => [x.created, x.completed])), 1);
+                    return (
+                      <div key={i} className="flex-1 flex flex-col items-center gap-0.5 h-full justify-end group" title={`${m.label}: ${m.created} created, ${m.completed} completed`}>
+                        <div className="w-full flex items-end gap-0.5 justify-center h-full">
+                          <div className="w-[45%] bg-blue-500/60 rounded-t-sm min-h-[2px]" style={{ height: `${Math.max((m.created / maxVal) * 100, m.created > 0 ? 4 : 0)}%` }} />
+                          <div className="w-[45%] bg-green-500 rounded-t-sm min-h-[2px]" style={{ height: `${Math.max((m.completed / maxVal) * 100, m.completed > 0 ? 4 : 0)}%` }} />
+                        </div>
+                        <span className="text-[9px] text-muted-foreground">{m.label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
             {/* Status distribution */}
             <div className="rounded-xl border border-border p-5">
@@ -403,6 +479,26 @@ export default function AnalyticsPage() {
               </div>
 
               <div className="rounded-xl border border-border p-5">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Client Engagement</p>
+                {loading ? <Skeleton className="h-16 w-full" /> : (
+                  <div className="space-y-3">
+                    {[
+                      { label: "Client comments", value: data?.projects.engagement.comments ?? 0, Icon: MessageCircle, color: SEMANTIC.accent },
+                      { label: "Project updates posted", value: data?.projects.engagement.updates ?? 0, Icon: FileEdit, color: SEMANTIC.info },
+                    ].map(({ label, value, Icon, color }) => (
+                      <div key={label} className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Icon className={`w-3.5 h-3.5 ${color}`} />
+                          <span className="text-xs text-muted-foreground">{label}</span>
+                        </div>
+                        <span className={`text-lg font-bold ${color}`}>{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-border p-5">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Submission Review Status</p>
                 {loading ? <Skeleton className="h-16 w-full" /> : (
                   <div className="space-y-1.5">
@@ -437,6 +533,7 @@ export default function AnalyticsPage() {
                     { label: "This period", value: data?.conversations.periodTotal ?? 0, color: SEMANTIC.info, Icon: BarChart2 },
                     { label: "Currently open", value: data?.conversations.openNow ?? 0, color: SEMANTIC.success, Icon: CheckCircle2 },
                     { label: "Unread messages", value: data?.conversations.unreadMessages ?? 0, color: SEMANTIC.danger, Icon: AlertTriangle },
+                    { label: "Avg msgs / convo", value: data?.conversations.avgMsgsPerConv ?? 0, color: SEMANTIC.accent, Icon: MessageCircle },
                   ].map(({ label, value, color, Icon }) => (
                     <div key={label} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
