@@ -11,7 +11,7 @@ import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users, ChevronRight } fro
 import { toast } from "sonner";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { FilterDropdown } from "@/components/admin/FilterDropdown";
-import { LEAD_STATUS_COLORS as LEAD_COLORS } from "@/lib/colors";
+import { LEAD_STATUS_COLORS as LEAD_COLORS, SUBMISSION_TYPE_COLORS } from "@/lib/colors";
 
 type Lead = {
   id: string;
@@ -151,6 +151,14 @@ export default function LeadsPage() {
   const allSources = Array.from(new Set(leads.map((l) => l.source).filter(Boolean))) as string[];
   const allTags = Array.from(new Set(leads.flatMap((l) => l.tags)));
 
+  // Create colorMaps for sources (from SUBMISSION_TYPE_COLORS) and tags (from LEAD_STATUS_COLORS)
+  const sourceColorMap = Object.fromEntries(
+    allSources.map((s) => [s, SUBMISSION_TYPE_COLORS[s] ?? "bg-muted text-muted-foreground"])
+  );
+  const tagColorMap = Object.fromEntries(
+    allTags.map((t) => [t, LEAD_COLORS[t] ?? "bg-muted text-muted-foreground"])
+  );
+
   const filtered = leads.filter((l) => {
     const q = search.toLowerCase();
     const matchSearch = !q || l.email.toLowerCase().includes(q) || (l.name ?? "").toLowerCase().includes(q);
@@ -176,6 +184,7 @@ export default function LeadsPage() {
               value={filterSource}
               options={allSources}
               onChange={setFilterSource}
+              colorMap={sourceColorMap}
             />
           )}
           {allTags.length > 0 && (
@@ -184,6 +193,7 @@ export default function LeadsPage() {
               value={filterTag}
               options={allTags}
               onChange={setFilterTag}
+              colorMap={tagColorMap}
             />
           )}
           {(search || filterSource || filterTag) && (

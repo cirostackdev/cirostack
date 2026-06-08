@@ -8,9 +8,10 @@ interface Props {
   value: string;
   options: string[];
   onChange: (value: string) => void;
+  colorMap?: Record<string, string>;
 }
 
-export function FilterDropdown({ label, value, options, onChange }: Props) {
+export function FilterDropdown({ label, value, options, onChange, colorMap }: Props) {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState({ top: 0, left: 0 });
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -64,10 +65,11 @@ export function FilterDropdown({ label, value, options, onChange }: Props) {
               onChange("");
               setOpen(false);
             }}
-            className={`w-full text-left px-3 py-1.5 text-xs hover:bg-accent transition-colors ${
-              value === "" ? "bg-accent font-medium text-foreground" : "text-foreground"
+            className={`w-full text-left px-3 py-1.5 text-xs flex items-center gap-2 hover:bg-accent/50 transition-colors ${
+              value === "" ? "bg-accent text-foreground font-medium" : "text-foreground"
             }`}
           >
+            {colorMap && <span className="w-2 h-2 rounded-full bg-muted-foreground/40 shrink-0" />}
             {label}
           </button>
           {options.map((opt) => (
@@ -77,10 +79,17 @@ export function FilterDropdown({ label, value, options, onChange }: Props) {
                 onChange(opt);
                 setOpen(false);
               }}
-              className={`w-full text-left px-3 py-1.5 text-xs hover:bg-accent transition-colors ${
-                value === opt ? "bg-accent font-medium text-foreground" : "text-foreground"
+              className={`w-full text-left px-3 py-1.5 text-xs flex items-center gap-2 hover:bg-accent/50 transition-colors ${
+                value === opt ? "bg-accent text-foreground font-medium" : "text-foreground"
               }`}
             >
+              {colorMap && (
+                <span
+                  className={`w-2 h-2 rounded-full shrink-0 ${
+                    (colorMap[opt] ?? "").split(" ").find((c) => c.startsWith("bg-")) ?? "bg-muted-foreground/40"
+                  }`}
+                />
+              )}
               {opt}
             </button>
           ))}
