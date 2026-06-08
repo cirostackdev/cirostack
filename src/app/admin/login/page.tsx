@@ -26,7 +26,7 @@ export default function AdminLoginPage() {
     if (result?.error) {
       setError("Invalid email or password.");
     } else {
-      router.replace("/admin/conversations");
+      router.replace("/admin");
     }
     setLoading(false);
   };
