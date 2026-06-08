@@ -10,9 +10,10 @@ interface Props {
   onChange: (id: string, newStatus: string) => void;
   saving?: boolean;
   size?: "sm" | "md";
+  dynamicWidth?: boolean;
 }
 
-export function InlineStatusSelect({ id, value, options, colorMap, onChange, saving }: Props) {
+export function InlineStatusSelect({ id, value, options, colorMap, onChange, saving, dynamicWidth }: Props) {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState({ top: 0, left: 0 });
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -52,9 +53,9 @@ export function InlineStatusSelect({ id, value, options, colorMap, onChange, sav
         onClick={handleOpen}
         disabled={saving}
         title="Click to change status"
-        className={`text-xs px-2 py-0.5 rounded-full font-medium w-[76px] text-center cursor-pointer hover:opacity-75 transition-opacity disabled:opacity-40 ${
-          colorMap[value] ?? "bg-muted text-muted-foreground"
-        }`}
+        className={`text-xs px-2 py-0.5 rounded-full font-medium cursor-pointer hover:opacity-75 transition-opacity disabled:opacity-40 ${
+          dynamicWidth ? "text-center" : "w-[76px] text-center"
+        } ${colorMap[value] ?? "bg-muted text-muted-foreground"}`}
       >
         {value}
       </button>

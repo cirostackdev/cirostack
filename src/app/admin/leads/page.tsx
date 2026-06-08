@@ -185,6 +185,7 @@ export default function LeadsPage() {
               options={["All sources"].concat(allSources)}
               colorMap={sourceColorMap}
               onChange={(_, val) => setFilterSource(val === "All sources" ? "" : val)}
+              dynamicWidth
             />
           )}
           {allTags.length > 0 && (
@@ -194,6 +195,7 @@ export default function LeadsPage() {
               options={["All tags"].concat(allTags)}
               colorMap={tagColorMap}
               onChange={(_, val) => setFilterTag(val === "All tags" ? "" : val)}
+              dynamicWidth
             />
           )}
           {(search || filterSource || filterTag) && (
