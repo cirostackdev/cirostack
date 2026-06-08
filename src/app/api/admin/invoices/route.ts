@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "clientId, number, amount, lineItems required" }, { status: 400 });
     }
 
-    const cur = currency ?? "USD";
+    const cur = currency ?? "NGN";
     const usdRate = await fetchUsdRate(cur);
 
     const invoice = await prisma.invoice.create({
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
     // Notify client
     sendPush("client", clientId, {
       title: "New invoice",
-      body: `Invoice ${number} for ${currency ?? "USD"} ${(amount / 100).toFixed(2)} is ready`,
+      body: `Invoice ${number} for ${cur} ${(amount / 100).toFixed(2)} is ready`,
       url: `/portal/invoices/${invoice.id}`,
     }).catch(console.error);
 
