@@ -53,7 +53,7 @@ export default async function PortalProjectsPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
                         <h2 className="font-semibold truncate">{p.title}</h2>
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>
+                        <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>
                           {p.status}
                         </span>
                       </div>

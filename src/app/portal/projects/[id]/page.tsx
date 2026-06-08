@@ -49,7 +49,7 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
               </p>
             )}
           </div>
-          <span className={`text-xs px-3 py-1 rounded-full font-medium shrink-0 ${statusColors[project.status] ?? "bg-muted text-muted-foreground"}`}>
+          <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[project.status] ?? "bg-muted text-muted-foreground"}`}>
             {project.status}
           </span>
         </div>
@@ -122,7 +122,7 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
                   <span className="text-sm font-medium">{inv.number}</span>
                   <div className="flex items-center gap-3">
                     <span className="text-sm text-muted-foreground">{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${invoiceStatusColors[inv.status] ?? "bg-muted text-muted-foreground"}`}>
+                    <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium ${invoiceStatusColors[inv.status] ?? "bg-muted text-muted-foreground"}`}>
                       {inv.status}
                     </span>
                   </div>

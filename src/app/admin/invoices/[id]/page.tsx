@@ -180,7 +180,7 @@ export default function AdminInvoiceDetailPage() {
             <div>
               <p className="text-xs text-muted-foreground mb-1">Amount</p>
               <p className="text-xl font-bold">{fmtMoney(invoice.amount, invoice.currency)}</p>
-              <span className={`text-xs px-2.5 py-1 rounded-full font-medium mt-1 inline-block ${INVOICE_STATUS_COLORS[status] ?? "bg-muted text-muted-foreground"}`}>{status}</span>
+              <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium mt-1 ${INVOICE_STATUS_COLORS[status] ?? "bg-muted text-muted-foreground"}`}>{status}</span>
             </div>
             <div>
               <p className="text-xs text-muted-foreground mb-1">Dates</p>

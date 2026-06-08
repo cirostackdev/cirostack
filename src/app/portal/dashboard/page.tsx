@@ -144,7 +144,7 @@ export default async function PortalDashboard() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1 flex-wrap">
                             <h3 className="font-medium text-sm truncate">{p.title}</h3>
-                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
+                            <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
                           </div>
                           {total > 0 && (
                             <div>

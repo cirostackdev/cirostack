@@ -275,7 +275,7 @@ export default function LeadsPage() {
                       <button
                         onClick={() => handleCycleStatus(lead)}
                         title="Click to advance status"
-                        className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-semibold capitalize hover:opacity-80 transition-opacity ${LEAD_STATUS_COLORS[leadStatus] ?? "bg-muted text-muted-foreground"}`}
+                        className={`inline-flex items-center justify-center w-[76px] text-xs px-2 py-0.5 rounded-full font-semibold capitalize hover:opacity-80 transition-opacity ${LEAD_STATUS_COLORS[leadStatus] ?? "bg-muted text-muted-foreground"}`}
                       >
                         {leadStatus}
                         <ChevronRight className="w-2.5 h-2.5 opacity-60" />
@@ -340,7 +340,7 @@ export default function LeadsPage() {
                 <div className="flex flex-wrap items-center gap-1.5 mt-2">
                   <button
                     onClick={() => handleCycleStatus(lead)}
-                    className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-semibold capitalize hover:opacity-80 transition-opacity ${LEAD_STATUS_COLORS[leadStatus] ?? "bg-muted text-muted-foreground"}`}
+                    className={`inline-flex items-center justify-center w-[76px] text-xs px-2 py-0.5 rounded-full font-semibold capitalize hover:opacity-80 transition-opacity ${LEAD_STATUS_COLORS[leadStatus] ?? "bg-muted text-muted-foreground"}`}
                   >
                     {leadStatus}
                     <ChevronRight className="w-2.5 h-2.5 opacity-60" />

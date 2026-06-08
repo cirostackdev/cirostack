@@ -52,7 +52,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
               <h2 className="text-xl font-bold">{invoice.number}</h2>
               {invoice.project && <p className="text-sm text-muted-foreground mt-0.5">{invoice.project.title}</p>}
             </div>
-            <span className={`text-sm px-3 py-1 rounded-full font-semibold ${statusColors[invoice.status] ?? "bg-muted text-muted-foreground"}`}>
+            <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-semibold ${statusColors[invoice.status] ?? "bg-muted text-muted-foreground"}`}>
               {invoice.status.toUpperCase()}
             </span>
           </div>

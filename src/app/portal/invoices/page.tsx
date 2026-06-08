@@ -59,7 +59,7 @@ export default async function PortalInvoicesPage() {
               </div>
               <div className="flex items-center gap-2 sm:gap-4 shrink-0">
                 <span className="text-sm font-semibold">{fmtMoney(inv.amount, inv.currency)}</span>
-                <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${statusColors[inv.status] ?? "bg-muted text-muted-foreground"}`}>
+                <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-semibold ${statusColors[inv.status] ?? "bg-muted text-muted-foreground"}`}>
                   {inv.status}
                 </span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground hidden sm:block" />

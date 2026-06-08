@@ -162,7 +162,7 @@ export default function ClientDetailPage() {
                   <p className="font-medium">{p.title}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{p._count.updates} updates · {p._count.files} files</p>
                 </div>
-                <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
+                <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[p.status] ?? "bg-muted text-muted-foreground"}`}>{p.status}</span>
               </Link>
             ))}
             {client.projects.length === 0 && (
@@ -180,7 +180,7 @@ export default function ClientDetailPage() {
                 <p className="font-medium">{inv.number}</p>
                 <div className="flex items-center gap-3">
                   <span className="text-sm text-muted-foreground">{inv.currency} {(inv.amount / 100).toFixed(2)}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${INVOICE_STATUS_COLORS[inv.status] ?? "bg-muted text-muted-foreground"}`}>{inv.status}</span>
+                  <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium ${INVOICE_STATUS_COLORS[inv.status] ?? "bg-muted text-muted-foreground"}`}>{inv.status}</span>
                 </div>
               </Link>
             ))}

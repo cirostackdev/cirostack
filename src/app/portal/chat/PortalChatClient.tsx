@@ -261,7 +261,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                   {c.messages.length} message{c.messages.length !== 1 ? "s" : ""} · {formatDistanceToNow(new Date(c.updatedAt), { addSuffix: true })}
                 </p>
               </div>
-              <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0 ${CONVERSATION_STATUS_COLORS[c.status] ?? "bg-muted text-muted-foreground"}`}>
+              <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium ${CONVERSATION_STATUS_COLORS[c.status] ?? "bg-muted text-muted-foreground"}`}>
                 {c.status}
               </span>
             </button>
@@ -289,7 +289,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
         </div>
         <div className="flex items-center gap-1.5">
           {conversation && !isClosed && (
-            <span className={`text-[11px] px-2.5 py-1 rounded-full font-semibold ${CONVERSATION_STATUS_COLORS.open}`}>active</span>
+            <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-semibold ${CONVERSATION_STATUS_COLORS.open}`}>active</span>
           )}
           <button onClick={loadHistory}
             className="text-xs font-medium px-2.5 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors">
