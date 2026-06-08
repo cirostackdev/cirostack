@@ -23,12 +23,12 @@ export default async function PortalInvoicesPage() {
     include: { project: { select: { title: true } } },
   });
 
-  // Group totals by currency to handle multi-currency correctly
-  const currencies = [...new Set(invoices.map((i) => i.currency))];
-  const singleCurrency = currencies.length === 1 ? currencies[0] : null;
-  const total = invoices.reduce((s, i) => s + i.amount, 0);
-  const paid = invoices.filter((i) => i.status === "paid").reduce((s, i) => s + i.amount, 0);
-  const outstanding = total - paid;
+  // Sum all amounts in USD using the stored exchange rate at time of invoice creation
+  const toUsd = (inv: typeof invoices[0]) => (inv.amount / 100) * (inv.usdRate ?? 1);
+  const totalUsd = invoices.reduce((s, i) => s + toUsd(i), 0);
+  const paidUsd = invoices.filter((i) => i.status === "paid").reduce((s, i) => s + toUsd(i), 0);
+  const outstandingUsd = totalUsd - paidUsd;
+  const fmtUsd = (n: number) => `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   return (
     <PortalShell title="Invoices">
@@ -37,22 +37,18 @@ export default async function PortalInvoicesPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             <div className="rounded-2xl border border-border bg-card p-4">
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Total</p>
-              <p className="text-2xl font-bold mt-1.5">
-                {singleCurrency ?? ""} {(total / 100).toFixed(2)}
-              </p>
-              {!singleCurrency && <p className="text-[10px] text-muted-foreground mt-0.5">mixed currencies</p>}
+              <p className="text-2xl font-bold mt-1.5">{fmtUsd(totalUsd)}</p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-4">
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Paid</p>
-              <p className="text-2xl font-bold mt-1.5 text-green-500">
-                {singleCurrency ?? ""} {(paid / 100).toFixed(2)}
-              </p>
+              <p className="text-2xl font-bold mt-1.5 text-green-500">{fmtUsd(paidUsd)}</p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-4">
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Outstanding</p>
-              <p className="text-2xl font-bold mt-1.5 text-amber-500">
-                {singleCurrency ?? ""} {(outstanding / 100).toFixed(2)}
-              </p>
+              <p className="text-2xl font-bold mt-1.5 text-amber-500">{fmtUsd(outstandingUsd)}</p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">USD equivalent at invoice date</p>
             </div>
           </div>
         )}
