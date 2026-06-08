@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { clientAuth } from "@/auth-client";
-import { verifyTransaction } from "@/lib/paystack";
+import { initializeTransaction, verifyTransaction } from "@/lib/paystack";
 import { fetchUsdToNgn } from "@/lib/exchange-rate";
 
 export const runtime = "nodejs";
@@ -41,14 +41,26 @@ export async function POST(req: Request, { params }: Params) {
     }
   }
 
-  // Action: initialize — compute NGN kobo amount for PaystackPop
+  // Action: initialize — get authorization_url from Paystack
   try {
     const usdToNgn = await fetchUsdToNgn();
-    // invoice.amount is in USD cents; convert to NGN kobo: (cents / 100) * rate * 100 = cents * rate
     const ngnKobo = Math.round(invoice.amount * usdToNgn);
-    const reference = `inv_${id}_${Date.now()}`;
+    const portalUrl = process.env.PORTAL_URL ?? "http://localhost:3000";
 
-    return NextResponse.json({ ngnKobo, reference, email: invoice.client.email });
+    const result = await initializeTransaction({
+      email: invoice.client.email,
+      amount: ngnKobo,
+      currency: "NGN",
+      callback_url: `${portalUrl}/portal/payment-callback`,
+      metadata: { invoiceId: id, invoiceNumber: invoice.number },
+    });
+
+    if (!result.status) {
+      console.error("[Paystack init error]", result);
+      return NextResponse.json({ error: result.message || "Failed to initialize payment" }, { status: 502 });
+    }
+
+    return NextResponse.json({ authorization_url: result.data.authorization_url });
   } catch (err) {
     console.error("[POST /api/portal/invoices/[id]/pay] init error", err);
     return NextResponse.json({ error: "Payment initialization failed" }, { status: 500 });
