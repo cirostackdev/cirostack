@@ -86,14 +86,23 @@ export default function AnalyticsPage() {
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [days, setDays] = useState(30);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     fetch(`/api/admin/analytics?days=${days}`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) {
+          console.error("[Analytics] API returned:", r.status, r.statusText);
+          throw new Error(`API returned ${r.status}`);
+        }
+        return r.json();
+      })
       .then((d) => { setData(d); setLoading(false); })
       .catch((err) => {
         console.error("[Analytics] Failed to fetch:", err);
+        setError(err.message);
         setLoading(false);
       });
   }, [days]);
@@ -107,6 +116,11 @@ export default function AnalyticsPage() {
 
   return (
     <AdminShell title="Analytics">
+      {error && (
+        <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/25 text-red-500 text-sm">
+          Failed to load analytics: {error}
+        </div>
+      )}
       <div className="space-y-10">
 
         {/* Date range */}
