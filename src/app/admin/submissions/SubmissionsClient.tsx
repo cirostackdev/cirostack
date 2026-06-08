@@ -184,14 +184,16 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                     onChange={(id, status) => updateStatus(id, status)}
                   />
                 </div>
-                <span className="flex-1 text-xs text-muted-foreground text-right px-3">
+                <span className="w-[140px] text-xs text-muted-foreground text-right px-3">
                   {format(new Date(sub.createdAt), "MMM d, HH:mm")}
                 </span>
-                {expanded === sub.id ? (
-                  <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
-                ) : (
-                  <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
-                )}
+                <div className="w-6 flex items-center justify-center">
+                  {expanded === sub.id ? (
+                    <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                  )}
+                </div>
               </div>
             </div>
 
