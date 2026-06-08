@@ -35,7 +35,7 @@ export async function POST(_req: Request, { params }: Params) {
 <body style="margin:0;padding:0;background:#f4f4f5;font-family:'Sora',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:0;">
     <tr><td align="center">
-      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;">
 
         <!-- Header -->
         <tr>

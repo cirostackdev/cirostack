@@ -66,7 +66,7 @@ export async function POST(req: Request) {
 
                   <!-- Header -->
                   <tr>
-                    <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:24px 32px;">
+                    <td style="background:#0f172a;padding:24px 32px;">
   <table width="100%" cellpadding="0" cellspacing="0"><tr>
   <td style="vertical-align:middle;">
     <table cellpadding="0" cellspacing="0"><tr>
@@ -98,7 +98,7 @@ export async function POST(req: Request) {
                       <!-- OTP Code Block -->
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px 0;">
                         <tr>
-                          <td align="center" style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px;padding:28px 24px;">
+                          <td align="center" style="background:#f8fafc;border:2px solid #e2e8f0;padding:28px 24px;">
                             <span style="font-family:'Courier New',Courier,monospace;font-size:40px;font-weight:700;letter-spacing:12px;color:#0f172a;display:block;line-height:1;">
                               ${otp}
                             </span>

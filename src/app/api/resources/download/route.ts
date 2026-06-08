@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
                   <!-- Header -->
                   <tr>
-                    <td style="background:#0f172a;border-radius:10px 10px 0 0;padding:24px 32px;">
+                    <td style="background:#0f172a;padding:24px 32px;">
   <table width="100%" cellpadding="0" cellspacing="0"><tr>
   <td style="vertical-align:middle;">
     <table cellpadding="0" cellspacing="0"><tr>
@@ -118,7 +118,7 @@ export async function POST(req: Request) {
 
                   <!-- Header -->
                   <tr>
-                    <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:24px 32px;">
+                    <td style="background:#0f172a;padding:24px 32px;">
   <table width="100%" cellpadding="0" cellspacing="0"><tr>
   <td style="vertical-align:middle;">
     <table cellpadding="0" cellspacing="0"><tr>
