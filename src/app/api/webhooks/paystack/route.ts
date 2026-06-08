@@ -55,15 +55,19 @@ export async function POST(req: Request) {
         <!-- Header -->
         <tr>
           <td style="background:#16a34a;padding:28px 32px;">
-            <table cellpadding="0" cellspacing="0" style="margin-bottom:20px;"><tr>
-  <td style="padding-right:10px;vertical-align:middle;">
-    <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;"><tr>
+  <td style="vertical-align:middle;">
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="padding-right:10px;vertical-align:middle;">
+        <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+      </td>
+      <td style="vertical-align:middle;">
+        <p style="margin:0;font-size:18px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span></p>
+      </td>
+    </tr></table>
   </td>
-  <td style="vertical-align:middle;padding-right:14px;">
-    <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span</p>
-  </td>
-  <td style="vertical-align:middle;border-left:1px solid rgba(255,255,255,0.3);padding-left:14px;">
-    <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.7);">Receipt</p>
+  <td style="vertical-align:middle;text-align:right;">
+    <p style="margin:0;font-size:18px;font-weight:600;color:rgba(255,255,255,0.7);font-family:'Bricolage Grotesque','Sora',sans-serif;">Receipt</p>
   </td>
 </tr></table>
             <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:-0.3px;">Payment Confirmed</p>

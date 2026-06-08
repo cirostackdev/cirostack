@@ -39,17 +39,21 @@ export async function POST(req: Request) {
                     <!-- Header -->
                     <tr>
                       <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:24px 32px;">
-  <table cellpadding="0" cellspacing="0"><tr>
-    <td style="padding-right:10px;vertical-align:middle;">
-      <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
-    </td>
-    <td style="vertical-align:middle;padding-right:14px;">
-      <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span</p>
-    </td>
-    <td style="vertical-align:middle;border-left:1px solid #334155;padding-left:14px;">
-      <p style="margin:0;font-size:13px;color:#94a3b8;">Newsletter</p>
-    </td>
-  </tr></table>
+  <table width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td style="vertical-align:middle;">
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="padding-right:10px;vertical-align:middle;">
+        <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+      </td>
+      <td style="vertical-align:middle;">
+        <p style="margin:0;font-size:18px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span></p>
+      </td>
+    </tr></table>
+  </td>
+  <td style="vertical-align:middle;text-align:right;">
+    <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">Newsletter</p>
+  </td>
+</tr></table>
 </td>
                     </tr>
 
@@ -114,17 +118,21 @@ export async function POST(req: Request) {
                     <!-- Header -->
                     <tr>
                       <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:24px 32px;">
-  <table cellpadding="0" cellspacing="0"><tr>
-    <td style="padding-right:10px;vertical-align:middle;">
-      <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
-    </td>
-    <td style="vertical-align:middle;padding-right:14px;">
-      <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span</p>
-    </td>
-    <td style="vertical-align:middle;border-left:1px solid #334155;padding-left:14px;">
-      <p style="margin:0;font-size:13px;color:#94a3b8;">Newsletter</p>
-    </td>
-  </tr></table>
+  <table width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td style="vertical-align:middle;">
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="padding-right:10px;vertical-align:middle;">
+        <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+      </td>
+      <td style="vertical-align:middle;">
+        <p style="margin:0;font-size:18px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span></p>
+      </td>
+    </tr></table>
+  </td>
+  <td style="vertical-align:middle;text-align:right;">
+    <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">Newsletter</p>
+  </td>
+</tr></table>
 </td>
                     </tr>
 
@@ -193,17 +201,21 @@ export async function POST(req: Request) {
                     <!-- Header -->
                     <tr>
                       <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:24px 32px;">
-  <table cellpadding="0" cellspacing="0"><tr>
-    <td style="padding-right:10px;vertical-align:middle;">
-      <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
-    </td>
-    <td style="vertical-align:middle;padding-right:14px;">
-      <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span</p>
-    </td>
-    <td style="vertical-align:middle;border-left:1px solid #334155;padding-left:14px;">
-      <p style="margin:0;font-size:13px;color:#94a3b8;">Newsletter</p>
-    </td>
-  </tr></table>
+  <table width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td style="vertical-align:middle;">
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="padding-right:10px;vertical-align:middle;">
+        <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+      </td>
+      <td style="vertical-align:middle;">
+        <p style="margin:0;font-size:18px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span></p>
+      </td>
+    </tr></table>
+  </td>
+  <td style="vertical-align:middle;text-align:right;">
+    <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">Newsletter</p>
+  </td>
+</tr></table>
 </td>
                     </tr>
 
@@ -269,17 +281,21 @@ export async function POST(req: Request) {
                     <!-- Header -->
                     <tr>
                       <td style="background:#0f172a;border-radius:12px 12px 0 0;padding:24px 32px;">
-  <table cellpadding="0" cellspacing="0"><tr>
-    <td style="padding-right:10px;vertical-align:middle;">
-      <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
-    </td>
-    <td style="vertical-align:middle;padding-right:14px;">
-      <p style="margin:0;font-size:15px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span</p>
-    </td>
-    <td style="vertical-align:middle;border-left:1px solid #334155;padding-left:14px;">
-      <p style="margin:0;font-size:13px;color:#94a3b8;">Newsletter</p>
-    </td>
-  </tr></table>
+  <table width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td style="vertical-align:middle;">
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="padding-right:10px;vertical-align:middle;">
+        <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+      </td>
+      <td style="vertical-align:middle;">
+        <p style="margin:0;font-size:18px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span></p>
+      </td>
+    </tr></table>
+  </td>
+  <td style="vertical-align:middle;text-align:right;">
+    <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">Newsletter</p>
+  </td>
+</tr></table>
 </td>
                     </tr>
 
