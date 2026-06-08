@@ -149,12 +149,12 @@ export function PortalShell({
       <main className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Header bar */}
         <div className="flex items-center justify-between px-4 lg:px-6 py-3 lg:py-4 border-b border-border shrink-0">
-          <div className="flex items-center gap-2 min-w-0">
+          <div className="flex lg:hidden items-center gap-2 min-w-0">
             <Image src={logo} alt="CiroStack" width={22} height={22} className="object-contain shrink-0" />
             <span className="font-semibold text-sm truncate">Client Portal</span>
           </div>
           {title && (
-            <h1 className="text-sm lg:text-base font-medium text-muted-foreground truncate ml-4">{title}</h1>
+            <h1 className="text-sm lg:text-base font-medium text-muted-foreground truncate lg:ml-0 ml-4">{title}</h1>
           )}
         </div>
 
