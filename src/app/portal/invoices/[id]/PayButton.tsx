@@ -100,6 +100,17 @@ export default function PayButton({ invoiceId, email, amount, currency }: PayBut
         },
       });
 
+      // Watch for Paystack's overlay and apply theme-aware background
+      const observer = new MutationObserver(() => {
+        const overlay = document.getElementById("paystackIframe") as HTMLElement | null;
+        if (overlay) {
+          const isDark = document.documentElement.classList.contains("dark");
+          overlay.style.background = isDark ? "rgba(2,6,23,0.92)" : "rgba(0,0,0,0.5)";
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true });
+
       handler.openIframe();
     } catch (err: any) {
       console.error("[PayButton]", err);
