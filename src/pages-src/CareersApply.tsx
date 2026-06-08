@@ -60,6 +60,14 @@ const CareersApply = () => {
       toast({ title: "Please fill in all required fields.", variant: "destructive" });
       return;
     }
+    if (!/^https?:\/\/(www\.)?linkedin\.com\//i.test(fields.linkedin.trim())) {
+      toast({ title: "Please enter a valid LinkedIn profile URL (linkedin.com/...).", variant: "destructive" });
+      return;
+    }
+    if (!/^https?:\/\/(www\.)?github\.com\//i.test(fields.github.trim())) {
+      toast({ title: "Please enter a valid GitHub profile URL (github.com/...).", variant: "destructive" });
+      return;
+    }
     if (!cvFile) {
       toast({ title: "Please attach your CV.", variant: "destructive" });
       return;
@@ -152,11 +160,11 @@ const CareersApply = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">LinkedIn *</label>
-                    <Input required type="url" placeholder="https://linkedin.com/in/you" value={fields.linkedin} onChange={set("linkedin")} />
+                    <Input required type="url" placeholder="https://linkedin.com/in/you" value={fields.linkedin} onChange={set("linkedin")} pattern="https?://(www\.)?linkedin\.com/.*" title="Must be a linkedin.com URL" />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">GitHub *</label>
-                    <Input required type="url" placeholder="https://github.com/you" value={fields.github} onChange={set("github")} />
+                    <Input required type="url" placeholder="https://github.com/you" value={fields.github} onChange={set("github")} pattern="https?://(www\.)?github\.com/.*" title="Must be a github.com URL" />
                   </div>
                 </div>
                 <div>

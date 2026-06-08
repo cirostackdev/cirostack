@@ -30,6 +30,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }
 
+    const isLinkedIn = /^https?:\/\/(www\.)?linkedin\.com\//i.test(linkedin.trim());
+    if (!isLinkedIn) {
+      return NextResponse.json({ error: "Please enter a valid LinkedIn profile URL (linkedin.com/...)." }, { status: 400 });
+    }
+
+    const isGitHub = /^https?:\/\/(www\.)?github\.com\//i.test(github.trim());
+    if (!isGitHub) {
+      return NextResponse.json({ error: "Please enter a valid GitHub profile URL (github.com/...)." }, { status: 400 });
+    }
+
     if (cvFile.size > MAX_CV_SIZE) {
       return NextResponse.json({ error: "CV file too large (max 5 MB)." }, { status: 413 });
     }
