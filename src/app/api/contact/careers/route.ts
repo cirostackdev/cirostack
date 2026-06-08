@@ -198,7 +198,7 @@ export async function POST(req: Request) {
             <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${fullName},</p>
             <p style="margin:0 0 16px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for applying for the ${role} position at CiroStack. We have received your application and CV.</p>
             <p style="margin:0 0 24px 0;font-size:15px;color:#334155;line-height:1.6;">Our hiring team reviews every application carefully. You can expect to hear from us within five business days.</p>
-            <p style="margin:0;font-size:15px;color:#334155;line-height:1.6;">If you have questions in the meantime, reply to this email.</p>
+            <p style="margin:0;font-size:15px;color:#334155;line-height:1.6;"></p>
           </td>
         </tr>
         <!-- Footer -->

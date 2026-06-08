@@ -42,20 +42,21 @@ export function PreChatForm({ onSubmit }: PreChatFormProps) {
       <div className="mb-4 text-center">
         <h3 className="font-semibold text-sm">Start a conversation</h3>
         <p className="text-xs text-muted-foreground mt-1">
-          Fill in a few details to help us assist you better, or skip and start chatting right away.
+          Tell us a bit about yourself so we can assist you better.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 flex-1">
         <div>
           <label className="text-xs font-medium text-muted-foreground block mb-1">
-            Name <span className="text-muted-foreground/60">(optional)</span>
+            Name <span className="text-destructive">*</span>
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
+            required
             className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-lg outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
@@ -105,19 +106,12 @@ export function PreChatForm({ onSubmit }: PreChatFormProps) {
           )}
         </div>
 
-        <div className="mt-auto pt-2 flex flex-col gap-2">
+        <div className="mt-auto pt-2">
           <button
             type="submit"
             className="w-full py-2.5 bg-primary text-primary-foreground text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity"
           >
             Start chatting
-          </button>
-          <button
-            type="button"
-            onClick={() => onSubmit({})}
-            className="w-full py-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Skip and chat anonymously
           </button>
         </div>
       </form>
