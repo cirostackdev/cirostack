@@ -17,12 +17,13 @@ export async function POST(req: Request) {
     prisma.formSubmission.create({ data: { type: "press", data: { name, email, organisation, requestType, eventDate, details } } }).catch(console.error);
     prisma.lead.upsert({ where: { email }, update: { name, source: "press" }, create: { email, name, source: "press", tags: ["press", requestType] } }).catch(console.error);
 
-    await resend.emails.send({
-      from: FROM,
-      to: TO,
-      replyTo: email,
-      subject: `Press Inquiry: ${name} (${organisation})`,
-      html: `
+    await Promise.all([
+      resend.emails.send({
+        from: FROM,
+        to: TO,
+        replyTo: email,
+        subject: `Press Inquiry: ${name} (${organisation})`,
+        html: `
         <!DOCTYPE html>
         <html lang="en">
         <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /></head>
@@ -106,7 +107,72 @@ export async function POST(req: Request) {
         </body>
         </html>
       `,
-    });
+      }),
+      resend.emails.send({
+        from: "CiroStack <noreply@cirostack.com>",
+        to: email,
+        subject: "We received your press inquiry",
+        html: `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet"></head>
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:'Sora',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:40px 16px;">
+    <tr><td align="center">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+        <!-- Header -->
+        <tr>
+          <td style="background:#0f172a;padding:24px 32px;">
+            <table width="100%" cellpadding="0" cellspacing="0"><tr>
+              <td style="vertical-align:middle;">
+                <table cellpadding="0" cellspacing="0"><tr>
+                  <td style="padding-right:10px;vertical-align:middle;">
+                    <img src="https://cirostack.com/favicon.png" alt="CiroStack" width="28" height="28" style="display:block;border-radius:6px;" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <p style="margin:0;font-size:18px;font-weight:700;color:#ffffff;font-family:'Bricolage Grotesque','Sora',sans-serif;"><span style="color:#ffffff;">Ciro</span><span style="color:#e03333;">Stack</span></p>
+                  </td>
+                </tr></table>
+              </td>
+              <td style="vertical-align:middle;text-align:right;">
+                <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">Press Inquiry</p>
+              </td>
+            </tr></table>
+          </td>
+        </tr>
+        <!-- Body -->
+        <tr>
+          <td style="padding:32px;">
+            <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${name},</p>
+            <p style="margin:0 0 24px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for reaching out. Our team will review your request and respond within two business days.</p>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px;background:#f8fafc;border-radius:8px;overflow:hidden;">
+              <tr>
+                <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:140px;">Organisation</td>
+                <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${organisation}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;${eventDate ? "border-bottom:1px solid #e2e8f0;" : ""}color:#64748b;font-weight:600;">Request type</td>
+                <td style="padding:10px 14px;${eventDate ? "border-bottom:1px solid #e2e8f0;" : ""}color:#0f172a;">${requestType}</td>
+              </tr>
+              ${eventDate ? `<tr>
+                <td style="padding:10px 14px;color:#64748b;font-weight:600;">Event date</td>
+                <td style="padding:10px 14px;color:#0f172a;">${eventDate}</td>
+              </tr>` : ""}
+            </table>
+          </td>
+        </tr>
+        <!-- Footer -->
+        <tr>
+          <td style="background:#f8fafc;padding:20px 32px;border-top:1px solid #e2e8f0;">
+            <p style="margin:0;font-size:12px;color:#94a3b8;text-align:center;">CiroStack | cirostack.com</p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`,
+      }),
+    ]);
 
     return NextResponse.json({ ok: true });
   } catch (err) {
