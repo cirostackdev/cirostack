@@ -71,19 +71,19 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
                     {featured.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                             {featured.map((event, i) => (
-                            <motion.div key={event.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="group rounded-2xl surface-glass hover-lift overflow-hidden">
+                            <motion.div key={event.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="group rounded-2xl surface-glass hover-lift overflow-hidden flex flex-col">
                                 {event.imageUrl && (
-                                    <div className="h-52 overflow-hidden bg-secondary">
+                                    <div className="h-52 overflow-hidden bg-secondary shrink-0">
                                         <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                                     </div>
                                 )}
-                                <div className="p-6">
+                                <div className="p-6 flex flex-col flex-1">
                                     <div className="flex items-center gap-3 mb-3">
                                         <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[event.type] ?? "bg-secondary text-muted-foreground"}`}>{event.type}</span>
                                         <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-md bg-secondary">Featured</span>
                                     </div>
                                     <h3 className="font-display font-semibold text-foreground text-xl mb-3 leading-snug group-hover:text-primary transition-colors">{event.title}</h3>
-                                    <p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3">{event.description}</p>
+                                    <p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3 flex-1">{event.description}</p>
                                     <div className="space-y-1.5 mb-5">
                                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                             <Calendar className="w-3.5 h-3.5 shrink-0" /><span>{event.date}{event.time ? ` · ${event.time}` : ""}</span>
