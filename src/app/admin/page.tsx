@@ -174,7 +174,7 @@ export default async function AdminDashboardPage() {
                   className="flex items-center justify-between px-4 py-3 hover:bg-muted/20 transition-colors text-sm"
                 >
                   <div className="min-w-0">
-                    <a href={`mailto:${lead.email}`} className="font-medium truncate hover:underline block">{lead.email}</a>
+                    <a href={`mailto:${lead.email}`} className="font-medium truncate hover:text-blue-500 block">{lead.email}</a>
                     {lead.name && <p className="text-xs text-muted-foreground truncate">{lead.name}</p>}
                   </div>
                   <div className="text-right shrink-0 ml-3">

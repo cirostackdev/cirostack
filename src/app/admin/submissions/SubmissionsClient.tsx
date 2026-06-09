@@ -167,10 +167,14 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                 </span>
                 <div className="min-w-0">
                   <span className="text-sm font-medium truncate block">
-                    {sub.data?.name || sub.data?.fullName || sub.data?.email || "—"}
+                    {sub.data?.name || sub.data?.fullName
+                      ? (sub.data?.name || sub.data?.fullName)
+                      : sub.data?.email
+                        ? <a href={`mailto:${sub.data.email}`} className="hover:text-blue-500">{sub.data.email}</a>
+                        : "—"}
                   </span>
-                  {sub.data?.email && sub.data?.name && (
-                    <a href={`mailto:${sub.data.email}`} className="text-xs text-muted-foreground truncate block hover:underline">{sub.data.email}</a>
+                  {sub.data?.email && (sub.data?.name || sub.data?.fullName) && (
+                    <a href={`mailto:${sub.data.email}`} className="text-xs text-muted-foreground truncate block hover:text-blue-500">{sub.data.email}</a>
                   )}
                 </div>
               </div>

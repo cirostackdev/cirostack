@@ -88,7 +88,7 @@ export default function AdminClientsPage() {
                 <tbody>
                   {filtered.map((c) => (
                     <tr key={c.id} className="border-t border-border hover:bg-muted/20 transition-colors">
-                      <td className="px-4 py-3 font-medium"><a href={`mailto:${c.email}`} className="hover:underline">{c.email}</a></td>
+                      <td className="px-4 py-3 font-medium"><a href={`mailto:${c.email}`} className="hover:text-blue-500">{c.email}</a></td>
                       <td className="px-4 py-3 text-muted-foreground">{c.name ?? "—"}</td>
                       <td className="px-4 py-3 text-muted-foreground">{c.company ?? "—"}</td>
                       <td className="px-4 py-3 text-muted-foreground">{c._count.projects}</td>
@@ -128,7 +128,7 @@ export default function AdminClientsPage() {
               {filtered.map((c) => (
                 <Link key={c.id} href={`/admin/clients/${c.id}`} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors">
                   <div className="min-w-0">
-                    <a href={`mailto:${c.email}`} onClick={(e) => e.stopPropagation()} className="font-medium text-sm truncate hover:underline block">{c.email}</a>
+                    <a href={`mailto:${c.email}`} onClick={(e) => e.stopPropagation()} className="font-medium text-sm truncate hover:text-blue-500 block">{c.email}</a>
                     <p className="text-xs text-muted-foreground mt-0.5">{[c.name, c.company].filter(Boolean).join(" · ") || "—"}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{c._count.projects} project{c._count.projects !== 1 ? "s" : ""} · {c._count.invoices} invoice{c._count.invoices !== 1 ? "s" : ""}</p>
                   </div>
