@@ -152,21 +152,21 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                                         <div className="flex-1 min-w-0">
                                             <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{resource.title}</h3>
                                             <p className="text-sm text-muted-foreground mb-2">{resource.description}</p>
-                                            <div className="flex flex-wrap items-center justify-between gap-2">
-                                                <div className="flex flex-wrap gap-1.5">
-                                                    {resource.tags.map(tag => (
-                                                        <span key={tag} className="text-xs px-1.5 py-0.5 rounded bg-secondary text-muted-foreground">{tag}</span>
-                                                    ))}
-                                                </div>
-                                                {resource.pages && <span className="text-xs text-muted-foreground shrink-0">{resource.pages}</span>}
+                                            <div className="flex flex-wrap gap-1.5">
+                                                {resource.tags.map(tag => (
+                                                    <span key={tag} className="text-xs px-1.5 py-0.5 rounded bg-secondary text-muted-foreground">{tag}</span>
+                                                ))}
                                             </div>
                                         </div>
-                                        <button
-                                            onClick={() => openDialog(resource.title, resource.type)}
-                                            className="flex items-center gap-1 text-sm text-primary font-medium hover:gap-2 transition-all shrink-0"
-                                        >
-                                            <Download className="w-3.5 h-3.5" /> Download
-                                        </button>
+                                        <div className="flex flex-col items-end gap-1.5 shrink-0">
+                                            {resource.pages && <span className="text-xs text-muted-foreground">{resource.pages}</span>}
+                                            <button
+                                                onClick={() => openDialog(resource.title, resource.type)}
+                                                className="flex items-center gap-1 text-sm text-primary font-medium hover:gap-2 transition-all"
+                                            >
+                                                <Download className="w-3.5 h-3.5" /> Download
+                                            </button>
+                                        </div>
                                     </div>
                                 </motion.div>
                             ))}
