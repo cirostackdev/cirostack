@@ -127,7 +127,7 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                                             {resource.pages && <span className="text-xs text-muted-foreground shrink-0">{resource.pages}</span>}
                                         </div>
                                         <Button className="w-full" onClick={() => openDialog(resource.title, resource.type)}>
-                                            Download Free <Download className="ml-2 h-4 w-4" />
+                                            Download Free
                                         </Button>
                                     </div>
                                 </motion.div>
