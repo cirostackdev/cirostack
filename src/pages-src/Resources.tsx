@@ -144,29 +144,36 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                     {rest.length > 0 && (
                         <div className="space-y-4">
                             {rest.map((resource, i) => (
-                                <motion.div key={resource.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass hover-lift group flex flex-col md:flex-row md:items-center gap-4">
-                                    <div className="shrink-0">
-                                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[resource.type] ?? "bg-secondary text-muted-foreground"}`}>{resource.type}</span>
-                                    </div>
-                                    <div className="flex-1">
-                                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{resource.title}</h3>
-                                        <p className="text-sm text-muted-foreground">{resource.description}</p>
-                                        {resource.tags.length > 0 && (
-                                            <div className="flex flex-wrap gap-1.5 mt-2">
-                                                {resource.tags.map(tag => (
-                                                    <span key={tag} className="text-xs px-1.5 py-0.5 rounded bg-secondary text-muted-foreground">{tag}</span>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="flex flex-col md:items-end gap-1.5 shrink-0">
-                                        <span className="text-xs text-muted-foreground">{resource.pages}</span>
-                                        <button
-                                            onClick={() => openDialog(resource.title, resource.type)}
-                                            className="flex items-center gap-1 text-sm text-primary font-medium hover:gap-2 transition-all"
-                                        >
-                                            <Download className="w-3.5 h-3.5" /> Download
-                                        </button>
+                                <motion.div key={resource.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="rounded-2xl surface-glass hover-lift group overflow-hidden flex flex-col md:flex-row md:items-stretch">
+                                    {resource.imageUrl && (
+                                        <div className="w-full md:w-36 h-40 md:h-auto shrink-0 overflow-hidden bg-secondary">
+                                            <img src={resource.imageUrl} alt={resource.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                                        </div>
+                                    )}
+                                    <div className="flex flex-col md:flex-row md:items-center gap-4 flex-1 p-6">
+                                        <div className="shrink-0">
+                                            <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[resource.type] ?? "bg-secondary text-muted-foreground"}`}>{resource.type}</span>
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{resource.title}</h3>
+                                            <p className="text-sm text-muted-foreground">{resource.description}</p>
+                                            {resource.tags.length > 0 && (
+                                                <div className="flex flex-wrap gap-1.5 mt-2">
+                                                    {resource.tags.map(tag => (
+                                                        <span key={tag} className="text-xs px-1.5 py-0.5 rounded bg-secondary text-muted-foreground">{tag}</span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="flex flex-col md:items-end gap-1.5 shrink-0">
+                                            <span className="text-xs text-muted-foreground">{resource.pages}</span>
+                                            <button
+                                                onClick={() => openDialog(resource.title, resource.type)}
+                                                className="flex items-center gap-1 text-sm text-primary font-medium hover:gap-2 transition-all"
+                                            >
+                                                <Download className="w-3.5 h-3.5" /> Download
+                                            </button>
+                                        </div>
                                     </div>
                                 </motion.div>
                             ))}

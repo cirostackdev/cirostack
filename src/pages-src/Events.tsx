@@ -110,24 +110,31 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
                     {others.length > 0 && (
                         <div className="space-y-4">
                             {others.map((event, i) => (
-                                <motion.div key={event.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass hover-lift group flex flex-col md:flex-row md:items-center gap-4">
-                                    <div className="shrink-0">
-                                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[event.type] ?? "bg-secondary text-muted-foreground"}`}>{event.type}</span>
-                                    </div>
-                                    <div className="flex-1">
-                                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{event.title}</h3>
-                                        <p className="text-sm text-muted-foreground">{event.description}</p>
-                                    </div>
-                                    <div className="flex flex-col md:items-end gap-1.5 shrink-0">
-                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                            <Calendar className="w-3.5 h-3.5" /><span>{event.date}</span>
+                                <motion.div key={event.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="rounded-2xl surface-glass hover-lift group overflow-hidden flex flex-col md:flex-row md:items-stretch">
+                                    {event.imageUrl && (
+                                        <div className="w-full md:w-36 h-40 md:h-auto shrink-0 overflow-hidden bg-secondary">
+                                            <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                                         </div>
-                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                            <MapPin className="w-3.5 h-3.5" /><span>{event.location}</span>
+                                    )}
+                                    <div className="flex flex-col md:flex-row md:items-center gap-4 flex-1 p-6">
+                                        <div className="shrink-0">
+                                            <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[event.type] ?? "bg-secondary text-muted-foreground"}`}>{event.type}</span>
                                         </div>
-                                        <Link href={event.registrationUrl ?? "#"}>
-                                            <Button size="sm" variant="outline" className="mt-1">Register</Button>
-                                        </Link>
+                                        <div className="flex-1">
+                                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{event.title}</h3>
+                                            <p className="text-sm text-muted-foreground">{event.description}</p>
+                                        </div>
+                                        <div className="flex flex-col md:items-end gap-1.5 shrink-0">
+                                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                                <Calendar className="w-3.5 h-3.5" /><span>{event.date}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                                <MapPin className="w-3.5 h-3.5" /><span>{event.location}</span>
+                                            </div>
+                                            <Link href={event.registrationUrl ?? "#"}>
+                                                <Button size="sm" variant="outline" className="mt-1">Register</Button>
+                                            </Link>
+                                        </div>
                                     </div>
                                 </motion.div>
                             ))}
