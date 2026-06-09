@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const HIDE_CASE_STUDIES = process.env.NEXT_PUBLIC_HIDE_CASE_STUDIES === "true";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverBodySizeLimit: "10mb",
+  },
   serverExternalPackages: ["@react-pdf/renderer"],
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
