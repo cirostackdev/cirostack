@@ -117,7 +117,7 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
                                         </div>
                                     )}
                                     <div className="flex flex-col md:flex-row md:items-start gap-4 flex-1 p-6">
-                                        <div className="w-36 shrink-0">
+                                        <div className="w-28 shrink-0">
                                             <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[event.type] ?? "bg-secondary text-muted-foreground"}`}>{event.type}</span>
                                         </div>
                                         <div className="flex-1">
