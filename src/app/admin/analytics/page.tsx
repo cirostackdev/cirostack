@@ -6,6 +6,7 @@ import {
   AreaChart, Area, BarChart, LineChart, FunnelChart, Funnel, LabelList,
 } from "recharts";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   DollarSign, Users, TrendingUp, FolderKanban, AlertTriangle,
   Clock, CheckCircle2, BarChart2, MessageCircle, FileEdit,
@@ -80,16 +81,17 @@ function BarRow({ label, value, max, color = "bg-primary", suffix = "" }: {
 
 function PeriodSelect({ days, onChange }: { days: number; onChange: (v: number) => void }) {
   return (
-    <select
-      value={days}
-      onChange={(e) => onChange(Number(e.target.value))}
-      className="text-xs bg-muted border border-border rounded-lg px-2 py-1 text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer"
-    >
-      <option value={7}>Last 7 days</option>
-      <option value={30}>Last 30 days</option>
-      <option value={90}>Last 90 days</option>
-      <option value={365}>Last 12 months</option>
-    </select>
+    <Select value={String(days)} onValueChange={(v) => onChange(Number(v))}>
+      <SelectTrigger className="h-7 w-[130px] text-xs">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="7">Last 7 days</SelectItem>
+        <SelectItem value="30">Last 30 days</SelectItem>
+        <SelectItem value="90">Last 90 days</SelectItem>
+        <SelectItem value="365">Last 12 months</SelectItem>
+      </SelectContent>
+    </Select>
   );
 }
 
