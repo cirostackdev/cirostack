@@ -279,7 +279,7 @@ export default function LeadsPage() {
                         <span className="font-medium">{lead.email}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-2.5 text-muted-foreground">{lead.name || "—"}</td>
+                    <td className="px-4 py-2.5 text-muted-foreground whitespace-nowrap">{lead.name || "—"}</td>
                     <td className="px-4 py-2.5">
                       <button
                         onClick={() => handleCycleStatus(lead)}
@@ -303,7 +303,7 @@ export default function LeadsPage() {
                         )) : <span className="text-muted-foreground text-xs">—</span>}
                       </div>
                     </td>
-                    <td className="px-4 py-2.5 text-muted-foreground text-xs">{format(new Date(lead.createdAt), "MMM d, yyyy")}</td>
+                    <td className="px-4 py-2.5 text-muted-foreground text-xs whitespace-nowrap">{format(new Date(lead.createdAt), "MMM d, yyyy")}</td>
                     <td className="px-4 py-2.5">
                       <div className="flex items-center gap-1 justify-end">
                         <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).join(", ") }); }}>
