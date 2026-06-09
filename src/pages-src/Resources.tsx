@@ -118,14 +118,14 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                                         </div>
                                         <h3 className="font-display font-semibold text-foreground text-xl mb-3 leading-snug group-hover:text-primary transition-colors">{resource.title}</h3>
                                         <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3 flex-1">{resource.description}</p>
-                                        {resource.tags.length > 0 && (
-                                            <div className="flex flex-wrap gap-2 mb-5">
+                                        <div className="flex flex-wrap items-center justify-between gap-2 mb-5">
+                                            <div className="flex flex-wrap gap-2">
                                                 {resource.tags.map(tag => (
                                                     <span key={tag} className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{tag}</span>
                                                 ))}
                                             </div>
-                                        )}
-                                        {resource.pages && <p className="text-xs text-muted-foreground mb-3">{resource.pages}</p>}
+                                            {resource.pages && <span className="text-xs text-muted-foreground shrink-0">{resource.pages}</span>}
+                                        </div>
                                         <Button className="w-full" onClick={() => openDialog(resource.title, resource.type)}>
                                             Download Free <Download className="ml-2 h-4 w-4" />
                                         </Button>
