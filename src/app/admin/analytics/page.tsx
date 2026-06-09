@@ -237,7 +237,7 @@ export default function AnalyticsPage() {
                   <YAxis yAxisId="rev" orientation="left" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : v > 0 ? `$${v}` : "0"} width={40} />
                   <YAxis yAxisId="cnt" orientation="right" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} width={28} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
+                    cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
                     labelStyle={{ color: "#a1a1aa", marginBottom: 4 }}
                     formatter={(value: any, name: string) => name === "Revenue" ? [fmtUsd(value), name] : [value, name]}
                   />
@@ -277,7 +277,7 @@ export default function AnalyticsPage() {
                 <ResponsiveContainer width="100%" height={176}>
                   <FunnelChart>
                     <Tooltip
-                      contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
+                      cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
                       formatter={(v: any, _: any, props: any) => {
                         const base = data?.pipeline.funnel.submissions || 1;
                         const pct = Math.round((v / base) * 100);
@@ -340,7 +340,7 @@ export default function AnalyticsPage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
                   <XAxis dataKey="week" tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} />
-                  <Tooltip contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} />
+                  <Tooltip cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} />
                   <Bar dataKey="new" name="New" fill="#a855f7" fillOpacity={0.75} radius={[3, 3, 0, 0]} />
                   <Bar dataKey="won" name="Won" fill="#10b981" radius={[3, 3, 0, 0]} />
                 </BarChart>
@@ -423,7 +423,7 @@ export default function AnalyticsPage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
                   <XAxis dataKey="label" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : v > 0 ? `$${v}` : "0"} width={40} />
-                  <Tooltip contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} formatter={(v: any) => [fmtUsd(v), "Revenue"]} />
+                  <Tooltip cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} formatter={(v: any) => [fmtUsd(v), "Revenue"]} />
                   <Area type="monotone" dataKey="total" name="Revenue" stroke="#22c55e" strokeWidth={2} fill="url(#revenueGradient)" dot={false} activeDot={{ r: 4, fill: "#22c55e" }} />
                 </AreaChart>
               </ResponsiveContainer>
@@ -508,7 +508,7 @@ export default function AnalyticsPage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
                   <XAxis dataKey="label" tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} />
-                  <Tooltip contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} />
+                  <Tooltip cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} />
                   <Line type="monotone" dataKey="created" name="Created" stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
                   <Line type="monotone" dataKey="completed" name="Completed" stroke="#22c55e" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
                 </LineChart>
