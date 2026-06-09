@@ -111,7 +111,7 @@ export default function AnalyticsPage() {
   const [days, setDays] = useState(30);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [tab, setTab] = useState<"overview" | "trends" | "pipeline" | "financial" | "projects" | "content">("overview");
+  const [tab, setTab] = useState<"overview" | "pipeline" | "financial" | "projects" | "content">("overview");
   const [activeSeries, setActiveSeries] = useState(["revenue", "leads", "submissions", "projects", "conversations"]);
   const toggleSeries = (key: string) => setActiveSeries(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]);
 
@@ -136,7 +136,6 @@ export default function AnalyticsPage() {
 
   const TABS = [
     { key: "overview",  label: "Overview" },
-    { key: "trends",    label: "Trends" },
     { key: "pipeline",  label: "Pipeline" },
     { key: "financial", label: "Financial" },
     { key: "projects",  label: "Projects" },
@@ -199,69 +198,67 @@ export default function AnalyticsPage() {
                 </div>
               ))}
             </div>
-          </div>
-        )}
 
-        {/* ── Trends tab ───────────────────────────────────────────────────── */}
-        {tab === "trends" && (
-          <div>
-            <SectionHeader title="Business Trends" sub="How key metrics relate and move together over the last 12 months" />
-            <div className="rounded-xl border border-border p-5">
-              <div className="flex flex-wrap items-center gap-2 mb-5">
-                {([
-                  { key: "revenue",       label: "Revenue",       dot: "bg-green-500",  active: "bg-green-500/15 text-green-500" },
-                  { key: "leads",         label: "Leads",         dot: "bg-purple-500", active: "bg-purple-500/15 text-purple-500" },
-                  { key: "submissions",   label: "Submissions",   dot: "bg-blue-500",   active: "bg-blue-500/15 text-blue-500" },
-                  { key: "projects",      label: "Projects",      dot: "bg-amber-500",  active: "bg-amber-500/15 text-amber-500" },
-                  { key: "conversations", label: "Conversations", dot: "bg-orange-500", active: "bg-orange-500/15 text-orange-500" },
-                ] as { key: string; label: string; dot: string; active: string }[]).map((s) => (
-                  <button
-                    key={s.key}
-                    onClick={() => toggleSeries(s.key)}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border transition-all ${
-                      activeSeries.includes(s.key)
-                        ? `${s.active} border-transparent`
-                        : "bg-transparent text-muted-foreground border-border opacity-40 hover:opacity-70"
-                    }`}
-                  >
-                    <span className={`w-2 h-2 rounded-full ${activeSeries.includes(s.key) ? s.dot : "bg-muted-foreground"}`} />
-                    {s.label}
-                  </button>
-                ))}
+            {/* Business Trends */}
+            <div>
+              <SectionHeader title="Business Trends" sub="How key metrics relate and move together over the last 12 months" />
+              <div className="rounded-xl border border-border p-5">
+                <div className="flex flex-wrap items-center gap-2 mb-5">
+                  {([
+                    { key: "revenue",       label: "Revenue",       dot: "bg-green-500",  active: "bg-green-500/15 text-green-500" },
+                    { key: "leads",         label: "Leads",         dot: "bg-purple-500", active: "bg-purple-500/15 text-purple-500" },
+                    { key: "submissions",   label: "Submissions",   dot: "bg-blue-500",   active: "bg-blue-500/15 text-blue-500" },
+                    { key: "projects",      label: "Projects",      dot: "bg-amber-500",  active: "bg-amber-500/15 text-amber-500" },
+                    { key: "conversations", label: "Conversations", dot: "bg-orange-500", active: "bg-orange-500/15 text-orange-500" },
+                  ] as { key: string; label: string; dot: string; active: string }[]).map((s) => (
+                    <button
+                      key={s.key}
+                      onClick={() => toggleSeries(s.key)}
+                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border transition-all ${
+                        activeSeries.includes(s.key)
+                          ? `${s.active} border-transparent`
+                          : "bg-transparent text-muted-foreground border-border opacity-40 hover:opacity-70"
+                      }`}
+                    >
+                      <span className={`w-2 h-2 rounded-full ${activeSeries.includes(s.key) ? s.dot : "bg-muted-foreground"}`} />
+                      {s.label}
+                    </button>
+                  ))}
+                </div>
+                {loading ? (
+                  <div className="h-64 bg-muted/30 rounded animate-pulse" />
+                ) : (
+                  <ResponsiveContainer width="100%" height={260}>
+                    <ComposedChart data={data?.trends ?? []} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
+                      <XAxis dataKey="label" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} />
+                      <YAxis yAxisId="rev" orientation="left" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : v > 0 ? `$${v}` : "0"} width={36} />
+                      <YAxis yAxisId="cnt" orientation="right" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} width={24} />
+                      <Tooltip
+                        cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
+                        labelStyle={{ color: "#a1a1aa", marginBottom: 4 }}
+                        formatter={(value: any, name: string) => name === "Revenue" ? [fmtUsd(value), name] : [value, name]}
+                      />
+                      {activeSeries.includes("revenue") && (
+                        <Bar yAxisId="rev" dataKey="revenue" name="Revenue" fill="#22c55e" fillOpacity={0.5} radius={[3, 3, 0, 0]} />
+                      )}
+                      {activeSeries.includes("leads") && (
+                        <Line yAxisId="cnt" type="monotone" dataKey="leads" name="Leads" stroke="#a855f7" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                      )}
+                      {activeSeries.includes("submissions") && (
+                        <Line yAxisId="cnt" type="monotone" dataKey="submissions" name="Submissions" stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                      )}
+                      {activeSeries.includes("projects") && (
+                        <Line yAxisId="cnt" type="monotone" dataKey="projects" name="Projects" stroke="#f59e0b" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                      )}
+                      {activeSeries.includes("conversations") && (
+                        <Line yAxisId="cnt" type="monotone" dataKey="conversations" name="Conversations" stroke="#f97316" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                      )}
+                    </ComposedChart>
+                  </ResponsiveContainer>
+                )}
+                <p className="text-[10px] text-muted-foreground mt-2 text-right">Left axis: revenue · Right axis: counts · Always shows last 12 months</p>
               </div>
-              {loading ? (
-                <div className="h-64 bg-muted/30 rounded animate-pulse" />
-              ) : (
-                <ResponsiveContainer width="100%" height={260}>
-                  <ComposedChart data={data?.trends ?? []} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
-                    <XAxis dataKey="label" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} />
-                    <YAxis yAxisId="rev" orientation="left" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : v > 0 ? `$${v}` : "0"} width={36} />
-                    <YAxis yAxisId="cnt" orientation="right" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} width={24} />
-                    <Tooltip
-                      cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
-                      labelStyle={{ color: "#a1a1aa", marginBottom: 4 }}
-                      formatter={(value: any, name: string) => name === "Revenue" ? [fmtUsd(value), name] : [value, name]}
-                    />
-                    {activeSeries.includes("revenue") && (
-                      <Bar yAxisId="rev" dataKey="revenue" name="Revenue" fill="#22c55e" fillOpacity={0.5} radius={[3, 3, 0, 0]} />
-                    )}
-                    {activeSeries.includes("leads") && (
-                      <Line yAxisId="cnt" type="monotone" dataKey="leads" name="Leads" stroke="#a855f7" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-                    )}
-                    {activeSeries.includes("submissions") && (
-                      <Line yAxisId="cnt" type="monotone" dataKey="submissions" name="Submissions" stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-                    )}
-                    {activeSeries.includes("projects") && (
-                      <Line yAxisId="cnt" type="monotone" dataKey="projects" name="Projects" stroke="#f59e0b" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-                    )}
-                    {activeSeries.includes("conversations") && (
-                      <Line yAxisId="cnt" type="monotone" dataKey="conversations" name="Conversations" stroke="#f97316" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-                    )}
-                  </ComposedChart>
-                </ResponsiveContainer>
-              )}
-              <p className="text-[10px] text-muted-foreground mt-2 text-right">Left axis: revenue · Right axis: counts · Always shows last 12 months</p>
             </div>
           </div>
         )}
