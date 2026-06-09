@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ResponsiveContainer, ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import {
+  ResponsiveContainer, ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  AreaChart, Area, BarChart, LineChart, FunnelChart, Funnel, LabelList, Cell,
+} from "recharts";
 import { AdminShell } from "@/components/admin/AdminShell";
 import {
   DollarSign, Users, TrendingUp, FolderKanban, AlertTriangle,
@@ -269,33 +272,29 @@ export default function AnalyticsPage() {
             <div className="rounded-xl border border-border p-5">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Acquisition Funnel</p>
               {loading ? (
-                <div className="space-y-3">{[...Array(4)].map((_, i) => <Skeleton key={i} className="h-8" />)}</div>
+                <div className="h-44 bg-muted/30 rounded animate-pulse" />
               ) : (
-                <div className="space-y-2">
-                  {[
-                    { label: "Form Submissions", value: data?.pipeline.funnel.submissions ?? 0, color: "bg-blue-500" },
-                    { label: "Total Leads", value: data?.pipeline.funnel.leads ?? 0, color: "bg-purple-500" },
-                    { label: "Qualified", value: data?.pipeline.funnel.qualified ?? 0, color: "bg-amber-500" },
-                    { label: "Won", value: data?.pipeline.funnel.won ?? 0, color: "bg-green-500" },
-                  ].map((step, i, arr) => {
-                    const max = arr[0].value || 1;
-                    const pct = Math.round((step.value / max) * 100);
-                    return (
-                      <div key={step.label}>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-muted-foreground">{step.label}</span>
-                          <span className="text-xs font-semibold">{step.value} {i > 0 && max > 0 ? <span className="text-muted-foreground font-normal">({pct}%)</span> : null}</span>
-                        </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
-                          <div
-                            className={`h-full ${step.color} rounded-full transition-all duration-700`}
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <ResponsiveContainer width="100%" height={176}>
+                  <FunnelChart>
+                    <Tooltip
+                      contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
+                      formatter={(v: any, _: any, props: any) => {
+                        const base = data?.pipeline.funnel.submissions || 1;
+                        const pct = Math.round((v / base) * 100);
+                        return [`${v} (${pct}%)`, props.payload.name];
+                      }}
+                    />
+                    <Funnel dataKey="value" isAnimationActive data={[
+                      { name: "Submissions", value: data?.pipeline.funnel.submissions ?? 0, fill: "#3b82f6" },
+                      { name: "Leads",       value: data?.pipeline.funnel.leads ?? 0,       fill: "#a855f7" },
+                      { name: "Qualified",   value: data?.pipeline.funnel.qualified ?? 0,   fill: "#f59e0b" },
+                      { name: "Won",         value: data?.pipeline.funnel.won ?? 0,         fill: "#22c55e" },
+                    ]}>
+                      <LabelList dataKey="name" position="insideTop" fill="#fff" fontSize={11} fontWeight={500} />
+                      <LabelList dataKey="value" position="insideBottom" fill="rgba(255,255,255,0.7)" fontSize={11} />
+                    </Funnel>
+                  </FunnelChart>
+                </ResponsiveContainer>
               )}
             </div>
 
@@ -336,27 +335,16 @@ export default function AnalyticsPage() {
             ) : (data?.pipeline.leadVelocity.every(w => w.new === 0)) ? (
               <p className="text-xs text-muted-foreground text-center py-6">No leads in this period.</p>
             ) : (
-              <div className="space-y-3">
-                {/* Legend */}
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-2 rounded-sm bg-purple-500/60" />New</span>
-                  <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-2 rounded-sm bg-emerald-500" />Won</span>
-                </div>
-                <div className="flex items-end gap-1 h-24">
-                  {data?.pipeline.leadVelocity.map((w, i) => {
-                    const maxNew = Math.max(...(data.pipeline.leadVelocity.map(x => x.new)), 1);
-                    return (
-                      <div key={i} className="flex-1 flex flex-col items-center gap-0.5 h-full justify-end group" title={`${w.week}: ${w.new} new, ${w.won} won`}>
-                        <div className="w-full flex items-end gap-0.5 justify-center h-full">
-                          <div className="w-[45%] bg-purple-500/60 rounded-t-sm min-h-[2px]" style={{ height: `${Math.max((w.new / maxNew) * 100, w.new > 0 ? 4 : 0)}%` }} />
-                          <div className="w-[45%] bg-emerald-500 rounded-t-sm min-h-[2px]" style={{ height: `${Math.max((w.won / maxNew) * 100, w.won > 0 ? 4 : 0)}%` }} />
-                        </div>
-                        <span className="text-[9px] text-muted-foreground truncate w-full text-center">{w.week}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              <ResponsiveContainer width="100%" height={112}>
+                <BarChart data={data?.pipeline.leadVelocity} barGap={2} margin={{ top: 0, right: 8, bottom: 0, left: -24 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
+                  <XAxis dataKey="week" tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                  <Tooltip contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} />
+                  <Bar dataKey="new" name="New" fill="#a855f7" fillOpacity={0.75} radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="won" name="Won" fill="#10b981" radius={[3, 3, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
             )}
           </div>
 
@@ -384,23 +372,15 @@ export default function AnalyticsPage() {
               ) : data?.pipeline.subsByType.length === 0 ? (
                 <p className="text-xs text-muted-foreground text-center py-4">No submissions in this period.</p>
               ) : (
-                <div className="space-y-3">
-                  {data?.pipeline.subsByType.map((s) => {
-                    const actionedPct = s.count > 0 ? Math.round((s.actioned / s.count) * 100) : 0;
-                    return (
-                      <div key={s.type}>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-muted-foreground capitalize">{s.type}</span>
-                          <span className="text-xs text-muted-foreground">{s.count} total · <span className="text-green-500 font-medium">{actionedPct}% actioned</span></span>
-                        </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden relative">
-                          <div className="h-full bg-blue-500/40 rounded-full absolute" style={{ width: "100%" }} />
-                          <div className="h-full bg-green-500 rounded-full absolute" style={{ width: `${actionedPct}%` }} />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <ResponsiveContainer width="100%" height={Math.max(80, (data?.pipeline.subsByType.length ?? 1) * 40)}>
+                  <BarChart data={data?.pipeline.subsByType} layout="vertical" barGap={2} margin={{ top: 0, right: 8, bottom: 0, left: 56 }}>
+                    <XAxis type="number" tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                    <YAxis type="category" dataKey="type" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} width={56} />
+                    <Tooltip contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} formatter={(v: any, name: string) => [v, name === "count" ? "Total" : "Actioned"]} />
+                    <Bar dataKey="count" name="Total" fill="#3b82f6" fillOpacity={0.4} radius={[0, 3, 3, 0]} />
+                    <Bar dataKey="actioned" name="Actioned" fill="#22c55e" radius={[0, 3, 3, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
               )}
             </div>
           </div>
@@ -424,27 +404,21 @@ export default function AnalyticsPage() {
             {loading ? (
               <div className="h-40 bg-muted/30 rounded animate-pulse" />
             ) : (
-              <div className="flex items-end gap-1.5 h-40">
-                {data?.financial.monthly.map((m, i) => {
-                  const max = Math.max(...(data.financial.monthly.map(x => x.total)), 1);
-                  const h = (m.total / max) * 100;
-                  return (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-1 h-full justify-end group">
-                      {m.total > 0 && (
-                        <span className="text-[9px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                          {fmtUsd(m.total)}
-                        </span>
-                      )}
-                      <div
-                        title={`${m.label}: ${fmtUsd(m.total)}`}
-                        className="w-full bg-green-500/80 hover:bg-green-500 rounded-t-md min-h-[2px] transition-all cursor-default"
-                        style={{ height: `${Math.max(h, m.total > 0 ? 4 : 1)}%` }}
-                      />
-                      <span className="text-[9px] text-muted-foreground">{m.label}</span>
-                    </div>
-                  );
-                })}
-              </div>
+              <ResponsiveContainer width="100%" height={160}>
+                <AreaChart data={data?.financial.monthly} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
+                  <defs>
+                    <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
+                  <XAxis dataKey="label" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : v > 0 ? `$${v}` : "0"} width={40} />
+                  <Tooltip contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} formatter={(v: any) => [fmtUsd(v), "Revenue"]} />
+                  <Area type="monotone" dataKey="total" name="Revenue" stroke="#22c55e" strokeWidth={2} fill="url(#revenueGradient)" dot={false} activeDot={{ r: 4, fill: "#22c55e" }} />
+                </AreaChart>
+              </ResponsiveContainer>
             )}
           </div>
 
@@ -521,26 +495,16 @@ export default function AnalyticsPage() {
             {loading ? (
               <div className="h-28 bg-muted/30 rounded animate-pulse" />
             ) : (
-              <div className="space-y-3">
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-2 rounded-sm bg-blue-500/60" />Created</span>
-                  <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-2 rounded-sm bg-green-500" />Completed</span>
-                </div>
-                <div className="flex items-end gap-1.5 h-24">
-                  {data?.projects.timeline.map((m, i) => {
-                    const maxVal = Math.max(...(data.projects.timeline.flatMap(x => [x.created, x.completed])), 1);
-                    return (
-                      <div key={i} className="flex-1 flex flex-col items-center gap-0.5 h-full justify-end group" title={`${m.label}: ${m.created} created, ${m.completed} completed`}>
-                        <div className="w-full flex items-end gap-0.5 justify-center h-full">
-                          <div className="w-[45%] bg-blue-500/60 rounded-t-sm min-h-[2px]" style={{ height: `${Math.max((m.created / maxVal) * 100, m.created > 0 ? 4 : 0)}%` }} />
-                          <div className="w-[45%] bg-green-500 rounded-t-sm min-h-[2px]" style={{ height: `${Math.max((m.completed / maxVal) * 100, m.completed > 0 ? 4 : 0)}%` }} />
-                        </div>
-                        <span className="text-[9px] text-muted-foreground">{m.label}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              <ResponsiveContainer width="100%" height={112}>
+                <LineChart data={data?.projects.timeline} margin={{ top: 4, right: 8, bottom: 0, left: -24 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
+                  <XAxis dataKey="label" tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                  <Tooltip contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} labelStyle={{ color: "#a1a1aa" }} />
+                  <Line type="monotone" dataKey="created" name="Created" stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                  <Line type="monotone" dataKey="completed" name="Completed" stroke="#22c55e" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                </LineChart>
+              </ResponsiveContainer>
             )}
           </div>
 
