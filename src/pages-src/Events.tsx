@@ -69,7 +69,7 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
 
                     {/* Featured — 2-col grid */}
                     {featured.length > 0 && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                             {featured.map((event, i) => (
                             <motion.div key={event.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="group rounded-2xl surface-glass hover-lift overflow-hidden">
                                 {event.imageUrl && (
