@@ -190,10 +190,10 @@ export default function AnalyticsPage() {
                           <span className="text-xs text-muted-foreground">{step.label}</span>
                           <span className="text-xs font-semibold">{step.value} {i > 0 && max > 0 ? <span className="text-muted-foreground font-normal">({pct}%)</span> : null}</span>
                         </div>
-                        <div className="h-6 bg-muted rounded-lg overflow-hidden">
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
                           <div
-                            className={`h-full ${step.color} rounded-lg transition-all duration-700 flex items-center justify-end pr-2`}
-                            style={{ width: `${Math.max(pct, 4)}%` }}
+                            className={`h-full ${step.color} rounded-full transition-all duration-700`}
+                            style={{ width: `${pct}%` }}
                           />
                         </div>
                       </div>
