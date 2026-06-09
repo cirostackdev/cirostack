@@ -17,7 +17,25 @@ export default function EditEventPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [imageUploading, setImageUploading] = useState(false);
   const [form, setForm] = useState<any>(null);
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageUploading(true);
+    const fd = new FormData();
+    fd.append("file", file);
+    const res = await fetch("/api/admin/cms/upload", { method: "POST", body: fd });
+    if (res.ok) {
+      const { url } = await res.json();
+      update("imageUrl", url);
+      toast.success("Image uploaded");
+    } else {
+      toast.error("Image upload failed");
+    }
+    setImageUploading(false);
+  }
 
   useEffect(() => {
     fetch("/api/admin/cms/events")
@@ -109,6 +127,15 @@ export default function EditEventPage() {
         <div className="space-y-1.5">
           <Label>Description</Label>
           <Textarea value={form.description || ""} onChange={(e) => update("description", e.target.value)} rows={4} />
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Cover Image</Label>
+          <div className="flex items-center gap-3">
+            {form.imageUrl && <img src={form.imageUrl} alt="" className="w-20 h-14 object-cover rounded-lg" />}
+            <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
+          </div>
+          {imageUploading && <p className="text-xs text-muted-foreground">Uploading…</p>}
         </div>
 
         <div className="flex items-center gap-6">

@@ -146,6 +146,7 @@ model Event {
   featured        Boolean  @default(false)
   published       Boolean  @default(true)
   registrationUrl String?
+  imageUrl        String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
@@ -161,6 +162,7 @@ model Resource {
   isNew       Boolean  @default(true)
   published   Boolean  @default(true)
   downloadUrl String?
+  imageUrl    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

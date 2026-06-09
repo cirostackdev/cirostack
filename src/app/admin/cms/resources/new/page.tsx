@@ -14,6 +14,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 export default function NewResourcePage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
   const [form, setForm] = useState({
     slug: "",
     type: "Whitepaper",
@@ -22,9 +23,27 @@ export default function NewResourcePage() {
     pages: "",
     tags: "",
     downloadUrl: "",
+    imageUrl: "",
     isNew: false,
     published: true,
   });
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageUploading(true);
+    const fd = new FormData();
+    fd.append("file", file);
+    const res = await fetch("/api/admin/cms/upload", { method: "POST", body: fd });
+    if (res.ok) {
+      const { url } = await res.json();
+      update("imageUrl", url);
+      toast.success("Image uploaded");
+    } else {
+      toast.error("Image upload failed");
+    }
+    setImageUploading(false);
+  }
 
   function update(field: string, value: any) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -101,6 +120,15 @@ export default function NewResourcePage() {
             <Label>Download URL</Label>
             <Input value={form.downloadUrl} onChange={(e) => update("downloadUrl", e.target.value)} placeholder="https://..." />
           </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Cover Image</Label>
+          <div className="flex items-center gap-3">
+            {form.imageUrl && <img src={form.imageUrl} alt="" className="w-20 h-14 object-cover rounded-lg" />}
+            <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
+          </div>
+          {imageUploading && <p className="text-xs text-muted-foreground">Uploading…</p>}
         </div>
 
         <div className="flex items-center gap-6">

@@ -21,6 +21,7 @@ export async function GET() {
         isNew: true,
         published: true,
         downloadUrl: true,
+        imageUrl: true,
         createdAt: true,
       },
     });

@@ -45,6 +45,7 @@ export async function POST(req: Request) {
         featured: body.featured,
         published: body.published,
         registrationUrl: body.registrationUrl,
+        imageUrl: body.imageUrl || null,
       },
     });
     revalidatePath("/events");
