@@ -266,7 +266,7 @@ export default function AnalyticsPage() {
         {/* ── Pipeline tab ─────────────────────────────────────────────────── */}
         {tab === "pipeline" && (
           <div>
-            <div className="flex items-center justify-end mb-4 gap-2">
+            <div className="flex items-center mb-4 gap-2">
               <span className="text-xs text-muted-foreground">Period:</span>
               <PeriodSelect days={days} onChange={setDays} />
             </div>
@@ -402,7 +402,7 @@ export default function AnalyticsPage() {
         {/* ── Financial tab ────────────────────────────────────────────────── */}
         {tab === "financial" && (
           <div>
-            <div className="flex items-center justify-end mb-4 gap-2">
+            <div className="flex items-center mb-4 gap-2">
               <span className="text-xs text-muted-foreground">Period:</span>
               <PeriodSelect days={days} onChange={setDays} />
             </div>
