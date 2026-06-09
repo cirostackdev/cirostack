@@ -18,7 +18,12 @@ const fadeUp = {
 
 type NewsType = "Press Release" | "Media Coverage" | "Award" | "Partnership";
 
-const companyNews: { id: string; type: NewsType; title: string; summary: string; full: string; date: string; source?: string; tag: string; featured: boolean; url?: string }[] = [
+type DbAnnouncement = {
+  id: string; type: string; title: string; summary: string; body?: string | null;
+  date: string; source?: string | null; tag: string; featured: boolean; url?: string | null;
+};
+
+const _companyNews: { id: string; type: NewsType; title: string; summary: string; full: string; date: string; source?: string; tag: string; featured: boolean; url?: string }[] = [
     {
         id: "seed-round",
         type: "Press Release",
@@ -148,9 +153,9 @@ function groupByDate(articles: LiveArticle[]): { label: string; articles: LiveAr
 
 // ── Component ────────────────────────────────────────────────────────────────
 
-const Newsroom = () => {
-    const featured = companyNews.filter(n => n.featured);
-    const rest = companyNews.filter(n => !n.featured);
+const Newsroom = ({ serverAnnouncements }: { serverAnnouncements: DbAnnouncement[] }) => {
+    const featured = serverAnnouncements.filter(n => n.featured);
+    const rest = serverAnnouncements.filter(n => !n.featured);
     const router = useRouter();
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const [liveNews, setLiveNews] = useState<LiveArticle[]>([]);
@@ -255,14 +260,14 @@ const Newsroom = () => {
                                 </div>
                                 <h3 className="font-display font-semibold text-foreground text-xl mb-3 leading-snug">{item.title}</h3>
                                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                                    {expandedId === item.id && item.full ? item.full : item.summary}
+                                    {expandedId === item.id && item.body ? item.body : item.summary}
                                 </p>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                         <Calendar className="w-3.5 h-3.5" />
                                         <span>{item.date}</span>
                                     </div>
-                                    {item.full && (
+                                    {item.body && (
                                         <button
                                             onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
                                             className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all"

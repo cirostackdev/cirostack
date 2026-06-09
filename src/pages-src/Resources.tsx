@@ -5,6 +5,21 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { BookOpen, Download, FileText, Video, ArrowRight, Code, Bot, Globe, Star, CheckCircle, X } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+type DbResource = {
+  id: string; type: string; title: string; description: string;
+  pages: string; tags: string[]; isNew: boolean;
+};
+
+function getResourceIcon(type: string): LucideIcon {
+  if (type === "Guide") return BookOpen;
+  if (type === "Webinar" || type === "Video") return Video;
+  if (type === "Template") return Code;
+  if (type === "Whitepaper") return FileText;
+  if (type === "AI" || type === "Tool") return Bot;
+  return Globe;
+}
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import SectionHeading from "@/components/SectionHeading";
@@ -22,7 +37,7 @@ const categories = [
     { icon: Code, label: "Templates", count: 16 },
 ];
 
-const featured = [
+const _featured = [
     {
         icon: Bot,
         type: "Whitepaper",
@@ -88,7 +103,7 @@ const tools = [
 
 type DownloadState = "idle" | "submitting" | "done";
 
-const Resources = () => {
+const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
     const [dialog, setDialog] = useState<{ open: boolean; title: string; type: string }>({ open: false, title: "", type: "" });
     const [dlEmail, setDlEmail] = useState("");
     const [dlState, setDlState] = useState<DownloadState>("idle");
@@ -141,11 +156,13 @@ const Resources = () => {
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Featured Resources" title="Most popular this month" description="Our highest-value resources, handpicked by our team." />
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {featured.map((resource, i) => (
-                            <motion.div key={resource.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass hover-lift group flex flex-col">
+                        {serverResources.map((resource, i) => {
+                            const Icon = getResourceIcon(resource.type);
+                            return (
+                            <motion.div key={resource.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass hover-lift group flex flex-col">
                                 <div className="flex items-start justify-between mb-5">
                                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                                        <resource.icon className="w-6 h-6 text-foreground" />
+                                        <Icon className="w-6 h-6 text-foreground" />
                                     </div>
                                     <div className="flex items-center gap-2">
                                         {resource.isNew && <span className="text-xs px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-medium">New</span>}
@@ -169,7 +186,8 @@ const Resources = () => {
                                     </button>
                                 </div>
                             </motion.div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </section>

@@ -3,11 +3,24 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock, Users, ArrowRight, Globe } from "lucide-react";
+import { Calendar, MapPin, Clock, Users, ArrowRight, Globe, Video, Mic } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import SectionHeading from "@/components/SectionHeading";
-import { events } from "@/data/events";
+
+type DbEvent = {
+  id: string; type: string; title: string; description: string;
+  date: string; time: string; location: string; attendees: number;
+  featured: boolean; registrationUrl: string | null;
+};
+
+function getEventIcon(type: string): LucideIcon {
+  if (type === "Webinar") return Video;
+  if (type === "Conference Talk" || type === "Conference") return Mic;
+  if (type === "Workshop") return Users;
+  return Calendar;
+}
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -20,9 +33,9 @@ const pastHighlights = [
     { title: "AI Innovation Week", attendees: "800+", talks: 2, year: "2024" },
 ];
 
-const Events = () => {
-    const featured = events.filter(e => e.featured);
-    const others = events.filter(e => !e.featured);
+const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
+    const featured = serverEvents.filter(e => e.featured);
+    const others = serverEvents.filter(e => !e.featured);
 
     return (
         <Layout>
@@ -37,13 +50,15 @@ const Events = () => {
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited: register early." />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                        {featured.map((event, i) => (
+                        {featured.map((event, i) => {
+                            const Icon = getEventIcon(event.type);
+                            return (
                             <motion.div key={event.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass hover-lift group relative overflow-hidden">
                                 <div className="absolute top-4 right-4">
                                     <span className="text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground font-medium">Featured</span>
                                 </div>
                                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                                    <event.icon className="w-6 h-6 text-foreground" />
+                                    <Icon className="w-6 h-6 text-foreground" />
                                 </div>
                                 <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{event.type}</span>
                                 <h3 className="font-display font-semibold text-foreground text-xl mt-2 mb-3">{event.title}</h3>
@@ -66,17 +81,20 @@ const Events = () => {
                                         <span>{event.attendees} registered</span>
                                     </div>
                                 </div>
-                                <Link href={event.registrationUrl}><Button className="w-full">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+                                <Link href={event.registrationUrl ?? "#"}><Button className="w-full">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
                             </motion.div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     {/* Other Events */}
                     <div className="space-y-4">
-                        {others.map((event, i) => (
+                        {others.map((event, i) => {
+                            const Icon = getEventIcon(event.type);
+                            return (
                             <motion.div key={event.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass hover-lift group flex flex-col md:flex-row md:items-center gap-5">
                                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                                    <event.icon className="w-6 h-6 text-foreground" />
+                                    <Icon className="w-6 h-6 text-foreground" />
                                 </div>
                                 <div className="flex-1">
                                     <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{event.type}</span>
@@ -92,10 +110,11 @@ const Events = () => {
                                         <MapPin className="w-4 h-4 text-muted-foreground" />
                                         <span>{event.location}</span>
                                     </div>
-                                    <Link href={event.registrationUrl}><Button size="sm" variant="outline" className="mt-2">Register</Button></Link>
+                                    <Link href={event.registrationUrl ?? "#"}><Button size="sm" variant="outline" className="mt-2">Register</Button></Link>
                                 </div>
                             </motion.div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </section>

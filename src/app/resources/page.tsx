@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Resources from "@/pages-src/Resources";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Resources | CiroStack",
@@ -19,6 +22,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ResourcesPage() {
-  return <Resources />;
+export default async function ResourcesPage() {
+  const resources = await prisma.resource.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" },
+  });
+  return <Resources serverResources={resources} />;
 }

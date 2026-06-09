@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Newsroom from "@/pages-src/Newsroom";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Newsroom | CiroStack",
@@ -19,6 +22,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NewsroomPage() {
-  return <Newsroom />;
+export default async function NewsroomPage() {
+  const announcements = await prisma.announcement.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" },
+  });
+  return <Newsroom serverAnnouncements={announcements} />;
 }

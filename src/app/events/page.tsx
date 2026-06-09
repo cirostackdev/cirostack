@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Events from "@/pages-src/Events";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Events | CiroStack",
@@ -19,6 +22,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EventsPage() {
-  return <Events />;
+export default async function EventsPage() {
+  const events = await prisma.event.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "asc" },
+  });
+  return <Events serverEvents={events} />;
 }
