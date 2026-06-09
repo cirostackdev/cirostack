@@ -47,10 +47,13 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
                 url="/events"
             />
 
-            {/* Stats */}
-            <section className="py-16 border-y border-border section-alt mt-10">
+            {/* Upcoming Events */}
+            <section id="events" className="section-padding mt-10">
                 <div className="container mx-auto px-4 md:px-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited — register early." />
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center py-10 mb-10 border-y border-border">
                         {[
                             { value: String(serverEvents.length), label: "Upcoming Events" },
                             { value: String(featured.length),     label: "Featured Events" },
@@ -63,13 +66,6 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
                             </motion.div>
                         ))}
                     </div>
-                </div>
-            </section>
-
-            {/* Upcoming Events */}
-            <section id="events" className="section-padding">
-                <div className="container mx-auto px-4 md:px-6">
-                    <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited — register early." />
 
                     {/* Featured — 2-col grid */}
                     {featured.length > 0 && (
