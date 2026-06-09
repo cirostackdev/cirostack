@@ -145,7 +145,7 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                                             <img src={resource.imageUrl} alt={resource.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                                         </div>
                                     )}
-                                    <div className="flex flex-col md:flex-row md:items-center gap-4 flex-1 p-6">
+                                    <div className="flex flex-col md:flex-row md:items-start gap-4 flex-1 p-6">
                                         <div className="shrink-0">
                                             <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[resource.type] ?? "bg-secondary text-muted-foreground"}`}>{resource.type}</span>
                                         </div>
