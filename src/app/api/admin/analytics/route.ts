@@ -21,6 +21,7 @@ export async function GET(req: Request) {
   const now = new Date();
   const from = new Date(now);
   from.setDate(from.getDate() - days);
+  const twelveMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 11, 1);
 
   const [
     submissions,
@@ -42,6 +43,7 @@ export async function GET(req: Request) {
     convPeriod, convOpen, unreadMsgs,
     projectsCreatedRaw, projectsCompletedRaw,
     clientComments, clientUpdates, totalMessages,
+    submissions12m, projects12m, conversations12m,
   ] = await Promise.all([
     prisma.formSubmission.findMany({
       where: { createdAt: { gte: from } },
@@ -105,6 +107,10 @@ export async function GET(req: Request) {
     prisma.projectComment.count({ where: { createdAt: { gte: from } } }),
     prisma.projectUpdate.count({ where: { internal: false, createdAt: { gte: from } } }),
     prisma.message.count({ where: { createdAt: { gte: from } } }),
+    // 12-month trend data (independent of `days` filter)
+    prisma.formSubmission.findMany({ where: { createdAt: { gte: twelveMonthsAgo } }, select: { createdAt: true } }),
+    prisma.project.findMany({ where: { createdAt: { gte: twelveMonthsAgo } }, select: { createdAt: true } }),
+    prisma.conversation.findMany({ where: { createdAt: { gte: twelveMonthsAgo } }, select: { createdAt: true } }),
   ]);
 
   // ── Pipeline ────────────────────────────────────────────────────────────────
@@ -224,6 +230,22 @@ export async function GET(req: Request) {
     projectTimeline.push({ label: d.toLocaleString("en-US", { month: "short" }), created, completed });
   }
 
+  // ── Unified 12-month business trends ────────────────────────────────────────
+
+  const trends: { label: string; revenue: number; leads: number; submissions: number; projects: number; conversations: number }[] = [];
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const end = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+    trends.push({
+      label: d.toLocaleString("en-US", { month: "short" }),
+      revenue: Math.round(paidInvoices.filter(inv => inv.paidAt && new Date(inv.paidAt) >= d && new Date(inv.paidAt) < end).reduce((s, inv) => s + toUsd(inv.amount, inv.usdRate), 0)),
+      leads: leads.filter(l => new Date(l.createdAt) >= d && new Date(l.createdAt) < end).length,
+      submissions: submissions12m.filter(s => new Date(s.createdAt) >= d && new Date(s.createdAt) < end).length,
+      projects: projects12m.filter(p => new Date(p.createdAt) >= d && new Date(p.createdAt) < end).length,
+      conversations: conversations12m.filter(c => new Date(c.createdAt) >= d && new Date(c.createdAt) < end).length,
+    });
+  }
+
   // ── Avg messages per conversation ────────────────────────────────────────────
 
   const avgMsgsPerConv = convPeriod > 0 ? +(totalMessages / convPeriod).toFixed(1) : 0;
@@ -235,6 +257,7 @@ export async function GET(req: Request) {
 
   return NextResponse.json({
     meta: { days },
+    trends,
     kpis: {
       periodRevenue,
       periodLeads: periodLeads.length,
