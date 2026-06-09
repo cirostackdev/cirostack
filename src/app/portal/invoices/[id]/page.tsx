@@ -3,6 +3,7 @@ import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import PayButton from "./PayButton";
 import DownloadPdfButton from "./DownloadPdfButton";
@@ -66,7 +67,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
             </div>
             <div>
               <p className="text-muted-foreground">Due date</p>
-              <p className="font-medium mt-1">{invoice.dueDate ? new Date(invoice.dueDate).toLocaleDateString() : "—"}</p>
+              <p className="font-medium mt-1">{invoice.dueDate ? format(new Date(invoice.dueDate), "MMM d, yyyy") : "—"}</p>
             </div>
           </div>
 
@@ -148,7 +149,7 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
 
           {invoice.paidAt && (
             <p className="text-xs text-muted-foreground">
-              Paid on {new Date(invoice.paidAt).toLocaleString()} · Ref: {invoice.paymentRef}
+              Paid on {format(new Date(invoice.paidAt), "MMM d, yyyy")} · Ref: {invoice.paymentRef}
             </p>
           )}
         </div>

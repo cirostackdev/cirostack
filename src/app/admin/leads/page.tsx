@@ -344,7 +344,7 @@ export default function LeadsPage() {
                     </div>
                     {lead.name && <p className="text-xs text-muted-foreground mt-0.5">{lead.name}</p>}
                   </div>
-                  <p className="text-xs text-muted-foreground shrink-0">{format(new Date(lead.createdAt), "MMM d")}</p>
+                  <p className="text-xs text-muted-foreground shrink-0">{format(new Date(lead.createdAt), "MMM d, yyyy")}</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 mt-2">
                   <button

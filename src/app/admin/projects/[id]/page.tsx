@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminDetailSkeleton } from "@/components/admin/AdminSkeletons";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -214,9 +215,9 @@ export default function ProjectDetailPage() {
             {project.description && <p className="text-sm text-muted-foreground mt-0.5">{project.description}</p>}
             {(project.startDate || project.dueDate) && (
               <p className="text-xs text-muted-foreground mt-1">
-                {project.startDate && `Start: ${project.startDate.slice(0, 10)}`}
+                {project.startDate && `Start: ${format(new Date(project.startDate), "MMM d, yyyy")}`}
                 {project.startDate && project.dueDate && " · "}
-                {project.dueDate && `Due: ${project.dueDate.slice(0, 10)}`}
+                {project.dueDate && `Due: ${format(new Date(project.dueDate), "MMM d, yyyy")}`}
               </p>
             )}
           </div>
@@ -290,7 +291,7 @@ export default function ProjectDetailPage() {
                   {m.completed ? <CheckCircle className="w-5 h-5 text-green-500" /> : <Circle className="w-5 h-5 text-muted-foreground" />}
                 </button>
                 <span className={`text-sm flex-1 min-w-0 ${m.completed ? "line-through text-muted-foreground" : ""}`}>{m.title}</span>
-                {m.dueDate && <span className="text-xs text-muted-foreground shrink-0 hidden sm:block">{m.dueDate.slice(0, 10)}</span>}
+                {m.dueDate && <span className="text-xs text-muted-foreground shrink-0 hidden sm:block">{format(new Date(m.dueDate), "MMM d, yyyy")}</span>}
                 <div className="flex items-center gap-0.5 shrink-0">
                   <Button variant="ghost" size="icon" className="w-8 h-8" onClick={() => { setEditMilestone(m); setEditMilestoneForm({ title: m.title, dueDate: m.dueDate?.slice(0, 10) ?? "" }); }}>
                     <Pencil className="w-3.5 h-3.5" />
@@ -328,7 +329,7 @@ export default function ProjectDetailPage() {
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <div className="flex items-center gap-2">
                     {u.internal && <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">Internal</span>}
-                    <span className="text-xs text-muted-foreground">{new Date(u.createdAt).toLocaleString()}</span>
+                    <span className="text-xs text-muted-foreground">{format(new Date(u.createdAt), "MMM d, yyyy")}</span>
                   </div>
                   <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive shrink-0" onClick={() => handleDeleteUpdate(u.id)}>
                     <Trash2 className="w-3.5 h-3.5" />

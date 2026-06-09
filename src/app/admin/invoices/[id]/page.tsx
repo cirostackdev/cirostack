@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminDetailSkeleton } from "@/components/admin/AdminSkeletons";
+import { format } from "date-fns";
 import { fmtMoney } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -184,9 +185,9 @@ export default function AdminInvoiceDetailPage() {
             </div>
             <div>
               <p className="text-xs text-muted-foreground mb-1">Dates</p>
-              <p className="text-xs">Created {new Date(invoice.createdAt).toLocaleDateString()}</p>
-              {invoice.dueDate && <p className="text-xs">Due {new Date(invoice.dueDate).toLocaleDateString()}</p>}
-              {invoice.paidAt && <p className="text-xs text-green-500 font-medium">Paid {new Date(invoice.paidAt).toLocaleDateString()}</p>}
+              <p className="text-xs">Created {format(new Date(invoice.createdAt), "MMM d, yyyy")}</p>
+              {invoice.dueDate && <p className="text-xs">Due {format(new Date(invoice.dueDate), "MMM d, yyyy")}</p>}
+              {invoice.paidAt && <p className="text-xs text-green-500 font-medium">Paid {format(new Date(invoice.paidAt), "MMM d, yyyy")}</p>}
               {invoice.paymentRef && <p className="text-xs text-muted-foreground">Ref: {invoice.paymentRef}</p>}
             </div>
           </div>

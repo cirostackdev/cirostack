@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { format } from "date-fns";
 import { AdminShell } from "@/components/admin/AdminShell";
 import {
   DollarSign,
@@ -143,7 +144,7 @@ export default async function AdminDashboardPage() {
                     </p>
                     {inv.paidAt && (
                       <p className="text-xs text-muted-foreground">
-                        {new Date(inv.paidAt).toLocaleDateString()}
+                        {format(new Date(inv.paidAt), "MMM d, yyyy")}
                       </p>
                     )}
                   </div>
@@ -183,7 +184,7 @@ export default async function AdminDashboardPage() {
                       </span>
                     )}
                     <p className="text-xs text-muted-foreground mt-0.5">
-                      {new Date(lead.createdAt).toLocaleDateString()}
+                      {format(new Date(lead.createdAt), "MMM d, yyyy")}
                     </p>
                   </div>
                 </Link>

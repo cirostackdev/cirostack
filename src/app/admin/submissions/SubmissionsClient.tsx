@@ -185,7 +185,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                   />
                 </div>
                 <span className="w-[140px] text-xs text-muted-foreground text-left px-3">
-                  {format(new Date(sub.createdAt), "MMM d, HH:mm")}
+                  {format(new Date(sub.createdAt), "MMM d, yyyy")}
                 </span>
                 <div className="w-6 flex items-center justify-center">
                   {expanded === sub.id ? (

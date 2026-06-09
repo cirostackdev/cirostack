@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { DollarSign, TrendingUp, ArrowUpRight, Clock } from "lucide-react";
+import { format } from "date-fns";
 import { SEMANTIC } from "@/lib/colors";
 
 type Summary = {
@@ -200,7 +201,7 @@ export default function RevenuePage() {
                           {p.currency} {(p.amount / 100).toFixed(2)}
                         </td>
                         <td className="px-4 py-3 text-muted-foreground">
-                          {new Date(p.paidAt).toLocaleDateString()}
+                          {format(new Date(p.paidAt), "MMM d, yyyy")}
                         </td>
                       </tr>
                     ))}
@@ -225,7 +226,7 @@ export default function RevenuePage() {
                           {p.currency} {(p.amount / 100).toFixed(2)}
                         </p>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                          {new Date(p.paidAt).toLocaleDateString()}
+                          {format(new Date(p.paidAt), "MMM d, yyyy")}
                         </p>
                       </div>
                     </div>

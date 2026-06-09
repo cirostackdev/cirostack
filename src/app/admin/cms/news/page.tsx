@@ -6,6 +6,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, RefreshCw, ExternalLink } from "lucide-react";
+import { format } from "date-fns";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
 type Article = {
@@ -71,8 +72,7 @@ export default function AdminNewsPage() {
     }
   }
 
-  const formatDate = (iso: string) =>
-    new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  const formatDate = (iso: string) => format(new Date(iso), "MMM d, yyyy");
 
   const guardian = articles.filter(a => a.type === "guardian");
   const techcrunch = articles.filter(a => a.type === "techcrunch");

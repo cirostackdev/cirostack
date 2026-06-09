@@ -6,6 +6,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Plus, ChevronRight, Send, CheckCircle, Trash2, Receipt } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
+import { format } from "date-fns";
 import { fmtMoney } from "@/lib/format";
 import { toast } from "sonner";
 import { INVOICE_STATUS_COLORS } from "@/lib/colors";
@@ -181,7 +182,7 @@ export default function AdminInvoicesPage() {
                         size="md"
                       />
                     </td>
-                    <td className="px-4 py-3 text-muted-foreground">{inv.dueDate ? inv.dueDate.slice(0, 10) : "—"}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{inv.dueDate ? format(new Date(inv.dueDate), "MMM d, yyyy") : "—"}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 justify-end">
                         {inv.effectiveStatus !== "paid" && (
@@ -248,7 +249,7 @@ export default function AdminInvoicesPage() {
                     />
                   </div>
                 </div>
-                {inv.dueDate && <p className="text-xs text-muted-foreground mt-2">Due {inv.dueDate.slice(0, 10)}</p>}
+                {inv.dueDate && <p className="text-xs text-muted-foreground mt-2">Due {format(new Date(inv.dueDate), "MMM d, yyyy")}</p>}
                 <div className="flex items-center gap-1 mt-3 justify-end">
                   {inv.effectiveStatus !== "paid" && (
                     <Button variant="ghost" size="sm" className="h-9 px-2.5 gap-1.5 text-xs" onClick={() => handleMarkPaid(inv.id)}>

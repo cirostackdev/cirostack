@@ -8,6 +8,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { PUBLISH_STATUS_COLORS } from "@/lib/colors";
 import { CmsBooleanToggle } from "@/components/admin/CmsBooleanToggle";
+import { format } from "date-fns";
 import { toast } from "sonner";
 
 interface AnnouncementItem { id: string; slug: string; type: string | null; title: string; date: string; tag: string | null; featured: boolean; published: boolean }
@@ -66,7 +67,7 @@ export default function AdminAnnouncementsPage() {
                   <tr key={a.id} className="border-t border-border hover:bg-muted/20 transition-colors">
                     <td className="px-4 py-3 font-medium">{a.title}</td>
                     <td className="px-4 py-3 text-muted-foreground">{a.type || "—"}</td>
-                    <td className="px-4 py-3 text-muted-foreground">{new Date(a.date).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{format(new Date(a.date), "MMM d, yyyy")}</td>
                     <td className="px-4 py-3 text-muted-foreground">{a.tag || "—"}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1.5">
@@ -93,7 +94,7 @@ export default function AdminAnnouncementsPage() {
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
                     <p className="font-medium text-sm truncate">{a.title}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{[a.type, a.tag, new Date(a.date).toLocaleDateString()].filter(Boolean).join(" · ")}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{[a.type, a.tag, format(new Date(a.date), "MMM d, yyyy")].filter(Boolean).join(" · ")}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     <CmsBooleanToggle id={a.id} value={a.published} onLabel="Published" offLabel="Draft" className="w-[76px] text-center" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} saving={saving === `${a.id}-published`} />

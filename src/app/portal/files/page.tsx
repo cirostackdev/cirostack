@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { FileText, Download, FolderOpen } from "lucide-react";
+import { format } from "date-fns";
 
 export default async function PortalFilesPage() {
   const session = await clientAuth();
@@ -66,7 +67,7 @@ export default async function PortalFilesPage() {
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{file.name}</p>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                          {new Date(file.createdAt).toLocaleDateString()}
+                          {format(new Date(file.createdAt), "MMM d, yyyy")}
                           {file.size ? ` · ${(file.size / 1024).toFixed(0)} KB` : ""}
                         </p>
                       </div>

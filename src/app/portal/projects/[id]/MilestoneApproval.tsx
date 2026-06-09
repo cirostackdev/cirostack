@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle, Circle, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { format } from "date-fns";
 import { INTERACTIVE } from "@/lib/colors";
 
 type Milestone = {
@@ -69,7 +70,7 @@ export function MilestoneApproval({
               ? <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
               : <Circle className="w-5 h-5 text-muted-foreground shrink-0" />}
             <span className={`text-sm flex-1 ${m.completed ? "line-through text-muted-foreground" : ""}`}>{m.title}</span>
-            {m.dueDate && <span className="text-xs text-muted-foreground">{new Date(m.dueDate).toLocaleDateString()}</span>}
+            {m.dueDate && <span className="text-xs text-muted-foreground">{format(new Date(m.dueDate), "MMM d, yyyy")}</span>}
             {!m.completed && (
               <Button
                 size="sm"

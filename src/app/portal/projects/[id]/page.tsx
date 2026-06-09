@@ -3,6 +3,7 @@ import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowLeft, Download, FileText, Bell } from "lucide-react";
+import { format } from "date-fns";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { MilestoneApproval } from "./MilestoneApproval";
 import { ProjectComments } from "./ProjectComments";
@@ -43,9 +44,9 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
             {project.description && <p className="text-muted-foreground mt-1 text-sm">{project.description}</p>}
             {(project.startDate || project.dueDate) && (
               <p className="text-xs text-muted-foreground mt-1">
-                {project.startDate && `Start: ${new Date(project.startDate).toLocaleDateString()}`}
+                {project.startDate && `Start: ${format(new Date(project.startDate), "MMM d, yyyy")}`}
                 {project.startDate && project.dueDate && " · "}
-                {project.dueDate && `Due: ${new Date(project.dueDate).toLocaleDateString()}`}
+                {project.dueDate && `Due: ${format(new Date(project.dueDate), "MMM d, yyyy")}`}
               </p>
             )}
           </div>
@@ -83,7 +84,7 @@ export default async function PortalProjectPage({ params }: { params: Promise<{ 
             <div className="space-y-3">
               {project.updates.map((u) => (
                 <div key={u.id} className="p-4 rounded-xl border border-border">
-                  <p className="text-xs text-muted-foreground mb-1">{new Date(u.createdAt).toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground mb-1">{format(new Date(u.createdAt), "MMM d, yyyy")}</p>
                   <p className="text-sm whitespace-pre-wrap">{u.body}</p>
                 </div>
               ))}
