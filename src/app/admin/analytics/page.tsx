@@ -372,15 +372,23 @@ export default function AnalyticsPage() {
               ) : data?.pipeline.subsByType.length === 0 ? (
                 <p className="text-xs text-muted-foreground text-center py-4">No submissions in this period.</p>
               ) : (
-                <ResponsiveContainer width="100%" height={Math.max(80, (data?.pipeline.subsByType.length ?? 1) * 40)}>
-                  <BarChart data={data?.pipeline.subsByType} layout="vertical" barGap={2} margin={{ top: 0, right: 8, bottom: 0, left: 56 }}>
-                    <XAxis type="number" tick={{ fontSize: 9, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} />
-                    <YAxis type="category" dataKey="type" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} width={56} />
-                    <Tooltip contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} formatter={(v: any, name: string) => [v, name === "count" ? "Total" : "Actioned"]} />
-                    <Bar dataKey="count" name="Total" fill="#3b82f6" fillOpacity={0.4} radius={[0, 3, 3, 0]} />
-                    <Bar dataKey="actioned" name="Actioned" fill="#22c55e" radius={[0, 3, 3, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
+                <div className="space-y-3">
+                  {data?.pipeline.subsByType.map((s) => {
+                    const actionedPct = s.count > 0 ? Math.round((s.actioned / s.count) * 100) : 0;
+                    return (
+                      <div key={s.type}>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs text-muted-foreground capitalize">{s.type}</span>
+                          <span className="text-xs text-muted-foreground">{s.count} total · <span className="text-green-500 font-medium">{actionedPct}% actioned</span></span>
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden relative">
+                          <div className="h-full bg-blue-500/40 rounded-full absolute" style={{ width: "100%" }} />
+                          <div className="h-full bg-green-500 rounded-full absolute" style={{ width: `${actionedPct}%` }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               )}
             </div>
           </div>
