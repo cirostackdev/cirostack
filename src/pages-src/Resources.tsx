@@ -125,15 +125,10 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                                                 ))}
                                             </div>
                                         )}
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-xs text-muted-foreground">{resource.pages}</span>
-                                            <button
-                                                onClick={() => openDialog(resource.title, resource.type)}
-                                                className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all"
-                                            >
-                                                <Download className="w-4 h-4" /> Download Free
-                                            </button>
-                                        </div>
+                                        {resource.pages && <p className="text-xs text-muted-foreground mb-3">{resource.pages}</p>}
+                                        <Button className="w-full" onClick={() => openDialog(resource.title, resource.type)}>
+                                            Download Free <Download className="ml-2 h-4 w-4" />
+                                        </Button>
                                     </div>
                                 </motion.div>
                             ))}
