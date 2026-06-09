@@ -50,7 +50,7 @@ export default async function PortalDashboard() {
     }),
     prisma.notification.count({ where: { clientId, read: false } }),
     prisma.conversation.findFirst({
-      where: { clientEmail: session.user.email! },
+      where: { visitorEmail: session.user.email! },
       orderBy: { updatedAt: "desc" },
       include: { messages: { orderBy: { createdAt: "desc" }, take: 1 } },
     }),
