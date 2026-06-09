@@ -266,12 +266,9 @@ export default function AnalyticsPage() {
         {/* ── Pipeline tab ─────────────────────────────────────────────────── */}
         {tab === "pipeline" && (
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <SectionHeader title="Business Pipeline" sub="End-to-end funnel from submission to won client" />
-              <div className="flex items-center gap-2 shrink-0 -mt-4">
-                <span className="text-xs text-muted-foreground">Period:</span>
-                <PeriodSelect days={days} onChange={setDays} />
-              </div>
+            <div className="flex items-center justify-end mb-4 gap-2">
+              <span className="text-xs text-muted-foreground">Period:</span>
+              <PeriodSelect days={days} onChange={setDays} />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -405,12 +402,9 @@ export default function AnalyticsPage() {
         {/* ── Financial tab ────────────────────────────────────────────────── */}
         {tab === "financial" && (
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <SectionHeader title="Financial Health" sub="Revenue, invoice aging, and client value" />
-              <div className="flex items-center gap-2 shrink-0 -mt-4">
-                <span className="text-xs text-muted-foreground">Period:</span>
-                <PeriodSelect days={days} onChange={setDays} />
-              </div>
+            <div className="flex items-center justify-end mb-4 gap-2">
+              <span className="text-xs text-muted-foreground">Period:</span>
+              <PeriodSelect days={days} onChange={setDays} />
             </div>
 
             {/* Revenue chart */}
@@ -512,9 +506,8 @@ export default function AnalyticsPage() {
         {/* ── Projects tab ─────────────────────────────────────────────────── */}
         {tab === "projects" && (
           <div>
-            <SectionHeader title="Projects & Delivery" sub="Project pipeline, milestone health, and overdue work" />
 
-            {/* Projects created vs completed timeline */}
+  {/* Projects created vs completed timeline */}
             <div className="rounded-xl border border-border p-5 mb-6">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Projects Created vs Completed (Monthly)</p>
               {loading ? (
@@ -700,7 +693,6 @@ export default function AnalyticsPage() {
         {/* ── Content tab ──────────────────────────────────────────────────── */}
         {tab === "content" && (
           <div>
-            <SectionHeader title="Content Health" sub="Published/draft ratio across all CMS entities" />
             <div className="rounded-xl border border-border overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm min-w-[480px]">
