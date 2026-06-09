@@ -456,7 +456,14 @@ export default function AnalyticsPage() {
                 <div className="space-y-2.5">{[...Array(6)].map((_, i) => <Skeleton key={i} className="h-7 w-full" />)}</div>
               ) : (
                 <div className="space-y-2">
-                  {["discovery", "proposal", "active", "review", "complete", "paused"].map((s) => {
+                  {([
+                    { s: "discovery", bar: "bg-blue-500" },
+                    { s: "proposal",  bar: "bg-amber-500" },
+                    { s: "active",    bar: "bg-green-500" },
+                    { s: "review",    bar: "bg-purple-500" },
+                    { s: "complete",  bar: "bg-muted-foreground" },
+                    { s: "paused",    bar: "bg-orange-500" },
+                  ] as { s: string; bar: string }[]).map(({ s, bar }) => {
                     const item = data?.projects.byStatus.find(p => p.status === s);
                     const count = item?.count ?? 0;
                     const total = data?.projects.byStatus.reduce((a, b) => a + b.count, 0) || 1;
@@ -467,7 +474,7 @@ export default function AnalyticsPage() {
                         </span>
                         <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full rounded-full bg-primary/60 transition-all"
+                            className={`h-full rounded-full ${bar} transition-all`}
                             style={{ width: `${(count / total) * 100}%` }}
                           />
                         </div>
