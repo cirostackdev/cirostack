@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock, Users, ArrowRight, Globe, Video, Mic } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Calendar, MapPin, Clock, Users, ArrowRight, Globe } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import SectionHeading from "@/components/SectionHeading";
@@ -15,16 +14,16 @@ type DbEvent = {
   featured: boolean; registrationUrl: string | null;
 };
 
-function getEventIcon(type: string): LucideIcon {
-  if (type === "Webinar") return Video;
-  if (type === "Conference Talk" || type === "Conference") return Mic;
-  if (type === "Workshop") return Users;
-  return Calendar;
-}
-
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } }),
+};
+
+const typeColors: Record<string, string> = {
+    "Webinar":          "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+    "Conference Talk":  "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
+    "Conference":       "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
+    "Workshop":         "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
 };
 
 const pastHighlights = [
@@ -37,6 +36,9 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
     const featured = serverEvents.filter(e => e.featured);
     const others = serverEvents.filter(e => !e.featured);
 
+    const onlineCount = serverEvents.filter(e => e.location.toLowerCase().includes("online")).length;
+    const inPersonCount = serverEvents.length - onlineCount;
+
     return (
         <Layout>
             <SEO
@@ -45,77 +47,98 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
                 url="/events"
             />
 
-            {/* Featured Events */}
-            <section id="events" className="section-padding mt-10">
+            {/* Stats */}
+            <section className="py-16 border-y border-border section-alt mt-10">
                 <div className="container mx-auto px-4 md:px-6">
-                    <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited: register early." />
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                        {featured.map((event, i) => {
-                            const Icon = getEventIcon(event.type);
-                            return (
-                            <motion.div key={event.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass hover-lift group relative overflow-hidden">
-                                <div className="absolute top-4 right-4">
-                                    <span className="text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground font-medium">Featured</span>
-                                </div>
-                                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                                    <Icon className="w-6 h-6 text-foreground" />
-                                </div>
-                                <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{event.type}</span>
-                                <h3 className="font-display font-semibold text-foreground text-xl mt-2 mb-3">{event.title}</h3>
-                                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{event.description}</p>
-                                <div className="space-y-2 mb-6">
-                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                        <Calendar className="w-4 h-4 text-muted-foreground shrink-0" />
-                                        <span>{event.date}</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                        <Clock className="w-4 h-4 text-muted-foreground shrink-0" />
-                                        <span>{event.time}</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                        <MapPin className="w-4 h-4 text-muted-foreground shrink-0" />
-                                        <span>{event.location}</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                        <Users className="w-4 h-4 text-muted-foreground shrink-0" />
-                                        <span>{event.attendees} registered</span>
-                                    </div>
-                                </div>
-                                <Link href={event.registrationUrl ?? "#"}><Button className="w-full">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        {[
+                            { value: String(serverEvents.length), label: "Upcoming Events" },
+                            { value: String(featured.length),     label: "Featured Events" },
+                            { value: String(onlineCount),         label: "Online Sessions" },
+                            { value: String(inPersonCount),       label: "In-Person Events" },
+                        ].map((stat, i) => (
+                            <motion.div key={stat.label} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
+                                <div className="text-4xl font-display font-bold text-foreground mb-2">{stat.value}</div>
+                                <div className="text-sm text-muted-foreground">{stat.label}</div>
                             </motion.div>
-                            );
-                        })}
+                        ))}
                     </div>
+                </div>
+            </section>
 
-                    {/* Other Events */}
-                    <div className="space-y-4">
-                        {others.map((event, i) => {
-                            const Icon = getEventIcon(event.type);
-                            return (
-                            <motion.div key={event.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass hover-lift group flex flex-col md:flex-row md:items-center gap-5">
-                                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                                    <Icon className="w-6 h-6 text-foreground" />
-                                </div>
-                                <div className="flex-1">
-                                    <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{event.type}</span>
-                                    <h3 className="font-display font-semibold text-foreground text-lg mt-1 mb-2">{event.title}</h3>
-                                    <p className="text-sm text-muted-foreground leading-relaxed">{event.description}</p>
-                                </div>
-                                <div className="flex flex-col md:items-end gap-2 shrink-0">
-                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                        <Calendar className="w-4 h-4 text-muted-foreground" />
-                                        <span>{event.date}</span>
+            {/* Upcoming Events */}
+            <section id="events" className="section-padding">
+                <div className="container mx-auto px-4 md:px-6">
+                    <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited — register early." />
+
+                    {/* Featured — 2-col grid */}
+                    {featured.length > 0 && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                            {featured.map((event, i) => (
+                                <motion.div key={event.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass group">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[event.type] ?? "bg-secondary text-muted-foreground"}`}>{event.type}</span>
+                                        <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-md bg-secondary">Featured</span>
                                     </div>
-                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                        <MapPin className="w-4 h-4 text-muted-foreground" />
-                                        <span>{event.location}</span>
+                                    <h3 className="font-display font-semibold text-foreground text-xl mb-3 leading-snug">{event.title}</h3>
+                                    <p className="text-sm text-muted-foreground leading-relaxed mb-6">{event.description}</p>
+                                    <div className="space-y-2 mb-6">
+                                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                            <Calendar className="w-3.5 h-3.5 shrink-0" /><span>{event.date}</span>
+                                        </div>
+                                        {event.time && (
+                                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                <Clock className="w-3.5 h-3.5 shrink-0" /><span>{event.time}</span>
+                                            </div>
+                                        )}
+                                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                            <MapPin className="w-3.5 h-3.5 shrink-0" /><span>{event.location}</span>
+                                        </div>
+                                        {event.attendees > 0 && (
+                                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                <Users className="w-3.5 h-3.5 shrink-0" /><span>{event.attendees} registered</span>
+                                            </div>
+                                        )}
                                     </div>
-                                    <Link href={event.registrationUrl ?? "#"}><Button size="sm" variant="outline" className="mt-2">Register</Button></Link>
-                                </div>
-                            </motion.div>
-                            );
-                        })}
-                    </div>
+                                    <Link href={event.registrationUrl ?? "#"}>
+                                        <Button className="w-full">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Other events — list */}
+                    {others.length > 0 && (
+                        <div className="space-y-4">
+                            {others.map((event, i) => (
+                                <motion.div key={event.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass hover-lift group flex flex-col md:flex-row md:items-center gap-4">
+                                    <div className="shrink-0">
+                                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[event.type] ?? "bg-secondary text-muted-foreground"}`}>{event.type}</span>
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{event.title}</h3>
+                                        <p className="text-sm text-muted-foreground">{event.description}</p>
+                                    </div>
+                                    <div className="flex flex-col md:items-end gap-1.5 shrink-0">
+                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                            <Calendar className="w-3.5 h-3.5" /><span>{event.date}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                            <MapPin className="w-3.5 h-3.5" /><span>{event.location}</span>
+                                        </div>
+                                        <Link href={event.registrationUrl ?? "#"}>
+                                            <Button size="sm" variant="outline" className="mt-1">Register</Button>
+                                        </Link>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
+
+                    {serverEvents.length === 0 && (
+                        <p className="text-center text-muted-foreground py-12">No upcoming events right now. Check back soon.</p>
+                    )}
                 </div>
             </section>
 

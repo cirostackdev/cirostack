@@ -4,101 +4,36 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { BookOpen, Download, FileText, Video, ArrowRight, Code, Bot, Globe, Star, CheckCircle, X } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Download, FileText, ArrowRight, Code, Bot, CheckCircle, X, Star } from "lucide-react";
+import Layout from "@/components/Layout";
+import { SEO } from "@/components/SEO";
+import SectionHeading from "@/components/SectionHeading";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 type DbResource = {
   id: string; type: string; title: string; description: string;
   pages: string; tags: string[]; isNew: boolean;
 };
 
-function getResourceIcon(type: string): LucideIcon {
-  if (type === "Guide") return BookOpen;
-  if (type === "Webinar" || type === "Video") return Video;
-  if (type === "Template") return Code;
-  if (type === "Whitepaper") return FileText;
-  if (type === "AI" || type === "Tool") return Bot;
-  return Globe;
-}
-import Layout from "@/components/Layout";
-import { SEO } from "@/components/SEO";
-import SectionHeading from "@/components/SectionHeading";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } }),
 };
 
-const categories = [
-    { icon: FileText, label: "Whitepapers", count: 12 },
-    { icon: BookOpen, label: "Guides", count: 24 },
-    { icon: Video, label: "Webinars", count: 8 },
-    { icon: Code, label: "Templates", count: 16 },
-];
-
-const _featured = [
-    {
-        icon: Bot,
-        type: "Whitepaper",
-        title: "The Complete Guide to AI Automation for SMBs",
-        description: "Everything you need to know about implementing AI automation in your business: from strategy to execution.",
-        pages: "42 pages",
-        tags: ["AI", "Automation", "Strategy"],
-        isNew: true,
-    },
-    {
-        icon: Globe,
-        type: "Guide",
-        title: "Website Performance Optimization Playbook",
-        description: "Improve your Core Web Vitals, SEO score, and conversion rate with proven tactics from our engineering team.",
-        pages: "28 pages",
-        tags: ["Web", "Performance", "SEO"],
-        isNew: false,
-    },
-    {
-        icon: Code,
-        type: "Template",
-        title: "Software Project Brief Template",
-        description: "Define your requirements clearly and get better quotes from any development partner.",
-        pages: "8 pages",
-        tags: ["Project Management", "Template"],
-        isNew: false,
-    },
-    {
-        icon: FileText,
-        type: "Whitepaper",
-        title: "Cloud Migration Strategy: A Technical Deep Dive",
-        description: "A step-by-step technical guide to migrating your legacy infrastructure to modern cloud platforms.",
-        pages: "56 pages",
-        tags: ["Cloud", "DevOps"],
-        isNew: true,
-    },
-    {
-        icon: Bot,
-        type: "Guide",
-        title: "Building Your First MVP: Lessons from 50+ Projects",
-        description: "Distilled insights from helping over 50 startups launch their first product.",
-        pages: "34 pages",
-        tags: ["MVP", "Startups"],
-        isNew: false,
-    },
-    {
-        icon: Globe,
-        type: "Webinar",
-        title: "Generative AI in Enterprise: Real-World Applications",
-        description: "A recorded webinar discussing practical enterprise AI applications beyond the hype.",
-        pages: "60 min",
-        tags: ["AI", "Enterprise", "Video"],
-        isNew: true,
-    },
-];
+const typeColors: Record<string, string> = {
+    "Whitepaper": "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+    "Guide":      "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+    "Webinar":    "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
+    "Video":      "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
+    "Template":   "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
+    "Tool":       "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+};
 
 const tools = [
-    { icon: Code, title: "Project Estimate Calculator", description: "Get a rough estimate for your software project based on features and complexity.", href: "/resources/estimate" },
-    { icon: Star, title: "Tech Stack Decision Matrix", description: "A framework for choosing the right technology stack for your next project.", href: null },
-    { icon: FileText, title: "RFP Template", description: "A professional Request for Proposal template for software development projects.", href: null },
-    { icon: Bot, title: "AI Readiness Assessment", description: "Evaluate your organization's readiness to adopt AI automation tools.", href: null },
+    { icon: Code,     title: "Project Estimate Calculator", description: "Get a rough estimate for your software project based on features and complexity.", href: "/resources/estimate" },
+    { icon: Star,     title: "Tech Stack Decision Matrix",  description: "A framework for choosing the right technology stack for your next project.", href: null },
+    { icon: FileText, title: "RFP Template",                description: "A professional Request for Proposal template for software development projects.", href: null },
+    { icon: Bot,      title: "AI Readiness Assessment",     description: "Evaluate your organization's readiness to adopt AI automation tools.", href: null },
 ];
 
 type DownloadState = "idle" | "submitting" | "done";
@@ -107,6 +42,9 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
     const [dialog, setDialog] = useState<{ open: boolean; title: string; type: string }>({ open: false, title: "", type: "" });
     const [dlEmail, setDlEmail] = useState("");
     const [dlState, setDlState] = useState<DownloadState>("idle");
+
+    const featured = serverResources.filter(r => r.isNew);
+    const rest = serverResources.filter(r => !r.isNew);
 
     const openDialog = (title: string, type: string) => {
         setDlEmail("");
@@ -126,9 +64,15 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
             });
             setDlState("done");
         } catch {
-            setDlState("done"); // still show success to avoid frustrating the user
+            setDlState("done");
         }
     };
+
+    // Counts by type for stats
+    const typeCounts = serverResources.reduce<Record<string, number>>((acc, r) => {
+        acc[r.type] = (acc[r.type] ?? 0) + 1;
+        return acc;
+    }, {});
 
     return (
         <Layout>
@@ -138,72 +82,115 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                 url="/resources"
             />
 
-            <section className="py-12 border-y border-border section-alt mt-10">
+            {/* Stats */}
+            <section className="py-16 border-y border-border section-alt mt-10">
                 <div className="container mx-auto px-4 md:px-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {categories.map((cat, i) => (
-                            <motion.div key={cat.label} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass text-center hover-lift cursor-pointer">
-                                <cat.icon className="w-8 h-8 text-foreground mx-auto mb-3" />
-                                <p className="font-display font-semibold text-foreground">{cat.label}</p>
-                                <p className="text-xs text-muted-foreground mt-1">{cat.count} available</p>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        {[
+                            { value: String(serverResources.length), label: "Total Resources" },
+                            { value: String(typeCounts["Guide"] ?? 0),      label: "Guides" },
+                            { value: String(typeCounts["Whitepaper"] ?? 0), label: "Whitepapers" },
+                            { value: String(typeCounts["Template"] ?? 0),   label: "Templates" },
+                        ].map((stat, i) => (
+                            <motion.div key={stat.label} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
+                                <div className="text-4xl font-display font-bold text-foreground mb-2">{stat.value}</div>
+                                <div className="text-sm text-muted-foreground">{stat.label}</div>
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
+            {/* Featured — newest resources */}
             <section id="resources" className="section-padding">
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Featured Resources" title="Most popular this month" description="Our highest-value resources, handpicked by our team." />
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {serverResources.map((resource, i) => {
-                            const Icon = getResourceIcon(resource.type);
-                            return (
-                            <motion.div key={resource.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass hover-lift group flex flex-col">
-                                <div className="flex items-start justify-between mb-5">
-                                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                                        <Icon className="w-6 h-6 text-foreground" />
+
+                    {featured.length > 0 && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                            {featured.map((resource, i) => (
+                                <motion.div key={resource.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass group">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[resource.type] ?? "bg-secondary text-muted-foreground"}`}>{resource.type}</span>
+                                        <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-md bg-secondary">New</span>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        {resource.isNew && <span className="text-xs px-2 py-0.5 rounded-full bg-primary text-primary-foreground font-medium">New</span>}
-                                        <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-md bg-secondary">{resource.type}</span>
+                                    <h3 className="font-display font-semibold text-foreground text-xl mb-3 leading-snug">{resource.title}</h3>
+                                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{resource.description}</p>
+                                    {resource.tags.length > 0 && (
+                                        <div className="flex flex-wrap gap-2 mb-6">
+                                            {resource.tags.map(tag => (
+                                                <span key={tag} className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{tag}</span>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-xs text-muted-foreground">{resource.pages}</span>
+                                        <button
+                                            onClick={() => openDialog(resource.title, resource.type)}
+                                            className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all"
+                                        >
+                                            <Download className="w-4 h-4" /> Download Free
+                                        </button>
                                     </div>
-                                </div>
-                                <h3 className="font-display font-semibold text-foreground text-lg mb-3 leading-snug">{resource.title}</h3>
-                                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{resource.description}</p>
-                                <div className="flex flex-wrap gap-2 mb-5">
-                                    {resource.tags.map(tag => (
-                                        <span key={tag} className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{tag}</span>
-                                    ))}
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs text-muted-foreground">{resource.pages}</span>
-                                    <button
-                                        onClick={() => openDialog(resource.title, resource.type)}
-                                        className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all"
-                                    >
-                                        <Download className="w-4 h-4" /> Download Free
-                                    </button>
-                                </div>
-                            </motion.div>
-                            );
-                        })}
-                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Rest — list layout */}
+                    {rest.length > 0 && (
+                        <div className="space-y-4">
+                            {rest.map((resource, i) => (
+                                <motion.div key={resource.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass hover-lift group flex flex-col md:flex-row md:items-center gap-4">
+                                    <div className="shrink-0">
+                                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[resource.type] ?? "bg-secondary text-muted-foreground"}`}>{resource.type}</span>
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{resource.title}</h3>
+                                        <p className="text-sm text-muted-foreground">{resource.description}</p>
+                                        {resource.tags.length > 0 && (
+                                            <div className="flex flex-wrap gap-1.5 mt-2">
+                                                {resource.tags.map(tag => (
+                                                    <span key={tag} className="text-xs px-1.5 py-0.5 rounded bg-secondary text-muted-foreground">{tag}</span>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex flex-col md:items-end gap-1.5 shrink-0">
+                                        <span className="text-xs text-muted-foreground">{resource.pages}</span>
+                                        <button
+                                            onClick={() => openDialog(resource.title, resource.type)}
+                                            className="flex items-center gap-1 text-sm text-primary font-medium hover:gap-2 transition-all"
+                                        >
+                                            <Download className="w-3.5 h-3.5" /> Download
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
+
+                    {serverResources.length === 0 && (
+                        <p className="text-center text-muted-foreground py-12">No resources available yet. Check back soon.</p>
+                    )}
                 </div>
             </section>
 
+            {/* Interactive Tools */}
             <section className="section-padding section-alt">
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Interactive Tools" title="Free tools to help you plan" description="Use these interactive tools to assess your needs and make better decisions." />
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
                         {tools.map((tool, i) => (
-                            <motion.div key={tool.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass flex items-start gap-5 hover-lift group">
-                                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                                    <tool.icon className="w-6 h-6 text-foreground" />
+                            <motion.div key={tool.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass hover-lift group flex flex-col md:flex-row md:items-center gap-4">
+                                <div className="shrink-0">
+                                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-secondary text-muted-foreground">Tool</span>
                                 </div>
-                                <div>
-                                    <h3 className="font-display font-semibold text-foreground text-lg mb-2">{tool.title}</h3>
-                                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{tool.description}</p>
+                                <div className="flex-1">
+                                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{tool.title}</h3>
+                                    <p className="text-sm text-muted-foreground">{tool.description}</p>
+                                </div>
+                                <div className="shrink-0">
                                     {tool.href ? (
                                         <Link href={tool.href} className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all">
                                             Try It Free <ArrowRight className="w-4 h-4" />
@@ -223,6 +210,7 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                 </div>
             </section>
 
+            {/* CTA */}
             <section className="section-padding text-center">
                 <div className="container mx-auto px-4 md:px-6 max-w-2xl">
                     <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Get new resources in your inbox</h2>
@@ -242,7 +230,6 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                             {dlState === "done" ? "You're all set!" : "Get this resource free"}
                         </DialogTitle>
                     </DialogHeader>
-
                     {dlState === "done" ? (
                         <div className="text-center py-4">
                             <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
