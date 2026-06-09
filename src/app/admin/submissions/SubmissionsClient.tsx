@@ -170,11 +170,11 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                     {sub.data?.name || sub.data?.fullName
                       ? (sub.data?.name || sub.data?.fullName)
                       : sub.data?.email
-                        ? <a href={`mailto:${sub.data.email}`} className="hover:text-blue-500">{sub.data.email}</a>
+                        ? <a href={`mailto:${sub.data.email}`} target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">{sub.data.email}</a>
                         : "—"}
                   </span>
                   {sub.data?.email && (sub.data?.name || sub.data?.fullName) && (
-                    <a href={`mailto:${sub.data.email}`} className="text-xs text-muted-foreground truncate block hover:text-blue-500">{sub.data.email}</a>
+                    <a href={`mailto:${sub.data.email}`} target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground truncate block hover:text-blue-500">{sub.data.email}</a>
                   )}
                 </div>
               </div>
@@ -210,6 +210,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                     .map(([key, value]) => {
                       const label = key.replace(/([A-Z])/g, " $1").replace(/_/g, " ").trim();
                       const isUrl = typeof value === "string" && value.startsWith("http");
+                      const isEmail = typeof value === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
                       return (
                         <div key={key} className="min-w-0">
                           <dt className="text-xs font-medium text-muted-foreground capitalize mb-0.5">{label}</dt>
@@ -218,11 +219,13 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                               ? <span className="text-muted-foreground/40">—</span>
                               : typeof value === "boolean"
                                 ? value ? "Yes" : "No"
-                                : isUrl
-                                  ? <a href={String(value)} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline truncate block">{String(value)}</a>
-                                  : typeof value === "object"
-                                    ? <pre className="text-xs text-muted-foreground whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</pre>
-                                    : String(value)}
+                                : isEmail
+                                  ? <a href={`mailto:${String(value)}`} target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">{String(value)}</a>
+                                  : isUrl
+                                    ? <a href={String(value)} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline truncate block">{String(value)}</a>
+                                    : typeof value === "object"
+                                      ? <pre className="text-xs text-muted-foreground whitespace-pre-wrap">{JSON.stringify(value, null, 2)}</pre>
+                                      : String(value)}
                           </dd>
                         </div>
                       );
@@ -265,7 +268,7 @@ export function SubmissionsClient({ submissions }: { submissions: Submission[] }
                       <UserPlus className="w-3.5 h-3.5 mr-1.5" />
                       {converting === sub.id ? "Adding…" : "Add to Leads"}
                     </Button>
-                    <a href={`mailto:${sub.data.email}`}>
+                    <a href={`mailto:${sub.data.email}`} target="_blank" rel="noopener noreferrer">
                       <Button size="sm" variant="outline" className="h-9 text-xs">Reply by Email</Button>
                     </a>
                   </div>

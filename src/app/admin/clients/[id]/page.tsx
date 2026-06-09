@@ -131,7 +131,7 @@ export default function ClientDetailPage() {
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-            <div><p className="text-muted-foreground">Email</p><p className="break-all flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-muted-foreground" /><a href={`mailto:${client.email}`} className="hover:text-blue-500">{client.email}</a></p></div>
+            <div><p className="text-muted-foreground">Email</p><p className="break-all flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-muted-foreground" /><a href={`mailto:${client.email}`} target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">{client.email}</a></p></div>
             <div><p className="text-muted-foreground">Name</p><p>{client.name ?? "—"}</p></div>
             <div><p className="text-muted-foreground">Company</p><p>{client.company ?? "—"}</p></div>
           </div>

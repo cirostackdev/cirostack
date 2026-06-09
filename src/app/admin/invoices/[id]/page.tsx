@@ -176,7 +176,7 @@ export default function AdminInvoiceDetailPage() {
               <p className="text-xs text-muted-foreground mb-1">Client</p>
               <Link href={`/admin/clients/${invoice.client.id}`} className="font-medium hover:underline">{invoice.client.name ?? invoice.client.email}</Link>
               {invoice.client.company && <p className="text-xs text-muted-foreground">{invoice.client.company}</p>}
-              <a href={`mailto:${invoice.client.email}`} className="text-xs text-muted-foreground hover:text-blue-500 block">{invoice.client.email}</a>
+              <a href={`mailto:${invoice.client.email}`} target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-blue-500 block">{invoice.client.email}</a>
             </div>
             <div>
               <p className="text-xs text-muted-foreground mb-1">Amount</p>
