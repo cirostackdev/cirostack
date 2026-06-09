@@ -91,6 +91,7 @@ export default function AnalyticsPage() {
   const [days, setDays] = useState(30);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [tab, setTab] = useState<"overview" | "pipeline" | "financial" | "projects" | "content">("overview");
   const [activeSeries, setActiveSeries] = useState(["revenue", "leads", "submissions", "projects", "conversations"]);
   const toggleSeries = (key: string) => setActiveSeries(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]);
 
@@ -120,6 +121,14 @@ export default function AnalyticsPage() {
     { label: "1y", value: 365 },
   ];
 
+  const TABS = [
+    { key: "overview",  label: "Overview" },
+    { key: "pipeline",  label: "Pipeline" },
+    { key: "financial", label: "Financial" },
+    { key: "projects",  label: "Projects" },
+    { key: "content",   label: "Content" },
+  ] as const;
+
   return (
     <AdminShell title="Analytics">
       {error && (
@@ -127,29 +136,48 @@ export default function AnalyticsPage() {
           Failed to load analytics: {error}
         </div>
       )}
-      <div className="space-y-10">
+      <div className="space-y-6">
 
-        {/* Date range */}
-        <div className="flex items-center gap-1.5">
-          {RANGE_OPTS.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => setDays(opt.value)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                days === opt.value
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
-          <span className="text-xs text-muted-foreground ml-2">
-            {loading ? "Loading…" : `Data for last ${days === 365 ? "12 months" : `${days} days`}`}
-          </span>
+        {/* Date range + tabs */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-1.5">
+            {RANGE_OPTS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setDays(opt.value)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  days === opt.value
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+            <span className="text-xs text-muted-foreground ml-2">
+              {loading ? "Loading…" : `Data for last ${days === 365 ? "12 months" : `${days} days`}`}
+            </span>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex items-center gap-1 border-b border-border">
+            {TABS.map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setTab(key)}
+                className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                  tab === key
+                    ? "border-primary text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* ── KPI row ──────────────────────────────────────────────────────── */}
+        {/* ── KPI row (always visible) ──────────────────────────────────────── */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {[
             { label: "Revenue", value: loading ? null : fmtUsd(data?.kpis.periodRevenue ?? 0), icon: DollarSign, color: SEMANTIC.success },
@@ -170,8 +198,8 @@ export default function AnalyticsPage() {
           ))}
         </div>
 
-        {/* ── Business Trends ───────────────────────────────────────────────── */}
-        <div>
+        {/* ── Overview tab ─────────────────────────────────────────────────── */}
+        {tab === "overview" && <div>
           <SectionHeader title="Business Trends" sub="How key metrics relate and move together over the last 12 months" />
           <div className="rounded-xl border border-border p-5">
             <div className="flex flex-wrap items-center gap-2 mb-5">
@@ -230,10 +258,10 @@ export default function AnalyticsPage() {
             )}
             <p className="text-[10px] text-muted-foreground mt-2 text-right">Left axis: revenue · Right axis: counts · Always shows last 12 months</p>
           </div>
-        </div>
+        </div>}
 
-        {/* ── Business Pipeline ─────────────────────────────────────────────── */}
-        <div>
+        {/* ── Pipeline tab ─────────────────────────────────────────────────── */}
+        {tab === "pipeline" && <div>
           <SectionHeader title="Business Pipeline" sub="End-to-end funnel from submission to won client" />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -376,10 +404,10 @@ export default function AnalyticsPage() {
               )}
             </div>
           </div>
-        </div>
+        </div>}
 
-        {/* ── Financial Health ──────────────────────────────────────────────── */}
-        <div>
+        {/* ── Financial tab ────────────────────────────────────────────────── */}
+        {tab === "financial" && <div>
           <SectionHeader title="Financial Health" sub="Revenue, invoice aging, and client value" />
 
           {/* Revenue chart */}
@@ -481,10 +509,10 @@ export default function AnalyticsPage() {
               )}
             </div>
           </div>
-        </div>
+        </div>}
 
-        {/* ── Projects & Delivery ───────────────────────────────────────────── */}
-        <div>
+        {/* ── Projects tab ─────────────────────────────────────────────────── */}
+        {tab === "projects" && <div>
           <SectionHeader title="Projects & Delivery" sub="Project pipeline, milestone health, and overdue work" />
 
           {/* Projects created vs completed timeline */}
@@ -677,10 +705,10 @@ export default function AnalyticsPage() {
               </div>
             </div>
           )}
-        </div>
+        </div>}
 
-        {/* ── Content Health ────────────────────────────────────────────────── */}
-        <div>
+        {/* ── Content tab ──────────────────────────────────────────────────── */}
+        {tab === "content" && <div>
           <SectionHeader title="Content Health" sub="Published/draft ratio across all CMS entities" />
           <div className="rounded-xl border border-border overflow-hidden">
             <table className="w-full text-sm">
@@ -734,7 +762,7 @@ export default function AnalyticsPage() {
               </tbody>
             </table>
           </div>
-        </div>
+        </div>}
 
       </div>
     </AdminShell>
