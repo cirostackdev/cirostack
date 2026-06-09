@@ -163,12 +163,12 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Tabs */}
-          <div className="flex items-center gap-1 border-b border-border">
+          <div className="flex items-center gap-1 border-b border-border overflow-x-auto scrollbar-none">
             {TABS.map(({ key, label }) => (
               <button
                 key={key}
                 onClick={() => setTab(key)}
-                className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                className={`shrink-0 px-3 sm:px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px ${
                   tab === key
                     ? "border-primary text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
@@ -188,8 +188,8 @@ export default function AnalyticsPage() {
             { label: "Win Rate", value: loading ? null : `${data?.kpis.conversionRate ?? 0}%`, icon: TrendingUp, color: SEMANTIC.info },
             { label: "New Clients", value: loading ? null : String(data?.kpis.newClients ?? 0), icon: FolderKanban, color: SEMANTIC.emphasis },
             { label: "Overdue Inv.", value: loading ? null : String(data?.kpis.overdueInvoices ?? 0), icon: AlertTriangle, color: SEMANTIC.danger },
-          ].map(({ label, value, icon: Icon, color }) => (
-            <div key={label} className="rounded-xl border border-border p-4">
+          ].map(({ label, value, icon: Icon, color }, i, arr) => (
+            <div key={label} className={`rounded-xl border border-border p-4 ${i === arr.length - 1 ? "col-span-2 sm:col-span-1" : ""}`}>
               <div className="flex items-center justify-between mb-2">
                 <p className="text-xs text-muted-foreground font-medium">{label}</p>
                 <Icon className={`w-4 h-4 ${color}`} />
@@ -234,8 +234,8 @@ export default function AnalyticsPage() {
                 <ComposedChart data={data?.trends ?? []} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
                   <XAxis dataKey="label" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} />
-                  <YAxis yAxisId="rev" orientation="left" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : v > 0 ? `$${v}` : "0"} width={40} />
-                  <YAxis yAxisId="cnt" orientation="right" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} width={28} />
+                  <YAxis yAxisId="rev" orientation="left" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : v > 0 ? `$${v}` : "0"} width={36} />
+                  <YAxis yAxisId="cnt" orientation="right" tick={{ fontSize: 10, fill: "#71717a" }} axisLine={false} tickLine={false} allowDecimals={false} width={24} />
                   <Tooltip
                     cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ backgroundColor: "#09090b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
                     labelStyle={{ color: "#a1a1aa", marginBottom: 4 }}
@@ -400,7 +400,7 @@ export default function AnalyticsPage() {
 
           {/* Revenue chart */}
           <div className="rounded-xl border border-border p-5 mb-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Monthly Revenue (Last 12 Months)</p>
               {!loading && (
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
@@ -664,12 +664,12 @@ export default function AnalyticsPage() {
                       <p className="text-sm font-medium truncate">{p.title}</p>
                       <p className="text-xs text-muted-foreground">{p.client}</p>
                     </div>
-                    <div className="flex items-center gap-3 shrink-0">
+                    <div className="flex flex-col sm:flex-row items-end sm:items-center gap-1 sm:gap-3 shrink-0">
                       <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-medium ${PROJECT_STATUS_COLORS[p.status] ?? "bg-muted text-muted-foreground"}`}>
                         {p.status}
                       </span>
                       {p.daysOverdue !== null && (
-                        <span className="text-xs font-semibold text-red-500 w-20 text-right">{p.daysOverdue}d overdue</span>
+                        <span className="text-xs font-semibold text-red-500 text-right">{p.daysOverdue}d overdue</span>
                       )}
                     </div>
                   </div>
@@ -683,7 +683,8 @@ export default function AnalyticsPage() {
         {tab === "content" && <div>
           <SectionHeader title="Content Health" sub="Published/draft ratio across all CMS entities" />
           <div className="rounded-xl border border-border overflow-hidden">
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[480px]">
               <thead className="bg-muted/40">
                 <tr>
                   {["Content Type", "Total", "Published", "Draft", "Featured / Active"].map((h) => (
@@ -733,6 +734,7 @@ export default function AnalyticsPage() {
                 )}
               </tbody>
             </table>
+            </div>
           </div>
         </div>}
 
