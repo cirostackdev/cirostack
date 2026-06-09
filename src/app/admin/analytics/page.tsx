@@ -152,7 +152,7 @@ export default function AnalyticsPage() {
       <div className="space-y-6">
 
         {/* Tabs */}
-        <div className="flex items-center gap-1 border-b border-border overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-1 border-b border-border overflow-x-auto overflow-y-clip scrollbar-none">
           {TABS.map(({ key, label }) => (
             <button
               key={key}
