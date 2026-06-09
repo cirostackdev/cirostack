@@ -146,7 +146,7 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                                         </div>
                                     )}
                                     <div className="flex flex-col md:flex-row md:items-start gap-4 flex-1 p-6">
-                                        <div className="shrink-0">
+                                        <div className="w-24 shrink-0">
                                             <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[resource.type] ?? "bg-secondary text-muted-foreground"}`}>{resource.type}</span>
                                         </div>
                                         <div className="flex-1 min-w-0">
