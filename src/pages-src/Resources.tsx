@@ -82,12 +82,15 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                 url="/resources"
             />
 
-            {/* Stats */}
-            <section className="py-16 border-y border-border section-alt mt-10">
+            {/* Featured — newest resources */}
+            <section id="resources" className="section-padding mt-10">
                 <div className="container mx-auto px-4 md:px-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <SectionHeading badge="Featured Resources" title="Most popular this month" description="Our highest-value resources, handpicked by our team." />
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center py-10 mb-10 border-y border-border">
                         {[
-                            { value: String(serverResources.length), label: "Total Resources" },
+                            { value: String(serverResources.length),        label: "Total Resources" },
                             { value: String(typeCounts["Guide"] ?? 0),      label: "Guides" },
                             { value: String(typeCounts["Whitepaper"] ?? 0), label: "Whitepapers" },
                             { value: String(typeCounts["Template"] ?? 0),   label: "Templates" },
@@ -98,13 +101,6 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                             </motion.div>
                         ))}
                     </div>
-                </div>
-            </section>
-
-            {/* Featured — newest resources */}
-            <section id="resources" className="section-padding">
-                <div className="container mx-auto px-4 md:px-6">
-                    <SectionHeading badge="Featured Resources" title="Most popular this month" description="Our highest-value resources, handpicked by our team." />
 
                     {featured.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
