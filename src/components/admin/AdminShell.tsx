@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import {
   LayoutDashboard,
@@ -67,6 +67,14 @@ export function AdminShell({
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  // Keep admin "online" status alive across all admin pages
+  useEffect(() => {
+    const beat = () => fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
+    beat();
+    const interval = setInterval(beat, 60_000);
+    return () => clearInterval(interval);
+  }, []);
 
   const SidebarContent = ({ mobile = false }: { mobile?: boolean }) => (
     <>

@@ -33,14 +33,9 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const channelRef = useRef<Channel | null>(null);
 
   useEffect(() => {
-    const sendHeartbeat = () =>
-      fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
-    sendHeartbeat();
-    const heartbeatInterval = setInterval(sendHeartbeat, 60_000);
-
     // Subscribe to admin notifications channel for new conversations and messages
     const pusher = getPusher();
-    if (!pusher) return () => { clearInterval(heartbeatInterval); };
+    if (!pusher) return;
     const channel = pusher.subscribe("private-admin-notifications");
     channelRef.current = channel;
 
@@ -59,7 +54,6 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
     });
 
     return () => {
-      clearInterval(heartbeatInterval);
       channel.unbind_all();
       pusher.unsubscribe("private-admin-notifications");
     };

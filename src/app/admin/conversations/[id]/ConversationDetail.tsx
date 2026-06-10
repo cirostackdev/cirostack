@@ -136,13 +136,6 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     bottomRef.current?.scrollIntoView({ behavior: "instant" });
   }, [messages, visitorTyping]);
 
-  // Heartbeat to keep admin "online" status
-  useEffect(() => {
-    const sendHeartbeat = () => fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
-    sendHeartbeat();
-    const interval = setInterval(sendHeartbeat, 60_000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Subscribe to Pusher channel + claim conversation
   useEffect(() => {
