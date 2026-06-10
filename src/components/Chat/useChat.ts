@@ -64,6 +64,20 @@ export function useChat() {
     return () => clearInterval(interval);
   }, []);
 
+  // Visitor presence heartbeat — fires every 60s while chat is open
+  useEffect(() => {
+    if (!isOpen || !conversationId) return;
+    const beat = () =>
+      fetch(`/api/chat/conversations/${conversationId}/heartbeat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ visitorId: getVisitorId() }),
+      }).catch(() => {});
+    beat();
+    const interval = setInterval(beat, 60_000);
+    return () => clearInterval(interval);
+  }, [isOpen, conversationId]);
+
   // Subscribe to Pusher channel for a conversation
   const subscribe = useCallback((convId: string) => {
     const pusher = getPusher();

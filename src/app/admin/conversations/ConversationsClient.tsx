@@ -16,8 +16,17 @@ interface Conversation {
   status: string;
   createdAt: string;
   updatedAt: string;
+  metadata?: { visitorLastSeen?: string; [key: string]: unknown } | null;
   assignedTo: { name: string } | null;
   messages: { body: string; senderType: string }[];
+}
+
+const VISITOR_TTL_MS = 2 * 60 * 1000; // 2 minutes
+
+function isVisitorOnline(conv: Conversation): boolean {
+  const ts = conv.metadata?.visitorLastSeen;
+  if (!ts) return false;
+  return Date.now() - new Date(ts).getTime() < VISITOR_TTL_MS;
 }
 
 interface Props {
@@ -31,6 +40,17 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const [filter, setFilter] = useState<"open" | "closed" | "all">("open");
   const [search, setSearch] = useState("");
   const channelRef = useRef<Channel | null>(null);
+
+  // Refresh conversation list every 60s to keep visitorLastSeen current
+  useEffect(() => {
+    const refresh = () =>
+      fetch("/api/admin/conversations")
+        .then((r) => r.ok ? r.json() : null)
+        .then((data) => { if (data) setConversations(data); })
+        .catch(() => {});
+    const interval = setInterval(refresh, 60_000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     // Subscribe to admin notifications channel for new conversations and messages
@@ -145,7 +165,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
                 </div>
                 <span
                   className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-background ${
-                    conv.status === "open" ? PRESENCE.online : PRESENCE.offline
+                    isVisitorOnline(conv) ? PRESENCE.online : PRESENCE.offline
                   }`}
                 />
               </div>
