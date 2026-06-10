@@ -5,6 +5,21 @@ import { auth } from "@/auth";
 
 type Params = { params: Promise<{ id: string }> };
 
+export async function GET(_req: Request, { params }: Params) {
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { id } = await params;
+  try {
+    const project = await prisma.portfolioProject.findUnique({ where: { id } });
+    if (!project) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    return NextResponse.json(project);
+  } catch (err) {
+    console.error("[GET /api/admin/cms/portfolio/[id]]", err);
+    return NextResponse.json({ error: "Failed to fetch project" }, { status: 500 });
+  }
+}
+
 export async function PATCH(req: Request, { params }: Params) {
   const session = await auth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

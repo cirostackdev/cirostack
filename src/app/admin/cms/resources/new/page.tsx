@@ -11,10 +11,15 @@ import { RESOURCE_TYPES } from "@/lib/admin-options";
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
 
+function toSlug(str: string) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export default function NewResourcePage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
+  const [slugTouched, setSlugTouched] = useState(false);
   const [form, setForm] = useState({
     slug: "",
     type: "Whitepaper",
@@ -47,6 +52,13 @@ export default function NewResourcePage() {
 
   function update(field: string, value: any) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function handleTitleChange(value: string) {
+    update("title", value);
+    if (!slugTouched) {
+      update("slug", toSlug(value));
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -83,13 +95,23 @@ export default function NewResourcePage() {
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Slug *</Label>
-            <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="ai-integration-guide" required />
+            <Label>Title *</Label>
+            <Input value={form.title} onChange={(e) => handleTitleChange(e.target.value)} placeholder="AI Integration Guide" required />
           </div>
           <div className="space-y-1.5">
-            <Label>Title *</Label>
-            <Input value={form.title} onChange={(e) => update("title", e.target.value)} placeholder="AI Integration Guide" required />
+            <Label>Slug *</Label>
+            <Input value={form.slug} onChange={(e) => { setSlugTouched(true); update("slug", e.target.value); }} placeholder="ai-integration-guide" required />
+            <p className="text-xs text-muted-foreground mt-1">Auto-generated from title. Edit to customise.</p>
           </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Cover Image</Label>
+          <div className="flex items-center gap-3">
+            {form.imageUrl && <img src={form.imageUrl} alt="" className="w-20 h-14 object-cover rounded-lg" />}
+            <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
+          </div>
+          {imageUploading && <p className="text-xs text-muted-foreground">Uploading…</p>}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -120,15 +142,6 @@ export default function NewResourcePage() {
             <Label>Download URL</Label>
             <Input value={form.downloadUrl} onChange={(e) => update("downloadUrl", e.target.value)} placeholder="https://..." />
           </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label>Cover Image</Label>
-          <div className="flex items-center gap-3">
-            {form.imageUrl && <img src={form.imageUrl} alt="" className="w-20 h-14 object-cover rounded-lg" />}
-            <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
-          </div>
-          {imageUploading && <p className="text-xs text-muted-foreground">Uploading…</p>}
         </div>
 
         <div className="flex items-center gap-6">

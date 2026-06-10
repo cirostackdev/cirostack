@@ -11,9 +11,14 @@ import { PORTFOLIO_VERTICALS, PORTFOLIO_SERVICES, PORTFOLIO_SIZES, PORTFOLIO_CAT
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
 
+function toSlug(str: string) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export default function NewPortfolioPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
+  const [slugTouched, setSlugTouched] = useState(false);
   const [form, setForm] = useState({
     slug: "",
     title: "",
@@ -31,6 +36,9 @@ export default function NewPortfolioPage() {
     challenge: "",
     solution: "",
     result: "",
+    technologies: "",
+    whatClientLoved: "",
+    challengesOvercome: "",
     imageUrl: "",
     featured: false,
     published: true,
@@ -40,14 +48,28 @@ export default function NewPortfolioPage() {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
+  function handleTitleChange(value: string) {
+    update("title", value);
+    if (!slugTouched) {
+      update("slug", toSlug(value));
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
     try {
+      const payload = {
+        ...form,
+        technologies: form.technologies
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
+      };
       const res = await fetch("/api/admin/cms/portfolio", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) {
         const err = await res.json();
@@ -65,14 +87,23 @@ export default function NewPortfolioPage() {
   return (
     <AdminShell title="New Portfolio Project">
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-5">
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Basic Info</p></div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Slug *</Label>
-            <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="healthflow" required />
+            <Label>Title *</Label>
+            <Input value={form.title} onChange={(e) => handleTitleChange(e.target.value)} placeholder="HealthFlow Dashboard" required />
           </div>
           <div className="space-y-1.5">
-            <Label>Title *</Label>
-            <Input value={form.title} onChange={(e) => update("title", e.target.value)} placeholder="HealthFlow Dashboard" required />
+            <Label>Slug *</Label>
+            <Input
+              value={form.slug}
+              onChange={(e) => { setSlugTouched(true); update("slug", e.target.value); }}
+              placeholder="healthflow"
+              required
+            />
+            <p className="text-xs text-muted-foreground mt-1">Auto-generated from title. Edit to customise.</p>
           </div>
         </div>
 
@@ -84,7 +115,7 @@ export default function NewPortfolioPage() {
           <div className="space-y-1.5">
             <Label>Vertical *</Label>
             <Select value={form.vertical} onValueChange={(v) => update("vertical", v)}>
-              <SelectTrigger><SelectValue placeholder="Select vertical" /></SelectTrigger>
+              <SelectTrigger className="py-1"><SelectValue placeholder="Select vertical" /></SelectTrigger>
               <SelectContent>{PORTFOLIO_VERTICALS.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent>
             </Select>
           </div>
@@ -94,14 +125,14 @@ export default function NewPortfolioPage() {
           <div className="space-y-1.5">
             <Label>Category</Label>
             <Select value={form.category} onValueChange={(v) => update("category", v)}>
-              <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
+              <SelectTrigger className="py-1"><SelectValue placeholder="Select category" /></SelectTrigger>
               <SelectContent>{PORTFOLIO_CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
             </Select>
           </div>
           <div className="space-y-1.5">
             <Label>Service *</Label>
             <Select value={form.service} onValueChange={(v) => update("service", v)}>
-              <SelectTrigger><SelectValue placeholder="Select service" /></SelectTrigger>
+              <SelectTrigger className="py-1"><SelectValue placeholder="Select service" /></SelectTrigger>
               <SelectContent>{PORTFOLIO_SERVICES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
             </Select>
           </div>
@@ -119,7 +150,7 @@ export default function NewPortfolioPage() {
           <div className="space-y-1.5">
             <Label>Size</Label>
             <Select value={form.size} onValueChange={(v) => update("size", v)}>
-              <SelectTrigger><SelectValue placeholder="Select size" /></SelectTrigger>
+              <SelectTrigger className="py-1"><SelectValue placeholder="Select size" /></SelectTrigger>
               <SelectContent>{PORTFOLIO_SIZES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
             </Select>
           </div>
@@ -139,6 +170,8 @@ export default function NewPortfolioPage() {
             <Input value={form.imageUrl} onChange={(e) => update("imageUrl", e.target.value)} placeholder="/images/portfolio/..." />
           </div>
         </div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Content</p></div>
 
         <div className="space-y-1.5">
           <Label>Description *</Label>
@@ -165,6 +198,28 @@ export default function NewPortfolioPage() {
           <Textarea value={form.result} onChange={(e) => update("result", e.target.value)} rows={3} />
         </div>
 
+        <div className="space-y-1.5">
+          <Label>Technologies (comma-separated)</Label>
+          <Input
+            value={form.technologies}
+            onChange={(e) => update("technologies", e.target.value)}
+            placeholder="React, Node.js, PostgreSQL"
+          />
+          <p className="text-xs text-muted-foreground">Separate each technology with a comma.</p>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>What the Client Loved</Label>
+          <Textarea value={form.whatClientLoved} onChange={(e) => update("whatClientLoved", e.target.value)} rows={3} />
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Challenges Overcome</Label>
+          <Textarea value={form.challengesOvercome} onChange={(e) => update("challengesOvercome", e.target.value)} rows={3} />
+        </div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Settings</p></div>
+
         <div className="flex items-center gap-6">
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" checked={form.published} onChange={(e) => update("published", e.target.checked)} />
@@ -176,7 +231,10 @@ export default function NewPortfolioPage() {
           </label>
         </div>
 
-        <Button type="submit" disabled={saving}>{saving ? "Creating..." : "Create Project"}</Button>
+        <div className="flex gap-3">
+          <Button type="submit" disabled={saving}>{saving ? "Creating..." : "Create Project"}</Button>
+          <Button type="button" variant="outline" onClick={() => router.back()}>Cancel</Button>
+        </div>
       </form>
     </AdminShell>
   );

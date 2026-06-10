@@ -11,10 +11,15 @@ import { EVENT_TYPES } from "@/lib/admin-options";
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
 
+function toSlug(str: string) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export default function NewEventPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
+  const [slugTouched, setSlugTouched] = useState(false);
   const [form, setForm] = useState({
     slug: "",
     type: "Webinar",
@@ -51,6 +56,13 @@ export default function NewEventPage() {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
+  function handleTitleChange(value: string) {
+    update("title", value);
+    if (!slugTouched) {
+      update("slug", toSlug(value));
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
@@ -78,13 +90,23 @@ export default function NewEventPage() {
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Slug *</Label>
-            <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="my-event-slug" required />
+            <Label>Title *</Label>
+            <Input value={form.title} onChange={(e) => handleTitleChange(e.target.value)} placeholder="Event Title" required />
           </div>
           <div className="space-y-1.5">
-            <Label>Title *</Label>
-            <Input value={form.title} onChange={(e) => update("title", e.target.value)} placeholder="Event Title" required />
+            <Label>Slug *</Label>
+            <Input value={form.slug} onChange={(e) => { setSlugTouched(true); update("slug", e.target.value); }} placeholder="my-event-slug" required />
+            <p className="text-xs text-muted-foreground mt-1">Auto-generated from title. Edit to customise.</p>
           </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Cover Image</Label>
+          <div className="flex items-center gap-3">
+            {form.imageUrl && <img src={form.imageUrl} alt="" className="w-20 h-14 object-cover rounded-lg" />}
+            <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
+          </div>
+          {imageUploading && <p className="text-xs text-muted-foreground">Uploading…</p>}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -126,15 +148,6 @@ export default function NewEventPage() {
         <div className="space-y-1.5">
           <Label>Description *</Label>
           <Textarea value={form.description} onChange={(e) => update("description", e.target.value)} placeholder="Event description..." required rows={4} />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label>Cover Image</Label>
-          <div className="flex items-center gap-3">
-            {form.imageUrl && <img src={form.imageUrl} alt="" className="w-20 h-14 object-cover rounded-lg" />}
-            <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
-          </div>
-          {imageUploading && <p className="text-xs text-muted-foreground">Uploading…</p>}
         </div>
 
         <div className="flex items-center gap-6">

@@ -87,6 +87,9 @@ export default function EditBlogPostPage() {
   return (
     <AdminShell title="Edit Blog Post">
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-5">
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Basic Info</p></div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5"><Label>Title *</Label><Input value={form.title} onChange={(e) => set("title", e.target.value)} required /></div>
           <div className="space-y-1.5"><Label>Slug *</Label><Input value={form.slug} onChange={(e) => set("slug", e.target.value)} required /></div>
@@ -102,6 +105,9 @@ export default function EditBlogPostPage() {
           <div className="space-y-1.5"><Label>Sort Date</Label><Input type="date" value={form.dateSort} onChange={(e) => set("dateSort", e.target.value)} /></div>
         </div>
         <div className="space-y-1.5"><Label>Tags (comma-separated)</Label><Input value={form.tags} onChange={(e) => set("tags", e.target.value)} /></div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Media</p></div>
+
         <div className="space-y-1.5">
           <Label>Cover Image</Label>
           <div className="flex items-center gap-3">
@@ -109,7 +115,13 @@ export default function EditBlogPostPage() {
             <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
           </div>
         </div>
-        <div className="space-y-1.5"><Label>Body (Markdown)</Label><Textarea value={form.body} onChange={(e) => set("body", e.target.value)} rows={12} className="font-mono text-sm" /></div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Content</p></div>
+
+        <div className="space-y-1.5"><Label>Body (HTML supported)</Label><Textarea value={form.body} onChange={(e) => set("body", e.target.value)} rows={12} className="font-mono text-sm" /></div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Settings</p></div>
+
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2"><Switch checked={form.featured} onCheckedChange={(v) => set("featured", v)} /><Label>Featured</Label></div>
           <div className="flex items-center gap-2"><Switch checked={form.published} onCheckedChange={(v) => set("published", v)} /><Label>Published</Label></div>

@@ -90,13 +90,22 @@ export default function EditResourcePage() {
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Slug</Label>
-            <Input value={form.slug || ""} onChange={(e) => update("slug", e.target.value)} />
-          </div>
-          <div className="space-y-1.5">
             <Label>Title</Label>
             <Input value={form.title || ""} onChange={(e) => update("title", e.target.value)} />
           </div>
+          <div className="space-y-1.5">
+            <Label>Slug</Label>
+            <Input value={form.slug || ""} onChange={(e) => update("slug", e.target.value)} />
+          </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Cover Image</Label>
+          <div className="flex items-center gap-3">
+            {form.imageUrl && <img src={form.imageUrl} alt="" className="w-20 h-14 object-cover rounded-lg" />}
+            <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
+          </div>
+          {imageUploading && <p className="text-xs text-muted-foreground">Uploading…</p>}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -127,15 +136,6 @@ export default function EditResourcePage() {
             <Label>Download URL</Label>
             <Input value={form.downloadUrl || ""} onChange={(e) => update("downloadUrl", e.target.value)} />
           </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label>Cover Image</Label>
-          <div className="flex items-center gap-3">
-            {form.imageUrl && <img src={form.imageUrl} alt="" className="w-20 h-14 object-cover rounded-lg" />}
-            <Input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} />
-          </div>
-          {imageUploading && <p className="text-xs text-muted-foreground">Uploading…</p>}
         </div>
 
         <div className="flex items-center gap-6">

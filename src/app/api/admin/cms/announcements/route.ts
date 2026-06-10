@@ -9,14 +9,17 @@ export async function GET() {
 
   try {
     const announcements = await prisma.announcement.findMany({
-      orderBy: { date: "desc" },
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         slug: true,
         type: true,
         title: true,
         summary: true,
+        body: true,
         date: true,
+        source: true,
+        url: true,
         tag: true,
         featured: true,
         published: true,

@@ -12,32 +12,46 @@ import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminFormSkeleton } from "@/components/admin/AdminSkeletons";
 
+function toSlug(str: string) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export default function EditPortfolioPage() {
   const { id } = useParams();
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<any>(null);
+  const [slugTouched, setSlugTouched] = useState(true); // edit form: slug is already set
 
   useEffect(() => {
-    fetch(`/api/admin/cms/portfolio`)
+    fetch(`/api/admin/cms/portfolio/${id}`)
       .then((r) => r.json())
-      .then((projects) => {
-        const found = projects.find((p: any) => p.id === id);
-        if (found) {
-          // Fetch full details by re-using the public endpoint via slug
-          fetch(`/api/cms/portfolio/${found.slug}`)
-            .then((r) => r.json())
-            .then((full) => setForm(full))
-            .finally(() => setLoading(false));
-        } else {
-          setLoading(false);
+      .then((project) => {
+        if (project && !project.error) {
+          setForm({
+            ...project,
+            technologies: Array.isArray(project.technologies)
+              ? project.technologies.join(", ")
+              : typeof project.technologies === "string"
+              ? project.technologies
+              : "",
+          });
         }
-      });
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
   }, [id]);
 
   function update(field: string, value: any) {
     setForm((prev: any) => ({ ...prev, [field]: value }));
+  }
+
+  function handleTitleChange(value: string) {
+    update("title", value);
+    if (!slugTouched) {
+      update("slug", toSlug(value));
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -45,10 +59,16 @@ export default function EditPortfolioPage() {
     setSaving(true);
     try {
       const { id: _id, createdAt, updatedAt, ...data } = form;
+      const payload = {
+        ...data,
+        technologies: typeof data.technologies === "string"
+          ? data.technologies.split(",").map((t: string) => t.trim()).filter(Boolean)
+          : data.technologies,
+      };
       const res = await fetch(`/api/admin/cms/portfolio/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("Failed to save");
       toast.success("Project updated");
@@ -66,26 +86,34 @@ export default function EditPortfolioPage() {
   return (
     <AdminShell title={`Edit: ${form.title}`}>
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Basic Info</p></div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Slug</Label>
-            <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} />
+            <Label>Title *</Label>
+            <Input value={form.title || ""} onChange={(e) => handleTitleChange(e.target.value)} required />
           </div>
           <div className="space-y-1.5">
-            <Label>Title</Label>
-            <Input value={form.title} onChange={(e) => update("title", e.target.value)} />
+            <Label>Slug *</Label>
+            <Input
+              value={form.slug || ""}
+              onChange={(e) => { setSlugTouched(true); update("slug", e.target.value); }}
+              required
+            />
+            <p className="text-xs text-muted-foreground mt-1">Auto-generated from title. Edit to customise.</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label>Client</Label>
-            <Input value={form.client} onChange={(e) => update("client", e.target.value)} />
+            <Input value={form.client || ""} onChange={(e) => update("client", e.target.value)} />
           </div>
           <div className="space-y-1.5">
             <Label>Vertical</Label>
             <Select value={form.vertical || ""} onValueChange={(v) => update("vertical", v)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger className="py-1"><SelectValue /></SelectTrigger>
               <SelectContent>{PORTFOLIO_VERTICALS.map((v) => <SelectItem key={v} value={v}>{v}</SelectItem>)}</SelectContent>
             </Select>
           </div>
@@ -95,14 +123,14 @@ export default function EditPortfolioPage() {
           <div className="space-y-1.5">
             <Label>Category</Label>
             <Select value={form.category || ""} onValueChange={(v) => update("category", v)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger className="py-1"><SelectValue /></SelectTrigger>
               <SelectContent>{PORTFOLIO_CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
             </Select>
           </div>
           <div className="space-y-1.5">
             <Label>Service</Label>
             <Select value={form.service || ""} onValueChange={(v) => update("service", v)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger className="py-1"><SelectValue /></SelectTrigger>
               <SelectContent>{PORTFOLIO_SERVICES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
             </Select>
           </div>
@@ -120,7 +148,7 @@ export default function EditPortfolioPage() {
           <div className="space-y-1.5">
             <Label>Size</Label>
             <Select value={form.size || ""} onValueChange={(v) => update("size", v)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger className="py-1"><SelectValue /></SelectTrigger>
               <SelectContent>{PORTFOLIO_SIZES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
             </Select>
           </div>
@@ -140,6 +168,8 @@ export default function EditPortfolioPage() {
             <Input value={form.imageUrl || ""} onChange={(e) => update("imageUrl", e.target.value)} />
           </div>
         </div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Content</p></div>
 
         <div className="space-y-1.5">
           <Label>Description</Label>
@@ -166,6 +196,28 @@ export default function EditPortfolioPage() {
           <Textarea value={form.result || ""} onChange={(e) => update("result", e.target.value)} rows={3} />
         </div>
 
+        <div className="space-y-1.5">
+          <Label>Technologies (comma-separated)</Label>
+          <Input
+            value={typeof form.technologies === "string" ? form.technologies : ""}
+            onChange={(e) => update("technologies", e.target.value)}
+            placeholder="React, Node.js, PostgreSQL"
+          />
+          <p className="text-xs text-muted-foreground">Separate each technology with a comma.</p>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>What the Client Loved</Label>
+          <Textarea value={form.whatClientLoved || ""} onChange={(e) => update("whatClientLoved", e.target.value)} rows={3} />
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Challenges Overcome</Label>
+          <Textarea value={form.challengesOvercome || ""} onChange={(e) => update("challengesOvercome", e.target.value)} rows={3} />
+        </div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Settings</p></div>
+
         <div className="flex items-center gap-6">
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" checked={form.published ?? true} onChange={(e) => update("published", e.target.checked)} />
@@ -177,7 +229,10 @@ export default function EditPortfolioPage() {
           </label>
         </div>
 
-        <Button type="submit" disabled={saving}>{saving ? "Saving..." : "Save Changes"}</Button>
+        <div className="flex gap-3">
+          <Button type="submit" disabled={saving}>{saving ? "Saving..." : "Save Changes"}</Button>
+          <Button type="button" variant="outline" onClick={() => router.back()}>Cancel</Button>
+        </div>
       </form>
     </AdminShell>
   );

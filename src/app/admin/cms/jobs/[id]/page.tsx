@@ -45,6 +45,9 @@ export default function EditJobPage() {
   return (
     <AdminShell title="Edit Job">
       <form onSubmit={handleSubmit} className="max-w-2xl space-y-5">
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Basic Info</p></div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5"><Label>Title *</Label><Input value={form.title} onChange={(e) => set("title", e.target.value)} required /></div>
           <div className="space-y-1.5"><Label>Department *</Label><Select value={form.department} onValueChange={(v) => set("department", v)}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{JOB_DEPARTMENTS.map((d) => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent></Select></div>
@@ -60,7 +63,13 @@ export default function EditJobPage() {
           <div className="space-y-1.5"><Label>Location</Label><Input value={form.location} onChange={(e) => set("location", e.target.value)} /></div>
         </div>
         <div className="space-y-1.5"><Label>Short Description *</Label><Textarea value={form.description} onChange={(e) => set("description", e.target.value)} required rows={2} /></div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Content</p></div>
+
         <div className="space-y-1.5"><Label>Full Description (Markdown)</Label><Textarea value={form.body} onChange={(e) => set("body", e.target.value)} rows={10} className="font-mono text-sm" /></div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Settings</p></div>
+
         <div className="flex items-center gap-2"><Switch checked={form.active} onCheckedChange={(v) => set("active", v)} /><Label>Active</Label></div>
         <div className="flex gap-3">
           <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save Changes"}</Button>

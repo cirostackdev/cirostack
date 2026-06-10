@@ -11,9 +11,14 @@ import { ANNOUNCEMENT_TYPES, ANNOUNCEMENT_TAGS } from "@/lib/admin-options";
 import { toast } from "sonner";
 import { AdminShell } from "@/components/admin/AdminShell";
 
+function toSlug(str: string) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export default function NewAnnouncementPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
+  const [slugTouched, setSlugTouched] = useState(false);
   const [form, setForm] = useState({
     slug: "",
     type: "Press Release",
@@ -30,6 +35,13 @@ export default function NewAnnouncementPage() {
 
   function update(field: string, value: any) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function handleTitleChange(value: string) {
+    update("title", value);
+    if (!slugTouched) {
+      update("slug", toSlug(value));
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -59,21 +71,22 @@ export default function NewAnnouncementPage() {
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label>Slug *</Label>
-            <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="company-raises-series-a" required />
+            <Label>Title *</Label>
+            <Input value={form.title} onChange={(e) => handleTitleChange(e.target.value)} placeholder="Announcement title" required />
           </div>
           <div className="space-y-1.5">
-            <Label>Type</Label>
-            <Select value={form.type} onValueChange={(v) => update("type", v)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>{ANNOUNCEMENT_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
-            </Select>
+            <Label>Slug *</Label>
+            <Input value={form.slug} onChange={(e) => { setSlugTouched(true); update("slug", e.target.value); }} placeholder="company-raises-series-a" required />
+            <p className="text-xs text-muted-foreground mt-1">Auto-generated from title. Edit to customise.</p>
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <Label>Title *</Label>
-          <Input value={form.title} onChange={(e) => update("title", e.target.value)} placeholder="Announcement title" required />
+          <Label>Type</Label>
+          <Select value={form.type} onValueChange={(v) => update("type", v)}>
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>{ANNOUNCEMENT_TYPES.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+          </Select>
         </div>
 
         <div className="space-y-1.5">

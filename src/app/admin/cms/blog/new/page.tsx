@@ -12,10 +12,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { BLOG_CATEGORIES } from "@/lib/admin-options";
 import { toast } from "sonner";
 
+function toSlug(str: string) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 export default function NewBlogPostPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
+  const [slugTouched, setSlugTouched] = useState(false);
   const [form, setForm] = useState({
     slug: "",
     title: "",
@@ -34,6 +39,13 @@ export default function NewBlogPostPage() {
 
   function set(key: string, value: unknown) {
     setForm((f) => ({ ...f, [key]: value }));
+  }
+
+  function handleTitleChange(value: string) {
+    set("title", value);
+    if (!slugTouched) {
+      set("slug", toSlug(value));
+    }
   }
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -77,14 +89,18 @@ export default function NewBlogPostPage() {
   return (
     <AdminShell title="New Blog Post">
       <form onSubmit={handleSubmit} className="max-w-3xl space-y-5">
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Basic Info</p></div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <Label htmlFor="title">Title *</Label>
-            <Input id="title" value={form.title} onChange={(e) => set("title", e.target.value)} required />
+            <Input id="title" value={form.title} onChange={(e) => handleTitleChange(e.target.value)} required />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="slug">Slug *</Label>
-            <Input id="slug" value={form.slug} onChange={(e) => set("slug", e.target.value)} required placeholder="my-post-slug" />
+            <Input id="slug" value={form.slug} onChange={(e) => { setSlugTouched(true); set("slug", e.target.value); }} required placeholder="my-post-slug" />
+            <p className="text-xs text-muted-foreground mt-1">Auto-generated from title. Edit to customise.</p>
           </div>
         </div>
 
@@ -127,6 +143,8 @@ export default function NewBlogPostPage() {
           <Input id="tags" value={form.tags} onChange={(e) => set("tags", e.target.value)} placeholder="MVP, AI & ML, Fintech" />
         </div>
 
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Media</p></div>
+
         <div className="space-y-1.5">
           <Label>Cover Image</Label>
           <div className="flex items-center gap-3">
@@ -135,10 +153,14 @@ export default function NewBlogPostPage() {
           </div>
         </div>
 
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Content</p></div>
+
         <div className="space-y-1.5">
-          <Label htmlFor="body">Body (Markdown)</Label>
-          <Textarea id="body" value={form.body} onChange={(e) => set("body", e.target.value)} rows={12} placeholder="Write your post in Markdown…" className="font-mono text-sm" />
+          <Label htmlFor="body">Body (HTML supported)</Label>
+          <Textarea id="body" value={form.body} onChange={(e) => set("body", e.target.value)} rows={12} placeholder="Write your post content. HTML tags are supported." className="font-mono text-sm" />
         </div>
+
+        <div className="border-t border-border pt-6"><p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Settings</p></div>
 
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
