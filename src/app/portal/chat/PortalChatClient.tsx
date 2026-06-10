@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useContext } from "react";
 import { Send, Paperclip, MessageSquare, Plus, ChevronLeft, FileText, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown } from "lucide-react";
+import { PortalHeaderActionsContext } from "@/components/portal/PortalShell";
 import { format, formatDistanceToNow, isSameDay } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
@@ -228,6 +229,7 @@ function Bubble({
 }
 
 export function PortalChatClient({ clientId, clientName, clientEmail, initialConversation }: Props) {
+  const setHeaderActions = useContext(PortalHeaderActionsContext);
   const [conversation, setConversation] = useState<Conversation | null>(initialConversation);
   const [messages, setMessages] = useState<Message[]>(initialConversation?.messages ?? []);
   const [agentOnline, setAgentOnline] = useState(false);
@@ -439,6 +441,34 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
 
   const isClosed = conversation?.status === "closed";
 
+  // Inject active status + history button into PortalShell header
+  useEffect(() => {
+    setHeaderActions(
+      <>
+        {conversation && !isClosed && (
+          <span className="inline-block text-xs px-2.5 py-0.5 rounded-full font-semibold bg-green-500/15 text-green-500">
+            active
+          </span>
+        )}
+        {(isClosed || !conversation) && (
+          <button
+            onClick={startNewConversation}
+            className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity"
+          >
+            <Plus className="w-3 h-3" /> New chat
+          </button>
+        )}
+        <button
+          onClick={view === "history" ? () => setView("chat") : loadHistory}
+          className="text-xs font-medium px-2.5 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+        >
+          {view === "history" ? "← Back" : "History"}
+        </button>
+      </>
+    );
+    return () => setHeaderActions(null);
+  }, [conversation, isClosed, view, setHeaderActions]);
+
   // Build date-separated message list
   const messageItems: Array<
     | { type: "separator"; date: Date }
@@ -461,12 +491,6 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   if (view === "history") {
     return (
       <div className="flex flex-col h-full">
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
-          <button onClick={() => setView("chat")} className="p-1.5 -ml-1 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <h2 className="font-semibold text-sm">Conversation History</h2>
-        </div>
         <div className="flex-1 overflow-y-auto divide-y divide-border/50">
           {historyLoading && (
             <div className="space-y-1 p-2">
@@ -507,36 +531,6 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-background sticky top-0 z-10">
-        <div className="relative shrink-0">
-          <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-            <MessageSquare className="w-4 h-4 text-primary" />
-          </div>
-          <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-background ${agentOnline ? PRESENCE.online : PRESENCE.offline}`} />
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="font-semibold text-sm">CiroStack Support</p>
-          <p className="text-[11px] text-muted-foreground">
-            {agentOnline ? "Online · Usually replies in minutes" : "Offline · We'll reply as soon as possible"}
-          </p>
-        </div>
-        <div className="flex items-center gap-1.5">
-          {conversation && !isClosed && (
-            <span className={`inline-block w-[76px] text-center text-xs px-2 py-0.5 rounded-full font-semibold ${CONVERSATION_STATUS_COLORS.open}`}>active</span>
-          )}
-          <button onClick={loadHistory}
-            className="text-xs font-medium px-2.5 py-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors">
-            History
-          </button>
-          {(isClosed || !conversation) && (
-            <button onClick={startNewConversation}
-              className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
-              <Plus className="w-3.5 h-3.5" /> New chat
-            </button>
-          )}
-        </div>
-      </div>
 
       {/* Messages */}
       <div
