@@ -187,11 +187,6 @@ export default function AdminInvoicesPage() {
                     <td className="px-4 py-3 text-muted-foreground">{inv.dueDate ? format(new Date(inv.dueDate), "MMM d, yyyy") : "—"}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 justify-end" onClick={(e) => e.stopPropagation()}>
-                        {inv.effectiveStatus !== "paid" && (
-                          <Button variant="ghost" size="icon" className="w-7 h-7" title="Mark paid" onClick={() => handleMarkPaid(inv.id)}>
-                            <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                          </Button>
-                        )}
                         <Button variant="ghost" size="icon" className="w-7 h-7" title="Send to client" onClick={() => handleSend(inv.id)}>
                           <Send className="w-3.5 h-3.5" />
                         </Button>
