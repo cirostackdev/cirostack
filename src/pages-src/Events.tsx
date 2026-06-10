@@ -36,8 +36,6 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
     const featured = serverEvents.filter(e => e.featured);
     const others = serverEvents.filter(e => !e.featured);
 
-    const onlineCount = serverEvents.filter(e => e.location.toLowerCase().includes("online")).length;
-    const inPersonCount = serverEvents.length - onlineCount;
 
     return (
         <Layout>
@@ -51,21 +49,6 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
             <section id="events" className="section-padding mt-10">
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Upcoming Events" title="Don't miss these" description="Our most anticipated upcoming events. Spaces are limited — register early." />
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center py-10 mb-10 border-y border-border">
-                        {[
-                            { value: String(serverEvents.length), label: "Upcoming Events" },
-                            { value: String(featured.length),     label: "Featured Events" },
-                            { value: String(onlineCount),         label: "Online Sessions" },
-                            { value: String(inPersonCount),       label: "In-Person Events" },
-                        ].map((stat, i) => (
-                            <motion.div key={stat.label} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-                                <div className="text-4xl font-display font-bold text-foreground mb-2">{stat.value}</div>
-                                <div className="text-sm text-muted-foreground">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </div>
 
                     {/* Featured — 2-col grid */}
                     {featured.length > 0 && (

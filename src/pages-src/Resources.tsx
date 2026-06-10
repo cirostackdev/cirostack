@@ -68,11 +68,6 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
         }
     };
 
-    // Counts by type for stats
-    const typeCounts = serverResources.reduce<Record<string, number>>((acc, r) => {
-        acc[r.type] = (acc[r.type] ?? 0) + 1;
-        return acc;
-    }, {});
 
     return (
         <Layout>
@@ -86,21 +81,6 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
             <section id="resources" className="section-padding mt-10">
                 <div className="container mx-auto px-4 md:px-6">
                     <SectionHeading badge="Featured Resources" title="Most popular this month" description="Our highest-value resources, handpicked by our team." />
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center py-10 mb-10 border-y border-border">
-                        {[
-                            { value: String(serverResources.length),        label: "Total Resources" },
-                            { value: String(typeCounts["Guide"] ?? 0),      label: "Guides" },
-                            { value: String(typeCounts["Whitepaper"] ?? 0), label: "Whitepapers" },
-                            { value: String(typeCounts["Template"] ?? 0),   label: "Templates" },
-                        ].map((stat, i) => (
-                            <motion.div key={stat.label} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-                                <div className="text-4xl font-display font-bold text-foreground mb-2">{stat.value}</div>
-                                <div className="text-sm text-muted-foreground">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </div>
 
                     {featured.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
