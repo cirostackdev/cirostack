@@ -8,7 +8,10 @@ const FROM = "CiroStack Forms <forms@cirostack.com>";
 
 export async function POST(req: Request) {
   try {
-    const { name, company, email, phone, service, budget, timeline, description } = await req.json();
+    const { name, company, email, phone, service, budget, timeline, description, source } = await req.json();
+    const isChat = source === "chat";
+    const typeLabel = isChat ? "Enquiry" : "Project Brief";
+    const typeDesc = isChat ? "enquiry" : "project brief";
 
     if (!name || !email || !service || !description) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
@@ -27,7 +30,7 @@ export async function POST(req: Request) {
         from: FROM,
         to: TO,
         replyTo: email,
-        subject: `New Project Brief: ${name}${company ? ` (${company})` : ""}`,
+        subject: `New ${typeLabel}: ${name}${company ? ` (${company})` : ""}`,
         html: `
         <!DOCTYPE html>
         <html lang="en">
@@ -53,7 +56,7 @@ export async function POST(req: Request) {
     </tr></table>
   </td>
   <td style="vertical-align:middle;text-align:right;">
-    <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">Project Brief</p>
+    <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">${typeLabel}</p>
   </td>
 </tr></table>
 </td>
@@ -62,8 +65,8 @@ export async function POST(req: Request) {
                   <!-- Body -->
                   <tr>
                     <td style="background:#ffffff;padding:28px 28px 24px 28px;">
-                      <h2 style="margin:0 0 4px 0;font-size:18px;font-weight:700;color:#0f172a;">New Project Brief</h2>
-                      <p style="margin:0 0 20px 0;font-size:13px;color:#64748b;">Submitted via cirostack.com/contact/start</p>
+                      <h2 style="margin:0 0 4px 0;font-size:18px;font-weight:700;color:#0f172a;">New ${typeLabel}</h2>
+                      <p style="margin:0 0 20px 0;font-size:13px;color:#64748b;">Submitted via cirostack.com${isChat ? " chat" : "/contact/start"}</p>
 
                       <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:14px;">
                         <tr>
@@ -127,7 +130,7 @@ export async function POST(req: Request) {
       resend.emails.send({
         from: "CiroStack <noreply@cirostack.com>",
         to: email,
-        subject: "We received your project brief",
+        subject: `We received your ${typeDesc}`,
         html: `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet"><style>@media (prefers-color-scheme:dark){.logo-img{background-color:#0f172a !important;border-radius:6px;}}[data-ogsc] .logo-img{background-color:#0f172a !important;border-radius:6px;}</style></head>
@@ -150,7 +153,7 @@ export async function POST(req: Request) {
                 </tr></table>
               </td>
               <td style="vertical-align:middle;text-align:right;">
-                <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">Project Brief</p>
+                <p style="margin:0;font-size:18px;font-weight:600;color:#94a3b8;font-family:'Bricolage Grotesque','Sora',sans-serif;">${typeLabel}</p>
               </td>
             </tr></table>
           </td>
@@ -159,7 +162,7 @@ export async function POST(req: Request) {
         <tr>
           <td style="padding:32px;">
             <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${name},</p>
-            <p style="margin:0 0 16px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for submitting your project brief. Our team will review the details and get back to you within one business day.</p>
+            <p style="margin:0 0 16px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for submitting your ${typeDesc}. Our team will review the details and get back to you within one business day.</p>
             
             <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px;background:#f8fafc;border-radius:8px;overflow:hidden;">
               <tr>
