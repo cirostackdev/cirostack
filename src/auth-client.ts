@@ -11,6 +11,7 @@ export const {
   auth: clientAuth,
 } = NextAuth({
   ...clientAuthConfig,
+  basePath: "/api/auth-client",
   secret: process.env.PORTAL_AUTH_SECRET ?? process.env.NEXTAUTH_SECRET,
   providers: [
     Credentials({
