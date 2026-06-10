@@ -540,19 +540,14 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
           <div className="flex-1 min-w-0">
             {searchOpen ? (
-              <div className="flex items-center gap-2">
-                <input
-                  autoFocus
-                  type="text"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search messages…"
-                  className="flex-1 text-sm bg-muted border border-border rounded-lg px-3 py-1.5 outline-none focus:ring-1 focus:ring-primary"
-                />
-                <button onClick={() => { setSearch(""); setSearchOpen(false); }} className="text-muted-foreground hover:text-foreground p-1 rounded">
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
+              <input
+                autoFocus
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search messages…"
+                className="w-full text-sm bg-muted border border-border rounded-lg px-3 py-1.5 outline-none focus:ring-1 focus:ring-primary"
+              />
             ) : (
               <>
                 <p className="font-semibold text-sm truncate">
@@ -566,8 +561,13 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
           </div>
 
           <div className="flex items-center gap-1.5">
-            {/* Search button — hidden while search is open */}
-            {!searchOpen && (
+            {/* When search open: show close X. Otherwise show search + other icons */}
+            {searchOpen ? (
+              <button onClick={() => { setSearch(""); setSearchOpen(false); }}
+                className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
+                <X className="w-4 h-4" />
+              </button>
+            ) : (
               <button onClick={() => setSearchOpen(true)} title="Search messages"
                 className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
                 <Search className="w-4 h-4" />
