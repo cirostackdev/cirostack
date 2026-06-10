@@ -121,11 +121,29 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                             {rest.map((resource, i) => (
                                 <motion.div key={resource.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="rounded-2xl surface-glass hover-lift group overflow-hidden flex flex-col md:flex-row md:items-stretch">
                                     {resource.imageUrl && (
-                                        <div className="w-full md:w-36 h-40 md:h-auto shrink-0 overflow-hidden bg-secondary">
+                                        <div className="h-52 md:h-auto md:w-36 shrink-0 overflow-hidden bg-secondary">
                                             <img src={resource.imageUrl} alt={resource.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                                         </div>
                                     )}
-                                    <div className="flex flex-col md:flex-row md:items-start gap-4 flex-1 p-6">
+                                    {/* Mobile — featured card style */}
+                                    <div className="flex flex-col flex-1 p-6 md:hidden">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[resource.type] ?? "bg-secondary text-muted-foreground"}`}>{resource.type}</span>
+                                        </div>
+                                        <h3 className="font-display font-semibold text-foreground text-xl mb-3 leading-snug group-hover:text-primary transition-colors">{resource.title}</h3>
+                                        <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4">{resource.description}</p>
+                                        <div className="flex flex-wrap items-center justify-between gap-2 mb-5">
+                                            <div className="flex flex-wrap gap-1.5">
+                                                {resource.tags.map(tag => (
+                                                    <span key={tag} className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground">{tag}</span>
+                                                ))}
+                                            </div>
+                                            {resource.pages && <span className="text-xs text-muted-foreground shrink-0">{resource.pages}</span>}
+                                        </div>
+                                        <Button className="w-full" onClick={() => openDialog(resource.title, resource.type)}>Download</Button>
+                                    </div>
+                                    {/* Desktop — horizontal row */}
+                                    <div className="hidden md:flex md:flex-row md:items-start gap-4 flex-1 p-6">
                                         <div className="w-24 shrink-0">
                                             <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[resource.type] ?? "bg-secondary text-muted-foreground"}`}>{resource.type}</span>
                                         </div>

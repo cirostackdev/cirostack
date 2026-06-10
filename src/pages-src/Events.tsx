@@ -95,11 +95,36 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
                             {others.map((event, i) => (
                                 <motion.div key={event.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="rounded-2xl surface-glass hover-lift group overflow-hidden flex flex-col md:flex-row md:items-stretch">
                                     {event.imageUrl && (
-                                        <div className="w-full md:w-36 h-40 md:h-auto shrink-0 overflow-hidden bg-secondary">
+                                        <div className="h-52 md:h-auto md:w-36 shrink-0 overflow-hidden bg-secondary">
                                             <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                                         </div>
                                     )}
-                                    <div className="flex flex-col md:flex-row md:items-start gap-4 flex-1 p-6">
+                                    {/* Mobile — featured card style */}
+                                    <div className="flex flex-col flex-1 p-6 md:hidden">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[event.type] ?? "bg-secondary text-muted-foreground"}`}>{event.type}</span>
+                                        </div>
+                                        <h3 className="font-display font-semibold text-foreground text-xl mb-3 leading-snug group-hover:text-primary transition-colors">{event.title}</h3>
+                                        <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-5">{event.description}</p>
+                                        <div className="space-y-1.5 mb-5">
+                                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                <Calendar className="w-3.5 h-3.5 shrink-0" /><span>{event.date}{event.time ? ` · ${event.time}` : ""}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                <MapPin className="w-3.5 h-3.5 shrink-0" /><span>{event.location}</span>
+                                            </div>
+                                            {event.attendees > 0 && (
+                                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                    <Users className="w-3.5 h-3.5 shrink-0" /><span>{event.attendees} registered</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <Link href={event.registrationUrl ?? "#"}>
+                                            <Button className="w-full">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                                        </Link>
+                                    </div>
+                                    {/* Desktop — horizontal row */}
+                                    <div className="hidden md:flex md:flex-row md:items-start gap-4 flex-1 p-6">
                                         <div className="w-28 shrink-0">
                                             <span className={`text-xs font-medium px-2 py-1 rounded-full ${typeColors[event.type] ?? "bg-secondary text-muted-foreground"}`}>{event.type}</span>
                                         </div>
