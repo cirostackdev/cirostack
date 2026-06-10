@@ -294,7 +294,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
             </div>
           )}
 
-          {messages.map((msg) => (
+          {messages.filter((msg) => msg.senderType !== "system").map((msg) => (
             <MessageBubble key={msg.id} msg={msg} visitorName={conversation.visitorName} />
           ))}
           {visitorTyping && <TypingIndicator />}
