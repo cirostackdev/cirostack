@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Send, Paperclip, MessageSquare, ChevronDown, X } from "lucide-react";
+import { Send, MessageSquare, ChevronDown, X } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
 import { DateSeparator } from "./DateSeparator";
 import { TypingIndicator } from "./TypingIndicator";
+import { FileUploadButton } from "./FileUploadButton";
 import type { ChatMessage as Msg } from "./useChat";
 import { isSameDay } from "date-fns";
 import { ChevronDown as ChevronDownIcon } from "lucide-react";
@@ -15,7 +16,7 @@ interface ChatPanelProps {
   agentOnline: boolean;
   isConnected: boolean;
   conversationId: string | null;
-  onSendMessage: (body: string, opts?: { replyToId?: string; replyToBody?: string; replyToSender?: string }) => void;
+  onSendMessage: (body: string, opts?: { replyToId?: string; replyToBody?: string; replyToSender?: string }, fileUrl?: string) => void;
   onSendTyping: (typing: boolean) => void;
   onReset: () => void;
   replyTo?: Msg | null;
@@ -43,11 +44,9 @@ export function ChatPanel({
   isScrolledUpRef,
 }: ChatPanelProps) {
   const [input, setInput] = useState("");
-  const [uploading, setUploading] = useState(false);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -99,22 +98,6 @@ export function ChatPanel({
     onSendTyping(e.target.value.length > 0);
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !conversationId) return;
-    setUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("/api/chat/upload", { method: "POST", body: formData });
-      if (res.ok) {
-        const { url } = await res.json();
-        onSendMessage(url);
-      }
-    } catch {}
-    setUploading(false);
-    e.target.value = "";
-  };
 
   const showOfflineForm = (!agentOnline && !conversationId) || isConnected === false && !conversationId;
 
@@ -232,15 +215,11 @@ export function ChatPanel({
                 disabled={!isConnected}
                 className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:opacity-50"
               />
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                disabled={!isConnected || uploading}
-                className="text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors shrink-0"
-                title="Attach file"
-              >
-                <Paperclip className="w-4 h-4" />
-              </button>
+              <FileUploadButton
+                uploadEndpoint="/api/chat/upload"
+                onUpload={({ url, name }) => onSendMessage(name, undefined, url)}
+                disabled={!isConnected}
+              />
             </div>
 
             <button
@@ -251,14 +230,6 @@ export function ChatPanel({
             >
               <Send className="w-4 h-4" />
             </button>
-
-            <input
-              ref={fileInputRef}
-              type="file"
-              className="hidden"
-              accept="image/*,application/pdf"
-              onChange={handleFileUpload}
-            />
           </div>
           <p className="text-[10px] text-muted-foreground/40 text-center mt-2">
             Powered by CiroStack

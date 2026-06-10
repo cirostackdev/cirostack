@@ -252,7 +252,7 @@ export function useChat() {
   );
 
   const sendMessage = useCallback(
-    async (body: string, options?: { replyToId?: string; replyToBody?: string; replyToSender?: string }) => {
+    async (body: string, options?: { replyToId?: string; replyToBody?: string; replyToSender?: string }, fileUrl?: string) => {
       if (!body.trim() || !conversationId) return;
 
       const optimistic: ChatMessage = {
@@ -260,6 +260,7 @@ export function useChat() {
         conversationId,
         senderType: "visitor",
         body: body.trim(),
+        fileUrl: fileUrl ?? null,
         read: false,
         createdAt: new Date().toISOString(),
         status: "sending",
@@ -277,6 +278,7 @@ export function useChat() {
           body: JSON.stringify({
             visitorId: getVisitorId(),
             body,
+            fileUrl: fileUrl ?? undefined,
             replyToId: options?.replyToId,
             replyToBody: options?.replyToBody,
             replyToSender: options?.replyToSender,

@@ -3,9 +3,9 @@
 import { useState } from "react";
 import type { ChatMessage as Msg } from "./useChat";
 import { format } from "date-fns";
-import { FileText, Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
-import { ImageLightbox } from "./ImageLightbox";
+import { Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
 import { ReplyPreview } from "./ReplyPreview";
+import { MediaBubble } from "./MediaBubble";
 import { useSwipeToReply } from "./useSwipeToReply";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
@@ -53,8 +53,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
     );
   }
 
-  const isImage = message.fileUrl?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-  const isFile = message.fileUrl && !isImage;
+  const hasMedia = !!message.fileUrl;
 
   const reactions = message.reactions as Record<string, string[]> | null | undefined;
 
@@ -169,37 +168,12 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
             )}
           </div>
 
-          {isImage ? (
-            <div className={`p-2 rounded-2xl ${isVisitor ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"} ${grouped && isVisitor ? "rounded-tr-sm" : ""} ${grouped && !isVisitor ? "rounded-tl-sm" : ""}`}>
-              <img
-                src={message.fileUrl!}
-                alt="attachment"
-                className="rounded-xl max-w-full max-h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                onClick={() => setLightboxSrc(message.fileUrl!)}
-              />
-              <p className={`text-[10px] mt-1.5 opacity-60 ${isVisitor ? "text-right" : "text-left"}`}>
-                {time}
+          {hasMedia ? (
+            <div>
+              <MediaBubble fileUrl={message.fileUrl!} fileName={message.body} isSender={isVisitor} />
+              <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
+                {time}{statusIcon}
               </p>
-            </div>
-          ) : isFile ? (
-            <div className={`p-3.5 rounded-2xl ${isVisitor ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"} max-w-[220px] w-full`}>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-background rounded-xl shadow-sm flex items-center justify-center shrink-0">
-                  <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
-                </div>
-                <div className="min-w-0">
-                  <a
-                    href={message.fileUrl!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-semibold truncate block hover:underline"
-                  >
-                    View attachment
-                  </a>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">Document</p>
-                </div>
-              </div>
-              <p className={`text-[10px] mt-2 opacity-60 ${isVisitor ? "text-right" : "text-left"}`}>{time}</p>
             </div>
           ) : (
             <div

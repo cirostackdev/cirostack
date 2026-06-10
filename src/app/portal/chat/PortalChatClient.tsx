@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback, useContext } from "react";
-import { Send, Paperclip, MessageSquare, Plus, ChevronLeft, FileText, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown } from "lucide-react";
+import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown } from "lucide-react";
 import { PortalHeaderActionsContext } from "@/components/portal/PortalShell";
 import { format, formatDistanceToNow, isSameDay } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
-import { ImageLightbox } from "@/components/Chat/ImageLightbox";
+import { MediaBubble } from "@/components/Chat/MediaBubble";
+import { FileUploadButton } from "@/components/Chat/FileUploadButton";
 import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
 
@@ -84,8 +85,7 @@ function Bubble({
     );
   }
 
-  const isImage = msg.fileUrl?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-  const isFile = msg.fileUrl && !isImage;
+  const hasMedia = !!msg.fileUrl;
 
   const reactions = msg.reactions as Record<string, string[]> | null | undefined;
 
@@ -135,8 +135,6 @@ function Bubble({
 
   return (
     <>
-      {lightboxSrc && <ImageLightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />}
-
       <div className={`flex ${isAgent ? "justify-start" : "justify-end"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}>
         {/* Swipe-to-reply icon */}
         <div
@@ -181,28 +179,12 @@ function Bubble({
             )}
           </div>
 
-          {isImage ? (
-            <div className={`p-2 rounded-2xl ${isAgent ? "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md" : "bg-green-500/10 rounded-tr-md"}`}>
-              <img
-                src={msg.fileUrl!}
-                alt="attachment"
-                className="rounded-xl max-w-full max-h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                onClick={() => setLightboxSrc(msg.fileUrl!)}
-              />
-              <p className="text-[10px] mt-1.5 opacity-60">{time}</p>
-            </div>
-          ) : isFile ? (
-            <div className={`p-3.5 rounded-2xl ${isAgent ? "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md" : "bg-green-500/10 rounded-tr-md"} max-w-[220px] w-full`}>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-background rounded-xl shadow-sm flex items-center justify-center shrink-0">
-                  <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
-                </div>
-                <div className="min-w-0">
-                  <a href={msg.fileUrl!} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold truncate block hover:underline">View attachment</a>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">Document</p>
-                </div>
-              </div>
-              <p className="text-[10px] mt-2 opacity-60">{time}</p>
+          {hasMedia ? (
+            <div>
+              <MediaBubble fileUrl={msg.fileUrl!} fileName={msg.body} isSender={!isAgent} />
+              <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-start" : "justify-end"}`}>
+                {time}{statusIcon}
+              </p>
             </div>
           ) : (
             <div className={`px-4 py-2.5 text-sm leading-relaxed ${
@@ -397,22 +379,6 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     inputRef.current?.focus();
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/chat/upload", { method: "POST", body: formData });
-    if (res.ok) {
-      const { url } = await res.json();
-      await fetch("/api/portal/chat", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body: "Sent a file", fileUrl: url, conversationId: conversationIdRef.current }),
-      });
-    }
-    e.target.value = "";
-  };
 
   const startNewConversation = async () => {
     if (conversationIdRef.current && conversation?.status === "open") {
@@ -626,14 +592,16 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                 autoComplete="off"
                 enterKeyHint="send"
               />
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="text-muted-foreground hover:text-foreground transition-colors shrink-0 p-1"
-                title="Attach file"
-              >
-                <Paperclip className="w-4 h-4" />
-              </button>
+              <FileUploadButton
+                uploadEndpoint="/api/portal/chat/upload"
+                onUpload={({ url, name }) => {
+                  fetch("/api/portal/chat", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
+                  });
+                }}
+              />
             </div>
             <button
               type="button"
@@ -644,7 +612,6 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
             >
               <Send className="w-4 h-4" />
             </button>
-            <input ref={fileInputRef} type="file" className="hidden" accept="image/*,application/pdf" onChange={handleFileUpload} />
           </div>
         </div>
       ) : (

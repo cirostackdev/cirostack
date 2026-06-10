@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { put } from "@vercel/blob";
+import { clientAuth } from "@/auth-client";
 
 const MAX_SIZES: Record<string, number> = {
-  image: 10 * 1024 * 1024,       // 10 MB
-  video: 100 * 1024 * 1024,      // 100 MB
-  audio: 20 * 1024 * 1024,       // 20 MB
-  application: 10 * 1024 * 1024, // 10 MB
-  text: 5 * 1024 * 1024,         // 5 MB
+  image: 10 * 1024 * 1024,
+  video: 100 * 1024 * 1024,
+  audio: 20 * 1024 * 1024,
+  application: 10 * 1024 * 1024,
+  text: 5 * 1024 * 1024,
 };
 
 const ALLOWED_TYPES = [
@@ -22,24 +23,9 @@ const ALLOWED_TYPES = [
   "application/zip",
 ];
 
-// Rate limiting: 10 uploads per IP per minute
-const uploadRateMap = new Map<string, { count: number; resetAt: number }>();
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = uploadRateMap.get(ip);
-  if (!entry || now > entry.resetAt) {
-    uploadRateMap.set(ip, { count: 1, resetAt: now + 60_000 });
-    return false;
-  }
-  entry.count++;
-  return entry.count > 10;
-}
-
 export async function POST(req: Request) {
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  if (isRateLimited(ip)) {
-    return NextResponse.json({ error: "Too many uploads. Try again later." }, { status: 429 });
-  }
+  const session = await clientAuth();
+  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   try {
     const formData = await req.formData();
@@ -57,14 +43,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: `File too large (max ${mb} MB for ${category})` }, { status: 413 });
     }
 
-    const blob = await put(`chat/${Date.now()}-${file.name}`, file, {
+    const blob = await put(`chat/portal/${Date.now()}-${file.name}`, file, {
       access: "public",
       contentType: file.type,
     });
 
     return NextResponse.json({ url: blob.url, name: file.name, type: file.type, size: file.size });
   } catch (err) {
-    console.error("[api/chat/upload POST]", err);
+    console.error("[portal/chat/upload POST]", err);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
 }

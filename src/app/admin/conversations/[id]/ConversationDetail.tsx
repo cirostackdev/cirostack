@@ -14,7 +14,8 @@ import type { Channel } from "pusher-js";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
-import { ImageLightbox } from "@/components/Chat/ImageLightbox";
+import { MediaBubble } from "@/components/Chat/MediaBubble";
+import { FileUploadButton } from "@/components/Chat/FileUploadButton";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
@@ -221,31 +222,12 @@ function MessageBubble({
             </button>
           </div>
 
-          {isImage ? (
-            <div className={`p-2 rounded-2xl ${isAgent ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"}`}>
-              <img
-                src={msg.fileUrl!}
-                alt="attachment"
-                className="rounded-xl max-w-full max-h-52 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                onClick={() => setLightboxSrc(msg.fileUrl!)}
-              />
-              <p className={`text-[10px] mt-1.5 opacity-60 ${isAgent ? "text-right" : "text-left"}`}>{time}</p>
-            </div>
-          ) : isFile ? (
-            <div className={`p-3.5 rounded-2xl ${isAgent ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"} max-w-[220px] w-full`}>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-background rounded-xl shadow-sm flex items-center justify-center shrink-0">
-                  <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
-                </div>
-                <div className="min-w-0">
-                  <a href={msg.fileUrl!} target="_blank" rel="noopener noreferrer"
-                    className="text-xs font-semibold truncate block hover:underline">
-                    View attachment
-                  </a>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">Document</p>
-                </div>
-              </div>
-              <p className={`text-[10px] mt-2 opacity-60 ${isAgent ? "text-right" : "text-left"}`}>{time}</p>
+          {msg.fileUrl ? (
+            <div>
+              <MediaBubble fileUrl={msg.fileUrl} fileName={msg.body} isSender={isAgent} />
+              <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
+                {time}{readReceipt}
+              </p>
             </div>
           ) : (
             <div className={`px-4 py-2.5 text-sm leading-relaxed ${
@@ -701,14 +683,16 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                   placeholder="Reply…"
                   className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                 />
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="text-muted-foreground hover:text-foreground transition-colors shrink-0"
-                  title="Attach file"
-                >
-                  <Paperclip className="w-4 h-4" />
-                </button>
+                <FileUploadButton
+                  uploadEndpoint="/api/admin/chat-upload"
+                  onUpload={async ({ url, name }) => {
+                    await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ body: name, fileUrl: url }),
+                    });
+                  }}
+                />
               </div>
               <button
                 onClick={sendMessage}
@@ -717,31 +701,6 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
               >
                 <Send className="w-4 h-4" />
               </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                className="hidden"
-                accept="image/*,application/pdf"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0];
-                  if (!file) return;
-                  const formData = new FormData();
-                  formData.append("file", file);
-                  try {
-                    const res = await fetch("/api/admin/chat-upload", { method: "POST", body: formData });
-                    if (!res.ok) { toast.error("Upload failed"); return; }
-                    const { url, name } = await res.json();
-                    await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ body: name, fileUrl: url }),
-                    });
-                  } catch {
-                    toast.error("Upload failed");
-                  }
-                  e.target.value = "";
-                }}
-              />
             </div>
           </div>
         ) : (
