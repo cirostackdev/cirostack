@@ -2,13 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { formatDistanceToNow, format } from "date-fns";
-import { Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip, Trash2 } from "lucide-react";
+import { formatDistanceToNow, format, isSameDay } from "date-fns";
+import {
+  Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip, Trash2,
+  Search, Clipboard, Reply, CheckCheck, Check, ChevronDown,
+} from "lucide-react";
 import { toast } from "sonner";
 import { getPusher } from "@/lib/pusher-client";
 import type { Channel } from "pusher-js";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
+import { DateSeparator } from "@/components/Chat/DateSeparator";
+import { ReplyPreview } from "@/components/Chat/ReplyPreview";
+import { ImageLightbox } from "@/components/Chat/ImageLightbox";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
+
+const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
 
 interface Message {
   id: string;
@@ -16,6 +24,11 @@ interface Message {
   senderName: string | null;
   body: string;
   fileUrl: string | null;
+  read: boolean;
+  replyToId?: string | null;
+  replyToBody?: string | null;
+  replyToSender?: string | null;
+  reactions?: Record<string, string[]> | null;
   createdAt: string;
 }
 
@@ -36,10 +49,53 @@ interface Props {
   adminName: string;
 }
 
-function MessageBubble({ msg, visitorName }: { msg: Message; visitorName: string | null }) {
+function highlightText(text: string, search: string) {
+  if (!search) return <>{text}</>;
+  const parts = text.split(new RegExp(`(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi"));
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.toLowerCase() === search.toLowerCase() ? (
+          <mark key={i} className="bg-yellow-300/70 text-foreground rounded-sm px-0.5">{part}</mark>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+}
+
+function isGroupedWith(msg: Message, prev: Message | null | undefined): boolean {
+  if (!prev) return false;
+  if (msg.senderType !== prev.senderType) return false;
+  const diff = new Date(msg.createdAt).getTime() - new Date(prev.createdAt).getTime();
+  return diff < 2 * 60 * 1000;
+}
+
+function MessageBubble({
+  msg,
+  prevMsg,
+  visitorName,
+  convId,
+  onReply,
+  onDelete,
+  search,
+  isFirstUnread,
+}: {
+  msg: Message;
+  prevMsg: Message | null;
+  visitorName: string | null;
+  convId: string;
+  onReply: (m: Message) => void;
+  onDelete: (id: string) => void;
+  search: string;
+  isFirstUnread: boolean;
+}) {
   const isSystem = msg.senderType === "system";
   const isAgent = msg.senderType === "agent";
   const time = format(new Date(msg.createdAt), "HH:mm");
+  const grouped = isGroupedWith(msg, prevMsg);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   if (isSystem) {
     return (
@@ -54,48 +110,141 @@ function MessageBubble({ msg, visitorName }: { msg: Message; visitorName: string
   const isImage = msg.fileUrl?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
   const isFile = msg.fileUrl && !isImage;
 
-  return (
-    <div className={`flex ${isAgent ? "justify-end" : "justify-start"} mb-3`}>
-      <div className={`max-w-[85%] sm:max-w-[72%] flex flex-col ${isAgent ? "items-end" : "items-start"}`}>
-        {!isAgent && (
-          <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
-            {visitorName || "Visitor"}
-          </p>
-        )}
+  const reactions = msg.reactions as Record<string, string[]> | null | undefined;
 
-        {isImage ? (
-          <div className={`p-2 rounded-2xl ${isAgent ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"}`}>
-            <img src={msg.fileUrl!} alt="attachment" className="rounded-xl max-w-full max-h-52 object-cover" />
-            <p className={`text-[10px] mt-1.5 opacity-60 ${isAgent ? "text-right" : "text-left"}`}>{time}</p>
-          </div>
-        ) : isFile ? (
-          <div className={`p-3.5 rounded-2xl ${isAgent ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"} max-w-[220px] w-full`}>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-background rounded-xl shadow-sm flex items-center justify-center shrink-0">
-                <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
-              </div>
-              <div className="min-w-0">
-                <a href={msg.fileUrl!} target="_blank" rel="noopener noreferrer"
-                  className="text-xs font-semibold truncate block hover:underline">
-                  View attachment
-                </a>
-                <p className="text-[10px] text-muted-foreground mt-0.5">Document</p>
-              </div>
-            </div>
-            <p className={`text-[10px] mt-2 opacity-60 ${isAgent ? "text-right" : "text-left"}`}>{time}</p>
-          </div>
-        ) : (
-          <div className={`px-4 py-2.5 text-sm leading-relaxed ${
-            isAgent
-              ? "bg-green-500 text-white rounded-l-2xl rounded-tr-2xl rounded-br-md"
-              : "bg-muted/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-foreground rounded-r-2xl rounded-tl-2xl rounded-bl-md"
-          }`}>
-            <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{msg.body}</p>
-            <p className={`text-[10px] mt-1 opacity-50 ${isAgent ? "text-right" : "text-left"}`}>{time}</p>
-          </div>
-        )}
-      </div>
+  const handleReact = async (emoji: string) => {
+    try {
+      await fetch(`/api/admin/conversations/${convId}/messages/${msg.id}/react`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ emoji }),
+      });
+    } catch {}
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(msg.body).catch(() => {});
+  };
+
+  // Read receipt for agent messages
+  const readReceipt = isAgent ? (
+    msg.read
+      ? <CheckCheck className="w-3 h-3 text-blue-400 inline ml-0.5" />
+      : <Check className="w-3 h-3 opacity-40 inline ml-0.5" />
+  ) : null;
+
+  const reactionDisplay = reactions && Object.keys(reactions).length > 0 ? (
+    <div className={`flex flex-wrap gap-1 mt-1 ${isAgent ? "justify-end" : "justify-start"}`}>
+      {Object.entries(reactions).map(([emoji, ids]) =>
+        ids.length > 0 ? (
+          <button
+            key={emoji}
+            onClick={() => handleReact(emoji)}
+            className="text-[11px] bg-muted/70 border border-border/40 rounded-full px-1.5 py-0.5 hover:bg-muted transition-colors"
+          >
+            {emoji} {ids.length}
+          </button>
+        ) : null
+      )}
     </div>
+  ) : null;
+
+  return (
+    <>
+      {lightboxSrc && <ImageLightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />}
+
+      {isFirstUnread && (
+        <div className="flex items-center gap-3 my-4">
+          <div className="flex-1 h-px bg-primary/30" />
+          <span className="text-[11px] text-primary font-semibold whitespace-nowrap">new messages</span>
+          <div className="flex-1 h-px bg-primary/30" />
+        </div>
+      )}
+
+      <div className={`flex ${isAgent ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}>
+        <div className={`max-w-[85%] sm:max-w-[72%] flex flex-col ${isAgent ? "items-end" : "items-start"}`}>
+          {!grouped && !isAgent && (
+            <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
+              {visitorName || "Visitor"}
+            </p>
+          )}
+
+          {/* Context menu bar */}
+          <div className={`absolute ${isAgent ? "right-0" : "left-0"} -top-8 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-center gap-0.5 bg-background border border-border rounded-lg shadow-md px-1 py-0.5`}>
+            {REACTION_EMOJIS.map((emoji) => (
+              <button
+                key={emoji}
+                onClick={() => handleReact(emoji)}
+                className="text-sm px-1 py-0.5 hover:bg-muted rounded transition-colors"
+                title={emoji}
+              >
+                {emoji}
+              </button>
+            ))}
+            <div className="w-px h-4 bg-border mx-0.5" />
+            <button onClick={handleCopy} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground" title="Copy">
+              <Clipboard className="w-3.5 h-3.5" />
+            </button>
+            <button onClick={() => onReply(msg)} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground" title="Reply">
+              <Reply className="w-3.5 h-3.5" />
+            </button>
+            <button onClick={() => onDelete(msg.id)} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-destructive" title="Delete">
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {isImage ? (
+            <div className={`p-2 rounded-2xl ${isAgent ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"}`}>
+              <img
+                src={msg.fileUrl!}
+                alt="attachment"
+                className="rounded-xl max-w-full max-h-52 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={() => setLightboxSrc(msg.fileUrl!)}
+              />
+              <p className={`text-[10px] mt-1.5 opacity-60 ${isAgent ? "text-right" : "text-left"}`}>{time}</p>
+            </div>
+          ) : isFile ? (
+            <div className={`p-3.5 rounded-2xl ${isAgent ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"} max-w-[220px] w-full`}>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-background rounded-xl shadow-sm flex items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
+                </div>
+                <div className="min-w-0">
+                  <a href={msg.fileUrl!} target="_blank" rel="noopener noreferrer"
+                    className="text-xs font-semibold truncate block hover:underline">
+                    View attachment
+                  </a>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">Document</p>
+                </div>
+              </div>
+              <p className={`text-[10px] mt-2 opacity-60 ${isAgent ? "text-right" : "text-left"}`}>{time}</p>
+            </div>
+          ) : (
+            <div className={`px-4 py-2.5 text-sm leading-relaxed ${
+              isAgent
+                ? `bg-green-500 text-white rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
+                : `bg-muted/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-foreground rounded-r-2xl rounded-tl-2xl ${grouped ? "rounded-bl-sm rounded-tl-sm" : "rounded-bl-md"}`
+            }`}>
+              {msg.replyToBody && (
+                <ReplyPreview
+                  senderName={msg.replyToSender || "Unknown"}
+                  body={msg.replyToBody}
+                />
+              )}
+              <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+                {highlightText(msg.body, search)}
+              </p>
+              <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
+                {time}
+                {readReceipt}
+              </p>
+            </div>
+          )}
+
+          {reactionDisplay}
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -108,11 +257,23 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [assignedTo, setAssignedTo] = useState(conversation.assignedTo);
   const [admins, setAdmins] = useState<{ id: string; name: string }[]>([]);
+  const [replyTo, setReplyTo] = useState<Message | null>(null);
+  const [search, setSearch] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
+  const [unreadWhileScrolled, setUnreadWhileScrolled] = useState(0);
   const channelRef = useRef<Channel | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isScrolledUpRef = useRef(false);
+
+  // Find the first unread visitor message index
+  const firstUnreadIdx = initialMessages.findIndex(
+    (m) => m.senderType === "visitor" && !m.read
+  );
 
   useEffect(() => {
     fetch("/api/admin/admins").then((r) => r.ok ? r.json() : []).then((data) => {
@@ -132,16 +293,32 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     }
   }
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "instant" });
-  }, [messages, visitorTyping]);
+  const handleScroll = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const isUp = el.scrollTop + el.clientHeight < el.scrollHeight - 100;
+    setShowScrollBtn(isUp);
+    isScrolledUpRef.current = isUp;
+    if (!isUp) setUnreadWhileScrolled(0);
+  };
 
+  const scrollToBottom = () => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    setShowScrollBtn(false);
+    isScrolledUpRef.current = false;
+    setUnreadWhileScrolled(0);
+  };
+
+  useEffect(() => {
+    if (!isScrolledUpRef.current) {
+      bottomRef.current?.scrollIntoView({ behavior: "instant" });
+    }
+  }, [messages, visitorTyping]);
 
   // Subscribe to Pusher channel + claim conversation
   useEffect(() => {
     const pusher = getPusher();
     if (!pusher) {
-      // Pusher not configured — still claim/read via REST
       fetch(`/api/admin/conversations/${conversation.id}/claim`, { method: "POST" }).catch(() => {});
       fetch(`/api/admin/conversations/${conversation.id}/read`, { method: "POST" }).catch(() => {});
       return;
@@ -150,7 +327,13 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     channelRef.current = channel;
 
     channel.bind("new-message", ({ message }: { message: Message }) => {
-      setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
+      setMessages((prev) => {
+        if (prev.find((m) => m.id === message.id)) return prev;
+        if (isScrolledUpRef.current && message.senderType === "visitor") {
+          setUnreadWhileScrolled((n) => n + 1);
+        }
+        return [...prev, message];
+      });
     });
 
     channel.bind("visitor-typing", ({ typing }: { typing: boolean }) => {
@@ -159,6 +342,22 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
     channel.bind("conversation-closed", () => {
       setStatus("closed");
+    });
+
+    channel.bind("reaction-update", ({ messageId, reactions }: { messageId: string; reactions: Record<string, string[]> }) => {
+      setMessages((prev) =>
+        prev.map((m) => (m.id === messageId ? { ...m, reactions } : m))
+      );
+    });
+
+    channel.bind("messages-read", ({ by }: { by: string }) => {
+      if (by === "visitor") {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.senderType === "agent" ? { ...m, read: true } : m
+          )
+        );
+      }
     });
 
     // Claim conversation and mark read
@@ -178,16 +377,23 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     setInput("");
     inputRef.current?.focus();
 
+    const payload: Record<string, unknown> = { body };
+    if (replyTo) {
+      payload.replyToId = replyTo.id;
+      payload.replyToBody = replyTo.body;
+      payload.replyToSender = replyTo.senderName || (replyTo.senderType === "agent" ? adminName : "Visitor");
+    }
+    setReplyTo(null);
+
     const res = await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ body }),
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
       toast.error("Failed to send message");
     }
-    // The Pusher event will deliver the message to the UI
   };
 
   const handleTyping = (val: string) => {
@@ -228,9 +434,43 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     router.push("/admin/conversations");
   }
 
+  async function deleteMessage(msgId: string) {
+    if (!confirm("Delete this message?")) return;
+    try {
+      await fetch(`/api/admin/conversations/${conversation.id}/messages/${msgId}`, { method: "DELETE" });
+      setMessages((prev) => prev.filter((m) => m.id !== msgId));
+    } catch {
+      toast.error("Failed to delete message");
+    }
+  }
+
   const initials = conversation.visitorName
     ? conversation.visitorName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
     : "?";
+
+  // Filter messages by search, build date-separated list
+  const filteredMessages = messages.filter(
+    (m) => !search || m.body.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const messageItems: Array<
+    | { type: "separator"; date: Date }
+    | { type: "message"; msg: Message; prev: Message | null; isFirstUnread: boolean }
+  > = [];
+  let lastDate: Date | null = null;
+  let lastMsg: Message | null = null;
+
+  for (let i = 0; i < filteredMessages.length; i++) {
+    const msg = filteredMessages[i];
+    const msgDate = new Date(msg.createdAt);
+    if (!lastDate || !isSameDay(lastDate, msgDate)) {
+      messageItems.push({ type: "separator", date: msgDate });
+      lastDate = msgDate;
+    }
+    const isFirstUnread = !search && messages.indexOf(msg) === firstUnreadIdx;
+    messageItems.push({ type: "message", msg, prev: lastMsg, isFirstUnread });
+    lastMsg = msg;
+  }
 
   return (
     <div className="flex h-full">
@@ -252,15 +492,39 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm truncate">
-              {conversation.visitorName || "Anonymous visitor"}
-            </p>
-            <p className="text-[11px] text-muted-foreground truncate">
-              {conversation.topic || "No topic"} · {formatDistanceToNow(new Date(conversation.createdAt), { addSuffix: true })}
-            </p>
+            {searchOpen ? (
+              <div className="flex items-center gap-2">
+                <input
+                  autoFocus
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search messages…"
+                  className="flex-1 text-sm bg-muted border border-border rounded-lg px-3 py-1.5 outline-none focus:ring-1 focus:ring-primary"
+                />
+                <button onClick={() => { setSearch(""); setSearchOpen(false); }} className="text-muted-foreground hover:text-foreground p-1 rounded">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <>
+                <p className="font-semibold text-sm truncate">
+                  {conversation.visitorName || "Anonymous visitor"}
+                </p>
+                <p className="text-[11px] text-muted-foreground truncate">
+                  {conversation.topic || "No topic"} · {formatDistanceToNow(new Date(conversation.createdAt), { addSuffix: true })}
+                </p>
+              </>
+            )}
           </div>
 
           <div className="flex items-center gap-1.5">
+            {!searchOpen && (
+              <button onClick={() => setSearchOpen(true)} title="Search messages"
+                className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
+                <Search className="w-4 h-4" />
+              </button>
+            )}
             <span className={`text-[11px] px-2.5 py-1 rounded-full font-semibold ${
               CONVERSATION_STATUS_COLORS[status] ?? "bg-muted text-muted-foreground"
             }`}>
@@ -284,8 +548,12 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-4">
-          {messages.length === 0 && (
+        <div
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto px-4 py-4 relative"
+          onScroll={handleScroll}
+        >
+          {filteredMessages.length === 0 && !search && (
             <div className="flex flex-col items-center justify-center h-full text-center gap-3">
               <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
                 <MessageSquare className="w-7 h-7 text-primary" />
@@ -294,12 +562,74 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
             </div>
           )}
 
-          {messages.filter((msg) => msg.senderType !== "system").map((msg) => (
-            <MessageBubble key={msg.id} msg={msg} visitorName={conversation.visitorName} />
-          ))}
+          {filteredMessages.length === 0 && search && (
+            <div className="flex flex-col items-center justify-center h-full text-center gap-3">
+              <p className="text-sm text-muted-foreground">No messages matching "{search}"</p>
+            </div>
+          )}
+
+          {messageItems.map((item, idx) => {
+            if (item.type === "separator") {
+              return <DateSeparator key={`sep-${item.date.toISOString()}-${idx}`} date={item.date} />;
+            }
+            if (item.msg.senderType === "system") {
+              return (
+                <div key={item.msg.id} className="flex justify-center my-3">
+                  <span className="text-[11px] text-muted-foreground bg-muted/60 px-3 py-1 rounded-full border border-border/40">
+                    {item.msg.body}
+                  </span>
+                </div>
+              );
+            }
+            return (
+              <MessageBubble
+                key={item.msg.id}
+                msg={item.msg}
+                prevMsg={item.prev}
+                visitorName={conversation.visitorName}
+                convId={conversation.id}
+                onReply={setReplyTo}
+                onDelete={deleteMessage}
+                search={search}
+                isFirstUnread={item.isFirstUnread}
+              />
+            );
+          })}
+
           {visitorTyping && <TypingIndicator />}
           <div ref={bottomRef} />
+
+          {/* Scroll to bottom */}
+          {showScrollBtn && (
+            <button
+              onClick={scrollToBottom}
+              className="absolute bottom-4 right-4 w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity z-10"
+              aria-label="Scroll to bottom"
+            >
+              {unreadWhileScrolled > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {unreadWhileScrolled > 9 ? "9+" : unreadWhileScrolled}
+                </span>
+              )}
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          )}
         </div>
+
+        {/* Reply bar */}
+        {replyTo && (
+          <div className="flex items-center gap-2 px-4 py-2 bg-muted/30 border-t border-border/40">
+            <div className="flex-1 min-w-0 border-l-2 border-primary/60 pl-2">
+              <p className="text-[10px] font-semibold text-muted-foreground">
+                {replyTo.senderName || (replyTo.senderType === "agent" ? adminName : "Visitor")}
+              </p>
+              <p className="text-xs truncate text-muted-foreground">{replyTo.body}</p>
+            </div>
+            <button onClick={() => setReplyTo(null)} className="shrink-0 text-muted-foreground hover:text-foreground">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
 
         {/* Input */}
         {status === "open" ? (

@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Send, Paperclip, MessageSquare, ChevronDown } from "lucide-react";
+import { Send, Paperclip, MessageSquare, ChevronDown, X } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
+import { DateSeparator } from "./DateSeparator";
 import { TypingIndicator } from "./TypingIndicator";
 import type { ChatMessage as Msg } from "./useChat";
+import { isSameDay } from "date-fns";
+import { ChevronDown as ChevronDownIcon } from "lucide-react";
 
 interface ChatPanelProps {
   messages: Msg[];
@@ -12,9 +15,15 @@ interface ChatPanelProps {
   agentOnline: boolean;
   isConnected: boolean;
   conversationId: string | null;
-  onSendMessage: (body: string) => void;
+  onSendMessage: (body: string, opts?: { replyToId?: string; replyToBody?: string; replyToSender?: string }) => void;
   onSendTyping: (typing: boolean) => void;
   onReset: () => void;
+  replyTo?: Msg | null;
+  onClearReply?: () => void;
+  onSetReply?: (msg: Msg) => void;
+  unreadWhileScrolled?: number;
+  onClearUnread?: () => void;
+  isScrolledUpRef?: React.MutableRefObject<boolean>;
 }
 
 export function ChatPanel({
@@ -26,21 +35,52 @@ export function ChatPanel({
   onSendMessage,
   onSendTyping,
   onReset,
+  replyTo,
+  onClearReply,
+  onSetReply,
+  unreadWhileScrolled = 0,
+  onClearUnread,
+  isScrolledUpRef,
 }: ChatPanelProps) {
   const [input, setInput] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!showScrollBtn) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, agentTyping, showScrollBtn]);
+
+  const handleScroll = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const isScrolledUp = el.scrollTop + el.clientHeight < el.scrollHeight - 100;
+    setShowScrollBtn(isScrolledUp);
+    if (isScrolledUpRef) isScrolledUpRef.current = isScrolledUp;
+    if (!isScrolledUp && onClearUnread) onClearUnread();
+  };
+
+  const scrollToBottom = () => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, agentTyping]);
+    setShowScrollBtn(false);
+    if (isScrolledUpRef) isScrolledUpRef.current = false;
+    if (onClearUnread) onClearUnread();
+  };
 
   const handleSend = () => {
     if (!input.trim()) return;
-    onSendMessage(input.trim());
+    onSendMessage(input.trim(), replyTo ? {
+      replyToId: replyTo.id,
+      replyToBody: replyTo.body,
+      replyToSender: replyTo.senderName || (replyTo.senderType === "visitor" ? "You" : "Agent"),
+    } : undefined);
     setInput("");
+    if (onClearReply) onClearReply();
     onSendTyping(false);
     inputRef.current?.focus();
   };
@@ -76,6 +116,21 @@ export function ChatPanel({
 
   const showOfflineForm = (!agentOnline && !conversationId) || isConnected === false && !conversationId;
 
+  // Build date-separated, grouped message list
+  const messageItems: Array<{ type: "separator"; date: Date } | { type: "message"; msg: Msg; prev: Msg | null }> = [];
+  let lastDate: Date | null = null;
+  let lastMsg: Msg | null = null;
+
+  for (const msg of messages) {
+    const msgDate = new Date(msg.createdAt);
+    if (!lastDate || !isSameDay(lastDate, msgDate)) {
+      messageItems.push({ type: "separator", date: msgDate });
+      lastDate = msgDate;
+    }
+    messageItems.push({ type: "message", msg, prev: lastMsg });
+    lastMsg = msg;
+  }
+
   return (
     <div className="flex flex-col h-full">
       {/* Status bar */}
@@ -89,7 +144,11 @@ export function ChatPanel({
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4">
+      <div
+        ref={scrollContainerRef}
+        className="flex-1 overflow-y-auto px-4 py-4 relative"
+        onScroll={handleScroll}
+      >
         {messages.length === 0 && !showOfflineForm && (
           <div className="flex flex-col items-center justify-center h-full text-center px-4 gap-3">
             <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
@@ -104,13 +163,55 @@ export function ChatPanel({
           </div>
         )}
 
-        {messages.map((msg) => (
-          <ChatMessage key={msg.id} message={msg} />
-        ))}
+        {messageItems.map((item, idx) => {
+          if (item.type === "separator") {
+            return <DateSeparator key={`sep-${item.date.toISOString()}`} date={item.date} />;
+          }
+          return (
+            <ChatMessage
+              key={item.msg.id}
+              message={item.msg}
+              prevMessage={item.prev}
+              conversationId={conversationId}
+              onReply={onSetReply}
+            />
+          );
+        })}
 
         {agentTyping && <TypingIndicator />}
         <div ref={bottomRef} />
+
+        {/* Scroll to bottom button */}
+        {showScrollBtn && (
+          <button
+            onClick={scrollToBottom}
+            className="fixed bottom-24 right-6 sm:absolute sm:bottom-4 sm:right-4 w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity z-10"
+            aria-label="Scroll to bottom"
+          >
+            {unreadWhileScrolled > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                {unreadWhileScrolled > 9 ? "9+" : unreadWhileScrolled}
+              </span>
+            )}
+            <ChevronDownIcon className="w-4 h-4" />
+          </button>
+        )}
       </div>
+
+      {/* Reply bar */}
+      {replyTo && (
+        <div className="flex items-center gap-2 px-4 py-2 bg-muted/30 border-t border-border/40">
+          <div className="flex-1 min-w-0 border-l-2 border-primary/60 pl-2">
+            <p className="text-[10px] font-semibold text-muted-foreground">
+              {replyTo.senderName || (replyTo.senderType === "visitor" ? "You" : "Agent")}
+            </p>
+            <p className="text-xs truncate text-muted-foreground">{replyTo.body}</p>
+          </div>
+          <button onClick={onClearReply} className="shrink-0 text-muted-foreground hover:text-foreground">
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
 
       {/* Input */}
       {showOfflineForm ? (

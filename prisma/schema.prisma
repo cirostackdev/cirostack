@@ -35,16 +35,20 @@ model Conversation {
 }
 
 model Message {
-  id             String       @id @default(cuid())
-  conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
-  senderType     String
-  senderId       String?
-  senderName     String?
-  body           String
-  fileUrl        String?
-  read           Boolean      @default(false)
-  createdAt      DateTime     @default(now())
+  id              String       @id @default(cuid())
+  conversationId  String
+  conversation    Conversation @relation(fields: [conversationId], references: [id])
+  senderType      String
+  senderId        String?
+  senderName      String?
+  body            String
+  fileUrl         String?
+  read            Boolean      @default(false)
+  replyToId       String?
+  replyToBody     String?
+  replyToSender   String?
+  reactions       Json?
+  createdAt       DateTime     @default(now())
 }
 
 model FormSubmission {

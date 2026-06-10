@@ -53,7 +53,7 @@ export async function PUT(req: Request) {
   const clientId = (session.user as any).id as string;
 
   try {
-    const { body, conversationId, fileUrl } = await req.json();
+    const { body, conversationId, fileUrl, replyToId, replyToBody, replyToSender } = await req.json();
     if (!body?.trim()) return NextResponse.json({ error: "body required" }, { status: 400 });
 
     // Get client info for the conversation
@@ -106,6 +106,9 @@ export async function PUT(req: Request) {
         body: body.trim(),
         ...(fileUrl ? { fileUrl } : {}),
         read: false,
+        ...(replyToId ? { replyToId } : {}),
+        ...(replyToBody ? { replyToBody: String(replyToBody).slice(0, 500) } : {}),
+        ...(replyToSender ? { replyToSender: String(replyToSender).slice(0, 100) } : {}),
       },
     });
 

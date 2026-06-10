@@ -12,7 +12,13 @@ export interface ChatMessage {
   body: string;
   fileUrl?: string | null;
   read: boolean;
+  replyToId?: string | null;
+  replyToBody?: string | null;
+  replyToSender?: string | null;
+  reactions?: Record<string, string[]> | null;
   createdAt: string;
+  // Client-only optimistic status
+  status?: "sending" | "sent" | "failed";
 }
 
 export type ChatStatus = "idle" | "connecting" | "connected" | "offline";
@@ -44,8 +50,13 @@ export function useChat() {
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showPreChat, setShowPreChat] = useState(false);
+  const [replyTo, setReplyTo] = useState<ChatMessage | null>(null);
   const channelRef = useRef<Channel | null>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const convIdRef = useRef<string | null>(null);
+  // Track messages received while scrolled away
+  const [unreadWhileScrolled, setUnreadWhileScrolled] = useState(0);
+  const isScrolledUpRef = useRef(false);
 
   // Poll online status every 30 seconds
   useEffect(() => {
@@ -78,6 +89,15 @@ export function useChat() {
     return () => clearInterval(interval);
   }, [isOpen, conversationId]);
 
+  // Mark agent messages as read when chat is open
+  useEffect(() => {
+    if (!isOpen || !conversationId) return;
+    fetch(`/api/chat/conversations/${conversationId}/read`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    }).catch(() => {});
+  }, [isOpen, conversationId, messages]);
+
   // Subscribe to Pusher channel for a conversation
   const subscribe = useCallback((convId: string) => {
     const pusher = getPusher();
@@ -108,8 +128,12 @@ export function useChat() {
         );
         if (optimisticIdx !== -1) {
           const updated = [...prev];
-          updated[optimisticIdx] = message;
+          updated[optimisticIdx] = { ...message, status: "sent" };
           return updated;
+        }
+        // Count unread while scrolled
+        if (isScrolledUpRef.current && message.senderType === "agent") {
+          setUnreadWhileScrolled((n) => n + 1);
         }
         return [...prev, message];
       });
@@ -123,6 +147,22 @@ export function useChat() {
     channel.bind("conversation-closed", () => {
       setStatus("idle");
     });
+
+    channel.bind("reaction-update", ({ messageId, reactions }: { messageId: string; reactions: Record<string, string[]> }) => {
+      setMessages((prev) =>
+        prev.map((m) => (m.id === messageId ? { ...m, reactions } : m))
+      );
+    });
+
+    channel.bind("messages-read", ({ by }: { by: string }) => {
+      if (by === "admin") {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.senderType === "visitor" ? { ...m, read: true } : m
+          )
+        );
+      }
+    });
   }, []);
 
   // Load history for returning visitors when opening chat
@@ -134,7 +174,7 @@ export function useChat() {
       );
       if (res.ok) {
         const data = await res.json();
-        setMessages(data.messages || []);
+        setMessages((data.messages || []).map((m: ChatMessage) => ({ ...m, status: "sent" })));
       }
     } catch {}
   }, []);
@@ -145,6 +185,7 @@ export function useChat() {
 
     if (existingConvId) {
       setConversationId(existingConvId);
+      convIdRef.current = existingConvId;
       loadHistory(existingConvId);
       setStatus("connecting");
       subscribe(existingConvId);
@@ -182,6 +223,7 @@ export function useChat() {
 
         const { conversationId: cid } = await res.json();
         setConversationId(cid);
+        convIdRef.current = cid;
         setStoredConversationId(cid);
         subscribe(cid);
 
@@ -195,7 +237,7 @@ export function useChat() {
   );
 
   const sendMessage = useCallback(
-    async (body: string) => {
+    async (body: string, options?: { replyToId?: string; replyToBody?: string; replyToSender?: string }) => {
       if (!body.trim() || !conversationId) return;
 
       const optimistic: ChatMessage = {
@@ -205,6 +247,10 @@ export function useChat() {
         body: body.trim(),
         read: false,
         createdAt: new Date().toISOString(),
+        status: "sending",
+        replyToId: options?.replyToId,
+        replyToBody: options?.replyToBody,
+        replyToSender: options?.replyToSender,
       };
 
       setMessages((prev) => [...prev, optimistic]);
@@ -213,16 +259,25 @@ export function useChat() {
         const res = await fetch(`/api/chat/conversations/${conversationId}/messages`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ visitorId: getVisitorId(), body }),
+          body: JSON.stringify({
+            visitorId: getVisitorId(),
+            body,
+            replyToId: options?.replyToId,
+            replyToBody: options?.replyToBody,
+            replyToSender: options?.replyToSender,
+          }),
         });
 
         if (!res.ok) {
-          // Remove optimistic on failure
-          setMessages((prev) => prev.filter((m) => m.id !== optimistic.id));
+          setMessages((prev) =>
+            prev.map((m) => (m.id === optimistic.id ? { ...m, status: "failed" } : m))
+          );
         }
         // Server response triggers Pusher event which reconciles the optimistic message
       } catch {
-        setMessages((prev) => prev.filter((m) => m.id !== optimistic.id));
+        setMessages((prev) =>
+          prev.map((m) => (m.id === optimistic.id ? { ...m, status: "failed" } : m))
+        );
       }
     },
     [conversationId]
@@ -265,6 +320,7 @@ export function useChat() {
       channelRef.current = null;
     }
     setConversationId(null);
+    convIdRef.current = null;
     setMessages([]);
     setStatus("idle");
   }, []);
@@ -288,6 +344,11 @@ export function useChat() {
     conversationId,
     isOpen,
     showPreChat,
+    replyTo,
+    setReplyTo,
+    unreadWhileScrolled,
+    setUnreadWhileScrolled,
+    isScrolledUpRef,
     openChat,
     closeChat,
     startChat,

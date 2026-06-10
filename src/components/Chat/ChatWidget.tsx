@@ -15,6 +15,11 @@ export function ChatWidget() {
     conversationId,
     isOpen,
     showPreChat,
+    replyTo,
+    setReplyTo,
+    unreadWhileScrolled,
+    setUnreadWhileScrolled,
+    isScrolledUpRef,
     openChat,
     closeChat,
     startChat,
@@ -53,8 +58,7 @@ export function ChatWidget() {
       {isOpen && (
         <div
           className="fixed z-50 flex flex-col bg-background border border-border shadow-2xl overflow-hidden bottom-0 right-0 left-0 h-[85dvh] rounded-t-2xl sm:bottom-6 sm:right-6 sm:left-auto sm:w-[380px] sm:h-[560px] sm:max-h-[85dvh] sm:rounded-2xl"
-          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-          style={{ animation: "slideUp 0.2s ease-out" }}
+          style={{ paddingBottom: "env(safe-area-inset-bottom)", animation: "slideUp 0.2s ease-out" }}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-primary text-primary-foreground">
@@ -65,7 +69,9 @@ export function ChatWidget() {
               <div>
                 <p className="text-sm font-semibold">CiroStack Support</p>
                 <p className="text-[11px] opacity-80">
-                  {agentOnline ? "Usually replies in minutes" : "We'll reply via email"}
+                  {agentOnline
+                    ? "Online · Usually replies in minutes"
+                    : "Offline · We'll reply as soon as possible"}
                 </p>
               </div>
             </div>
@@ -92,6 +98,12 @@ export function ChatWidget() {
                 onSendMessage={sendMessage}
                 onSendTyping={sendTyping}
                 onReset={resetConversation}
+                replyTo={replyTo}
+                onClearReply={() => setReplyTo(null)}
+                onSetReply={(msg) => setReplyTo(msg)}
+                unreadWhileScrolled={unreadWhileScrolled}
+                onClearUnread={() => setUnreadWhileScrolled(0)}
+                isScrolledUpRef={isScrolledUpRef}
               />
             )}
           </div>

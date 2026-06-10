@@ -41,7 +41,7 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const { visitorId, body } = await req.json();
+    const { visitorId, body, replyToId, replyToBody, replyToSender } = await req.json();
 
     if (!visitorId || !body?.trim()) {
       return NextResponse.json({ error: "visitorId and body required" }, { status: 400 });
@@ -62,6 +62,9 @@ export async function POST(
         conversationId: id,
         senderType: "visitor",
         body: body.trim().slice(0, 4000),
+        ...(replyToId ? { replyToId } : {}),
+        ...(replyToBody ? { replyToBody: String(replyToBody).slice(0, 500) } : {}),
+        ...(replyToSender ? { replyToSender: String(replyToSender).slice(0, 100) } : {}),
       },
     });
 

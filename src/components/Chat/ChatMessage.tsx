@@ -1,17 +1,43 @@
 "use client";
 
+import { useState } from "react";
 import type { ChatMessage as Msg } from "./useChat";
 import { format } from "date-fns";
-import { FileText } from "lucide-react";
+import { FileText, Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
+import { ImageLightbox } from "./ImageLightbox";
+import { ReplyPreview } from "./ReplyPreview";
+
+const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
 
 interface ChatMessageProps {
   message: Msg;
+  prevMessage?: Msg | null;
+  conversationId?: string | null;
+  onReply?: (msg: Msg) => void;
 }
 
-export function ChatMessage({ message }: ChatMessageProps) {
+function isSameDay(a: Date, b: Date) {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+function isGroupedWith(msg: Msg, prev: Msg | null | undefined): boolean {
+  if (!prev) return false;
+  if (msg.senderType !== prev.senderType) return false;
+  const diff = new Date(msg.createdAt).getTime() - new Date(prev.createdAt).getTime();
+  return diff < 2 * 60 * 1000;
+}
+
+export function ChatMessage({ message, prevMessage, conversationId, onReply }: ChatMessageProps) {
   const isVisitor = message.senderType === "visitor";
   const isSystem = message.senderType === "system";
   const time = format(new Date(message.createdAt), "HH:mm");
+  const grouped = isGroupedWith(message, prevMessage);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [showMenu, setShowMenu] = useState(false);
 
   if (isSystem) {
     return (
@@ -26,61 +52,161 @@ export function ChatMessage({ message }: ChatMessageProps) {
   const isImage = message.fileUrl?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
   const isFile = message.fileUrl && !isImage;
 
-  return (
-    <div className={`flex ${isVisitor ? "justify-end" : "justify-start"} mb-3`}>
-      <div className={`max-w-[75%] flex flex-col ${isVisitor ? "items-end" : "items-start"}`}>
-        {!isVisitor && message.senderName && (
-          <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
-            {message.senderName}
-          </p>
-        )}
+  const reactions = message.reactions as Record<string, string[]> | null | undefined;
 
-        {isImage ? (
-          <div className={`p-2 rounded-2xl ${isVisitor ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"}`}>
-            <img
-              src={message.fileUrl!}
-              alt="attachment"
-              className="rounded-xl max-w-full max-h-48 object-cover"
-            />
-            <p className={`text-[10px] mt-1.5 opacity-60 ${isVisitor ? "text-right" : "text-left"}`}>
-              {time}
-            </p>
-          </div>
-        ) : isFile ? (
-          <div className={`p-3.5 rounded-2xl ${isVisitor ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"} max-w-[220px] w-full`}>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-background rounded-xl shadow-sm flex items-center justify-center shrink-0">
-                <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
-              </div>
-              <div className="min-w-0">
-                <a
-                  href={message.fileUrl!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-semibold truncate block hover:underline"
-                >
-                  View attachment
-                </a>
-                <p className="text-[10px] text-muted-foreground mt-0.5">Document</p>
-              </div>
-            </div>
-            <p className={`text-[10px] mt-2 opacity-60 ${isVisitor ? "text-right" : "text-left"}`}>{time}</p>
-          </div>
-        ) : (
-          <div
-            className={`px-4 py-2.5 text-sm leading-relaxed ${
-              isVisitor
-                ? "bg-green-500 text-white rounded-l-2xl rounded-tr-2xl rounded-br-md"
-                : "bg-muted/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-foreground rounded-r-2xl rounded-tl-2xl rounded-bl-md"
-            }`}
+  const handleCopy = () => {
+    navigator.clipboard.writeText(message.body).catch(() => {});
+    setShowMenu(false);
+  };
+
+  const handleReact = async (emoji: string) => {
+    if (!conversationId) return;
+    try {
+      await fetch(`/api/chat/conversations/${conversationId}/messages/${message.id}/react`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ emoji }),
+      });
+    } catch {}
+    setShowMenu(false);
+  };
+
+  // Status icon for visitor messages (sent from widget)
+  const statusIcon = isVisitor ? (
+    message.status === "sending" ? (
+      <Clock className="w-3 h-3 opacity-50 inline" />
+    ) : message.status === "failed" ? (
+      <X className="w-3 h-3 text-red-400 inline" />
+    ) : message.read ? (
+      <CheckCheck className="w-3 h-3 text-blue-400 inline" />
+    ) : (
+      <Check className="w-3 h-3 opacity-50 inline" />
+    )
+  ) : null;
+
+  const reactionDisplay = reactions && Object.keys(reactions).length > 0 ? (
+    <div className={`flex flex-wrap gap-1 mt-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
+      {Object.entries(reactions).map(([emoji, ids]) =>
+        ids.length > 0 ? (
+          <button
+            key={emoji}
+            onClick={() => handleReact(emoji)}
+            className="text-[11px] bg-muted/70 border border-border/40 rounded-full px-1.5 py-0.5 hover:bg-muted transition-colors"
           >
-            <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{message.body}</p>
-            <p className={`text-[10px] mt-1 opacity-60 ${isVisitor ? "text-right" : "text-left"}`}>
-              {time}
-            </p>
-          </div>
-        )}
-      </div>
+            {emoji} {ids.length}
+          </button>
+        ) : null
+      )}
     </div>
+  ) : null;
+
+  return (
+    <>
+      {lightboxSrc && (
+        <ImageLightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />
+      )}
+
+      <div
+        className={`flex ${isVisitor ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}
+        onMouseLeave={() => setShowMenu(false)}
+      >
+        <div className={`max-w-[75%] flex flex-col ${isVisitor ? "items-end" : "items-start"}`}>
+          {!grouped && !isVisitor && message.senderName && (
+            <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
+              {message.senderName}
+            </p>
+          )}
+
+          {/* Context menu */}
+          <div
+            className={`absolute ${isVisitor ? "right-0" : "left-0"} -top-8 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-center gap-0.5 bg-background border border-border rounded-lg shadow-md px-1 py-0.5`}
+          >
+            {REACTION_EMOJIS.map((emoji) => (
+              <button
+                key={emoji}
+                onClick={() => handleReact(emoji)}
+                className="text-sm px-1 py-0.5 hover:bg-muted rounded transition-colors"
+                title={emoji}
+              >
+                {emoji}
+              </button>
+            ))}
+            <div className="w-px h-4 bg-border mx-0.5" />
+            <button
+              onClick={handleCopy}
+              className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground"
+              title="Copy"
+            >
+              <Clipboard className="w-3.5 h-3.5" />
+            </button>
+            {onReply && (
+              <button
+                onClick={() => { onReply(message); setShowMenu(false); }}
+                className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground"
+                title="Reply"
+              >
+                <Reply className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+
+          {isImage ? (
+            <div className={`p-2 rounded-2xl ${isVisitor ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"} ${grouped && isVisitor ? "rounded-tr-sm" : ""} ${grouped && !isVisitor ? "rounded-tl-sm" : ""}`}>
+              <img
+                src={message.fileUrl!}
+                alt="attachment"
+                className="rounded-xl max-w-full max-h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={() => setLightboxSrc(message.fileUrl!)}
+              />
+              <p className={`text-[10px] mt-1.5 opacity-60 ${isVisitor ? "text-right" : "text-left"}`}>
+                {time}
+              </p>
+            </div>
+          ) : isFile ? (
+            <div className={`p-3.5 rounded-2xl ${isVisitor ? "bg-green-500/10 rounded-tr-md" : "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md"} max-w-[220px] w-full`}>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-background rounded-xl shadow-sm flex items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
+                </div>
+                <div className="min-w-0">
+                  <a
+                    href={message.fileUrl!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-semibold truncate block hover:underline"
+                  >
+                    View attachment
+                  </a>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">Document</p>
+                </div>
+              </div>
+              <p className={`text-[10px] mt-2 opacity-60 ${isVisitor ? "text-right" : "text-left"}`}>{time}</p>
+            </div>
+          ) : (
+            <div
+              className={`px-4 py-2.5 text-sm leading-relaxed ${
+                isVisitor
+                  ? `bg-green-500 text-white rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
+                  : `bg-muted/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-foreground rounded-r-2xl rounded-tl-2xl ${grouped ? "rounded-bl-sm rounded-tl-sm" : "rounded-bl-md"}`
+              }`}
+            >
+              {message.replyToBody && (
+                <ReplyPreview
+                  senderName={message.replyToSender || "Unknown"}
+                  body={message.replyToBody}
+                />
+              )}
+              <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{message.body}</p>
+              <p className={`text-[10px] mt-1 opacity-60 flex items-center gap-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
+                {time}
+                {statusIcon}
+              </p>
+            </div>
+          )}
+
+          {reactionDisplay}
+        </div>
+      </div>
+    </>
   );
 }

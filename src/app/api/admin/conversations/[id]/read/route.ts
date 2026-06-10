@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { pusher } from "@/lib/pusher";
 
 export async function POST(
   req: Request,
@@ -19,6 +20,9 @@ export async function POST(
     },
     data: { read: true },
   });
+
+  // Notify visitor that admin read their messages
+  await pusher.trigger(`private-conversation-${id}`, "messages-read", { by: "admin" });
 
   return NextResponse.json({ ok: true });
 }
