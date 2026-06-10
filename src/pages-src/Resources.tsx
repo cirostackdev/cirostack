@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Download, FileText, ArrowRight, Code, Bot, CheckCircle, X, Star } from "lucide-react";
+import { Download, ArrowRight, CheckCircle, X } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import SectionHeading from "@/components/SectionHeading";
@@ -29,12 +29,6 @@ const typeColors: Record<string, string> = {
     "Tool":       "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
 };
 
-const tools = [
-    { icon: Code,     title: "Project Estimate Calculator", description: "Get a rough estimate for your software project based on features and complexity.", href: "/resources/estimate" },
-    { icon: Star,     title: "Tech Stack Decision Matrix",  description: "A framework for choosing the right technology stack for your next project.", href: null },
-    { icon: FileText, title: "RFP Template",                description: "A professional Request for Proposal template for software development projects.", href: null },
-    { icon: Bot,      title: "AI Readiness Assessment",     description: "Evaluate your organization's readiness to adopt AI automation tools.", href: null },
-];
 
 type DownloadState = "idle" | "submitting" | "done";
 
@@ -177,39 +171,6 @@ const Resources = ({ serverResources }: { serverResources: DbResource[] }) => {
                 </div>
             </section>
 
-            {/* Interactive Tools */}
-            <section className="section-padding section-alt">
-                <div className="container mx-auto px-4 md:px-6">
-                    <SectionHeading badge="Interactive Tools" title="Free tools to help you plan" description="Use these interactive tools to assess your needs and make better decisions." />
-                    <div className="space-y-4">
-                        {tools.map((tool, i) => (
-                            <motion.div key={tool.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-6 rounded-2xl surface-glass hover-lift group flex flex-col md:flex-row md:items-center gap-4">
-                                <div className="shrink-0">
-                                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-secondary text-muted-foreground">Tool</span>
-                                </div>
-                                <div className="flex-1">
-                                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">{tool.title}</h3>
-                                    <p className="text-sm text-muted-foreground">{tool.description}</p>
-                                </div>
-                                <div className="shrink-0">
-                                    {tool.href ? (
-                                        <Link href={tool.href} className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all">
-                                            Try It Free <ArrowRight className="w-4 h-4" />
-                                        </Link>
-                                    ) : (
-                                        <button
-                                            onClick={() => openDialog(tool.title, "Tool")}
-                                            className="flex items-center gap-1.5 text-sm text-primary font-medium hover:gap-2.5 transition-all"
-                                        >
-                                            Get Access <ArrowRight className="w-4 h-4" />
-                                        </button>
-                                    )}
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
             {/* CTA */}
             <section className="section-padding text-center">

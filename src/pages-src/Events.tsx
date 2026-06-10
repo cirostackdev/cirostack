@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock, Users, ArrowRight, Globe } from "lucide-react";
+import { Calendar, MapPin, Clock, Users, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { SEO } from "@/components/SEO";
 import SectionHeading from "@/components/SectionHeading";
@@ -26,11 +26,6 @@ const typeColors: Record<string, string> = {
     "Workshop":         "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
 };
 
-const pastHighlights = [
-    { title: "DevWorld Summit 2025", attendees: "5,000+", talks: 3, year: "2025" },
-    { title: "FinTech Forward Conference", attendees: "2,000+", talks: 1, year: "2025" },
-    { title: "AI Innovation Week", attendees: "800+", talks: 2, year: "2024" },
-];
 
 const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
     const featured = serverEvents.filter(e => e.featured);
@@ -152,32 +147,6 @@ const Events = ({ serverEvents }: { serverEvents: DbEvent[] }) => {
                     {serverEvents.length === 0 && (
                         <p className="text-center text-muted-foreground py-12">No upcoming events right now. Check back soon.</p>
                     )}
-                </div>
-            </section>
-
-            {/* Past highlights */}
-            <section className="section-padding section-alt">
-                <div className="container mx-auto px-4 md:px-6">
-                    <SectionHeading badge="Past Events" title="Where we've been" description="CiroStack has spoken at and sponsored leading technology events worldwide." />
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {pastHighlights.map((past, i) => (
-                            <motion.div key={past.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="p-8 rounded-2xl surface-glass text-center">
-                                <Globe className="w-8 h-8 text-foreground mx-auto mb-4" />
-                                <p className="text-xs text-muted-foreground mb-2">{past.year}</p>
-                                <h3 className="font-display font-semibold text-foreground text-lg mb-3">{past.title}</h3>
-                                <div className="flex gap-6 justify-center text-center">
-                                    <div>
-                                        <p className="text-2xl font-display font-bold text-foreground">{past.attendees}</p>
-                                        <p className="text-xs text-muted-foreground">Attendees</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-2xl font-display font-bold text-foreground">{past.talks}</p>
-                                        <p className="text-xs text-muted-foreground">Talks</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
             </section>
 
