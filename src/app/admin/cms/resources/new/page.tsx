@@ -151,7 +151,7 @@ export default function NewResourcePage() {
           </label>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" checked={form.isNew} onChange={(e) => update("isNew", e.target.checked)} />
-            Mark as New
+            Featured
           </label>
         </div>
 
