@@ -4,6 +4,18 @@ import { auth } from "@/auth";
 
 type Params = { params: Promise<{ id: string }> };
 
+export async function GET(_req: Request, { params }: Params) {
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { id } = await params;
+  const conv = await prisma.conversation.findUnique({
+    where: { id },
+    select: { id: true, status: true, metadata: true, assignedToId: true },
+  });
+  if (!conv) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  return NextResponse.json(conv);
+}
+
 export async function PATCH(req: Request, { params }: Params) {
   const session = await auth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

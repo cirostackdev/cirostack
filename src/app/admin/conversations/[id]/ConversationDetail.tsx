@@ -33,6 +33,14 @@ interface Message {
   createdAt: string;
 }
 
+const VISITOR_TTL_MS = 2 * 60 * 1000;
+
+function computeVisitorOnline(metadata: Record<string, unknown> | null | undefined): boolean {
+  const ts = metadata?.visitorLastSeen as string | undefined;
+  if (!ts) return false;
+  return Date.now() - new Date(ts).getTime() < VISITOR_TTL_MS;
+}
+
 interface Conversation {
   id: string;
   visitorName: string | null;
@@ -40,6 +48,7 @@ interface Conversation {
   topic: string | null;
   status: string;
   createdAt: string;
+  metadata?: Record<string, unknown> | null;
   assignedTo: { id: string; name: string } | null;
 }
 
@@ -281,6 +290,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [searchOpen, setSearchOpen] = useState(false);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [unreadWhileScrolled, setUnreadWhileScrolled] = useState(0);
+  const [visitorOnline, setVisitorOnline] = useState(() => computeVisitorOnline(conversation.metadata));
   const channelRef = useRef<Channel | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -299,6 +309,17 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       if (Array.isArray(data)) setAdmins(data);
     }).catch(() => {});
   }, []);
+
+  // Poll conversation metadata every 30s to update visitor presence dot
+  useEffect(() => {
+    const check = () =>
+      fetch(`/api/admin/conversations/${conversation.id}`)
+        .then((r) => r.ok ? r.json() : null)
+        .then((data) => { if (data?.metadata) setVisitorOnline(computeVisitorOnline(data.metadata)); })
+        .catch(() => {});
+    const interval = setInterval(check, 30_000);
+    return () => clearInterval(interval);
+  }, [conversation.id]);
 
   async function handleAssign(aId: string) {
     const res = await fetch(`/api/admin/conversations/${conversation.id}/assign`, {
@@ -514,7 +535,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
             <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">
               {initials}
             </div>
-            <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-background ${status === "open" ? PRESENCE.online : PRESENCE.offline}`} />
+            <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-background ${visitorOnline ? PRESENCE.online : PRESENCE.offline}`} />
           </div>
 
           <div className="flex-1 min-w-0">
