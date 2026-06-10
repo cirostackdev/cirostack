@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Send, Paperclip, MessageSquare } from "lucide-react";
+import { Send, Paperclip, MessageSquare, ChevronDown } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
 import { TypingIndicator } from "./TypingIndicator";
 import type { ChatMessage as Msg } from "./useChat";
@@ -166,10 +166,23 @@ export function ChatPanel({
   );
 }
 
+const TOPICS = ["Project enquiry", "Pricing & budget", "Technical question", "Partnership", "Other"];
+
 function OfflineForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [topic, setTopic] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) setDropdownOpen(false);
+    }
+    document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, []);
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -181,7 +194,7 @@ function OfflineForm() {
       await fetch("/api/contact/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, service: "Chat enquiry", description: message }),
+        body: JSON.stringify({ name, email, service: topic || "Chat enquiry", description: message }),
       });
       setSent(true);
     } catch {}
@@ -215,6 +228,33 @@ function OfflineForm() {
         placeholder="your@email.com"
         className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-xl outline-none focus:ring-1 focus:ring-primary"
       />
+      <div ref={dropdownRef} className="relative">
+        <button
+          type="button"
+          onClick={() => setDropdownOpen((o) => !o)}
+          className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-xl outline-none focus:ring-1 focus:ring-primary flex items-center justify-between text-left"
+        >
+          <span className={topic ? "text-foreground" : "text-muted-foreground"}>
+            {topic || "Select a topic (optional)"}
+          </span>
+          <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-150 ${dropdownOpen ? "rotate-180" : ""}`} />
+        </button>
+        {dropdownOpen && (
+          <ul className="absolute left-0 right-0 top-full mt-1 bg-background border border-border rounded-xl shadow-lg overflow-hidden z-10">
+            {TOPICS.map((t) => (
+              <li key={t}>
+                <button
+                  type="button"
+                  onClick={() => { setTopic(t); setDropdownOpen(false); }}
+                  className={`w-full text-left px-3 py-2 text-sm hover:bg-muted transition-colors ${topic === t ? "text-primary font-medium" : "text-foreground"}`}
+                >
+                  {t}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <textarea
         required value={message} onChange={(e) => setMessage(e.target.value)}
         placeholder="Your message…" rows={3}
