@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow, format, isSameDay } from "date-fns";
+import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import {
   Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip, Trash2,
   Search, Clipboard, Reply, CheckCheck, Check, ChevronDown,
@@ -96,6 +97,9 @@ function MessageBubble({
   const time = format(new Date(msg.createdAt), "HH:mm");
   const grouped = isGroupedWith(msg, prevMsg);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const { bubbleRef, iconRef, onTouchStart, onTouchMove, onTouchEnd } = useSwipeToReply(
+    () => onReply(msg)
+  );
 
   if (isSystem) {
     return (
@@ -162,7 +166,22 @@ function MessageBubble({
       )}
 
       <div className={`flex ${isAgent ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}>
-        <div className={`max-w-[85%] sm:max-w-[72%] flex flex-col ${isAgent ? "items-end" : "items-start"}`}>
+        {/* Swipe-to-reply icon */}
+        <div
+          ref={iconRef}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 opacity-0 text-muted-foreground pointer-events-none"
+          style={{ transform: "scale(0.6)" }}
+        >
+          <Reply className="w-5 h-5" />
+        </div>
+
+        <div
+          ref={bubbleRef}
+          className={`max-w-[85%] sm:max-w-[72%] flex flex-col ${isAgent ? "items-end" : "items-start"}`}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           {!grouped && !isAgent && (
             <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
               {visitorName || "Visitor"}

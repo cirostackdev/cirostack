@@ -7,6 +7,7 @@ import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { ImageLightbox } from "@/components/Chat/ImageLightbox";
+import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
@@ -62,6 +63,9 @@ function Bubble({
   const isSystem = msg.senderType === "system";
   const time = format(new Date(msg.createdAt), "HH:mm");
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const { bubbleRef, iconRef, onTouchStart, onTouchMove, onTouchEnd } = useSwipeToReply(
+    () => onReply?.(msg)
+  );
 
   const grouped = (() => {
     if (!prevMsg) return false;
@@ -133,7 +137,22 @@ function Bubble({
       {lightboxSrc && <ImageLightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />}
 
       <div className={`flex ${isAgent ? "justify-start" : "justify-end"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}>
-        <div className={`max-w-[75%] flex flex-col ${isAgent ? "items-start" : "items-end"}`}>
+        {/* Swipe-to-reply icon */}
+        <div
+          ref={iconRef}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 opacity-0 text-muted-foreground pointer-events-none"
+          style={{ transform: "scale(0.6)" }}
+        >
+          <Reply className="w-5 h-5" />
+        </div>
+
+        <div
+          ref={bubbleRef}
+          className={`max-w-[75%] flex flex-col ${isAgent ? "items-start" : "items-end"}`}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           {!grouped && isAgent && msg.senderName && (
             <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">{msg.senderName}</p>
           )}

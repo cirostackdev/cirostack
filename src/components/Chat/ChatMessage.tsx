@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { FileText, Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
 import { ImageLightbox } from "./ImageLightbox";
 import { ReplyPreview } from "./ReplyPreview";
+import { useSwipeToReply } from "./useSwipeToReply";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
 
@@ -38,6 +39,9 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
   const grouped = isGroupedWith(message, prevMessage);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [showMenu, setShowMenu] = useState(false);
+  const { bubbleRef, iconRef, onTouchStart, onTouchMove, onTouchEnd } = useSwipeToReply(
+    () => onReply?.(message)
+  );
 
   if (isSystem) {
     return (
@@ -110,7 +114,22 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
         className={`flex ${isVisitor ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}
         onMouseLeave={() => setShowMenu(false)}
       >
-        <div className={`max-w-[75%] flex flex-col ${isVisitor ? "items-end" : "items-start"}`}>
+        {/* Swipe-to-reply icon (revealed on left as bubble moves right) */}
+        <div
+          ref={iconRef}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 opacity-0 text-muted-foreground pointer-events-none"
+          style={{ transform: "scale(0.6)" }}
+        >
+          <Reply className="w-5 h-5" />
+        </div>
+
+        <div
+          ref={bubbleRef}
+          className={`max-w-[75%] flex flex-col ${isVisitor ? "items-end" : "items-start"}`}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           {!grouped && !isVisitor && message.senderName && (
             <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
               {message.senderName}

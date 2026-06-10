@@ -20,17 +20,19 @@ export async function POST(
     if (!message) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
     const reactions = (message.reactions as Record<string, string[]>) ?? {};
-    const arr = reactions[emoji] ?? [];
     const reactor = reactorId || "visitor";
 
-    if (arr.includes(reactor)) {
-      reactions[emoji] = arr.filter((r) => r !== reactor);
-    } else {
-      reactions[emoji] = [...arr, reactor];
+    // Find and remove any existing reaction from this person (one per person)
+    const previous = Object.keys(reactions).find((e) => reactions[e]?.includes(reactor));
+    if (previous) {
+      reactions[previous] = reactions[previous].filter((r) => r !== reactor);
+      if (reactions[previous].length === 0) delete reactions[previous];
     }
 
-    // Clean up empty arrays
-    if (reactions[emoji].length === 0) delete reactions[emoji];
+    // Add to new emoji — unless they tapped the same one (toggle off)
+    if (previous !== emoji) {
+      reactions[emoji] = [...(reactions[emoji] ?? []), reactor];
+    }
 
     await prisma.message.update({
       where: { id: msgId },
