@@ -16,21 +16,29 @@ export async function POST(
 
   const { id } = await params;
 
-  // Check if already assigned to someone else
+  // Check current assignment
   const existing = await prisma.conversation.findUnique({
     where: { id },
     select: { assignedToId: true },
   });
+
+  // Already assigned to someone else — reject
   if (existing?.assignedToId && existing.assignedToId !== admin.id) {
     return NextResponse.json({ error: "Already assigned to another agent" }, { status: 409 });
   }
 
+  // Already assigned to this admin — skip the join message, just return
+  if (existing?.assignedToId === admin.id) {
+    const conv = await prisma.conversation.findUnique({ where: { id } });
+    return NextResponse.json({ conversation: conv });
+  }
+
+  // First time claiming — assign and create the join message
   const conv = await prisma.conversation.update({
     where: { id },
     data: { assignedToId: admin.id },
   });
 
-  // System message
   const msg = await prisma.message.create({
     data: {
       conversationId: id,
