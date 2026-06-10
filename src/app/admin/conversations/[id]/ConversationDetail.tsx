@@ -147,6 +147,12 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   // Subscribe to Pusher channel + claim conversation
   useEffect(() => {
     const pusher = getPusher();
+    if (!pusher) {
+      // Pusher not configured — still claim/read via REST
+      fetch(`/api/admin/conversations/${conversation.id}/claim`, { method: "POST" }).catch(() => {});
+      fetch(`/api/admin/conversations/${conversation.id}/read`, { method: "POST" }).catch(() => {});
+      return;
+    }
     const channel = pusher.subscribe(`private-conversation-${conversation.id}`);
     channelRef.current = channel;
 
@@ -169,7 +175,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     return () => {
       if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
       channel.unbind_all();
-      pusher.unsubscribe(`private-conversation-${conversation.id}`);
+      pusher?.unsubscribe(`private-conversation-${conversation.id}`);
     };
   }, [conversation.id]);
 

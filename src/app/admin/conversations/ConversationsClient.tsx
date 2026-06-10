@@ -40,6 +40,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
 
     // Subscribe to admin notifications channel for new conversations and messages
     const pusher = getPusher();
+    if (!pusher) return () => { clearInterval(heartbeatInterval); };
     const channel = pusher.subscribe("private-admin-notifications");
     channelRef.current = channel;
 

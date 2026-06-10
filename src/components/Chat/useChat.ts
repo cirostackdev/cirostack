@@ -66,12 +66,14 @@ export function useChat() {
 
   // Subscribe to Pusher channel for a conversation
   const subscribe = useCallback((convId: string) => {
+    const pusher = getPusher();
+    if (!pusher) { setStatus("offline"); return; }
+
     if (channelRef.current) {
       channelRef.current.unbind_all();
-      getPusher().unsubscribe(channelRef.current.name);
+      pusher.unsubscribe(channelRef.current.name);
     }
 
-    const pusher = getPusher();
     setVisitorAuth(getVisitorId());
 
     const channel = pusher.subscribe(`private-conversation-${convId}`);
@@ -247,7 +249,7 @@ export function useChat() {
     localStorage.removeItem("ciro_conv_id");
     if (channelRef.current) {
       channelRef.current.unbind_all();
-      getPusher().unsubscribe(channelRef.current.name);
+      getPusher()?.unsubscribe(channelRef.current.name);
       channelRef.current = null;
     }
     setConversationId(null);
@@ -261,7 +263,7 @@ export function useChat() {
       if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
       if (channelRef.current) {
         channelRef.current.unbind_all();
-        getPusher().unsubscribe(channelRef.current.name);
+        getPusher()?.unsubscribe(channelRef.current.name);
       }
     };
   }, []);
