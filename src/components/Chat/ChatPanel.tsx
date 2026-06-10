@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Send, MessageSquare, ChevronDown, X } from "lucide-react";
+import { Send, MessageSquare, ChevronDown, X, Paperclip } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
 import { DateSeparator } from "./DateSeparator";
 import { TypingIndicator } from "./TypingIndicator";
-import { FileUploadButton } from "./FileUploadButton";
 import type { ChatMessage as Msg } from "./useChat";
 import { isSameDay } from "date-fns";
 import { ChevronDown as ChevronDownIcon } from "lucide-react";
@@ -17,6 +16,7 @@ interface ChatPanelProps {
   isConnected: boolean;
   conversationId: string | null;
   onSendMessage: (body: string, opts?: { replyToId?: string; replyToBody?: string; replyToSender?: string }, fileUrl?: string) => void;
+  onSendFile: (file: File) => void;
   onSendTyping: (typing: boolean) => void;
   onReset: () => void;
   replyTo?: Msg | null;
@@ -34,6 +34,7 @@ export function ChatPanel({
   isConnected,
   conversationId,
   onSendMessage,
+  onSendFile,
   onSendTyping,
   onReset,
   replyTo,
@@ -47,6 +48,7 @@ export function ChatPanel({
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -215,10 +217,25 @@ export function ChatPanel({
                 disabled={!isConnected}
                 className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:opacity-50"
               />
-              <FileUploadButton
-                uploadEndpoint="/api/chat/upload"
-                onUpload={({ url, name }) => onSendMessage(name, undefined, url)}
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
                 disabled={!isConnected}
+                className="text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors shrink-0 p-1"
+                title="Attach file"
+              >
+                <Paperclip className="w-4 h-4" />
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                className="hidden"
+                accept="image/*,video/mp4,video/webm,video/ogg,video/quicktime,audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/webm,audio/aac,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/plain,application/zip"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) onSendFile(file);
+                  e.target.value = "";
+                }}
               />
             </div>
 

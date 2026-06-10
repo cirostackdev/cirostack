@@ -24,6 +24,7 @@ export function ChatWidget() {
     closeChat,
     startChat,
     sendMessage,
+    sendFile,
     sendTyping,
     resetConversation,
   } = useChat();
@@ -96,6 +97,7 @@ export function ChatWidget() {
                 isConnected={status === "connected"}
                 conversationId={conversationId}
                 onSendMessage={sendMessage}
+                onSendFile={(file) => sendFile(file, "/api/chat/upload")}
                 onSendTyping={sendTyping}
                 onReset={resetConversation}
                 replyTo={replyTo}

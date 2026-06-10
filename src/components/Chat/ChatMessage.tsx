@@ -170,7 +170,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
 
           {hasMedia ? (
             <div>
-              <MediaBubble fileUrl={message.fileUrl!} fileName={message.body} isSender={isVisitor} />
+              <MediaBubble fileUrl={message.fileUrl!} fileName={message.body} fileType={message.fileType} isSender={isVisitor} uploadProgress={message.uploadProgress} />
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
                 {time}{statusIcon}
               </p>

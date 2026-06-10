@@ -18,7 +18,9 @@ export interface ChatMessage {
   reactions?: Record<string, string[]> | null;
   createdAt: string;
   // Client-only optimistic status
-  status?: "sending" | "sent" | "failed";
+  status?: "sending" | "sent" | "failed" | "uploading";
+  uploadProgress?: number; // 0-100
+  fileType?: string; // MIME type for blob URL rendering
 }
 
 export type ChatStatus = "idle" | "connecting" | "connected" | "offline";
@@ -300,6 +302,89 @@ export function useChat() {
     [conversationId]
   );
 
+  const sendFile = useCallback(
+    async (file: File, uploadEndpoint: string) => {
+      if (!conversationId) return;
+
+      const localUrl = URL.createObjectURL(file);
+      const optId = `opt-${Date.now()}`;
+
+      const optimistic: ChatMessage = {
+        id: optId,
+        conversationId,
+        senderType: "visitor",
+        body: file.name,
+        fileUrl: localUrl,
+        fileType: file.type,
+        read: false,
+        createdAt: new Date().toISOString(),
+        status: "uploading",
+        uploadProgress: 0,
+      };
+
+      setMessages((prev) => [...prev, optimistic]);
+
+      try {
+        // Upload with XHR for progress
+        const remoteUrl = await new Promise<string>((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", uploadEndpoint);
+
+          xhr.upload.onprogress = (e) => {
+            if (e.lengthComputable) {
+              const pct = Math.round((e.loaded / e.total) * 100);
+              setMessages((prev) =>
+                prev.map((m) => (m.id === optId ? { ...m, uploadProgress: pct } : m))
+              );
+            }
+          };
+
+          xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              const data = JSON.parse(xhr.responseText);
+              resolve(data.url);
+            } else {
+              reject(new Error("Upload failed"));
+            }
+          };
+          xhr.onerror = () => reject(new Error("Upload failed"));
+
+          const fd = new FormData();
+          fd.append("file", file);
+          xhr.send(fd);
+        });
+
+        // Upload done — update to "sending" and send the message
+        setMessages((prev) =>
+          prev.map((m) => (m.id === optId ? { ...m, fileUrl: remoteUrl, status: "sending", uploadProgress: undefined } : m))
+        );
+        URL.revokeObjectURL(localUrl);
+
+        const res = await fetch(`/api/chat/conversations/${conversationId}/messages`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            visitorId: getVisitorId(),
+            body: file.name,
+            fileUrl: remoteUrl,
+          }),
+        });
+
+        if (!res.ok) {
+          setMessages((prev) =>
+            prev.map((m) => (m.id === optId ? { ...m, status: "failed" } : m))
+          );
+        }
+      } catch {
+        URL.revokeObjectURL(localUrl);
+        setMessages((prev) =>
+          prev.map((m) => (m.id === optId ? { ...m, status: "failed", uploadProgress: undefined } : m))
+        );
+      }
+    },
+    [conversationId]
+  );
+
   const sendTyping = useCallback(
     (typing: boolean) => {
       if (!conversationId) return;
@@ -370,6 +455,7 @@ export function useChat() {
     closeChat,
     startChat,
     sendMessage,
+    sendFile,
     sendTyping,
     resetConversation,
   };
