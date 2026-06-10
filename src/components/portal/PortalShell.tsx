@@ -55,14 +55,19 @@ export function PortalShell({
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
-    fetch("/api/portal/notifications")
-      .then((r) => r.ok ? r.json() : [])
-      .then((data: { read: boolean }[]) => {
-        if (Array.isArray(data)) {
-          setUnreadCount(data.filter((n) => n.read === false).length);
-        }
-      })
-      .catch(() => {});
+    const fetchCount = () => {
+      fetch("/api/portal/notifications/count")
+        .then((r) => r.ok ? r.json() : null)
+        .then((data: { unread: number } | null) => {
+          if (data && typeof data.unread === "number") {
+            setUnreadCount(data.unread);
+          }
+        })
+        .catch(() => {});
+    };
+    fetchCount();
+    const interval = setInterval(fetchCount, 30_000);
+    return () => clearInterval(interval);
   }, []);
 
   const SidebarContent = () => (

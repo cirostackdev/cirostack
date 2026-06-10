@@ -23,13 +23,20 @@ export default function PortalNotificationsPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<Filter>("all");
 
-  useEffect(() => {
+  const fetchNotifications = () => {
     fetch("/api/portal/notifications")
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data)) setNotifications(data);
+        else if (data?.notifications && Array.isArray(data.notifications)) setNotifications(data.notifications);
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 30_000);
+    return () => clearInterval(interval);
   }, []);
 
   const markAllRead = async () => {

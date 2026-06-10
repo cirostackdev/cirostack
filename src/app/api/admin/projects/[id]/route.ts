@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
-import { sendPush } from "@/lib/push";
+import { createNotification } from "@/lib/notify";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -60,11 +60,12 @@ export async function PATCH(req: Request, { params }: Params) {
           });
 
           if (justCompleted) {
-            sendPush("client", project.clientId, {
-              title: "Milestone completed",
-              body: `"${current?.title}" has been marked complete on ${project.title}`,
-              url: `/portal/projects/${id}`,
-            }).catch(console.error);
+            createNotification(
+              project.clientId,
+              "Milestone completed",
+              `"${current?.title}" has been marked complete on ${project.title}`,
+              `/portal/projects/${id}`
+            ).catch(console.error);
           }
         }
       }

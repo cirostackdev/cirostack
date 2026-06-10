@@ -10,6 +10,7 @@ import { format, formatDistanceToNow, isPast } from "date-fns";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { SetPasswordModal } from "@/app/portal/SetPasswordModal";
 import { PROJECT_STATUS_COLORS, ALERT, INVOICE_STATUS_COLORS, SEMANTIC } from "@/lib/colors";
+import PushPermissionBanner from "@/components/PushPermissionBanner";
 
 export default async function PortalDashboard() {
   const session = await clientAuth();
@@ -90,6 +91,9 @@ export default async function PortalDashboard() {
     <PortalShell title={`Welcome back${firstName ? `, ${firstName}` : ""}`}>
       {needsPassword && <SetPasswordModal />}
       <div className="w-full space-y-6">
+
+        {/* Push notification opt-in banner */}
+        <PushPermissionBanner ownerType="client" />
 
         {/* Subheading */}
         <p className="text-sm text-muted-foreground -mt-2">{session.user.email}</p>

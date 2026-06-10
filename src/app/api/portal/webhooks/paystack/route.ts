@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyWebhookSignature } from "@/lib/paystack";
-import { sendPush } from "@/lib/push";
 import { createNotification } from "@/lib/notify";
 
 export async function POST(req: Request) {
@@ -42,12 +41,13 @@ export async function POST(req: Request) {
           select: { clientId: true, number: true },
         });
         if (invoice) {
-          sendPush("client", invoice.clientId, {
-            title: "Payment confirmed",
-            body: `Invoice ${invoice.number} has been marked as paid.`,
-            url: `/portal/invoices/${invoiceId}`,
-          }).catch(console.error);
-          createNotification(invoice.clientId, "Payment confirmed", `Invoice ${invoice.number} has been marked as paid.`, `/portal/invoices/${invoiceId}`).catch(console.error);
+          // Deduplicate: only notify if no existing notification for this invoice payment
+          const existingNotif = await prisma.notification.findFirst({
+            where: { clientId: invoice.clientId, title: "Payment confirmed", href: `/portal/invoices/${invoiceId}` },
+          });
+          if (!existingNotif) {
+            createNotification(invoice.clientId, "Payment confirmed", `Invoice ${invoice.number} has been marked as paid.`, `/portal/invoices/${invoiceId}`).catch(console.error);
+          }
         }
       } catch (err) {
         console.error("[Paystack webhook] Failed to update invoice:", err);

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { INTERACTIVE } from "@/lib/colors";
+import PushPermissionBanner from "@/components/PushPermissionBanner";
 
 interface Admin {
   id: string;
@@ -110,6 +111,9 @@ export function SettingsClient({
 
   return (
     <div className="max-w-3xl space-y-8">
+
+      {/* Push notification opt-in */}
+      <PushPermissionBanner ownerType="admin" />
 
       {/* My Profile */}
       <div>
