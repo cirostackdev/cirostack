@@ -274,6 +274,21 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
       const { conversation: conv } = await res.json();
       if (!conv) return;
 
+      const isNewConversation = conversationIdRef.current && conv.id !== conversationIdRef.current;
+
+      // Conversation switched — reset everything so old messages don't mix in
+      if (isNewConversation) {
+        lastMessageIdRef.current = null;
+        setMessages(conv.messages);
+        setUnreadWhileScrolled(0);
+        conversationIdRef.current = conv.id;
+        setConversation(conv);
+        if (conv.messages.length > 0) {
+          lastMessageIdRef.current = conv.messages.at(-1)?.id ?? null;
+        }
+        return;
+      }
+
       conversationIdRef.current = conv.id;
       setConversation(conv);
 

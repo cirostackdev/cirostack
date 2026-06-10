@@ -166,7 +166,7 @@ export function useChat() {
   }, []);
 
   // Load history for returning visitors when opening chat
-  const loadHistory = useCallback(async (convId: string) => {
+  const loadHistory = useCallback(async (convId: string): Promise<boolean> => {
     const visitorId = getVisitorId();
     try {
       const res = await fetch(
@@ -174,24 +174,39 @@ export function useChat() {
       );
       if (res.ok) {
         const data = await res.json();
+        // If conversation is closed, clear it from storage so next open starts fresh
+        if (data.status === "closed") {
+          localStorage.removeItem("ciro_conv_id");
+          return false;
+        }
         setMessages((data.messages || []).map((m: ChatMessage) => ({ ...m, status: "sent" })));
+        return true;
       }
     } catch {}
+    return false;
   }, []);
 
-  const openChat = useCallback(() => {
+  const openChat = useCallback(async () => {
     setIsOpen(true);
     const existingConvId = getStoredConversationId();
 
     if (existingConvId) {
-      setConversationId(existingConvId);
-      convIdRef.current = existingConvId;
-      loadHistory(existingConvId);
-      setStatus("connecting");
-      subscribe(existingConvId);
+      // Load history first — returns false if conversation was closed
+      const valid = await loadHistory(existingConvId);
+      if (valid) {
+        setConversationId(existingConvId);
+        convIdRef.current = existingConvId;
+        setStatus("connecting");
+        subscribe(existingConvId);
+      } else {
+        // Conversation was closed — show pre-chat for a fresh start
+        setConversationId(null);
+        convIdRef.current = null;
+        setMessages([]);
+        if (agentOnline) setShowPreChat(true);
+      }
     } else {
       if (!agentOnline) {
-        // Offline mode - no pre-chat form needed, show email form
         return;
       }
       setShowPreChat(true);

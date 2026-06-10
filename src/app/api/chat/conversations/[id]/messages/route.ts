@@ -28,7 +28,7 @@ export async function GET(
       orderBy: { createdAt: "asc" },
     });
 
-    return NextResponse.json({ messages });
+    return NextResponse.json({ messages, status: conversation.status });
   } catch (err) {
     console.error("[api/chat/conversations/[id]/messages GET]", err);
     return NextResponse.json({ error: "Failed" }, { status: 500 });
