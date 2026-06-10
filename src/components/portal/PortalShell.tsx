@@ -20,6 +20,8 @@ import {
   Moon,
   FolderOpen,
   Bell,
+  Menu,
+  X,
 } from "lucide-react";
 
 const NAV = [
@@ -33,15 +35,6 @@ const NAV = [
   { href: "/portal/settings", icon: Settings, label: "Settings" },
 ];
 
-// Nav items shown in the mobile bottom bar (main 5 only)
-const BOTTOM_NAV = [
-  { href: "/portal/dashboard", icon: LayoutDashboard, label: "Home" },
-  { href: "/portal/projects", icon: FolderKanban, label: "Projects" },
-  { href: "/portal/files", icon: FolderOpen, label: "Files" },
-  { href: "/portal/invoices", icon: Receipt, label: "Invoices" },
-  { href: "/portal/notifications", icon: Bell, label: "Alerts" },
-];
-
 export function PortalShell({
   children,
   title,
@@ -51,10 +44,11 @@ export function PortalShell({
 }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [unreadCount, setUnreadCount] = useState(0);
 
-  // Portal client presence heartbeat — keeps the green dot alive in admin
+  // Portal client presence heartbeat
   useEffect(() => {
     const beat = () => fetch("/api/portal/presence", { method: "POST" }).catch(() => {});
     beat();
@@ -67,9 +61,7 @@ export function PortalShell({
       fetch("/api/portal/notifications/count")
         .then((r) => r.ok ? r.json() : null)
         .then((data: { unread: number } | null) => {
-          if (data && typeof data.unread === "number") {
-            setUnreadCount(data.unread);
-          }
+          if (data && typeof data.unread === "number") setUnreadCount(data.unread);
         })
         .catch(() => {});
     };
@@ -78,121 +70,163 @@ export function PortalShell({
     return () => clearInterval(interval);
   }, []);
 
-  const SidebarContent = () => (
-    <>
-      <div className="flex items-center justify-between px-3 py-4 border-b border-border min-h-[57px]">
-        {collapsed ? (
-          <button
-            onClick={() => setCollapsed(false)}
-            className="mx-auto p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
-            aria-label="Expand sidebar"
-          >
-            <PanelLeftOpen className="w-4 h-4" />
-          </button>
-        ) : (
-          <>
-            <div className="flex items-center gap-2 min-w-0">
-              <Image src={logo} alt="CiroStack" width={22} height={22} className="object-contain shrink-0" />
-              <span className="font-semibold text-sm truncate">Client Portal</span>
-            </div>
-            <button
-              onClick={() => setCollapsed(true)}
-              className="shrink-0 ml-1 p-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
-              aria-label="Collapse sidebar"
-            >
-              <PanelLeftClose className="w-4 h-4" />
-            </button>
-          </>
-        )}
-      </div>
-
-      <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
-        {NAV.map((item, i) => {
-          if ("divider" in item)
-            return collapsed ? null : (
-              <div key={i} className="my-1 border-t border-border/50" />
-            );
-          const { href, icon: Icon, label } = item as {
-            href: string;
-            icon: React.ElementType;
-            label: string;
-          };
-          const active = pathname === href || pathname.startsWith(href + "/");
-          return (
-            <Link
-              key={href}
-              href={href}
-              title={collapsed ? label : undefined}
-              className={`flex items-center gap-2.5 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[44px] ${
-                collapsed ? "justify-center px-2" : "px-3"
-              } ${
-                active
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
-            >
-              <div className="relative shrink-0">
-                <Icon className="w-4 h-4" />
-                {href === "/portal/notifications" && unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500" />
-                )}
-              </div>
-              {!collapsed && label}
-              {href === "/portal/notifications" && !collapsed && unreadCount > 0 && (
-                <span className="ml-auto text-[10px] font-bold bg-red-500 text-white rounded-full px-1.5 py-0.5 min-w-[18px] text-center">
-                  {unreadCount > 9 ? "9+" : unreadCount}
-                </span>
-              )}
-            </Link>
+  const NavLinks = ({ mobile = false }: { mobile?: boolean }) => (
+    <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
+      {NAV.map((item, i) => {
+        if ("divider" in item)
+          return !mobile && collapsed ? null : (
+            <div key={i} className="my-1 border-t border-border/50" />
           );
-        })}
-      </nav>
+        const { href, icon: Icon, label } = item as {
+          href: string;
+          icon: React.ElementType;
+          label: string;
+        };
+        const active = pathname === href || pathname.startsWith(href + "/");
+        const isCollapsed = !mobile && collapsed;
+        return (
+          <Link
+            key={href}
+            href={href}
+            title={isCollapsed ? label : undefined}
+            onClick={() => mobile && setMobileOpen(false)}
+            className={`flex items-center gap-2.5 py-2 rounded-lg text-sm transition-colors ${
+              isCollapsed ? "justify-center px-2" : "px-3"
+            } ${
+              active
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+            }`}
+          >
+            <div className="relative shrink-0">
+              <Icon className="w-4 h-4" />
+              {href === "/portal/notifications" && unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500" />
+              )}
+            </div>
+            {!isCollapsed && label}
+            {href === "/portal/notifications" && !isCollapsed && unreadCount > 0 && (
+              <span className="ml-auto text-[10px] font-bold bg-red-500 text-white rounded-full px-1.5 py-0.5 min-w-[18px] text-center">
+                {unreadCount > 9 ? "9+" : unreadCount}
+              </span>
+            )}
+          </Link>
+        );
+      })}
+    </nav>
+  );
 
+  const BottomActions = ({ mobile = false }: { mobile?: boolean }) => {
+    const isCollapsed = !mobile && collapsed;
+    return (
       <div className="p-2 border-t border-border space-y-0.5">
         <button
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          title={collapsed ? "Toggle theme" : undefined}
-          className={`flex items-center gap-2.5 py-2.5 w-full rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors min-h-[44px] ${
-            collapsed ? "justify-center px-2" : "px-3"
+          title={isCollapsed ? "Toggle theme" : undefined}
+          className={`flex items-center gap-2.5 py-2 w-full rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors ${
+            isCollapsed ? "justify-center px-2" : "px-3"
           }`}
         >
           {theme === "dark" ? <Sun className="w-4 h-4 shrink-0" /> : <Moon className="w-4 h-4 shrink-0" />}
-          {!collapsed && (theme === "dark" ? "Light mode" : "Dark mode")}
+          {!isCollapsed && (theme === "dark" ? "Light mode" : "Dark mode")}
         </button>
         <button
           onClick={() => signOut({ callbackUrl: "/portal/login" })}
-          title={collapsed ? "Sign out" : undefined}
-          className={`flex items-center gap-2.5 py-2.5 w-full rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors min-h-[44px] ${
-            collapsed ? "justify-center px-2" : "px-3"
+          title={isCollapsed ? "Sign out" : undefined}
+          className={`flex items-center gap-2.5 py-2 w-full rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors ${
+            isCollapsed ? "justify-center px-2" : "px-3"
           }`}
         >
           <LogOut className="w-4 h-4" />
-          {!collapsed && "Sign out"}
+          {!isCollapsed && "Sign out"}
         </button>
       </div>
-    </>
-  );
+    );
+  };
 
   return (
-    <div className="flex h-screen bg-background text-foreground overflow-hidden">
-      {/* Desktop sidebar only */}
+    <div className="flex bg-background text-foreground overflow-hidden" style={{ height: "100dvh" }}>
+
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Mobile drawer */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 flex flex-col bg-background border-r border-border transition-transform duration-200 lg:hidden ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {/* Drawer header */}
+        <div className="flex items-center justify-between px-3 py-4 border-b border-border min-h-[57px]">
+          <div className="flex items-center gap-2 min-w-0">
+            <Image src={logo} alt="CiroStack" width={22} height={22} className="object-contain shrink-0" />
+            <span className="font-semibold text-sm truncate">Client Portal</span>
+          </div>
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        <NavLinks mobile />
+        <BottomActions mobile />
+      </aside>
+
+      {/* Desktop sidebar */}
       <aside
         className={`hidden lg:flex ${
           collapsed ? "w-14" : "w-56"
         } shrink-0 border-r border-border flex-col bg-muted/30 transition-[width] duration-200`}
       >
-        <SidebarContent />
+        {/* Desktop sidebar header */}
+        <div className="flex items-center justify-between px-3 py-4 border-b border-border min-h-[57px]">
+          {collapsed ? (
+            <button
+              onClick={() => setCollapsed(false)}
+              className="mx-auto text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Expand sidebar"
+            >
+              <PanelLeftOpen className="w-4 h-4" />
+            </button>
+          ) : (
+            <>
+              <div className="flex items-center gap-2 min-w-0">
+                <Image src={logo} alt="CiroStack" width={22} height={22} className="object-contain shrink-0" />
+                <span className="font-semibold text-sm truncate">Client Portal</span>
+              </div>
+              <button
+                onClick={() => setCollapsed(true)}
+                className="shrink-0 ml-1 text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Collapse sidebar"
+              >
+                <PanelLeftClose className="w-4 h-4" />
+              </button>
+            </>
+          )}
+        </div>
+        <NavLinks />
+        <BottomActions />
       </aside>
 
-      {/* Main */}
+      {/* Main content */}
       <main className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
-          <div className="flex items-center gap-2 min-w-0">
-            <Image src={logo} alt="CiroStack" width={22} height={22} className="object-contain shrink-0" />
-            <span className="font-semibold text-sm truncate">Client Portal</span>
-          </div>
-          {title && <h1 className="text-sm font-medium text-muted-foreground truncate ml-4">{title}</h1>}
+        <div className="lg:hidden flex items-center gap-3 px-4 py-2.5 border-b border-border shrink-0">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center -ml-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
+            aria-label="Open menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          {title && <h1 className="text-base font-semibold truncate">{title}</h1>}
         </div>
 
         {/* Desktop title bar */}
@@ -202,32 +236,8 @@ export function PortalShell({
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-20 lg:pb-6">{children}</div>
+        <div className="flex-1 overflow-y-auto p-4 md:p-6">{children}</div>
       </main>
-
-      {/* Mobile bottom navigation bar */}
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-background/95 backdrop-blur border-t border-border flex items-stretch safe-bottom">
-        {BOTTOM_NAV.map(({ href, icon: Icon, label }) => {
-          const active = pathname === href || pathname.startsWith(href + "/");
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 min-h-[56px] text-[10px] font-medium transition-colors ${
-                active ? "text-primary" : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <div className="relative">
-                <Icon className={`w-5 h-5 ${active ? "text-primary" : ""}`} />
-                {href === "/portal/notifications" && unreadCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-red-500" />
-                )}
-              </div>
-              <span>{label}</span>
-            </Link>
-          );
-        })}
-      </nav>
     </div>
   );
 }
