@@ -45,7 +45,7 @@ export function ConversationsSplitLayout({ initialConversations, unreadMap, chil
       </div>
 
       {/* Right: conversation detail or empty state */}
-      <div className={`${hasDetail ? "flex" : "hidden lg:flex"} flex-1 flex-col min-w-0`}>
+      <div className={`${hasDetail ? "flex" : "hidden lg:flex"} flex-1 flex-col min-w-0 min-h-0 overflow-hidden`}>
         {hasDetail ? (
           children
         ) : (

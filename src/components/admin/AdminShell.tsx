@@ -185,7 +185,7 @@ export function AdminShell({
 
   return (
     <AdminMobileMenuContext.Provider value={() => setMobileOpen(true)}>
-    <div className="flex h-screen bg-background text-foreground overflow-hidden">
+    <div className="flex bg-background text-foreground overflow-hidden" style={{ height: "100dvh" }}>
       {/* Mobile overlay */}
       {mobileOpen && (
         <div

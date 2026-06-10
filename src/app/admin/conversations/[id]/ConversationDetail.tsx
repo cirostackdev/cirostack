@@ -652,7 +652,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
         {/* Input */}
         {status === "open" ? (
-          <div className="border-t border-border px-3 py-3">
+          <div className="border-t border-border px-3 py-3" style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}>
             <div className="flex items-center gap-2">
               <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2">
                 <input
