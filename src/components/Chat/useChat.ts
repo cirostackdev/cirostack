@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { getSocket, disconnectSocket } from "@/lib/socket";
-import type { Socket } from "socket.io-client";
+import { getPusher, setVisitorAuth } from "@/lib/pusher-client";
+import type { Channel } from "pusher-js";
 
 export interface ChatMessage {
   id: string;
@@ -44,7 +44,7 @@ export function useChat() {
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showPreChat, setShowPreChat] = useState(false);
-  const socketRef = useRef<Socket | null>(null);
+  const channelRef = useRef<Channel | null>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Poll online status every 30 seconds
@@ -64,6 +64,53 @@ export function useChat() {
     return () => clearInterval(interval);
   }, []);
 
+  // Subscribe to Pusher channel for a conversation
+  const subscribe = useCallback((convId: string) => {
+    if (channelRef.current) {
+      channelRef.current.unbind_all();
+      getPusher().unsubscribe(channelRef.current.name);
+    }
+
+    const pusher = getPusher();
+    setVisitorAuth(getVisitorId());
+
+    const channel = pusher.subscribe(`private-conversation-${convId}`);
+    channelRef.current = channel;
+
+    channel.bind("pusher:subscription_succeeded", () => {
+      setStatus("connected");
+    });
+
+    channel.bind("pusher:subscription_error", () => {
+      setStatus("offline");
+    });
+
+    channel.bind("new-message", ({ message }: { message: ChatMessage }) => {
+      setMessages((prev) => {
+        if (prev.find((m) => m.id === message.id)) return prev;
+        // Reconcile optimistic message
+        const optimisticIdx = prev.findIndex(
+          (m) => m.id.startsWith("opt-") && m.body === message.body && m.conversationId === message.conversationId
+        );
+        if (optimisticIdx !== -1) {
+          const updated = [...prev];
+          updated[optimisticIdx] = message;
+          return updated;
+        }
+        return [...prev, message];
+      });
+      if (message.senderType === "agent") setAgentTyping(false);
+    });
+
+    channel.bind("agent-typing", ({ typing }: { typing: boolean }) => {
+      setAgentTyping(typing);
+    });
+
+    channel.bind("conversation-closed", () => {
+      setStatus("idle");
+    });
+  }, []);
+
   // Load history for returning visitors when opening chat
   const loadHistory = useCallback(async (convId: string) => {
     const visitorId = getVisitorId();
@@ -78,118 +125,6 @@ export function useChat() {
     } catch {}
   }, []);
 
-  const connectSocket = useCallback(
-    (convId: string, visitorData?: { name?: string; email?: string; topic?: string }) => {
-      const socket = getSocket();
-      socketRef.current = socket;
-
-      socket.off("connect");
-      socket.off("connect_error");
-      socket.off("conversation:created");
-      socket.off("agent:message");
-      socket.off("agent:typing");
-      socket.off("agent:online");
-      socket.off("conversation:closed");
-      socket.off("disconnect");
-
-      const doJoin = () => {
-        setStatus("connected");
-        const visitorId = getVisitorId();
-        socket.emit("visitor:join", {
-          visitorId,
-          conversationId: convId || undefined,
-          name: visitorData?.name,
-          email: visitorData?.email,
-          topic: visitorData?.topic,
-          pageUrl: window.location.href,
-        });
-      };
-
-      socket.on("connect", doJoin);
-
-      // Fall back to offline mode on connection error
-      socket.on("connect_error", () => {
-        setStatus("offline");
-        setAgentOnline(false);
-      });
-
-      socket.on("conversation:created", ({ conversationId: cid }: { conversationId: string }) => {
-        setConversationId(cid);
-        setStoredConversationId(cid);
-      });
-
-      socket.on("agent:message", ({ message }: { message: ChatMessage }) => {
-        setMessages((prev) => {
-          if (prev.find((m) => m.id === message.id)) return prev;
-          // Reconcile: if there's an optimistic message with matching body/conversationId, replace it
-          const optimisticIdx = prev.findIndex(
-            (m) => m.id.startsWith("opt-") && m.body === message.body && m.conversationId === message.conversationId
-          );
-          if (optimisticIdx !== -1) {
-            const updated = [...prev];
-            updated[optimisticIdx] = message;
-            return updated;
-          }
-          return [...prev, message];
-        });
-        setAgentTyping(false);
-      });
-
-      // Reconcile optimistic visitor messages echoed back from server
-      socket.on("visitor:message", ({ message }: { message: ChatMessage }) => {
-        setMessages((prev) => {
-          if (prev.find((m) => m.id === message.id)) return prev;
-          // Replace optimistic message with server version
-          const optimisticIdx = prev.findIndex(
-            (m) => m.id.startsWith("opt-") && m.body === message.body && m.conversationId === message.conversationId
-          );
-          if (optimisticIdx !== -1) {
-            const updated = [...prev];
-            updated[optimisticIdx] = message;
-            return updated;
-          }
-          return [...prev, message];
-        });
-      });
-
-      socket.on("agent:typing", ({ typing }: { typing: boolean }) => {
-        setAgentTyping(typing);
-      });
-
-      socket.on("agent:online", ({ online }: { online: boolean }) => {
-        setAgentOnline(online);
-      });
-
-      socket.on("conversation:closed", () => {
-        setStatus("idle");
-      });
-
-      socket.on("disconnect", () => {
-        setStatus("idle");
-      });
-
-      if (socket.connected) {
-        // Already connected — join immediately
-        doJoin();
-      } else {
-        setStatus("connecting");
-        socket.connect();
-
-        // 8-second timeout: if still not connected, fall back to offline mode
-        const timeout = setTimeout(() => {
-          if (socketRef.current && !socketRef.current.connected) {
-            setStatus("offline");
-            setAgentOnline(false);
-          }
-        }, 8000);
-
-        socket.once("connect", () => clearTimeout(timeout));
-        socket.once("connect_error", () => clearTimeout(timeout));
-      }
-    },
-    []
-  );
-
   const openChat = useCallback(() => {
     setIsOpen(true);
     const existingConvId = getStoredConversationId();
@@ -197,7 +132,8 @@ export function useChat() {
     if (existingConvId) {
       setConversationId(existingConvId);
       loadHistory(existingConvId);
-      connectSocket(existingConvId);
+      setStatus("connecting");
+      subscribe(existingConvId);
     } else {
       if (!agentOnline) {
         // Offline mode - no pre-chat form needed, show email form
@@ -205,22 +141,48 @@ export function useChat() {
       }
       setShowPreChat(true);
     }
-  }, [agentOnline, loadHistory, connectSocket]);
+  }, [agentOnline, loadHistory, subscribe]);
 
   const startChat = useCallback(
-    (visitorData: { name?: string; email?: string; topic?: string }) => {
+    async (visitorData: { name?: string; email?: string; topic?: string }) => {
       setShowPreChat(false);
-      connectSocket("", visitorData);
+      setStatus("connecting");
+
+      try {
+        const res = await fetch("/api/chat/conversations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            visitorId: getVisitorId(),
+            name: visitorData.name,
+            email: visitorData.email,
+            topic: visitorData.topic,
+            pageUrl: window.location.href,
+          }),
+        });
+
+        if (!res.ok) {
+          setStatus("offline");
+          return;
+        }
+
+        const { conversationId: cid } = await res.json();
+        setConversationId(cid);
+        setStoredConversationId(cid);
+        subscribe(cid);
+
+        // Load the welcome message
+        await loadHistory(cid);
+      } catch {
+        setStatus("offline");
+      }
     },
-    [connectSocket]
+    [subscribe, loadHistory]
   );
 
   const sendMessage = useCallback(
-    (body: string) => {
+    async (body: string) => {
       if (!body.trim() || !conversationId) return;
-
-      const socket = socketRef.current;
-      if (!socket?.connected) return;
 
       const optimistic: ChatMessage = {
         id: `opt-${Date.now()}`,
@@ -232,20 +194,44 @@ export function useChat() {
       };
 
       setMessages((prev) => [...prev, optimistic]);
-      socket.emit("visitor:message", { conversationId, body });
+
+      try {
+        const res = await fetch(`/api/chat/conversations/${conversationId}/messages`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ visitorId: getVisitorId(), body }),
+        });
+
+        if (!res.ok) {
+          // Remove optimistic on failure
+          setMessages((prev) => prev.filter((m) => m.id !== optimistic.id));
+        }
+        // Server response triggers Pusher event which reconciles the optimistic message
+      } catch {
+        setMessages((prev) => prev.filter((m) => m.id !== optimistic.id));
+      }
     },
     [conversationId]
   );
 
   const sendTyping = useCallback(
     (typing: boolean) => {
-      if (!conversationId || !socketRef.current?.connected) return;
-      socketRef.current.emit("visitor:typing", { conversationId, typing });
+      if (!conversationId) return;
+
+      fetch(`/api/chat/conversations/${conversationId}/typing`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ typing }),
+      }).catch(() => {});
 
       if (typing) {
         if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
         typingTimerRef.current = setTimeout(() => {
-          socketRef.current?.emit("visitor:typing", { conversationId, typing: false });
+          fetch(`/api/chat/conversations/${conversationId}/typing`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ typing: false }),
+          }).catch(() => {});
         }, 3000);
       }
     },
@@ -259,9 +245,13 @@ export function useChat() {
 
   const resetConversation = useCallback(() => {
     localStorage.removeItem("ciro_conv_id");
+    if (channelRef.current) {
+      channelRef.current.unbind_all();
+      getPusher().unsubscribe(channelRef.current.name);
+      channelRef.current = null;
+    }
     setConversationId(null);
     setMessages([]);
-    disconnectSocket();
     setStatus("idle");
   }, []);
 
@@ -269,6 +259,10 @@ export function useChat() {
   useEffect(() => {
     return () => {
       if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+      if (channelRef.current) {
+        channelRef.current.unbind_all();
+        getPusher().unsubscribe(channelRef.current.name);
+      }
     };
   }, []);
 

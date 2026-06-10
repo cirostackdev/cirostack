@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { MessageSquare, X } from "lucide-react";
-import { getSocket } from "@/lib/socket";
+import { getPusher } from "@/lib/pusher-client";
+import type { Channel } from "pusher-js";
 import { PRESENCE } from "@/lib/colors";
 
 interface Conversation {
@@ -29,6 +30,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(unreadMap);
   const [filter, setFilter] = useState<"open" | "closed" | "all">("open");
   const [search, setSearch] = useState("");
+  const channelRef = useRef<Channel | null>(null);
 
   useEffect(() => {
     const sendHeartbeat = () =>
@@ -36,52 +38,29 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
     sendHeartbeat();
     const heartbeatInterval = setInterval(sendHeartbeat, 60_000);
 
-    let socket: ReturnType<typeof getSocket> | null = null;
+    // Subscribe to admin notifications channel for new conversations and messages
+    const pusher = getPusher();
+    const channel = pusher.subscribe("private-admin-notifications");
+    channelRef.current = channel;
 
-    const initSocket = async () => {
-      const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });
-      if (!tokenRes.ok) return;
-      const { token } = await tokenRes.json();
+    channel.bind("conversation-new", ({ conversation }: { conversation: Conversation }) => {
+      setConversations((prev) => {
+        if (prev.find((c) => c.id === conversation.id)) return prev;
+        return [conversation, ...prev];
+      });
+    });
 
-      socket = getSocket();
-
-      const doJoin = () => socket!.emit("admin:join", { token });
-
-      const handleConversationNew = ({ conversation }: { conversation: Conversation }) => {
-        setConversations((prev) => {
-          if (prev.find((c) => c.id === conversation.id)) return prev;
-          return [conversation, ...prev];
-        });
-      };
-
-      const handleMessageNew = ({ message }: { message: { conversationId: string } }) => {
-        // Increment unread count for the conversation
-        setUnreadCounts((prev) => ({
-          ...prev,
-          [message.conversationId]: (prev[message.conversationId] || 0) + 1,
-        }));
-      };
-
-      socket.off("connect");
-      socket.on("connect", doJoin);
-      socket.on("conversation:new", handleConversationNew);
-      socket.on("visitor:message", handleMessageNew);
-
-      if (socket.connected) {
-        doJoin(); // already connected — join immediately
-      } else {
-        socket.connect();
-      }
-    };
-    initSocket();
+    channel.bind("new-message", ({ conversationId }: { conversationId: string }) => {
+      setUnreadCounts((prev) => ({
+        ...prev,
+        [conversationId]: (prev[conversationId] || 0) + 1,
+      }));
+    });
 
     return () => {
       clearInterval(heartbeatInterval);
-      if (socket) {
-        socket.off("connect");
-        socket.off("conversation:new");
-        socket.off("visitor:message");
-      }
+      channel.unbind_all();
+      pusher.unsubscribe("private-admin-notifications");
     };
   }, []);
 

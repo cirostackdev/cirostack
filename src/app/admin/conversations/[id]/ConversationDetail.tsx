@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { formatDistanceToNow, format } from "date-fns";
 import { Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { getSocket } from "@/lib/socket";
+import { getPusher } from "@/lib/pusher-client";
+import type { Channel } from "pusher-js";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
 
@@ -107,7 +108,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [assignedTo, setAssignedTo] = useState(conversation.assignedTo);
   const [admins, setAdmins] = useState<{ id: string; name: string }[]>([]);
-  const socketRef = useRef<ReturnType<typeof getSocket> | null>(null);
+  const channelRef = useRef<Channel | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -135,6 +136,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     bottomRef.current?.scrollIntoView({ behavior: "instant" });
   }, [messages, visitorTyping]);
 
+  // Heartbeat to keep admin "online" status
   useEffect(() => {
     const sendHeartbeat = () => fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
     sendHeartbeat();
@@ -142,110 +144,73 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     return () => clearInterval(interval);
   }, []);
 
-  const handlersRef = useRef<{
-    doJoin?: () => void;
-    onConversationsList?: () => void;
-    onVisitorMessage?: (data: { message: Message }) => void;
-    onAgentMessage?: (data: { message: Message }) => void;
-    onVisitorTyping?: (data: { typing: boolean }) => void;
-    onConversationClosed?: () => void;
-  }>({});
-
+  // Subscribe to Pusher channel + claim conversation
   useEffect(() => {
-    const init = async () => {
-      const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });
-      if (!tokenRes.ok) return;
-      const { token } = await tokenRes.json();
+    const pusher = getPusher();
+    const channel = pusher.subscribe(`private-conversation-${conversation.id}`);
+    channelRef.current = channel;
 
-      const socket = getSocket();
-      socketRef.current = socket;
+    channel.bind("new-message", ({ message }: { message: Message }) => {
+      setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
+    });
 
-      const doJoin = () => {
-        socket.emit("admin:join", { token });
-        socket.emit("admin:read", { conversationId: conversation.id });
-      };
+    channel.bind("visitor-typing", ({ typing }: { typing: boolean }) => {
+      setVisitorTyping(typing);
+    });
 
-      const onConversationsList = () => {
-        socket.emit("admin:claim", { conversationId: conversation.id });
-      };
+    channel.bind("conversation-closed", () => {
+      setStatus("closed");
+    });
 
-      const onVisitorMessage = ({ message }: { message: Message }) => {
-        setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
-      };
+    // Claim conversation and mark read
+    fetch(`/api/admin/conversations/${conversation.id}/claim`, { method: "POST" }).catch(() => {});
+    fetch(`/api/admin/conversations/${conversation.id}/read`, { method: "POST" }).catch(() => {});
 
-      const onAgentMessage = ({ message }: { message: Message }) => {
-        setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
-      };
-
-      const onVisitorTyping = ({ typing }: { typing: boolean }) => setVisitorTyping(typing);
-
-      const onConversationClosed = () => setStatus("closed");
-
-      // Store handler refs for cleanup
-      handlersRef.current = { doJoin, onConversationsList, onVisitorMessage, onAgentMessage, onVisitorTyping, onConversationClosed };
-
-      // Remove previous handlers for this conversation
-      socket.off("connect", handlersRef.current.doJoin);
-      socket.off("conversations:list", handlersRef.current.onConversationsList);
-      socket.off("visitor:message", handlersRef.current.onVisitorMessage);
-      socket.off("agent:message", handlersRef.current.onAgentMessage);
-      socket.off("visitor:typing", handlersRef.current.onVisitorTyping);
-      socket.off("conversation:closed", handlersRef.current.onConversationClosed);
-
-      socket.on("connect", doJoin);
-      socket.on("conversations:list", onConversationsList);
-      socket.on("visitor:message", onVisitorMessage);
-      socket.on("agent:message", onAgentMessage);
-      socket.on("visitor:typing", onVisitorTyping);
-      socket.on("conversation:closed", onConversationClosed);
-
-      if (socket.connected) {
-        doJoin();
-      } else {
-        socket.connect();
-      }
-    };
-
-    init();
     return () => {
       if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
-      const socket = socketRef.current;
-      if (socket) {
-        const h = handlersRef.current;
-        if (h.doJoin) socket.off("connect", h.doJoin);
-        if (h.onConversationsList) socket.off("conversations:list", h.onConversationsList);
-        if (h.onVisitorMessage) socket.off("visitor:message", h.onVisitorMessage);
-        if (h.onAgentMessage) socket.off("agent:message", h.onAgentMessage);
-        if (h.onVisitorTyping) socket.off("visitor:typing", h.onVisitorTyping);
-        if (h.onConversationClosed) socket.off("conversation:closed", h.onConversationClosed);
-      }
+      channel.unbind_all();
+      pusher.unsubscribe(`private-conversation-${conversation.id}`);
     };
   }, [conversation.id]);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!input.trim()) return;
-    if (!socketRef.current?.connected) {
-      toast.error("Connection lost. Reconnecting...");
-      socketRef.current?.connect();
-      return;
-    }
-    socketRef.current.emit("admin:message", { conversationId: conversation.id, body: input.trim() });
+    const body = input.trim();
     setInput("");
     inputRef.current?.focus();
+
+    const res = await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ body }),
+    });
+
+    if (!res.ok) {
+      toast.error("Failed to send message");
+    }
+    // The Pusher event will deliver the message to the UI
   };
 
   const handleTyping = (val: string) => {
     setInput(val);
-    if (!socketRef.current?.connected) return;
-    socketRef.current.emit("admin:typing", { conversationId: conversation.id, typing: val.length > 0 });
+    fetch(`/api/admin/conversations/${conversation.id}/typing`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ typing: val.length > 0 }),
+    }).catch(() => {});
+
     if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
     typingTimerRef.current = setTimeout(() => {
-      socketRef.current?.emit("admin:typing", { conversationId: conversation.id, typing: false });
+      fetch(`/api/admin/conversations/${conversation.id}/typing`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ typing: false }),
+      }).catch(() => {});
     }, 3000);
   };
 
-  const closeConversation = () => {
-    socketRef.current?.emit("admin:close", { conversationId: conversation.id });
+  const closeConversation = async () => {
+    await fetch(`/api/admin/conversations/${conversation.id}/close`, { method: "POST" });
     setStatus("closed");
   };
 
@@ -374,14 +339,18 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                 accept="image/*,application/pdf"
                 onChange={async (e) => {
                   const file = e.target.files?.[0];
-                  if (!file || !socketRef.current?.connected) return;
+                  if (!file) return;
                   const formData = new FormData();
                   formData.append("file", file);
                   try {
                     const res = await fetch("/api/admin/chat-upload", { method: "POST", body: formData });
                     if (!res.ok) { toast.error("Upload failed"); return; }
                     const { url, name } = await res.json();
-                    socketRef.current.emit("admin:message", { conversationId: conversation.id, body: name, fileUrl: url });
+                    await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ body: name, fileUrl: url }),
+                    });
                   } catch {
                     toast.error("Upload failed");
                   }

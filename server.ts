@@ -1,8 +1,12 @@
+// This custom server is no longer required.
+// Real-time chat now uses Pusher (hosted WebSockets) instead of Socket.io.
+// Use `next dev` or `next start` directly — no custom server needed.
+//
+// Keeping this file for reference / local dev overrides only.
+
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
-import { Server as SocketServer } from "socket.io";
-import { setupChatSocket } from "./src/sockets/chat";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
@@ -22,17 +26,6 @@ app.prepare().then(() => {
       res.end("Internal server error");
     }
   });
-
-  const io = new SocketServer(httpServer, {
-    path: "/api/socket",
-    cors: {
-      origin: process.env.NEXT_PUBLIC_SITE_URL || `http://localhost:${port}`,
-      credentials: true,
-    },
-    transports: ["websocket", "polling"],
-  });
-
-  setupChatSocket(io);
 
   httpServer.listen(port, () => {
     console.log(`> Ready on http://${hostname}:${port} (${dev ? "dev" : "prod"})`);

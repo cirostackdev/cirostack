@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { pusher } from "@/lib/pusher";
 
 // Rate limiting: max 5 conversations per IP per hour
 const convRateMap = new Map<string, { count: number; resetAt: number }>();
@@ -37,6 +38,20 @@ export async function POST(req: Request) {
         topic: topic || null,
         metadata: { pageUrl: pageUrl || null },
       },
+    });
+
+    // Create welcome message
+    const welcome = await prisma.message.create({
+      data: {
+        conversationId: conversation.id,
+        senderType: "system",
+        body: "Welcome to CiroStack support! An agent will be with you shortly.",
+      },
+    });
+
+    // Notify admins via Pusher
+    await pusher.trigger("private-admin-notifications", "conversation-new", {
+      conversation: { ...conversation, latestMessage: welcome.body },
     });
 
     return NextResponse.json({ conversationId: conversation.id });
