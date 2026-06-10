@@ -13,11 +13,19 @@ export function FacebookPixel() {
     const initPixel = () => {
       if (typeof window === "undefined" || window.fbq) return;
 
-      // fbq queue shim (matches Meta's official snippet)
-      const queue: unknown[][] = [];
-      const fbq = (...args: unknown[]) => {
-        queue.push(args);
+      // fbq queue shim — must match Meta's official format exactly so
+      // fbevents.js can iterate fbq.queue via Symbol.iterator on load
+      const fbq: any = function (...args: unknown[]) {
+        if (fbq.callMethod) {
+          fbq.callMethod(...args);
+        } else {
+          fbq.queue.push(args);
+        }
       };
+      fbq.push = fbq;
+      fbq.loaded = true;
+      fbq.version = "2.0";
+      fbq.queue = [] as unknown[][];
       window.fbq = fbq;
       if (!window._fbq) window._fbq = fbq;
 
