@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { getPusher, setVisitorAuth } from "@/lib/pusher-client";
+import { getPusher } from "@/lib/pusher-client";
 import type { Channel } from "pusher-js";
 
 export interface ChatMessage {
@@ -73,8 +73,6 @@ export function useChat() {
       channelRef.current.unbind_all();
       pusher.unsubscribe(channelRef.current.name);
     }
-
-    setVisitorAuth(getVisitorId());
 
     const channel = pusher.subscribe(`private-conversation-${convId}`);
     channelRef.current = channel;

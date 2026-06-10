@@ -12,19 +12,38 @@ export function getPusher(): PusherClient | null {
     pusherInstance = new PusherClient(process.env.NEXT_PUBLIC_PUSHER_KEY, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,
       channelAuthorization: {
-        endpoint: "/api/pusher/auth",
-        transport: "ajax",
+        // Custom handler so we can send x-visitor-id at auth time (not init time)
+        customHandler: async (
+          { socketId, channelName }: { socketId: string; channelName: string },
+          callback: (error: Error | null, data: any) => void
+        ) => {
+          const visitorId =
+            typeof window !== "undefined"
+              ? (localStorage.getItem("ciro_visitor_id") ?? "")
+              : "";
+          try {
+            const res = await fetch("/api/pusher/auth", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                ...(visitorId ? { "x-visitor-id": visitorId } : {}),
+              },
+              body: new URLSearchParams({
+                socket_id: socketId,
+                channel_name: channelName,
+              }).toString(),
+            });
+            if (res.ok) {
+              callback(null, await res.json());
+            } else {
+              callback(new Error(`Pusher auth failed: ${res.status}`), null);
+            }
+          } catch (err) {
+            callback(err instanceof Error ? err : new Error(String(err)), null);
+          }
+        },
       },
     });
   }
   return pusherInstance;
-}
-
-/** Set the visitor ID header for channel authorization */
-export function setVisitorAuth(visitorId: string) {
-  const pusher = getPusher();
-  if (!pusher) return;
-  (pusher as any).config.channelAuthorization.headers = {
-    "x-visitor-id": visitorId,
-  };
 }
