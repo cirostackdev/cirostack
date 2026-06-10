@@ -68,7 +68,7 @@ interface PortfolioProps {
 const Portfolio = ({ serverProjects }: PortfolioProps = {}) => {
   // Prefer DB projects if available, fall back to static data
   const allProjects = useMemo(() => {
-    if (serverProjects && serverProjects.length > 0) {
+    if (serverProjects != null) {
       return serverProjects.map((p: any) => ({
         id: p.slug,
         title: p.title,
