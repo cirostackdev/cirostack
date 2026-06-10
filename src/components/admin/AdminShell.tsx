@@ -5,7 +5,9 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
+
+export const AdminMobileMenuContext = createContext<() => void>(() => {});
 import { useTheme } from "next-themes";
 import {
   LayoutDashboard,
@@ -182,6 +184,7 @@ export function AdminShell({
   );
 
   return (
+    <AdminMobileMenuContext.Provider value={() => setMobileOpen(true)}>
     <div className="flex h-screen bg-background text-foreground overflow-hidden">
       {/* Mobile overlay */}
       {mobileOpen && (
@@ -235,5 +238,6 @@ export function AdminShell({
         <div className={`flex-1 min-h-0 ${noPadding ? "overflow-hidden" : "overflow-y-auto p-4 md:p-6"}`}>{children}</div>
       </main>
     </div>
+    </AdminMobileMenuContext.Provider>
   );
 }

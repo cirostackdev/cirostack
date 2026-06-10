@@ -1,9 +1,10 @@
 "use client";
 
+import { useContext } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { ConversationsClient } from "./ConversationsClient";
-import { MessageSquare, LayoutDashboard } from "lucide-react";
+import { MessageSquare, Menu } from "lucide-react";
+import { AdminMobileMenuContext } from "@/components/admin/AdminShell";
 
 interface Props {
   initialConversations: any[];
@@ -14,6 +15,7 @@ interface Props {
 export function ConversationsSplitLayout({ initialConversations, unreadMap, children }: Props) {
   const pathname = usePathname();
   const hasDetail = pathname !== "/admin/conversations";
+  const openMobileMenu = useContext(AdminMobileMenuContext);
 
   return (
     <div className="flex h-full">
@@ -23,13 +25,19 @@ export function ConversationsSplitLayout({ initialConversations, unreadMap, chil
           hasDetail ? "hidden lg:flex" : "flex"
         } w-full lg:w-[320px] shrink-0 flex-col border-r border-border overflow-hidden`}
       >
-        {/* Mobile-only slim header — hidden when a conversation is open */}
-        <div className={`${hasDetail ? "hidden" : "flex"} lg:hidden items-center justify-between px-4 py-3 border-b border-border shrink-0`}>
-          <h1 className="text-base font-semibold">Conversations</h1>
-          <Link href="/admin" className="text-muted-foreground hover:text-foreground transition-colors p-1.5 hover:bg-muted rounded-lg">
-            <LayoutDashboard className="w-4 h-4" />
-          </Link>
-        </div>
+        {/* Mobile header — same style as AdminShell, hidden when detail is open */}
+        {!hasDetail && (
+          <div className="lg:hidden flex items-center gap-3 px-4 py-2.5 border-b border-border shrink-0">
+            <button
+              onClick={openMobileMenu}
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center -ml-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <h1 className="text-base font-semibold">Conversations</h1>
+          </div>
+        )}
         <ConversationsClient
           initialConversations={initialConversations}
           unreadMap={unreadMap}
