@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, Music, Video, File } from "lucide-react";
+import { FileText, Music, Video, File, Play } from "lucide-react";
 import { ImageLightbox } from "./ImageLightbox";
 
 interface MediaBubbleProps {
@@ -69,7 +69,7 @@ export function MediaBubble({ fileUrl, fileName, isSender }: MediaBubbleProps) {
             {/* Play overlay */}
             <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl group-hover:bg-black/40 transition-colors">
               <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                <Video className="w-5 h-5 text-black ml-0.5" />
+                <Play className="w-5 h-5 text-black ml-0.5 fill-black" />
               </div>
             </div>
           </div>
