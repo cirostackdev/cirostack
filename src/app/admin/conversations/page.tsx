@@ -1,42 +1,5 @@
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
-import { AdminShell } from "@/components/admin/AdminShell";
-import { ConversationsClient } from "./ConversationsClient";
-
-export default async function ConversationsPage() {
-  const session = await auth();
-  if (!session?.user) redirect("/admin/login");
-
-  const conversations = await prisma.conversation.findMany({
-    orderBy: { updatedAt: "desc" },
-    take: 100,
-    include: {
-      messages: {
-        orderBy: { createdAt: "desc" },
-        take: 1,
-      },
-      assignedTo: { select: { name: true } },
-    },
-  });
-
-  const unreadCounts = await prisma.message.groupBy({
-    by: ["conversationId"],
-    where: { senderType: "visitor", read: false },
-    _count: { id: true },
-  });
-
-  const unreadMap: Record<string, number> = {};
-  for (const u of unreadCounts) {
-    unreadMap[u.conversationId] = u._count.id;
-  }
-
-  return (
-    <AdminShell title="Conversations">
-      <ConversationsClient
-        initialConversations={conversations as any}
-        unreadMap={unreadMap}
-      />
-    </AdminShell>
-  );
+// Empty — the layout handles the list. This page just renders nothing
+// so ConversationsSplitLayout shows the empty-state placeholder on the right.
+export default function ConversationsPage() {
+  return null;
 }

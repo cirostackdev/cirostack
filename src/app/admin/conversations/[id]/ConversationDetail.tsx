@@ -239,7 +239,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-background sticky top-0 z-10">
-          <button onClick={() => router.back()} className="min-w-[36px] min-h-[36px] flex items-center justify-center -ml-1 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
+          <button onClick={() => router.back()} className="lg:hidden min-w-[36px] min-h-[36px] flex items-center justify-center -ml-1 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
             <ArrowLeft className="w-4 h-4" />
           </button>
 

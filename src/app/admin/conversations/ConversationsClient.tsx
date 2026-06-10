@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { MessageSquare, X } from "lucide-react";
 import { getPusher } from "@/lib/pusher-client";
@@ -40,6 +41,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const [filter, setFilter] = useState<"open" | "closed" | "all">("open");
   const [search, setSearch] = useState("");
   const channelRef = useRef<Channel | null>(null);
+  const pathname = usePathname();
 
   // Refresh conversation list every 60s to keep visitorLastSeen current
   useEffect(() => {
@@ -154,8 +156,12 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
             <Link
               key={conv.id}
               href={`/admin/conversations/${conv.id}`}
-              className={`flex items-start gap-3.5 px-4 py-4 hover:bg-muted/40 transition-colors ${
-                unread > 0 ? "bg-primary/5 hover:bg-primary/10" : ""
+              className={`flex items-start gap-3.5 px-4 py-4 transition-colors ${
+                pathname === `/admin/conversations/${conv.id}`
+                  ? "bg-muted border-l-2 border-primary"
+                  : unread > 0
+                  ? "bg-primary/5 hover:bg-primary/10 border-l-2 border-transparent"
+                  : "hover:bg-muted/40 border-l-2 border-transparent"
               }`}
             >
               {/* Avatar with presence dot */}

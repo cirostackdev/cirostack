@@ -59,9 +59,11 @@ const NAV = [
 export function AdminShell({
   children,
   title,
+  noPadding,
 }: {
   children: React.ReactNode;
   title?: string;
+  noPadding?: boolean;
 }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
@@ -226,7 +228,7 @@ export function AdminShell({
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto p-4 md:p-6">{children}</div>
+        <div className={`flex-1 min-h-0 ${noPadding ? "overflow-hidden" : "overflow-y-auto p-4 md:p-6"}`}>{children}</div>
       </main>
     </div>
   );

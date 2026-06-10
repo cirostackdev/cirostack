@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { AdminShell } from "@/components/admin/AdminShell";
 import { ConversationDetail } from "./ConversationDetail";
 
 export default async function ConversationDetailPage({
@@ -33,13 +32,11 @@ export default async function ConversationDetailPage({
   });
 
   return (
-    <AdminShell>
-      <ConversationDetail
-        conversation={conversation as any}
-        initialMessages={messages as any}
-        adminId={(session.user as any).id}
-        adminName={session.user.name || "Agent"}
-      />
-    </AdminShell>
+    <ConversationDetail
+      conversation={conversation as any}
+      initialMessages={messages as any}
+      adminId={(session.user as any).id}
+      adminName={session.user.name || "Agent"}
+    />
   );
 }
