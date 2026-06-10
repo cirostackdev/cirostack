@@ -40,7 +40,7 @@ const Newsletter = () => {
                 url="/newsletter"
             />
 
-            <section id="subscribe" className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4">
+            <section id="subscribe" className="relative pt-24 pb-12 md:h-screen md:flex md:items-center md:justify-center px-4 overflow-hidden">
                 <div className="w-full max-w-xl text-center">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
                         {submitted ? (
