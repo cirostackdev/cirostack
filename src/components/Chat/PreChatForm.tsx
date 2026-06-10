@@ -63,13 +63,14 @@ export function PreChatForm({ onSubmit }: PreChatFormProps) {
 
         <div>
           <label className="text-xs font-medium text-muted-foreground block mb-1">
-            Email <span className="text-muted-foreground/60">(optional)</span>
+            Email <span className="text-destructive">*</span>
           </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
+            required
             className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-lg outline-none focus:ring-1 focus:ring-primary"
           />
         </div>

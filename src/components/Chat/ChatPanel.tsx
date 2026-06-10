@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Send, Paperclip, RefreshCw, MessageSquare } from "lucide-react";
+import { Send, Paperclip, MessageSquare } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
 import { TypingIndicator } from "./TypingIndicator";
 import type { ChatMessage as Msg } from "./useChat";
@@ -86,15 +86,6 @@ export function ChatPanel({
             {agentOnline ? "We're online · Usually replies in minutes" : "Leave a message"}
           </span>
         </div>
-        {conversationId && (
-          <button
-            onClick={onReset}
-            title="New conversation"
-            className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-muted rounded-full"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-          </button>
-        )}
       </div>
 
       {/* Messages */}
@@ -176,6 +167,7 @@ export function ChatPanel({
 }
 
 function OfflineForm() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
@@ -183,13 +175,13 @@ function OfflineForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !message) return;
+    if (!name || !email || !message) return;
     setLoading(true);
     try {
       await fetch("/api/contact/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "Chat visitor", email, service: "Chat enquiry", description: message }),
+        body: JSON.stringify({ name, email, service: "Chat enquiry", description: message }),
       });
       setSent(true);
     } catch {}
@@ -213,6 +205,11 @@ function OfflineForm() {
   return (
     <form onSubmit={handleSubmit} className="p-3 border-t border-border space-y-2">
       <p className="text-xs text-muted-foreground">We're offline right now — leave us a message:</p>
+      <input
+        type="text" required value={name} onChange={(e) => setName(e.target.value)}
+        placeholder="Your name"
+        className="w-full px-3 py-2 text-sm bg-muted border border-border rounded-xl outline-none focus:ring-1 focus:ring-primary"
+      />
       <input
         type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
         placeholder="your@email.com"
