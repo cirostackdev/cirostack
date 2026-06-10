@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
-import { Plus, Send, CheckCircle, Trash2, Receipt } from "lucide-react";
+import { Plus, Send, Trash2, Receipt } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { format } from "date-fns";
 import { fmtMoney } from "@/lib/format";
@@ -56,20 +56,6 @@ export default function AdminInvoicesPage() {
       toast.error("Failed to update status");
     }
     setSaving(null);
-  }
-
-  async function handleMarkPaid(id: string) {
-    const res = await fetch(`/api/admin/invoices/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "paid", paidAt: new Date().toISOString() }),
-    });
-    if (res.ok) {
-      setInvoices((prev) => prev.map((inv) => inv.id === id ? { ...inv, status: "paid" } : inv));
-      toast.success("Marked as paid");
-    } else {
-      toast.error("Failed");
-    }
   }
 
   async function handleSend(id: string) {
@@ -245,11 +231,6 @@ export default function AdminInvoicesPage() {
                 </div>
                 {inv.dueDate && <p className="text-xs text-muted-foreground mt-2">Due {format(new Date(inv.dueDate), "MMM d, yyyy")}</p>}
                 <div className="flex items-center gap-1 mt-3 justify-end">
-                  {inv.effectiveStatus !== "paid" && (
-                    <Button variant="ghost" size="sm" className="h-9 px-2.5 gap-1.5 text-xs" onClick={() => handleMarkPaid(inv.id)}>
-                      <CheckCircle className="w-3.5 h-3.5 text-green-500" /> Mark Paid
-                    </Button>
-                  )}
                   <Button variant="ghost" size="sm" className="h-9 px-2.5 gap-1.5 text-xs" onClick={() => handleSend(inv.id)}>
                     <Send className="w-3.5 h-3.5" /> Send
                   </Button>
