@@ -54,6 +54,14 @@ export function PortalShell({
   const { theme, setTheme } = useTheme();
   const [unreadCount, setUnreadCount] = useState(0);
 
+  // Portal client presence heartbeat — keeps the green dot alive in admin
+  useEffect(() => {
+    const beat = () => fetch("/api/portal/presence", { method: "POST" }).catch(() => {});
+    beat();
+    const interval = setInterval(beat, 60_000);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     const fetchCount = () => {
       fetch("/api/portal/notifications/count")
