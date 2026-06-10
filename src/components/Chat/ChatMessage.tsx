@@ -179,7 +179,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
             <div
               className={`px-4 py-2.5 text-sm leading-relaxed ${
                 isVisitor
-                  ? `bg-green-500 text-white rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
+                  ? `bg-green-500/10 text-foreground rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
                   : `bg-muted/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-foreground rounded-r-2xl rounded-tl-2xl ${grouped ? "rounded-bl-sm rounded-tl-sm" : "rounded-bl-md"}`
               }`}
             >
