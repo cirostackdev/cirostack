@@ -545,27 +545,36 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
           </div>
 
           <div className="flex items-center gap-1.5">
+            {/* Search button — hidden while search is open */}
             {!searchOpen && (
               <button onClick={() => setSearchOpen(true)} title="Search messages"
                 className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
                 <Search className="w-4 h-4" />
               </button>
             )}
-            <span className={`text-[11px] px-2.5 py-1 rounded-full font-semibold ${
-              CONVERSATION_STATUS_COLORS[status] ?? "bg-muted text-muted-foreground"
-            }`}>
-              {status}
-            </span>
-            {status === "open" && (
-              <button onClick={closeConversation} title="Close conversation"
-                className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
-                <X className="w-4 h-4" />
-              </button>
+
+            {/* These icons hide when search is open */}
+            {!searchOpen && (
+              <>
+                <span className={`text-[11px] px-2.5 py-1 rounded-full font-semibold ${
+                  CONVERSATION_STATUS_COLORS[status] ?? "bg-muted text-muted-foreground"
+                }`}>
+                  {status}
+                </span>
+                {status === "open" && (
+                  <button onClick={closeConversation} title="Close conversation"
+                    className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+                <button onClick={deleteConversation} title="Delete conversation"
+                  className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-muted rounded-full transition-colors">
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </>
             )}
-            <button onClick={deleteConversation} title="Delete conversation"
-              className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-muted rounded-full transition-colors">
-              <Trash2 className="w-4 h-4" />
-            </button>
+
+            {/* Info icon always visible */}
             <button onClick={() => setSidebarOpen((v) => !v)}
               className="lg:hidden p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-colors">
               <Info className="w-4 h-4" />
