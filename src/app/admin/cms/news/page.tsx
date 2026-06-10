@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, RefreshCw, ExternalLink } from "lucide-react";
+import { Trash2, RefreshCw, ExternalLink, Pencil } from "lucide-react";
 import { format } from "date-fns";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
@@ -135,6 +135,11 @@ export default function AdminNewsPage() {
                     <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">{formatDate(article.fetchedAt)}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 justify-end">
+                        <Link href={`/admin/cms/news/${article.id}`}>
+                          <Button variant="ghost" size="icon" className="w-8 h-8">
+                            <Pencil className="w-3.5 h-3.5" />
+                          </Button>
+                        </Link>
                         {article.slug && (
                           <Link href={`/newsroom/${article.slug}`} target="_blank">
                             <Button variant="ghost" size="icon" className="w-8 h-8">
@@ -179,6 +184,11 @@ export default function AdminNewsPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 mt-3 justify-end">
+                  <Link href={`/admin/cms/news/${article.id}`}>
+                    <Button variant="ghost" size="icon" className="w-8 h-8">
+                      <Pencil className="w-3.5 h-3.5" />
+                    </Button>
+                  </Link>
                   {article.slug && (
                     <Link href={`/newsroom/${article.slug}`} target="_blank">
                       <Button variant="ghost" size="icon" className="w-8 h-8">
