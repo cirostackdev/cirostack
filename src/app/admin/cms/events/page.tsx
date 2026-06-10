@@ -10,7 +10,7 @@ import { PUBLISH_STATUS_COLORS } from "@/lib/colors";
 import { CmsBooleanToggle } from "@/components/admin/CmsBooleanToggle";
 import { toast } from "sonner";
 
-interface EventItem { id: string; slug: string; title: string; type: string | null; date: string; published: boolean }
+interface EventItem { id: string; slug: string; title: string; type: string | null; date: string; published: boolean; featured: boolean }
 
 export default function AdminEventsPage() {
   const [events, setEvents] = useState<EventItem[]>([]);
@@ -21,15 +21,15 @@ export default function AdminEventsPage() {
     fetch("/api/admin/cms/events").then((r) => r.json()).then(setEvents).finally(() => setLoading(false));
   }, []);
 
-  async function handleToggle(id: string, value: boolean) {
-    setSaving(id);
+  async function handleToggle(id: string, field: "published" | "featured", value: boolean) {
+    setSaving(`${id}-${field}`);
     const res = await fetch(`/api/admin/cms/events/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ published: value }),
+      body: JSON.stringify({ [field]: value }),
     });
     if (res.ok) {
-      setEvents((prev) => prev.map((e) => e.id === id ? { ...e, published: value } : e));
+      setEvents((prev) => prev.map((e) => e.id === id ? { ...e, [field]: value } : e));
       toast.success("Updated");
     } else { toast.error("Failed to update"); }
     setSaving(null);
@@ -47,7 +47,7 @@ export default function AdminEventsPage() {
         <p className="text-sm text-muted-foreground">{loading ? <span className="inline-block h-4 w-12 rounded bg-muted animate-pulse" /> : <>{events.length} events</>}</p>
         <Link href="/admin/cms/events/new"><Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Event</Button></Link>
       </div>
-      {loading ? <AdminTableSkeleton cols={5} /> : (
+      {loading ? <AdminTableSkeleton cols={6} /> : (
         <>
           <div className="hidden md:block rounded-xl border border-border overflow-hidden">
             <table className="w-full text-sm">
@@ -67,7 +67,10 @@ export default function AdminEventsPage() {
                     <td className="px-4 py-3 text-muted-foreground">{e.type || "—"}</td>
                     <td className="px-4 py-3 text-muted-foreground">{e.date}</td>
                     <td className="px-4 py-3">
-                      <CmsBooleanToggle id={e.id} value={e.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, v)} className="w-[76px] text-center" saving={saving === e.id} />
+                      <div className="flex items-center gap-1.5">
+                        <CmsBooleanToggle id={e.id} value={e.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} className="w-[76px] text-center" saving={saving === `${e.id}-published`} />
+                        <CmsBooleanToggle id={e.id} value={e.featured} onLabel="Featured" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.isNew} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "featured", v)} className="w-[76px] text-center" saving={saving === `${e.id}-featured`} />
+                      </div>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2 justify-end">
@@ -90,7 +93,10 @@ export default function AdminEventsPage() {
                     <p className="font-medium text-sm truncate">{e.title}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{e.type || "—"} · {e.date}</p>
                   </div>
-                  <CmsBooleanToggle id={e.id} value={e.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, v)} className="w-[76px] text-center" saving={saving === e.id} />
+                  <div className="flex flex-col gap-1 items-end">
+                    <CmsBooleanToggle id={e.id} value={e.published} onLabel="Published" offLabel="Draft" onClass={PUBLISH_STATUS_COLORS.published} offClass={PUBLISH_STATUS_COLORS.draft} onChange={(id, v) => handleToggle(id, "published", v)} className="w-[76px] text-center" saving={saving === `${e.id}-published`} />
+                    <CmsBooleanToggle id={e.id} value={e.featured} onLabel="Featured" offLabel="Standard" onClass={PUBLISH_STATUS_COLORS.isNew} offClass="bg-muted text-muted-foreground" onChange={(id, v) => handleToggle(id, "featured", v)} className="w-[76px] text-center" saving={saving === `${e.id}-featured`} />
+                  </div>
                 </div>
                 <div className="flex items-center gap-1 mt-3 justify-end">
                   <Link href={`/admin/cms/events/${e.id}`}><Button variant="ghost" size="sm" className="h-9 px-3 gap-1.5 text-xs"><Pencil className="w-3.5 h-3.5" /> Edit</Button></Link>
