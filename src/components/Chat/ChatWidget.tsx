@@ -27,7 +27,7 @@ export function ChatWidget() {
     <>
       {/* Floating launcher button */}
       {!isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-2" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
           {/* Tooltip label */}
           <span className="bg-foreground text-background text-xs font-medium px-3 py-1.5 rounded-lg shadow-md pointer-events-none select-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap">
             {agentOnline ? "Chat with us" : "Leave a message"}
@@ -52,7 +52,8 @@ export function ChatWidget() {
       {/* Chat panel */}
       {isOpen && (
         <div
-          className="fixed z-50 flex flex-col bg-background border border-border shadow-2xl overflow-hidden bottom-0 right-0 left-0 h-[85vh] rounded-t-2xl sm:bottom-6 sm:right-6 sm:left-auto sm:w-[340px] sm:h-[520px] sm:max-h-[80vh] sm:rounded-2xl"
+          className="fixed z-50 flex flex-col bg-background border border-border shadow-2xl overflow-hidden bottom-0 right-0 left-0 h-[85dvh] rounded-t-2xl sm:bottom-6 sm:right-6 sm:left-auto sm:w-[380px] sm:h-[560px] sm:max-h-[85dvh] sm:rounded-2xl"
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
           style={{ animation: "slideUp 0.2s ease-out" }}
         >
           {/* Header */}
