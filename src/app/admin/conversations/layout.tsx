@@ -33,7 +33,7 @@ export default async function ConversationsLayout({
   }
 
   return (
-    <AdminShell title="Conversations" noPadding>
+    <AdminShell title="Conversations" noPadding noMobileHeader>
       <ConversationsSplitLayout
         initialConversations={conversations as any}
         unreadMap={unreadMap}

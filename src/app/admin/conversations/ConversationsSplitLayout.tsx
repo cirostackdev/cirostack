@@ -1,8 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { ConversationsClient } from "./ConversationsClient";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, LayoutDashboard } from "lucide-react";
 
 interface Props {
   initialConversations: any[];
@@ -22,6 +23,13 @@ export function ConversationsSplitLayout({ initialConversations, unreadMap, chil
           hasDetail ? "hidden lg:flex" : "flex"
         } w-full lg:w-[320px] shrink-0 flex-col border-r border-border overflow-hidden`}
       >
+        {/* Mobile-only slim header with title + back to dashboard */}
+        <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
+          <h1 className="text-base font-semibold">Conversations</h1>
+          <Link href="/admin" className="text-muted-foreground hover:text-foreground transition-colors p-1.5 hover:bg-muted rounded-lg">
+            <LayoutDashboard className="w-4 h-4" />
+          </Link>
+        </div>
         <ConversationsClient
           initialConversations={initialConversations}
           unreadMap={unreadMap}

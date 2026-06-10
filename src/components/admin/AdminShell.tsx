@@ -60,10 +60,12 @@ export function AdminShell({
   children,
   title,
   noPadding,
+  noMobileHeader,
 }: {
   children: React.ReactNode;
   title?: string;
   noPadding?: boolean;
+  noMobileHeader?: boolean;
 }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
@@ -210,16 +212,18 @@ export function AdminShell({
       {/* Main */}
       <main className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center gap-3 px-4 py-2.5 border-b border-border">
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="min-w-[44px] min-h-[44px] flex items-center justify-center -ml-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
-            aria-label="Open menu"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-          {title && <h1 className="text-base font-semibold truncate">{title}</h1>}
-        </div>
+        {!noMobileHeader && (
+          <div className="lg:hidden flex items-center gap-3 px-4 py-2.5 border-b border-border">
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center -ml-2 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted"
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            {title && <h1 className="text-base font-semibold truncate">{title}</h1>}
+          </div>
+        )}
 
         {/* Desktop title bar */}
         {title && (
