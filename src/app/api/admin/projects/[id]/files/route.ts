@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
-import crypto from "crypto";
+import { put } from "@vercel/blob";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
@@ -23,18 +21,16 @@ export async function POST(req: Request, { params }: Params) {
     const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
     if (file.size > MAX_SIZE) return NextResponse.json({ error: "File too large (max 50 MB)" }, { status: 413 });
 
-    const ext = file.name.split(".").pop() || "bin";
-    const filename = `${crypto.randomUUID()}.${ext}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads", "projects", id);
-    await mkdir(uploadDir, { recursive: true });
-    const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(path.join(uploadDir, filename), buffer);
+    const blob = await put(`projects/${id}/${Date.now()}-${file.name}`, file, {
+      access: "public",
+      contentType: file.type,
+    });
 
     const projectFile = await prisma.projectFile.create({
       data: {
         projectId: id,
         name: file.name,
-        url: `/uploads/projects/${id}/${filename}`,
+        url: blob.url,
         size: file.size,
         uploadedBy: (session.user as any).id,
       },
