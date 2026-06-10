@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
-import { Plus, ChevronRight, Send, CheckCircle, Trash2, Receipt } from "lucide-react";
+import { Plus, Send, CheckCircle, Trash2, Receipt } from "lucide-react";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { format } from "date-fns";
 import { fmtMoney } from "@/lib/format";
@@ -26,6 +27,7 @@ function isOverdue(inv: Invoice) {
 }
 
 export default function AdminInvoicesPage() {
+  const router = useRouter();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>("all");
@@ -162,7 +164,7 @@ export default function AdminInvoicesPage() {
               </thead>
               <tbody>
                 {filtered.map((inv) => (
-                  <tr key={inv.id} className="border-t border-border hover:bg-muted/20 transition-colors">
+                  <tr key={inv.id} className="border-t border-border hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => router.push(`/admin/invoices/${inv.id}`)}>
                     <td className="px-4 py-3">
                       <Link href={`/admin/invoices/${inv.id}`} className="font-medium hover:underline">{inv.number}</Link>
                       {inv.project && <p className="text-xs text-muted-foreground">{inv.project.title}</p>}
@@ -171,7 +173,7 @@ export default function AdminInvoicesPage() {
                     <td className="px-4 py-3 font-medium">
                       <span>{fmtMoney(inv.amount, inv.currency)}</span>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                       <InlineStatusSelect
                         id={inv.id}
                         value={inv.effectiveStatus}
@@ -184,7 +186,7 @@ export default function AdminInvoicesPage() {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{inv.dueDate ? format(new Date(inv.dueDate), "MMM d, yyyy") : "—"}</td>
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-1 justify-end">
+                      <div className="flex items-center gap-1 justify-end" onClick={(e) => e.stopPropagation()}>
                         {inv.effectiveStatus !== "paid" && (
                           <Button variant="ghost" size="icon" className="w-7 h-7" title="Mark paid" onClick={() => handleMarkPaid(inv.id)}>
                             <CheckCircle className="w-3.5 h-3.5 text-green-500" />
@@ -193,9 +195,6 @@ export default function AdminInvoicesPage() {
                         <Button variant="ghost" size="icon" className="w-7 h-7" title="Send to client" onClick={() => handleSend(inv.id)}>
                           <Send className="w-3.5 h-3.5" />
                         </Button>
-                        <Link href={`/admin/invoices/${inv.id}`}>
-                          <Button variant="ghost" size="icon" className="w-7 h-7"><ChevronRight className="w-4 h-4" /></Button>
-                        </Link>
                         <Button variant="ghost" size="icon" className="w-7 h-7 text-destructive hover:text-destructive" onClick={() => handleDelete(inv.id)}>
                           <Trash2 className="w-3.5 h-3.5" />
                         </Button>
