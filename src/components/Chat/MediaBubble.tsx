@@ -18,6 +18,12 @@ function formatBytes(bytes: number): string {
 
 export function MediaBubble({ fileUrl, fileName, isSender }: MediaBubbleProps) {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [lightboxType, setLightboxType] = useState<"image" | "video">("image");
+
+  const openLightbox = (type: "image" | "video") => {
+    setLightboxType(type);
+    setLightboxSrc(fileUrl);
+  };
 
   const isImage = /\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/i.test(fileUrl);
   const isVideo = /\.(mp4|webm|ogg|mov|quicktime)(\?|$)/i.test(fileUrl) ||
@@ -35,13 +41,13 @@ export function MediaBubble({ fileUrl, fileName, isSender }: MediaBubbleProps) {
   if (isImage) {
     return (
       <>
-        {lightboxSrc && <ImageLightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />}
+        {lightboxSrc && <ImageLightbox src={lightboxSrc} type="image" onClose={() => setLightboxSrc(null)} />}
         <div className={`p-2 rounded-2xl ${bg} ${round}`}>
           <img
             src={fileUrl}
             alt={fileName || "attachment"}
             className="rounded-xl max-w-full max-h-52 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-            onClick={() => setLightboxSrc(fileUrl)}
+            onClick={() => openLightbox("image")}
           />
         </div>
       </>
@@ -50,16 +56,26 @@ export function MediaBubble({ fileUrl, fileName, isSender }: MediaBubbleProps) {
 
   if (isVideo) {
     return (
-      <div className={`p-2 rounded-2xl ${bg} ${round} max-w-[280px]`}>
-        <video
-          src={fileUrl}
-          controls
-          preload="metadata"
-          className="rounded-xl max-w-full max-h-48 object-contain"
-          style={{ maxWidth: "260px" }}
-        />
-        {fileName && <p className="text-[10px] opacity-50 mt-1 truncate">{fileName}</p>}
-      </div>
+      <>
+        {lightboxSrc && <ImageLightbox src={lightboxSrc} type="video" onClose={() => setLightboxSrc(null)} />}
+        <div className={`p-2 rounded-2xl ${bg} ${round} max-w-[280px]`}>
+          <div className="relative cursor-pointer group" onClick={() => openLightbox("video")}>
+            <video
+              src={fileUrl}
+              preload="metadata"
+              className="rounded-xl max-w-full max-h-48 object-contain pointer-events-none"
+              style={{ maxWidth: "260px" }}
+            />
+            {/* Play overlay */}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl group-hover:bg-black/40 transition-colors">
+              <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                <Video className="w-5 h-5 text-black ml-0.5" />
+              </div>
+            </div>
+          </div>
+          {fileName && <p className="text-[10px] opacity-50 mt-1 truncate">{fileName}</p>}
+        </div>
+      </>
     );
   }
 
