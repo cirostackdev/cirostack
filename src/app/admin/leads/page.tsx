@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users, ChevronRight } from "lucide-react";
+import { Mail, Tag, Plus, Pencil, Trash2, Download, X, Users, ChevronRight, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 import { InlineStatusSelect } from "@/components/admin/InlineStatusSelect";
@@ -65,6 +65,7 @@ export default function LeadsPage() {
   const [editLead, setEditLead] = useState<Lead | null>(null);
   const [editForm, setEditForm] = useState({ name: "", source: "", tags: "" });
   const [saving, setSaving] = useState(false);
+  const [converting, setConverting] = useState(false);
 
   async function load() {
     const res = await fetch("/api/admin/leads");
@@ -129,6 +130,32 @@ export default function LeadsPage() {
     } else {
       toast.error("Failed to delete");
     }
+  }
+
+  async function handleConvertToClient(lead: Lead) {
+    setConverting(true);
+    const res = await fetch("/api/admin/clients", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: lead.email, name: lead.name }),
+    });
+    if (res.status === 409) {
+      toast.info("Client with this email already exists");
+    } else if (res.ok) {
+      // Mark lead as won
+      const wonTags = lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).concat("won");
+      await fetch(`/api/admin/leads/${lead.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tags: wonTags }),
+      });
+      toast.success("Lead converted to client");
+      setEditLead(null);
+      load();
+    } else {
+      toast.error("Failed to convert lead");
+    }
+    setConverting(false);
   }
 
   async function handleCycleStatus(lead: Lead) {
@@ -236,6 +263,19 @@ export default function LeadsPage() {
             <div className="space-y-1.5"><Label>Tags <span className="text-muted-foreground text-xs">(comma-separated)</span></Label><Input value={editForm.tags} onChange={(e) => setEditForm((f) => ({ ...f, tags: e.target.value }))} /></div>
             <Button type="submit" disabled={saving} className="w-full">{saving ? "Saving…" : "Save Changes"}</Button>
           </form>
+          <div className="border-t border-border pt-4 mt-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full gap-2"
+              disabled={converting}
+              onClick={() => editLead && handleConvertToClient(editLead)}
+            >
+              <UserPlus className="w-4 h-4" />
+              {converting ? "Converting…" : "Convert to Client"}
+            </Button>
+            <p className="text-xs text-muted-foreground text-center mt-2">Creates a client account and marks lead as Won</p>
+          </div>
         </DialogContent>
       </Dialog>
 
@@ -306,6 +346,9 @@ export default function LeadsPage() {
                     <td className="px-4 py-2.5 text-muted-foreground text-xs whitespace-nowrap">{format(new Date(lead.createdAt), "MMM d, yyyy")}</td>
                     <td className="px-4 py-2.5">
                       <div className="flex items-center gap-1 justify-end">
+                        <Button variant="ghost" size="icon" className="w-7 h-7 text-emerald-500 hover:text-emerald-500" title="Convert to client" onClick={() => handleConvertToClient(lead)}>
+                          <UserPlus className="w-3.5 h-3.5" />
+                        </Button>
                         <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => { setEditLead(lead); setEditForm({ name: lead.name ?? "", source: lead.source ?? "", tags: lead.tags.filter((t) => !LEAD_STATUSES.includes(t)).join(", ") }); }}>
                           <Pencil className="w-3.5 h-3.5" />
                         </Button>
