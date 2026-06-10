@@ -59,12 +59,12 @@ function Bubble({ msg }: { msg: Message }) {
           <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">{msg.senderName}</p>
         )}
         {isImage ? (
-          <div className={`p-2 rounded-2xl ${isAgent ? "bg-zinc-800 rounded-tl-md" : "bg-indigo-600/20 rounded-tr-md"}`}>
+          <div className={`p-2 rounded-2xl ${isAgent ? "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md" : "bg-green-500/10 rounded-tr-md"}`}>
             <img src={msg.fileUrl!} alt="attachment" className="rounded-xl max-w-full max-h-48 object-cover" />
             <p className="text-[10px] mt-1.5 opacity-60">{time}</p>
           </div>
         ) : isFile ? (
-          <div className={`p-3.5 rounded-2xl ${isAgent ? "bg-zinc-800 rounded-tl-md" : "bg-indigo-600/20 rounded-tr-md"} max-w-[220px] w-full`}>
+          <div className={`p-3.5 rounded-2xl ${isAgent ? "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)] rounded-tl-md" : "bg-green-500/10 rounded-tr-md"} max-w-[220px] w-full`}>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-background rounded-xl shadow-sm flex items-center justify-center shrink-0">
                 <FileText className="w-5 h-5 text-foreground" strokeWidth={1.5} />
@@ -79,8 +79,8 @@ function Bubble({ msg }: { msg: Message }) {
         ) : (
           <div className={`px-4 py-2.5 text-sm leading-relaxed ${
             isAgent
-              ? "bg-zinc-800 text-zinc-100 rounded-r-2xl rounded-tl-2xl rounded-bl-md"
-              : "bg-indigo-600 text-white rounded-l-2xl rounded-tr-2xl rounded-br-md"
+              ? "bg-muted/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-foreground rounded-r-2xl rounded-tl-2xl rounded-bl-md"
+              : "bg-green-500 text-white rounded-l-2xl rounded-tr-2xl rounded-br-md"
           }`}>
             <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{msg.body}</p>
             <p className={`text-[10px] mt-1 opacity-50 ${isAgent ? "text-left" : "text-right"}`}>{time}</p>
