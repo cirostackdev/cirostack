@@ -90,7 +90,6 @@ export default function EditNewsArticlePage() {
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="techcrunch">TechCrunch</SelectItem>
-                <SelectItem value="guardian">Guardian</SelectItem>
                 <SelectItem value="manual">Manual</SelectItem>
               </SelectContent>
             </Select>

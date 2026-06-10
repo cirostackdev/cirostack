@@ -22,7 +22,7 @@ type Article = {
 
 const SOURCE_COLORS: Record<string, string> = {
   techcrunch: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-  guardian: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+  manual: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
 };
 
 export default function AdminNewsPage() {
@@ -74,7 +74,6 @@ export default function AdminNewsPage() {
 
   const formatDate = (iso: string) => format(new Date(iso), "MMM d, yyyy");
 
-  const guardian = articles.filter(a => a.type === "guardian");
   const techcrunch = articles.filter(a => a.type === "techcrunch");
 
   return (
@@ -82,24 +81,16 @@ export default function AdminNewsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3 flex-wrap">
           <p className="text-sm text-muted-foreground">
-            {loading ? <span className="inline-block h-4 w-20 rounded bg-muted animate-pulse" /> : <>{articles.length} articles<span className="ml-2 text-muted-foreground/60">({guardian.length} Guardian · {techcrunch.length} TechCrunch)</span></>}
+            {loading ? <span className="inline-block h-4 w-20 rounded bg-muted animate-pulse" /> : <>{articles.length} articles<span className="ml-2 text-muted-foreground/60">({techcrunch.length} TechCrunch)</span></>}
           </p>
           {syncStatus && (
             <span className="text-xs text-green-600 dark:text-green-400 font-medium">{syncStatus}</span>
           )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Button size="sm" variant="outline" onClick={() => handleSync("guardian")} disabled={syncing !== null}>
-            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing === "guardian" || syncing === "all" ? "animate-spin" : ""}`} />
-            Guardian
-          </Button>
-          <Button size="sm" variant="outline" onClick={() => handleSync("techcrunch")} disabled={syncing !== null}>
+          <Button size="sm" onClick={() => handleSync("techcrunch")} disabled={syncing !== null}>
             <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing === "techcrunch" || syncing === "all" ? "animate-spin" : ""}`} />
-            TechCrunch
-          </Button>
-          <Button size="sm" onClick={() => handleSync("all")} disabled={syncing !== null}>
-            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing === "all" ? "animate-spin" : ""}`} />
-            Sync All
+            Sync TechCrunch
           </Button>
         </div>
       </div>

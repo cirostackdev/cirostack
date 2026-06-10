@@ -25,7 +25,7 @@ type Article = {
   publishedAt: string;
   source: string;
   sourceUrl: string | null;
-  type: "guardian" | "techcrunch";
+  type: string;
 };
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -155,9 +155,9 @@ function ShareButtonsInline({ title }: { title: string }) {
   );
 }
 
-// ── Guardian body renderer ───────────────────────────────────────────────────
+// ── Article body renderer ────────────────────────────────────────────────────
 
-function GuardianBody({ content }: { content: string }) {
+function ArticleBody({ content }: { content: string }) {
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -175,7 +175,7 @@ function GuardianBody({ content }: { content: string }) {
   return (
     <div
       onClick={handleClick}
-      className="guardian-article prose prose-lg dark:prose-invert max-w-none
+      className="prose prose-lg dark:prose-invert max-w-none
         prose-headings:font-display prose-headings:text-foreground prose-headings:font-bold
         prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
         prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
@@ -390,7 +390,7 @@ const NewsroomArticle = ({ slug }: { slug?: string }) => {
 
                 {/* Full article body */}
                 {article.content && (
-                  <GuardianBody content={article.content} />
+                  <ArticleBody content={article.content} />
                 )}
 
                 {/* External article card (no full body available) */}

@@ -2,8 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { extract } from "@extractus/article-extractor";
 import { XMLParser } from "fast-xml-parser";
 
-const GUARDIAN_QUERY = `startup OR SaaS OR "software development" OR fintech OR "AI automation" OR healthtech OR "tech startup"`;
-
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 export function generateSlug(title: string): string {
@@ -12,28 +10,6 @@ export function generateSlug(title: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
     .slice(0, 80);
-}
-
-function extractMainImage(mainHtml: string, thumbnail: string | null): string | null {
-  const match = mainHtml.match(/src="([^"]+)"/);
-  return match?.[1] ?? thumbnail ?? null;
-}
-
-function stripGuardianBoilerplate(html: string): string {
-  let cleaned = html;
-  const patterns = [
-    /<h2[^>]*>\s*Essential reads\s*<\/h2>\s*<ul[\s\S]*?<\/ul>/gi,
-    /<p[^>]*>\s*<strong>\s*Read more:?\s*<\/strong>\s*<\/p>\s*<ul[\s\S]*?<\/ul>/gi,
-    /<h2[^>]*>\s*Read more:?\s*<\/h2>\s*<ul[\s\S]*?<\/ul>/gi,
-    /<p[^>]*>\s*<strong>\s*Essential reads\s*<\/strong>\s*<\/p>\s*<ul[\s\S]*?<\/ul>/gi,
-    /<p[^>]*>[^<]*subscribe to receive[^<]*<\/p>/gi,
-    /<p[^>]*>[^<]*sign up for[^<]*newsletter[^<]*<\/p>/gi,
-    /<p[^>]*>\s*[•▪]\s*To read the complete version[^<]*<\/p>/gi,
-    /<h2[^>]*>\s*Topics\s*<\/h2>\s*<ul[\s\S]*?<\/ul>/gi,
-    /<p[^>]*>\s*<em>[^<]*subscribe[^<]*<\/em>\s*<\/p>/gi,
-  ];
-  for (const pattern of patterns) cleaned = cleaned.replace(pattern, "");
-  return cleaned;
 }
 
 function stripTechCrunchBoilerplate(html: string): string {
@@ -72,28 +48,6 @@ function upgradeTcContentImages(html: string): string {
   );
 }
 
-function extractGuardianLinks(html: string): string[] {
-  const regex = /href="(https?:\/\/(?:www\.)?theguardian\.com\/[^"]+)"/g;
-  const links: string[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = regex.exec(html)) !== null) {
-    const url = m[1];
-    if (url.includes("/commentisfree/") || url.includes("/technology/") ||
-        url.includes("/business/") || url.includes("/science/") ||
-        url.includes("/world/") || url.includes("/uk-news/") ||
-        url.includes("/us-news/") || url.includes("/environment/") ||
-        url.includes("/money/") || url.includes("/global-development/")) {
-      links.push(url);
-    }
-  }
-  return [...new Set(links)];
-}
-
-function guardianPathFromUrl(url: string): string {
-  try { return new URL(url).pathname.replace(/^\//, "").replace(/\/$/, ""); }
-  catch { return ""; }
-}
-
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export type ArticleData = {
@@ -109,84 +63,6 @@ export type ArticleData = {
 };
 
 // ── Fetchers ──────────────────────────────────────────────────────────────────
-
-function mapGuardianResult(a: any): ArticleData {
-  const mainHtml = (a.fields?.main as string) ?? "";
-  const mainImage = extractMainImage(mainHtml, (a.fields?.thumbnail as string) ?? null);
-  const rawBody = (a.fields?.body as string) ?? "";
-  return {
-    url: a.webUrl as string,
-    title: a.webTitle as string,
-    description: (a.fields?.trailText as string) ?? "",
-    content: stripGuardianBoilerplate(rawBody),
-    image: mainImage,
-    publishedAt: new Date(a.webPublicationDate),
-    source: "The Guardian",
-    sourceUrl: "https://theguardian.com",
-    type: "guardian",
-  };
-}
-
-async function fetchGuardianSection(key: string, section: string, pageSize: number, fromDate: string): Promise<ArticleData[]> {
-  const url = new URL("https://content.guardianapis.com/search");
-  url.searchParams.set("q", GUARDIAN_QUERY);
-  url.searchParams.set("section", section);
-  url.searchParams.set("show-fields", "thumbnail,body,trailText,main");
-  url.searchParams.set("page-size", String(pageSize));
-  url.searchParams.set("order-by", "newest");
-  url.searchParams.set("from-date", fromDate);
-  url.searchParams.set("api-key", key);
-  const res = await fetch(url.toString());
-  if (!res.ok) { console.error(`[news/sync] Guardian (${section}):`, res.status); return []; }
-  const data = await res.json();
-  return (data.response?.results ?? []).map(mapGuardianResult);
-}
-
-async function fetchGuardian(key: string): Promise<ArticleData[]> {
-  const fromDate = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split("T")[0];
-  const [primaryResults, partialResults] = await Promise.all([
-    Promise.all(["technology", "business", "science"].map(s => fetchGuardianSection(key, s, 15, fromDate))),
-    Promise.all(["money", "global-development", "media"].map(s => fetchGuardianSection(key, s, 10, fromDate))),
-  ]);
-  const allResults = [...primaryResults.flat(), ...partialResults.flat()];
-  const seen = new Set<string>();
-  const deduplicated: ArticleData[] = [];
-  for (const article of allResults) {
-    if (!seen.has(article.url)) { seen.add(article.url); deduplicated.push(article); }
-  }
-  return deduplicated.slice(0, 30);
-}
-
-async function fetchGuardianByPath(key: string, path: string): Promise<ArticleData | null> {
-  const url = new URL(`https://content.guardianapis.com/${path}`);
-  url.searchParams.set("show-fields", "thumbnail,body,trailText,main");
-  url.searchParams.set("api-key", key);
-  const res = await fetch(url.toString());
-  if (!res.ok) return null;
-  const data = await res.json();
-  const content = data.response?.content;
-  if (!content) return null;
-  return mapGuardianResult(content);
-}
-
-async function fetchLinkedGuardianArticles(key: string, primaryArticles: ArticleData[], existingUrls: Set<string>): Promise<ArticleData[]> {
-  const primaryUrls = new Set(primaryArticles.map(a => a.url));
-  const linkedUrls: string[] = [];
-  for (const article of primaryArticles) {
-    for (const link of extractGuardianLinks(article.content)) {
-      if (!primaryUrls.has(link) && !existingUrls.has(link) && !linkedUrls.includes(link)) linkedUrls.push(link);
-    }
-  }
-  const linked: ArticleData[] = [];
-  const results = await Promise.allSettled(
-    linkedUrls.slice(0, 5).map(url => {
-      const path = guardianPathFromUrl(url);
-      return path ? fetchGuardianByPath(key, path) : Promise.resolve(null);
-    })
-  );
-  for (const r of results) { if (r.status === "fulfilled" && r.value) linked.push(r.value); }
-  return linked;
-}
 
 async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]> {
   const RELEVANT_CATEGORIES = new Set([
@@ -237,41 +113,14 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
 
 // ── Core sync function ────────────────────────────────────────────────────────
 
-export async function runNewsSync(source?: string | null): Promise<{ synced: number; total: number; breakdown: { guardian: number; techcrunch: number } }> {
-  const guardianKey = process.env.GUARDIAN_API_KEY;
+export async function runNewsSync(): Promise<{ synced: number; total: number; breakdown: { techcrunch: number } }> {
   const existingRecords = await prisma.newsArticle.findMany({ select: { url: true } });
   const existingUrls = new Set(existingRecords.map(r => r.url));
 
-  let guardian: ArticleData[] = [];
-  let linkedGuardian: ArticleData[] = [];
-  let techcrunch: ArticleData[] = [];
-
-  if (!source || source === "guardian") {
-    guardian = guardianKey ? await fetchGuardian(guardianKey) : [];
-    if (guardianKey && guardian.length > 0) {
-      linkedGuardian = await fetchLinkedGuardianArticles(guardianKey, guardian, existingUrls);
-    }
-    const allGuardian = [...guardian, ...linkedGuardian];
-    const availableUrls = new Set([...allGuardian.map(a => a.url), ...existingUrls]);
-    for (const article of allGuardian) {
-      if (article.content) {
-        article.content = article.content.replace(
-          /href="(https?:\/\/(?:www\.)?theguardian\.com\/[^"]+)"/g,
-          (match, url) => availableUrls.has(url) ? `href="/newsroom/article?src=${encodeURIComponent(url)}"` : match
-        );
-      }
-    }
-    guardian = allGuardian;
-  }
-
-  if (!source || source === "techcrunch") {
-    techcrunch = await fetchTechCrunch(existingUrls);
-  }
-
-  const allArticles = [...guardian, ...linkedGuardian.filter(a => !guardian.includes(a)), ...techcrunch];
+  const techcrunch = await fetchTechCrunch(existingUrls);
   let upserted = 0;
 
-  for (const article of allArticles) {
+  for (const article of techcrunch) {
     const slug = generateSlug(article.title);
     await prisma.newsArticle.upsert({
       where: { url: article.url },
@@ -282,5 +131,5 @@ export async function runNewsSync(source?: string | null): Promise<{ synced: num
   }
 
   const total = await prisma.newsArticle.count();
-  return { synced: upserted, total, breakdown: { guardian: guardian.length, techcrunch: techcrunch.length } };
+  return { synced: upserted, total, breakdown: { techcrunch: techcrunch.length } };
 }

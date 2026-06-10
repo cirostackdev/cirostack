@@ -113,7 +113,7 @@ type LiveArticle = {
     image: string | null;
     publishedAt: string;
     source: string;
-    type: "guardian" | "techcrunch";
+    type: string;
 };
 
 // ── Date grouping helpers ────────────────────────────────────────────────────

@@ -8,11 +8,9 @@ export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { source } = await req.json();
-
   try {
-    const result = await runNewsSync(source);
-    return NextResponse.json({ success: true, source: source ?? "all", ...result });
+    const result = await runNewsSync();
+    return NextResponse.json({ success: true, source: "techcrunch", ...result });
   } catch (err) {
     console.error("[admin/news/sync]", err);
     return NextResponse.json({ error: "Sync failed" }, { status: 500 });
