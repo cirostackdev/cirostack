@@ -142,6 +142,15 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     return () => clearInterval(interval);
   }, []);
 
+  const handlersRef = useRef<{
+    doJoin?: () => void;
+    onConversationsList?: () => void;
+    onVisitorMessage?: (data: { message: Message }) => void;
+    onAgentMessage?: (data: { message: Message }) => void;
+    onVisitorTyping?: (data: { typing: boolean }) => void;
+    onConversationClosed?: () => void;
+  }>({});
+
   useEffect(() => {
     const init = async () => {
       const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });
@@ -156,33 +165,41 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
         socket.emit("admin:read", { conversationId: conversation.id });
       };
 
-      // Always re-register handlers for this conversation
-      socket.off("connect");
-      socket.off("conversations:list");
-      socket.off("visitor:message");
-      socket.off("agent:message");
-      socket.off("visitor:typing");
-      socket.off("conversation:closed");
+      const onConversationsList = () => {
+        socket.emit("admin:claim", { conversationId: conversation.id });
+      };
+
+      const onVisitorMessage = ({ message }: { message: Message }) => {
+        setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
+      };
+
+      const onAgentMessage = ({ message }: { message: Message }) => {
+        setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
+      };
+
+      const onVisitorTyping = ({ typing }: { typing: boolean }) => setVisitorTyping(typing);
+
+      const onConversationClosed = () => setStatus("closed");
+
+      // Store handler refs for cleanup
+      handlersRef.current = { doJoin, onConversationsList, onVisitorMessage, onAgentMessage, onVisitorTyping, onConversationClosed };
+
+      // Remove previous handlers for this conversation
+      socket.off("connect", handlersRef.current.doJoin);
+      socket.off("conversations:list", handlersRef.current.onConversationsList);
+      socket.off("visitor:message", handlersRef.current.onVisitorMessage);
+      socket.off("agent:message", handlersRef.current.onAgentMessage);
+      socket.off("visitor:typing", handlersRef.current.onVisitorTyping);
+      socket.off("conversation:closed", handlersRef.current.onConversationClosed);
 
       socket.on("connect", doJoin);
-
-      socket.on("conversations:list", () => {
-        // Server sends this after admin:join — use it to claim the conversation room
-        socket.emit("admin:claim", { conversationId: conversation.id });
-      });
-
-      socket.on("visitor:message", ({ message }: { message: Message }) => {
-        setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
-      });
-      socket.on("agent:message", ({ message }: { message: Message }) => {
-        setMessages((prev) => prev.find((m) => m.id === message.id) ? prev : [...prev, message]);
-      });
-      socket.on("visitor:typing", ({ typing }: { typing: boolean }) => setVisitorTyping(typing));
-      socket.on("conversation:closed", () => setStatus("closed"));
+      socket.on("conversations:list", onConversationsList);
+      socket.on("visitor:message", onVisitorMessage);
+      socket.on("agent:message", onAgentMessage);
+      socket.on("visitor:typing", onVisitorTyping);
+      socket.on("conversation:closed", onConversationClosed);
 
       if (socket.connected) {
-        // Already connected — emit admin:join immediately.
-        // Server will respond with conversations:list which triggers admin:claim.
         doJoin();
       } else {
         socket.connect();
@@ -190,11 +207,28 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     };
 
     init();
-    return () => { if (typingTimerRef.current) clearTimeout(typingTimerRef.current); };
+    return () => {
+      if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+      const socket = socketRef.current;
+      if (socket) {
+        const h = handlersRef.current;
+        if (h.doJoin) socket.off("connect", h.doJoin);
+        if (h.onConversationsList) socket.off("conversations:list", h.onConversationsList);
+        if (h.onVisitorMessage) socket.off("visitor:message", h.onVisitorMessage);
+        if (h.onAgentMessage) socket.off("agent:message", h.onAgentMessage);
+        if (h.onVisitorTyping) socket.off("visitor:typing", h.onVisitorTyping);
+        if (h.onConversationClosed) socket.off("conversation:closed", h.onConversationClosed);
+      }
+    };
   }, [conversation.id]);
 
   const sendMessage = () => {
-    if (!input.trim() || !socketRef.current?.connected) return;
+    if (!input.trim()) return;
+    if (!socketRef.current?.connected) {
+      toast.error("Connection lost. Reconnecting...");
+      socketRef.current?.connect();
+      return;
+    }
     socketRef.current.emit("admin:message", { conversationId: conversation.id, body: input.trim() });
     setInput("");
     inputRef.current?.focus();

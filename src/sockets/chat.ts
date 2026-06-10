@@ -110,6 +110,16 @@ export function setupChatSocket(io: SocketServer) {
           return;
 
         try {
+          // Check if conversation is closed
+          const conv = await prisma.conversation.findUnique({
+            where: { id: data.conversationId },
+            select: { status: true },
+          });
+          if (conv?.status === "closed") {
+            socket.emit("error", { message: "This conversation has been closed." });
+            return;
+          }
+
           const message = await prisma.message.create({
             data: {
               conversationId: data.conversationId,
@@ -193,6 +203,18 @@ export function setupChatSocket(io: SocketServer) {
     socket.on("admin:claim", async (data: { conversationId: string }) => {
       if (socket.data.role !== "admin") return;
       try {
+        // Check if already assigned to someone else
+        const existing = await prisma.conversation.findUnique({
+          where: { id: data.conversationId },
+          select: { assignedToId: true },
+        });
+        if (existing?.assignedToId && existing.assignedToId !== socket.data.adminId) {
+          socket.emit("error", {
+            message: "This conversation is already assigned to another agent.",
+          });
+          return;
+        }
+
         const conv = await prisma.conversation.update({
           where: { id: data.conversationId },
           data: { assignedToId: socket.data.adminId },
@@ -216,7 +238,7 @@ export function setupChatSocket(io: SocketServer) {
 
     socket.on(
       "admin:message",
-      async (data: { conversationId: string; body: string }) => {
+      async (data: { conversationId: string; body: string; fileUrl?: string }) => {
         if (socket.data.role !== "admin" || !data.body?.trim()) return;
 
         try {
@@ -227,6 +249,7 @@ export function setupChatSocket(io: SocketServer) {
               senderId: socket.data.adminId,
               senderName: socket.data.adminName,
               body: data.body.trim().slice(0, 4000),
+              ...(data.fileUrl ? { fileUrl: data.fileUrl } : {}),
             },
           });
 

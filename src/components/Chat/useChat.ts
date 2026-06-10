@@ -121,9 +121,35 @@ export function useChat() {
       socket.on("agent:message", ({ message }: { message: ChatMessage }) => {
         setMessages((prev) => {
           if (prev.find((m) => m.id === message.id)) return prev;
+          // Reconcile: if there's an optimistic message with matching body/conversationId, replace it
+          const optimisticIdx = prev.findIndex(
+            (m) => m.id.startsWith("opt-") && m.body === message.body && m.conversationId === message.conversationId
+          );
+          if (optimisticIdx !== -1) {
+            const updated = [...prev];
+            updated[optimisticIdx] = message;
+            return updated;
+          }
           return [...prev, message];
         });
         setAgentTyping(false);
+      });
+
+      // Reconcile optimistic visitor messages echoed back from server
+      socket.on("visitor:message", ({ message }: { message: ChatMessage }) => {
+        setMessages((prev) => {
+          if (prev.find((m) => m.id === message.id)) return prev;
+          // Replace optimistic message with server version
+          const optimisticIdx = prev.findIndex(
+            (m) => m.id.startsWith("opt-") && m.body === message.body && m.conversationId === message.conversationId
+          );
+          if (optimisticIdx !== -1) {
+            const updated = [...prev];
+            updated[optimisticIdx] = message;
+            return updated;
+          }
+          return [...prev, message];
+        });
       });
 
       socket.on("agent:typing", ({ typing }: { typing: boolean }) => {

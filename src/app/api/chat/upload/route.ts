@@ -12,7 +12,29 @@ const ALLOWED_TYPES = [
   "application/pdf",
 ];
 
+// Rate limiting: 10 uploads per IP per minute.
+// No session auth here because this endpoint serves the visitor chat widget
+// where users are anonymous (not logged in).
+const uploadRateMap = new Map<string, { count: number; resetAt: number }>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = uploadRateMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    uploadRateMap.set(ip, { count: 1, resetAt: now + 60_000 });
+    return false;
+  }
+  entry.count++;
+  if (entry.count > 10) return true;
+  return false;
+}
+
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ error: "Too many uploads. Try again later." }, { status: 429 });
+  }
+
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;

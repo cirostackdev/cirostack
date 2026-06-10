@@ -117,10 +117,11 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     return () => clearInterval(t);
   }, []);
 
-  // Poll for new messages every 3 seconds
+  // Poll for new messages every 3 seconds (delta fetch using after param)
   useEffect(() => {
     const poll = async () => {
-      const res = await fetch("/api/portal/chat");
+      const afterParam = lastMessageIdRef.current ? `?after=${lastMessageIdRef.current}` : "";
+      const res = await fetch(`/api/portal/chat${afterParam}`);
       if (!res.ok) return;
       const { conversation: conv } = await res.json();
       if (!conv) return;
@@ -128,11 +129,21 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
       conversationIdRef.current = conv.id;
       setConversation(conv);
 
-      // Only update if there are new messages
-      const latestId = conv.messages.at(-1)?.id;
-      if (latestId && latestId !== lastMessageIdRef.current) {
-        lastMessageIdRef.current = latestId;
-        setMessages(conv.messages);
+      // Append only new messages (delta fetch returns only messages after the last known one)
+      if (conv.messages.length > 0) {
+        const latestId = conv.messages.at(-1)?.id;
+        if (lastMessageIdRef.current) {
+          // We used the after param, so these are all new messages
+          setMessages((prev) => {
+            const existingIds = new Set(prev.map((m) => m.id));
+            const newMsgs = conv.messages.filter((m: Message) => !existingIds.has(m.id));
+            return newMsgs.length > 0 ? [...prev, ...newMsgs] : prev;
+          });
+        } else {
+          // First fetch - load all messages
+          setMessages(conv.messages);
+        }
+        if (latestId) lastMessageIdRef.current = latestId;
       }
     };
 
@@ -193,17 +204,24 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     const res = await fetch("/api/chat/upload", { method: "POST", body: formData });
     if (res.ok) {
       const { url } = await res.json();
-      const body = url;
       await fetch("/api/portal/chat", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body, conversationId: conversationIdRef.current }),
+        body: JSON.stringify({ body: "Sent a file", fileUrl: url, conversationId: conversationIdRef.current }),
       });
     }
     e.target.value = "";
   };
 
   const startNewConversation = async () => {
+    // Close the existing conversation first if one is open
+    if (conversationIdRef.current && conversation?.status === "open") {
+      await fetch("/api/portal/chat", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversationId: conversationIdRef.current }),
+      }).catch(() => {});
+    }
     conversationIdRef.current = null;
     lastMessageIdRef.current = null;
     setConversation(null);

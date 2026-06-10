@@ -9,8 +9,17 @@ export async function PATCH(req: Request, { params }: Params) {
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { id } = await params;
   const body = await req.json();
+
+  // Whitelist only safe fields to prevent mass assignment
+  const { status, assignedToId, metadata, subject } = body;
+  const safeData: Record<string, unknown> = {};
+  if (status !== undefined) safeData.status = status;
+  if (assignedToId !== undefined) safeData.assignedToId = assignedToId;
+  if (metadata !== undefined) safeData.metadata = metadata;
+  if (subject !== undefined) safeData.subject = subject;
+
   try {
-    const conv = await prisma.conversation.update({ where: { id }, data: body });
+    const conv = await prisma.conversation.update({ where: { id }, data: safeData });
     return NextResponse.json(conv);
   } catch {
     return NextResponse.json({ error: "Not found" }, { status: 404 });

@@ -3,18 +3,37 @@ import { prisma } from "@/lib/prisma";
 import { clientAuth } from "@/auth-client";
 
 // GET — active open conversation + messages (used for polling)
-export async function GET() {
+// Supports ?after=<messageId> to only fetch messages created after that message (delta fetch)
+export async function GET(req: Request) {
   const session = await clientAuth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const clientId = (session.user as any).id as string;
+  const { searchParams } = new URL(req.url);
+  const afterMessageId = searchParams.get("after");
 
   try {
     const conversation = await prisma.conversation.findFirst({
       where: { visitorId: clientId, status: "open" },
       orderBy: { updatedAt: "desc" },
       include: {
-        messages: { orderBy: { createdAt: "asc" } },
+        messages: {
+          orderBy: { createdAt: "asc" },
+          ...(afterMessageId
+            ? {
+                where: {
+                  createdAt: {
+                    gt: (
+                      await prisma.message.findUnique({
+                        where: { id: afterMessageId },
+                        select: { createdAt: true },
+                      })
+                    )?.createdAt ?? new Date(0),
+                  },
+                },
+              }
+            : {}),
+        },
         assignedTo: { select: { name: true } },
       },
     });
@@ -34,7 +53,7 @@ export async function PUT(req: Request) {
   const clientId = (session.user as any).id as string;
 
   try {
-    const { body, conversationId } = await req.json();
+    const { body, conversationId, fileUrl } = await req.json();
     if (!body?.trim()) return NextResponse.json({ error: "body required" }, { status: 400 });
 
     // Get client info for the conversation
@@ -44,6 +63,17 @@ export async function PUT(req: Request) {
     });
 
     let convId = conversationId as string | undefined;
+
+    // Verify ownership if conversationId is provided
+    if (convId) {
+      const existingConv = await prisma.conversation.findFirst({
+        where: { id: convId, visitorId: clientId },
+        select: { id: true },
+      });
+      if (!existingConv) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      }
+    }
 
     // Find or create open conversation
     if (!convId) {
@@ -74,6 +104,7 @@ export async function PUT(req: Request) {
         senderType: "visitor",
         senderName: client?.name ?? null,
         body: body.trim(),
+        ...(fileUrl ? { fileUrl } : {}),
         read: false,
       },
     });
@@ -88,6 +119,35 @@ export async function PUT(req: Request) {
   } catch (err) {
     console.error("[PUT /api/portal/chat]", err);
     return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
+  }
+}
+
+// PATCH — close a conversation (portal client can close their own)
+export async function PATCH(req: Request) {
+  const session = await clientAuth();
+  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const clientId = (session.user as any).id as string;
+
+  try {
+    const { conversationId } = await req.json();
+    if (!conversationId) return NextResponse.json({ error: "conversationId required" }, { status: 400 });
+
+    // Verify ownership
+    const conv = await prisma.conversation.findFirst({
+      where: { id: conversationId, visitorId: clientId },
+    });
+    if (!conv) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+    await prisma.conversation.update({
+      where: { id: conversationId },
+      data: { status: "closed" },
+    });
+
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("[PATCH /api/portal/chat]", err);
+    return NextResponse.json({ error: "Failed" }, { status: 500 });
   }
 }
 

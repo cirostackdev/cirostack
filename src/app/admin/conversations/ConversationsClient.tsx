@@ -26,6 +26,7 @@ interface Props {
 
 export function ConversationsClient({ initialConversations, unreadMap }: Props) {
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
+  const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(unreadMap);
   const [filter, setFilter] = useState<"open" | "closed" | "all">("open");
   const [search, setSearch] = useState("");
 
@@ -35,23 +36,36 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
     sendHeartbeat();
     const heartbeatInterval = setInterval(sendHeartbeat, 60_000);
 
+    let socket: ReturnType<typeof getSocket> | null = null;
+
     const initSocket = async () => {
       const tokenRes = await fetch("/api/chat/socket-token", { method: "POST" });
       if (!tokenRes.ok) return;
       const { token } = await tokenRes.json();
 
-      const socket = getSocket();
+      socket = getSocket();
 
-      const doJoin = () => socket.emit("admin:join", { token });
+      const doJoin = () => socket!.emit("admin:join", { token });
 
-      socket.off("connect");
-      socket.on("connect", doJoin);
-      socket.on("conversation:new", ({ conversation }: { conversation: Conversation }) => {
+      const handleConversationNew = ({ conversation }: { conversation: Conversation }) => {
         setConversations((prev) => {
           if (prev.find((c) => c.id === conversation.id)) return prev;
           return [conversation, ...prev];
         });
-      });
+      };
+
+      const handleMessageNew = ({ message }: { message: { conversationId: string } }) => {
+        // Increment unread count for the conversation
+        setUnreadCounts((prev) => ({
+          ...prev,
+          [message.conversationId]: (prev[message.conversationId] || 0) + 1,
+        }));
+      };
+
+      socket.off("connect");
+      socket.on("connect", doJoin);
+      socket.on("conversation:new", handleConversationNew);
+      socket.on("visitor:message", handleMessageNew);
 
       if (socket.connected) {
         doJoin(); // already connected — join immediately
@@ -61,7 +75,14 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
     };
     initSocket();
 
-    return () => clearInterval(heartbeatInterval);
+    return () => {
+      clearInterval(heartbeatInterval);
+      if (socket) {
+        socket.off("connect");
+        socket.off("conversation:new");
+        socket.off("visitor:message");
+      }
+    };
   }, []);
 
   const filtered = conversations.filter((c) => {
@@ -129,7 +150,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
         )}
 
         {filtered.map((conv) => {
-          const unread = unreadMap[conv.id] || 0;
+          const unread = unreadCounts[conv.id] || 0;
           const lastMsg = conv.messages[0];
           const initials = conv.visitorName
             ? conv.visitorName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()

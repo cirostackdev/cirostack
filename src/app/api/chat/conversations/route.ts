@@ -1,7 +1,27 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+// Rate limiting: max 5 conversations per IP per hour
+const convRateMap = new Map<string, { count: number; resetAt: number }>();
+
+function isConvRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = convRateMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    convRateMap.set(ip, { count: 1, resetAt: now + 3600_000 });
+    return false;
+  }
+  entry.count++;
+  if (entry.count > 5) return true;
+  return false;
+}
+
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  if (isConvRateLimited(ip)) {
+    return NextResponse.json({ error: "Too many conversations. Try again later." }, { status: 429 });
+  }
+
   try {
     const { visitorId, name, email, topic, pageUrl } = await req.json();
 
