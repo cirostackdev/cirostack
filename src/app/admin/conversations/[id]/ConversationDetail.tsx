@@ -321,8 +321,14 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     if (!isUp) setUnreadWhileScrolled(0);
   };
 
-  const scrollToBottom = () => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToBottom = (smooth = true) => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    if (smooth) {
+      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    } else {
+      el.scrollTop = el.scrollHeight;
+    }
     setShowScrollBtn(false);
     isScrolledUpRef.current = false;
     setUnreadWhileScrolled(0);
@@ -330,7 +336,8 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
   useEffect(() => {
     if (!isScrolledUpRef.current) {
-      bottomRef.current?.scrollIntoView({ behavior: "instant" });
+      const el = scrollContainerRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
     }
   }, [messages, visitorTyping]);
 

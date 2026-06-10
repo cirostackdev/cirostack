@@ -327,7 +327,8 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   };
 
   const scrollToBottom = () => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = scrollContainerRef.current;
+    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
     setShowScrollBtn(false);
     isScrolledUpRef.current = false;
     setUnreadWhileScrolled(0);
@@ -335,7 +336,8 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
 
   useEffect(() => {
     if (!isScrolledUpRef.current) {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+      const el = scrollContainerRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
     }
   }, [messages]);
 

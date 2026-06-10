@@ -52,7 +52,8 @@ export function ChatPanel({
 
   useEffect(() => {
     if (!showScrollBtn) {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+      const el = scrollContainerRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
     }
   }, [messages, agentTyping, showScrollBtn]);
 
@@ -66,7 +67,8 @@ export function ChatPanel({
   };
 
   const scrollToBottom = () => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = scrollContainerRef.current;
+    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
     setShowScrollBtn(false);
     if (isScrolledUpRef) isScrolledUpRef.current = false;
     if (onClearUnread) onClearUnread();
