@@ -88,7 +88,7 @@ export async function POST(req: Request) {
                           <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${phone}</td>
                         </tr>` : ""}
                         <tr>
-                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Service</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">${isChat ? "Topic" : "Service"}</td>
                           <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${service}</td>
                         </tr>
                         ${budget ? `
@@ -166,7 +166,7 @@ export async function POST(req: Request) {
             
             <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px;background:#f8fafc;border-radius:8px;overflow:hidden;">
               <tr>
-                <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:140px;">Service requested</td>
+                <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:140px;">${isChat ? "Topic" : "Service requested"}</td>
                 <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${service}</td>
               </tr>
               ${budget ? `<tr>
