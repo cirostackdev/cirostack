@@ -67,8 +67,10 @@ export function MediaBubble({ fileUrl, fileName, isSender }: MediaBubbleProps) {
               style={{ maxWidth: "260px" }}
             />
             {/* Play overlay */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-xl group-hover:bg-black/30 transition-colors">
-              <Play className="w-10 h-10 text-white fill-white drop-shadow-lg" style={{ strokeLinejoin: "round", strokeWidth: 1.5 }} />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl group-hover:bg-black/40 transition-colors">
+              <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                <Play className="w-5 h-5 text-black ml-0.5 fill-black" />
+              </div>
             </div>
           </div>
           {fileName && <p className="text-[10px] opacity-50 mt-1 truncate">{fileName}</p>}
