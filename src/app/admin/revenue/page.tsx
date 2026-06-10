@@ -127,13 +127,15 @@ export default function RevenuePage() {
           {loading ? (
             <div className="h-48 bg-muted/30 rounded animate-pulse" />
           ) : (
-            <div className="flex items-end gap-2 h-48">
+            <div className="flex items-end gap-1 sm:gap-2 h-48">
               {monthly.map((m, i) => {
                 const height = maxMonthly > 0 ? (m.total / maxMonthly) * 100 : 0;
+                // On mobile (12 bars), only show every 3rd label to avoid crowding
+                const showLabel = i % 3 === 0 || i === monthly.length - 1;
                 return (
-                  <div key={i} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                  <div key={i} className="flex-1 flex flex-col items-center gap-1 h-full justify-end min-w-0">
                     {m.total > 0 && (
-                      <span className="text-[10px] text-muted-foreground font-medium">
+                      <span className="hidden sm:block text-[10px] text-muted-foreground font-medium truncate w-full text-center">
                         {fmtUsd(m.total)}
                       </span>
                     )}
@@ -141,7 +143,9 @@ export default function RevenuePage() {
                       className="w-full bg-green-500/80 rounded-t-md min-h-[2px] transition-all"
                       style={{ height: `${Math.max(height, m.total > 0 ? 4 : 1)}%` }}
                     />
-                    <span className="text-[10px] text-muted-foreground">{m.label}</span>
+                    <span className={`text-[10px] text-muted-foreground ${showLabel ? "" : "invisible"}`}>
+                      {m.label}
+                    </span>
                   </div>
                 );
               })}
