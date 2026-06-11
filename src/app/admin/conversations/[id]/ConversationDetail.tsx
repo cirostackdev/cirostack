@@ -443,10 +443,15 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       setMessages((prev) => prev.filter((m) => m.id !== messageId));
     });
 
-    channel.bind("visitor-presence", () => {
+    channel.bind("visitor-presence", ({ online }: { online: boolean }) => {
+      if (!online) {
+        setVisitorOnline(false);
+        if (visitorOfflineTimerRef.current) clearTimeout(visitorOfflineTimerRef.current);
+        return;
+      }
       setVisitorOnline(true);
       if (visitorOfflineTimerRef.current) clearTimeout(visitorOfflineTimerRef.current);
-      // Mark offline if no heartbeat arrives within 150s (2.5× the 60s heartbeat interval)
+      // Fallback: mark offline if no event arrives within 150s
       visitorOfflineTimerRef.current = setTimeout(() => setVisitorOnline(false), 150_000);
     });
 

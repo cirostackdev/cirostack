@@ -97,18 +97,49 @@ export function useChat() {
     };
   }, []);
 
-  // Visitor presence heartbeat — fires every 60s while chat is open
+  // Visitor presence — realtime via Pusher connection lifecycle + 60s heartbeat fallback
   useEffect(() => {
     if (!isOpen || !conversationId) return;
-    const beat = () =>
+
+    const visitorId = getVisitorId();
+
+    const goOnline = () =>
       fetch(`/api/chat/conversations/${conversationId}/heartbeat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ visitorId: getVisitorId() }),
+        body: JSON.stringify({ visitorId }),
       }).catch(() => {});
-    beat();
-    const interval = setInterval(beat, 60_000);
-    return () => clearInterval(interval);
+
+    const goOffline = () =>
+      fetch(`/api/chat/conversations/${conversationId}/presence`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ visitorId, online: false }),
+      }).catch(() => {});
+
+    goOnline();
+    const interval = setInterval(goOnline, 60_000);
+
+    const pusherClient = getPusher();
+    if (pusherClient) {
+      pusherClient.connection.bind("connected", goOnline);
+      pusherClient.connection.bind("disconnected", goOffline);
+      pusherClient.connection.bind("unavailable", goOffline);
+    }
+
+    const onUnload = () => goOffline();
+    window.addEventListener("beforeunload", onUnload);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("beforeunload", onUnload);
+      if (pusherClient) {
+        pusherClient.connection.unbind("connected", goOnline);
+        pusherClient.connection.unbind("disconnected", goOffline);
+        pusherClient.connection.unbind("unavailable", goOffline);
+      }
+      goOffline();
+    };
   }, [isOpen, conversationId]);
 
   // Mark agent messages as read when chat is open

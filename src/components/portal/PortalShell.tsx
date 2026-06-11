@@ -5,7 +5,8 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useRef } from "react";
+import { getPusher } from "@/lib/pusher-client";
 
 // Context that child pages use to inject actions into the shell header
 export const PortalHeaderActionsContext = createContext<(el: React.ReactNode) => void>(() => {});
@@ -52,12 +53,45 @@ export function PortalShell({
   const [unreadCount, setUnreadCount] = useState(0);
   const [headerActions, setHeaderActions] = useState<React.ReactNode>(null);
 
-  // Portal client presence heartbeat
+  // Portal client presence — realtime via Pusher connection lifecycle + 60s heartbeat fallback
   useEffect(() => {
-    const beat = () => fetch("/api/portal/presence", { method: "POST" }).catch(() => {});
-    beat();
-    const interval = setInterval(beat, 60_000);
-    return () => clearInterval(interval);
+    const goOnline = () =>
+      fetch("/api/portal/presence", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ online: true }),
+      }).catch(() => {});
+
+    const goOffline = () =>
+      fetch("/api/portal/presence", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ online: false }),
+      }).catch(() => {});
+
+    goOnline();
+    const interval = setInterval(goOnline, 60_000);
+
+    const pusherClient = getPusher();
+    if (pusherClient) {
+      pusherClient.connection.bind("connected", goOnline);
+      pusherClient.connection.bind("disconnected", goOffline);
+      pusherClient.connection.bind("unavailable", goOffline);
+    }
+
+    const onUnload = () => goOffline();
+    window.addEventListener("beforeunload", onUnload);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("beforeunload", onUnload);
+      if (pusherClient) {
+        pusherClient.connection.unbind("connected", goOnline);
+        pusherClient.connection.unbind("disconnected", goOffline);
+        pusherClient.connection.unbind("unavailable", goOffline);
+      }
+      goOffline();
+    };
   }, []);
 
   useEffect(() => {
