@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback, useContext } from "react";
-import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown } from "lucide-react";
+import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown, Paperclip } from "lucide-react";
 import { PortalHeaderActionsContext } from "@/components/portal/PortalShell";
 import { format, formatDistanceToNow, isSameDay } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
@@ -9,7 +9,7 @@ import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
-import { FileUploadButton } from "@/components/Chat/FileUploadButton";
+import { MediaPickerPopup } from "@/components/Chat/MediaPickerPopup";
 import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
 
@@ -228,6 +228,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   const [agentOnline, setAgentOnline] = useState(false);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+  const [showPicker, setShowPicker] = useState(false);
   const [view, setView] = useState<"chat" | "history">("chat");
   const [history, setHistory] = useState<Conversation[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -614,16 +615,34 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                 autoComplete="off"
                 enterKeyHint="send"
               />
-              <FileUploadButton
-                uploadEndpoint="/api/portal/chat/upload"
-                onUpload={({ url, name }) => {
-                  fetch("/api/portal/chat", {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
-                  });
-                }}
-              />
+              <div className="relative shrink-0">
+                {showPicker && (
+                  <MediaPickerPopup
+                    onPick={async (file) => {
+                      setShowPicker(false);
+                      const fd = new FormData();
+                      fd.append("file", file);
+                      const res = await fetch("/api/portal/chat/upload", { method: "POST", body: fd });
+                      if (!res.ok) return;
+                      const { url, name } = await res.json();
+                      fetch("/api/portal/chat", {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
+                      });
+                    }}
+                    onClose={() => setShowPicker(false)}
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => setShowPicker((v) => !v)}
+                  className={`transition-colors p-1 ${showPicker ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                  title="Attach"
+                >
+                  <Paperclip className="w-4 h-4" />
+                </button>
+              </div>
             </div>
             <button
               type="button"

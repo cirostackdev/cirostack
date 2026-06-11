@@ -16,7 +16,7 @@ import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
-import { FileUploadButton } from "@/components/Chat/FileUploadButton";
+import { MediaPickerPopup } from "@/components/Chat/MediaPickerPopup";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
@@ -276,6 +276,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const router = useRouter();
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
   const [visitorTyping, setVisitorTyping] = useState(false);
   const [status, setStatus] = useState(conversation.status);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -475,6 +476,19 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     if (!confirm("Delete this conversation? This cannot be undone.")) return;
     await fetch(`/api/admin/conversations/${conversation.id}`, { method: "DELETE" });
     router.push("/admin/conversations");
+  }
+
+  async function uploadAndSendFile(file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch("/api/admin/chat-upload", { method: "POST", body: formData });
+    if (!res.ok) { toast.error("Upload failed"); return; }
+    const { url, name } = await res.json();
+    await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ body: name, fileUrl: url }),
+    });
   }
 
   async function deleteMessage(msgId: string) {
@@ -708,16 +722,22 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                   placeholder="Reply…"
                   className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                 />
-                <FileUploadButton
-                  uploadEndpoint="/api/admin/chat-upload"
-                  onUpload={async ({ url, name }) => {
-                    await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ body: name, fileUrl: url }),
-                    });
-                  }}
-                />
+                <div className="relative shrink-0">
+                  {showPicker && (
+                    <MediaPickerPopup
+                      onPick={(file) => { uploadAndSendFile(file); setShowPicker(false); }}
+                      onClose={() => setShowPicker(false)}
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setShowPicker((v) => !v)}
+                    className={`transition-colors p-1 ${showPicker ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                    title="Attach"
+                  >
+                    <Paperclip className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
               <button
                 onClick={sendMessage}
