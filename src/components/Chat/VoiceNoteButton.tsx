@@ -10,6 +10,7 @@ interface VoiceNoteButtonProps {
   uploadEndpoint: string;
   onSend: (file: File) => void;
   disabled?: boolean;
+  onStageChange?: (active: boolean) => void;
 }
 
 function useTimer() {
@@ -27,8 +28,12 @@ function useTimer() {
   return { seconds, fmt, start, stop, reset };
 }
 
-export function VoiceNoteButton({ onSend, disabled }: VoiceNoteButtonProps) {
+export function VoiceNoteButton({ onSend, disabled, onStageChange }: VoiceNoteButtonProps) {
   const [stage, setStage] = useState<Stage>("idle");
+  const setStageWithNotify = (s: Stage) => {
+    setStage(s);
+    onStageChange?.(s !== "idle");
+  };
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
@@ -63,14 +68,14 @@ export function VoiceNoteButton({ onSend, disabled }: VoiceNoteButtonProps) {
         const url = URL.createObjectURL(blob);
         setAudioBlob(blob);
         setAudioUrl(url);
-        setStage("preview");
+        setStageWithNotify("preview");
         timer.stop();
       };
 
       recorderRef.current = recorder;
       recorder.start(100);
       timer.start();
-      setStage("recording");
+      setStageWithNotify("recording");
     } catch {
       toast.error("Microphone access denied");
     }
@@ -85,7 +90,7 @@ export function VoiceNoteButton({ onSend, disabled }: VoiceNoteButtonProps) {
     setAudioUrl(null);
     setAudioBlob(null);
     timer.reset();
-    setStage("idle");
+    setStageWithNotify("idle");
   };
 
   const send = async () => {

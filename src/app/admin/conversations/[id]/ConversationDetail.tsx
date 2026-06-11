@@ -295,6 +295,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [input, setInput] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [specialPicker, setSpecialPicker] = useState<SpecialPickType | null>(null);
+  const [recording, setRecording] = useState(false);
   const [visitorTyping, setVisitorTyping] = useState(false);
   const [status, setStatus] = useState(conversation.status);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -738,36 +739,42 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
         {status === "open" ? (
           <div className="border-t border-border px-3 py-3" style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}>
             <div className="flex items-center gap-2">
-              <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={input}
-                  onChange={(e) => handleTyping(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); sendMessage(); } }}
-                  placeholder="Reply…"
-                  className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-                />
-                <div className="relative shrink-0">
-                  {showPicker && (
-                    <MediaPickerPopup
-                      variant="admin"
-                      onPick={(file) => { uploadAndSendFile(file); setShowPicker(false); }}
-                      onSpecialPick={(type) => { setSpecialPicker(type); setShowPicker(false); }}
-                      onClose={() => setShowPicker(false)}
-                    />
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => setShowPicker((v) => !v)}
-                    className={`transition-colors p-1 ${showPicker ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
-                    title="Attach"
-                  >
-                    <Paperclip className="w-4 h-4" />
-                  </button>
+              {recording ? (
+                <div className="w-11 h-11 flex items-center justify-center shrink-0 bg-muted/50 border border-border rounded-full text-muted-foreground">
+                  <Paperclip className="w-4 h-4" />
                 </div>
-              </div>
-              {input.trim() ? (
+              ) : (
+                <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={input}
+                    onChange={(e) => handleTyping(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); sendMessage(); } }}
+                    placeholder="Reply…"
+                    className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                  />
+                  <div className="relative shrink-0">
+                    {showPicker && (
+                      <MediaPickerPopup
+                        variant="admin"
+                        onPick={(file) => { uploadAndSendFile(file); setShowPicker(false); }}
+                        onSpecialPick={(type) => { setSpecialPicker(type); setShowPicker(false); }}
+                        onClose={() => setShowPicker(false)}
+                      />
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setShowPicker((v) => !v)}
+                      className={`transition-colors p-1 ${showPicker ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                      title="Attach"
+                    >
+                      <Paperclip className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+              {!recording && input.trim() ? (
                 <button
                   onClick={sendMessage}
                   className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 hover:opacity-90 transition-opacity"
@@ -778,6 +785,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                 <VoiceNoteButton
                   uploadEndpoint="/api/admin/chat-upload"
                   onSend={(file) => uploadAndSendFile(file)}
+                  onStageChange={setRecording}
                 />
               )}
             </div>

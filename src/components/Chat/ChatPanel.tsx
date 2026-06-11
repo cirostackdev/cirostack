@@ -50,6 +50,7 @@ export function ChatPanel({
   const [input, setInput] = useState("");
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
+  const [recording, setRecording] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -220,38 +221,45 @@ export function ChatPanel({
       ) : (
         <div className="border-t border-border px-3 py-3">
           <div className="flex items-center gap-2">
-            <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2">
-              <input
-                ref={inputRef}
-                type="text"
-                value={input}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                placeholder={isConnected ? "Type a message…" : "Connecting…"}
-                disabled={!isConnected}
-                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:opacity-50"
-              />
-              <div className="relative shrink-0">
-                {showPicker && (
-                  <MediaPickerPopup
-                    variant="visitor"
-                    onPick={(file) => { onSendFile(file); setShowPicker(false); }}
-                    onClose={() => setShowPicker(false)}
-                  />
-                )}
-                <button
-                  type="button"
-                  onClick={() => setShowPicker((v) => !v)}
-                  disabled={!isConnected}
-                  className={`transition-colors disabled:opacity-30 p-1 ${showPicker ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
-                  title="Attach"
-                >
-                  <Paperclip className="w-4 h-4" />
-                </button>
+            {/* Collapsed to a small circle while recording/preview */}
+            {recording ? (
+              <div className="w-11 h-11 flex items-center justify-center shrink-0 bg-muted/50 border border-border rounded-full text-muted-foreground">
+                <Paperclip className="w-4 h-4" />
               </div>
-            </div>
+            ) : (
+              <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={input}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder={isConnected ? "Type a message…" : "Connecting…"}
+                  disabled={!isConnected}
+                  className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:opacity-50"
+                />
+                <div className="relative shrink-0">
+                  {showPicker && (
+                    <MediaPickerPopup
+                      variant="visitor"
+                      onPick={(file) => { onSendFile(file); setShowPicker(false); }}
+                      onClose={() => setShowPicker(false)}
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setShowPicker((v) => !v)}
+                    disabled={!isConnected}
+                    className={`transition-colors disabled:opacity-30 p-1 ${showPicker ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                    title="Attach"
+                  >
+                    <Paperclip className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
 
-            {input.trim() ? (
+            {!recording && input.trim() ? (
               <button
                 type="button"
                 onClick={handleSend}
@@ -265,6 +273,7 @@ export function ChatPanel({
                 uploadEndpoint="/api/chat/upload"
                 onSend={(file) => onSendFile(file)}
                 disabled={!isConnected}
+                onStageChange={setRecording}
               />
             )}
           </div>

@@ -243,6 +243,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
+  const [recording, setRecording] = useState(false);
   const [view, setView] = useState<"chat" | "history">("chat");
   const [history, setHistory] = useState<Conversation[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -617,49 +618,55 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
       {!isClosed ? (
         <div className="border-t border-border px-3 py-3 pb-[max(12px,env(safe-area-inset-bottom))] shrink-0">
           <div className="flex items-center gap-2">
-            <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2 focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/20 transition-all">
-              <input
-                ref={inputRef}
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); sendMessage(); } }}
-                placeholder="Type a message…"
-                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-                autoComplete="off"
-                enterKeyHint="send"
-              />
-              <div className="relative shrink-0">
-                {showPicker && (
-                  <MediaPickerPopup
-                    variant="portal"
-                    onPick={async (file) => {
-                      setShowPicker(false);
-                      const fd = new FormData();
-                      fd.append("file", file);
-                      const res = await fetch("/api/portal/chat/upload", { method: "POST", body: fd });
-                      if (!res.ok) return;
-                      const { url, name } = await res.json();
-                      fetch("/api/portal/chat", {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
-                      });
-                    }}
-                    onClose={() => setShowPicker(false)}
-                  />
-                )}
-                <button
-                  type="button"
-                  onClick={() => setShowPicker((v) => !v)}
-                  className={`transition-colors p-1 ${showPicker ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
-                  title="Attach"
-                >
-                  <Paperclip className="w-4 h-4" />
-                </button>
+            {recording ? (
+              <div className="w-11 h-11 flex items-center justify-center shrink-0 bg-muted/50 border border-border rounded-full text-muted-foreground">
+                <Paperclip className="w-4 h-4" />
               </div>
-            </div>
-            {input.trim() ? (
+            ) : (
+              <div className="flex-1 flex items-center bg-muted/50 border border-border rounded-full px-3 h-11 gap-2 focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); sendMessage(); } }}
+                  placeholder="Type a message…"
+                  className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                  autoComplete="off"
+                  enterKeyHint="send"
+                />
+                <div className="relative shrink-0">
+                  {showPicker && (
+                    <MediaPickerPopup
+                      variant="portal"
+                      onPick={async (file) => {
+                        setShowPicker(false);
+                        const fd = new FormData();
+                        fd.append("file", file);
+                        const res = await fetch("/api/portal/chat/upload", { method: "POST", body: fd });
+                        if (!res.ok) return;
+                        const { url, name } = await res.json();
+                        fetch("/api/portal/chat", {
+                          method: "PUT",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
+                        });
+                      }}
+                      onClose={() => setShowPicker(false)}
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setShowPicker((v) => !v)}
+                    className={`transition-colors p-1 ${showPicker ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                    title="Attach"
+                  >
+                    <Paperclip className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
+            {!recording && input.trim() ? (
               <button
                 type="button"
                 onClick={sendMessage}
@@ -684,6 +691,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                     body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
                   });
                 }}
+                onStageChange={setRecording}
               />
             )}
           </div>
