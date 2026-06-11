@@ -49,17 +49,10 @@ export function ContactPicker({ onSend, onClose }: ContactPickerProps) {
   };
 
   const handleSend = () => {
-    const lines: string[] = [];
-    // Social
-    SOCIAL_LINKS.filter((s) => selected.has(s.id)).forEach((s) => {
-      lines.push(`${s.label}: ${s.url}`);
-    });
-    // Clients
-    clients.filter((c) => selected.has(c.id)).forEach((c) => {
-      lines.push(`${c.name ?? "Client"} — ${c.email}${c.company ? ` (${c.company})` : ""}`);
-    });
-    if (!lines.length) return;
-    onSend(`📇 *Contact Info*\n\n${lines.join("\n")}`);
+    const social = SOCIAL_LINKS.filter((s) => selected.has(s.id)).map((s) => ({ id: s.id, label: s.label, handle: s.handle, url: s.url }));
+    const clientItems = clients.filter((c) => selected.has(c.id)).map((c) => ({ name: c.name, email: c.email, company: c.company }));
+    if (!social.length && !clientItems.length) return;
+    onSend(`__CONTACT__${JSON.stringify({ social, clients: clientItems })}`);
     onClose();
   };
 

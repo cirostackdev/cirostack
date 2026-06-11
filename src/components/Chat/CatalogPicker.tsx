@@ -40,10 +40,7 @@ export function CatalogPicker({ onSend, onClose }: CatalogPickerProps) {
   const handleSend = () => {
     const chosen = items.filter((i) => selected.has(i.id));
     if (!chosen.length) return;
-    const lines = chosen.map((p) =>
-      `📁 *${p.title}*\n${p.service} · ${p.vertical}\nhttps://cirostack.com/portfolio/${p.slug}`
-    );
-    onSend(`📂 *Catalog — Selected Projects*\n\n${lines.join("\n\n")}`);
+    onSend(`__CATALOG__${JSON.stringify({ projects: chosen.map((p) => ({ title: p.title, service: p.service, vertical: p.vertical, slug: p.slug })) })}`);
     onClose();
   };
 

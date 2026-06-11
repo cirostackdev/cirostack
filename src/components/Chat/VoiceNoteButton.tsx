@@ -90,8 +90,10 @@ export function VoiceNoteButton({ onSend, disabled }: VoiceNoteButtonProps) {
 
   const send = async () => {
     if (!audioBlob) return;
-    const ext = audioBlob.type.includes("ogg") ? "ogg" : "webm";
-    const file = new File([audioBlob], `voice-note-${Date.now()}.${ext}`, { type: audioBlob.type });
+    // Strip codec suffix (e.g. "audio/webm;codecs=opus" → "audio/webm") so upload API accepts it
+    const baseMime = audioBlob.type.split(";")[0];
+    const ext = baseMime.includes("ogg") ? "ogg" : "webm";
+    const file = new File([audioBlob], `voice-note-${Date.now()}.${ext}`, { type: baseMime });
     onSend(file);
     discard();
   };

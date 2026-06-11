@@ -11,6 +11,7 @@ import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
 import { MediaPickerPopup } from "@/components/Chat/MediaPickerPopup";
 import { VoiceNoteButton } from "@/components/Chat/VoiceNoteButton";
+import { isStructuredMessage, StructuredMessageCard } from "@/components/Chat/StructuredMessageCard";
 import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
 
@@ -88,7 +89,8 @@ function Bubble({
   }
 
   const hasMedia = !!msg.fileUrl;
-  const linkMatch = !hasMedia ? msg.body.match(/(?:https?:\/\/[^\s]+|(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)(?:\/[^\s]*)?)/i) : null;
+  const structured = !hasMedia && isStructuredMessage(msg.body);
+  const linkMatch = !hasMedia && !structured ? msg.body.match(/(?:https?:\/\/[^\s]+|(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)(?:\/[^\s]*)?)/i) : null;
   const linkUrl = linkMatch ? (linkMatch[0].match(/^https?:\/\//) ? linkMatch[0] : `https://${linkMatch[0]}`) : null;
   const [ogLoaded, setOgLoaded] = useState(false);
   const bodyWithoutUrl = linkMatch ? msg.body.replace(linkMatch[0], "").trim() : msg.body;
@@ -193,7 +195,7 @@ function Bubble({
               </p>
             </div>
           ) : (
-            <div className={`px-4 py-2.5 text-sm leading-relaxed ${
+            <div className={`${structured ? "p-3" : "px-4 py-2.5"} text-sm leading-relaxed ${
               isAgent
                 ? `bg-muted/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-foreground rounded-r-2xl rounded-tl-2xl ${grouped ? "rounded-bl-sm rounded-tl-sm" : "rounded-bl-md"}`
                 : `bg-green-500/10 text-foreground rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
@@ -201,17 +203,28 @@ function Bubble({
               {msg.replyToBody && (
                 <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} />
               )}
-              {(!linkUrl || !ogLoaded) && (
-                <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{msg.body}</p>
+              {structured ? (
+                <>
+                  <StructuredMessageCard body={msg.body} />
+                  <p className={`text-[10px] mt-2 opacity-50 flex items-center gap-1 ${isAgent ? "justify-start" : "justify-end"}`}>
+                    {time}{statusIcon}
+                  </p>
+                </>
+              ) : (
+                <>
+                  {(!linkUrl || !ogLoaded) && (
+                    <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{msg.body}</p>
+                  )}
+                  {linkUrl && <LinkPreview url={linkUrl} isSender={!isAgent} onLoaded={setOgLoaded} />}
+                  {linkUrl && ogLoaded && bodyWithoutUrl && (
+                    <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{bodyWithoutUrl}</p>
+                  )}
+                  <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-start" : "justify-end"}`}>
+                    {time}
+                    {statusIcon}
+                  </p>
+                </>
               )}
-              {linkUrl && <LinkPreview url={linkUrl} isSender={!isAgent} onLoaded={setOgLoaded} />}
-              {linkUrl && ogLoaded && bodyWithoutUrl && (
-                <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{bodyWithoutUrl}</p>
-              )}
-              <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-start" : "justify-end"}`}>
-                {time}
-                {statusIcon}
-              </p>
             </div>
           )}
 

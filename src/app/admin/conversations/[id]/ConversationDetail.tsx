@@ -17,6 +17,7 @@ import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
 import { MediaPickerPopup, type SpecialPickType } from "@/components/Chat/MediaPickerPopup";
+import { isStructuredMessage, StructuredMessageCard } from "@/components/Chat/StructuredMessageCard";
 import { VoiceNoteButton } from "@/components/Chat/VoiceNoteButton";
 import { CatalogPicker } from "@/components/Chat/CatalogPicker";
 import { ContactPicker } from "@/components/Chat/ContactPicker";
@@ -128,8 +129,9 @@ function MessageBubble({
 
   const isImage = msg.fileUrl?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
   const isFile = msg.fileUrl && !isImage;
+  const structured = !msg.fileUrl && isStructuredMessage(msg.body);
 
-  const linkMatch = !msg.fileUrl ? msg.body.match(/(?:https?:\/\/[^\s]+|(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)(?:\/[^\s]*)?)/i) : null;
+  const linkMatch = !msg.fileUrl && !structured ? msg.body.match(/(?:https?:\/\/[^\s]+|(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)(?:\/[^\s]*)?)/i) : null;
   const linkUrl = linkMatch ? (linkMatch[0].match(/^https?:\/\//) ? linkMatch[0] : `https://${linkMatch[0]}`) : null;
   const [ogLoaded, setOgLoaded] = useState(false);
   const bodyWithoutUrl = linkMatch ? msg.body.replace(linkMatch[0], "").trim() : msg.body;
@@ -240,7 +242,7 @@ function MessageBubble({
               </p>
             </div>
           ) : (
-            <div className={`px-4 py-2.5 text-sm leading-relaxed ${
+            <div className={`${structured ? "p-3" : "px-4 py-2.5"} text-sm leading-relaxed ${
               isAgent
                 ? `bg-green-500/10 text-foreground rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
                 : `bg-muted/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-foreground rounded-r-2xl rounded-tl-2xl ${grouped ? "rounded-bl-sm rounded-tl-sm" : "rounded-bl-md"}`
@@ -251,21 +253,32 @@ function MessageBubble({
                   body={msg.replyToBody}
                 />
               )}
-              {(!linkUrl || !ogLoaded) && (
-                <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
-                  {highlightText(msg.body, search)}
-                </p>
+              {structured ? (
+                <>
+                  <StructuredMessageCard body={msg.body} />
+                  <p className={`text-[10px] mt-2 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
+                    {time}{readReceipt}
+                  </p>
+                </>
+              ) : (
+                <>
+                  {(!linkUrl || !ogLoaded) && (
+                    <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+                      {highlightText(msg.body, search)}
+                    </p>
+                  )}
+                  {linkUrl && <LinkPreview url={linkUrl} isSender={isAgent} onLoaded={setOgLoaded} />}
+                  {linkUrl && ogLoaded && bodyWithoutUrl && (
+                    <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+                      {highlightText(bodyWithoutUrl, search)}
+                    </p>
+                  )}
+                  <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
+                    {time}
+                    {readReceipt}
+                  </p>
+                </>
               )}
-              {linkUrl && <LinkPreview url={linkUrl} isSender={isAgent} onLoaded={setOgLoaded} />}
-              {linkUrl && ogLoaded && bodyWithoutUrl && (
-                <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
-                  {highlightText(bodyWithoutUrl, search)}
-                </p>
-              )}
-              <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
-                {time}
-                {readReceipt}
-              </p>
             </div>
           )}
 

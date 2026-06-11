@@ -45,13 +45,7 @@ export function EventPicker({ onSend, onClose }: EventPickerProps) {
   const handleSend = () => {
     const chosen = events.filter((e) => selected.has(e.id));
     if (!chosen.length) return;
-    const lines = chosen.map((e) => {
-      const date = e.date ? (() => { try { return format(new Date(e.date), "MMM d, yyyy"); } catch { return e.date; } })() : "";
-      const time = e.time ? ` at ${e.time}` : "";
-      const reg = e.registrationUrl ? `\nRegister: ${e.registrationUrl}` : "";
-      return `📅 *${e.title}*\n${e.type} · ${date}${time}\n📍 ${e.location}${reg}`;
-    });
-    onSend(`🗓 *Upcoming Events*\n\n${lines.join("\n\n")}`);
+    onSend(`__EVENT__${JSON.stringify({ events: chosen.map((e) => ({ title: e.title, type: e.type, date: e.date, time: e.time, location: e.location, registrationUrl: e.registrationUrl })) })}`);
     onClose();
   };
 
