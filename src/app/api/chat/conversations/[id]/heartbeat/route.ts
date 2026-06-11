@@ -29,6 +29,7 @@ export async function POST(
     });
 
     await pusher.trigger(`private-conversation-${id}`, "visitor-presence", { online: true });
+    await pusher.trigger("private-admin-notifications", "visitor-presence-notification", { conversationId: id, online: true });
 
     return NextResponse.json({ ok: true });
   } catch (err) {

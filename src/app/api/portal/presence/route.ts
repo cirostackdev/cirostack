@@ -29,11 +29,12 @@ export async function POST(req: Request) {
     `;
   }
 
-  // Push visitor-presence to all open conversation channels
+  // Push visitor-presence to all open conversation channels + admin notifications
   await Promise.all(
-    conversations.map((conv) =>
-      pusher.trigger(`private-conversation-${conv.id}`, "visitor-presence", { online: isOnline })
-    )
+    conversations.flatMap((conv) => [
+      pusher.trigger(`private-conversation-${conv.id}`, "visitor-presence", { online: isOnline }),
+      pusher.trigger("private-admin-notifications", "visitor-presence-notification", { conversationId: conv.id, online: isOnline }),
+    ])
   );
 
   return NextResponse.json({ ok: true });

@@ -41,10 +41,11 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const [filter, setFilter] = useState<"clients" | "visitors" | "closed">("clients");
   const [typingConvIds, setTypingConvIds] = useState<Set<string>>(new Set());
   const [recordingConvIds, setRecordingConvIds] = useState<Set<string>>(new Set());
+  const [onlineConvIds, setOnlineConvIds] = useState<Set<string>>(new Set());
   const channelRef = useRef<Channel | null>(null);
   const pathname = usePathname();
 
-  // Refresh conversation list every 60s to keep visitorLastSeen current
+  // Refresh conversation list every 60s (for metadata/assignment drift, not presence)
   useEffect(() => {
     const refresh = () =>
       fetch("/api/admin/conversations")
@@ -92,6 +93,18 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
       setRecordingConvIds((prev) => {
         const next = new Set(prev);
         if (recording) {
+          next.add(conversationId);
+        } else {
+          next.delete(conversationId);
+        }
+        return next;
+      });
+    });
+
+    channel.bind("visitor-presence-notification", ({ conversationId, online }: { conversationId: string; online: boolean }) => {
+      setOnlineConvIds((prev) => {
+        const next = new Set(prev);
+        if (online) {
           next.add(conversationId);
         } else {
           next.delete(conversationId);
@@ -170,6 +183,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
           const lastMsg = conv.messages[0];
           const isTyping = typingConvIds.has(conv.id);
           const isRecording = recordingConvIds.has(conv.id);
+          const isOnline = onlineConvIds.has(conv.id) || isVisitorOnline(conv);
           const initials = conv.visitorName
             ? conv.visitorName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
             : "?";
@@ -193,7 +207,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
                 </div>
                 <span
                   className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-background ${
-                    isVisitorOnline(conv) ? PRESENCE.online : PRESENCE.offline
+                    isOnline ? PRESENCE.online : PRESENCE.offline
                   }`}
                 />
               </div>

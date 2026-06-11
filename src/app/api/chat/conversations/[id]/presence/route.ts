@@ -19,6 +19,7 @@ export async function POST(
     if (!conv) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
     await pusher.trigger(`private-conversation-${id}`, "visitor-presence", { online: !!online });
+    await pusher.trigger("private-admin-notifications", "visitor-presence-notification", { conversationId: id, online: !!online });
 
     return NextResponse.json({ ok: true });
   } catch (err) {
