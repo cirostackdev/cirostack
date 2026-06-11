@@ -57,7 +57,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
   const hasMedia = !!message.fileUrl;
 
   // Extract first URL from message body for link preview (supports bare domains)
-  const urlMatch = !hasMedia ? message.body.match(/(?:https?:\/\/|(?:www\.)|(?:[a-z0-9-]+\.(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)\b))[^\s]*/i) : null;
+  const urlMatch = !hasMedia ? message.body.match(/(?:https?:\/\/[^\s]+|(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)(?:\/[^\s]*)?)/i) : null;
   const linkUrl = urlMatch ? (urlMatch[0].match(/^https?:\/\//) ? urlMatch[0] : `https://${urlMatch[0]}`) : null;
   const [ogLoaded, setOgLoaded] = useState(false);
 

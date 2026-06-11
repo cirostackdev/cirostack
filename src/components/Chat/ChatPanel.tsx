@@ -102,7 +102,7 @@ export function ChatPanel({
   };
 
   // Detect URL in input for real-time preview (supports bare domains)
-  const inputUrlMatch = input.match(/(?:https?:\/\/|(?:www\.)|(?:[a-z0-9-]+\.(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)\b))[^\s]*/i);
+  const inputUrlMatch = input.match(/(?:https?:\/\/[^\s]+|(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)(?:\/[^\s]*)?)/i);
   const inputLinkUrl = inputUrlMatch ? (inputUrlMatch[0].match(/^https?:\/\//) ? inputUrlMatch[0] : `https://${inputUrlMatch[0]}`) : null;
 
 
