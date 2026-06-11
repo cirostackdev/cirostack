@@ -40,6 +40,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(unreadMap);
   const [filter, setFilter] = useState<"clients" | "visitors" | "closed">("clients");
   const [typingConvIds, setTypingConvIds] = useState<Set<string>>(new Set());
+  const [recordingConvIds, setRecordingConvIds] = useState<Set<string>>(new Set());
   const channelRef = useRef<Channel | null>(null);
   const pathname = usePathname();
 
@@ -79,6 +80,18 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
       setTypingConvIds((prev) => {
         const next = new Set(prev);
         if (typing) {
+          next.add(conversationId);
+        } else {
+          next.delete(conversationId);
+        }
+        return next;
+      });
+    });
+
+    channel.bind("visitor-recording-notification", ({ conversationId, recording }: { conversationId: string; recording: boolean }) => {
+      setRecordingConvIds((prev) => {
+        const next = new Set(prev);
+        if (recording) {
           next.add(conversationId);
         } else {
           next.delete(conversationId);
@@ -144,6 +157,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
           const unread = unreadCounts[conv.id] || 0;
           const lastMsg = conv.messages[0];
           const isTyping = typingConvIds.has(conv.id);
+          const isRecording = recordingConvIds.has(conv.id);
           const initials = conv.visitorName
             ? conv.visitorName.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
             : "?";
@@ -190,8 +204,8 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
                   </div>
                 </div>
 
-                <p className={`text-xs truncate ${isTyping ? "text-primary italic" : unread > 0 ? "text-foreground font-medium" : "text-muted-foreground"}`}>
-                  {isTyping ? "typing…" : lastMsg ? lastMsg.body : conv.topic || "No messages yet"}
+                <p className={`text-xs truncate ${isTyping || isRecording ? "text-primary italic" : unread > 0 ? "text-foreground font-medium" : "text-muted-foreground"}`}>
+                  {isTyping ? "typing…" : isRecording ? "recording…" : lastMsg ? lastMsg.body : conv.topic || "No messages yet"}
                 </p>
 
                 {conv.assignedTo && (

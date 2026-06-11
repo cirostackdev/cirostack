@@ -691,7 +691,16 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                     body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
                   });
                 }}
-                onStageChange={setRecording}
+                onStageChange={(active) => {
+                  setRecording(active);
+                  if (conversationIdRef.current) {
+                    fetch(`/api/chat/conversations/${conversationIdRef.current}/recording`, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ recording: active }),
+                    }).catch(() => {});
+                  }
+                }}
               />
             )}
           </div>

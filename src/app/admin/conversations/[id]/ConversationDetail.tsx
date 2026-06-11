@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { getPusher } from "@/lib/pusher-client";
 import type { Channel } from "pusher-js";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
+import { RecordingIndicator } from "@/components/Chat/RecordingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
@@ -297,6 +298,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [specialPicker, setSpecialPicker] = useState<SpecialPickType | null>(null);
   const [recording, setRecording] = useState(false);
   const [visitorTyping, setVisitorTyping] = useState(false);
+  const [visitorRecording, setVisitorRecording] = useState(false);
   const [status, setStatus] = useState(conversation.status);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [assignedTo, setAssignedTo] = useState(conversation.assignedTo);
@@ -376,7 +378,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       const el = scrollContainerRef.current;
       if (el) el.scrollTop = el.scrollHeight;
     }
-  }, [messages, visitorTyping]);
+  }, [messages, visitorTyping, visitorRecording]);
 
   // Subscribe to Pusher channel + claim conversation
   useEffect(() => {
@@ -390,6 +392,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     channelRef.current = channel;
 
     channel.bind("new-message", ({ message }: { message: Message }) => {
+      if (message.senderType === "visitor") { setVisitorTyping(false); setVisitorRecording(false); }
       setMessages((prev) => {
         if (prev.find((m) => m.id === message.id)) return prev;
         if (isScrolledUpRef.current && message.senderType === "visitor") {
@@ -401,6 +404,10 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
     channel.bind("visitor-typing", ({ typing }: { typing: boolean }) => {
       setVisitorTyping(typing);
+    });
+
+    channel.bind("visitor-recording", ({ recording }: { recording: boolean }) => {
+      setVisitorRecording(recording);
     });
 
     channel.bind("conversation-closed", () => {
@@ -689,6 +696,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
             );
           })}
 
+          {visitorRecording && !visitorTyping && <RecordingIndicator />}
           {visitorTyping && <TypingIndicator />}
           <div ref={bottomRef} />
 
@@ -785,7 +793,14 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                 <VoiceNoteButton
                   uploadEndpoint="/api/admin/chat-upload"
                   onSend={(file) => uploadAndSendFile(file)}
-                  onStageChange={setRecording}
+                  onStageChange={(active) => {
+                    setRecording(active);
+                    fetch(`/api/admin/conversations/${conversation.id}/recording`, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ recording: active }),
+                    }).catch(() => {});
+                  }}
                 />
               )}
             </div>

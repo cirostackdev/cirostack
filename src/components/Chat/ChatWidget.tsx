@@ -12,6 +12,7 @@ export function ChatWidget() {
     status,
     agentOnline,
     agentTyping,
+    agentRecording,
     conversationId,
     isOpen,
     showPreChat,
@@ -26,6 +27,7 @@ export function ChatWidget() {
     sendMessage,
     sendFile,
     sendTyping,
+    sendRecording,
     resetConversation,
   } = useChat();
 
@@ -93,12 +95,14 @@ export function ChatWidget() {
               <ChatPanel
                 messages={messages}
                 agentTyping={agentTyping}
+                agentRecording={agentRecording}
                 agentOnline={agentOnline}
                 isConnected={status === "connected"}
                 conversationId={conversationId}
                 onSendMessage={sendMessage}
                 onSendFile={(file) => sendFile(file, "/api/chat/upload")}
                 onSendTyping={sendTyping}
+                onSendRecording={sendRecording}
                 onReset={resetConversation}
                 replyTo={replyTo}
                 onClearReply={() => setReplyTo(null)}

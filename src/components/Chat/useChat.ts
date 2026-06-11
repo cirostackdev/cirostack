@@ -49,6 +49,7 @@ export function useChat() {
   const [status, setStatus] = useState<ChatStatus>("idle");
   const [agentOnline, setAgentOnline] = useState(false);
   const [agentTyping, setAgentTyping] = useState(false);
+  const [agentRecording, setAgentRecording] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showPreChat, setShowPreChat] = useState(false);
@@ -139,11 +140,15 @@ export function useChat() {
         }
         return [...prev, message];
       });
-      if (message.senderType === "agent") setAgentTyping(false);
+      if (message.senderType === "agent") { setAgentTyping(false); setAgentRecording(false); }
     });
 
     channel.bind("agent-typing", ({ typing }: { typing: boolean }) => {
       setAgentTyping(typing);
+    });
+
+    channel.bind("agent-recording", ({ recording }: { recording: boolean }) => {
+      setAgentRecording(recording);
     });
 
     channel.bind("conversation-closed", () => {
@@ -409,6 +414,18 @@ export function useChat() {
     [conversationId]
   );
 
+  const sendRecording = useCallback(
+    (recording: boolean) => {
+      if (!conversationId) return;
+      fetch(`/api/chat/conversations/${conversationId}/recording`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recording }),
+      }).catch(() => {});
+    },
+    [conversationId]
+  );
+
   const closeChat = useCallback(() => {
     setIsOpen(false);
     setShowPreChat(false);
@@ -443,6 +460,7 @@ export function useChat() {
     status,
     agentOnline,
     agentTyping,
+    agentRecording,
     conversationId,
     isOpen,
     showPreChat,
@@ -457,6 +475,7 @@ export function useChat() {
     sendMessage,
     sendFile,
     sendTyping,
+    sendRecording,
     resetConversation,
   };
 }

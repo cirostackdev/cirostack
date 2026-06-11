@@ -5,6 +5,7 @@ import { Send, MessageSquare, ChevronDown, X, Paperclip } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
 import { DateSeparator } from "./DateSeparator";
 import { TypingIndicator } from "./TypingIndicator";
+import { RecordingIndicator } from "./RecordingIndicator";
 import { LinkPreview } from "./LinkPreview";
 import { MediaPickerPopup } from "./MediaPickerPopup";
 import { VoiceNoteButton } from "./VoiceNoteButton";
@@ -15,12 +16,14 @@ import { ChevronDown as ChevronDownIcon } from "lucide-react";
 interface ChatPanelProps {
   messages: Msg[];
   agentTyping: boolean;
+  agentRecording?: boolean;
   agentOnline: boolean;
   isConnected: boolean;
   conversationId: string | null;
   onSendMessage: (body: string, opts?: { replyToId?: string; replyToBody?: string; replyToSender?: string }, fileUrl?: string) => void;
   onSendFile: (file: File) => void;
   onSendTyping: (typing: boolean) => void;
+  onSendRecording?: (recording: boolean) => void;
   onReset: () => void;
   replyTo?: Msg | null;
   onClearReply?: () => void;
@@ -33,12 +36,14 @@ interface ChatPanelProps {
 export function ChatPanel({
   messages,
   agentTyping,
+  agentRecording,
   agentOnline,
   isConnected,
   conversationId,
   onSendMessage,
   onSendFile,
   onSendTyping,
+  onSendRecording,
   onReset,
   replyTo,
   onClearReply,
@@ -60,7 +65,7 @@ export function ChatPanel({
       const el = scrollContainerRef.current;
       if (el) el.scrollTop = el.scrollHeight;
     }
-  }, [messages, agentTyping, showScrollBtn]);
+  }, [messages, agentTyping, agentRecording, showScrollBtn]);
 
   const handleScroll = () => {
     const el = scrollContainerRef.current;
@@ -173,6 +178,7 @@ export function ChatPanel({
           );
         })}
 
+        {agentRecording && !agentTyping && <RecordingIndicator />}
         {agentTyping && <TypingIndicator />}
         <div ref={bottomRef} />
 
@@ -273,7 +279,7 @@ export function ChatPanel({
                 uploadEndpoint="/api/chat/upload"
                 onSend={(file) => onSendFile(file)}
                 disabled={!isConnected}
-                onStageChange={setRecording}
+                onStageChange={(active) => { setRecording(active); onSendRecording?.(active); }}
               />
             )}
           </div>
