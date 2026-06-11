@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { MessageSquare, X } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { getPusher } from "@/lib/pusher-client";
 import type { Channel } from "pusher-js";
 import { PRESENCE } from "@/lib/colors";
@@ -38,8 +38,7 @@ interface Props {
 export function ConversationsClient({ initialConversations, unreadMap }: Props) {
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(unreadMap);
-  const [filter, setFilter] = useState<"open" | "closed" | "all">("open");
-  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<"clients" | "visitors" | "closed">("clients");
   const [typingConvIds, setTypingConvIds] = useState<Set<string>>(new Set());
   const channelRef = useRef<Channel | null>(null);
   const pathname = usePathname();
@@ -94,54 +93,37 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
     };
   }, []);
 
+  const isPortalClient = (c: Conversation) => (c.metadata as any)?.source === "portal";
+
   const filtered = conversations.filter((c) => {
-    const matchFilter = filter === "all" || c.status === filter;
-    if (!matchFilter) return false;
-    if (!search) return true;
-    const q = search.toLowerCase();
-    return (
-      (c.visitorName ?? "").toLowerCase().includes(q) ||
-      (c.visitorEmail ?? "").toLowerCase().includes(q) ||
-      (c.topic ?? "").toLowerCase().includes(q)
-    );
+    if (filter === "closed") return c.status === "closed";
+    if (filter === "clients") return c.status === "open" && isPortalClient(c);
+    // visitors: open conversations NOT from portal
+    return c.status === "open" && !isPortalClient(c);
   });
 
   return (
     <div className="flex flex-col h-full">
-      {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row gap-2 px-4 pt-4 pb-3 border-b border-border">
-        <div className="relative flex-1 max-w-xs">
-          <input
-            type="text"
-            placeholder="Search name, email or topic…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full h-8 text-sm pl-3 pr-8 rounded-lg bg-muted border border-border outline-none focus:ring-1 focus:ring-primary"
-          />
-          {search && (
-            <button className="absolute right-2 top-1/2 -translate-y-1/2" onClick={() => setSearch("")}>
-              <X className="w-3.5 h-3.5 text-muted-foreground" />
-            </button>
-          )}
-        </div>
-        <div className="flex gap-1.5">
-          {(["open", "closed", "all"] as const).map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-colors ${
-                filter === f
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {f}
-              <span className="ml-1.5 opacity-60">
-                ({conversations.filter((c) => f === "all" || c.status === f).length})
-              </span>
-            </button>
-          ))}
-        </div>
+      {/* Tabs */}
+      <div className="flex gap-1.5 px-4 pt-4 pb-3 border-b border-border">
+        {([
+          { key: "clients", label: "Clients", count: conversations.filter((c) => c.status === "open" && isPortalClient(c)).length },
+          { key: "visitors", label: "Visitors", count: conversations.filter((c) => c.status === "open" && !isPortalClient(c)).length },
+          { key: "closed", label: "Closed", count: conversations.filter((c) => c.status === "closed").length },
+        ] as const).map(({ key, label, count }) => (
+          <button
+            key={key}
+            onClick={() => setFilter(key)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              filter === key
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {label}
+            <span className="ml-1.5 opacity-60">({count})</span>
+          </button>
+        ))}
       </div>
 
       {/* List */}
@@ -153,7 +135,7 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
             </div>
             <p className="text-sm font-semibold text-foreground">No conversations</p>
             <p className="text-xs text-muted-foreground mt-1 max-w-xs">
-              {search ? "Try a different search term." : "Conversations will appear here when visitors start chatting."}
+              Conversations will appear here when visitors start chatting.
             </p>
           </div>
         )}

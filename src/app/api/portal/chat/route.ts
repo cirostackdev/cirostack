@@ -92,6 +92,7 @@ export async function PUT(req: Request) {
             visitorName: client?.name ?? null,
             visitorEmail: client?.email ?? null,
             topic: "Portal message",
+            metadata: { source: "portal" },
           },
         });
         convId = conv.id;
