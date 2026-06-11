@@ -13,6 +13,7 @@ function fmt(s: number) {
 
 function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boolean }) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const probingRef = useRef(false); // tracks whether the 1e9 probe seek is in progress
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -20,31 +21,30 @@ function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boo
   useEffect(() => {
     const el = audioRef.current;
     if (!el) return;
-    const onTime = () => setCurrent(el.currentTime);
-    const onDuration = () => { if (isFinite(el.duration)) setDuration(el.duration); };
+    const onTime = () => { if (!probingRef.current) setCurrent(el.currentTime); };
     const onEnd = () => { setPlaying(false); setCurrent(0); el.currentTime = 0; };
     const onMeta = () => {
       if (isFinite(el.duration)) {
         setDuration(el.duration);
       } else {
-        // MediaRecorder webm has no duration header — seek to end to force the browser to calculate it
+        // MediaRecorder webm has no duration header — one-shot probe seek to force calculation
+        probingRef.current = true;
         el.currentTime = 1e9;
       }
     };
     const onSeeked = () => {
-      if (!isFinite(el.duration)) return;
-      setDuration(el.duration);
-      el.currentTime = 0; // reset to start after probe seek
+      if (!probingRef.current) return; // only act on the probe seek, ignore user seeks
+      probingRef.current = false;
+      if (isFinite(el.duration)) setDuration(el.duration);
+      el.currentTime = 0; // reset to start — this seeked event is NOT probing so it's ignored above
     };
     el.addEventListener("timeupdate", onTime);
     el.addEventListener("loadedmetadata", onMeta);
-    el.addEventListener("durationchange", onDuration);
     el.addEventListener("seeked", onSeeked);
     el.addEventListener("ended", onEnd);
     return () => {
       el.removeEventListener("timeupdate", onTime);
       el.removeEventListener("loadedmetadata", onMeta);
-      el.removeEventListener("durationchange", onDuration);
       el.removeEventListener("seeked", onSeeked);
       el.removeEventListener("ended", onEnd);
     };
