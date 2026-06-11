@@ -39,6 +39,10 @@ interface Message {
   replyToSender?: string | null;
   reactions?: Record<string, string[]> | null;
   createdAt: string;
+  // Client-only optimistic fields
+  status?: "sending" | "sent" | "failed" | "uploading";
+  uploadProgress?: number;
+  fileType?: string;
 }
 
 const VISITOR_TTL_MS = 2 * 60 * 1000;
@@ -237,7 +241,7 @@ function MessageBubble({
 
           {msg.fileUrl ? (
             <div>
-              <MediaBubble fileUrl={msg.fileUrl} fileName={msg.body} isSender={isAgent} />
+              <MediaBubble fileUrl={msg.fileUrl} fileName={msg.body} isSender={isAgent} fileType={msg.fileType} uploadProgress={msg.uploadProgress} />
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
                 {time}{readReceipt}
               </p>
@@ -395,6 +399,15 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       if (message.senderType === "visitor") { setVisitorTyping(false); setVisitorRecording(false); }
       setMessages((prev) => {
         if (prev.find((m) => m.id === message.id)) return prev;
+        // Reconcile optimistic message from admin
+        const optimisticIdx = prev.findIndex(
+          (m) => m.id.startsWith("opt-") && m.body === message.body && m.senderType === message.senderType
+        );
+        if (optimisticIdx !== -1) {
+          const updated = [...prev];
+          updated[optimisticIdx] = { ...message, status: "sent" };
+          return updated;
+        }
         if (isScrolledUpRef.current && message.senderType === "visitor") {
           setUnreadWhileScrolled((n) => n + 1);
         }
@@ -513,16 +526,60 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   }
 
   async function uploadAndSendFile(file: File) {
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/admin/chat-upload", { method: "POST", body: formData });
-    if (!res.ok) { toast.error("Upload failed"); return; }
-    const { url, name } = await res.json();
-    await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ body: name, fileUrl: url }),
-    });
+    const localUrl = URL.createObjectURL(file);
+    const optId = `opt-${Date.now()}`;
+    const optimistic: Message = {
+      id: optId,
+      senderType: "agent",
+      senderName: null,
+      body: file.name,
+      fileUrl: localUrl,
+      fileType: file.type,
+      read: true,
+      createdAt: new Date().toISOString(),
+      status: "uploading",
+      uploadProgress: 0,
+    };
+    setMessages((prev) => [...prev, optimistic]);
+
+    try {
+      const remoteUrl = await new Promise<string>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/admin/chat-upload");
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            const pct = Math.round((e.loaded / e.total) * 100);
+            setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, uploadProgress: pct } : m));
+          }
+        };
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            const data = JSON.parse(xhr.responseText);
+            resolve(data.url);
+          } else reject(new Error("Upload failed"));
+        };
+        xhr.onerror = () => reject(new Error("Upload failed"));
+        const fd = new FormData();
+        fd.append("file", file);
+        xhr.send(fd);
+      });
+
+      setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, fileUrl: remoteUrl, status: "sending", uploadProgress: undefined } : m));
+      URL.revokeObjectURL(localUrl);
+
+      const res = await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body: file.name, fileUrl: remoteUrl }),
+      });
+      if (!res.ok) {
+        setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, status: "failed" } : m));
+      }
+    } catch {
+      URL.revokeObjectURL(localUrl);
+      setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, status: "failed", uploadProgress: undefined } : m));
+      toast.error("Upload failed");
+    }
   }
 
   async function deleteMessage(msgId: string) {

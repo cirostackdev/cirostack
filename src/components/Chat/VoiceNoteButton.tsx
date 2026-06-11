@@ -210,13 +210,13 @@ export function VoiceNoteButton({ onSend, disabled, onStageChange }: VoiceNoteBu
     return (
       <div className="flex items-center gap-2 flex-1">
         {/* Animated waveform */}
-        <div className="flex-1 flex items-center gap-1 bg-red-500/10 border border-red-500/30 rounded-full px-4 h-11">
-          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shrink-0" />
+        <div className="flex-1 flex items-center gap-1 bg-green-500/10 border border-green-500/20 rounded-full px-4 h-11">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shrink-0" />
           <div className="flex items-end gap-[3px] flex-1 justify-center h-5">
             {[...Array(16)].map((_, i) => (
               <span
                 key={i}
-                className="w-[3px] rounded-full bg-red-400 opacity-80"
+                className="w-[3px] rounded-full bg-green-600 dark:bg-green-400 opacity-80"
                 style={{
                   height: "100%",
                   animation: `voiceBar 0.8s ease-in-out ${(i * 0.05).toFixed(2)}s infinite alternate`,
@@ -225,12 +225,12 @@ export function VoiceNoteButton({ onSend, disabled, onStageChange }: VoiceNoteBu
               />
             ))}
           </div>
-          <span className="text-xs font-mono text-red-500 shrink-0 tabular-nums">{timer.fmt}</span>
+          <span className="text-xs font-mono text-green-600 dark:text-green-400 shrink-0 tabular-nums">{timer.fmt}</span>
         </div>
         <button
           type="button"
           onClick={stopRecording}
-          className="w-11 h-11 bg-red-500 text-white rounded-full flex items-center justify-center shrink-0 hover:bg-red-600 transition-colors"
+          className="w-11 h-11 bg-green-600 text-white rounded-full flex items-center justify-center shrink-0 hover:bg-green-700 transition-colors"
           title="Stop recording"
         >
           <Square className="w-4 h-4 fill-white" />

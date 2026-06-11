@@ -31,7 +31,9 @@ interface Message {
   reactions?: Record<string, string[]> | null;
   createdAt: string;
   // client-only
-  status?: "sending" | "sent" | "failed";
+  status?: "sending" | "sent" | "failed" | "uploading";
+  uploadProgress?: number;
+  fileType?: string;
 }
 
 interface Conversation {
@@ -189,7 +191,7 @@ function Bubble({
 
           {hasMedia ? (
             <div>
-              <MediaBubble fileUrl={msg.fileUrl!} fileName={msg.body} isSender={!isAgent} />
+              <MediaBubble fileUrl={msg.fileUrl!} fileName={msg.body} isSender={!isAgent} fileType={msg.fileType} uploadProgress={msg.uploadProgress} />
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-start" : "justify-end"}`}>
                 {time}{statusIcon}
               </p>
@@ -406,6 +408,64 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     inputRef.current?.focus();
   };
 
+
+  const uploadAndSendFile = async (file: File) => {
+    const localUrl = URL.createObjectURL(file);
+    const optId = `opt-${Date.now()}`;
+    const optimistic: Message = {
+      id: optId,
+      conversationId: conversationIdRef.current || "",
+      senderType: "visitor",
+      body: file.name,
+      fileUrl: localUrl,
+      fileType: file.type,
+      read: false,
+      createdAt: new Date().toISOString(),
+      status: "uploading",
+      uploadProgress: 0,
+    };
+    setMessages((prev) => [...prev, optimistic]);
+
+    try {
+      const remoteUrl = await new Promise<string>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/portal/chat/upload");
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            const pct = Math.round((e.loaded / e.total) * 100);
+            setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, uploadProgress: pct } : m));
+          }
+        };
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(JSON.parse(xhr.responseText).url);
+          } else reject(new Error("Upload failed"));
+        };
+        xhr.onerror = () => reject(new Error("Upload failed"));
+        const fd = new FormData();
+        fd.append("file", file);
+        xhr.send(fd);
+      });
+
+      setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, fileUrl: remoteUrl, status: "sending", uploadProgress: undefined } : m));
+      URL.revokeObjectURL(localUrl);
+
+      const res = await fetch("/api/portal/chat", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body: file.name, fileUrl: remoteUrl, conversationId: conversationIdRef.current }),
+      });
+      if (res.ok) {
+        const { message } = await res.json();
+        setMessages((prev) => prev.map((m) => m.id === optId ? { ...message, status: "sent" } : m));
+      } else {
+        setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, status: "failed" } : m));
+      }
+    } catch {
+      URL.revokeObjectURL(localUrl);
+      setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, status: "failed", uploadProgress: undefined } : m));
+    }
+  };
 
   const startNewConversation = async () => {
     if (conversationIdRef.current && conversation?.status === "open") {
@@ -639,19 +699,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                   {showPicker && (
                     <MediaPickerPopup
                       variant="portal"
-                      onPick={async (file) => {
-                        setShowPicker(false);
-                        const fd = new FormData();
-                        fd.append("file", file);
-                        const res = await fetch("/api/portal/chat/upload", { method: "POST", body: fd });
-                        if (!res.ok) return;
-                        const { url, name } = await res.json();
-                        fetch("/api/portal/chat", {
-                          method: "PUT",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
-                        });
-                      }}
+                      onPick={(file) => { setShowPicker(false); uploadAndSendFile(file); }}
                       onClose={() => setShowPicker(false)}
                     />
                   )}
@@ -679,18 +727,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
             ) : (
               <VoiceNoteButton
                 uploadEndpoint="/api/portal/chat/upload"
-                onSend={async (file) => {
-                  const fd = new FormData();
-                  fd.append("file", file);
-                  const res = await fetch("/api/portal/chat/upload", { method: "POST", body: fd });
-                  if (!res.ok) return;
-                  const { url, name } = await res.json();
-                  fetch("/api/portal/chat", {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
-                  });
-                }}
+                onSend={(file) => uploadAndSendFile(file)}
                 onStageChange={(active) => {
                   setRecording(active);
                   if (conversationIdRef.current) {
