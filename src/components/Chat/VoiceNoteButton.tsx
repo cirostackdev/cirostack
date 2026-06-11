@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Mic, Square, Send, Trash2, Loader2 } from "lucide-react";
+import { Mic, Square, Send, Trash2, Loader2, Play, Pause } from "lucide-react";
 import { toast } from "sonner";
 
 type Stage = "idle" | "recording" | "preview" | "uploading";
@@ -26,6 +26,93 @@ function useTimer() {
   const reset = () => { stop(); setSeconds(0); };
   const fmt = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
   return { seconds, fmt, start, stop, reset };
+}
+
+function fmtSecs(s: number) {
+  if (!isFinite(s) || isNaN(s)) return "--:--";
+  return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+}
+
+function PreviewPlayer({ audioUrl, onDiscard, onSend }: { audioUrl: string; onDiscard: () => void; onSend: () => void }) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const probingRef = useRef(false);
+  const [playing, setPlaying] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  useEffect(() => {
+    const el = audioRef.current;
+    if (!el) return;
+    const onTime = () => { if (!probingRef.current) setCurrent(el.currentTime); };
+    const onEnd = () => { setPlaying(false); setCurrent(0); el.currentTime = 0; };
+    const onMeta = () => {
+      if (isFinite(el.duration)) { setDuration(el.duration); }
+      else { probingRef.current = true; el.currentTime = 1e9; }
+    };
+    const onSeeked = () => {
+      if (!probingRef.current) return;
+      probingRef.current = false;
+      if (isFinite(el.duration)) setDuration(el.duration);
+      el.currentTime = 0;
+    };
+    el.addEventListener("timeupdate", onTime);
+    el.addEventListener("loadedmetadata", onMeta);
+    el.addEventListener("seeked", onSeeked);
+    el.addEventListener("ended", onEnd);
+    return () => {
+      el.removeEventListener("timeupdate", onTime);
+      el.removeEventListener("loadedmetadata", onMeta);
+      el.removeEventListener("seeked", onSeeked);
+      el.removeEventListener("ended", onEnd);
+    };
+  }, []);
+
+  const toggle = () => {
+    const el = audioRef.current;
+    if (!el) return;
+    if (playing) { el.pause(); setPlaying(false); }
+    else { el.play(); setPlaying(true); }
+  };
+
+  const displayTime = duration > 0 ? fmtSecs(duration - current) : "--:--";
+
+  return (
+    <div className="flex items-center gap-1.5 flex-1 min-w-0">
+      <audio ref={audioRef} src={audioUrl} preload="metadata" className="hidden" />
+
+      {/* Discard */}
+      <button type="button" onClick={onDiscard}
+        className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors shrink-0">
+        <Trash2 className="w-3.5 h-3.5" />
+      </button>
+
+      {/* Waveform pill */}
+      <div className="flex-1 flex items-center gap-2 bg-muted/50 border border-border rounded-full px-2.5 h-11 min-w-0">
+        <button type="button" onClick={toggle}
+          className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center shrink-0 hover:opacity-80 transition-opacity">
+          {playing ? <Pause className="w-3 h-3 fill-current text-primary" /> : <Play className="w-3 h-3 fill-current text-primary ml-0.5" />}
+        </button>
+        <div className="flex items-end gap-[2px] flex-1 h-5">
+          {[...Array(16)].map((_, i) => (
+            <span key={i} className="flex-1 rounded-full bg-primary opacity-60"
+              style={{
+                height: "100%",
+                transformOrigin: "bottom",
+                animation: playing ? `voiceBar 0.8s ease-in-out ${(i * 0.05).toFixed(2)}s infinite alternate` : "none",
+                transform: playing ? undefined : `scaleY(${0.15 + (Math.sin(i * 0.8) * 0.5 + 0.5) * 0.85})`,
+              }} />
+          ))}
+        </div>
+        <span className="text-[10px] font-mono tabular-nums text-muted-foreground shrink-0">{displayTime}</span>
+      </div>
+
+      {/* Send */}
+      <button type="button" onClick={onSend}
+        className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 hover:opacity-90 transition-opacity">
+        <Send className="w-4 h-4" />
+      </button>
+    </div>
+  );
 }
 
 export function VoiceNoteButton({ onSend, disabled, onStageChange }: VoiceNoteButtonProps) {
@@ -154,29 +241,7 @@ export function VoiceNoteButton({ onSend, disabled, onStageChange }: VoiceNoteBu
 
   // ----- PREVIEW -----
   if (stage === "preview") {
-    return (
-      <div className="flex items-center gap-2 flex-1">
-        <div className="flex-1 flex items-center gap-2 bg-muted/50 border border-border rounded-full px-3 h-11">
-          <audio src={audioUrl!} controls className="flex-1 h-7" style={{ minWidth: 0 }} />
-        </div>
-        <button
-          type="button"
-          onClick={discard}
-          className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors shrink-0"
-          title="Discard"
-        >
-          <Trash2 className="w-4 h-4" />
-        </button>
-        <button
-          type="button"
-          onClick={send}
-          className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 hover:opacity-90 transition-opacity"
-          title="Send voice note"
-        >
-          <Send className="w-4 h-4" />
-        </button>
-      </div>
-    );
+    return <PreviewPlayer audioUrl={audioUrl!} onDiscard={discard} onSend={send} />;
   }
 
   // uploading
