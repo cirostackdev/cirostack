@@ -44,10 +44,15 @@ export function MediaBubble({ fileUrl, fileName, fileType, isSender, uploadProgr
   };
 
   const isImage = fileType?.startsWith("image/") || /\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/i.test(fileUrl);
-  const isVideo = fileType?.startsWith("video/") || /\.(mp4|webm|ogg|mov|quicktime)(\?|$)/i.test(fileUrl) ||
-    fileUrl.includes("video/");
-  const isAudio = fileType?.startsWith("audio/") || /\.(mp3|mp4a|ogg|wav|webm|aac|m4a)(\?|$)/i.test(fileUrl) ||
+  const isAudio = fileType?.startsWith("audio/") ||
+    fileName?.startsWith("voice-note-") ||
+    /\.(mp3|mp4a|wav|aac|m4a)(\?|$)/i.test(fileUrl) ||
     fileUrl.includes("audio/");
+  const isVideo = !isAudio && (
+    fileType?.startsWith("video/") ||
+    /\.(mp4|webm|ogg|mov|quicktime)(\?|$)/i.test(fileUrl) ||
+    fileUrl.includes("video/")
+  );
 
   const senderBg = "bg-green-500/10";
   const receivedBg = "bg-muted/60 shadow-[0_2px_10px_rgba(0,0,0,0.06)]";
@@ -55,6 +60,21 @@ export function MediaBubble({ fileUrl, fileName, fileType, isSender, uploadProgr
   const roundSender = "rounded-tr-md";
   const roundReceived = "rounded-tl-md";
   const round = isSender ? roundSender : roundReceived;
+
+  if (isAudio) {
+    return (
+      <div className={`px-3 py-2.5 rounded-2xl ${bg} ${round} w-[240px] relative`}>
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+            <Music className="w-4 h-4 text-primary" />
+          </div>
+          <p className="text-xs font-medium truncate flex-1">{fileName || "Audio"}</p>
+        </div>
+        <audio src={fileUrl} controls preload="metadata" className="w-full h-8" />
+        {uploadProgress != null && <UploadOverlay progress={uploadProgress} />}
+      </div>
+    );
+  }
 
   if (isImage) {
     return (
@@ -98,21 +118,6 @@ export function MediaBubble({ fileUrl, fileName, fileType, isSender, uploadProgr
           {fileName && <p className="text-[10px] opacity-50 mt-1 truncate">{fileName}</p>}
         </div>
       </>
-    );
-  }
-
-  if (isAudio) {
-    return (
-      <div className={`px-3 py-2.5 rounded-2xl ${bg} ${round} w-[240px] relative`}>
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-            <Music className="w-4 h-4 text-primary" />
-          </div>
-          <p className="text-xs font-medium truncate flex-1">{fileName || "Audio"}</p>
-        </div>
-        <audio src={fileUrl} controls preload="metadata" className="w-full h-8" />
-        {uploadProgress != null && <UploadOverlay progress={uploadProgress} />}
-      </div>
     );
   }
 
