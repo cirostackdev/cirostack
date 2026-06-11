@@ -21,14 +21,31 @@ function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boo
     const el = audioRef.current;
     if (!el) return;
     const onTime = () => setCurrent(el.currentTime);
-    const onMeta = () => setDuration(el.duration || 0);
-    const onEnd = () => setPlaying(false);
+    const onDuration = () => { if (isFinite(el.duration)) setDuration(el.duration); };
+    const onEnd = () => { setPlaying(false); setCurrent(0); el.currentTime = 0; };
+    const onMeta = () => {
+      if (isFinite(el.duration)) {
+        setDuration(el.duration);
+      } else {
+        // MediaRecorder webm has no duration header — seek to end to force the browser to calculate it
+        el.currentTime = 1e9;
+      }
+    };
+    const onSeeked = () => {
+      if (!isFinite(el.duration)) return;
+      setDuration(el.duration);
+      el.currentTime = 0; // reset to start after probe seek
+    };
     el.addEventListener("timeupdate", onTime);
     el.addEventListener("loadedmetadata", onMeta);
+    el.addEventListener("durationchange", onDuration);
+    el.addEventListener("seeked", onSeeked);
     el.addEventListener("ended", onEnd);
     return () => {
       el.removeEventListener("timeupdate", onTime);
       el.removeEventListener("loadedmetadata", onMeta);
+      el.removeEventListener("durationchange", onDuration);
+      el.removeEventListener("seeked", onSeeked);
       el.removeEventListener("ended", onEnd);
     };
   }, []);
