@@ -32,13 +32,25 @@ export async function GET(req: Request) {
       return match?.[1] || match?.[2] || null;
     };
 
+    const decodeEntities = (str: string | null): string | null => {
+      if (!str) return null;
+      return str
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#039;/g, "'")
+        .replace(/&#x27;/g, "'")
+        .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
+    };
+
     const titleMatch = html.match(/<title[^>]*>([^<]*)<\/title>/i);
 
     const og = {
-      title: getMetaContent("og:title") || getMetaContent("twitter:title") || titleMatch?.[1]?.trim() || null,
-      description: getMetaContent("og:description") || getMetaContent("twitter:description") || getMetaContent("description") || null,
+      title: decodeEntities(getMetaContent("og:title") || getMetaContent("twitter:title") || titleMatch?.[1]?.trim() || null),
+      description: decodeEntities(getMetaContent("og:description") || getMetaContent("twitter:description") || getMetaContent("description") || null),
       image: getMetaContent("og:image") || getMetaContent("twitter:image") || null,
-      siteName: getMetaContent("og:site_name") || null,
+      siteName: decodeEntities(getMetaContent("og:site_name") || null),
       url,
     };
 
