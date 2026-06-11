@@ -5,6 +5,7 @@ import { FileText, Music, Video, File, Play, Pause } from "lucide-react";
 import { ImageLightbox } from "./ImageLightbox";
 
 function fmt(s: number) {
+  if (!isFinite(s) || isNaN(s)) return "--:--";
   const m = Math.floor(s / 60);
   const sec = Math.floor(s % 60);
   return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
@@ -77,7 +78,7 @@ function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boo
 
       {/* Timer */}
       <span className="text-[10px] font-mono tabular-nums opacity-60 shrink-0 w-9 text-right">
-        {playing || current > 0 ? fmt(current) : fmt(duration)}
+        {playing || current > 0 ? fmt(current) : (isFinite(duration) && duration > 0 ? fmt(duration) : "--:--")}
       </span>
     </div>
   );
