@@ -1,8 +1,87 @@
 "use client";
 
-import { useState } from "react";
-import { FileText, Music, Video, File, Play } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { FileText, Music, Video, File, Play, Pause } from "lucide-react";
 import { ImageLightbox } from "./ImageLightbox";
+
+function fmt(s: number) {
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+}
+
+function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boolean }) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  useEffect(() => {
+    const el = audioRef.current;
+    if (!el) return;
+    const onTime = () => setCurrent(el.currentTime);
+    const onMeta = () => setDuration(el.duration || 0);
+    const onEnd = () => setPlaying(false);
+    el.addEventListener("timeupdate", onTime);
+    el.addEventListener("loadedmetadata", onMeta);
+    el.addEventListener("ended", onEnd);
+    return () => {
+      el.removeEventListener("timeupdate", onTime);
+      el.removeEventListener("loadedmetadata", onMeta);
+      el.removeEventListener("ended", onEnd);
+    };
+  }, []);
+
+  const toggle = () => {
+    const el = audioRef.current;
+    if (!el) return;
+    if (playing) { el.pause(); setPlaying(false); }
+    else { el.play(); setPlaying(true); }
+  };
+
+  const accent = isSender ? "bg-green-500/20" : "bg-primary/20";
+  const barColor = isSender ? "bg-green-600 dark:bg-green-400" : "bg-primary";
+
+  return (
+    <div className="flex items-center gap-2.5 w-[220px]">
+      <audio ref={audioRef} src={fileUrl} preload="metadata" className="hidden" />
+
+      {/* Play/Pause button */}
+      <button
+        type="button"
+        onClick={toggle}
+        className={`w-9 h-9 rounded-full ${accent} flex items-center justify-center shrink-0 hover:opacity-80 transition-opacity`}
+      >
+        {playing
+          ? <Pause className="w-3.5 h-3.5 fill-current" />
+          : <Play className="w-3.5 h-3.5 fill-current ml-0.5" />}
+      </button>
+
+      {/* Waveform bars */}
+      <div className="flex items-end gap-[2px] flex-1 h-7">
+        {[...Array(20)].map((_, i) => (
+          <span
+            key={i}
+            className={`flex-1 rounded-full ${barColor} opacity-75`}
+            style={{
+              height: "100%",
+              transformOrigin: "bottom",
+              animation: playing
+                ? `voiceBar 0.8s ease-in-out ${(i * 0.04).toFixed(2)}s infinite alternate`
+                : "none",
+              transform: playing ? undefined : `scaleY(${0.15 + (Math.sin(i * 0.8) * 0.5 + 0.5) * 0.85})`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Timer */}
+      <span className="text-[10px] font-mono tabular-nums opacity-60 shrink-0 w-9 text-right">
+        {playing || current > 0 ? fmt(current) : fmt(duration)}
+      </span>
+    </div>
+  );
+}
 
 interface MediaBubbleProps {
   fileUrl: string;
@@ -63,14 +142,8 @@ export function MediaBubble({ fileUrl, fileName, fileType, isSender, uploadProgr
 
   if (isAudio) {
     return (
-      <div className={`px-3 py-2.5 rounded-2xl ${bg} ${round} w-[240px] relative`}>
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-            <Music className="w-4 h-4 text-primary" />
-          </div>
-          <p className="text-xs font-medium truncate flex-1">{fileName || "Audio"}</p>
-        </div>
-        <audio src={fileUrl} controls preload="metadata" className="w-full h-8" />
+      <div className={`px-3 py-2.5 rounded-2xl ${bg} ${round} relative`}>
+        <AudioWavePlayer fileUrl={fileUrl} isSender={isSender} />
         {uploadProgress != null && <UploadOverlay progress={uploadProgress} />}
       </div>
     );
