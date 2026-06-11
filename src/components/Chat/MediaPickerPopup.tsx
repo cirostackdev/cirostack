@@ -88,7 +88,7 @@ export function MediaPickerPopup({ onPick, onSpecialPick, onClose, variant = "vi
   return (
     <div
       ref={popupRef}
-      className="absolute bottom-full mb-3 left-2 z-50 bg-background border border-border rounded-2xl shadow-xl p-3 animate-in fade-in slide-in-from-bottom-2 duration-150"
+      className="absolute bottom-full mb-3 right-0 z-50 bg-background border border-border rounded-2xl shadow-xl p-3 animate-in fade-in slide-in-from-bottom-2 duration-150"
       style={{ width: variant === "admin" ? 220 : 172 }}
     >
       <div className="grid grid-cols-3 gap-2">
