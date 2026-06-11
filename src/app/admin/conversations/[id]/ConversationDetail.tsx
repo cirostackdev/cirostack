@@ -682,6 +682,16 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
           </div>
         )}
 
+        {/* Real-time link preview */}
+        {(() => {
+          const liveUrl = input.match(/https?:\/\/[^\s]+/)?.[0];
+          return liveUrl ? (
+            <div className="px-3 pt-2 border-t border-border/40">
+              <LinkPreview url={liveUrl} isSender={true} />
+            </div>
+          ) : null;
+        })()}
+
         {/* Input */}
         {status === "open" ? (
           <div className="border-t border-border px-3 py-3" style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}>
