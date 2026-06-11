@@ -93,9 +93,9 @@ function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boo
         ))}
       </div>
 
-      {/* Timer */}
+      {/* Timer — shows total at rest, counts down during playback */}
       <span className="text-[10px] font-mono tabular-nums opacity-60 shrink-0 w-9 text-right">
-        {playing || current > 0 ? fmt(current) : (isFinite(duration) && duration > 0 ? fmt(duration) : "--:--")}
+        {isFinite(duration) && duration > 0 ? fmt(duration - current) : "--:--"}
       </span>
     </div>
   );
