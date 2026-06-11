@@ -85,11 +85,7 @@ function CatalogCard({ data }: { data: CatalogPayload }) {
   return (
     <div className="w-full min-w-[220px] max-w-[300px]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-base">📁</span>
         <span className="text-sm font-semibold">Portfolio Catalog</span>
-        <span className="ml-auto text-[10px] bg-violet-500/15 text-violet-500 font-semibold px-2 py-0.5 rounded-full">
-          {data.projects.length} project{data.projects.length !== 1 ? "s" : ""}
-        </span>
       </div>
       <div className="space-y-2">
         {data.projects.map((p, i) => (
@@ -134,7 +130,6 @@ function ContactCard({ data }: { data: ContactPayload }) {
   return (
     <div className="w-full min-w-[200px] max-w-[280px]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-base">📇</span>
         <span className="text-sm font-semibold">Contact Info</span>
       </div>
 
@@ -187,11 +182,7 @@ function EventCard({ data }: { data: EventPayload }) {
   return (
     <div className="w-full min-w-[220px] max-w-[300px]">
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-base">🗓</span>
         <span className="text-sm font-semibold">Events</span>
-        <span className="ml-auto text-[10px] bg-orange-500/15 text-orange-500 font-semibold px-2 py-0.5 rounded-full">
-          {data.events.length}
-        </span>
       </div>
       <div className="space-y-2">
         {data.events.map((e, i) => {
