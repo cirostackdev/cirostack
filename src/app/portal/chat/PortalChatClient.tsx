@@ -88,6 +88,8 @@ function Bubble({
 
   const hasMedia = !!msg.fileUrl;
   const linkUrl = !hasMedia ? msg.body.match(/https?:\/\/[^\s]+/)?.[0] || null : null;
+  const [ogLoaded, setOgLoaded] = useState(false);
+  const bodyWithoutUrl = linkUrl ? msg.body.replace(linkUrl, "").trim() : msg.body;
 
   const reactions = msg.reactions as Record<string, string[]> | null | undefined;
 
@@ -197,8 +199,13 @@ function Bubble({
               {msg.replyToBody && (
                 <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} />
               )}
-              <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{msg.body}</p>
-              {linkUrl && <LinkPreview url={linkUrl} isSender={!isAgent} />}
+              {(!linkUrl || !ogLoaded) && (
+                <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{msg.body}</p>
+              )}
+              {linkUrl && <LinkPreview url={linkUrl} isSender={!isAgent} onLoaded={setOgLoaded} />}
+              {linkUrl && ogLoaded && bodyWithoutUrl && (
+                <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{bodyWithoutUrl}</p>
+              )}
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-start" : "justify-end"}`}>
                 {time}
                 {statusIcon}

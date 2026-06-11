@@ -5,6 +5,7 @@ import { Send, MessageSquare, ChevronDown, X, Paperclip } from "lucide-react";
 import { ChatMessage } from "./ChatMessage";
 import { DateSeparator } from "./DateSeparator";
 import { TypingIndicator } from "./TypingIndicator";
+import { LinkPreview } from "./LinkPreview";
 import type { ChatMessage as Msg } from "./useChat";
 import { isSameDay } from "date-fns";
 import { ChevronDown as ChevronDownIcon } from "lucide-react";
@@ -99,6 +100,10 @@ export function ChatPanel({
     setInput(e.target.value);
     onSendTyping(e.target.value.length > 0);
   };
+
+  // Detect URL in input for real-time preview
+  const inputUrlMatch = input.match(/https?:\/\/[^\s]+/);
+  const inputLinkUrl = inputUrlMatch?.[0] || null;
 
 
   const showOfflineForm = (!agentOnline && !conversationId) || isConnected === false && !conversationId;
@@ -197,6 +202,13 @@ export function ChatPanel({
           <button onClick={onClearReply} className="shrink-0 text-muted-foreground hover:text-foreground">
             <X className="w-3.5 h-3.5" />
           </button>
+        </div>
+      )}
+
+      {/* Real-time link preview */}
+      {inputLinkUrl && (
+        <div className="px-3 pt-2">
+          <LinkPreview url={inputLinkUrl} isSender={true} />
         </div>
       )}
 

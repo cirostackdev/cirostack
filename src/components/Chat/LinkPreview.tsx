@@ -13,14 +13,22 @@ interface OgData {
 
 const cache = new Map<string, OgData | null>();
 
-export function LinkPreview({ url, isSender }: { url: string; isSender: boolean }) {
+interface LinkPreviewProps {
+  url: string;
+  isSender: boolean;
+  onLoaded?: (hasPreview: boolean) => void;
+}
+
+export function LinkPreview({ url, isSender, onLoaded }: LinkPreviewProps) {
   const [og, setOg] = useState<OgData | null>(cache.get(url) ?? null);
   const [loading, setLoading] = useState(!cache.has(url));
 
   useEffect(() => {
     if (cache.has(url)) {
-      setOg(cache.get(url)!);
+      const data = cache.get(url)!;
+      setOg(data);
       setLoading(false);
+      onLoaded?.(!!data && !!(data.title || data.image));
       return;
     }
 
@@ -32,11 +40,13 @@ export function LinkPreview({ url, isSender }: { url: string; isSender: boolean 
         cache.set(url, data);
         setOg(data);
         setLoading(false);
+        onLoaded?.(!!data && !!(data.title || data.image));
       })
       .catch(() => {
         if (!cancelled) {
           cache.set(url, null);
           setLoading(false);
+          onLoaded?.(false);
         }
       });
 

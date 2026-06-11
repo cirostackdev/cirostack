@@ -59,6 +59,10 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
   // Extract first URL from message body for link preview
   const urlMatch = !hasMedia ? message.body.match(/https?:\/\/[^\s]+/) : null;
   const linkUrl = urlMatch?.[0] || null;
+  const [ogLoaded, setOgLoaded] = useState(false);
+
+  // Text with URL removed (shown below preview when OG loads)
+  const bodyWithoutUrl = linkUrl ? message.body.replace(linkUrl, "").trim() : message.body;
 
   const reactions = message.reactions as Record<string, string[]> | null | undefined;
 
@@ -194,8 +198,13 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
                   body={message.replyToBody}
                 />
               )}
-              <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{message.body}</p>
-              {linkUrl && <LinkPreview url={linkUrl} isSender={isVisitor} />}
+              {(!linkUrl || !ogLoaded) && (
+                <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{message.body}</p>
+              )}
+              {linkUrl && <LinkPreview url={linkUrl} isSender={isVisitor} onLoaded={setOgLoaded} />}
+              {linkUrl && ogLoaded && bodyWithoutUrl && (
+                <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{bodyWithoutUrl}</p>
+              )}
               <p className={`text-[10px] mt-1 opacity-60 flex items-center gap-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
                 {time}
                 {statusIcon}
