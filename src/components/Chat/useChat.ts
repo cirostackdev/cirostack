@@ -55,27 +55,49 @@ export function useChat() {
   const [showPreChat, setShowPreChat] = useState(false);
   const [replyTo, setReplyTo] = useState<ChatMessage | null>(null);
   const channelRef = useRef<Channel | null>(null);
+  const agentStatusChannelRef = useRef<Channel | null>(null);
+  const agentOfflineTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const convIdRef = useRef<string | null>(null);
   // Track messages received while scrolled away
   const [unreadWhileScrolled, setUnreadWhileScrolled] = useState(0);
   const isScrolledUpRef = useRef(false);
 
-  // Poll online status every 30 seconds
+  // Agent online status via Pusher — one-time REST check + realtime heartbeat events
   useEffect(() => {
-    const checkOnline = async () => {
-      try {
-        const res = await fetch("/api/chat/status");
-        const data = await res.json();
-        setAgentOnline(data.online);
-      } catch {
-        setAgentOnline(false);
-      }
+    // Initial REST check
+    fetch("/api/chat/status")
+      .then((r) => r.json())
+      .then((d) => setAgentOnline(d.online))
+      .catch(() => setAgentOnline(false));
+
+    const pusherClient = getPusher();
+    if (!pusherClient) return;
+
+    const ch = pusherClient.subscribe("private-agent-status");
+    agentStatusChannelRef.current = ch;
+
+    const resetOfflineTimer = () => {
+      if (agentOfflineTimerRef.current) clearTimeout(agentOfflineTimerRef.current);
+      // If no heartbeat arrives within 150s (2.5× the 60s interval), mark offline
+      agentOfflineTimerRef.current = setTimeout(() => setAgentOnline(false), 150_000);
     };
 
-    checkOnline();
-    const interval = setInterval(checkOnline, 30_000);
-    return () => clearInterval(interval);
+    ch.bind("agent-online", () => {
+      setAgentOnline(true);
+      resetOfflineTimer();
+    });
+
+    ch.bind("agent-heartbeat", () => {
+      setAgentOnline(true);
+      resetOfflineTimer();
+    });
+
+    return () => {
+      if (agentOfflineTimerRef.current) clearTimeout(agentOfflineTimerRef.current);
+      ch.unbind_all();
+      pusherClient.unsubscribe("private-agent-status");
+    };
   }, []);
 
   // Visitor presence heartbeat — fires every 60s while chat is open

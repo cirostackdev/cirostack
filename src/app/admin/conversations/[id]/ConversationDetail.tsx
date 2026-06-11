@@ -314,6 +314,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [unreadWhileScrolled, setUnreadWhileScrolled] = useState(0);
   const [visitorOnline, setVisitorOnline] = useState(() => computeVisitorOnline(conversation.metadata));
   const channelRef = useRef<Channel | null>(null);
+  const visitorOfflineTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -332,16 +333,11 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     }).catch(() => {});
   }, []);
 
-  // Poll conversation metadata every 30s to update visitor presence dot
+  // Visitor presence is handled via Pusher visitor-presence events (bound in the conversation channel below)
+  // Clean up the offline timer on unmount
   useEffect(() => {
-    const check = () =>
-      fetch(`/api/admin/conversations/${conversation.id}`)
-        .then((r) => r.ok ? r.json() : null)
-        .then((data) => { if (data?.metadata) setVisitorOnline(computeVisitorOnline(data.metadata)); })
-        .catch(() => {});
-    const interval = setInterval(check, 30_000);
-    return () => clearInterval(interval);
-  }, [conversation.id]);
+    return () => { if (visitorOfflineTimerRef.current) clearTimeout(visitorOfflineTimerRef.current); };
+  }, []);
 
   async function handleAssign(aId: string) {
     const res = await fetch(`/api/admin/conversations/${conversation.id}/assign`, {
@@ -447,12 +443,20 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       setMessages((prev) => prev.filter((m) => m.id !== messageId));
     });
 
+    channel.bind("visitor-presence", () => {
+      setVisitorOnline(true);
+      if (visitorOfflineTimerRef.current) clearTimeout(visitorOfflineTimerRef.current);
+      // Mark offline if no heartbeat arrives within 150s (2.5× the 60s heartbeat interval)
+      visitorOfflineTimerRef.current = setTimeout(() => setVisitorOnline(false), 150_000);
+    });
+
     // Claim conversation and mark read
     fetch(`/api/admin/conversations/${conversation.id}/claim`, { method: "POST" }).catch(() => {});
     fetch(`/api/admin/conversations/${conversation.id}/read`, { method: "POST" }).catch(() => {});
 
     return () => {
       if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+      if (visitorOfflineTimerRef.current) clearTimeout(visitorOfflineTimerRef.current);
       channel.unbind_all();
       pusher?.unsubscribe(`private-conversation-${conversation.id}`);
     };

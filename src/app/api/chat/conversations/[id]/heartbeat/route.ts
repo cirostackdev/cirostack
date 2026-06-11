@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { pusher } from "@/lib/pusher";
 
 export async function POST(
   req: Request,
@@ -26,6 +27,8 @@ export async function POST(
         },
       },
     });
+
+    await pusher.trigger(`private-conversation-${id}`, "visitor-presence", { online: true });
 
     return NextResponse.json({ ok: true });
   } catch (err) {

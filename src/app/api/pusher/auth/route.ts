@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { clientAuth } from "@/auth-client";
 import { pusher } from "@/lib/pusher";
 import { prisma } from "@/lib/prisma";
 
@@ -26,15 +27,14 @@ export async function POST(req: Request) {
     return NextResponse.json(authResponse);
   }
 
-  // Private conversation channels
+  // Private conversation channels — admin, visitor, or portal client
   if (channel.startsWith("private-conversation-")) {
     const conversationId = channel.replace("private-conversation-", "");
 
-    // Try admin auth first
+    // Admin auth
     const session = await auth();
     if (session?.user) {
-      const authResponse = pusher.authorizeChannel(socketId, channel);
-      return NextResponse.json(authResponse);
+      return NextResponse.json(pusher.authorizeChannel(socketId, channel));
     }
 
     // Visitor auth via header
@@ -45,8 +45,20 @@ export async function POST(req: Request) {
         select: { id: true },
       });
       if (conv) {
-        const authResponse = pusher.authorizeChannel(socketId, channel);
-        return NextResponse.json(authResponse);
+        return NextResponse.json(pusher.authorizeChannel(socketId, channel));
+      }
+    }
+
+    // Portal client auth
+    const clientSession = await clientAuth();
+    if (clientSession?.user) {
+      const clientId = (clientSession.user as any).id as string;
+      const conv = await prisma.conversation.findFirst({
+        where: { id: conversationId, visitorId: clientId },
+        select: { id: true },
+      });
+      if (conv) {
+        return NextResponse.json(pusher.authorizeChannel(socketId, channel));
       }
     }
 
@@ -59,8 +71,33 @@ export async function POST(req: Request) {
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
-    const authResponse = pusher.authorizeChannel(socketId, channel);
-    return NextResponse.json(authResponse);
+    return NextResponse.json(pusher.authorizeChannel(socketId, channel));
+  }
+
+  // Agent status channel — any authenticated visitor or portal client can subscribe
+  if (channel === "private-agent-status") {
+    const session = await auth();
+    if (session?.user) {
+      return NextResponse.json(pusher.authorizeChannel(socketId, channel));
+    }
+
+    const visitorId = req.headers.get("x-visitor-id");
+    if (visitorId) {
+      const visitor = await prisma.conversation.findFirst({
+        where: { visitorId },
+        select: { id: true },
+      });
+      if (visitor) {
+        return NextResponse.json(pusher.authorizeChannel(socketId, channel));
+      }
+    }
+
+    const clientSession = await clientAuth();
+    if (clientSession?.user) {
+      return NextResponse.json(pusher.authorizeChannel(socketId, channel));
+    }
+
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
   return NextResponse.json({ error: "Unknown channel" }, { status: 403 });

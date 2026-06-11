@@ -257,6 +257,8 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   const [unreadWhileScrolled, setUnreadWhileScrolled] = useState(0);
   const [agentTyping, setAgentTyping] = useState(false);
   const [agentRecording, setAgentRecording] = useState(false);
+  const agentStatusChannelRef = useRef<Channel | null>(null);
+  const agentOfflineTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -269,12 +271,32 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   const isScrolledUpRef = useRef(false);
   const channelRef = useRef<Channel | null>(null);
 
-  // Check agent online status
+  // Agent online status — initial REST check + Pusher realtime heartbeat
   useEffect(() => {
-    const check = () => fetch("/api/chat/status").then((r) => r.json()).then((d) => setAgentOnline(d.online)).catch(() => {});
-    check();
-    const t = setInterval(check, 30_000);
-    return () => clearInterval(t);
+    fetch("/api/chat/status")
+      .then((r) => r.json())
+      .then((d) => setAgentOnline(d.online))
+      .catch(() => setAgentOnline(false));
+
+    const pusherClient = getPusher();
+    if (!pusherClient) return;
+
+    const ch = pusherClient.subscribe("private-agent-status");
+    agentStatusChannelRef.current = ch;
+
+    const resetOfflineTimer = () => {
+      if (agentOfflineTimerRef.current) clearTimeout(agentOfflineTimerRef.current);
+      agentOfflineTimerRef.current = setTimeout(() => setAgentOnline(false), 150_000);
+    };
+
+    ch.bind("agent-online", () => { setAgentOnline(true); resetOfflineTimer(); });
+    ch.bind("agent-heartbeat", () => { setAgentOnline(true); resetOfflineTimer(); });
+
+    return () => {
+      if (agentOfflineTimerRef.current) clearTimeout(agentOfflineTimerRef.current);
+      ch.unbind_all();
+      pusherClient.unsubscribe("private-agent-status");
+    };
   }, []);
 
   // Mark agent messages as read
