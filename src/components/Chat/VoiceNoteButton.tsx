@@ -87,14 +87,14 @@ function PreviewPlayer({ audioUrl, onDiscard, onSend }: { audioUrl: string; onDi
       </button>
 
       {/* Waveform pill */}
-      <div className="flex-1 flex items-center gap-2 bg-muted/50 border border-border rounded-full px-2.5 h-11 min-w-0">
+      <div className="flex-1 flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-2.5 h-11 min-w-0">
         <button type="button" onClick={toggle}
-          className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center shrink-0 hover:opacity-80 transition-opacity">
-          {playing ? <Pause className="w-3 h-3 fill-current text-primary" /> : <Play className="w-3 h-3 fill-current text-primary ml-0.5" />}
+          className="w-7 h-7 rounded-full bg-green-500/20 flex items-center justify-center shrink-0 hover:opacity-80 transition-opacity">
+          {playing ? <Pause className="w-3 h-3 fill-current text-green-600 dark:text-green-400" /> : <Play className="w-3 h-3 fill-current text-green-600 dark:text-green-400 ml-0.5" />}
         </button>
         <div className="flex items-end gap-[2px] flex-1 h-5">
           {[...Array(16)].map((_, i) => (
-            <span key={i} className="flex-1 rounded-full bg-primary opacity-60"
+            <span key={i} className="flex-1 rounded-full bg-green-600 dark:bg-green-400 opacity-60"
               style={{
                 height: "100%",
                 transformOrigin: "bottom",
