@@ -291,6 +291,10 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
 
     ch.bind("agent-online", () => { setAgentOnline(true); resetOfflineTimer(); });
     ch.bind("agent-heartbeat", () => { setAgentOnline(true); resetOfflineTimer(); });
+    ch.bind("agent-offline", () => {
+      setAgentOnline(false);
+      if (agentOfflineTimerRef.current) clearTimeout(agentOfflineTimerRef.current);
+    });
 
     return () => {
       if (agentOfflineTimerRef.current) clearTimeout(agentOfflineTimerRef.current);

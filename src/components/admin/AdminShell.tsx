@@ -5,7 +5,8 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useRef } from "react";
+import { getPusher } from "@/lib/pusher-client";
 
 export const AdminMobileMenuContext = createContext<() => void>(() => {});
 import { useTheme } from "next-themes";
@@ -74,12 +75,52 @@ export function AdminShell({
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  // Keep admin "online" status alive across all admin pages
+  // Admin presence — realtime via Pusher connection state + 60s heartbeat fallback
   useEffect(() => {
-    const beat = () => fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
-    beat();
-    const interval = setInterval(beat, 60_000);
-    return () => clearInterval(interval);
+    const goOnline = () =>
+      fetch("/api/chat/presence", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ online: true }),
+      }).catch(() => {});
+
+    const goOffline = () =>
+      fetch("/api/chat/presence", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ online: false }),
+      }).catch(() => {});
+
+    // Announce online immediately
+    goOnline();
+
+    // Keep DB heartbeat alive for the status API fallback (initial REST check by visitors)
+    const heartbeat = () =>
+      fetch("/api/chat/heartbeat", { method: "POST" }).catch(() => {});
+    const interval = setInterval(heartbeat, 60_000);
+
+    // Use Pusher connection events for realtime online/offline
+    const pusherClient = getPusher();
+    if (pusherClient) {
+      pusherClient.connection.bind("connected", goOnline);
+      pusherClient.connection.bind("disconnected", goOffline);
+      pusherClient.connection.bind("unavailable", goOffline);
+    }
+
+    // Announce offline on page unload
+    const onUnload = () => { goOffline(); };
+    window.addEventListener("beforeunload", onUnload);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("beforeunload", onUnload);
+      if (pusherClient) {
+        pusherClient.connection.unbind("connected", goOnline);
+        pusherClient.connection.unbind("disconnected", goOffline);
+        pusherClient.connection.unbind("unavailable", goOffline);
+      }
+      goOffline();
+    };
   }, []);
 
   const SidebarContent = ({ mobile = false }: { mobile?: boolean }) => (

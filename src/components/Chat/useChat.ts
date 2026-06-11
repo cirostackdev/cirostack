@@ -83,14 +83,11 @@ export function useChat() {
       agentOfflineTimerRef.current = setTimeout(() => setAgentOnline(false), 150_000);
     };
 
-    ch.bind("agent-online", () => {
-      setAgentOnline(true);
-      resetOfflineTimer();
-    });
-
-    ch.bind("agent-heartbeat", () => {
-      setAgentOnline(true);
-      resetOfflineTimer();
+    ch.bind("agent-online", () => { setAgentOnline(true); resetOfflineTimer(); });
+    ch.bind("agent-heartbeat", () => { setAgentOnline(true); resetOfflineTimer(); });
+    ch.bind("agent-offline", () => {
+      setAgentOnline(false);
+      if (agentOfflineTimerRef.current) clearTimeout(agentOfflineTimerRef.current);
     });
 
     return () => {
