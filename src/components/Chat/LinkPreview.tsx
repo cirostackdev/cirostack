@@ -17,9 +17,10 @@ interface LinkPreviewProps {
   url: string;
   isSender: boolean;
   onLoaded?: (hasPreview: boolean) => void;
+  onLinkClick?: () => void; // called once when receiver clicks the link
 }
 
-export function LinkPreview({ url, isSender, onLoaded }: LinkPreviewProps) {
+export function LinkPreview({ url, isSender, onLoaded, onLinkClick }: LinkPreviewProps) {
   const [og, setOg] = useState<OgData | null>(cache.get(url) ?? null);
   const [loading, setLoading] = useState(!cache.has(url));
 
@@ -64,6 +65,7 @@ export function LinkPreview({ url, isSender, onLoaded }: LinkPreviewProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => { if (!isSender) onLinkClick?.(); }}
       className={`block mt-1.5 rounded-xl overflow-hidden border border-border/50 hover:border-border transition-colors ${
         isSender ? "bg-background/30" : "bg-background/50"
       }`}

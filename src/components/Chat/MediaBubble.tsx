@@ -11,9 +11,18 @@ function fmt(s: number) {
   return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 }
 
-function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boolean }) {
+function AudioWavePlayer({
+  fileUrl,
+  isSender,
+  onListen,
+}: {
+  fileUrl: string;
+  isSender: boolean;
+  onListen?: () => void;
+}) {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const probingRef = useRef(false); // tracks whether the 1e9 probe seek is in progress
+  const probingRef = useRef(false);
+  const listenedRef = useRef(false);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -27,16 +36,15 @@ function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boo
       if (isFinite(el.duration)) {
         setDuration(el.duration);
       } else {
-        // MediaRecorder webm has no duration header — one-shot probe seek to force calculation
         probingRef.current = true;
         el.currentTime = 1e9;
       }
     };
     const onSeeked = () => {
-      if (!probingRef.current) return; // only act on the probe seek, ignore user seeks
+      if (!probingRef.current) return;
       probingRef.current = false;
       if (isFinite(el.duration)) setDuration(el.duration);
-      el.currentTime = 0; // reset to start — this seeked event is NOT probing so it's ignored above
+      el.currentTime = 0;
     };
     el.addEventListener("timeupdate", onTime);
     el.addEventListener("loadedmetadata", onMeta);
@@ -53,8 +61,18 @@ function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boo
   const toggle = () => {
     const el = audioRef.current;
     if (!el) return;
-    if (playing) { el.pause(); setPlaying(false); }
-    else { el.play(); setPlaying(true); }
+    if (playing) {
+      el.pause();
+      setPlaying(false);
+    } else {
+      el.play();
+      setPlaying(true);
+      // Fire onListen once — only for received (not sender) messages
+      if (!isSender && !listenedRef.current && onListen) {
+        listenedRef.current = true;
+        onListen();
+      }
+    }
   };
 
   const accent = isSender ? "bg-green-500/20" : "bg-foreground/15";
@@ -104,9 +122,11 @@ function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boo
 interface MediaBubbleProps {
   fileUrl: string;
   fileName?: string;
-  fileType?: string; // MIME type hint for blob URLs
-  isSender: boolean; // true = right-side bubble color, false = received color
-  uploadProgress?: number; // 0-100, undefined = not uploading
+  fileType?: string;
+  isSender: boolean;
+  uploadProgress?: number;
+  onListen?: () => void; // called once when receiver plays audio
+  onWatch?: () => void;  // called once when receiver opens video
 }
 
 function formatBytes(bytes: number): string {
@@ -131,13 +151,18 @@ function UploadOverlay({ progress }: { progress: number }) {
   );
 }
 
-export function MediaBubble({ fileUrl, fileName, fileType, isSender, uploadProgress }: MediaBubbleProps) {
+export function MediaBubble({ fileUrl, fileName, fileType, isSender, uploadProgress, onListen, onWatch }: MediaBubbleProps) {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [lightboxType, setLightboxType] = useState<"image" | "video">("image");
+  const watchedRef = useRef(false);
 
   const openLightbox = (type: "image" | "video") => {
     setLightboxType(type);
     setLightboxSrc(fileUrl);
+    if (type === "video" && !isSender && !watchedRef.current && onWatch) {
+      watchedRef.current = true;
+      onWatch();
+    }
   };
 
   const isImage = fileType?.startsWith("image/") || /\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/i.test(fileUrl);
@@ -161,7 +186,7 @@ export function MediaBubble({ fileUrl, fileName, fileType, isSender, uploadProgr
   if (isAudio) {
     return (
       <div className={`px-3 py-2.5 rounded-2xl ${bg} ${round} relative`}>
-        <AudioWavePlayer fileUrl={fileUrl} isSender={isSender} />
+        <AudioWavePlayer fileUrl={fileUrl} isSender={isSender} onListen={onListen} />
         {uploadProgress != null && <UploadOverlay progress={uploadProgress} />}
       </div>
     );

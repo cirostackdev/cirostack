@@ -6,7 +6,7 @@ import { formatDistanceToNow, format, isSameDay } from "date-fns";
 import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import {
   Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip, Trash2,
-  Search, Clipboard, Reply, CheckCheck, Check, ChevronDown,
+  Search, Clipboard, Reply, CheckCheck, Check, ChevronDown, Clock, Mic, Play, Link,
 } from "lucide-react";
 import { toast } from "sonner";
 import { getPusher } from "@/lib/pusher-client";
@@ -101,6 +101,7 @@ function MessageBubble({
   convId,
   onReply,
   onDelete,
+  onSeen,
   search,
   isFirstUnread,
 }: {
@@ -110,6 +111,7 @@ function MessageBubble({
   convId: string;
   onReply: (m: Message) => void;
   onDelete: (id: string) => void;
+  onSeen: (msgId: string, type: "listened" | "watched" | "clicked") => void;
   search: string;
   isFirstUnread: boolean;
 }) {
@@ -157,9 +159,39 @@ function MessageBubble({
     navigator.clipboard.writeText(msg.body).catch(() => {});
   };
 
-  // Read receipt for agent messages
+  // Tick icons for agent messages (agent = sender in admin view)
+  const rxn = (msg.reactions ?? {}) as Record<string, unknown>;
+  const isAudioMsg = !!msg.fileUrl && (
+    (msg as any).fileType?.startsWith("audio/") ||
+    msg.body?.startsWith("voice-note-") ||
+    /\.(mp3|mp4a|wav|aac|m4a|webm|ogg)(\?|$)/i.test(msg.fileUrl) ||
+    msg.fileUrl.includes("audio/")
+  );
+  const isVideoMsg = !isAudioMsg && !!msg.fileUrl && (
+    (msg as any).fileType?.startsWith("video/") ||
+    /\.(mp4|webm|ogg|mov)(\?|$)/i.test(msg.fileUrl) ||
+    msg.fileUrl.includes("video/")
+  );
+  const hasLink = !!linkUrl;
+
   const readReceipt = isAgent ? (
-    msg.read
+    msg.status === "uploading" || msg.status === "sending"
+      ? <Clock className="w-3 h-3 opacity-40 inline ml-0.5" />
+      : msg.status === "failed"
+      ? <X className="w-3 h-3 text-red-400 inline ml-0.5" />
+      : isAudioMsg
+      ? rxn._listened
+        ? <span className="inline-flex items-center ml-0.5"><Mic className="w-3 h-3 text-blue-400" /><Mic className="w-3 h-3 text-blue-400 -ml-1" /></span>
+        : <Mic className="w-3 h-3 opacity-40 inline ml-0.5" />
+      : isVideoMsg
+      ? rxn._watched
+        ? <span className="inline-flex items-center ml-0.5"><Play className="w-3 h-3 text-blue-400 fill-current" /><Play className="w-3 h-3 text-blue-400 fill-current -ml-1" /></span>
+        : <Play className="w-3 h-3 opacity-40 fill-current inline ml-0.5" />
+      : hasLink
+      ? rxn._clicked
+        ? <Link className="w-3 h-3 text-blue-400 inline ml-0.5" />
+        : <Link className="w-3 h-3 opacity-40 inline ml-0.5" />
+      : msg.read
       ? <CheckCheck className="w-3 h-3 text-blue-400 inline ml-0.5" />
       : <Check className="w-3 h-3 opacity-40 inline ml-0.5" />
   ) : null;
@@ -241,7 +273,15 @@ function MessageBubble({
 
           {msg.fileUrl ? (
             <div>
-              <MediaBubble fileUrl={msg.fileUrl} fileName={msg.body} isSender={isAgent} fileType={msg.fileType} uploadProgress={msg.uploadProgress} />
+              <MediaBubble
+                fileUrl={msg.fileUrl}
+                fileName={msg.body}
+                isSender={isAgent}
+                fileType={(msg as any).fileType}
+                uploadProgress={(msg as any).uploadProgress}
+                onListen={!isAgent ? () => onSeen(msg.id, "listened") : undefined}
+                onWatch={!isAgent ? () => onSeen(msg.id, "watched") : undefined}
+              />
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
                 {time}{readReceipt}
               </p>
@@ -272,7 +312,7 @@ function MessageBubble({
                       {highlightText(msg.body, search)}
                     </p>
                   )}
-                  {linkUrl && <LinkPreview url={linkUrl} isSender={isAgent} onLoaded={setOgLoaded} />}
+                  {linkUrl && <LinkPreview url={linkUrl} isSender={isAgent} onLoaded={setOgLoaded} onLinkClick={!isAgent ? () => onSeen(msg.id, "clicked") : undefined} />}
                   {linkUrl && ogLoaded && bodyWithoutUrl && (
                     <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
                       {highlightText(bodyWithoutUrl, search)}
@@ -760,6 +800,13 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                 convId={conversation.id}
                 onReply={setReplyTo}
                 onDelete={deleteMessage}
+                onSeen={(msgId, type) => {
+                  fetch(`/api/admin/conversations/${conversation.id}/messages/${msgId}/seen`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ type }),
+                  }).catch(() => {});
+                }}
                 search={search}
                 isFirstUnread={item.isFirstUnread}
               />

@@ -21,6 +21,7 @@ export function ChatWidget() {
     unreadWhileScrolled,
     setUnreadWhileScrolled,
     isScrolledUpRef,
+    launcherUnread,
     openChat,
     closeChat,
     startChat,
@@ -47,8 +48,14 @@ export function ChatWidget() {
             className="group relative hover:scale-110 active:scale-95 transition-all duration-200"
           >
             <img src="/live-chat.png" alt="" className="w-14 h-14" />
+            {/* Unread badge */}
+            {launcherUnread > 0 && (
+              <span className="absolute -top-1 -left-1 min-w-[20px] h-5 bg-red-500 text-white text-[11px] font-bold rounded-full flex items-center justify-center px-1 shadow-md">
+                {launcherUnread > 9 ? "9+" : launcherUnread}
+              </span>
+            )}
             {/* Online indicator */}
-            {agentOnline && (
+            {agentOnline && launcherUnread === 0 && (
               <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-background rounded-full">
                 <span className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75" />
               </span>

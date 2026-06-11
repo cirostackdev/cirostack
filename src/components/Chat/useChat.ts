@@ -62,6 +62,9 @@ export function useChat() {
   // Track messages received while scrolled away
   const [unreadWhileScrolled, setUnreadWhileScrolled] = useState(0);
   const isScrolledUpRef = useRef(false);
+  // Unread badge for the launcher button (messages received while widget is closed)
+  const [launcherUnread, setLauncherUnread] = useState(0);
+  const isOpenRef = useRef(false);
 
   // Agent online status via Pusher — one-time REST check + realtime heartbeat events
   useEffect(() => {
@@ -190,7 +193,11 @@ export function useChat() {
         }
         return [...prev, message];
       });
-      if (message.senderType === "agent") { setAgentTyping(false); setAgentRecording(false); }
+      if (message.senderType === "agent") {
+        setAgentTyping(false);
+        setAgentRecording(false);
+        if (!isOpenRef.current) setLauncherUnread((n) => n + 1);
+      }
     });
 
     channel.bind("agent-typing", ({ typing }: { typing: boolean }) => {
@@ -249,6 +256,8 @@ export function useChat() {
 
   const openChat = useCallback(async () => {
     setIsOpen(true);
+    isOpenRef.current = true;
+    setLauncherUnread(0);
     const existingConvId = getStoredConversationId();
 
     if (existingConvId) {
@@ -482,6 +491,7 @@ export function useChat() {
 
   const closeChat = useCallback(() => {
     setIsOpen(false);
+    isOpenRef.current = false;
     setShowPreChat(false);
   }, []);
 
@@ -523,6 +533,7 @@ export function useChat() {
     unreadWhileScrolled,
     setUnreadWhileScrolled,
     isScrolledUpRef,
+    launcherUnread,
     openChat,
     closeChat,
     startChat,

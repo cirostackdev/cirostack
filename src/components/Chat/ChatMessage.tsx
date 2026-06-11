@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { ChatMessage as Msg } from "./useChat";
 import { format } from "date-fns";
-import { Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
+import { Clipboard, Reply, Check, CheckCheck, Clock, X, Mic, Play, Link } from "lucide-react";
 import { ReplyPreview } from "./ReplyPreview";
 import { MediaBubble } from "./MediaBubble";
 import { LinkPreview } from "./LinkPreview";
@@ -17,6 +17,7 @@ interface ChatMessageProps {
   prevMessage?: Msg | null;
   conversationId?: string | null;
   onReply?: (msg: Msg) => void;
+  onSeen?: (msgId: string, type: "listened" | "watched" | "clicked") => void;
 }
 
 function isSameDay(a: Date, b: Date) {
@@ -34,7 +35,7 @@ function isGroupedWith(msg: Msg, prev: Msg | null | undefined): boolean {
   return diff < 2 * 60 * 1000;
 }
 
-export function ChatMessage({ message, prevMessage, conversationId, onReply }: ChatMessageProps) {
+export function ChatMessage({ message, prevMessage, conversationId, onReply, onSeen }: ChatMessageProps) {
   const isVisitor = message.senderType === "visitor";
   const isSystem = message.senderType === "system";
   const time = format(new Date(message.createdAt), "HH:mm");
@@ -85,17 +86,45 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
     setShowMenu(false);
   };
 
-  // Status icon for visitor messages (sent from widget)
+  const rxn = (message.reactions ?? {}) as Record<string, unknown>;
+  const isAudioMsg = !!message.fileUrl && (
+    message.fileType?.startsWith("audio/") ||
+    message.body?.startsWith("voice-note-") ||
+    /\.(mp3|mp4a|wav|aac|m4a|webm|ogg)(\?|$)/i.test(message.fileUrl) ||
+    message.fileUrl.includes("audio/")
+  );
+  const isVideoMsg = !isAudioMsg && !!message.fileUrl && (
+    message.fileType?.startsWith("video/") ||
+    /\.(mp4|webm|ogg|mov)(\?|$)/i.test(message.fileUrl) ||
+    message.fileUrl.includes("video/")
+  );
+  const hasLink = !!linkUrl;
+
+  const listened = !!rxn._listened;
+  const watched  = !!rxn._watched;
+  const clicked  = !!rxn._clicked;
+
+  // Status icon shown on sender's messages only
   const statusIcon = isVisitor ? (
-    message.status === "sending" ? (
-      <Clock className="w-3 h-3 opacity-50 inline" />
-    ) : message.status === "failed" ? (
-      <X className="w-3 h-3 text-red-400 inline" />
-    ) : message.read ? (
-      <CheckCheck className="w-3 h-3 text-blue-400 inline" />
-    ) : (
-      <Check className="w-3 h-3 opacity-50 inline" />
-    )
+    message.status === "sending" || message.status === "uploading"
+      ? <Clock className="w-3 h-3 opacity-50 inline" />
+      : message.status === "failed"
+      ? <X className="w-3 h-3 text-red-400 inline" />
+      : isAudioMsg
+      ? listened
+        ? <span className="inline-flex items-center"><Mic className="w-3 h-3 text-blue-400" /><Mic className="w-3 h-3 text-blue-400 -ml-1" /></span>
+        : <Mic className="w-3 h-3 opacity-50" />
+      : isVideoMsg
+      ? watched
+        ? <span className="inline-flex items-center"><Play className="w-3 h-3 text-blue-400 fill-current" /><Play className="w-3 h-3 text-blue-400 fill-current -ml-1" /></span>
+        : <Play className="w-3 h-3 opacity-50 fill-current" />
+      : hasLink
+      ? clicked
+        ? <Link className="w-3 h-3 text-blue-400" />
+        : <Link className="w-3 h-3 opacity-50" />
+      : message.read
+      ? <CheckCheck className="w-3 h-3 text-blue-400 inline" />
+      : <Check className="w-3 h-3 opacity-50 inline" />
   ) : null;
 
   const reactionDisplay = reactions && Object.keys(reactions).length > 0 ? (
@@ -181,7 +210,15 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
 
           {hasMedia ? (
             <div>
-              <MediaBubble fileUrl={message.fileUrl!} fileName={message.body} fileType={message.fileType} isSender={isVisitor} uploadProgress={message.uploadProgress} />
+              <MediaBubble
+                fileUrl={message.fileUrl!}
+                fileName={message.body}
+                fileType={message.fileType}
+                isSender={isVisitor}
+                uploadProgress={message.uploadProgress}
+                onListen={!isVisitor ? () => onSeen?.(message.id, "listened") : undefined}
+                onWatch={!isVisitor ? () => onSeen?.(message.id, "watched") : undefined}
+              />
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
                 {time}{statusIcon}
               </p>
@@ -212,7 +249,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
                   {(!linkUrl || !ogLoaded) && (
                     <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{message.body}</p>
                   )}
-                  {linkUrl && <LinkPreview url={linkUrl} isSender={isVisitor} onLoaded={setOgLoaded} />}
+                  {linkUrl && <LinkPreview url={linkUrl} isSender={isVisitor} onLoaded={setOgLoaded} onLinkClick={!isVisitor ? () => onSeen?.(message.id, "clicked") : undefined} />}
                   {linkUrl && ogLoaded && bodyWithoutUrl && (
                     <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{bodyWithoutUrl}</p>
                   )}

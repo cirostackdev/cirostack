@@ -174,6 +174,14 @@ export function ChatPanel({
               prevMessage={item.prev}
               conversationId={conversationId}
               onReply={onSetReply}
+              onSeen={(msgId, type) => {
+                if (!conversationId) return;
+                fetch(`/api/chat/conversations/${conversationId}/messages/${msgId}/seen`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ type }),
+                }).catch(() => {});
+              }}
             />
           );
         })}

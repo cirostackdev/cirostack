@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback, useContext } from "react";
-import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown, Paperclip } from "lucide-react";
+import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown, Paperclip, Mic, Play, Link } from "lucide-react";
 import { PortalHeaderActionsContext } from "@/components/portal/PortalShell";
 import { format, formatDistanceToNow, isSameDay } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
@@ -62,12 +62,14 @@ function Bubble({
   convId,
   clientName,
   onReply,
+  onSeen,
 }: {
   msg: Message;
   prevMsg: Message | null;
   convId: string | null;
   clientName: string;
   onReply?: (m: Message) => void;
+  onSeen?: (msgId: string, type: "listened" | "watched" | "clicked") => void;
 }) {
   const isAgent = msg.senderType === "agent";
   const isSystem = msg.senderType === "system";
@@ -117,17 +119,37 @@ function Bubble({
     navigator.clipboard.writeText(msg.body).catch(() => {});
   };
 
-  // Status icon for visitor messages
+  const rxn = (msg.reactions ?? {}) as Record<string, unknown>;
+  const isAudioMsg = !!msg.fileUrl && (
+    msg.fileType?.startsWith("audio/") || msg.body?.startsWith("voice-note-") ||
+    /\.(mp3|mp4a|wav|aac|m4a|webm|ogg)(\?|$)/i.test(msg.fileUrl) || msg.fileUrl.includes("audio/")
+  );
+  const isVideoMsg = !isAudioMsg && !!msg.fileUrl && (
+    msg.fileType?.startsWith("video/") ||
+    /\.(mp4|webm|ogg|mov)(\?|$)/i.test(msg.fileUrl) || msg.fileUrl.includes("video/")
+  );
+  const hasLink = !!linkUrl;
+
   const statusIcon = !isAgent ? (
-    msg.status === "sending" ? (
-      <Clock className="w-3 h-3 opacity-50 inline" />
-    ) : msg.status === "failed" ? (
-      <X className="w-3 h-3 text-red-400 inline" />
-    ) : msg.read ? (
-      <CheckCheck className="w-3 h-3 text-blue-400 inline" />
-    ) : (
-      <Check className="w-3 h-3 opacity-50 inline" />
-    )
+    msg.status === "sending" || msg.status === "uploading"
+      ? <Clock className="w-3 h-3 opacity-50 inline" />
+      : msg.status === "failed"
+      ? <X className="w-3 h-3 text-red-400 inline" />
+      : isAudioMsg
+      ? rxn._listened
+        ? <span className="inline-flex items-center"><Mic className="w-3 h-3 text-blue-400" /><Mic className="w-3 h-3 text-blue-400 -ml-1" /></span>
+        : <Mic className="w-3 h-3 opacity-50" />
+      : isVideoMsg
+      ? rxn._watched
+        ? <span className="inline-flex items-center"><Play className="w-3 h-3 text-blue-400 fill-current" /><Play className="w-3 h-3 text-blue-400 fill-current -ml-1" /></span>
+        : <Play className="w-3 h-3 opacity-50 fill-current" />
+      : hasLink
+      ? rxn._clicked
+        ? <Link className="w-3 h-3 text-blue-400" />
+        : <Link className="w-3 h-3 opacity-50" />
+      : msg.read
+      ? <CheckCheck className="w-3 h-3 text-blue-400 inline" />
+      : <Check className="w-3 h-3 opacity-50 inline" />
   ) : null;
 
   const reactionDisplay = reactions && Object.keys(reactions).length > 0 ? (
@@ -194,7 +216,15 @@ function Bubble({
 
           {hasMedia ? (
             <div>
-              <MediaBubble fileUrl={msg.fileUrl!} fileName={msg.body} isSender={!isAgent} fileType={msg.fileType} uploadProgress={msg.uploadProgress} />
+              <MediaBubble
+                fileUrl={msg.fileUrl!}
+                fileName={msg.body}
+                isSender={!isAgent}
+                fileType={msg.fileType}
+                uploadProgress={msg.uploadProgress}
+                onListen={isAgent ? () => onSeen?.(msg.id, "listened") : undefined}
+                onWatch={isAgent ? () => onSeen?.(msg.id, "watched") : undefined}
+              />
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-start" : "justify-end"}`}>
                 {time}{statusIcon}
               </p>
@@ -220,7 +250,7 @@ function Bubble({
                   {(!linkUrl || !ogLoaded) && (
                     <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{msg.body}</p>
                   )}
-                  {linkUrl && <LinkPreview url={linkUrl} isSender={!isAgent} onLoaded={setOgLoaded} />}
+                  {linkUrl && <LinkPreview url={linkUrl} isSender={!isAgent} onLoaded={setOgLoaded} onLinkClick={isAgent ? () => onSeen?.(msg.id, "clicked") : undefined} />}
                   {linkUrl && ogLoaded && bodyWithoutUrl && (
                     <p className="text-sm mt-1.5" style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{bodyWithoutUrl}</p>
                   )}
@@ -683,6 +713,14 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
               convId={conversationIdRef.current}
               clientName={clientName}
               onReply={setReplyTo}
+              onSeen={(msgId, type) => {
+                if (!conversationIdRef.current) return;
+                fetch(`/api/chat/conversations/${conversationIdRef.current}/messages/${msgId}/seen`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ type }),
+                }).catch(() => {});
+              }}
             />
           );
         })}
