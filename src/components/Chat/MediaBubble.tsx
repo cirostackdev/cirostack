@@ -57,8 +57,8 @@ function AudioWavePlayer({ fileUrl, isSender }: { fileUrl: string; isSender: boo
     else { el.play(); setPlaying(true); }
   };
 
-  const accent = isSender ? "bg-green-500/20" : "bg-primary/20";
-  const barColor = isSender ? "bg-green-600 dark:bg-green-400" : "bg-primary";
+  const accent = isSender ? "bg-green-500/20" : "bg-foreground/15";
+  const barColor = isSender ? "bg-green-600 dark:bg-green-400" : "bg-foreground/70";
 
   return (
     <div className="flex items-center gap-2.5 w-[220px]">
