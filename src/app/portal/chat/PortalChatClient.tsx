@@ -618,6 +618,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
               <div className="relative shrink-0">
                 {showPicker && (
                   <MediaPickerPopup
+                    variant="portal"
                     onPick={async (file) => {
                       setShowPicker(false);
                       const fd = new FormData();

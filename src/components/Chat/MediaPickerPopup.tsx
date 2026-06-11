@@ -1,14 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { FileText, Image, Video, BookOpen, User, Calendar } from "lucide-react";
+import { FileText, Image, Video, BookOpen, User, Calendar, Music } from "lucide-react";
+
+export type SpecialPickType = "catalog" | "contact" | "event";
 
 interface MediaPickerPopupProps {
   onPick: (file: File) => void;
+  onSpecialPick?: (type: SpecialPickType) => void;
   onClose: () => void;
+  variant?: "admin" | "visitor" | "portal";
 }
 
-const ITEMS = [
+const FILE_ITEMS = [
   {
     key: "image",
     label: "Image",
@@ -16,7 +20,6 @@ const ITEMS = [
     color: "text-violet-500",
     bg: "bg-violet-500/10",
     accept: "image/*",
-    capture: undefined as undefined | "environment",
   },
   {
     key: "video",
@@ -25,7 +28,16 @@ const ITEMS = [
     color: "text-pink-500",
     bg: "bg-pink-500/10",
     accept: "video/*",
-    capture: undefined,
+    adminOnly: false,
+    noVisitor: true, // hidden in visitor widget
+  },
+  {
+    key: "audio",
+    label: "Audio",
+    icon: Music,
+    color: "text-cyan-500",
+    bg: "bg-cyan-500/10",
+    accept: "audio/*",
   },
   {
     key: "document",
@@ -34,41 +46,18 @@ const ITEMS = [
     color: "text-blue-500",
     bg: "bg-blue-500/10",
     accept: ".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip",
-    capture: undefined,
   },
-  {
-    key: "catalog",
-    label: "Catalog",
-    icon: BookOpen,
-    color: "text-amber-500",
-    bg: "bg-amber-500/10",
-    accept: ".pdf,image/*",
-    capture: undefined,
-  },
-  {
-    key: "contact",
-    label: "Contact",
-    icon: User,
-    color: "text-green-500",
-    bg: "bg-green-500/10",
-    accept: ".vcf,text/vcard",
-    capture: undefined,
-  },
-  {
-    key: "event",
-    label: "Event",
-    icon: Calendar,
-    color: "text-orange-500",
-    bg: "bg-orange-500/10",
-    accept: ".ics,text/calendar",
-    capture: undefined,
-  },
+] as const;
+
+const SPECIAL_ITEMS = [
+  { key: "catalog" as SpecialPickType, label: "Catalog", icon: BookOpen, color: "text-amber-500", bg: "bg-amber-500/10" },
+  { key: "contact" as SpecialPickType, label: "Contact", icon: User, color: "text-green-500", bg: "bg-green-500/10" },
+  { key: "event" as SpecialPickType, label: "Event", icon: Calendar, color: "text-orange-500", bg: "bg-orange-500/10" },
 ];
 
-export function MediaPickerPopup({ onPick, onClose }: MediaPickerPopupProps) {
+export function MediaPickerPopup({ onPick, onSpecialPick, onClose, variant = "visitor" }: MediaPickerPopupProps) {
   const popupRef = useRef<HTMLDivElement>(null);
 
-  // Close on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
@@ -91,17 +80,37 @@ export function MediaPickerPopup({ onPick, onClose }: MediaPickerPopupProps) {
     input.click();
   };
 
+  const visibleFileItems = FILE_ITEMS.filter((item) => {
+    if (variant === "visitor" && "noVisitor" in item && item.noVisitor) return false;
+    return true;
+  });
+
   return (
     <div
       ref={popupRef}
-      className="absolute bottom-full mb-3 left-2 z-50 bg-background border border-border rounded-2xl shadow-xl p-3 w-[220px] animate-in fade-in slide-in-from-bottom-2 duration-150"
+      className="absolute bottom-full mb-3 left-2 z-50 bg-background border border-border rounded-2xl shadow-xl p-3 animate-in fade-in slide-in-from-bottom-2 duration-150"
+      style={{ width: variant === "admin" ? 220 : 172 }}
     >
       <div className="grid grid-cols-3 gap-2">
-        {ITEMS.map(({ key, label, icon: Icon, color, bg, accept }) => (
+        {visibleFileItems.map(({ key, label, icon: Icon, color, bg, accept }) => (
           <button
             key={key}
             type="button"
             onClick={() => triggerPick(accept)}
+            className="flex flex-col items-center gap-1.5 py-3 px-1 rounded-xl hover:bg-muted transition-colors"
+          >
+            <div className={`w-10 h-10 rounded-full ${bg} flex items-center justify-center`}>
+              <Icon className={`w-5 h-5 ${color}`} strokeWidth={1.5} />
+            </div>
+            <span className="text-[10px] text-muted-foreground font-medium">{label}</span>
+          </button>
+        ))}
+
+        {variant === "admin" && SPECIAL_ITEMS.map(({ key, label, icon: Icon, color, bg }) => (
+          <button
+            key={key}
+            type="button"
+            onClick={() => { onSpecialPick?.(key); onClose(); }}
             className="flex flex-col items-center gap-1.5 py-3 px-1 rounded-xl hover:bg-muted transition-colors"
           >
             <div className={`w-10 h-10 rounded-full ${bg} flex items-center justify-center`}>

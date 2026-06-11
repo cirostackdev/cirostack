@@ -16,7 +16,10 @@ import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
-import { MediaPickerPopup } from "@/components/Chat/MediaPickerPopup";
+import { MediaPickerPopup, type SpecialPickType } from "@/components/Chat/MediaPickerPopup";
+import { CatalogPicker } from "@/components/Chat/CatalogPicker";
+import { ContactPicker } from "@/components/Chat/ContactPicker";
+import { EventPicker } from "@/components/Chat/EventPicker";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
@@ -277,6 +280,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
   const [showPicker, setShowPicker] = useState(false);
+  const [specialPicker, setSpecialPicker] = useState<SpecialPickType | null>(null);
   const [visitorTyping, setVisitorTyping] = useState(false);
   const [status, setStatus] = useState(conversation.status);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -414,6 +418,14 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       pusher?.unsubscribe(`private-conversation-${conversation.id}`);
     };
   }, [conversation.id]);
+
+  const sendText = async (body: string) => {
+    await fetch(`/api/admin/conversations/${conversation.id}/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ body }),
+    });
+  };
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -725,7 +737,9 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                 <div className="relative shrink-0">
                   {showPicker && (
                     <MediaPickerPopup
+                      variant="admin"
                       onPick={(file) => { uploadAndSendFile(file); setShowPicker(false); }}
+                      onSpecialPick={(type) => { setSpecialPicker(type); setShowPicker(false); }}
                       onClose={() => setShowPicker(false)}
                     />
                   )}
@@ -806,6 +820,17 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
           )}
         </div>
       </aside>
+
+      {/* Special pickers */}
+      {specialPicker === "catalog" && (
+        <CatalogPicker onSend={sendText} onClose={() => setSpecialPicker(null)} />
+      )}
+      {specialPicker === "contact" && (
+        <ContactPicker onSend={sendText} onClose={() => setSpecialPicker(null)} />
+      )}
+      {specialPicker === "event" && (
+        <EventPicker onSend={sendText} onClose={() => setSpecialPicker(null)} />
+      )}
     </div>
   );
 }

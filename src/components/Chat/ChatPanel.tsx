@@ -233,6 +233,7 @@ export function ChatPanel({
               <div className="relative shrink-0">
                 {showPicker && (
                   <MediaPickerPopup
+                    variant="visitor"
                     onPick={(file) => { onSendFile(file); setShowPicker(false); }}
                     onClose={() => setShowPicker(false)}
                   />
