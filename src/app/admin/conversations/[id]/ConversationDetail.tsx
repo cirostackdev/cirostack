@@ -15,6 +15,7 @@ import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
+import { LinkPreview } from "@/components/Chat/LinkPreview";
 import { FileUploadButton } from "@/components/Chat/FileUploadButton";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
 
@@ -123,6 +124,8 @@ function MessageBubble({
 
   const isImage = msg.fileUrl?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
   const isFile = msg.fileUrl && !isImage;
+
+  const linkUrl = !msg.fileUrl ? msg.body.match(/https?:\/\/[^\s]+/)?.[0] || null : null;
 
   const reactions = msg.reactions as Record<string, string[]> | null | undefined;
 
@@ -244,6 +247,7 @@ function MessageBubble({
               <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
                 {highlightText(msg.body, search)}
               </p>
+              {linkUrl && <LinkPreview url={linkUrl} isSender={isAgent} />}
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
                 {time}
                 {readReceipt}

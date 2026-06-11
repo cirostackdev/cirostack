@@ -8,6 +8,7 @@ import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
+import { LinkPreview } from "@/components/Chat/LinkPreview";
 import { FileUploadButton } from "@/components/Chat/FileUploadButton";
 import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
@@ -86,6 +87,7 @@ function Bubble({
   }
 
   const hasMedia = !!msg.fileUrl;
+  const linkUrl = !hasMedia ? msg.body.match(/https?:\/\/[^\s]+/)?.[0] || null : null;
 
   const reactions = msg.reactions as Record<string, string[]> | null | undefined;
 
@@ -196,6 +198,7 @@ function Bubble({
                 <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} />
               )}
               <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{msg.body}</p>
+              {linkUrl && <LinkPreview url={linkUrl} isSender={!isAgent} />}
               <p className={`text-[10px] mt-1 opacity-50 flex items-center gap-1 ${isAgent ? "justify-start" : "justify-end"}`}>
                 {time}
                 {statusIcon}

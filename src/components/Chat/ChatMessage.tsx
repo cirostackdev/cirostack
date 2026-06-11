@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
 import { ReplyPreview } from "./ReplyPreview";
 import { MediaBubble } from "./MediaBubble";
+import { LinkPreview } from "./LinkPreview";
 import { useSwipeToReply } from "./useSwipeToReply";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
@@ -54,6 +55,10 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
   }
 
   const hasMedia = !!message.fileUrl;
+
+  // Extract first URL from message body for link preview
+  const urlMatch = !hasMedia ? message.body.match(/https?:\/\/[^\s]+/) : null;
+  const linkUrl = urlMatch?.[0] || null;
 
   const reactions = message.reactions as Record<string, string[]> | null | undefined;
 
@@ -190,6 +195,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply }: C
                 />
               )}
               <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{message.body}</p>
+              {linkUrl && <LinkPreview url={linkUrl} isSender={isVisitor} />}
               <p className={`text-[10px] mt-1 opacity-60 flex items-center gap-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
                 {time}
                 {statusIcon}
