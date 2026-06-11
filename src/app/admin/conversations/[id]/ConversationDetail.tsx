@@ -17,6 +17,7 @@ import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
 import { MediaPickerPopup, type SpecialPickType } from "@/components/Chat/MediaPickerPopup";
+import { VoiceNoteButton } from "@/components/Chat/VoiceNoteButton";
 import { CatalogPicker } from "@/components/Chat/CatalogPicker";
 import { ContactPicker } from "@/components/Chat/ContactPicker";
 import { EventPicker } from "@/components/Chat/EventPicker";
@@ -753,13 +754,19 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
                   </button>
                 </div>
               </div>
-              <button
-                onClick={sendMessage}
-                disabled={!input.trim()}
-                className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 hover:opacity-90 transition-opacity"
-              >
-                <Send className="w-4 h-4" />
-              </button>
+              {input.trim() ? (
+                <button
+                  onClick={sendMessage}
+                  className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 hover:opacity-90 transition-opacity"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              ) : (
+                <VoiceNoteButton
+                  uploadEndpoint="/api/admin/chat-upload"
+                  onSend={(file) => uploadAndSendFile(file)}
+                />
+              )}
             </div>
           </div>
         ) : (

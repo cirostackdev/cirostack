@@ -7,6 +7,7 @@ import { DateSeparator } from "./DateSeparator";
 import { TypingIndicator } from "./TypingIndicator";
 import { LinkPreview } from "./LinkPreview";
 import { MediaPickerPopup } from "./MediaPickerPopup";
+import { VoiceNoteButton } from "./VoiceNoteButton";
 import type { ChatMessage as Msg } from "./useChat";
 import { isSameDay } from "date-fns";
 import { ChevronDown as ChevronDownIcon } from "lucide-react";
@@ -250,14 +251,22 @@ export function ChatPanel({
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={handleSend}
-              disabled={!input.trim() || !isConnected}
-              className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 hover:opacity-90 transition-opacity"
-            >
-              <Send className="w-4 h-4" />
-            </button>
+            {input.trim() ? (
+              <button
+                type="button"
+                onClick={handleSend}
+                disabled={!isConnected}
+                className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 hover:opacity-90 transition-opacity"
+              >
+                <Send className="w-4 h-4" />
+              </button>
+            ) : (
+              <VoiceNoteButton
+                uploadEndpoint="/api/chat/upload"
+                onSend={(file) => onSendFile(file)}
+                disabled={!isConnected}
+              />
+            )}
           </div>
           <p className="text-[10px] text-muted-foreground/40 text-center mt-2">
             Powered by CiroStack

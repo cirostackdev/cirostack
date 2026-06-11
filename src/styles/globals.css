@@ -309,3 +309,8 @@ textarea::placeholder {
 .guardian-article .element-image img {
   @apply w-full h-auto rounded-xl;
 }
+
+@keyframes voiceBar {
+  from { transform: scaleY(0.15); }
+  to   { transform: scaleY(1); }
+}

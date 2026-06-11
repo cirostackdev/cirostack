@@ -10,6 +10,7 @@ import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
 import { MediaPickerPopup } from "@/components/Chat/MediaPickerPopup";
+import { VoiceNoteButton } from "@/components/Chat/VoiceNoteButton";
 import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
 
@@ -645,15 +646,33 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
                 </button>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={sendMessage}
-              disabled={!input.trim() || sending}
-              className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 hover:opacity-90 transition-opacity"
-              aria-label="Send message"
-            >
-              <Send className="w-4 h-4" />
-            </button>
+            {input.trim() ? (
+              <button
+                type="button"
+                onClick={sendMessage}
+                disabled={sending}
+                className="w-11 h-11 bg-primary text-primary-foreground rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 hover:opacity-90 transition-opacity"
+                aria-label="Send message"
+              >
+                <Send className="w-4 h-4" />
+              </button>
+            ) : (
+              <VoiceNoteButton
+                uploadEndpoint="/api/portal/chat/upload"
+                onSend={async (file) => {
+                  const fd = new FormData();
+                  fd.append("file", file);
+                  const res = await fetch("/api/portal/chat/upload", { method: "POST", body: fd });
+                  if (!res.ok) return;
+                  const { url, name } = await res.json();
+                  fetch("/api/portal/chat", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ body: name, fileUrl: url, conversationId: conversationIdRef.current }),
+                  });
+                }}
+              />
+            )}
           </div>
         </div>
       ) : (
