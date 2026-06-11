@@ -100,6 +100,18 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
       });
     });
 
+    channel.bind("conversation-closed-notification", ({ conversationId }: { conversationId: string }) => {
+      setConversations((prev) =>
+        prev.map((c) => c.id === conversationId ? { ...c, status: "closed" } : c)
+      );
+    });
+
+    channel.bind("conversation-assigned", ({ conversationId, assignedTo }: { conversationId: string; assignedTo: { id: string; name: string } | null }) => {
+      setConversations((prev) =>
+        prev.map((c) => c.id === conversationId ? { ...c, assignedTo: assignedTo ?? null } : c)
+      );
+    });
+
     return () => {
       channel.unbind_all();
       pusher.unsubscribe("private-admin-notifications");

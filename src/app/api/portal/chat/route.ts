@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { clientAuth } from "@/auth-client";
+import { pusher } from "@/lib/pusher";
 
 // GET — active open conversation + messages (used for polling)
 // Supports ?after=<messageId> to only fetch messages created after that message (delta fetch)
@@ -119,6 +120,10 @@ export async function PUT(req: Request) {
       data: { updatedAt: new Date() },
     });
 
+    // Notify admin via Pusher
+    await pusher.trigger(`private-conversation-${convId}`, "new-message", { message });
+    await pusher.trigger("private-admin-notifications", "new-message", { conversationId: convId });
+
     return NextResponse.json({ message, conversationId: convId });
   } catch (err) {
     console.error("[PUT /api/portal/chat]", err);
@@ -147,6 +152,9 @@ export async function PATCH(req: Request) {
       where: { id: conversationId },
       data: { status: "closed" },
     });
+
+    await pusher.trigger(`private-conversation-${conversationId}`, "conversation-closed", { conversationId });
+    await pusher.trigger("private-admin-notifications", "conversation-closed-notification", { conversationId });
 
     return NextResponse.json({ ok: true });
   } catch (err) {

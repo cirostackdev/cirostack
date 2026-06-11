@@ -5,6 +5,7 @@ import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckC
 import { PortalHeaderActionsContext } from "@/components/portal/PortalShell";
 import { format, formatDistanceToNow, isSameDay } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
+import { RecordingIndicator } from "@/components/Chat/RecordingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
 import { ReplyPreview } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
@@ -14,6 +15,8 @@ import { VoiceNoteButton } from "@/components/Chat/VoiceNoteButton";
 import { isStructuredMessage, StructuredMessageCard } from "@/components/Chat/StructuredMessageCard";
 import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
+import { getPusher } from "@/lib/pusher-client";
+import type { Channel } from "pusher-js";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
 
@@ -252,6 +255,8 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   const [replyTo, setReplyTo] = useState<Message | null>(null);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [unreadWhileScrolled, setUnreadWhileScrolled] = useState(0);
+  const [agentTyping, setAgentTyping] = useState(false);
+  const [agentRecording, setAgentRecording] = useState(false);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -262,6 +267,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     initialConversation?.messages.at(-1)?.id ?? null
   );
   const isScrolledUpRef = useRef(false);
+  const channelRef = useRef<Channel | null>(null);
 
   // Check agent online status
   useEffect(() => {
@@ -278,57 +284,85 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     fetch(`/api/chat/conversations/${cid}/read`, { method: "POST" }).catch(() => {});
   }, [messages]);
 
-  // Poll for new messages every 3 seconds (delta fetch using after param)
-  useEffect(() => {
-    const poll = async () => {
-      const afterParam = lastMessageIdRef.current ? `?after=${lastMessageIdRef.current}` : "";
-      const res = await fetch(`/api/portal/chat${afterParam}`);
-      if (!res.ok) return;
-      const { conversation: conv } = await res.json();
-      if (!conv) return;
+  // Subscribe to a conversation's Pusher channel
+  const subscribeToPusher = useCallback((convId: string) => {
+    const pusherClient = getPusher();
+    if (!pusherClient) return;
 
-      const isNewConversation = conversationIdRef.current && conv.id !== conversationIdRef.current;
+    // Unsubscribe from previous channel if any
+    if (channelRef.current) {
+      channelRef.current.unbind_all();
+      pusherClient.unsubscribe(channelRef.current.name);
+    }
 
-      // Conversation switched — reset everything so old messages don't mix in
-      if (isNewConversation) {
-        lastMessageIdRef.current = null;
-        setMessages(conv.messages);
-        setUnreadWhileScrolled(0);
-        conversationIdRef.current = conv.id;
-        setConversation(conv);
-        if (conv.messages.length > 0) {
-          lastMessageIdRef.current = conv.messages.at(-1)?.id ?? null;
+    const ch = pusherClient.subscribe(`private-conversation-${convId}`);
+    channelRef.current = ch;
+
+    ch.bind("new-message", ({ message }: { message: Message }) => {
+      setAgentTyping(false);
+      setAgentRecording(false);
+      setMessages((prev) => {
+        if (prev.find((m) => m.id === message.id)) return prev;
+        // Reconcile optimistic message
+        const optIdx = prev.findIndex(
+          (m) => m.id.startsWith("opt-") && m.body === message.body && m.senderType === message.senderType
+        );
+        if (optIdx !== -1) {
+          const updated = [...prev];
+          updated[optIdx] = { ...message, status: "sent" };
+          return updated;
         }
-        return;
+        if (isScrolledUpRef.current && message.senderType === "agent") {
+          setUnreadWhileScrolled((n) => n + 1);
+        }
+        return [...prev, message];
+      });
+      if (message.id) lastMessageIdRef.current = message.id;
+    });
+
+    ch.bind("agent-typing", ({ typing }: { typing: boolean }) => {
+      setAgentTyping(typing);
+    });
+
+    ch.bind("agent-recording", ({ recording }: { recording: boolean }) => {
+      setAgentRecording(recording);
+    });
+
+    ch.bind("reaction-update", ({ messageId, reactions }: { messageId: string; reactions: Record<string, string[]> }) => {
+      setMessages((prev) => prev.map((m) => m.id === messageId ? { ...m, reactions } : m));
+    });
+
+    ch.bind("messages-read", ({ by }: { by: string }) => {
+      if (by === "admin") {
+        setMessages((prev) => prev.map((m) => m.senderType === "visitor" ? { ...m, read: true } : m));
       }
+    });
 
-      conversationIdRef.current = conv.id;
-      setConversation(conv);
+    ch.bind("message-deleted", ({ messageId }: { messageId: string }) => {
+      setMessages((prev) => prev.filter((m) => m.id !== messageId));
+    });
 
-      // Append only new messages (delta fetch returns only messages after the last known one)
-      if (conv.messages.length > 0) {
-        const latestId = conv.messages.at(-1)?.id;
-        if (lastMessageIdRef.current) {
-          setMessages((prev) => {
-            const existingIds = new Set(prev.map((m) => m.id));
-            const newMsgs = conv.messages.filter((m: Message) => !existingIds.has(m.id));
-            if (newMsgs.length > 0 && isScrolledUpRef.current) {
-              const agentNew = newMsgs.filter((m: Message) => m.senderType === "agent").length;
-              if (agentNew > 0) setUnreadWhileScrolled((n) => n + agentNew);
-            }
-            return newMsgs.length > 0 ? [...prev, ...newMsgs] : prev;
-          });
-        } else {
-          setMessages(conv.messages);
-        }
-        if (latestId) lastMessageIdRef.current = latestId;
+    ch.bind("conversation-closed", () => {
+      setConversation((prev) => prev ? { ...prev, status: "closed" } : prev);
+    });
+  }, []);
+
+  // Cleanup Pusher on unmount
+  useEffect(() => {
+    return () => {
+      if (channelRef.current) {
+        channelRef.current.unbind_all();
+        getPusher()?.unsubscribe(channelRef.current.name);
       }
     };
-
-    poll();
-    const t = setInterval(poll, 3000);
-    return () => clearInterval(t);
   }, []);
+
+  // Subscribe when conversation id is known / changes
+  useEffect(() => {
+    if (conversationIdRef.current) {
+      subscribeToPusher(conversationIdRef.current);
+    }
+  }, [subscribeToPusher]);
 
   const handleScroll = () => {
     const el = scrollContainerRef.current;
@@ -352,7 +386,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
       const el = scrollContainerRef.current;
       if (el) el.scrollTop = el.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, agentTyping, agentRecording]);
 
   const sendMessage = async () => {
     if (!input.trim() || sending) return;
@@ -394,9 +428,12 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
       });
       if (res.ok) {
         const { message, conversationId: cid } = await res.json();
+        const isNewConv = !conversationIdRef.current || conversationIdRef.current !== cid;
         conversationIdRef.current = cid;
         lastMessageIdRef.current = message.id;
         setMessages((prev) => prev.map((m) => m.id === optimistic.id ? { ...message, status: "sent" } : m));
+        // Subscribe to Pusher if this created a new conversation
+        if (isNewConv) subscribeToPusher(cid);
       } else {
         setMessages((prev) => prev.map((m) => m.id === optimistic.id ? { ...m, status: "failed" } : m));
       }
@@ -456,8 +493,11 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
         body: JSON.stringify({ body: file.name, fileUrl: remoteUrl, conversationId: conversationIdRef.current }),
       });
       if (res.ok) {
-        const { message } = await res.json();
+        const { message, conversationId: cid } = await res.json();
+        const isNewConv = !conversationIdRef.current || conversationIdRef.current !== cid;
+        if (cid) conversationIdRef.current = cid;
         setMessages((prev) => prev.map((m) => m.id === optId ? { ...message, status: "sent" } : m));
+        if (isNewConv && cid) subscribeToPusher(cid);
       } else {
         setMessages((prev) => prev.map((m) => m.id === optId ? { ...m, status: "failed" } : m));
       }
@@ -563,7 +603,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
           )}
           {history.map((c) => (
             <button key={c.id}
-              onClick={() => { setConversation(c); setMessages(c.messages); conversationIdRef.current = c.id; lastMessageIdRef.current = c.messages.at(-1)?.id ?? null; setView("chat"); }}
+              onClick={() => { setConversation(c); setMessages(c.messages); conversationIdRef.current = c.id; lastMessageIdRef.current = c.messages.at(-1)?.id ?? null; setView("chat"); subscribeToPusher(c.id); }}
               className="w-full flex items-start gap-3 px-4 py-4 hover:bg-muted/40 transition-colors text-left">
               <div className={`mt-1 w-2 h-2 rounded-full shrink-0 ${c.status === "open" ? PRESENCE.online : PRESENCE.offline}`} />
               <div className="min-w-0 flex-1">
@@ -620,6 +660,9 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
             />
           );
         })}
+
+        {agentRecording && !agentTyping && <RecordingIndicator />}
+        {agentTyping && <TypingIndicator />}
 
         {isClosed && (
           <div className="flex justify-center my-4">

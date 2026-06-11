@@ -443,6 +443,10 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       }
     });
 
+    channel.bind("message-deleted", ({ messageId }: { messageId: string }) => {
+      setMessages((prev) => prev.filter((m) => m.id !== messageId));
+    });
+
     // Claim conversation and mark read
     fetch(`/api/admin/conversations/${conversation.id}/claim`, { method: "POST" }).catch(() => {});
     fetch(`/api/admin/conversations/${conversation.id}/read`, { method: "POST" }).catch(() => {});

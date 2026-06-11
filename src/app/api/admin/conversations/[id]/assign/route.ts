@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+import { pusher } from "@/lib/pusher";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -16,6 +17,12 @@ export async function POST(req: Request, { params }: Params) {
       data: { assignedToId: adminId ?? null },
       include: { assignedTo: { select: { id: true, name: true } } },
     });
+
+    await pusher.trigger("private-admin-notifications", "conversation-assigned", {
+      conversationId: id,
+      assignedTo: conversation.assignedTo ?? null,
+    });
+
     return NextResponse.json(conversation);
   } catch (err: any) {
     if (err?.code === "P2025") return NextResponse.json({ error: "Not found" }, { status: 404 });

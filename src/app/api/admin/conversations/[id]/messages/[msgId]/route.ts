@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { pusher } from "@/lib/pusher";
 
 export async function DELETE(
   req: Request,
@@ -19,6 +20,8 @@ export async function DELETE(
   if (!message) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   await prisma.message.delete({ where: { id: msgId } });
+
+  await pusher.trigger(`private-conversation-${id}`, "message-deleted", { messageId: msgId });
 
   return NextResponse.json({ ok: true });
 }

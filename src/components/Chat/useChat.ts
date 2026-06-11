@@ -170,6 +170,10 @@ export function useChat() {
         );
       }
     });
+
+    channel.bind("message-deleted", ({ messageId }: { messageId: string }) => {
+      setMessages((prev) => prev.filter((m) => m.id !== messageId));
+    });
   }, []);
 
   // Load history for returning visitors when opening chat

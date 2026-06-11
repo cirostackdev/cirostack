@@ -27,6 +27,7 @@ export async function POST(
 
   await pusher.trigger(`private-conversation-${id}`, "new-message", { message: msg });
   await pusher.trigger(`private-conversation-${id}`, "conversation-closed", { conversationId: id });
+  await pusher.trigger("private-admin-notifications", "conversation-closed-notification", { conversationId: id });
 
   return NextResponse.json({ ok: true });
 }
