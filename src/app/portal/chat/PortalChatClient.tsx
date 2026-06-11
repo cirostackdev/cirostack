@@ -87,9 +87,10 @@ function Bubble({
   }
 
   const hasMedia = !!msg.fileUrl;
-  const linkUrl = !hasMedia ? msg.body.match(/https?:\/\/[^\s]+/)?.[0] || null : null;
+  const linkMatch = !hasMedia ? msg.body.match(/(?:https?:\/\/|(?:www\.)|(?:[a-z0-9-]+\.(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)\b))[^\s]*/i) : null;
+  const linkUrl = linkMatch ? (linkMatch[0].match(/^https?:\/\//) ? linkMatch[0] : `https://${linkMatch[0]}`) : null;
   const [ogLoaded, setOgLoaded] = useState(false);
-  const bodyWithoutUrl = linkUrl ? msg.body.replace(linkUrl, "").trim() : msg.body;
+  const bodyWithoutUrl = linkMatch ? msg.body.replace(linkMatch[0], "").trim() : msg.body;
 
   const reactions = msg.reactions as Record<string, string[]> | null | undefined;
 
@@ -588,7 +589,8 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
 
       {/* Real-time link preview */}
       {(() => {
-        const liveUrl = input.match(/https?:\/\/[^\s]+/)?.[0];
+        const m = input.match(/(?:https?:\/\/|(?:www\.)|(?:[a-z0-9-]+\.(?:com|org|net|io|dev|co|ai|app|me|info|biz|xyz|tech|site|online|store|shop)\b))[^\s]*/i);
+        const liveUrl = m ? (m[0].match(/^https?:\/\//) ? m[0] : `https://${m[0]}`) : null;
         return liveUrl ? (
           <div className="px-3 pt-2 border-t border-border/40">
             <LinkPreview url={liveUrl} isSender={true} />
