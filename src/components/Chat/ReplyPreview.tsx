@@ -1,6 +1,6 @@
 "use client";
 
-import { Mic, Video, FileText, BookOpen, User, Calendar } from "lucide-react";
+import { Mic, FileText, BookOpen, User, Calendar } from "lucide-react";
 
 interface ReplyPreviewProps {
   senderName: string;
@@ -13,7 +13,7 @@ function ReplyMedia({ body, fileUrl }: { body: string; fileUrl?: string | null }
     const lower = (fileUrl + body).toLowerCase();
 
     // Image — show actual thumbnail
-    if (/\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/i.test(fileUrl) || fileUrl.includes("image/")) {
+    if (/\.(jpg|jpeg|png|gif|webp|svg)/i.test(fileUrl) || fileUrl.includes("image/") || body === "Photo") {
       return (
         <div className="flex items-center gap-1.5 min-w-0">
           <img src={fileUrl} alt="" className="w-9 h-9 rounded object-cover shrink-0" />
@@ -37,7 +37,7 @@ function ReplyMedia({ body, fileUrl }: { body: string; fileUrl?: string | null }
       return (
         <div className="flex items-center gap-1.5">
           <div className="w-9 h-9 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
-            <video src={fileUrl} className="w-full h-full object-cover" muted preload="metadata" />
+            <video src={`${fileUrl}#t=0.1`} className="w-full h-full object-cover" muted preload="metadata" />
           </div>
           <span className="text-xs opacity-70">Video</span>
         </div>

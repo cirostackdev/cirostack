@@ -38,6 +38,7 @@ interface Message {
   replyToId?: string | null;
   replyToBody?: string | null;
   replyToSender?: string | null;
+  replyToFileUrl?: string | null;
   reactions?: Record<string, string[]> | null;
   createdAt: string;
   // Client-only optimistic fields
@@ -316,7 +317,7 @@ function MessageBubble({
                 <ReplyPreview
                   senderName={msg.replyToSender || "Unknown"}
                   body={msg.replyToBody}
-                  fileUrl={(msg as any).replyToFileUrl}
+                  fileUrl={msg.replyToFileUrl}
                 />
               )}
               {structured ? (
@@ -868,12 +869,13 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
         {/* Reply bar */}
         {replyTo && (
-          <div className="flex items-center gap-2 px-4 py-2 bg-muted/30 border-t border-border/40">
-            <div className="flex-1 min-w-0 border-l-2 border-primary/60 pl-2">
-              <p className="text-[10px] font-semibold text-muted-foreground">
-                {replyTo.senderName || (replyTo.senderType === "agent" ? adminName : "Visitor")}
-              </p>
-              <p className="text-xs truncate text-muted-foreground">{messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}</p>
+          <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 border-t border-border/40">
+            <div className="flex-1 min-w-0">
+              <ReplyPreview
+                senderName={replyTo.senderName || (replyTo.senderType === "agent" ? adminName : "Visitor")}
+                body={messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}
+                fileUrl={replyTo.fileUrl}
+              />
             </div>
             <button onClick={() => setReplyTo(null)} className="shrink-0 text-muted-foreground hover:text-foreground">
               <X className="w-3.5 h-3.5" />

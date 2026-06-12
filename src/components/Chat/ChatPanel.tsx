@@ -6,6 +6,7 @@ import { messagePreview } from "./messagePreview";
 import { ChatMessage } from "./ChatMessage";
 import { DateSeparator } from "./DateSeparator";
 import { TypingIndicator } from "./TypingIndicator";
+import { ReplyPreview } from "./ReplyPreview";
 import { RecordingIndicator } from "./RecordingIndicator";
 import { LinkPreview } from "./LinkPreview";
 import { MediaPickerPopup } from "./MediaPickerPopup";
@@ -211,12 +212,13 @@ export function ChatPanel({
 
       {/* Reply bar */}
       {replyTo && (
-        <div className="flex items-center gap-2 px-4 py-2 bg-muted/30 border-t border-border/40">
-          <div className="flex-1 min-w-0 border-l-2 border-primary/60 pl-2">
-            <p className="text-[10px] font-semibold text-muted-foreground">
-              {replyTo.senderName || (replyTo.senderType === "visitor" ? "You" : "Agent")}
-            </p>
-            <p className="text-xs truncate text-muted-foreground">{messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}</p>
+        <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 border-t border-border/40">
+          <div className="flex-1 min-w-0">
+            <ReplyPreview
+              senderName={replyTo.senderName || (replyTo.senderType === "visitor" ? "You" : "Agent")}
+              body={messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}
+              fileUrl={replyTo.fileUrl}
+            />
           </div>
           <button onClick={onClearReply} className="shrink-0 text-muted-foreground hover:text-foreground">
             <X className="w-3.5 h-3.5" />

@@ -257,7 +257,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
                 <ReplyPreview
                   senderName={message.replyToSender || "Unknown"}
                   body={message.replyToBody}
-                  fileUrl={(message as any).replyToFileUrl}
+                  fileUrl={message.replyToFileUrl}
                 />
               )}
               {structured ? (

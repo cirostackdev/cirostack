@@ -32,6 +32,7 @@ interface Message {
   replyToId?: string | null;
   replyToBody?: string | null;
   replyToSender?: string | null;
+  replyToFileUrl?: string | null;
   reactions?: Record<string, string[]> | null;
   createdAt: string;
   // client-only
@@ -256,7 +257,7 @@ function Bubble({
                 : `bg-green-500/10 text-foreground rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
             }`}>
               {msg.replyToBody && (
-                <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} fileUrl={(msg as any).replyToFileUrl} />
+                <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} fileUrl={msg.replyToFileUrl} />
               )}
               {structured ? (
                 <>
@@ -779,12 +780,13 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
 
       {/* Reply bar */}
       {replyTo && (
-        <div className="flex items-center gap-2 px-4 py-2 bg-muted/30 border-t border-border/40">
-          <div className="flex-1 min-w-0 border-l-2 border-primary/60 pl-2">
-            <p className="text-[10px] font-semibold text-muted-foreground">
-              {replyTo.senderName || (replyTo.senderType === "agent" ? "Agent" : "You")}
-            </p>
-            <p className="text-xs truncate text-muted-foreground">{messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}</p>
+        <div className="flex items-center gap-2 px-3 py-2 bg-muted/30 border-t border-border/40">
+          <div className="flex-1 min-w-0">
+            <ReplyPreview
+              senderName={replyTo.senderName || (replyTo.senderType === "agent" ? "Agent" : "You")}
+              body={messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}
+              fileUrl={replyTo.fileUrl}
+            />
           </div>
           <button onClick={() => setReplyTo(null)} className="shrink-0 text-muted-foreground hover:text-foreground">
             <X className="w-3.5 h-3.5" />
