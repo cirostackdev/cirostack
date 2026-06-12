@@ -411,6 +411,16 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     }
   }, [messages, visitorTyping, visitorRecording]);
 
+  // Mark visitor messages as read whenever messages change while admin is viewing
+  useEffect(() => {
+    const hasUnread = messages.some((m) => m.senderType === "visitor" && !m.read);
+    if (!hasUnread) return;
+    fetch(`/api/admin/conversations/${conversation.id}/read`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    }).catch(() => {});
+  }, [messages, conversation.id]);
+
   // Subscribe to Pusher channel + claim conversation
   useEffect(() => {
     const pusher = getPusher();
