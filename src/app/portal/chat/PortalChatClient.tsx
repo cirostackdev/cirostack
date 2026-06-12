@@ -256,7 +256,7 @@ function Bubble({
                 : `bg-green-500/10 text-foreground rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
             }`}>
               {msg.replyToBody && (
-                <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} />
+                <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} fileUrl={(msg as any).replyToFileUrl} />
               )}
               {structured ? (
                 <>
@@ -482,6 +482,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
       replyToId: replyTo?.id,
       replyToBody: replyTo ? messagePreview(replyTo.body, replyTo.fileUrl ?? undefined) : undefined,
       replyToSender: replyTo?.senderName || (replyTo?.senderType === "agent" ? "Agent" : undefined),
+      replyToFileUrl: replyTo?.fileUrl ?? undefined,
     };
     setMessages((prev) => [...prev, optimistic]);
     setReplyTo(null);
@@ -494,6 +495,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
       payload.replyToId = replyTo.id;
       payload.replyToBody = messagePreview(replyTo.body, replyTo.fileUrl ?? undefined);
       payload.replyToSender = replyTo.senderName || (replyTo.senderType === "agent" ? "Agent" : clientName || "You");
+      if (replyTo.fileUrl) payload.replyToFileUrl = replyTo.fileUrl;
     }
 
     try {

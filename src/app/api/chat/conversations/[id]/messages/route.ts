@@ -41,7 +41,7 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const { visitorId, body, fileUrl, replyToId, replyToBody, replyToSender } = await req.json();
+    const { visitorId, body, fileUrl, replyToId, replyToBody, replyToSender, replyToFileUrl } = await req.json();
 
     if (!visitorId || !body?.trim()) {
       return NextResponse.json({ error: "visitorId and body required" }, { status: 400 });
@@ -66,6 +66,7 @@ export async function POST(
         ...(replyToId ? { replyToId } : {}),
         ...(replyToBody ? { replyToBody: String(replyToBody).slice(0, 500) } : {}),
         ...(replyToSender ? { replyToSender: String(replyToSender).slice(0, 100) } : {}),
+        ...(replyToFileUrl ? { replyToFileUrl: String(replyToFileUrl) } : {}),
       },
     });
 

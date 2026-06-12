@@ -15,7 +15,7 @@ export async function POST(
   if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id } = await params;
-  const { body, fileUrl, replyToId, replyToBody, replyToSender } = await req.json();
+  const { body, fileUrl, replyToId, replyToBody, replyToSender, replyToFileUrl } = await req.json();
 
   if (!body?.trim()) return NextResponse.json({ error: "body required" }, { status: 400 });
 
@@ -30,6 +30,7 @@ export async function POST(
       ...(replyToId ? { replyToId } : {}),
       ...(replyToBody ? { replyToBody: String(replyToBody).slice(0, 500) } : {}),
       ...(replyToSender ? { replyToSender: String(replyToSender).slice(0, 100) } : {}),
+      ...(replyToFileUrl ? { replyToFileUrl: String(replyToFileUrl) } : {}),
     },
   });
 

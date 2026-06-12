@@ -47,6 +47,7 @@ model Message {
   replyToId       String?
   replyToBody     String?
   replyToSender   String?
+  replyToFileUrl  String?
   reactions       Json?
   createdAt       DateTime     @default(now())
 }

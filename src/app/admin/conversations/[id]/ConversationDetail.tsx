@@ -316,6 +316,7 @@ function MessageBubble({
                 <ReplyPreview
                   senderName={msg.replyToSender || "Unknown"}
                   body={msg.replyToBody}
+                  fileUrl={(msg as any).replyToFileUrl}
                 />
               )}
               {structured ? (
@@ -556,6 +557,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       payload.replyToId = replyTo.id;
       payload.replyToBody = messagePreview(replyTo.body, replyTo.fileUrl ?? undefined);
       payload.replyToSender = replyTo.senderName || (replyTo.senderType === "agent" ? adminName : "Visitor");
+      if (replyTo.fileUrl) payload.replyToFileUrl = replyTo.fileUrl;
     }
     setReplyTo(null);
 

@@ -15,6 +15,7 @@ export interface ChatMessage {
   replyToId?: string | null;
   replyToBody?: string | null;
   replyToSender?: string | null;
+  replyToFileUrl?: string | null;
   reactions?: Record<string, string[]> | null;
   createdAt: string;
   // Client-only optimistic status
@@ -322,7 +323,7 @@ export function useChat() {
   );
 
   const sendMessage = useCallback(
-    async (body: string, options?: { replyToId?: string; replyToBody?: string; replyToSender?: string }, fileUrl?: string) => {
+    async (body: string, options?: { replyToId?: string; replyToBody?: string; replyToSender?: string; replyToFileUrl?: string }, fileUrl?: string) => {
       if (!body.trim() || !conversationId) return;
 
       const optimistic: ChatMessage = {
@@ -337,6 +338,7 @@ export function useChat() {
         replyToId: options?.replyToId,
         replyToBody: options?.replyToBody,
         replyToSender: options?.replyToSender,
+        replyToFileUrl: options?.replyToFileUrl,
       };
 
       setMessages((prev) => [...prev, optimistic]);
@@ -352,6 +354,7 @@ export function useChat() {
             replyToId: options?.replyToId,
             replyToBody: options?.replyToBody,
             replyToSender: options?.replyToSender,
+            replyToFileUrl: options?.replyToFileUrl,
           }),
         });
 

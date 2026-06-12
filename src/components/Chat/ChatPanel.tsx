@@ -21,7 +21,7 @@ interface ChatPanelProps {
   agentOnline: boolean;
   isConnected: boolean;
   conversationId: string | null;
-  onSendMessage: (body: string, opts?: { replyToId?: string; replyToBody?: string; replyToSender?: string }, fileUrl?: string) => void;
+  onSendMessage: (body: string, opts?: { replyToId?: string; replyToBody?: string; replyToSender?: string; replyToFileUrl?: string }, fileUrl?: string) => void;
   onSendFile: (file: File) => void;
   onSendTyping: (typing: boolean) => void;
   onSendRecording?: (recording: boolean) => void;
@@ -91,6 +91,7 @@ export function ChatPanel({
       replyToId: replyTo.id,
       replyToBody: messagePreview(replyTo.body, replyTo.fileUrl ?? undefined),
       replyToSender: replyTo.senderName || (replyTo.senderType === "visitor" ? "You" : "Agent"),
+      replyToFileUrl: replyTo.fileUrl ?? undefined,
     } : undefined);
     setInput("");
     if (onClearReply) onClearReply();
