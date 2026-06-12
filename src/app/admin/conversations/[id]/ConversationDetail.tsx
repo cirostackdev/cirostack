@@ -24,6 +24,7 @@ import { CatalogPicker } from "@/components/Chat/CatalogPicker";
 import { ContactPicker } from "@/components/Chat/ContactPicker";
 import { EventPicker } from "@/components/Chat/EventPicker";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
+import { messagePreview } from "@/components/Chat/messagePreview";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
 
@@ -525,7 +526,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     const payload: Record<string, unknown> = { body };
     if (replyTo) {
       payload.replyToId = replyTo.id;
-      payload.replyToBody = replyTo.body;
+      payload.replyToBody = messagePreview(replyTo.body, replyTo.fileUrl ?? undefined);
       payload.replyToSender = replyTo.senderName || (replyTo.senderType === "agent" ? adminName : "Visitor");
     }
     setReplyTo(null);
@@ -842,7 +843,7 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
               <p className="text-[10px] font-semibold text-muted-foreground">
                 {replyTo.senderName || (replyTo.senderType === "agent" ? adminName : "Visitor")}
               </p>
-              <p className="text-xs truncate text-muted-foreground">{replyTo.body}</p>
+              <p className="text-xs truncate text-muted-foreground">{messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}</p>
             </div>
             <button onClick={() => setReplyTo(null)} className="shrink-0 text-muted-foreground hover:text-foreground">
               <X className="w-3.5 h-3.5" />

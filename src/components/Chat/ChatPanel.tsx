@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Send, MessageSquare, ChevronDown, X, Paperclip } from "lucide-react";
+import { messagePreview } from "./messagePreview";
 import { ChatMessage } from "./ChatMessage";
 import { DateSeparator } from "./DateSeparator";
 import { TypingIndicator } from "./TypingIndicator";
@@ -88,7 +89,7 @@ export function ChatPanel({
     if (!input.trim()) return;
     onSendMessage(input.trim(), replyTo ? {
       replyToId: replyTo.id,
-      replyToBody: replyTo.body,
+      replyToBody: messagePreview(replyTo.body, replyTo.fileUrl ?? undefined),
       replyToSender: replyTo.senderName || (replyTo.senderType === "visitor" ? "You" : "Agent"),
     } : undefined);
     setInput("");
@@ -214,7 +215,7 @@ export function ChatPanel({
             <p className="text-[10px] font-semibold text-muted-foreground">
               {replyTo.senderName || (replyTo.senderType === "visitor" ? "You" : "Agent")}
             </p>
-            <p className="text-xs truncate text-muted-foreground">{replyTo.body}</p>
+            <p className="text-xs truncate text-muted-foreground">{messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}</p>
           </div>
           <button onClick={onClearReply} className="shrink-0 text-muted-foreground hover:text-foreground">
             <X className="w-3.5 h-3.5" />

@@ -17,6 +17,7 @@ import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import { CONVERSATION_STATUS_COLORS, PRESENCE } from "@/lib/colors";
 import { getPusher } from "@/lib/pusher-client";
 import type { Channel } from "pusher-js";
+import { messagePreview } from "@/components/Chat/messagePreview";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
 
@@ -451,7 +452,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
       createdAt: new Date().toISOString(),
       status: "sending",
       replyToId: replyTo?.id,
-      replyToBody: replyTo?.body,
+      replyToBody: replyTo ? messagePreview(replyTo.body, replyTo.fileUrl ?? undefined) : undefined,
       replyToSender: replyTo?.senderName || (replyTo?.senderType === "agent" ? "Agent" : undefined),
     };
     setMessages((prev) => [...prev, optimistic]);
@@ -463,7 +464,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
     };
     if (replyTo) {
       payload.replyToId = replyTo.id;
-      payload.replyToBody = replyTo.body;
+      payload.replyToBody = messagePreview(replyTo.body, replyTo.fileUrl ?? undefined);
       payload.replyToSender = replyTo.senderName || (replyTo.senderType === "agent" ? "Agent" : clientName || "You");
     }
 
@@ -753,7 +754,7 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
             <p className="text-[10px] font-semibold text-muted-foreground">
               {replyTo.senderName || (replyTo.senderType === "agent" ? "Agent" : "You")}
             </p>
-            <p className="text-xs truncate text-muted-foreground">{replyTo.body}</p>
+            <p className="text-xs truncate text-muted-foreground">{messagePreview(replyTo.body, replyTo.fileUrl ?? undefined)}</p>
           </div>
           <button onClick={() => setReplyTo(null)} className="shrink-0 text-muted-foreground hover:text-foreground">
             <X className="w-3.5 h-3.5" />
