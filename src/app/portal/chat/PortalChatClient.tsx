@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback, useContext } from "react";
-import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown, Paperclip, Mic, Play, Link } from "lucide-react";
+import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown, Paperclip } from "lucide-react";
 import { PortalHeaderActionsContext } from "@/components/portal/PortalShell";
 import { format, formatDistanceToNow, isSameDay } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
@@ -130,24 +130,14 @@ function Bubble({
   );
   const hasLink = !!linkUrl;
 
+  const interacted = isAudioMsg ? !!rxn._listened : isVideoMsg ? !!rxn._watched : hasLink ? !!rxn._clicked : msg.read;
+
   const statusIcon = !isAgent ? (
     msg.status === "sending" || msg.status === "uploading"
       ? <Clock className="w-3 h-3 opacity-50 inline" />
       : msg.status === "failed"
       ? <X className="w-3 h-3 text-red-400 inline" />
-      : isAudioMsg
-      ? rxn._listened
-        ? <span className="inline-flex items-center"><Mic className="w-3 h-3 text-blue-400" /><Mic className="w-3 h-3 text-blue-400 -ml-1" /></span>
-        : <Mic className="w-3 h-3 opacity-50" />
-      : isVideoMsg
-      ? rxn._watched
-        ? <span className="inline-flex items-center"><Play className="w-3 h-3 text-blue-400 fill-current" /><Play className="w-3 h-3 text-blue-400 fill-current -ml-1" /></span>
-        : <Play className="w-3 h-3 opacity-50 fill-current" />
-      : hasLink
-      ? rxn._clicked
-        ? <Link className="w-3 h-3 text-blue-400" />
-        : <Link className="w-3 h-3 opacity-50" />
-      : msg.read
+      : interacted
       ? <CheckCheck className="w-3 h-3 text-blue-400 inline" />
       : <Check className="w-3 h-3 opacity-50 inline" />
   ) : null;

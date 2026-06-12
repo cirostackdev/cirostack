@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { ChatMessage as Msg } from "./useChat";
 import { format } from "date-fns";
-import { Clipboard, Reply, Check, CheckCheck, Clock, X, Mic, Play, Link } from "lucide-react";
+import { Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
 import { ReplyPreview } from "./ReplyPreview";
 import { MediaBubble } from "./MediaBubble";
 import { LinkPreview } from "./LinkPreview";
@@ -104,25 +104,15 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
   const watched  = !!rxn._watched;
   const clicked  = !!rxn._clicked;
 
-  // Status icon shown on sender's messages only
+  // Double blue tick meaning varies by type: read (text), listened (audio), watched (video), clicked (link)
+  const interacted = isAudioMsg ? listened : isVideoMsg ? watched : hasLink ? clicked : message.read;
+
   const statusIcon = isVisitor ? (
     message.status === "sending" || message.status === "uploading"
       ? <Clock className="w-3 h-3 opacity-50 inline" />
       : message.status === "failed"
       ? <X className="w-3 h-3 text-red-400 inline" />
-      : isAudioMsg
-      ? listened
-        ? <span className="inline-flex items-center"><Mic className="w-3 h-3 text-blue-400" /><Mic className="w-3 h-3 text-blue-400 -ml-1" /></span>
-        : <Mic className="w-3 h-3 opacity-50" />
-      : isVideoMsg
-      ? watched
-        ? <span className="inline-flex items-center"><Play className="w-3 h-3 text-blue-400 fill-current" /><Play className="w-3 h-3 text-blue-400 fill-current -ml-1" /></span>
-        : <Play className="w-3 h-3 opacity-50 fill-current" />
-      : hasLink
-      ? clicked
-        ? <Link className="w-3 h-3 text-blue-400" />
-        : <Link className="w-3 h-3 opacity-50" />
-      : message.read
+      : interacted
       ? <CheckCheck className="w-3 h-3 text-blue-400 inline" />
       : <Check className="w-3 h-3 opacity-50 inline" />
   ) : null;

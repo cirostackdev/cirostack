@@ -6,7 +6,7 @@ import { formatDistanceToNow, format, isSameDay } from "date-fns";
 import { useSwipeToReply } from "@/components/Chat/useSwipeToReply";
 import {
   Send, ArrowLeft, UserCheck, X, Info, FileText, MessageSquare, Paperclip, Trash2,
-  Search, Clipboard, Reply, CheckCheck, Check, ChevronDown, Clock, Mic, Play, Link,
+  Search, Clipboard, Reply, CheckCheck, Check, ChevronDown, Clock,
 } from "lucide-react";
 import { toast } from "sonner";
 import { getPusher } from "@/lib/pusher-client";
@@ -174,24 +174,14 @@ function MessageBubble({
   );
   const hasLink = !!linkUrl;
 
+  const interacted = isAudioMsg ? !!rxn._listened : isVideoMsg ? !!rxn._watched : hasLink ? !!rxn._clicked : msg.read;
+
   const readReceipt = isAgent ? (
     msg.status === "uploading" || msg.status === "sending"
       ? <Clock className="w-3 h-3 opacity-40 inline ml-0.5" />
       : msg.status === "failed"
       ? <X className="w-3 h-3 text-red-400 inline ml-0.5" />
-      : isAudioMsg
-      ? rxn._listened
-        ? <span className="inline-flex items-center ml-0.5"><Mic className="w-3 h-3 text-blue-400" /><Mic className="w-3 h-3 text-blue-400 -ml-1" /></span>
-        : <Mic className="w-3 h-3 opacity-40 inline ml-0.5" />
-      : isVideoMsg
-      ? rxn._watched
-        ? <span className="inline-flex items-center ml-0.5"><Play className="w-3 h-3 text-blue-400 fill-current" /><Play className="w-3 h-3 text-blue-400 fill-current -ml-1" /></span>
-        : <Play className="w-3 h-3 opacity-40 fill-current inline ml-0.5" />
-      : hasLink
-      ? rxn._clicked
-        ? <Link className="w-3 h-3 text-blue-400 inline ml-0.5" />
-        : <Link className="w-3 h-3 opacity-40 inline ml-0.5" />
-      : msg.read
+      : interacted
       ? <CheckCheck className="w-3 h-3 text-blue-400 inline ml-0.5" />
       : <Check className="w-3 h-3 opacity-40 inline ml-0.5" />
   ) : null;
