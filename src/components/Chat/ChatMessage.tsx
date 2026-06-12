@@ -98,13 +98,13 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
     /\.(mp4|webm|ogg|mov)(\?|$)/i.test(message.fileUrl) ||
     message.fileUrl.includes("video/")
   );
-  const hasLink = !!linkUrl;
+  const hasLink = !!linkUrl || structured;
 
   const listened = !!rxn._listened;
   const watched  = !!rxn._watched;
   const clicked  = !!rxn._clicked;
 
-  // Double blue tick meaning varies by type: read (text), listened (audio), watched (video), clicked (link)
+  // Double blue tick meaning varies by type: read (text), listened (audio), watched (video), clicked (link/structured)
   const interacted = isAudioMsg ? listened : isVideoMsg ? watched : hasLink ? clicked : message.read;
 
   const statusIcon = isVisitor ? (
@@ -229,7 +229,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
               )}
               {structured ? (
                 <>
-                  <StructuredMessageCard body={message.body} />
+                  <StructuredMessageCard body={message.body} onLinkClick={!isVisitor ? () => onSeen?.(message.id, "clicked") : undefined} />
                   <p className={`text-[10px] mt-2 opacity-60 flex items-center gap-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
                     {time}{statusIcon}
                   </p>

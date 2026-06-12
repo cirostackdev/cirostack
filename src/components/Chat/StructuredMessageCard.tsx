@@ -255,31 +255,36 @@ export function isStructuredMessage(body: string): boolean {
   return false;
 }
 
-export function StructuredMessageCard({ body }: { body: string }) {
+export function StructuredMessageCard({ body, onLinkClick }: { body: string; onLinkClick?: () => void }) {
+  // Capture any <a> click in the card and fire onLinkClick once
+  const handleClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.closest("a") && onLinkClick) {
+      onLinkClick();
+    }
+  };
+
+  let card: React.ReactNode = null;
+
   // New JSON format
   if (body.startsWith("__CATALOG__")) {
-    try { return <CatalogCard data={JSON.parse(body.slice(11))} />; } catch { return null; }
-  }
-  if (body.startsWith("__CONTACT__")) {
-    try { return <ContactCard data={JSON.parse(body.slice(11))} />; } catch { return null; }
-  }
-  if (body.startsWith("__EVENT__")) {
-    try { return <EventCard data={JSON.parse(body.slice(9))} />; } catch { return null; }
-  }
-
-  // Old plain-text format (backward compat — existing DB messages)
-  if (body.startsWith("📂 *Catalog")) {
+    try { card = <CatalogCard data={JSON.parse(body.slice(11))} />; } catch {}
+  } else if (body.startsWith("__CONTACT__")) {
+    try { card = <ContactCard data={JSON.parse(body.slice(11))} />; } catch {}
+  } else if (body.startsWith("__EVENT__")) {
+    try { card = <EventCard data={JSON.parse(body.slice(9))} />; } catch {}
+  // Old plain-text format (backward compat)
+  } else if (body.startsWith("📂 *Catalog")) {
     const parsed = parseOldCatalog(body);
-    if (parsed) return <CatalogCard data={parsed} />;
-  }
-  if (body.startsWith("📇 *Contact Info*")) {
+    if (parsed) card = <CatalogCard data={parsed} />;
+  } else if (body.startsWith("📇 *Contact Info*")) {
     const parsed = parseOldContact(body);
-    if (parsed) return <ContactCard data={parsed} />;
-  }
-  if (body.startsWith("🗓 *Upcoming Events*")) {
+    if (parsed) card = <ContactCard data={parsed} />;
+  } else if (body.startsWith("🗓 *Upcoming Events*")) {
     const parsed = parseOldEvent(body);
-    if (parsed) return <EventCard data={parsed} />;
+    if (parsed) card = <EventCard data={parsed} />;
   }
 
-  return null;
+  if (!card) return null;
+  return <div onClick={handleClick}>{card}</div>;
 }

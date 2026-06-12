@@ -172,7 +172,7 @@ function MessageBubble({
     /\.(mp4|webm|ogg|mov)(\?|$)/i.test(msg.fileUrl) ||
     msg.fileUrl.includes("video/")
   );
-  const hasLink = !!linkUrl;
+  const hasLink = !!linkUrl || structured;
 
   const interacted = isAudioMsg ? !!rxn._listened : isVideoMsg ? !!rxn._watched : hasLink ? !!rxn._clicked : msg.read;
 
@@ -290,7 +290,7 @@ function MessageBubble({
               )}
               {structured ? (
                 <>
-                  <StructuredMessageCard body={msg.body} />
+                  <StructuredMessageCard body={msg.body} onLinkClick={!isAgent ? () => onSeen(msg.id, "clicked") : undefined} />
                   <p className={`text-[10px] mt-2 opacity-50 flex items-center gap-1 ${isAgent ? "justify-end" : "justify-start"}`}>
                     {time}{readReceipt}
                   </p>
