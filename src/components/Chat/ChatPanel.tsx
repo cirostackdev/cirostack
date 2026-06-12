@@ -69,6 +69,30 @@ export function ChatPanel({
     }
   }, [messages, agentTyping, agentRecording, showScrollBtn]);
 
+  // Alt+V paste image from clipboard
+  useEffect(() => {
+    const handler = async (e: KeyboardEvent) => {
+      if (e.altKey && e.key === "v") {
+        e.preventDefault();
+        try {
+          const items = await navigator.clipboard.read();
+          for (const item of items) {
+            const imageType = item.types.find((t) => t.startsWith("image/"));
+            if (imageType) {
+              const blob = await item.getType(imageType);
+              const ext = imageType.split("/")[1] || "png";
+              const file = new File([blob], `paste-${Date.now()}.${ext}`, { type: imageType });
+              onSendFile(file);
+              return;
+            }
+          }
+        } catch {}
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [onSendFile]);
+
   const handleScroll = () => {
     const el = scrollContainerRef.current;
     if (!el) return;

@@ -14,7 +14,7 @@ import type { Channel } from "pusher-js";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { RecordingIndicator } from "@/components/Chat/RecordingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
-import { ReplyPreview } from "@/components/Chat/ReplyPreview";
+import { ReplyPreview, scrollToMessage } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
 import { MediaPickerPopup, type SpecialPickType } from "@/components/Chat/MediaPickerPopup";
@@ -232,7 +232,7 @@ function MessageBubble({
         </div>
       )}
 
-      <div className={`flex ${isAgent ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} relative`}>
+      <div data-message-id={msg.id} className={`flex ${isAgent ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} relative`}>
         {/* Swipe-to-reply icon */}
         <div
           ref={iconRef}
@@ -318,6 +318,7 @@ function MessageBubble({
                   senderName={msg.replyToSender || "Unknown"}
                   body={msg.replyToBody}
                   fileUrl={msg.replyToFileUrl}
+                  onClick={msg.replyToId ? () => scrollToMessage(msg.replyToId!) : undefined}
                 />
               )}
               {structured ? (
@@ -451,6 +452,30 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
       headers: { "Content-Type": "application/json" },
     }).catch(() => {});
   }, [messages, conversation.id]);
+
+  // Alt+V paste image from clipboard
+  useEffect(() => {
+    const handler = async (e: KeyboardEvent) => {
+      if (e.altKey && e.key === "v") {
+        e.preventDefault();
+        try {
+          const items = await navigator.clipboard.read();
+          for (const item of items) {
+            const imageType = item.types.find((t) => t.startsWith("image/"));
+            if (imageType) {
+              const blob = await item.getType(imageType);
+              const ext = imageType.split("/")[1] || "png";
+              const file = new File([blob], `paste-${Date.now()}.${ext}`, { type: imageType });
+              uploadAndSendFile(file);
+              return;
+            }
+          }
+        } catch {}
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   // Subscribe to Pusher channel + claim conversation
   useEffect(() => {

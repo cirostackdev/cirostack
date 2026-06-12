@@ -314,3 +314,12 @@ textarea::placeholder {
   from { transform: scaleY(0.15); }
   to   { transform: scaleY(1); }
 }
+
+@keyframes replyFlash {
+  0%   { background-color: hsl(var(--primary) / 0.15); }
+  100% { background-color: transparent; }
+}
+.reply-highlight {
+  animation: replyFlash 1.5s ease-out;
+  border-radius: 0.75rem;
+}

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import type { ChatMessage as Msg } from "./useChat";
 import { format } from "date-fns";
 import { Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
-import { ReplyPreview } from "./ReplyPreview";
+import { ReplyPreview, scrollToMessage } from "./ReplyPreview";
 import { MediaBubble } from "./MediaBubble";
 import { LinkPreview } from "./LinkPreview";
 import { useSwipeToReply } from "./useSwipeToReply";
@@ -157,6 +157,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
       )}
 
       <div
+        data-message-id={message.id}
         className={`flex ${isVisitor ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} relative`}
       >
         {/* Swipe-to-reply icon (revealed on left as bubble moves right) */}
@@ -258,6 +259,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
                   senderName={message.replyToSender || "Unknown"}
                   body={message.replyToBody}
                   fileUrl={message.replyToFileUrl}
+                  onClick={message.replyToId ? () => scrollToMessage(message.replyToId!) : undefined}
                 />
               )}
               {structured ? (

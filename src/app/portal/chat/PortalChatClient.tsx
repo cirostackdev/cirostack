@@ -7,7 +7,7 @@ import { format, formatDistanceToNow, isSameDay } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { RecordingIndicator } from "@/components/Chat/RecordingIndicator";
 import { DateSeparator } from "@/components/Chat/DateSeparator";
-import { ReplyPreview } from "@/components/Chat/ReplyPreview";
+import { ReplyPreview, scrollToMessage } from "@/components/Chat/ReplyPreview";
 import { MediaBubble } from "@/components/Chat/MediaBubble";
 import { LinkPreview } from "@/components/Chat/LinkPreview";
 import { MediaPickerPopup } from "@/components/Chat/MediaPickerPopup";
@@ -178,7 +178,7 @@ function Bubble({
 
   return (
     <>
-      <div className={`flex ${isAgent ? "justify-start" : "justify-end"} ${grouped ? "mb-0.5" : "mb-3"} relative`}>
+      <div data-message-id={msg.id} className={`flex ${isAgent ? "justify-start" : "justify-end"} ${grouped ? "mb-0.5" : "mb-3"} relative`}>
         {/* Swipe-to-reply icon */}
         <div
           ref={iconRef}
@@ -257,7 +257,7 @@ function Bubble({
                 : `bg-green-500/10 text-foreground rounded-l-2xl rounded-tr-2xl ${grouped ? "rounded-br-sm rounded-tr-sm" : "rounded-br-md"}`
             }`}>
               {msg.replyToBody && (
-                <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} fileUrl={msg.replyToFileUrl} />
+                <ReplyPreview senderName={msg.replyToSender || "Unknown"} body={msg.replyToBody} fileUrl={msg.replyToFileUrl} onClick={msg.replyToId ? () => scrollToMessage(msg.replyToId!) : undefined} />
               )}
               {structured ? (
                 <>
@@ -612,6 +612,30 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
   };
 
   const isClosed = conversation?.status === "closed";
+
+  // Alt+V paste image from clipboard
+  useEffect(() => {
+    const handler = async (e: KeyboardEvent) => {
+      if (e.altKey && e.key === "v") {
+        e.preventDefault();
+        try {
+          const items = await navigator.clipboard.read();
+          for (const item of items) {
+            const imageType = item.types.find((t) => t.startsWith("image/"));
+            if (imageType) {
+              const blob = await item.getType(imageType);
+              const ext = imageType.split("/")[1] || "png";
+              const file = new File([blob], `paste-${Date.now()}.${ext}`, { type: imageType });
+              uploadAndSendFile(file);
+              return;
+            }
+          }
+        } catch {}
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   // Inject active status + history button into PortalShell header
   useEffect(() => {

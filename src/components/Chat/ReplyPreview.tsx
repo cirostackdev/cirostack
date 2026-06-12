@@ -6,6 +6,7 @@ interface ReplyPreviewProps {
   senderName: string;
   body: string;
   fileUrl?: string | null;
+  onClick?: () => void;
 }
 
 function ReplyMedia({ body, fileUrl }: { body: string; fileUrl?: string | null }) {
@@ -83,11 +84,23 @@ function ReplyMedia({ body, fileUrl }: { body: string; fileUrl?: string | null }
   return <p className="text-xs opacity-70 truncate">{body}</p>;
 }
 
-export function ReplyPreview({ senderName, body, fileUrl }: ReplyPreviewProps) {
+export function ReplyPreview({ senderName, body, fileUrl, onClick }: ReplyPreviewProps) {
   return (
-    <div className="border-l-2 border-primary/60 pl-2 mb-1.5 rounded-sm bg-black/5 dark:bg-white/5 px-2 py-1">
+    <div
+      className={`border-l-2 border-primary/60 pl-2 mb-1.5 rounded-sm bg-black/5 dark:bg-white/5 px-2 py-1${onClick ? " cursor-pointer active:opacity-70" : ""}`}
+      onClick={onClick}
+    >
       <p className="text-[10px] font-semibold text-primary mb-0.5">{senderName}</p>
       <ReplyMedia body={body} fileUrl={fileUrl} />
     </div>
   );
+}
+
+/** Scroll to a message element and briefly highlight it */
+export function scrollToMessage(messageId: string) {
+  const el = document.querySelector(`[data-message-id="${messageId}"]`);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  el.classList.add("reply-highlight");
+  setTimeout(() => el.classList.remove("reply-highlight"), 1500);
 }
