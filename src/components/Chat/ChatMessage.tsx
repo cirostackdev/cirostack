@@ -117,9 +117,10 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
       : <Check className="w-3 h-3 opacity-50 inline" />
   ) : null;
 
-  const reactionDisplay = reactions && Object.keys(reactions).length > 0 ? (
+  const visibleReactions = reactions ? Object.fromEntries(Object.entries(reactions).filter(([k]) => !k.startsWith("_"))) : {};
+  const reactionDisplay = Object.keys(visibleReactions).length > 0 ? (
     <div className={`flex flex-wrap gap-1 mt-1 ${isVisitor ? "justify-end" : "justify-start"}`}>
-      {Object.entries(reactions).map(([emoji, ids]) =>
+      {Object.entries(visibleReactions).map(([emoji, ids]) =>
         ids.length > 0 ? (
           <button
             key={emoji}
