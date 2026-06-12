@@ -121,9 +121,22 @@ function MessageBubble({
   const time = format(new Date(msg.createdAt), "HH:mm");
   const grouped = isGroupedWith(msg, prevMsg);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [showMenu, setShowMenu] = useState(false);
   const { bubbleRef, iconRef, onTouchStart, onTouchMove, onTouchEnd } = useSwipeToReply(
     () => onReply(msg)
   );
+  const lpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lpStartX = useRef(0);
+  const lpStartY = useRef(0);
+
+  useEffect(() => {
+    if (!showMenu) return;
+    const close = () => setShowMenu(false);
+    const tid = setTimeout(() => {
+      document.addEventListener("touchstart", close, { once: true });
+    }, 0);
+    return () => { clearTimeout(tid); document.removeEventListener("touchstart", close); };
+  }, [showMenu]);
 
   if (isSystem) {
     return (
@@ -147,6 +160,7 @@ function MessageBubble({
   const reactions = msg.reactions as Record<string, string[]> | null | undefined;
 
   const handleReact = async (emoji: string) => {
+    setShowMenu(false);
     try {
       await fetch(`/api/admin/conversations/${convId}/messages/${msg.id}/react`, {
         method: "POST",
@@ -158,6 +172,7 @@ function MessageBubble({
 
   const handleCopy = () => {
     navigator.clipboard.writeText(msg.body).catch(() => {});
+    setShowMenu(false);
   };
 
   // Tick icons for agent messages (agent = sender in admin view)
@@ -216,7 +231,7 @@ function MessageBubble({
         </div>
       )}
 
-      <div className={`flex ${isAgent ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}>
+      <div className={`flex ${isAgent ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} relative`}>
         {/* Swipe-to-reply icon */}
         <div
           ref={iconRef}
@@ -228,10 +243,23 @@ function MessageBubble({
 
         <div
           ref={bubbleRef}
-          className={`max-w-[85%] sm:max-w-[72%] flex flex-col ${isAgent ? "items-end" : "items-start"}`}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
+          className={`max-w-[85%] sm:max-w-[72%] flex flex-col ${isAgent ? "items-end" : "items-start"} group`}
+          onTouchStart={(e) => {
+            onTouchStart(e);
+            lpStartX.current = e.touches[0].clientX;
+            lpStartY.current = e.touches[0].clientY;
+            lpTimer.current = setTimeout(() => setShowMenu(true), 500);
+          }}
+          onTouchMove={(e) => {
+            onTouchMove(e);
+            const dx = Math.abs(e.touches[0].clientX - lpStartX.current);
+            const dy = Math.abs(e.touches[0].clientY - lpStartY.current);
+            if ((dx > 10 || dy > 10) && lpTimer.current) { clearTimeout(lpTimer.current); lpTimer.current = null; }
+          }}
+          onTouchEnd={(e) => {
+            onTouchEnd(e);
+            if (lpTimer.current) { clearTimeout(lpTimer.current); lpTimer.current = null; }
+          }}
         >
           {!grouped && !isAgent && (
             <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
@@ -240,7 +268,7 @@ function MessageBubble({
           )}
 
           {/* Context menu bar */}
-          <div className={`absolute ${isAgent ? "right-0" : "left-0"} -top-8 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-center gap-0.5 bg-background border border-border rounded-lg shadow-md px-1 py-0.5`}>
+          <div className={`absolute ${isAgent ? "right-0" : "left-0"} -top-8 transition-opacity z-20 flex items-center gap-0.5 bg-background border border-border rounded-lg shadow-md px-1 py-0.5 ${showMenu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"}`}>
             {REACTION_EMOJIS.map((emoji) => (
               <button
                 key={emoji}
@@ -255,10 +283,10 @@ function MessageBubble({
             <button onClick={handleCopy} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground" title="Copy">
               <Clipboard className="w-3.5 h-3.5" />
             </button>
-            <button onClick={() => onReply(msg)} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground" title="Reply">
+            <button onClick={() => { onReply(msg); setShowMenu(false); }} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground" title="Reply">
               <Reply className="w-3.5 h-3.5" />
             </button>
-            <button onClick={() => onDelete(msg.id)} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-destructive" title="Delete">
+            <button onClick={() => { onDelete(msg.id); setShowMenu(false); }} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-destructive" title="Delete">
               <Trash2 className="w-3.5 h-3.5" />
             </button>
           </div>

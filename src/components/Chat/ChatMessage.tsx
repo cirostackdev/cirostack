@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { ChatMessage as Msg } from "./useChat";
 import { format } from "date-fns";
 import { Clipboard, Reply, Check, CheckCheck, Clock, X } from "lucide-react";
@@ -45,6 +45,22 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
   const { bubbleRef, iconRef, onTouchStart, onTouchMove, onTouchEnd } = useSwipeToReply(
     () => onReply?.(message)
   );
+  const lpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lpStartX = useRef(0);
+  const lpStartY = useRef(0);
+
+  // Close menu when touching anywhere else on mobile
+  useEffect(() => {
+    if (!showMenu) return;
+    const close = () => setShowMenu(false);
+    const tid = setTimeout(() => {
+      document.addEventListener("touchstart", close, { once: true });
+    }, 0);
+    return () => {
+      clearTimeout(tid);
+      document.removeEventListener("touchstart", close);
+    };
+  }, [showMenu]);
 
   if (isSystem) {
     return (
@@ -141,8 +157,7 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
       )}
 
       <div
-        className={`flex ${isVisitor ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}
-        onMouseLeave={() => setShowMenu(false)}
+        className={`flex ${isVisitor ? "justify-end" : "justify-start"} ${grouped ? "mb-0.5" : "mb-3"} relative`}
       >
         {/* Swipe-to-reply icon (revealed on left as bubble moves right) */}
         <div
@@ -155,10 +170,26 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
 
         <div
           ref={bubbleRef}
-          className={`max-w-[75%] flex flex-col ${isVisitor ? "items-end" : "items-start"}`}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
+          className={`max-w-[75%] flex flex-col ${isVisitor ? "items-end" : "items-start"} group`}
+          onTouchStart={(e) => {
+            onTouchStart(e);
+            lpStartX.current = e.touches[0].clientX;
+            lpStartY.current = e.touches[0].clientY;
+            lpTimer.current = setTimeout(() => setShowMenu(true), 500);
+          }}
+          onTouchMove={(e) => {
+            onTouchMove(e);
+            const dx = Math.abs(e.touches[0].clientX - lpStartX.current);
+            const dy = Math.abs(e.touches[0].clientY - lpStartY.current);
+            if ((dx > 10 || dy > 10) && lpTimer.current) {
+              clearTimeout(lpTimer.current);
+              lpTimer.current = null;
+            }
+          }}
+          onTouchEnd={(e) => {
+            onTouchEnd(e);
+            if (lpTimer.current) { clearTimeout(lpTimer.current); lpTimer.current = null; }
+          }}
         >
           {!grouped && !isVisitor && message.senderName && (
             <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">
@@ -166,9 +197,9 @@ export function ChatMessage({ message, prevMessage, conversationId, onReply, onS
             </p>
           )}
 
-          {/* Context menu */}
+          {/* Context menu — visible on bubble hover (desktop) or long press (mobile) */}
           <div
-            className={`absolute ${isVisitor ? "right-0" : "left-0"} -top-8 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-center gap-0.5 bg-background border border-border rounded-lg shadow-md px-1 py-0.5`}
+            className={`absolute ${isVisitor ? "right-0" : "left-0"} -top-8 transition-opacity z-20 flex items-center gap-0.5 bg-background border border-border rounded-lg shadow-md px-1 py-0.5 ${showMenu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"}`}
           >
             {REACTION_EMOJIS.map((emoji) => (
               <button

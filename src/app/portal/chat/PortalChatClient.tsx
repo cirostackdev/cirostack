@@ -76,9 +76,22 @@ function Bubble({
   const isSystem = msg.senderType === "system";
   const time = format(new Date(msg.createdAt), "HH:mm");
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [showMenu, setShowMenu] = useState(false);
   const { bubbleRef, iconRef, onTouchStart, onTouchMove, onTouchEnd } = useSwipeToReply(
     () => onReply?.(msg)
   );
+  const lpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lpStartX = useRef(0);
+  const lpStartY = useRef(0);
+
+  useEffect(() => {
+    if (!showMenu) return;
+    const close = () => setShowMenu(false);
+    const tid = setTimeout(() => {
+      document.addEventListener("touchstart", close, { once: true });
+    }, 0);
+    return () => { clearTimeout(tid); document.removeEventListener("touchstart", close); };
+  }, [showMenu]);
 
   const grouped = (() => {
     if (!prevMsg) return false;
@@ -106,6 +119,7 @@ function Bubble({
   const reactions = msg.reactions as Record<string, string[]> | null | undefined;
 
   const handleReact = async (emoji: string) => {
+    setShowMenu(false);
     if (!convId) return;
     try {
       await fetch(`/api/chat/conversations/${convId}/messages/${msg.id}/react`, {
@@ -118,6 +132,7 @@ function Bubble({
 
   const handleCopy = () => {
     navigator.clipboard.writeText(msg.body).catch(() => {});
+    setShowMenu(false);
   };
 
   const rxn = (msg.reactions ?? {}) as Record<string, unknown>;
@@ -162,7 +177,7 @@ function Bubble({
 
   return (
     <>
-      <div className={`flex ${isAgent ? "justify-start" : "justify-end"} ${grouped ? "mb-0.5" : "mb-3"} group relative`}>
+      <div className={`flex ${isAgent ? "justify-start" : "justify-end"} ${grouped ? "mb-0.5" : "mb-3"} relative`}>
         {/* Swipe-to-reply icon */}
         <div
           ref={iconRef}
@@ -174,17 +189,30 @@ function Bubble({
 
         <div
           ref={bubbleRef}
-          className={`max-w-[75%] flex flex-col ${isAgent ? "items-start" : "items-end"}`}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
+          className={`max-w-[75%] flex flex-col ${isAgent ? "items-start" : "items-end"} group`}
+          onTouchStart={(e) => {
+            onTouchStart(e);
+            lpStartX.current = e.touches[0].clientX;
+            lpStartY.current = e.touches[0].clientY;
+            lpTimer.current = setTimeout(() => setShowMenu(true), 500);
+          }}
+          onTouchMove={(e) => {
+            onTouchMove(e);
+            const dx = Math.abs(e.touches[0].clientX - lpStartX.current);
+            const dy = Math.abs(e.touches[0].clientY - lpStartY.current);
+            if ((dx > 10 || dy > 10) && lpTimer.current) { clearTimeout(lpTimer.current); lpTimer.current = null; }
+          }}
+          onTouchEnd={(e) => {
+            onTouchEnd(e);
+            if (lpTimer.current) { clearTimeout(lpTimer.current); lpTimer.current = null; }
+          }}
         >
           {!grouped && isAgent && msg.senderName && (
             <p className="text-[11px] font-semibold text-muted-foreground mb-1 px-1">{msg.senderName}</p>
           )}
 
           {/* Context menu */}
-          <div className={`absolute ${isAgent ? "left-0" : "right-0"} -top-8 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-center gap-0.5 bg-background border border-border rounded-lg shadow-md px-1 py-0.5`}>
+          <div className={`absolute ${isAgent ? "left-0" : "right-0"} -top-8 transition-opacity z-20 flex items-center gap-0.5 bg-background border border-border rounded-lg shadow-md px-1 py-0.5 ${showMenu ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"}`}>
             {REACTION_EMOJIS.map((emoji) => (
               <button
                 key={emoji}
@@ -200,7 +228,7 @@ function Bubble({
               <Clipboard className="w-3.5 h-3.5" />
             </button>
             {onReply && (
-              <button onClick={() => onReply(msg)} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground" title="Reply">
+              <button onClick={() => { onReply(msg); setShowMenu(false); }} className="p-1 hover:bg-muted rounded transition-colors text-muted-foreground hover:text-foreground" title="Reply">
                 <Reply className="w-3.5 h-3.5" />
               </button>
             )}
