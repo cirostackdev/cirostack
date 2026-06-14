@@ -826,6 +826,17 @@ function ShareButtonsInline({ title }: { title: string }) {
   );
 }
 
+function sanitizeHtml(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<iframe[\s\S]*?<\/iframe>/gi, '')
+    .replace(/<object[\s\S]*?<\/object>/gi, '')
+    .replace(/<embed[^>]*>/gi, '')
+    .replace(/\son\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    .replace(/javascript\s*:/gi, '')
+    .replace(/data\s*:\s*text\/html/gi, '');
+}
+
 const BlogPost = () => {
   const { id } = useParams();
   const post = posts[id || ""];
@@ -933,7 +944,7 @@ const BlogPost = () => {
                 {dbPost?.body ? (
                   <div
                     className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary"
-                    dangerouslySetInnerHTML={{ __html: dbPost.body }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(dbPost.body) }}
                   />
                 ) : (
                   <ContentRenderer blocks={displayContent} />

@@ -10,6 +10,11 @@ export async function POST(
   try {
     const { id } = await params;
 
+    const visitorId = req.headers.get("x-visitor-id");
+    if (!visitorId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const conv = await prisma.conversation.findUnique({ where: { id }, select: { visitorId: true } });
+    if (!conv || conv.visitorId !== visitorId) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
     await prisma.message.updateMany({
       where: {
         conversationId: id,

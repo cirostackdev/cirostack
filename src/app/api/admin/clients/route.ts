@@ -9,7 +9,13 @@ export async function GET() {
   try {
     const clients = await prisma.client.findMany({
       orderBy: { createdAt: "desc" },
-      include: {
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        company: true,
+        avatarUrl: true,
+        createdAt: true,
         _count: { select: { projects: true, invoices: true } },
       },
     });

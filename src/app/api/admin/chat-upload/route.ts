@@ -11,7 +11,7 @@ const MAX_SIZES: Record<string, number> = {
 };
 
 const ALLOWED_TYPES = [
-  "image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml",
+  "image/jpeg", "image/png", "image/gif", "image/webp",
   "video/mp4", "video/webm", "video/ogg", "video/quicktime",
   "audio/mpeg", "audio/mp4", "audio/ogg", "audio/wav", "audio/webm", "audio/aac",
   "application/pdf",

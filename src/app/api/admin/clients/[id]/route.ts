@@ -12,7 +12,13 @@ export async function GET(_req: Request, { params }: Params) {
   try {
     const client = await prisma.client.findUnique({
       where: { id },
-      include: {
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        company: true,
+        avatarUrl: true,
+        createdAt: true,
         projects: {
           orderBy: { createdAt: "desc" },
           include: { milestones: true, _count: { select: { updates: true, files: true } } },
@@ -35,7 +41,8 @@ export async function PATCH(req: Request, { params }: Params) {
   const { id } = await params;
   try {
     const body = await req.json();
-    const client = await prisma.client.update({ where: { id }, data: body });
+    const { name, company, email } = body;
+    const client = await prisma.client.update({ where: { id }, data: { name, company, email } });
     return NextResponse.json(client);
   } catch (err: any) {
     if (err?.code === "P2025") return NextResponse.json({ error: "Not found" }, { status: 404 });

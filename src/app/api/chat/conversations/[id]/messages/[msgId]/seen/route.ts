@@ -11,6 +11,12 @@ export async function POST(
 ) {
   const { id, msgId } = await params;
   const { type } = await req.json();
+
+  // Verify caller owns this conversation
+  const visitorId = req.headers.get("x-visitor-id");
+  if (!visitorId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const conv = await prisma.conversation.findUnique({ where: { id }, select: { visitorId: true } });
+  if (!conv || conv.visitorId !== visitorId) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   if (!VALID_TYPES.includes(type)) return NextResponse.json({ error: "Invalid type" }, { status: 400 });
 
   const key = `_${type}` as const; // _listened | _watched | _clicked

@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
+import { randomInt } from "crypto";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 function generateOtp(): string {
-  return String(Math.floor(100000 + Math.random() * 900000));
+  return String(randomInt(100000, 1000000));
 }
 
 // Simple in-memory rate limiter: max 3 OTPs per email per 10 minutes

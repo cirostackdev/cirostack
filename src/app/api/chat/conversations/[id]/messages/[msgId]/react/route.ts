@@ -10,6 +10,13 @@ export async function POST(
     const { id, msgId } = await params;
     const { emoji, reactorId } = await req.json();
 
+    // Verify caller owns this conversation (visitor side)
+    const visitorId = req.headers.get("x-visitor-id");
+    if (visitorId) {
+      const conv = await prisma.conversation.findUnique({ where: { id }, select: { visitorId: true } });
+      if (!conv || conv.visitorId !== visitorId) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     if (!emoji) return NextResponse.json({ error: "emoji required" }, { status: 400 });
 
     const message = await prisma.message.findFirst({

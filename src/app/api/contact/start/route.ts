@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { escapeHtml } from "@/lib/escape-html";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TO = "cirostack@gmail.com";
@@ -71,41 +72,41 @@ export async function POST(req: Request) {
                       <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:14px;">
                         <tr>
                           <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:150px;">Name</td>
-                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${name}</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(name)}</td>
                         </tr>
                         <tr>
                           <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Email</td>
-                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="mailto:${email}" style="color:#3b82f6;text-decoration:none;">${email}</a></td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="mailto:${email}" style="color:#3b82f6;text-decoration:none;">${escapeHtml(email)}</a></td>
                         </tr>
                         ${company ? `
                         <tr>
                           <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Company</td>
-                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${company}</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(company)}</td>
                         </tr>` : ""}
                         ${phone ? `
                         <tr>
                           <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Phone</td>
-                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${phone}</td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(phone)}</td>
                         </tr>` : ""}
                         <tr>
                           <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">${isChat ? "Topic" : "Service"}</td>
-                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${service}</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(service)}</td>
                         </tr>
                         ${budget ? `
                         <tr>
                           <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Budget</td>
-                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${budget}</td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(budget)}</td>
                         </tr>` : ""}
                         ${timeline ? `
                         <tr>
                           <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Timeline</td>
-                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${timeline}</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(timeline)}</td>
                         </tr>` : ""}
                       </table>
 
                       <h3 style="margin:24px 0 8px 0;font-size:14px;font-weight:700;color:#0f172a;text-transform:uppercase;letter-spacing:0.05em;">Project Description</h3>
                       <div style="background:#f8fafc;border-left:3px solid #0f172a;padding:16px;border-radius:0 6px 6px 0;">
-                        <p style="margin:0;font-size:14px;color:#334155;line-height:1.7;white-space:pre-wrap;">${description}</p>
+                        <p style="margin:0;font-size:14px;color:#334155;line-height:1.7;white-space:pre-wrap;">${escapeHtml(description)}</p>
                       </div>
                     </td>
                   </tr>
@@ -161,21 +162,21 @@ export async function POST(req: Request) {
         <!-- Body -->
         <tr>
           <td style="padding:32px;">
-            <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${name},</p>
+            <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${escapeHtml(name)},</p>
             <p style="margin:0 0 16px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for submitting your ${typeDesc}. Our team will review the details and get back to you within one business day.</p>
-            
+
             <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px;background:#f8fafc;border-radius:8px;overflow:hidden;">
               <tr>
                 <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:140px;">${isChat ? "Topic" : "Service requested"}</td>
-                <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${service}</td>
+                <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(service)}</td>
               </tr>
               ${budget ? `<tr>
                 <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Budget</td>
-                <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${budget}</td>
+                <td style="padding:10px 14px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(budget)}</td>
               </tr>` : ""}
               ${timeline ? `<tr>
                 <td style="padding:10px 14px;color:#64748b;font-weight:600;">Timeline</td>
-                <td style="padding:10px 14px;color:#0f172a;">${timeline}</td>
+                <td style="padding:10px 14px;color:#0f172a;">${escapeHtml(timeline)}</td>
               </tr>` : `<tr>
                 <td style="padding:10px 14px;color:#64748b;font-weight:600;" colspan="2"></td>
               </tr>`}
@@ -199,6 +200,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[api/contact/start]", err);
-    return NextResponse.json({ error: "Failed to send." }, { status: 500 });
-  }
-}
+    return NextResponse.json({ error: "Failed t

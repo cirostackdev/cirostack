@@ -7,7 +7,27 @@ export async function GET(req: Request) {
   if (!url) return NextResponse.json({ error: "url required" }, { status: 400 });
 
   try {
-    new URL(url); // validate
+    const parsed = new URL(url);
+    // Only allow http/https — block file://, data://, etc.
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
+    }
+    // Block private/internal IPs (SSRF protection)
+    const hostname = parsed.hostname.toLowerCase();
+    const blocked = [
+      /^localhost$/,
+      /^127\./,
+      /^10\./,
+      /^172\.(1[6-9]|2\d|3[01])\./,
+      /^192\.168\./,
+      /^169\.254\./, // link-local / AWS metadata
+      /^::1$/,
+      /^0\./,
+      /^0\.0\.0\.0$/,
+    ];
+    if (blocked.some((r) => r.test(hostname))) {
+      return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
+    }
   } catch {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
   }
