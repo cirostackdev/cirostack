@@ -16,6 +16,8 @@ model Admin {
   disabled       Boolean        @default(false)
   lastHeartbeat  DateTime?
   createdAt      DateTime       @default(now())
+  failedAttempts Int            @default(0)
+  lockedUntil    DateTime?
   conversations Conversation[]
   cannedResponses CannedResponse[]
   internalNotes  InternalNote[]

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { put } from "@vercel/blob";
+import { prisma } from "@/lib/prisma";
 
 const MAX_SIZES: Record<string, number> = {
   image: 10 * 1024 * 1024,       // 10 MB
@@ -45,6 +46,20 @@ export async function POST(req: Request) {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
     if (!file) return NextResponse.json({ error: "No file provided" }, { status: 400 });
+
+    // Verify the upload belongs to a real, open conversation owned by this visitor
+    const conversationId = formData.get("conversationId") as string | null;
+    const visitorId = formData.get("visitorId") as string | null;
+    if (!conversationId || !visitorId) {
+      return NextResponse.json({ error: "Missing conversation context" }, { status: 400 });
+    }
+    const conv = await prisma.conversation.findUnique({
+      where: { id: conversationId },
+      select: { visitorId: true, status: true },
+    });
+    if (!conv || conv.visitorId !== visitorId || conv.status !== "open") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
 
     if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json({ error: "File type not supported" }, { status: 415 });

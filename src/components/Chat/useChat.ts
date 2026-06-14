@@ -422,6 +422,8 @@ export function useChat() {
 
           const fd = new FormData();
           fd.append("file", file);
+          fd.append("conversationId", conversationId);
+          fd.append("visitorId", getVisitorId());
           xhr.send(fd);
         });
 
