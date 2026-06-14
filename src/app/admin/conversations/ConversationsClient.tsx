@@ -189,8 +189,28 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
 
   return (
     <div className="flex flex-col h-full">
+      {/* Search row */}
+      <div className="px-3 pt-3 pb-2 shrink-0">
+        <div className="relative">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+          <input
+            ref={searchInputRef}
+            value={searchQuery}
+            onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(e.target.value.length > 0); }}
+            onFocus={() => { if (searchQuery.length > 0) setSearchOpen(true); }}
+            placeholder="Search conversations…"
+            className="w-full bg-muted border border-border rounded-lg pl-8 pr-8 py-1.5 text-xs outline-none focus:ring-1 focus:ring-primary"
+          />
+          {searchQuery && (
+            <button onClick={closeSearch} className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Tabs row */}
-      <div className="flex items-center gap-1.5 px-3 pt-3 pb-2 shrink-0">
+      <div className="flex items-center gap-1.5 px-3 pb-2 border-b border-border shrink-0">
         {([
           { key: "clients", label: "Clients", count: conversations.filter((c) => c.status === "open" && isPortalClient(c)).length },
           { key: "visitors", label: "Visitors", count: conversations.filter((c) => c.status === "open" && !isPortalClient(c)).length },
@@ -240,26 +260,6 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
                 </div>
               )}
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* Search row */}
-      <div className="px-3 pb-2 border-b border-border shrink-0">
-        <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-          <input
-            ref={searchInputRef}
-            value={searchQuery}
-            onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(e.target.value.length > 0); }}
-            onFocus={() => { if (searchQuery.length > 0) setSearchOpen(true); }}
-            placeholder="Search conversations…"
-            className="w-full bg-muted border border-border rounded-lg pl-8 pr-8 py-1.5 text-xs outline-none focus:ring-1 focus:ring-primary"
-          />
-          {searchQuery && (
-            <button onClick={closeSearch} className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-              <X className="w-3.5 h-3.5" />
-            </button>
           )}
         </div>
       </div>
