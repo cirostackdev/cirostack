@@ -21,12 +21,24 @@ export async function GET() {
   const existingUrlMap = new Map(existing.map(e => [e.url, e.slug]));
   const blocklistUrls = new Set(blocklist.map(b => b.url));
 
-  // For each article, extract TC links and find which are unsynced (and not blocklisted)
+  // Normalize a TC URL for consistent comparison (remove trailing slash, strip query/hash)
+  function normalizeUrl(url: string): string {
+    try {
+      const u = new URL(url);
+      return `${u.origin}${u.pathname.replace(/\/$/, "")}`;
+    } catch { return url.replace(/[?#].*$/, "").replace(/\/$/, ""); }
+  }
+
+  const normalizedExisting = new Map([...existingUrlMap].map(([url, slug]) => [normalizeUrl(url), slug]));
+  const normalizedBlocklist = new Set([...blocklistUrls].map(normalizeUrl));
+
+  // For each article, extract TC article links (only /YYYY/MM/DD/ pattern) and find which are unsynced
   const result = articles
     .map((article) => {
-      const matches = [...(article.content ?? "").matchAll(/href="(https:\/\/techcrunch\.com\/[^"]+)"/g)];
-      const links = [...new Set(matches.map(m => m[1]))];
-      const unsynced = links.filter(url => !existingUrlMap.has(url) && !blocklistUrls.has(url));
+      // Only match TC article URLs (must contain /YYYY/ path segment — excludes wp-content, tags, authors, categories)
+      const matches = [...(article.content ?? "").matchAll(/href="(https:\/\/techcrunch\.com\/\d{4}\/[^"]+)"/g)];
+      const links = [...new Set(matches.map(m => normalizeUrl(m[1])))];
+      const unsynced = links.filter(url => !normalizedExisting.has(url) && !normalizedBlocklist.has(url));
       return {
         id: article.id,
         title: article.title,

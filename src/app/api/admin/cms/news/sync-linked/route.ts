@@ -68,17 +68,25 @@ export async function POST(req: NextRequest) {
   const article = await prisma.newsArticle.findUnique({ where: { id: articleId } });
   if (!article || !article.content) return NextResponse.json({ error: "Article not found or has no content" }, { status: 404 });
 
-  // Extract all unique TC links from the article
-  const matches = [...article.content.matchAll(/href="(https:\/\/techcrunch\.com\/[^"]+)"/g)];
-  const linkedUrls = [...new Set(matches.map(m => m[1]))];
+  // Extract only TC article links (must contain /YYYY/ path — excludes wp-content, tags, authors, etc.)
+  const matches = [...article.content.matchAll(/href="(https:\/\/techcrunch\.com\/\d{4}\/[^"]+)"/g)];
 
-  // Find which are already in DB or blocklisted
+  function normalizeUrl(url: string): string {
+    try {
+      const u = new URL(url);
+      return `${u.origin}${u.pathname.replace(/\/$/, "")}`;
+    } catch { return url.replace(/[?#].*$/, "").replace(/\/$/, ""); }
+  }
+
+  const linkedUrls = [...new Set(matches.map(m => normalizeUrl(m[1])))];
+
+  // Find which are already in DB or blocklisted (normalize stored URLs for comparison)
   const [existing, blocklist] = await Promise.all([
-    prisma.newsArticle.findMany({ where: { url: { in: linkedUrls } }, select: { url: true, slug: true } }),
-    prisma.newsArticleBlocklist.findMany({ where: { url: { in: linkedUrls } }, select: { url: true } }),
+    prisma.newsArticle.findMany({ select: { url: true, slug: true } }),
+    prisma.newsArticleBlocklist.findMany({ select: { url: true } }),
   ]);
-  const existingMap = new Map(existing.map(e => [e.url, e.slug]));
-  const blocklistUrls = new Set(blocklist.map(b => b.url));
+  const existingMap = new Map(existing.map(e => [normalizeUrl(e.url), e.slug]));
+  const blocklistUrls = new Set(blocklist.map(b => normalizeUrl(b.url)));
   const toScrape = linkedUrls.filter(url => !existingMap.has(url) && !blocklistUrls.has(url));
 
   const scraped: { url: string; slug: string }[] = [];
