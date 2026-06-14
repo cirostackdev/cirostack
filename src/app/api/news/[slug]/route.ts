@@ -27,11 +27,6 @@ export async function GET(
           .filter(h => h.startsWith("/newsroom/"))
           .map(h => h.replace("/newsroom/", ""))
       )];
-      const externalTcUrls = [...new Set(
-        hrefMatches
-          .map(m => m[1])
-          .filter(h => h.startsWith("https://techcrunch.com/"))
-      )];
 
       // Check which internal slugs actually exist
       const existingSlugs = internalSlugs.length > 0
@@ -41,8 +36,14 @@ export async function GET(
           })).map(a => a.slug))
         : new Set<string>();
 
-      // Strip links that are still pointing to techcrunch.com (never synced)
-      for (const url of externalTcUrls) {
+      // Strip all external links (techcrunch.com unsynced + any other external site)
+      const allExternalUrls = [...new Set(
+        hrefMatches
+          .map(m => m[1])
+          .filter(h => h.startsWith("http://") || h.startsWith("https://"))
+      )];
+
+      for (const url of allExternalUrls) {
         content = content.replace(
           new RegExp(`<a[^>]*href="${url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[^>]*>([\\s\\S]*?)<\\/a>`, "g"),
           "$1"
