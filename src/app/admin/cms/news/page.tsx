@@ -50,7 +50,6 @@ export default function AdminNewsPage() {
   const [syncingBatch, setSyncingBatch] = useState(false);
   const [syncResults, setSyncResults] = useState<Record<string, SyncResult | "error">>({});
 
-  const MAX_SELECT = 5;
 
   async function load() {
     setLoading(true);
@@ -106,13 +105,16 @@ export default function AdminNewsPage() {
   function toggleSelect(id: string) {
     setSelected(prev => {
       const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else if (next.size < MAX_SELECT) {
-        next.add(id);
-      }
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
+  }
+
+  function toggleSelectAll() {
+    const eligible = unsyncedItems.filter(i => !syncResults[i.id]).map(i => i.id);
+    const allSelected = eligible.every(id => selected.has(id));
+    setSelected(allSelected ? new Set() : new Set(eligible));
   }
 
   async function handleSyncSelected() {
@@ -294,6 +296,23 @@ export default function AdminNewsPage() {
               </button>
             </div>
 
+            {/* Select All bar */}
+            {!loadingUnsynced && unsyncedItems.length > 0 && (() => {
+              const eligible = unsyncedItems.filter(i => !syncResults[i.id]);
+              const allSelected = eligible.length > 0 && eligible.every(i => selected.has(i.id));
+              return (
+                <div className="flex items-center justify-between px-6 py-2 border-b border-border bg-muted/20">
+                  <button onClick={toggleSelectAll} disabled={syncingBatch} className="flex items-center gap-2 text-xs font-medium hover:text-primary transition-colors">
+                    <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${allSelected ? "border-primary bg-primary" : "border-muted-foreground/40"}`}>
+                      {allSelected && <span className="text-[9px] text-primary-foreground font-bold leading-none">✓</span>}
+                    </div>
+                    {allSelected ? "Deselect All" : `Select All (${eligible.length})`}
+                  </button>
+                  {selected.size > 0 && <span className="text-xs text-muted-foreground">{selected.size} selected</span>}
+                </div>
+              );
+            })()}
+
             {/* Body */}
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-2">
               {loadingUnsynced ? (
@@ -310,17 +329,14 @@ export default function AdminNewsPage() {
                 unsyncedItems.map((item) => {
                   const result = syncResults[item.id];
                   const isSelected = selected.has(item.id);
-                  const atLimit = selected.size >= MAX_SELECT && !isSelected;
                   return (
                     <button
                       key={item.id}
-                      disabled={syncingBatch || atLimit || !!result}
+                      disabled={syncingBatch || !!result}
                       onClick={() => !result && toggleSelect(item.id)}
                       className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all ${
                         isSelected
                           ? "border-primary bg-primary/5"
-                          : atLimit
-                          ? "border-border opacity-40 cursor-not-allowed"
                           : result
                           ? "border-border"
                           : "border-border hover:bg-muted/30 cursor-pointer"
@@ -363,9 +379,7 @@ export default function AdminNewsPage() {
 
             <div className="px-6 py-3 border-t border-border flex items-center justify-between gap-3">
               <p className="text-xs text-muted-foreground">
-                {selected.size > 0
-                  ? `${selected.size} of ${MAX_SELECT} selected`
-                  : `Select up to ${MAX_SELECT} articles`}
+                {selected.size > 0 ? `${selected.size} article${selected.size !== 1 ? "s" : ""} selected` : "Select articles to sync"}
               </p>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={() => setShowLinkedModal(false)} disabled={syncingBatch}>Close</Button>
