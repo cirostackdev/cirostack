@@ -10,10 +10,10 @@ export async function POST(
   try {
     const { id } = await params;
 
-    const visitorId = req.headers.get("x-visitor-id");
+    const visitorId = req.headers.get("x-visitor-token");
     if (!visitorId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    const conv = await prisma.conversation.findUnique({ where: { id }, select: { visitorId: true } });
-    if (!conv || conv.visitorId !== visitorId) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    const conv = await prisma.conversation.findUnique({ where: { id }, select: { visitorToken: true } });
+    if (!conv || conv.visitorToken !== visitorId) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
     await prisma.message.updateMany({
       where: {

@@ -49,15 +49,15 @@ export async function POST(req: Request) {
 
     // Verify the upload belongs to a real, open conversation owned by this visitor
     const conversationId = formData.get("conversationId") as string | null;
-    const visitorId = formData.get("visitorId") as string | null;
-    if (!conversationId || !visitorId) {
+    const visitorToken = formData.get("visitorToken") as string | null;
+    if (!conversationId || !visitorToken) {
       return NextResponse.json({ error: "Missing conversation context" }, { status: 400 });
     }
     const conv = await prisma.conversation.findUnique({
       where: { id: conversationId },
-      select: { visitorId: true, status: true },
+      select: { visitorToken: true, status: true },
     });
-    if (!conv || conv.visitorId !== visitorId || conv.status !== "open") {
+    if (!conv || conv.visitorToken !== visitorToken || conv.status !== "open") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 

@@ -45,6 +45,15 @@ function setStoredConversationId(id: string) {
   localStorage.setItem("ciro_conv_id", id);
 }
 
+function getVisitorToken(): string {
+  if (typeof window === "undefined") return "";
+  return localStorage.getItem("ciro_visitor_token") ?? "";
+}
+
+function setVisitorToken(token: string) {
+  localStorage.setItem("ciro_visitor_token", token);
+}
+
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [status, setStatus] = useState<ChatStatus>("idle");
@@ -307,10 +316,11 @@ export function useChat() {
           return;
         }
 
-        const { conversationId: cid } = await res.json();
+        const { conversationId: cid, visitorToken } = await res.json();
         setConversationId(cid);
         convIdRef.current = cid;
         setStoredConversationId(cid);
+        if (visitorToken) setVisitorToken(visitorToken);
         subscribe(cid);
 
         // Load the welcome message
@@ -423,7 +433,7 @@ export function useChat() {
           const fd = new FormData();
           fd.append("file", file);
           fd.append("conversationId", conversationId);
-          fd.append("visitorId", getVisitorId());
+          fd.append("visitorToken", getVisitorToken());
           xhr.send(fd);
         });
 
@@ -464,7 +474,7 @@ export function useChat() {
 
       fetch(`/api/chat/conversations/${conversationId}/typing`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-visitor-token": getVisitorToken() },
         body: JSON.stringify({ typing }),
       }).catch(() => {});
 
@@ -473,7 +483,7 @@ export function useChat() {
         typingTimerRef.current = setTimeout(() => {
           fetch(`/api/chat/conversations/${conversationId}/typing`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "x-visitor-token": getVisitorToken() },
             body: JSON.stringify({ typing: false }),
           }).catch(() => {});
         }, 3000);
@@ -487,7 +497,7 @@ export function useChat() {
       if (!conversationId) return;
       fetch(`/api/chat/conversations/${conversationId}/recording`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-visitor-token": getVisitorToken() },
         body: JSON.stringify({ recording }),
       }).catch(() => {});
     },

@@ -25,9 +25,10 @@ export function CSATPrompt({ conversationId, onClose }: CSATPromptProps) {
     setSubmitting(true);
 
     try {
+      const visitorToken = typeof window !== "undefined" ? (localStorage.getItem("ciro_visitor_token") ?? "") : "";
       const res = await fetch("/api/csat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...(visitorToken ? { "x-visitor-token": visitorToken } : {}) },
         body: JSON.stringify({
           conversationId,
           rating,

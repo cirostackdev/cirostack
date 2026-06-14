@@ -37,11 +37,11 @@ export async function POST(req: Request) {
       return NextResponse.json(pusher.authorizeChannel(socketId, channel));
     }
 
-    // Visitor auth via header
-    const visitorId = req.headers.get("x-visitor-id");
-    if (visitorId) {
+    // Visitor auth via token (cryptographic proof)
+    const visitorToken = req.headers.get("x-visitor-token");
+    if (visitorToken) {
       const conv = await prisma.conversation.findFirst({
-        where: { id: conversationId, visitorId },
+        where: { id: conversationId, visitorToken },
         select: { id: true },
       });
       if (conv) {
@@ -81,10 +81,10 @@ export async function POST(req: Request) {
       return NextResponse.json(pusher.authorizeChannel(socketId, channel));
     }
 
-    const visitorId = req.headers.get("x-visitor-id");
-    if (visitorId) {
+    const visitorToken = req.headers.get("x-visitor-token");
+    if (visitorToken) {
       const visitor = await prisma.conversation.findFirst({
-        where: { visitorId },
+        where: { visitorToken },
         select: { id: true },
       });
       if (visitor) {

@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isFormRateLimited } from "@/lib/rate-limit-db";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EVENTS = "CiroStack Events <events@cirostack.com>";

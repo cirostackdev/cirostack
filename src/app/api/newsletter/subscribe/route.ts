@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isFormRateLimited } from "@/lib/rate-limit-db";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID ?? "";
@@ -12,6 +13,10 @@ export async function POST(req: Request) {
   try {
     const { email } = await req.json();
     if (!email) return NextResponse.json({ error: "Email required." }, { status: 400 });
+
+    if (await isFormRateLimited(email, "newsletter", 2)) {
+      return NextResponse.json({ error: "Too many submissions. Please try again later." }, { status: 429 });
+    }
 
     if (AUDIENCE_ID) {
       await resend.contacts.create({ audienceId: AUDIENCE_ID, email, unsubscribed: false });

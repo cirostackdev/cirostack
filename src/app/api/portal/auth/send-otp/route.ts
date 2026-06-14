@@ -9,18 +9,29 @@ function generateOtp(): string {
   return String(randomInt(100000, 1000000));
 }
 
-// Simple in-memory rate limiter: max 3 OTPs per email per 10 minutes
-const otpRateMap = new Map<string, { count: number; resetAt: number }>();
+// DB-based rate limiter: max 3 OTPs per email per 10 minutes (works across serverless instances)
+async function isRateLimited(clientId: string): Promise<boolean> {
+  const now = new Date();
+  const client = await prisma.client.findUnique({
+    where: { id: clientId },
+    select: { otpRequestCount: true, otpRateLimitReset: true },
+  });
+  if (!client) return false;
 
-function isRateLimited(email: string): boolean {
-  const now = Date.now();
-  const record = otpRateMap.get(email);
-  if (!record || now >= record.resetAt) {
-    otpRateMap.set(email, { count: 1, resetAt: now + 10 * 60_000 });
+  if (!client.otpRateLimitReset || client.otpRateLimitReset <= now) {
+    await prisma.client.update({
+      where: { id: clientId },
+      data: { otpRequestCount: 1, otpRateLimitReset: new Date(Date.now() + 10 * 60_000) },
+    });
     return false;
   }
-  if (record.count >= 3) return true;
-  record.count++;
+
+  if (client.otpRequestCount >= 3) return true;
+
+  await prisma.client.update({
+    where: { id: clientId },
+    data: { otpRequestCount: { increment: 1 } },
+  });
   return false;
 }
 
@@ -31,16 +42,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
     }
 
-    if (isRateLimited(email.toLowerCase())) {
+    const client = await prisma.client.findUnique({ where: { email } });
+    if (!client) {
+      return NextResponse.json({ error: "No client account found for this email. Contact your project manager." }, { status: 404 });
+    }
+
+    if (await isRateLimited(client.id)) {
       return NextResponse.json(
         { error: "Too many requests. Please wait before requesting another code." },
         { status: 429 }
       );
-    }
-
-    const client = await prisma.client.findUnique({ where: { email } });
-    if (!client) {
-      return NextResponse.json({ error: "No client account found for this email. Contact your project manager." }, { status: 404 });
     }
 
     const otp = generateOtp();

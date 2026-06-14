@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { conversationId, rating, feedback } = body;
@@ -14,10 +15,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Rating must be an integer between 1 and 5" }, { status: 400 });
     }
 
-    // Verify conversation exists
-    const conversation = await prisma.conversation.findUnique({ where: { id: conversationId } });
+    // Verify caller owns the conversation via visitorToken
+    const visitorToken = req.headers.get("x-visitor-token");
+    const conversation = await prisma.conversation.findUnique({
+      where: { id: conversationId },
+      select: { id: true, visitorToken: true },
+    });
     if (!conversation) {
       return NextResponse.json({ error: "Conversation not found" }, { status: 404 });
+    }
+    if (!visitorToken || conversation.visitorToken !== visitorToken) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // Check if already rated

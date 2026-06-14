@@ -26,6 +26,7 @@ model Admin {
 model Conversation {
   id           String    @id @default(cuid())
   visitorId    String
+  visitorToken String?
   visitorName  String?
   visitorEmail String?
   topic        String?
@@ -245,6 +246,8 @@ model Client {
   company       String?
   otpCode       String?
   otpExpiry     DateTime?
+  otpRequestCount Int     @default(0)
+  otpRateLimitReset DateTime?
   createdAt     DateTime  @default(now())
   projects      Project[]
   invoices      Invoice[]

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { pusher } from "@/lib/pusher";
+import { randomBytes } from "crypto";
 
 // Rate limiting: max 5 conversations per IP per hour
 const convRateMap = new Map<string, { count: number; resetAt: number }>();
@@ -30,9 +31,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "visitorId required" }, { status: 400 });
     }
 
+    const visitorToken = randomBytes(32).toString("hex");
+
     const conversation = await prisma.conversation.create({
       data: {
         visitorId,
+        visitorToken,
         visitorName: name || null,
         visitorEmail: email || null,
         topic: topic || null,
@@ -54,7 +58,7 @@ export async function POST(req: Request) {
       conversation: { ...conversation, latestMessage: welcome.body },
     });
 
-    return NextResponse.json({ conversationId: conversation.id });
+    return NextResponse.json({ conversationId: conversation.id, visitorToken });
   } catch (err) {
     console.error("[api/chat/conversations POST]", err);
     return NextResponse.json({ error: "Failed" }, { status: 500 });

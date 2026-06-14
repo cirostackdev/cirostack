@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { escapeHtml } from "@/lib/escape-html";
+import { isFormRateLimited } from "@/lib/rate-limit-db";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TO = "cirostack@gmail.com";
@@ -29,6 +30,10 @@ export async function POST(req: Request) {
 
     if (!fullName || !email || !role || !linkedin || !github || !experience || !coverLetter || !cvFile) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
+    }
+
+    if (await isFormRateLimited(email, "careers")) {
+      return NextResponse.json({ error: "Too many submissions. Please try again later." }, { status: 429 });
     }
 
     const isLinkedIn = /^https?:\/\/(www\.)?linkedin\.com\//i.test(linkedin.trim());

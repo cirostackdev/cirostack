@@ -17,16 +17,16 @@ export function getPusher(): PusherClient | null {
           { socketId, channelName }: { socketId: string; channelName: string },
           callback: (error: Error | null, data: any) => void
         ) => {
-          const visitorId =
+          const visitorToken =
             typeof window !== "undefined"
-              ? (localStorage.getItem("ciro_visitor_id") ?? "")
+              ? (localStorage.getItem("ciro_visitor_token") ?? "")
               : "";
           try {
             const res = await fetch("/api/pusher/auth", {
               method: "POST",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                ...(visitorId ? { "x-visitor-id": visitorId } : {}),
+                ...(visitorToken ? { "x-visitor-token": visitorToken } : {}),
               },
               body: new URLSearchParams({
                 socket_id: socketId,

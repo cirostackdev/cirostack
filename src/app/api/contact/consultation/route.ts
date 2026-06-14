@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { escapeHtml } from "@/lib/escape-html";
+import { isFormRateLimited } from "@/lib/rate-limit-db";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TO = "cirostack@gmail.com";
@@ -13,6 +14,10 @@ export async function POST(req: Request) {
 
     if (!name || !email || !timezone || !message) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
+    }
+
+    if (await isFormRateLimited(email, "consultation")) {
+      return NextResponse.json({ error: "Too many submissions. Please try again later." }, { status: 429 });
     }
 
     prisma.formSubmission.create({ data: { type: "consultation", data: { name, email, company, timezone, timeOfDay, message } } }).catch(console.error);
