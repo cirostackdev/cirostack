@@ -29,7 +29,6 @@ type UnsyncedItem = {
   unsyncedLinks: number;
 };
 
-type SyncState = "idle" | "scraping" | "done" | "error";
 type SyncResult = { scraped: number; failed: number; rewritten: number; failedUrls: string[] };
 
 const SOURCE_COLORS: Record<string, string> = {
@@ -47,8 +46,11 @@ export default function AdminNewsPage() {
   const [showLinkedModal, setShowLinkedModal] = useState(false);
   const [unsyncedItems, setUnsyncedItems] = useState<UnsyncedItem[]>([]);
   const [loadingUnsynced, setLoadingUnsynced] = useState(false);
-  const [syncingLinked, setSyncingLinked] = useState<string | null>(null); // article id being synced
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [syncingBatch, setSyncingBatch] = useState(false);
   const [syncResults, setSyncResults] = useState<Record<string, SyncResult | "error">>({});
+
+  const MAX_SELECT = 5;
 
   async function load() {
     setLoading(true);
@@ -95,33 +97,49 @@ export default function AdminNewsPage() {
     setShowLinkedModal(true);
     setLoadingUnsynced(true);
     setSyncResults({});
+    setSelected(new Set());
     const res = await fetch("/api/admin/cms/news/unsynced-links");
     if (res.ok) setUnsyncedItems(await res.json());
     setLoadingUnsynced(false);
   }
 
-  async function handleSyncLinked(articleId: string) {
-    setSyncingLinked(articleId);
-    try {
-      const res = await fetch("/api/admin/cms/news/sync-linked", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ articleId }),
-      });
-      if (res.ok) {
-        const result = await res.json();
-        setSyncResults(prev => ({ ...prev, [articleId]: result }));
-        // Remove from unsynced list
-        setUnsyncedItems(prev => prev.filter(i => i.id !== articleId));
-        await load();
-      } else {
+  function toggleSelect(id: string) {
+    setSelected(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else if (next.size < MAX_SELECT) {
+        next.add(id);
+      }
+      return next;
+    });
+  }
+
+  async function handleSyncSelected() {
+    if (selected.size === 0) return;
+    setSyncingBatch(true);
+    const ids = [...selected];
+    for (const articleId of ids) {
+      try {
+        const res = await fetch("/api/admin/cms/news/sync-linked", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ articleId }),
+        });
+        if (res.ok) {
+          const result = await res.json();
+          setSyncResults(prev => ({ ...prev, [articleId]: result }));
+          setUnsyncedItems(prev => prev.filter(i => i.id !== articleId));
+        } else {
+          setSyncResults(prev => ({ ...prev, [articleId]: "error" }));
+        }
+      } catch {
         setSyncResults(prev => ({ ...prev, [articleId]: "error" }));
       }
-    } catch {
-      setSyncResults(prev => ({ ...prev, [articleId]: "error" }));
-    } finally {
-      setSyncingLinked(null);
     }
+    setSelected(new Set());
+    setSyncingBatch(false);
+    await load();
   }
 
   const formatDate = (iso: string) => format(new Date(iso), "MMM d, yyyy");
@@ -291,8 +309,30 @@ export default function AdminNewsPage() {
               ) : (
                 unsyncedItems.map((item) => {
                   const result = syncResults[item.id];
+                  const isSelected = selected.has(item.id);
+                  const atLimit = selected.size >= MAX_SELECT && !isSelected;
                   return (
-                    <div key={item.id} className="flex items-center gap-3 px-4 py-3 rounded-xl border border-border hover:bg-muted/30 transition-colors">
+                    <button
+                      key={item.id}
+                      disabled={syncingBatch || atLimit || !!result}
+                      onClick={() => !result && toggleSelect(item.id)}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all ${
+                        isSelected
+                          ? "border-primary bg-primary/5"
+                          : atLimit
+                          ? "border-border opacity-40 cursor-not-allowed"
+                          : result
+                          ? "border-border"
+                          : "border-border hover:bg-muted/30 cursor-pointer"
+                      }`}
+                    >
+                      {/* Checkbox */}
+                      {!result && (
+                        <div className={`w-4 h-4 rounded border-2 shrink-0 flex items-center justify-center ${isSelected ? "border-primary bg-primary" : "border-muted-foreground/40"}`}>
+                          {isSelected && <span className="text-[9px] text-primary-foreground font-bold leading-none">✓</span>}
+                        </div>
+                      )}
+
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm truncate">{item.title}</p>
                         <div className="flex items-center gap-2 mt-0.5">
@@ -303,36 +343,41 @@ export default function AdminNewsPage() {
                           <span className="text-[10px] text-muted-foreground/60">{item.totalLinks} total</span>
                         </div>
                       </div>
-                      {result && result !== "error" ? (
+
+                      {result && result !== "error" && (
                         <div className="flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400 shrink-0">
                           <CheckCircle className="w-4 h-4" />
-                          {result.scraped} scraped, {result.rewritten} links rewritten
+                          {result.scraped} scraped
                         </div>
-                      ) : result === "error" ? (
+                      )}
+                      {result === "error" && (
                         <div className="flex items-center gap-1.5 text-xs text-destructive shrink-0">
                           <AlertCircle className="w-4 h-4" /> Failed
                         </div>
-                      ) : (
-                        <Button
-                          size="sm"
-                          disabled={syncingLinked !== null}
-                          onClick={() => handleSyncLinked(item.id)}
-                        >
-                          {syncingLinked === item.id ? (
-                            <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Scraping…</>
-                          ) : (
-                            <><Link2 className="w-3.5 h-3.5 mr-1.5" /> Sync</>
-                          )}
-                        </Button>
                       )}
-                    </div>
+                    </button>
                   );
                 })
               )}
             </div>
 
-            <div className="px-6 py-3 border-t border-border">
-              <Button variant="outline" size="sm" onClick={() => setShowLinkedModal(false)}>Close</Button>
+            <div className="px-6 py-3 border-t border-border flex items-center justify-between gap-3">
+              <p className="text-xs text-muted-foreground">
+                {selected.size > 0
+                  ? `${selected.size} of ${MAX_SELECT} selected`
+                  : `Select up to ${MAX_SELECT} articles`}
+              </p>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={() => setShowLinkedModal(false)} disabled={syncingBatch}>Close</Button>
+                {selected.size > 0 && (
+                  <Button size="sm" onClick={handleSyncSelected} disabled={syncingBatch}>
+                    {syncingBatch
+                      ? <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Scraping…</>
+                      : <><Link2 className="w-3.5 h-3.5 mr-1.5" /> Sync {selected.size} Article{selected.size !== 1 ? "s" : ""}</>
+                    }
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>
