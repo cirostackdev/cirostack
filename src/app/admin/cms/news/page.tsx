@@ -58,6 +58,9 @@ export default function AdminNewsPage() {
   const [tableSelected, setTableSelected] = useState<Set<string>>(new Set());
   const [showBulkDelete, setShowBulkDelete] = useState(false);
   const [bulkDeleting, setBulkDeleting] = useState(false);
+  const [showPurge, setShowPurge] = useState(false);
+  const [purging, setPurging] = useState(false);
+  const [purgeCount, setPurgeCount] = useState<number | null>(null);
 
   async function load() {
     setLoading(true);
@@ -99,6 +102,23 @@ export default function AdminNewsPage() {
     setTableSelected(new Set());
     setShowBulkDelete(false);
     setBulkDeleting(false);
+  }
+
+  async function openPurge() {
+    if (!dateTo) return;
+    const count = articles.filter(a => new Date(a.publishedAt) <= new Date(dateTo + "T23:59:59")).length;
+    setPurgeCount(count);
+    setShowPurge(true);
+  }
+
+  async function confirmPurge() {
+    if (!dateTo) return;
+    setPurging(true);
+    const toDelete = articles.filter(a => new Date(a.publishedAt) <= new Date(dateTo + "T23:59:59"));
+    await Promise.all(toDelete.map(a => fetch(`/api/admin/cms/news/${a.id}`, { method: "DELETE" })));
+    setArticles(prev => prev.filter(a => new Date(a.publishedAt) > new Date(dateTo + "T23:59:59")));
+    setShowPurge(false);
+    setPurging(false);
   }
 
   async function handleSync(source: "guardian" | "techcrunch" | "all") {
@@ -234,6 +254,11 @@ export default function AdminNewsPage() {
           <Input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="w-36 text-sm" title="From date" />
           <span className="text-muted-foreground text-sm">–</span>
           <Input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="w-36 text-sm" title="To date" />
+          {dateTo && (
+            <Button size="sm" variant="destructive" onClick={openPurge} title={`Delete all articles published on or before ${dateTo}`}>
+              <Trash2 className="w-3.5 h-3.5 mr-1.5" /> Purge
+            </Button>
+          )}
           {(dateFrom || dateTo) && (
             <button onClick={() => { setDateFrom(""); setDateTo(""); }} className="text-xs text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
               Clear
@@ -312,6 +337,19 @@ export default function AdminNewsPage() {
               </tbody>
             </table>
           </div>
+
+          {/* Mobile select all */}
+          {filtered.length > 0 && (
+            <div className="md:hidden flex items-center justify-between px-1 py-2 mb-1">
+              <button onClick={toggleTableAll} className="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors">
+                <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${filtered.every(a => tableSelected.has(a.id)) ? "border-primary bg-primary" : "border-muted-foreground/40"}`}>
+                  {filtered.every(a => tableSelected.has(a.id)) && <span className="text-[9px] text-primary-foreground font-bold leading-none">✓</span>}
+                </div>
+                {filtered.every(a => tableSelected.has(a.id)) ? "Deselect All" : `Select All (${filtered.length})`}
+              </button>
+              {tableSelected.size > 0 && <span className="text-xs text-muted-foreground">{tableSelected.size} selected</span>}
+            </div>
+          )}
 
           {/* Mobile cards */}
           <div className="md:hidden space-y-2">
@@ -476,6 +514,31 @@ export default function AdminNewsPage() {
                   </Button>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Purge before date modal */}
+      {showPurge && dateTo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
+          <div className="bg-background rounded-2xl border border-border shadow-2xl w-full max-w-md p-6">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center shrink-0">
+                <Trash2 className="w-5 h-5 text-destructive" />
+              </div>
+              <div>
+                <h2 className="font-semibold">Purge articles before {dateTo}?</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  <span className="font-semibold text-foreground">{purgeCount}</span> article{purgeCount !== 1 ? "s" : ""} published on or before this date will be permanently deleted and blocklisted.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" size="sm" onClick={() => setShowPurge(false)} disabled={purging}>Cancel</Button>
+              <Button variant="destructive" size="sm" onClick={confirmPurge} disabled={purging}>
+                {purging ? <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Purging…</> : `Purge ${purgeCount} Articles`}
+              </Button>
             </div>
           </div>
         </div>
