@@ -93,6 +93,18 @@ export async function POST(req: NextRequest) {
       ]);
 
       const title = extracted?.title ?? url;
+
+      // Auto-blocklist author pages
+      if (/^Author\s*[-–]\s*/i.test(title)) {
+        await prisma.newsArticleBlocklist.upsert({
+          where: { url },
+          create: { url, title },
+          update: { deletedAt: new Date() },
+        });
+        failed.push(url);
+        continue;
+      }
+
       const slug = generateSlug(title);
       const content = extracted?.content
         ? upgradeTcContentImages(stripTechCrunchBoilerplate(extracted.content))
