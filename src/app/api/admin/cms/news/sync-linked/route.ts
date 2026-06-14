@@ -94,8 +94,9 @@ export async function POST(req: NextRequest) {
 
       const title = extracted?.title ?? url;
 
-      // Auto-blocklist author/tag pages
-      if (/^(Author|Tagged)\s*[-–]\s*/i.test(title)) {
+      // Auto-blocklist author/tag pages and short titles (1-2 words)
+      const wordCount = title.trim().split(/\s+/).length;
+      if (/^(Author|Tagged)\s*[-–]\s*/i.test(title) || wordCount <= 2) {
         await prisma.newsArticleBlocklist.upsert({
           where: { url },
           create: { url, title },
