@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { format } from "date-fns";
-import { UserPlus, ShieldCheck, User, Circle, Trash2 } from "lucide-react";
+import { UserPlus, ShieldCheck, User, Circle, Trash2, Shield, Tag, Clock, MessageSquare, MessageCircle, BookMarked, Bot, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -109,11 +110,44 @@ export function SettingsClient({
     setConfirmPw("");
   };
 
+  const SETTINGS_LINKS = [
+    { href: "/admin/settings/sla", icon: Shield, label: "SLA Config", desc: "Response time thresholds & compliance" },
+    { href: "/admin/settings/tags", icon: Tag, label: "Tags", desc: "Conversation labels & categories" },
+    { href: "/admin/settings/hours", icon: Clock, label: "Business Hours", desc: "Online schedule & timezone" },
+    { href: "/admin/settings/widget", icon: MessageSquare, label: "Widget Config", desc: "Chat widget appearance & behavior" },
+    { href: "/admin/canned-responses", icon: MessageCircle, label: "Canned Responses", desc: "Quick reply templates" },
+    { href: "/admin/knowledge-base", icon: BookMarked, label: "Knowledge Base", desc: "Help articles & FAQs" },
+    { href: "/admin/automation", icon: Bot, label: "Automation", desc: "Auto-replies & assignment rules" },
+  ];
+
   return (
     <div className="max-w-3xl space-y-8">
 
       {/* Push notification opt-in */}
       <PushPermissionBanner ownerType="admin" />
+
+      {/* Settings sub-pages */}
+      <div>
+        <h2 className="text-sm font-semibold mb-3">Configuration</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {SETTINGS_LINKS.map(({ href, icon: Icon, label, desc }) => (
+            <Link
+              key={href}
+              href={href}
+              className="flex items-center gap-3 p-3 border border-border rounded-xl hover:bg-muted/40 transition-colors group"
+            >
+              <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <Icon className="w-4 h-4 text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium">{label}</p>
+                <p className="text-[11px] text-muted-foreground truncate">{desc}</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
+          ))}
+        </div>
+      </div>
 
       {/* My Profile */}
       <div>
