@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { escapeHtml } from "@/lib/escape-html";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TO = "cirostack@gmail.com";
@@ -119,37 +120,37 @@ export async function POST(req: Request) {
                       <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:14px;">
                         <tr>
                           <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;width:150px;">Full Name</td>
-                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${fullName}</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(fullName)}</td>
                         </tr>
                         <tr>
                           <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Email</td>
-                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="mailto:${email}" style="color:#3b82f6;text-decoration:none;">${email}</a></td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="mailto:${email}" style="color:#3b82f6;text-decoration:none;">${escapeHtml(email)}</a></td>
                         </tr>
                         <tr>
                           <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Role Applied</td>
-                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;font-weight:600;">${role}</td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;font-weight:600;">${escapeHtml(role)}</td>
                         </tr>
                         <tr>
                           <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">Experience</td>
-                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${experience}</td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(experience)}</td>
                         </tr>
                         <tr>
                           <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">LinkedIn</td>
-                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="${linkedin}" style="color:#3b82f6;text-decoration:none;">${linkedin}</a></td>
+                          <td style="padding:10px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="${linkedin}" style="color:#3b82f6;text-decoration:none;">${escapeHtml(linkedin)}</a></td>
                         </tr>
                         <tr>
                           <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:600;">GitHub</td>
-                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="${github}" style="color:#3b82f6;text-decoration:none;">${github}</a></td>
+                          <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#0f172a;"><a href="${github}" style="color:#3b82f6;text-decoration:none;">${escapeHtml(github)}</a></td>
                         </tr>
                         <tr>
                           <td style="padding:10px 12px;background:#f8fafc;color:#64748b;font-weight:600;">CV</td>
-                          <td style="padding:10px 12px;background:#f8fafc;color:#0f172a;">${cvFile.name} (attached)</td>
+                          <td style="padding:10px 12px;background:#f8fafc;color:#0f172a;">${escapeHtml(cvFile.name)} (attached)</td>
                         </tr>
                       </table>
 
                       <h3 style="margin:24px 0 8px 0;font-size:14px;font-weight:700;color:#0f172a;text-transform:uppercase;letter-spacing:0.05em;">Cover Letter</h3>
                       <div style="background:#f8fafc;border-left:3px solid #0f172a;padding:16px;border-radius:0 6px 6px 0;">
-                        <p style="margin:0;font-size:14px;color:#334155;line-height:1.7;white-space:pre-wrap;">${coverLetter}</p>
+                        <p style="margin:0;font-size:14px;color:#334155;line-height:1.7;white-space:pre-wrap;">${escapeHtml(coverLetter)}</p>
                       </div>
                     </td>
                   </tr>
@@ -205,8 +206,8 @@ export async function POST(req: Request) {
         <!-- Body -->
         <tr>
           <td style="padding:32px;">
-            <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${fullName},</p>
-            <p style="margin:0 0 16px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for applying for the ${role} position at CiroStack. We have received your application and CV.</p>
+            <p style="margin:0 0 16px 0;font-size:15px;color:#0f172a;">Hi ${escapeHtml(fullName)},</p>
+            <p style="margin:0 0 16px 0;font-size:15px;color:#334155;line-height:1.6;">Thank you for applying for the ${escapeHtml(role)} position at CiroStack. We have received your application and CV.</p>
             <p style="margin:0 0 24px 0;font-size:15px;color:#334155;line-height:1.6;">Our hiring team reviews every application carefully. You can expect to hear from us within five business days.</p>
             <p style="margin:0;font-size:15px;color:#334155;line-height:1.6;"></p>
           </td>

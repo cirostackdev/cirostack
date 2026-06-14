@@ -200,4 +200,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[api/contact/start]", err);
-    return NextResponse.json({ error: "Failed t
+    return NextResponse.json({ error: "Failed to send." }, { status: 500 });
+  }
+}
