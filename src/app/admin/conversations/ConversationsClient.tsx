@@ -189,27 +189,8 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header: Tabs or Search */}
-      <div className="flex items-center gap-1.5 px-3 pt-3 pb-3 border-b border-border">
-      {searchOpen ? (
-        <div className="flex-1 flex items-center gap-2">
-          <div className="flex-1 relative">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-            <input
-              ref={searchInputRef}
-              autoFocus
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search conversations…"
-              className="w-full bg-muted border border-border rounded-lg pl-8 pr-3 py-1.5 text-sm outline-none focus:ring-1 focus:ring-primary"
-            />
-          </div>
-          <button onClick={closeSearch} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      ) : (
-        <>
+      {/* Tabs row */}
+      <div className="flex items-center gap-1.5 px-3 pt-3 pb-2 shrink-0">
         {([
           { key: "clients", label: "Clients", count: conversations.filter((c) => c.status === "open" && isPortalClient(c)).length },
           { key: "visitors", label: "Visitors", count: conversations.filter((c) => c.status === "open" && !isPortalClient(c)).length },
@@ -228,42 +209,59 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
             <span className="ml-1.5 opacity-60">({count})</span>
           </button>
         ))}
-        {allTags.length > 0 && (
-          <div className="relative">
-            <button
-              onClick={() => setShowTagFilter(!showTagFilter)}
-              className={`p-1.5 rounded-lg transition-colors ${tagFilter ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}
-              title="Filter by tag"
-            >
-              <Filter className="w-3.5 h-3.5" />
-            </button>
-            {showTagFilter && (
-              <div className="absolute right-0 top-full mt-1 z-50 bg-popover border border-border rounded-lg shadow-lg py-1 min-w-[140px]">
-                <button
-                  onClick={() => { setTagFilter(null); setShowTagFilter(false); }}
-                  className={`w-full text-left px-3 py-1.5 text-xs hover:bg-muted transition-colors ${!tagFilter ? "font-semibold text-primary" : ""}`}
-                >
-                  All tags
-                </button>
-                {allTags.map((tag) => (
+        <div className="ml-auto flex items-center gap-1">
+          {allTags.length > 0 && (
+            <div className="relative">
+              <button
+                onClick={() => setShowTagFilter(!showTagFilter)}
+                className={`p-1.5 rounded-lg transition-colors ${tagFilter ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}
+                title="Filter by tag"
+              >
+                <Filter className="w-3.5 h-3.5" />
+              </button>
+              {showTagFilter && (
+                <div className="absolute right-0 top-full mt-1 z-50 bg-popover border border-border rounded-lg shadow-lg py-1 min-w-[140px]">
                   <button
-                    key={tag.id}
-                    onClick={() => { setTagFilter(tag.id); setShowTagFilter(false); }}
-                    className={`w-full text-left px-3 py-1.5 text-xs hover:bg-muted transition-colors flex items-center gap-2 ${tagFilter === tag.id ? "font-semibold" : ""}`}
+                    onClick={() => { setTagFilter(null); setShowTagFilter(false); }}
+                    className={`w-full text-left px-3 py-1.5 text-xs hover:bg-muted transition-colors ${!tagFilter ? "font-semibold text-primary" : ""}`}
                   >
-                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: tag.color }} />
-                    {tag.name}
+                    All tags
                   </button>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-        <button onClick={() => setSearchOpen(true)} className="ml-auto p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" title="Search">
-          <Search className="w-3.5 h-3.5" />
-        </button>
-        </>
-      )}
+                  {allTags.map((tag) => (
+                    <button
+                      key={tag.id}
+                      onClick={() => { setTagFilter(tag.id); setShowTagFilter(false); }}
+                      className={`w-full text-left px-3 py-1.5 text-xs hover:bg-muted transition-colors flex items-center gap-2 ${tagFilter === tag.id ? "font-semibold" : ""}`}
+                    >
+                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: tag.color }} />
+                      {tag.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Search row */}
+      <div className="px-3 pb-2 border-b border-border shrink-0">
+        <div className="relative">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+          <input
+            ref={searchInputRef}
+            value={searchQuery}
+            onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(e.target.value.length > 0); }}
+            onFocus={() => { if (searchQuery.length > 0) setSearchOpen(true); }}
+            placeholder="Search conversations…"
+            className="w-full bg-muted border border-border rounded-lg pl-8 pr-8 py-1.5 text-xs outline-none focus:ring-1 focus:ring-primary"
+          />
+          {searchQuery && (
+            <button onClick={closeSearch} className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Search results */}
