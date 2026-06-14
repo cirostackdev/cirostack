@@ -125,8 +125,8 @@ export async function runNewsSync(): Promise<{ synced: number; total: number; br
   let upserted = 0;
 
   for (const article of techcrunch) {
-    // Auto-delete and blocklist author pages (title starts with "Author - ")
-    if (/^Author\s*[-–]\s*/i.test(article.title)) {
+    // Auto-delete and blocklist author/tag pages
+    if (/^(Author|Tagged)\s*[-–]\s*/i.test(article.title)) {
       await prisma.newsArticleBlocklist.upsert({
         where: { url: article.url },
         create: { url: article.url, title: article.title },

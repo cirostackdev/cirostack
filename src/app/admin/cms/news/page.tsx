@@ -5,7 +5,8 @@ import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, RefreshCw, ExternalLink, Pencil, Link2, X, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { Trash2, RefreshCw, ExternalLink, Pencil, Link2, X, Loader2, CheckCircle, AlertCircle, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
@@ -49,7 +50,9 @@ export default function AdminNewsPage() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [syncingBatch, setSyncingBatch] = useState(false);
   const [syncResults, setSyncResults] = useState<Record<string, SyncResult | "error">>({});
-
+  const [search, setSearch] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<Article | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   async function load() {
     setLoading(true);
@@ -60,10 +63,13 @@ export default function AdminNewsPage() {
 
   useEffect(() => { load(); }, []);
 
-  async function handleDelete(id: string) {
-    if (!confirm("Delete this article?")) return;
-    await fetch(`/api/admin/cms/news/${id}`, { method: "DELETE" });
-    setArticles((a) => a.filter((x) => x.id !== id));
+  async function confirmDelete() {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    await fetch(`/api/admin/cms/news/${deleteTarget.id}`, { method: "DELETE" });
+    setArticles((a) => a.filter((x) => x.id !== deleteTarget.id));
+    setDeleteTarget(null);
+    setDeleting(false);
   }
 
   async function handleSync(source: "guardian" | "techcrunch" | "all") {
@@ -147,10 +153,13 @@ export default function AdminNewsPage() {
   const formatDate = (iso: string) => format(new Date(iso), "MMM d, yyyy");
 
   const techcrunch = articles.filter(a => a.type === "techcrunch");
+  const filtered = search.trim()
+    ? articles.filter(a => a.title.toLowerCase().includes(search.toLowerCase()) || a.source.toLowerCase().includes(search.toLowerCase()))
+    : articles;
 
   return (
     <AdminShell title="News">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 flex-wrap">
           <p className="text-sm text-muted-foreground">
             {loading ? <span className="inline-block h-4 w-20 rounded bg-muted animate-pulse" /> : <>{articles.length} articles<span className="ml-2 text-muted-foreground/60">({techcrunch.length} TechCrunch)</span></>}
@@ -171,6 +180,12 @@ export default function AdminNewsPage() {
         </div>
       </div>
 
+      {/* Search */}
+      <div className="relative mb-4">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search articles…" className="pl-9" />
+      </div>
+
       {loading ? (
         <AdminTableSkeleton cols={5} />
       ) : (
@@ -188,7 +203,7 @@ export default function AdminNewsPage() {
                 </tr>
               </thead>
               <tbody>
-                {articles.map((article) => (
+                {filtered.map((article) => (
                   <tr key={article.id} className="border-t border-border hover:bg-muted/20 transition-colors">
                     <td className="px-4 py-3 font-medium max-w-sm">
                       <p className="truncate">{article.title}</p>
@@ -217,7 +232,7 @@ export default function AdminNewsPage() {
                         <Button
                           variant="ghost" size="icon"
                           className="w-8 h-8 text-destructive hover:text-destructive"
-                          onClick={() => handleDelete(article.id)}
+                          onClick={() => setDeleteTarget(article)}
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </Button>
@@ -225,8 +240,8 @@ export default function AdminNewsPage() {
                     </td>
                   </tr>
                 ))}
-                {articles.length === 0 && (
-                  <tr><td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">No articles yet. Hit Sync All to fetch.</td></tr>
+                {filtered.length === 0 && (
+                  <tr><td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">{search ? "No articles match your search." : "No articles yet. Hit Sync All to fetch."}</td></tr>
                 )}
               </tbody>
             </table>
@@ -234,10 +249,10 @@ export default function AdminNewsPage() {
 
           {/* Mobile cards */}
           <div className="md:hidden space-y-2">
-            {articles.length === 0 && (
-              <p className="text-sm text-muted-foreground text-center py-8">No articles yet. Hit Sync All to fetch.</p>
+            {filtered.length === 0 && (
+              <p className="text-sm text-muted-foreground text-center py-8">{search ? "No articles match your search." : "No articles yet. Hit Sync All to fetch."}</p>
             )}
-            {articles.map((article) => (
+            {filtered.map((article) => (
               <div key={article.id} className="p-4 rounded-xl border border-border">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
@@ -266,7 +281,7 @@ export default function AdminNewsPage() {
                   <Button
                     variant="ghost" size="icon"
                     className="w-8 h-8 text-destructive hover:text-destructive"
-                    onClick={() => handleDelete(article.id)}
+                    onClick={() => setDeleteTarget(article)}
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </Button>
@@ -392,6 +407,30 @@ export default function AdminNewsPage() {
                   </Button>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete confirmation modal */}
+      {deleteTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
+          <div className="bg-background rounded-2xl border border-border shadow-2xl w-full max-w-md p-6">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center shrink-0">
+                <Trash2 className="w-5 h-5 text-destructive" />
+              </div>
+              <div>
+                <h2 className="font-semibold">Delete article?</h2>
+                <p className="text-sm text-muted-foreground mt-1 line-clamp-2">"{deleteTarget.title}"</p>
+                <p className="text-xs text-muted-foreground mt-2">This article will be permanently deleted and blocklisted — it won't be re-added by future syncs.</p>
+              </div>
+            </div>
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" size="sm" onClick={() => setDeleteTarget(null)} disabled={deleting}>Cancel</Button>
+              <Button variant="destructive" size="sm" onClick={confirmDelete} disabled={deleting}>
+                {deleting ? <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Deleting…</> : "Delete & Blocklist"}
+              </Button>
             </div>
           </div>
         </div>
