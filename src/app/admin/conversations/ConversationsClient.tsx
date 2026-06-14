@@ -187,7 +187,7 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
       </div>
 
       {/* Tabs row */}
-      <div className="flex items-center gap-1.5 px-3 pb-2 border-b border-border shrink-0">
+      <div className="flex items-center gap-1 px-3 pb-2 border-b border-border shrink-0 overflow-visible">
         {([
           { key: "clients", label: "Clients", count: conversations.filter((c) => c.status === "open" && isPortalClient(c)).length },
           { key: "visitors", label: "Visitors", count: conversations.filter((c) => c.status === "open" && !isPortalClient(c)).length },
@@ -196,17 +196,17 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
           <button
             key={key}
             onClick={() => setFilter(key)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+            className={`shrink-0 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
               filter === key
                 ? "bg-primary text-primary-foreground"
                 : "bg-muted text-muted-foreground hover:text-foreground"
             }`}
           >
             {label}
-            <span className="ml-1.5 opacity-60">({count})</span>
+            <span className="ml-1 opacity-60">({count})</span>
           </button>
         ))}
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ml-auto shrink-0 flex items-center gap-1">
           {allTags.length > 0 && (
             <div className="relative">
               <button
