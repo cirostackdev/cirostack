@@ -64,15 +64,14 @@ const NAV = [
   { href: "/admin/invoices", icon: Receipt, label: "Invoices" },
   { href: "/admin/revenue", icon: TrendingUp, label: "Revenue" },
   { label: "—", divider: true },
-  { href: "/admin/canned-responses", icon: MessageCircle, label: "Canned Responses" },
-  { href: "/admin/knowledge-base", icon: BookMarked, label: "Knowledge Base" },
-  { href: "/admin/automation", icon: Bot, label: "Automation" },
-  { label: "—", divider: true },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
   { href: "/admin/settings/sla", icon: Shield, label: "SLA Config" },
   { href: "/admin/settings/tags", icon: Tag, label: "Tags" },
   { href: "/admin/settings/hours", icon: Clock, label: "Business Hours" },
   { href: "/admin/settings/widget", icon: MessageSquare, label: "Widget Config" },
+  { href: "/admin/canned-responses", icon: MessageCircle, label: "Canned Responses" },
+  { href: "/admin/knowledge-base", icon: BookMarked, label: "Knowledge Base" },
+  { href: "/admin/automation", icon: Bot, label: "Automation" },
 ];
 
 export function AdminShell({
