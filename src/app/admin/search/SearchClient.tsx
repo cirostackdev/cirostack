@@ -25,7 +25,10 @@ export function SearchClient() {
     timerRef.current = setTimeout(async () => {
       setLoading(true);
       const res = await fetch(`/api/admin/search?q=${encodeURIComponent(query.trim())}`);
-      if (res.ok) setResults(await res.json());
+      if (res.ok) {
+        const data = await res.json();
+        setResults(Array.isArray(data) ? data : []);
+      }
       setLoading(false);
       setSearched(true);
     }, 300);
