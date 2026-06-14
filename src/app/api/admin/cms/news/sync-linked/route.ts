@@ -140,11 +140,29 @@ export async function POST(req: NextRequest) {
         update: { title, slug, description: extracted?.description ?? "", content, image },
       });
 
+      // Success — clear any previous failure record
+      await prisma.newsArticleScrapeAttempt.deleteMany({ where: { url } });
       scraped.push({ url, slug });
       existingMap.set(url, slug);
     } catch (err) {
       console.error("[sync-linked] failed to scrape:", url, err);
       failed.push(url);
+
+      // Track failure — blocklist after 2 failed attempts
+      const attempt = await prisma.newsArticleScrapeAttempt.upsert({
+        where: { url },
+        create: { url, attempts: 1 },
+        update: { attempts: { increment: 1 }, lastAttempt: new Date() },
+      });
+
+      if (attempt.attempts >= 2) {
+        await prisma.newsArticleBlocklist.upsert({
+          where: { url },
+          create: { url, title: `[scrape failed] ${url}` },
+          update: { deletedAt: new Date() },
+        });
+        await prisma.newsArticleScrapeAttempt.deleteMany({ where: { url } });
+      }
     }
   }
 

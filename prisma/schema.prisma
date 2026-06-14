@@ -205,6 +205,13 @@ model NewsArticleBlocklist {
   deletedAt DateTime @default(now())
 }
 
+model NewsArticleScrapeAttempt {
+  id          String   @id @default(cuid())
+  url         String   @unique
+  attempts    Int      @default(1)
+  lastAttempt DateTime @default(now())
+}
+
 model NewsArticle {
   id            String   @id @default(cuid())
   url           String   @unique
