@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { MessageSquare, Tag, Filter } from "lucide-react";
+import { MessageSquare, Tag, Filter, Search, X } from "lucide-react";
 import { getPusher } from "@/lib/pusher-client";
 import type { Channel } from "pusher-js";
 import { PRESENCE } from "@/lib/colors";
@@ -43,17 +43,51 @@ interface Props {
   allTags: ConvTag[];
 }
 
+interface SearchResult {
+  messages: { id: string; body: string; createdAt: string; conversationId: string; visitorName: string | null; visitorEmail: string | null; topic: string | null }[];
+  conversations: { id: string; visitorName: string | null; visitorEmail: string | null; topic: string | null; status: string; lastMessage: string | null }[];
+}
+
 export function ConversationsClient({ initialConversations, unreadMap, allTags }: Props) {
+  const router = useRouter();
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(unreadMap);
   const [filter, setFilter] = useState<"clients" | "visitors" | "closed">("clients");
   const [tagFilter, setTagFilter] = useState<string | null>(null);
   const [showTagFilter, setShowTagFilter] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<SearchResult>({ messages: [], conversations: [] });
+  const [searchLoading, setSearchLoading] = useState(false);
+  const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [typingConvIds, setTypingConvIds] = useState<Set<string>>(new Set());
   const [recordingConvIds, setRecordingConvIds] = useState<Set<string>>(new Set());
   const [onlineConvIds, setOnlineConvIds] = useState<Set<string>>(new Set());
   const channelRef = useRef<Channel | null>(null);
   const pathname = usePathname();
+
+  // Global search
+  useEffect(() => {
+    if (searchTimerRef.current) clearTimeout(searchTimerRef.current);
+    if (searchQuery.trim().length < 2) { setSearchResults({ messages: [], conversations: [] }); return; }
+    searchTimerRef.current = setTimeout(async () => {
+      setSearchLoading(true);
+      const res = await fetch(`/api/admin/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      if (res.ok) {
+        const data = await res.json();
+        setSearchResults({ messages: data.messages ?? [], conversations: data.conversations ?? [] });
+      }
+      setSearchLoading(false);
+    }, 300);
+    return () => { if (searchTimerRef.current) clearTimeout(searchTimerRef.current); };
+  }, [searchQuery]);
+
+  function closeSearch() {
+    setSearchOpen(false);
+    setSearchQuery("");
+    setSearchResults({ messages: [], conversations: [] });
+  }
 
   // Refresh conversation list every 60s (for metadata/assignment drift, not presence)
   useEffect(() => {
@@ -151,10 +185,31 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
     return true;
   });
 
+  const hasSearchResults = searchResults.messages.length > 0 || searchResults.conversations.length > 0;
+
   return (
     <div className="flex flex-col h-full">
-      {/* Tabs */}
-      <div className="flex items-center gap-1.5 px-4 pt-4 pb-3 border-b border-border">
+      {/* Header: Tabs or Search */}
+      <div className="flex items-center gap-1.5 px-3 pt-3 pb-3 border-b border-border">
+      {searchOpen ? (
+        <div className="flex-1 flex items-center gap-2">
+          <div className="flex-1 relative">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+            <input
+              ref={searchInputRef}
+              autoFocus
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search conversations…"
+              className="w-full bg-muted border border-border rounded-lg pl-8 pr-3 py-1.5 text-sm outline-none focus:ring-1 focus:ring-primary"
+            />
+          </div>
+          <button onClick={closeSearch} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      ) : (
+        <>
         {([
           { key: "clients", label: "Clients", count: conversations.filter((c) => c.status === "open" && isPortalClient(c)).length },
           { key: "visitors", label: "Visitors", count: conversations.filter((c) => c.status === "open" && !isPortalClient(c)).length },
@@ -174,7 +229,7 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
           </button>
         ))}
         {allTags.length > 0 && (
-          <div className="relative ml-auto">
+          <div className="relative">
             <button
               onClick={() => setShowTagFilter(!showTagFilter)}
               className={`p-1.5 rounded-lg transition-colors ${tagFilter ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}
@@ -204,10 +259,59 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
             )}
           </div>
         )}
+        <button onClick={() => setSearchOpen(true)} className="ml-auto p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors" title="Search">
+          <Search className="w-3.5 h-3.5" />
+        </button>
+        </>
+      )}
       </div>
 
-      {/* List */}
-      <div className="flex-1 overflow-y-auto divide-y divide-border/50">
+      {/* Search results */}
+      {searchOpen && (
+        <div className="flex-1 overflow-y-auto divide-y divide-border/50">
+          {searchLoading && (
+            <p className="text-xs text-muted-foreground text-center py-6">Searching…</p>
+          )}
+          {!searchLoading && searchQuery.length >= 2 && !hasSearchResults && (
+            <p className="text-xs text-muted-foreground text-center py-6">No results for "{searchQuery}"</p>
+          )}
+          {!searchLoading && searchQuery.length < 2 && (
+            <p className="text-xs text-muted-foreground text-center py-6">Type to search conversations</p>
+          )}
+          {[...searchResults.conversations.map(c => ({ type: "conv" as const, data: c })),
+            ...searchResults.messages.map(m => ({ type: "msg" as const, data: m }))
+          ].map((item, i) => {
+            if (item.type === "conv") {
+              const c = item.data;
+              return (
+                <button key={`c-${c.id}`} onClick={() => { router.push(`/admin/conversations/${c.id}`); closeSearch(); }}
+                  className="w-full text-left flex items-start gap-3 px-4 py-3 hover:bg-muted/40 transition-colors">
+                  <MessageSquare className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate">{c.visitorName || c.visitorEmail || "Anonymous"}</p>
+                    {c.topic && <p className="text-xs text-muted-foreground truncate">{c.topic}</p>}
+                    {c.lastMessage && <p className="text-xs text-muted-foreground truncate">{c.lastMessage}</p>}
+                  </div>
+                </button>
+              );
+            }
+            const m = item.data;
+            return (
+              <button key={`m-${m.id}`} onClick={() => { router.push(`/admin/conversations/${m.conversationId}`); closeSearch(); }}
+                className="w-full text-left flex items-start gap-3 px-4 py-3 hover:bg-muted/40 transition-colors">
+                <MessageSquare className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
+                <div className="min-w-0">
+                  <p className="text-xs font-medium text-muted-foreground truncate">{m.visitorName || m.visitorEmail || "Anonymous"}{m.topic ? ` · ${m.topic}` : ""}</p>
+                  <p className="text-sm truncate">{m.body.slice(0, 100)}</p>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* List — hidden when search is open */}
+      <div className={`${searchOpen ? "hidden" : "flex-1"} overflow-y-auto divide-y divide-border/50`}>
         {filtered.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-center px-6">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">

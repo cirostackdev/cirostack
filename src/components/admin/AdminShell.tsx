@@ -47,7 +47,6 @@ const NAV = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/admin/analytics", icon: BarChart2, label: "Analytics" },
   { href: "/admin/conversations", icon: MessageSquare, label: "Conversations" },
-  { href: "/admin/search", icon: Search, label: "Search" },
   { href: "/admin/submissions", icon: FileText, label: "Submissions" },
   { href: "/admin/leads", icon: Users, label: "Leads" },
   { label: "—", divider: true },
