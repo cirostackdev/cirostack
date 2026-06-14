@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { MessageSquare, Tag, Filter, Search, X } from "lucide-react";
 import { getPusher } from "@/lib/pusher-client";
@@ -43,23 +43,13 @@ interface Props {
   allTags: ConvTag[];
 }
 
-interface SearchResult {
-  messages: { id: string; body: string; createdAt: string; conversationId: string; visitorName: string | null; visitorEmail: string | null; topic: string | null }[];
-  conversations: { id: string; visitorName: string | null; visitorEmail: string | null; topic: string | null; status: string; lastMessage: string | null }[];
-}
-
 export function ConversationsClient({ initialConversations, unreadMap, allTags }: Props) {
-  const router = useRouter();
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(unreadMap);
   const [filter, setFilter] = useState<"clients" | "visitors" | "closed">("clients");
   const [tagFilter, setTagFilter] = useState<string | null>(null);
   const [showTagFilter, setShowTagFilter] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState<SearchResult>({ messages: [], conversations: [] });
-  const [searchLoading, setSearchLoading] = useState(false);
-  const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [typingConvIds, setTypingConvIds] = useState<Set<string>>(new Set());
   const [recordingConvIds, setRecordingConvIds] = useState<Set<string>>(new Set());
@@ -67,26 +57,8 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
   const channelRef = useRef<Channel | null>(null);
   const pathname = usePathname();
 
-  // Global search
-  useEffect(() => {
-    if (searchTimerRef.current) clearTimeout(searchTimerRef.current);
-    if (searchQuery.trim().length < 2) { setSearchResults({ messages: [], conversations: [] }); return; }
-    searchTimerRef.current = setTimeout(async () => {
-      setSearchLoading(true);
-      const res = await fetch(`/api/admin/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      if (res.ok) {
-        const data = await res.json();
-        setSearchResults({ messages: data.messages ?? [], conversations: data.conversations ?? [] });
-      }
-      setSearchLoading(false);
-    }, 300);
-    return () => { if (searchTimerRef.current) clearTimeout(searchTimerRef.current); };
-  }, [searchQuery]);
-
   function closeSearch() {
-    setSearchOpen(false);
     setSearchQuery("");
-    setSearchResults({ messages: [], conversations: [] });
   }
 
   // Refresh conversation list every 60s (for metadata/assignment drift, not presence)
@@ -182,10 +154,16 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
     if (filter === "clients" && !(c.status === "open" && isPortalClient(c))) return false;
     if (filter === "visitors" && !(c.status === "open" && !isPortalClient(c))) return false;
     if (tagFilter && !(c.tags || []).some((t) => t.id === tagFilter)) return false;
+    if (searchQuery.trim().length >= 1) {
+      const q = searchQuery.toLowerCase();
+      const matchesName = c.visitorName?.toLowerCase().includes(q);
+      const matchesEmail = c.visitorEmail?.toLowerCase().includes(q);
+      const matchesTopic = c.topic?.toLowerCase().includes(q);
+      const matchesMsg = c.messages[0]?.body?.toLowerCase().includes(q);
+      if (!matchesName && !matchesEmail && !matchesTopic && !matchesMsg) return false;
+    }
     return true;
   });
-
-  const hasSearchResults = searchResults.messages.length > 0 || searchResults.conversations.length > 0;
 
   return (
     <div className="flex flex-col h-full">
@@ -196,8 +174,7 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
           <input
             ref={searchInputRef}
             value={searchQuery}
-            onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(e.target.value.length > 0); }}
-            onFocus={() => { if (searchQuery.length > 0) setSearchOpen(true); }}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search conversations…"
             className="w-full bg-muted border border-border rounded-lg pl-8 pr-8 py-1.5 text-xs outline-none focus:ring-1 focus:ring-primary"
           />
@@ -264,52 +241,8 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
         </div>
       </div>
 
-      {/* Search results */}
-      {searchOpen && (
-        <div className="flex-1 overflow-y-auto divide-y divide-border/50">
-          {searchLoading && (
-            <p className="text-xs text-muted-foreground text-center py-6">Searching…</p>
-          )}
-          {!searchLoading && searchQuery.length >= 2 && !hasSearchResults && (
-            <p className="text-xs text-muted-foreground text-center py-6">No results for "{searchQuery}"</p>
-          )}
-          {!searchLoading && searchQuery.length < 2 && (
-            <p className="text-xs text-muted-foreground text-center py-6">Type to search conversations</p>
-          )}
-          {[...searchResults.conversations.map(c => ({ type: "conv" as const, data: c })),
-            ...searchResults.messages.map(m => ({ type: "msg" as const, data: m }))
-          ].map((item, i) => {
-            if (item.type === "conv") {
-              const c = item.data;
-              return (
-                <button key={`c-${c.id}`} onClick={() => { router.push(`/admin/conversations/${c.id}`); closeSearch(); }}
-                  className="w-full text-left flex items-start gap-3 px-4 py-3 hover:bg-muted/40 transition-colors">
-                  <MessageSquare className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium truncate">{c.visitorName || c.visitorEmail || "Anonymous"}</p>
-                    {c.topic && <p className="text-xs text-muted-foreground truncate">{c.topic}</p>}
-                    {c.lastMessage && <p className="text-xs text-muted-foreground truncate">{c.lastMessage}</p>}
-                  </div>
-                </button>
-              );
-            }
-            const m = item.data;
-            return (
-              <button key={`m-${m.id}`} onClick={() => { router.push(`/admin/conversations/${m.conversationId}`); closeSearch(); }}
-                className="w-full text-left flex items-start gap-3 px-4 py-3 hover:bg-muted/40 transition-colors">
-                <MessageSquare className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
-                <div className="min-w-0">
-                  <p className="text-xs font-medium text-muted-foreground truncate">{m.visitorName || m.visitorEmail || "Anonymous"}{m.topic ? ` · ${m.topic}` : ""}</p>
-                  <p className="text-sm truncate">{m.body.slice(0, 100)}</p>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      )}
-
-      {/* List — hidden when search is open */}
-      <div className={`${searchOpen ? "hidden" : "flex-1"} overflow-y-auto divide-y divide-border/50`}>
+      {/* List */}
+      <div className="flex-1 overflow-y-auto divide-y divide-border/50">
         {filtered.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-center px-6">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
@@ -317,7 +250,7 @@ export function ConversationsClient({ initialConversations, unreadMap, allTags }
             </div>
             <p className="text-sm font-semibold text-foreground">No conversations</p>
             <p className="text-xs text-muted-foreground mt-1 max-w-xs">
-              Conversations will appear here when visitors start chatting.
+              {searchQuery ? `No matches for "${searchQuery}"` : "Conversations will appear here when visitors start chatting."}
             </p>
           </div>
         )}
