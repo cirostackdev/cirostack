@@ -27,6 +27,7 @@ import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
 import { messagePreview } from "@/components/Chat/messagePreview";
 import { ConversationTagsPanel } from "@/components/admin/ConversationTagsPanel";
 import { NotesPanel } from "@/components/admin/NotesPanel";
+import { CannedResponsePicker } from "@/components/Chat/CannedResponsePicker";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
 
@@ -405,6 +406,8 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
   }, []);
 
   const [transferNote, setTransferNote] = useState("");
+  const [showCannedPicker, setShowCannedPicker] = useState(false);
+  const [cannedQuery, setCannedQuery] = useState("");
 
   async function handleAssign(aId: string) {
     const res = await fetch(`/api/admin/conversations/${conversation.id}/assign`, {
@@ -605,6 +608,16 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
   const handleTyping = (val: string) => {
     setInput(val);
+
+    // Canned response picker: show when input starts with "/"
+    if (val.startsWith("/")) {
+      setShowCannedPicker(true);
+      setCannedQuery(val.slice(1));
+    } else {
+      setShowCannedPicker(false);
+      setCannedQuery("");
+    }
+
     fetch(`/api/admin/conversations/${conversation.id}/typing`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -926,7 +939,14 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
 
         {/* Input */}
         {status === "open" ? (
-          <div className="border-t border-border px-3 py-3" style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}>
+          <div className="relative border-t border-border px-3 py-3" style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}>
+            {showCannedPicker && (
+              <CannedResponsePicker
+                query={cannedQuery}
+                onSelect={(content) => { setInput(content); setShowCannedPicker(false); setCannedQuery(""); inputRef.current?.focus(); }}
+                onClose={() => { setShowCannedPicker(false); setCannedQuery(""); }}
+              />
+            )}
             <div className="flex items-center gap-2">
               {recording ? (
                 <div className="w-11 h-11 flex items-center justify-center shrink-0 bg-muted/50 border border-border rounded-full text-muted-foreground">
