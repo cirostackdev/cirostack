@@ -180,8 +180,10 @@ function ArticleBody({ content }: { content: string }) {
         prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
         prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
         prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6
-        prose-a:text-primary prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary/30
-        hover:prose-a:border-primary hover:prose-a:text-primary/90
+        prose-a:text-primary-foreground prose-a:no-underline prose-a:font-semibold
+        prose-a:bg-foreground prose-a:rounded-md prose-a:px-1.5 prose-a:py-0.5
+        prose-a:decoration-0
+        hover:prose-a:bg-foreground/85
         prose-strong:text-foreground prose-strong:font-semibold
         prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-primary/5
         prose-blockquote:rounded-r-xl prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:not-italic
