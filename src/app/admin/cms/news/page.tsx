@@ -51,6 +51,8 @@ export default function AdminNewsPage() {
   const [syncingBatch, setSyncingBatch] = useState(false);
   const [syncResults, setSyncResults] = useState<Record<string, SyncResult | "error">>({});
   const [search, setSearch] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<Article | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [tableSelected, setTableSelected] = useState<Set<string>>(new Set());
@@ -180,16 +182,25 @@ export default function AdminNewsPage() {
   const formatDate = (iso: string) => format(new Date(iso), "MMM d, yyyy");
 
   const techcrunch = articles.filter(a => a.type === "techcrunch");
-  const filtered = search.trim()
-    ? articles.filter(a => a.title.toLowerCase().includes(search.toLowerCase()) || a.source.toLowerCase().includes(search.toLowerCase()))
-    : articles;
+  const filtered = articles.filter(a => {
+    if (search.trim() && !a.title.toLowerCase().includes(search.toLowerCase()) && !a.source.toLowerCase().includes(search.toLowerCase())) return false;
+    if (dateFrom && new Date(a.publishedAt) < new Date(dateFrom)) return false;
+    if (dateTo && new Date(a.publishedAt) > new Date(dateTo + "T23:59:59")) return false;
+    return true;
+  });
 
   return (
     <AdminShell title="News">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 flex-wrap">
           <p className="text-sm text-muted-foreground">
-            {loading ? <span className="inline-block h-4 w-20 rounded bg-muted animate-pulse" /> : <>{articles.length} articles<span className="ml-2 text-muted-foreground/60">({techcrunch.length} TechCrunch)</span></>}
+            {loading ? <span className="inline-block h-4 w-20 rounded bg-muted animate-pulse" /> : (
+              <>
+                {(search || dateFrom || dateTo) ? <><span className="text-foreground font-medium">{filtered.length}</span> of </> : null}
+                {articles.length} articles
+                <span className="ml-2 text-muted-foreground/60">({techcrunch.length} TechCrunch)</span>
+              </>
+            )}
           </p>
           {syncStatus && (
             <span className="text-xs text-green-600 dark:text-green-400 font-medium">{syncStatus}</span>
@@ -213,10 +224,22 @@ export default function AdminNewsPage() {
         </div>
       </div>
 
-      {/* Search */}
-      <div className="relative mb-4">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-        <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search articles…" className="pl-9" />
+      {/* Search + Date filters */}
+      <div className="flex flex-col sm:flex-row gap-2 mb-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search articles…" className="pl-9" />
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <Input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="w-36 text-sm" title="From date" />
+          <span className="text-muted-foreground text-sm">–</span>
+          <Input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="w-36 text-sm" title="To date" />
+          {(dateFrom || dateTo) && (
+            <button onClick={() => { setDateFrom(""); setDateTo(""); }} className="text-xs text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+              Clear
+            </button>
+          )}
+        </div>
       </div>
 
       {loading ? (
