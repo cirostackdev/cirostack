@@ -6,6 +6,24 @@ import { generateSlug } from "@/lib/news-sync";
 
 export const maxDuration = 60;
 
+async function fetchOgImage(url: string): Promise<string | null> {
+  try {
+    const res = await Promise.race([
+      fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1)" } }),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), 5000)),
+    ]);
+    if (!res || !res.ok) return null;
+    const html = await res.text();
+    const match =
+      html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ??
+      html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i) ??
+      html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i);
+    return match?.[1] ?? null;
+  } catch {
+    return null;
+  }
+}
+
 function stripTechCrunchBoilerplate(html: string): string {
   let cleaned = html;
   const cutoffPatterns = [
@@ -79,6 +97,10 @@ export async function POST(req: NextRequest) {
         ? upgradeTcContentImages(stripTechCrunchBoilerplate(extracted.content))
         : "";
 
+      // Fallback to OG image if article-extractor didn't find one
+      const rawImage = extracted?.image ?? await fetchOgImage(url);
+      const image = upgradeTcImage(rawImage);
+
       await prisma.newsArticle.upsert({
         where: { url },
         create: {
@@ -87,13 +109,13 @@ export async function POST(req: NextRequest) {
           title,
           description: extracted?.description ?? "",
           content,
-          image: upgradeTcImage(extracted?.image ?? null),
+          image,
           publishedAt: extracted?.published ? new Date(extracted.published) : new Date(),
           source: "TechCrunch",
           sourceUrl: "https://techcrunch.com",
           type: "techcrunch",
         },
-        update: { title, slug, description: extracted?.description ?? "", content, image: upgradeTcImage(extracted?.image ?? null) },
+        update: { title, slug, description: extracted?.description ?? "", content, image },
       });
 
       scraped.push({ url, slug });
