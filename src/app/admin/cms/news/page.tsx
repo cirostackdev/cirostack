@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, RefreshCw, ExternalLink, Pencil } from "lucide-react";
+import { Trash2, RefreshCw, ExternalLink, Pencil, Link2, X, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { AdminTableSkeleton } from "@/components/admin/AdminSkeletons";
 
@@ -20,6 +20,18 @@ type Article = {
   fetchedAt: string;
 };
 
+type UnsyncedItem = {
+  id: string;
+  title: string;
+  slug: string | null;
+  publishedAt: string;
+  totalLinks: number;
+  unsyncedLinks: number;
+};
+
+type SyncState = "idle" | "scraping" | "done" | "error";
+type SyncResult = { scraped: number; failed: number; rewritten: number; failedUrls: string[] };
+
 const SOURCE_COLORS: Record<string, string> = {
   techcrunch: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
   manual: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
@@ -28,8 +40,15 @@ const SOURCE_COLORS: Record<string, string> = {
 export default function AdminNewsPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
-  const [syncing, setSyncing] = useState<string | null>(null); // tracks which source is syncing
+  const [syncing, setSyncing] = useState<string | null>(null);
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
+
+  // Sync linked articles modal
+  const [showLinkedModal, setShowLinkedModal] = useState(false);
+  const [unsyncedItems, setUnsyncedItems] = useState<UnsyncedItem[]>([]);
+  const [loadingUnsynced, setLoadingUnsynced] = useState(false);
+  const [syncingLinked, setSyncingLinked] = useState<string | null>(null); // article id being synced
+  const [syncResults, setSyncResults] = useState<Record<string, SyncResult | "error">>({});
 
   async function load() {
     setLoading(true);
@@ -72,6 +91,39 @@ export default function AdminNewsPage() {
     }
   }
 
+  async function openLinkedModal() {
+    setShowLinkedModal(true);
+    setLoadingUnsynced(true);
+    setSyncResults({});
+    const res = await fetch("/api/admin/cms/news/unsynced-links");
+    if (res.ok) setUnsyncedItems(await res.json());
+    setLoadingUnsynced(false);
+  }
+
+  async function handleSyncLinked(articleId: string) {
+    setSyncingLinked(articleId);
+    try {
+      const res = await fetch("/api/admin/cms/news/sync-linked", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ articleId }),
+      });
+      if (res.ok) {
+        const result = await res.json();
+        setSyncResults(prev => ({ ...prev, [articleId]: result }));
+        // Remove from unsynced list
+        setUnsyncedItems(prev => prev.filter(i => i.id !== articleId));
+        await load();
+      } else {
+        setSyncResults(prev => ({ ...prev, [articleId]: "error" }));
+      }
+    } catch {
+      setSyncResults(prev => ({ ...prev, [articleId]: "error" }));
+    } finally {
+      setSyncingLinked(null);
+    }
+  }
+
   const formatDate = (iso: string) => format(new Date(iso), "MMM d, yyyy");
 
   const techcrunch = articles.filter(a => a.type === "techcrunch");
@@ -88,6 +140,10 @@ export default function AdminNewsPage() {
           )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <Button size="sm" variant="outline" onClick={openLinkedModal} disabled={syncing !== null}>
+            <Link2 className="w-3.5 h-3.5 mr-1.5" />
+            Sync Linked Articles
+          </Button>
           <Button size="sm" onClick={() => handleSync("techcrunch")} disabled={syncing !== null}>
             <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${syncing === "techcrunch" || syncing === "all" ? "animate-spin" : ""}`} />
             Sync TechCrunch
@@ -199,6 +255,87 @@ export default function AdminNewsPage() {
             ))}
           </div>
         </>
+      )}
+      {/* Sync Linked Articles Modal */}
+      {showLinkedModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
+          <div className="bg-background rounded-2xl border border-border shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+              <div>
+                <h2 className="font-semibold text-base flex items-center gap-2">
+                  <Link2 className="w-4 h-4 text-primary" /> Sync Linked Articles
+                </h2>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Articles that contain TechCrunch links not yet scraped into the DB.
+                  Select one to scrape all its linked articles and rewrite links to internal URLs.
+                </p>
+              </div>
+              <button onClick={() => setShowLinkedModal(false)} className="p-2 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="flex-1 overflow-y-auto px-6 py-4 space-y-2">
+              {loadingUnsynced ? (
+                <div className="flex items-center justify-center py-12 gap-2 text-muted-foreground">
+                  <Loader2 className="w-4 h-4 animate-spin" /> Checking for unsynced links…
+                </div>
+              ) : unsyncedItems.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <CheckCircle className="w-8 h-8 text-green-500 mb-3" />
+                  <p className="font-medium">All linked articles are synced!</p>
+                  <p className="text-sm text-muted-foreground mt-1">No articles have unsynced TechCrunch links.</p>
+                </div>
+              ) : (
+                unsyncedItems.map((item) => {
+                  const result = syncResults[item.id];
+                  return (
+                    <div key={item.id} className="flex items-center gap-3 px-4 py-3 rounded-xl border border-border hover:bg-muted/30 transition-colors">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">{item.title}</p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-xs text-muted-foreground">{formatDate(item.publishedAt)}</span>
+                          <span className="text-[10px] bg-amber-500/10 text-amber-600 dark:text-amber-400 px-1.5 py-0.5 rounded font-medium">
+                            {item.unsyncedLinks} unsynced link{item.unsyncedLinks !== 1 ? "s" : ""}
+                          </span>
+                          <span className="text-[10px] text-muted-foreground/60">{item.totalLinks} total</span>
+                        </div>
+                      </div>
+                      {result && result !== "error" ? (
+                        <div className="flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400 shrink-0">
+                          <CheckCircle className="w-4 h-4" />
+                          {result.scraped} scraped, {result.rewritten} links rewritten
+                        </div>
+                      ) : result === "error" ? (
+                        <div className="flex items-center gap-1.5 text-xs text-destructive shrink-0">
+                          <AlertCircle className="w-4 h-4" /> Failed
+                        </div>
+                      ) : (
+                        <Button
+                          size="sm"
+                          disabled={syncingLinked !== null}
+                          onClick={() => handleSyncLinked(item.id)}
+                        >
+                          {syncingLinked === item.id ? (
+                            <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Scraping…</>
+                          ) : (
+                            <><Link2 className="w-3.5 h-3.5 mr-1.5" /> Sync</>
+                          )}
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            <div className="px-6 py-3 border-t border-border">
+              <Button variant="outline" size="sm" onClick={() => setShowLinkedModal(false)}>Close</Button>
+            </div>
+          </div>
+        </div>
       )}
     </AdminShell>
   );
