@@ -18,8 +18,11 @@ export default async function ConversationsLayout({
     include: {
       messages: { orderBy: { createdAt: "desc" }, take: 1 },
       assignedTo: { select: { name: true } },
+      tags: { select: { id: true, name: true, color: true } },
     },
   });
+
+  const allTags = await prisma.conversationTag.findMany({ orderBy: { name: "asc" } });
 
   const unreadCounts = await prisma.message.groupBy({
     by: ["conversationId"],
@@ -37,6 +40,7 @@ export default async function ConversationsLayout({
       <ConversationsSplitLayout
         initialConversations={conversations as any}
         unreadMap={unreadMap}
+        allTags={allTags as any}
       >
         {children}
       </ConversationsSplitLayout>

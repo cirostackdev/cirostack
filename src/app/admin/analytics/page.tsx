@@ -10,12 +10,39 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import {
   DollarSign, Users, TrendingUp, FolderKanban, AlertTriangle,
   Clock, CheckCircle2, BarChart2, MessageCircle, FileEdit,
+  Shield, Star, UserCheck, ArrowUpDown,
 } from "lucide-react";
 import { PROJECT_STATUS_COLORS, SEMANTIC } from "@/lib/colors";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
 type TrendPoint = { label: string; revenue: number; leads: number; submissions: number; projects: number; conversations: number };
+
+type SLAData = {
+  avgFirstResponseMins: number;
+  complianceRate: number;
+  breaches: number;
+  totalConversations: number;
+};
+
+type CSATData = {
+  totalRatings: number;
+  avgRating: number;
+  distribution: number[];
+  recentFeedback: { id: string; rating: number; feedback: string | null; visitorName: string | null; topic: string | null; agent: string | null; createdAt: string }[];
+};
+
+type AgentStat = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  online: boolean;
+  totalConversations: number;
+  avgFirstResponseMins: number;
+  totalMessagesSent: number;
+  avgDurationHours: number;
+};
 
 type AnalyticsData = {
   meta: { days: number };
@@ -111,9 +138,18 @@ export default function AnalyticsPage() {
   const [days, setDays] = useState(30);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [tab, setTab] = useState<"overview" | "pipeline" | "financial" | "projects" | "content">("overview");
+  const [tab, setTab] = useState<"overview" | "pipeline" | "financial" | "projects" | "content" | "sla" | "csat" | "agents">("overview");
   const [activeSeries, setActiveSeries] = useState(["revenue", "leads", "submissions", "projects", "conversations"]);
   const toggleSeries = (key: string) => setActiveSeries(prev => prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]);
+
+  // SLA, CSAT, and Agent data
+  const [slaData, setSlaData] = useState<SLAData | null>(null);
+  const [slaLoading, setSlaLoading] = useState(false);
+  const [csatData, setCsatData] = useState<CSATData | null>(null);
+  const [csatLoading, setCsatLoading] = useState(false);
+  const [agentData, setAgentData] = useState<AgentStat[]>([]);
+  const [agentLoading, setAgentLoading] = useState(false);
+  const [agentSort, setAgentSort] = useState<{ key: keyof AgentStat; dir: "asc" | "desc" }>({ key: "totalConversations", dir: "desc" });
 
   useEffect(() => {
     setLoading(true);
@@ -134,12 +170,48 @@ export default function AnalyticsPage() {
       });
   }, [days]);
 
+  // Fetch SLA data
+  useEffect(() => {
+    if (tab !== "sla") return;
+    setSlaLoading(true);
+    fetch(`/api/admin/analytics/sla?days=${days}`)
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to fetch SLA data");
+        return r.json();
+      })
+      .then((d) => { setSlaData(d); setSlaLoading(false); })
+      .catch(() => setSlaLoading(false));
+  }, [tab, days]);
+
+  // Fetch CSAT data
+  useEffect(() => {
+    if (tab !== "csat") return;
+    setCsatLoading(true);
+    fetch(`/api/admin/csat?days=${days}`)
+      .then((r) => r.json())
+      .then((d) => { setCsatData(d); setCsatLoading(false); })
+      .catch(() => setCsatLoading(false));
+  }, [tab, days]);
+
+  // Fetch Agent data
+  useEffect(() => {
+    if (tab !== "agents") return;
+    setAgentLoading(true);
+    fetch(`/api/admin/analytics/agents?days=${days}`)
+      .then((r) => r.json())
+      .then((d) => { setAgentData(d.agents ?? []); setAgentLoading(false); })
+      .catch(() => setAgentLoading(false));
+  }, [tab, days]);
+
   const TABS = [
     { key: "overview",  label: "Overview" },
     { key: "pipeline",  label: "Pipeline" },
     { key: "financial", label: "Financial" },
     { key: "projects",  label: "Projects" },
     { key: "content",   label: "Content" },
+    { key: "sla",       label: "SLA" },
+    { key: "csat",      label: "CSAT" },
+    { key: "agents",    label: "Agents" },
   ] as const;
 
   return (
@@ -742,6 +814,358 @@ export default function AnalyticsPage() {
                           </tr>
                         );
                       })
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── SLA tab ─────────────────────────────────────────────────────── */}
+        {tab === "sla" && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground">Period:</span>
+              <PeriodSelect days={days} onChange={setDays} />
+              {slaLoading && <span className="text-xs text-muted-foreground">Loading...</span>}
+            </div>
+
+            {/* SLA KPI cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="rounded-xl border border-border p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs text-muted-foreground font-medium">Avg First Response</p>
+                  <Clock className="w-4 h-4 text-blue-500" />
+                </div>
+                {slaLoading ? (
+                  <Skeleton className="h-8 w-20 mt-1" />
+                ) : (
+                  <p className="text-2xl font-bold text-blue-500">
+                    {slaData?.avgFirstResponseMins
+                      ? slaData.avgFirstResponseMins >= 60
+                        ? `${(slaData.avgFirstResponseMins / 60).toFixed(1)}h`
+                        : `${slaData.avgFirstResponseMins.toFixed(1)}m`
+                      : "—"}
+                  </p>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-border p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs text-muted-foreground font-medium">SLA Compliance</p>
+                  <Shield className="w-4 h-4 text-green-500" />
+                </div>
+                {slaLoading ? (
+                  <Skeleton className="h-8 w-20 mt-1" />
+                ) : (
+                  <p className={`text-2xl font-bold ${(slaData?.complianceRate ?? 0) >= 80 ? "text-green-500" : (slaData?.complianceRate ?? 0) >= 50 ? "text-amber-500" : "text-red-500"}`}>
+                    {slaData?.complianceRate != null ? `${slaData.complianceRate}%` : "—"}
+                  </p>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-border p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs text-muted-foreground font-medium">SLA Breaches</p>
+                  <AlertTriangle className="w-4 h-4 text-red-500" />
+                </div>
+                {slaLoading ? (
+                  <Skeleton className="h-8 w-20 mt-1" />
+                ) : (
+                  <p className={`text-2xl font-bold ${(slaData?.breaches ?? 0) === 0 ? "text-green-500" : "text-red-500"}`}>
+                    {slaData?.breaches ?? 0}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Compliance visual */}
+            {!slaLoading && slaData && slaData.totalConversations > 0 && (
+              <div className="rounded-xl border border-border p-5">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Compliance Breakdown</p>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs text-muted-foreground">Within SLA</span>
+                      <span className="text-xs font-medium text-green-500">
+                        {slaData.totalConversations - slaData.breaches} conversations
+                      </span>
+                    </div>
+                    <div className="h-3 bg-muted rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-green-500 rounded-full transition-all duration-500"
+                        style={{ width: `${slaData.complianceRate}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs text-muted-foreground">Breached SLA</span>
+                      <span className="text-xs font-medium text-red-500">
+                        {slaData.breaches} conversations
+                      </span>
+                    </div>
+                    <div className="h-3 bg-muted rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-red-500 rounded-full transition-all duration-500"
+                        style={{ width: `${100 - slaData.complianceRate}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {!slaLoading && (!slaData || slaData.totalConversations === 0) && (
+              <div className="rounded-xl border border-border p-8 text-center">
+                <Shield className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
+                <p className="text-sm text-muted-foreground">No conversations with first response data in this period.</p>
+                <p className="text-xs text-muted-foreground mt-1">SLA metrics will appear once conversations have responses tracked.</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── CSAT tab ────────────────────────────────────────────────────── */}
+        {tab === "csat" && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground">Period:</span>
+              <PeriodSelect days={days} onChange={setDays} />
+              {csatLoading && <span className="text-xs text-muted-foreground">Loading...</span>}
+            </div>
+
+            {/* CSAT KPI cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="rounded-xl border border-border p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs text-muted-foreground font-medium">Average Rating</p>
+                  <Star className="w-4 h-4 text-amber-400" />
+                </div>
+                {csatLoading ? (
+                  <Skeleton className="h-8 w-20 mt-1" />
+                ) : (
+                  <div className="flex items-end gap-2">
+                    <p className="text-2xl font-bold text-amber-400">
+                      {csatData?.avgRating ? csatData.avgRating.toFixed(1) : "—"}
+                    </p>
+                    <span className="text-xs text-muted-foreground mb-1">/ 5</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-border p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs text-muted-foreground font-medium">Total Ratings</p>
+                  <MessageCircle className="w-4 h-4 text-blue-500" />
+                </div>
+                {csatLoading ? (
+                  <Skeleton className="h-8 w-20 mt-1" />
+                ) : (
+                  <p className="text-2xl font-bold text-blue-500">{csatData?.totalRatings ?? 0}</p>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-border p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs text-muted-foreground font-medium">Satisfaction Rate</p>
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                </div>
+                {csatLoading ? (
+                  <Skeleton className="h-8 w-20 mt-1" />
+                ) : (
+                  <p className="text-2xl font-bold text-green-500">
+                    {csatData && csatData.totalRatings > 0
+                      ? `${Math.round(((csatData.distribution[3] + csatData.distribution[4]) / csatData.totalRatings) * 100)}%`
+                      : "—"}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Rating distribution */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="rounded-xl border border-border p-5">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Rating Distribution</p>
+                {csatLoading ? (
+                  <div className="space-y-3">{[...Array(5)].map((_, i) => <Skeleton key={i} className="h-6 w-full" />)}</div>
+                ) : !csatData || csatData.totalRatings === 0 ? (
+                  <p className="text-xs text-muted-foreground text-center py-6">No ratings in this period.</p>
+                ) : (
+                  <div className="space-y-2.5">
+                    {[5, 4, 3, 2, 1].map((star) => {
+                      const count = csatData.distribution[star - 1];
+                      const pct = csatData.totalRatings > 0 ? (count / csatData.totalRatings) * 100 : 0;
+                      const colors = ["bg-red-500", "bg-orange-500", "bg-amber-500", "bg-lime-500", "bg-green-500"];
+                      return (
+                        <div key={star} className="flex items-center gap-3">
+                          <div className="flex items-center gap-1 w-12 shrink-0">
+                            <span className="text-xs font-medium">{star}</span>
+                            <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                          </div>
+                          <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full ${colors[star - 1]} transition-all duration-500`}
+                              style={{ width: `${pct}%` }}
+                            />
+                          </div>
+                          <span className="text-xs font-medium w-8 text-right shrink-0">{count}</span>
+                          <span className="text-xs text-muted-foreground w-10 text-right shrink-0">{pct.toFixed(0)}%</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Recent feedback */}
+              <div className="rounded-xl border border-border p-5">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Recent Feedback</p>
+                {csatLoading ? (
+                  <div className="space-y-3">{[...Array(4)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}</div>
+                ) : !csatData || csatData.recentFeedback.length === 0 ? (
+                  <p className="text-xs text-muted-foreground text-center py-6">No feedback comments yet.</p>
+                ) : (
+                  <div className="space-y-3 max-h-[320px] overflow-y-auto">
+                    {csatData.recentFeedback.map((item) => (
+                      <div key={item.id} className="p-3 rounded-lg bg-muted/20 border border-border/50">
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex">
+                              {[1, 2, 3, 4, 5].map((s) => (
+                                <Star key={s} className={`w-3 h-3 ${s <= item.rating ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`} />
+                              ))}
+                            </div>
+                            <span className="text-xs text-muted-foreground">
+                              {item.visitorName || "Anonymous"}
+                            </span>
+                          </div>
+                          <span className="text-[10px] text-muted-foreground">
+                            {new Date(item.createdAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <p className="text-xs text-foreground">{item.feedback}</p>
+                        {item.agent && (
+                          <p className="text-[10px] text-muted-foreground mt-1">Agent: {item.agent}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Agents tab ──────────────────────────────────────────────────── */}
+        {tab === "agents" && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground">Period:</span>
+              <PeriodSelect days={days} onChange={setDays} />
+              {agentLoading && <span className="text-xs text-muted-foreground">Loading...</span>}
+            </div>
+
+            <div className="rounded-xl border border-border overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm min-w-[640px]">
+                  <thead className="bg-muted/40">
+                    <tr>
+                      {([
+                        { key: "name", label: "Agent" },
+                        { key: "totalConversations", label: "Conversations" },
+                        { key: "avgFirstResponseMins", label: "Avg Response" },
+                        { key: "totalMessagesSent", label: "Messages Sent" },
+                        { key: "online", label: "Status" },
+                      ] as { key: keyof AgentStat; label: string }[]).map(({ key, label }) => (
+                        <th
+                          key={key}
+                          className="text-left px-4 py-3 text-xs font-semibold text-muted-foreground cursor-pointer hover:text-foreground transition-colors select-none"
+                          onClick={() => setAgentSort((prev) => ({
+                            key,
+                            dir: prev.key === key && prev.dir === "desc" ? "asc" : "desc",
+                          }))}
+                        >
+                          <div className="flex items-center gap-1">
+                            {label}
+                            {agentSort.key === key && (
+                              <ArrowUpDown className="w-3 h-3 text-primary" />
+                            )}
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {agentLoading ? (
+                      [...Array(4)].map((_, i) => (
+                        <tr key={i} className="border-t border-border">
+                          {[...Array(5)].map((_, j) => (
+                            <td key={j} className="px-4 py-3"><Skeleton className="h-4 w-16" /></td>
+                          ))}
+                        </tr>
+                      ))
+                    ) : agentData.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="px-4 py-8 text-center text-xs text-muted-foreground">
+                          No agent data available for this period.
+                        </td>
+                      </tr>
+                    ) : (
+                      [...agentData]
+                        .sort((a, b) => {
+                          const aVal = a[agentSort.key];
+                          const bVal = b[agentSort.key];
+                          if (typeof aVal === "string" && typeof bVal === "string") {
+                            return agentSort.dir === "asc" ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                          }
+                          if (typeof aVal === "boolean" && typeof bVal === "boolean") {
+                            return agentSort.dir === "asc" ? (aVal ? 1 : -1) : (bVal ? 1 : -1);
+                          }
+                          return agentSort.dir === "asc"
+                            ? (aVal as number) - (bVal as number)
+                            : (bVal as number) - (aVal as number);
+                        })
+                        .map((agent) => (
+                          <tr key={agent.id} className="border-t border-border hover:bg-muted/20 transition-colors">
+                            <td className="px-4 py-3">
+                              <div className="flex items-center gap-2">
+                                <div className="relative">
+                                  <div className="w-7 h-7 rounded-full bg-muted flex items-center justify-center">
+                                    <UserCheck className="w-3.5 h-3.5 text-muted-foreground" />
+                                  </div>
+                                  <span className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-background ${agent.online ? "bg-green-500" : "bg-muted-foreground"}`} />
+                                </div>
+                                <div>
+                                  <p className="text-sm font-medium">{agent.name}</p>
+                                  <p className="text-[10px] text-muted-foreground capitalize">{agent.role}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-4 py-3">
+                              <span className="text-sm font-medium">{agent.totalConversations}</span>
+                            </td>
+                            <td className="px-4 py-3">
+                              <span className={`text-sm font-medium ${agent.avgFirstResponseMins <= 15 ? "text-green-500" : agent.avgFirstResponseMins <= 30 ? "text-amber-500" : "text-red-500"}`}>
+                                {agent.avgFirstResponseMins > 0
+                                  ? agent.avgFirstResponseMins >= 60
+                                    ? `${(agent.avgFirstResponseMins / 60).toFixed(1)}h`
+                                    : `${agent.avgFirstResponseMins}m`
+                                  : "—"}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3">
+                              <span className="text-sm">{agent.totalMessagesSent}</span>
+                            </td>
+                            <td className="px-4 py-3">
+                              <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${agent.online ? "bg-green-500/15 text-green-500" : "bg-muted text-muted-foreground"}`}>
+                                <span className={`w-1.5 h-1.5 rounded-full ${agent.online ? "bg-green-500" : "bg-muted-foreground"}`} />
+                                {agent.online ? "Online" : "Offline"}
+                              </span>
+                            </td>
+                          </tr>
+                        ))
                     )}
                   </tbody>
                 </table>

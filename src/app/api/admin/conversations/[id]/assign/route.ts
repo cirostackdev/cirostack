@@ -11,12 +11,24 @@ export async function POST(req: Request, { params }: Params) {
 
   const { id } = await params;
   try {
-    const { adminId } = await req.json();
+    const { adminId, transferNote } = await req.json();
     const conversation = await prisma.conversation.update({
       where: { id },
       data: { assignedToId: adminId ?? null },
       include: { assignedTo: { select: { id: true, name: true } } },
     });
+
+    // If there's a transfer note, save it as an internal note
+    if (transferNote?.trim()) {
+      const currentAdmin = session.user as any;
+      await prisma.internalNote.create({
+        data: {
+          conversationId: id,
+          adminId: currentAdmin.id,
+          body: `[Transfer note] ${transferNote.trim()}`,
+        },
+      });
+    }
 
     await pusher.trigger("private-admin-notifications", "conversation-assigned", {
       conversationId: id,

@@ -25,6 +25,8 @@ import { ContactPicker } from "@/components/Chat/ContactPicker";
 import { EventPicker } from "@/components/Chat/EventPicker";
 import { PRESENCE, CONVERSATION_STATUS_COLORS } from "@/lib/colors";
 import { messagePreview } from "@/components/Chat/messagePreview";
+import { ConversationTagsPanel } from "@/components/admin/ConversationTagsPanel";
+import { NotesPanel } from "@/components/admin/NotesPanel";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😊", "🙏", "✅"];
 
@@ -402,15 +404,18 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
     return () => { if (visitorOfflineTimerRef.current) clearTimeout(visitorOfflineTimerRef.current); };
   }, []);
 
+  const [transferNote, setTransferNote] = useState("");
+
   async function handleAssign(aId: string) {
     const res = await fetch(`/api/admin/conversations/${conversation.id}/assign`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ adminId: aId || null }),
+      body: JSON.stringify({ adminId: aId || null, transferNote: transferNote.trim() || undefined }),
     });
     if (res.ok) {
       const data = await res.json();
       setAssignedTo(data.assignedTo);
+      setTransferNote("");
     }
   }
 
@@ -1026,18 +1031,29 @@ export function ConversationDetail({ conversation, initialMessages, adminId, adm
             <p className="text-xs text-muted-foreground mb-2.5">Unassigned</p>
           )}
           {admins.length > 0 && (
-            <select
-              value={assignedTo?.id ?? ""}
-              onChange={(e) => handleAssign(e.target.value)}
-              className="w-full text-xs bg-muted border border-border rounded-lg px-2.5 py-2 outline-none focus:ring-1 focus:ring-primary"
-            >
-              <option value="">Unassigned</option>
-              {admins.map((a) => (
-                <option key={a.id} value={a.id}>{a.name}</option>
-              ))}
-            </select>
+            <>
+              <select
+                value={assignedTo?.id ?? ""}
+                onChange={(e) => handleAssign(e.target.value)}
+                className="w-full text-xs bg-muted border border-border rounded-lg px-2.5 py-2 outline-none focus:ring-1 focus:ring-primary"
+              >
+                <option value="">Unassigned</option>
+                {admins.map((a) => (
+                  <option key={a.id} value={a.id}>{a.name}</option>
+                ))}
+              </select>
+              <input
+                value={transferNote}
+                onChange={(e) => setTransferNote(e.target.value)}
+                placeholder="Transfer note (optional)"
+                className="w-full text-[11px] bg-muted border border-border rounded-lg px-2.5 py-1.5 mt-2 outline-none focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/50"
+              />
+            </>
           )}
         </div>
+
+        <ConversationTagsPanel conversationId={conversation.id} />
+        <NotesPanel conversationId={conversation.id} />
       </aside>
 
       {/* Special pickers */}

@@ -34,12 +34,20 @@ import {
   X,
   Sun,
   Moon,
+  Search,
+  Tag,
+  MessageCircle,
+  Clock,
+  Bot,
+  BookMarked,
+  Shield,
 } from "lucide-react";
 
 const NAV = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/admin/analytics", icon: BarChart2, label: "Analytics" },
   { href: "/admin/conversations", icon: MessageSquare, label: "Conversations" },
+  { href: "/admin/search", icon: Search, label: "Search" },
   { href: "/admin/submissions", icon: FileText, label: "Submissions" },
   { href: "/admin/leads", icon: Users, label: "Leads" },
   { label: "—", divider: true },
@@ -56,7 +64,15 @@ const NAV = [
   { href: "/admin/invoices", icon: Receipt, label: "Invoices" },
   { href: "/admin/revenue", icon: TrendingUp, label: "Revenue" },
   { label: "—", divider: true },
+  { href: "/admin/canned-responses", icon: MessageCircle, label: "Canned Responses" },
+  { href: "/admin/knowledge-base", icon: BookMarked, label: "Knowledge Base" },
+  { href: "/admin/automation", icon: Bot, label: "Automation" },
+  { label: "—", divider: true },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
+  { href: "/admin/settings/sla", icon: Shield, label: "SLA Config" },
+  { href: "/admin/settings/tags", icon: Tag, label: "Tags" },
+  { href: "/admin/settings/hours", icon: Clock, label: "Business Hours" },
+  { href: "/admin/settings/widget", icon: MessageSquare, label: "Widget Config" },
 ];
 
 export function AdminShell({

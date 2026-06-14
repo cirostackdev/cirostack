@@ -17,6 +17,8 @@ model Admin {
   lastHeartbeat  DateTime?
   createdAt      DateTime       @default(now())
   conversations Conversation[]
+  cannedResponses CannedResponse[]
+  internalNotes  InternalNote[]
 }
 
 model Conversation {
@@ -26,12 +28,17 @@ model Conversation {
   visitorEmail String?
   topic        String?
   status       String    @default("open")
+  priority     String    @default("normal")
   assignedToId String?
   assignedTo   Admin?    @relation(fields: [assignedToId], references: [id])
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+  firstResponseAt DateTime?
   messages     Message[]
   metadata     Json?
+  tags         ConversationTag[] @relation("ConversationTags")
+  internalNotes InternalNote[]
+  csatRating   CSATRating?
 }
 
 model Message {
@@ -226,6 +233,9 @@ model Client {
   projects      Project[]
   invoices      Invoice[]
   notifications Notification[]
+  notificationPreferences NotificationPreference[]
+  teamMembers   ClientTeamMember[]
+  invoiceDisputes InvoiceDispute[]
 }
 
 model Project {
@@ -304,6 +314,7 @@ model Invoice {
   lineItems  Json
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
+  disputes   InvoiceDispute[]
 }
 
 // ── Push Notifications ────────────────────────────────────────────────────────
@@ -327,4 +338,170 @@ model Notification {
   href      String?
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+// ── Canned Responses ─────────────────────────────────────────────────────────
+
+model CannedResponse {
+  id        String   @id @default(cuid())
+  adminId   String?
+  admin     Admin?   @relation(fields: [adminId], references: [id])
+  title     String
+  shortcut  String?
+  content   String   @db.Text
+  category  String   @default("General")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ── Conversation Tags ────────────────────────────────────────────────────────
+
+model ConversationTag {
+  id            String         @id @default(cuid())
+  name          String         @unique
+  color         String         @default("#6366f1")
+  conversations Conversation[] @relation("ConversationTags")
+  createdAt     DateTime       @default(now())
+}
+
+// ── Business Hours & Widget Config ───────────────────────────────────────────
+
+model BusinessHours {
+  id        String  @id @default(cuid())
+  day       Int     // 0=Sunday, 6=Saturday
+  startTime String  // "09:00"
+  endTime   String  // "17:00"
+  enabled   Boolean @default(true)
+  timezone  String  @default("UTC")
+}
+
+model WidgetConfig {
+  id              String  @id @default(cuid())
+  primaryColor    String  @default("#6366f1")
+  position        String  @default("bottom-right")
+  welcomeMessage  String  @default("Hi! How can we help you?")
+  offlineMessage  String  @default("We're currently offline. Leave a message and we'll get back to you.")
+  preChatForm     Boolean @default(false)
+  preChatFields   Json?   // [{name, label, type, required}]
+  showBranding    Boolean @default(true)
+  autoOpenDelay   Int?    // ms before auto-open, null = never
+  updatedAt       DateTime @updatedAt
+}
+
+// ── Assignment Rules ─────────────────────────────────────────────────────────
+
+model AssignmentRule {
+  id        String   @id @default(cuid())
+  name      String
+  type      String   // "round-robin" | "topic-based" | "load-balance"
+  criteria  Json?    // {topics: [...], maxLoad: N}
+  adminIds  String[] // target admin IDs
+  enabled   Boolean  @default(true)
+  priority  Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+// ── Automation Rules ─────────────────────────────────────────────────────────
+
+model AutomationRule {
+  id        String   @id @default(cuid())
+  name      String
+  trigger   String   // "new-conversation" | "offline" | "keyword" | "no-response"
+  conditions Json?   // {keywords: [...], delayMinutes: N}
+  action    String   // "send-message" | "assign" | "tag" | "close"
+  actionData Json    // {message: "...", adminId: "...", tagId: "..."}
+  enabled   Boolean  @default(true)
+  priority  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ── Internal Notes ───────────────────────────────────────────────────────────
+
+model InternalNote {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  adminId        String
+  admin          Admin        @relation(fields: [adminId], references: [id])
+  body           String       @db.Text
+  createdAt      DateTime     @default(now())
+}
+
+// ── Knowledge Base ───────────────────────────────────────────────────────────
+
+model KnowledgeArticle {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String   @db.Text
+  category  String   @default("General")
+  published Boolean  @default(false)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ── SLA Configuration ────────────────────────────────────────────────────────
+
+model SLAConfig {
+  id                    String @id @default(cuid())
+  maxFirstResponseMins  Int    @default(15)
+  maxResolutionMins     Int    @default(1440)
+  breachNotify          Boolean @default(true)
+}
+
+// ── CSAT Ratings ─────────────────────────────────────────────────────────────
+
+model CSATRating {
+  id             String       @id @default(cuid())
+  conversationId String       @unique
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  rating         Int          // 1-5
+  feedback       String?
+  createdAt      DateTime     @default(now())
+}
+
+// ── Notification Preferences (Portal) ────────────────────────────────────────
+
+model NotificationPreference {
+  id          String  @id @default(cuid())
+  clientId    String
+  client      Client  @relation(fields: [clientId], references: [id])
+  category    String  // "messages" | "invoices" | "projects" | "files" | "system"
+  push        Boolean @default(true)
+  email       Boolean @default(true)
+
+  @@unique([clientId, category])
+}
+
+// ── Invoice Disputes (Portal) ────────────────────────────────────────────────
+
+model InvoiceDispute {
+  id        String   @id @default(cuid())
+  invoiceId String
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id])
+  reason    String   @db.Text
+  status    String   @default("open") // "open" | "reviewing" | "resolved"
+  adminNote String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ── Client Team Members (Portal) ─────────────────────────────────────────────
+
+model ClientTeamMember {
+  id           String   @id @default(cuid())
+  clientId     String
+  client       Client   @relation(fields: [clientId], references: [id])
+  email        String
+  name         String?
+  role         String   @default("viewer") // "viewer" | "admin"
+  passwordHash String?
+  invitedAt    DateTime @default(now())
+  acceptedAt   DateTime?
+
+  @@unique([clientId, email])
 }

@@ -11,12 +11,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Trash2, Mail, Send } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Mail, Send, MessageSquare } from "lucide-react";
 import { PROJECT_STATUS_COLORS, INVOICE_STATUS_COLORS } from "@/lib/colors";
+import { formatDistanceToNow } from "date-fns";
 
 type Client = { id: string; email: string; name?: string; company?: string; projects: Project[]; invoices: Invoice[] };
 type Project = { id: string; title: string; status: string; _count: { updates: number; files: number } };
 type Invoice = { id: string; number: string; amount: number; currency: string; status: string };
+type ConvHistory = { id: string; topic: string | null; status: string; lastMessage: string | null; messageCount: number; updatedAt: string };
 
 const statusColors = PROJECT_STATUS_COLORS;
 
@@ -24,6 +26,7 @@ export default function ClientDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const [client, setClient] = useState<Client | null>(null);
+  const [conversations, setConversations] = useState<ConvHistory[]>([]);
   const [projectOpen, setProjectOpen] = useState(false);
   const [projectForm, setProjectForm] = useState({ title: "", description: "", status: "discovery" });
   const [saving, setSaving] = useState(false);
@@ -44,6 +47,7 @@ export default function ClientDetailPage() {
       setClient(data);
       setEditForm({ name: data.name ?? "", company: data.company ?? "" });
     }
+    fetch(`/api/admin/clients/${id}/conversations`).then((r) => r.ok ? r.json() : []).then(setConversations).catch(() => {});
   }
   useEffect(() => { load(); }, [id]);
 
@@ -189,6 +193,28 @@ export default function ClientDetailPage() {
             ))}
             {client.invoices.length === 0 && (
               <p className="text-sm text-muted-foreground py-4 text-center border border-dashed border-border rounded-xl">No invoices yet.</p>
+            )}
+          </div>
+        </div>
+
+        {/* Conversations */}
+        <div>
+          <h2 className="font-semibold mb-3 flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" /> Conversations
+          </h2>
+          <div className="space-y-2">
+            {conversations.map((conv) => (
+              <Link key={conv.id} href={`/admin/conversations/${conv.id}`} className="flex items-center justify-between p-4 rounded-xl border border-border hover:bg-muted/20 transition-colors">
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-sm">{conv.topic || "No topic"}</p>
+                  {conv.lastMessage && <p className="text-xs text-muted-foreground mt-0.5 truncate">{conv.lastMessage}</p>}
+                  <p className="text-[11px] text-muted-foreground/60 mt-0.5">{conv.messageCount} messages · {formatDistanceToNow(new Date(conv.updatedAt), { addSuffix: true })}</p>
+                </div>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${conv.status === "open" ? "bg-green-500/10 text-green-600" : "bg-muted text-muted-foreground"}`}>{conv.status}</span>
+              </Link>
+            ))}
+            {conversations.length === 0 && (
+              <p className="text-sm text-muted-foreground py-4 text-center border border-dashed border-border rounded-xl">No conversations yet.</p>
             )}
           </div>
         </div>

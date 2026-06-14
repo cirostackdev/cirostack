@@ -1,10 +1,12 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
 import { useChat } from "./useChat";
 import { PreChatForm } from "./PreChatForm";
 import { ChatPanel } from "./ChatPanel";
+import { CSATPrompt } from "./CSATPrompt";
 
 export function ChatWidget() {
   const {
@@ -31,6 +33,24 @@ export function ChatWidget() {
     sendRecording,
     resetConversation,
   } = useChat();
+
+  const [showCSAT, setShowCSAT] = useState(false);
+  const [csatConvId, setCsatConvId] = useState<string | null>(null);
+  const prevStatusRef = useRef(status);
+
+  // Show CSAT prompt when conversation is closed (status transitions from connected to idle)
+  useEffect(() => {
+    if (prevStatusRef.current === "connected" && status === "idle" && conversationId && messages.length > 0) {
+      setCsatConvId(conversationId);
+      setShowCSAT(true);
+    }
+    prevStatusRef.current = status;
+  }, [status, conversationId, messages.length]);
+
+  const handleCSATClose = () => {
+    setShowCSAT(false);
+    setCsatConvId(null);
+  };
 
   return (
     <>
@@ -95,29 +115,36 @@ export function ChatWidget() {
           </div>
 
           {/* Body */}
-          <div className="flex-1 overflow-hidden">
+          <div className="flex-1 overflow-hidden flex flex-col">
             {showPreChat ? (
               <PreChatForm onSubmit={startChat} />
             ) : (
-              <ChatPanel
-                messages={messages}
-                agentTyping={agentTyping}
-                agentRecording={agentRecording}
-                agentOnline={agentOnline}
-                isConnected={status === "connected"}
-                conversationId={conversationId}
-                onSendMessage={sendMessage}
-                onSendFile={(file) => sendFile(file, "/api/chat/upload")}
-                onSendTyping={sendTyping}
-                onSendRecording={sendRecording}
-                onReset={resetConversation}
-                replyTo={replyTo}
-                onClearReply={() => setReplyTo(null)}
-                onSetReply={(msg) => setReplyTo(msg)}
-                unreadWhileScrolled={unreadWhileScrolled}
-                onClearUnread={() => setUnreadWhileScrolled(0)}
-                isScrolledUpRef={isScrolledUpRef}
-              />
+              <>
+                <div className="flex-1 overflow-hidden">
+                  <ChatPanel
+                    messages={messages}
+                    agentTyping={agentTyping}
+                    agentRecording={agentRecording}
+                    agentOnline={agentOnline}
+                    isConnected={status === "connected"}
+                    conversationId={conversationId}
+                    onSendMessage={sendMessage}
+                    onSendFile={(file) => sendFile(file, "/api/chat/upload")}
+                    onSendTyping={sendTyping}
+                    onSendRecording={sendRecording}
+                    onReset={resetConversation}
+                    replyTo={replyTo}
+                    onClearReply={() => setReplyTo(null)}
+                    onSetReply={(msg) => setReplyTo(msg)}
+                    unreadWhileScrolled={unreadWhileScrolled}
+                    onClearUnread={() => setUnreadWhileScrolled(0)}
+                    isScrolledUpRef={isScrolledUpRef}
+                  />
+                </div>
+                {showCSAT && csatConvId && (
+                  <CSATPrompt conversationId={csatConvId} onClose={handleCSATClose} />
+                )}
+              </>
             )}
           </div>
         </div>

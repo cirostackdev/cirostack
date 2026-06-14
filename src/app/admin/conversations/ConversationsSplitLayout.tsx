@@ -9,10 +9,11 @@ import { AdminMobileMenuContext } from "@/components/admin/AdminShell";
 interface Props {
   initialConversations: any[];
   unreadMap: Record<string, number>;
+  allTags?: { id: string; name: string; color: string }[];
   children: React.ReactNode;
 }
 
-export function ConversationsSplitLayout({ initialConversations, unreadMap, children }: Props) {
+export function ConversationsSplitLayout({ initialConversations, unreadMap, allTags, children }: Props) {
   const pathname = usePathname();
   const hasDetail = pathname !== "/admin/conversations";
   const openMobileMenu = useContext(AdminMobileMenuContext);
@@ -41,6 +42,7 @@ export function ConversationsSplitLayout({ initialConversations, unreadMap, chil
         <ConversationsClient
           initialConversations={initialConversations}
           unreadMap={unreadMap}
+          allTags={allTags || []}
         />
       </div>
 

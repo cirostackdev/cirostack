@@ -26,6 +26,9 @@ import {
   Bell,
   Menu,
   X,
+  HelpCircle,
+  Search,
+  BarChart2,
 } from "lucide-react";
 
 const NAV = [
@@ -35,6 +38,9 @@ const NAV = [
   { href: "/portal/files", icon: FolderOpen, label: "Files" },
   { href: "/portal/chat", icon: MessageSquare, label: "Messages" },
   { href: "/portal/notifications", icon: Bell, label: "Notifications" },
+  { href: "/portal/search", icon: Search, label: "Search" },
+  { href: "/portal/help", icon: HelpCircle, label: "Help Center" },
+  { href: "/portal/analytics", icon: BarChart2, label: "Analytics" },
   { label: "—", divider: true },
   { href: "/portal/settings", icon: Settings, label: "Settings" },
 ];

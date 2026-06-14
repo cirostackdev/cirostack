@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback, useContext } from "react";
 import { Send, MessageSquare, Plus, ChevronLeft, Clipboard, Reply, Check, CheckCheck, Clock, X, ChevronDown, Paperclip } from "lucide-react";
 import { PortalHeaderActionsContext } from "@/components/portal/PortalShell";
+import { CSATPrompt } from "@/components/Chat/CSATPrompt";
 import { format, formatDistanceToNow, isSameDay } from "date-fns";
 import { TypingIndicator } from "@/components/Chat/TypingIndicator";
 import { RecordingIndicator } from "@/components/Chat/RecordingIndicator";
@@ -613,6 +614,19 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
 
   const isClosed = conversation?.status === "closed";
 
+  // CSAT prompt — show when conversation gets closed
+  const [showCSAT, setShowCSAT] = useState(false);
+  const [csatConvId, setCsatConvId] = useState<string | null>(null);
+  const prevConvStatusRef = useRef(conversation?.status);
+
+  useEffect(() => {
+    if (prevConvStatusRef.current !== "closed" && conversation?.status === "closed" && conversation.id && messages.length > 0) {
+      setCsatConvId(conversation.id);
+      setShowCSAT(true);
+    }
+    prevConvStatusRef.current = conversation?.status;
+  }, [conversation?.status, conversation?.id, messages.length]);
+
   // Alt+V paste image from clipboard
   useEffect(() => {
     const handler = async (e: KeyboardEvent) => {
@@ -898,12 +912,17 @@ export function PortalChatClient({ clientId, clientName, clientEmail, initialCon
           </div>
         </div>
       ) : (
-        <div className="border-t border-border px-4 py-3 pb-[max(12px,env(safe-area-inset-bottom))] bg-muted/20 flex items-center justify-between gap-3 shrink-0">
-          <p className="text-xs text-muted-foreground">This conversation is closed.</p>
-          <button onClick={startNewConversation}
-            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity shrink-0 min-h-[36px]">
-            <Plus className="w-3.5 h-3.5" /> New chat
-          </button>
+        <div className="shrink-0">
+          {showCSAT && csatConvId && (
+            <CSATPrompt conversationId={csatConvId} onClose={() => { setShowCSAT(false); setCsatConvId(null); }} />
+          )}
+          <div className="border-t border-border px-4 py-3 pb-[max(12px,env(safe-area-inset-bottom))] bg-muted/20 flex items-center justify-between gap-3">
+            <p className="text-xs text-muted-foreground">This conversation is closed.</p>
+            <button onClick={startNewConversation}
+              className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity shrink-0 min-h-[36px]">
+              <Plus className="w-3.5 h-3.5" /> New chat
+            </button>
+          </div>
         </div>
       )}
     </div>

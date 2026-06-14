@@ -4,10 +4,16 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, Tag, Filter } from "lucide-react";
 import { getPusher } from "@/lib/pusher-client";
 import type { Channel } from "pusher-js";
 import { PRESENCE } from "@/lib/colors";
+
+interface ConvTag {
+  id: string;
+  name: string;
+  color: string;
+}
 
 interface Conversation {
   id: string;
@@ -20,6 +26,7 @@ interface Conversation {
   metadata?: { visitorLastSeen?: string; [key: string]: unknown } | null;
   assignedTo: { name: string } | null;
   messages: { body: string; senderType: string }[];
+  tags?: ConvTag[];
 }
 
 const VISITOR_TTL_MS = 2 * 60 * 1000; // 2 minutes
@@ -33,12 +40,15 @@ function isVisitorOnline(conv: Conversation): boolean {
 interface Props {
   initialConversations: Conversation[];
   unreadMap: Record<string, number>;
+  allTags: ConvTag[];
 }
 
-export function ConversationsClient({ initialConversations, unreadMap }: Props) {
+export function ConversationsClient({ initialConversations, unreadMap, allTags }: Props) {
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(unreadMap);
   const [filter, setFilter] = useState<"clients" | "visitors" | "closed">("clients");
+  const [tagFilter, setTagFilter] = useState<string | null>(null);
+  const [showTagFilter, setShowTagFilter] = useState(false);
   const [typingConvIds, setTypingConvIds] = useState<Set<string>>(new Set());
   const [recordingConvIds, setRecordingConvIds] = useState<Set<string>>(new Set());
   const [onlineConvIds, setOnlineConvIds] = useState<Set<string>>(new Set());
@@ -134,16 +144,17 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
   const isPortalClient = (c: Conversation) => (c.metadata as any)?.source === "portal";
 
   const filtered = conversations.filter((c) => {
-    if (filter === "closed") return c.status === "closed";
-    if (filter === "clients") return c.status === "open" && isPortalClient(c);
-    // visitors: open conversations NOT from portal
-    return c.status === "open" && !isPortalClient(c);
+    if (filter === "closed" && c.status !== "closed") return false;
+    if (filter === "clients" && !(c.status === "open" && isPortalClient(c))) return false;
+    if (filter === "visitors" && !(c.status === "open" && !isPortalClient(c))) return false;
+    if (tagFilter && !(c.tags || []).some((t) => t.id === tagFilter)) return false;
+    return true;
   });
 
   return (
     <div className="flex flex-col h-full">
       {/* Tabs */}
-      <div className="flex gap-1.5 px-4 pt-4 pb-3 border-b border-border">
+      <div className="flex items-center gap-1.5 px-4 pt-4 pb-3 border-b border-border">
         {([
           { key: "clients", label: "Clients", count: conversations.filter((c) => c.status === "open" && isPortalClient(c)).length },
           { key: "visitors", label: "Visitors", count: conversations.filter((c) => c.status === "open" && !isPortalClient(c)).length },
@@ -162,6 +173,37 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
             <span className="ml-1.5 opacity-60">({count})</span>
           </button>
         ))}
+        {allTags.length > 0 && (
+          <div className="relative ml-auto">
+            <button
+              onClick={() => setShowTagFilter(!showTagFilter)}
+              className={`p-1.5 rounded-lg transition-colors ${tagFilter ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}
+              title="Filter by tag"
+            >
+              <Filter className="w-3.5 h-3.5" />
+            </button>
+            {showTagFilter && (
+              <div className="absolute right-0 top-full mt-1 z-50 bg-popover border border-border rounded-lg shadow-lg py-1 min-w-[140px]">
+                <button
+                  onClick={() => { setTagFilter(null); setShowTagFilter(false); }}
+                  className={`w-full text-left px-3 py-1.5 text-xs hover:bg-muted transition-colors ${!tagFilter ? "font-semibold text-primary" : ""}`}
+                >
+                  All tags
+                </button>
+                {allTags.map((tag) => (
+                  <button
+                    key={tag.id}
+                    onClick={() => { setTagFilter(tag.id); setShowTagFilter(false); }}
+                    className={`w-full text-left px-3 py-1.5 text-xs hover:bg-muted transition-colors flex items-center gap-2 ${tagFilter === tag.id ? "font-semibold" : ""}`}
+                  >
+                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: tag.color }} />
+                    {tag.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* List */}
@@ -238,6 +280,20 @@ export function ConversationsClient({ initialConversations, unreadMap }: Props) 
                   <p className="text-[11px] text-muted-foreground/60 mt-0.5">
                     Assigned to {conv.assignedTo.name}
                   </p>
+                )}
+                {(conv.tags || []).length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {conv.tags!.map((tag) => (
+                      <span
+                        key={tag.id}
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted/80"
+                        style={{ color: tag.color }}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: tag.color }} />
+                        {tag.name}
+                      </span>
+                    ))}
+                  </div>
                 )}
               </div>
             </Link>
