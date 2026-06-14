@@ -53,6 +53,9 @@ export default function AdminNewsPage() {
   const [search, setSearch] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<Article | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [tableSelected, setTableSelected] = useState<Set<string>>(new Set());
+  const [showBulkDelete, setShowBulkDelete] = useState(false);
+  const [bulkDeleting, setBulkDeleting] = useState(false);
 
   async function load() {
     setLoading(true);
@@ -70,6 +73,30 @@ export default function AdminNewsPage() {
     setArticles((a) => a.filter((x) => x.id !== deleteTarget.id));
     setDeleteTarget(null);
     setDeleting(false);
+  }
+
+  function toggleTableRow(id: string) {
+    setTableSelected(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleTableAll() {
+    const ids = filtered.map(a => a.id);
+    const allSelected = ids.every(id => tableSelected.has(id));
+    setTableSelected(allSelected ? new Set() : new Set(ids));
+  }
+
+  async function confirmBulkDelete() {
+    setBulkDeleting(true);
+    const ids = [...tableSelected];
+    await Promise.all(ids.map(id => fetch(`/api/admin/cms/news/${id}`, { method: "DELETE" })));
+    setArticles(prev => prev.filter(a => !tableSelected.has(a.id)));
+    setTableSelected(new Set());
+    setShowBulkDelete(false);
+    setBulkDeleting(false);
   }
 
   async function handleSync(source: "guardian" | "techcrunch" | "all") {
@@ -167,6 +194,12 @@ export default function AdminNewsPage() {
           {syncStatus && (
             <span className="text-xs text-green-600 dark:text-green-400 font-medium">{syncStatus}</span>
           )}
+          {tableSelected.size > 0 && (
+            <Button size="sm" variant="destructive" onClick={() => setShowBulkDelete(true)}>
+              <Trash2 className="w-3.5 h-3.5 mr-1.5" />
+              Delete {tableSelected.size} selected
+            </Button>
+          )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Button size="sm" variant="outline" onClick={openLinkedModal} disabled={syncing !== null}>
@@ -195,6 +228,11 @@ export default function AdminNewsPage() {
             <table className="w-full text-sm">
               <thead className="bg-muted/40">
                 <tr>
+                  <th className="px-4 py-3 w-8">
+                    <button onClick={toggleTableAll} className={`w-4 h-4 rounded border-2 flex items-center justify-center ${filtered.length > 0 && filtered.every(a => tableSelected.has(a.id)) ? "border-primary bg-primary" : "border-muted-foreground/40"}`}>
+                      {filtered.length > 0 && filtered.every(a => tableSelected.has(a.id)) && <span className="text-[9px] text-primary-foreground font-bold leading-none">✓</span>}
+                    </button>
+                  </th>
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground">Title</th>
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground">Source</th>
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground">Published</th>
@@ -204,7 +242,12 @@ export default function AdminNewsPage() {
               </thead>
               <tbody>
                 {filtered.map((article) => (
-                  <tr key={article.id} className="border-t border-border hover:bg-muted/20 transition-colors">
+                  <tr key={article.id} className={`border-t border-border hover:bg-muted/20 transition-colors ${tableSelected.has(article.id) ? "bg-primary/5" : ""}`}>
+                    <td className="px-4 py-3">
+                      <button onClick={() => toggleTableRow(article.id)} className={`w-4 h-4 rounded border-2 flex items-center justify-center ${tableSelected.has(article.id) ? "border-primary bg-primary" : "border-muted-foreground/40"}`}>
+                        {tableSelected.has(article.id) && <span className="text-[9px] text-primary-foreground font-bold leading-none">✓</span>}
+                      </button>
+                    </td>
                     <td className="px-4 py-3 font-medium max-w-sm">
                       <p className="truncate">{article.title}</p>
                     </td>
@@ -253,9 +296,12 @@ export default function AdminNewsPage() {
               <p className="text-sm text-muted-foreground text-center py-8">{search ? "No articles match your search." : "No articles yet. Hit Sync All to fetch."}</p>
             )}
             {filtered.map((article) => (
-              <div key={article.id} className="p-4 rounded-xl border border-border">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="min-w-0">
+              <div key={article.id} className={`p-4 rounded-xl border ${tableSelected.has(article.id) ? "border-primary bg-primary/5" : "border-border"}`}>
+                <div className="flex items-start gap-3">
+                  <button onClick={() => toggleTableRow(article.id)} className={`mt-0.5 w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 ${tableSelected.has(article.id) ? "border-primary bg-primary" : "border-muted-foreground/40"}`}>
+                    {tableSelected.has(article.id) && <span className="text-[9px] text-primary-foreground font-bold leading-none">✓</span>}
+                  </button>
+                  <div className="min-w-0 flex-1">
                     <p className="font-medium text-sm line-clamp-2">{article.title}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <Badge className={SOURCE_COLORS[article.type] ?? ""} variant="outline">
@@ -407,6 +453,29 @@ export default function AdminNewsPage() {
                   </Button>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bulk delete confirmation modal */}
+      {showBulkDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
+          <div className="bg-background rounded-2xl border border-border shadow-2xl w-full max-w-md p-6">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center shrink-0">
+                <Trash2 className="w-5 h-5 text-destructive" />
+              </div>
+              <div>
+                <h2 className="font-semibold">Delete {tableSelected.size} articles?</h2>
+                <p className="text-xs text-muted-foreground mt-2">All selected articles will be permanently deleted and blocklisted — they won't be re-added by future syncs.</p>
+              </div>
+            </div>
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" size="sm" onClick={() => setShowBulkDelete(false)} disabled={bulkDeleting}>Cancel</Button>
+              <Button variant="destructive" size="sm" onClick={confirmBulkDelete} disabled={bulkDeleting}>
+                {bulkDeleting ? <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Deleting…</> : `Delete & Blocklist ${tableSelected.size}`}
+              </Button>
             </div>
           </div>
         </div>
