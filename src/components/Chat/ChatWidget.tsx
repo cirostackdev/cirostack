@@ -47,6 +47,13 @@ export function ChatWidget() {
     prevStatusRef.current = status;
   }, [status, conversationId, messages.length]);
 
+  // Listen for external "open-chat-widget" events (e.g., from engagement popup)
+  useEffect(() => {
+    const handler = () => openChat();
+    window.addEventListener("open-chat-widget", handler);
+    return () => window.removeEventListener("open-chat-widget", handler);
+  }, [openChat]);
+
   const handleCSATClose = () => {
     setShowCSAT(false);
     setCsatConvId(null);
