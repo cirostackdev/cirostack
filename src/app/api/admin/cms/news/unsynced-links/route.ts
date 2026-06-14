@@ -13,18 +13,20 @@ export async function GET() {
     orderBy: { publishedAt: "desc" },
   });
 
-  // Get all existing techcrunch URLs in our DB
-  const existing = await prisma.newsArticle.findMany({
-    select: { url: true, slug: true },
-  });
+  // Get all existing URLs in DB and blocklist
+  const [existing, blocklist] = await Promise.all([
+    prisma.newsArticle.findMany({ select: { url: true, slug: true } }),
+    prisma.newsArticleBlocklist.findMany({ select: { url: true } }),
+  ]);
   const existingUrlMap = new Map(existing.map(e => [e.url, e.slug]));
+  const blocklistUrls = new Set(blocklist.map(b => b.url));
 
-  // For each article, extract TC links and find which are unsynced
+  // For each article, extract TC links and find which are unsynced (and not blocklisted)
   const result = articles
     .map((article) => {
       const matches = [...(article.content ?? "").matchAll(/href="(https:\/\/techcrunch\.com\/[^"]+)"/g)];
       const links = [...new Set(matches.map(m => m[1]))];
-      const unsynced = links.filter(url => !existingUrlMap.has(url));
+      const unsynced = links.filter(url => !existingUrlMap.has(url) && !blocklistUrls.has(url));
       return {
         id: article.id,
         title: article.title,

@@ -198,6 +198,13 @@ model Announcement {
 
 // ── Newsroom ─────────────────────────────────────────────────────────────────
 
+model NewsArticleBlocklist {
+  id        String   @id @default(cuid())
+  url       String   @unique
+  title     String?
+  deletedAt DateTime @default(now())
+}
+
 model NewsArticle {
   id            String   @id @default(cuid())
   url           String   @unique

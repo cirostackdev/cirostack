@@ -46,6 +46,14 @@ export async function DELETE(
 
   const { id } = await params;
   try {
+    const article = await prisma.newsArticle.findUnique({ where: { id }, select: { url: true, title: true } });
+    if (article) {
+      await prisma.newsArticleBlocklist.upsert({
+        where: { url: article.url },
+        create: { url: article.url, title: article.title },
+        update: { deletedAt: new Date() },
+      });
+    }
     await prisma.newsArticle.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (err) {

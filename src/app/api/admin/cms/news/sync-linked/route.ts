@@ -72,13 +72,14 @@ export async function POST(req: NextRequest) {
   const matches = [...article.content.matchAll(/href="(https:\/\/techcrunch\.com\/[^"]+)"/g)];
   const linkedUrls = [...new Set(matches.map(m => m[1]))];
 
-  // Find which are already in DB
-  const existing = await prisma.newsArticle.findMany({
-    where: { url: { in: linkedUrls } },
-    select: { url: true, slug: true },
-  });
+  // Find which are already in DB or blocklisted
+  const [existing, blocklist] = await Promise.all([
+    prisma.newsArticle.findMany({ where: { url: { in: linkedUrls } }, select: { url: true, slug: true } }),
+    prisma.newsArticleBlocklist.findMany({ where: { url: { in: linkedUrls } }, select: { url: true } }),
+  ]);
   const existingMap = new Map(existing.map(e => [e.url, e.slug]));
-  const toScrape = linkedUrls.filter(url => !existingMap.has(url));
+  const blocklistUrls = new Set(blocklist.map(b => b.url));
+  const toScrape = linkedUrls.filter(url => !existingMap.has(url) && !blocklistUrls.has(url));
 
   const scraped: { url: string; slug: string }[] = [];
   const failed: string[] = [];

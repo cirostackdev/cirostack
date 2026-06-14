@@ -114,8 +114,12 @@ async function fetchTechCrunch(existingUrls: Set<string>): Promise<ArticleData[]
 // ── Core sync function ────────────────────────────────────────────────────────
 
 export async function runNewsSync(): Promise<{ synced: number; total: number; breakdown: { techcrunch: number } }> {
-  const existingRecords = await prisma.newsArticle.findMany({ select: { url: true } });
-  const existingUrls = new Set(existingRecords.map(r => r.url));
+  const [existingRecords, blocklist] = await Promise.all([
+    prisma.newsArticle.findMany({ select: { url: true } }),
+    prisma.newsArticleBlocklist.findMany({ select: { url: true } }),
+  ]);
+  const blocklistUrls = new Set(blocklist.map(b => b.url));
+  const existingUrls = new Set([...existingRecords.map(r => r.url), ...blocklistUrls]);
 
   const techcrunch = await fetchTechCrunch(existingUrls);
   let upserted = 0;
