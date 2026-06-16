@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 33 100% 98%;
+    --foreground: 20 14% 15%;
+    --card: 33 100% 99%;
+    --card-foreground: 20 14% 15%;
+    --primary: 1 77% 55%;
+    --primary-foreground: 0 0% 100%;
+    --muted: 33 40% 93%;
+    --muted-foreground: 20 10% 40%;
+    --accent: 263 84% 58%;
+    --accent-foreground: 0 0% 100%;
+    --border: 33 30% 88%;
+    --destructive: 0 84% 60%;
+    --ring: 1 77% 55%;
+  }
+  .dark {
+    --background: 220 30% 6%;
+    --foreground: 210 20% 95%;
+    --card: 220 25% 8%;
+    --card-foreground: 210 20% 95%;
+    --primary: 1 77% 55%;
+    --primary-foreground: 0 0% 100%;
+    --muted: 220 15% 12%;
+    --muted-foreground: 215 16% 57%;
+    --accent: 263 70% 68%;
+    --accent-foreground: 0 0% 100%;
+    --border: 220 15% 16%;
+    --destructive: 0 84% 60%;
+    --ring: 1 77% 55%;
+  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+}
+
+@layer components {
+  .bg-background { background-color: hsl(var(--background)); }
+  .text-foreground { color: hsl(var(--foreground)); }
+  .bg-card { background-color: hsl(var(--card)); }
+  .text-muted-foreground { color: hsl(var(--muted-foreground)); }
+  .bg-muted { background-color: hsl(var(--muted)); }
+  .border-border { border-color: hsl(var(--border)); }
+  .text-destructive { color: hsl(var(--destructive)); }
+}
