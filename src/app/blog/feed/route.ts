@@ -29,6 +29,9 @@ export async function GET() {
     .map((post) => {
       const pubDate = new Date(post.dateSort).toUTCString();
       const link = `${SITE_URL}/blog/${post.slug}`;
+      const imageTag = post.imageUrl
+        ? `\n      <enclosure url="${escapeXml(post.imageUrl)}" type="image/jpeg" length="0"/>\n      <media:content url="${escapeXml(post.imageUrl)}" medium="image"/>`
+        : "";
       return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${link}</link>
@@ -36,13 +39,13 @@ export async function GET() {
       <description>${escapeXml(post.excerpt)}</description>
       <pubDate>${pubDate}</pubDate>
       <author>${escapeXml(post.author)}</author>
-      <category>${escapeXml(post.category)}</category>
+      <category>${escapeXml(post.category)}</category>${imageTag}
     </item>`;
     })
     .join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>CiroStack Blog</title>
     <link>${SITE_URL}/blog</link>
