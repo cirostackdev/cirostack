@@ -3930,7 +3930,7 @@ paths:
     get:
       tags: [Public]
       summary: Trigger news sync (cron or manual)
-      description: Requires `Authorization: Bearer <CRON_SECRET>` header.
+      description: "Requires Authorization: Bearer <CRON_SECRET> header."
       parameters:
         - in: query
           name: source
