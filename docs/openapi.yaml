@@ -1,0 +1,4300 @@
+openapi: 3.0.3
+
+info:
+  title: CiroStack API
+  description: |
+    REST API for the CiroStack software agency platform.
+
+    **Admin auth:** NextAuth session cookie (admin panel login at `/admin/login`)
+    **Portal auth:** NextAuth session cookie (client portal login at `/portal/login`)
+    **Chat widget:** No auth — uses `visitorId` + `x-visitor-token` header
+    **Cron routes:** `Authorization: Bearer <CRON_SECRET>`
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local development
+
+tags:
+  - name: Admin-Team
+  - name: Admin-Analytics
+  - name: Admin-Conversations
+  - name: Admin-CMS
+  - name: Admin-Clients
+  - name: Admin-Projects
+  - name: Admin-Invoices
+  - name: Admin-Leads
+  - name: Admin-Knowledge-Base
+  - name: Admin-Automation
+  - name: Admin-Config
+  - name: Admin-Export
+  - name: Chat
+  - name: Portal-Auth
+  - name: Portal-Projects
+  - name: Portal-Invoices
+  - name: Portal-Chat
+  - name: Portal-Notifications
+  - name: Portal-Config
+  - name: Public
+  - name: Webhooks
+  - name: Push
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+
+    Ok:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          example: true
+
+    Admin:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum: [agent, super]
+        online:
+          type: boolean
+        disabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+        visitorId:
+          type: string
+        visitorName:
+          type: string
+          nullable: true
+        visitorEmail:
+          type: string
+          nullable: true
+        topic:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [open, closed]
+        priority:
+          type: string
+          enum: [normal, high, urgent]
+        assignedToId:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        conversationId:
+          type: string
+        senderType:
+          type: string
+          enum: [visitor, agent, system]
+        senderId:
+          type: string
+          nullable: true
+        senderName:
+          type: string
+          nullable: true
+        body:
+          type: string
+        fileUrl:
+          type: string
+          nullable: true
+        read:
+          type: boolean
+        replyToId:
+          type: string
+          nullable: true
+        reactions:
+          type: object
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    Client:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+          nullable: true
+        company:
+          type: string
+          nullable: true
+        avatarUrl:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [discovery, active, review, complete]
+        startDate:
+          type: string
+          format: date-time
+          nullable: true
+        dueDate:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        projectId:
+          type: string
+          nullable: true
+        number:
+          type: string
+        amount:
+          type: integer
+          description: Amount in smallest currency unit (cents)
+        currency:
+          type: string
+        status:
+          type: string
+          enum: [unpaid, paid, overdue]
+        dueDate:
+          type: string
+          format: date-time
+          nullable: true
+        paidAt:
+          type: string
+          format: date-time
+          nullable: true
+        lineItems:
+          type: object
+        createdAt:
+          type: string
+          format: date-time
+
+    BlogPost:
+      type: object
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+        title:
+          type: string
+        excerpt:
+          type: string
+        category:
+          type: string
+        author:
+          type: string
+        date:
+          type: string
+        readMin:
+          type: integer
+        imageUrl:
+          type: string
+          nullable: true
+        featured:
+          type: boolean
+        published:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+
+    NewsArticle:
+      type: object
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        content:
+          type: string
+        url:
+          type: string
+        image:
+          type: string
+          nullable: true
+        publishedAt:
+          type: string
+          format: date-time
+        source:
+          type: string
+        sourceUrl:
+          type: string
+          nullable: true
+        type:
+          type: string
+
+    Lead:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+          nullable: true
+        source:
+          type: string
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    AssignmentRule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [round-robin, topic-based, load-balance]
+        criteria:
+          type: object
+          nullable: true
+        adminIds:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+        priority:
+          type: integer
+
+    AutomationRule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        trigger:
+          type: string
+          enum: [new-conversation, offline, keyword, no-response]
+        conditions:
+          type: object
+          nullable: true
+        action:
+          type: string
+          enum: [send-message, assign, tag, close]
+        actionData:
+          type: object
+        enabled:
+          type: boolean
+        priority:
+          type: integer
+
+    CannedResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        adminId:
+          type: string
+          nullable: true
+        title:
+          type: string
+        shortcut:
+          type: string
+          nullable: true
+        content:
+          type: string
+        category:
+          type: string
+
+    KnowledgeArticle:
+      type: object
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        published:
+          type: boolean
+        order:
+          type: integer
+
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+        href:
+          type: string
+          nullable: true
+        read:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+paths:
+  # ── Admin: Team ──────────────────────────────────────────────────────────────
+
+  /api/admin/admins:
+    get:
+      tags: [Admin-Team]
+      summary: List all active admins
+      responses:
+        '200':
+          description: List of admins
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Admin'
+        '401':
+          description: Unauthorized
+    post:
+      tags: [Admin-Team]
+      summary: Create a new admin (super role only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, password]
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                role:
+                  type: string
+                  enum: [agent, super]
+      responses:
+        '200':
+          description: Created admin
+        '400':
+          description: Missing required fields
+        '401':
+          description: Unauthorized
+        '409':
+          description: Email already in use
+
+  /api/admin/admins/{id}:
+    patch:
+      tags: [Admin-Team]
+      summary: Disable or enable an admin (super role only)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                disabled:
+                  type: boolean
+      responses:
+        '200':
+          description: Updated
+        '401':
+          description: Unauthorized
+    delete:
+      tags: [Admin-Team]
+      summary: Delete an admin (super role only)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+
+  /api/admin/admins/me:
+    patch:
+      tags: [Admin-Team]
+      summary: Update current admin profile or password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                currentPassword:
+                  type: string
+                newPassword:
+                  type: string
+      responses:
+        '200':
+          description: Updated profile
+        '400':
+          description: Missing current password or nothing to update
+        '401':
+          description: Unauthorized
+
+  # ── Admin: Analytics ─────────────────────────────────────────────────────────
+
+  /api/admin/analytics:
+    get:
+      tags: [Admin-Analytics]
+      summary: Comprehensive analytics dashboard data
+      parameters:
+        - in: query
+          name: days
+          schema:
+            type: integer
+            default: 30
+      responses:
+        '200':
+          description: Analytics data including KPIs, pipeline, financial, projects, content, conversations
+        '401':
+          description: Unauthorized
+
+  /api/admin/analytics/sla:
+    get:
+      tags: [Admin-Analytics]
+      summary: SLA compliance metrics
+      parameters:
+        - in: query
+          name: days
+          schema:
+            type: integer
+            default: 30
+        - in: query
+          name: maxFirstResponseMins
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: SLA metrics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  avgFirstResponseMins:
+                    type: number
+                  complianceRate:
+                    type: integer
+                  breaches:
+                    type: integer
+                  totalConversations:
+                    type: integer
+
+  /api/admin/analytics/agents:
+    get:
+      tags: [Admin-Analytics]
+      summary: Per-agent performance stats
+      parameters:
+        - in: query
+          name: days
+          schema:
+            type: integer
+            default: 30
+      responses:
+        '200':
+          description: Agent stats array
+        '401':
+          description: Unauthorized
+
+  /api/admin/csat:
+    get:
+      tags: [Admin-Analytics]
+      summary: CSAT ratings and metrics
+      parameters:
+        - in: query
+          name: days
+          schema:
+            type: integer
+            default: 30
+      responses:
+        '200':
+          description: CSAT data with distribution and recent feedback
+        '401':
+          description: Unauthorized
+
+  # ── Admin: Conversations ──────────────────────────────────────────────────────
+
+  /api/admin/conversations:
+    get:
+      tags: [Admin-Conversations]
+      summary: List conversations (latest 100)
+      responses:
+        '200':
+          description: Conversations with latest message and assignee
+        '401':
+          description: Unauthorized
+
+  /api/admin/conversations/{id}:
+    get:
+      tags: [Admin-Conversations]
+      summary: Get a conversation
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Conversation
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+    patch:
+      tags: [Admin-Conversations]
+      summary: Update conversation status, assignment, or metadata
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                assignedToId:
+                  type: string
+                  nullable: true
+                metadata:
+                  type: object
+      responses:
+        '200':
+          description: Updated conversation
+        '404':
+          description: Not found
+    delete:
+      tags: [Admin-Conversations]
+      summary: Delete a conversation and all its messages
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+        '404':
+          description: Not found
+
+  /api/admin/conversations/{id}/assign:
+    post:
+      tags: [Admin-Conversations]
+      summary: Assign conversation to an admin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                adminId:
+                  type: string
+                  nullable: true
+                transferNote:
+                  type: string
+      responses:
+        '200':
+          description: Updated conversation
+        '404':
+          description: Not found
+
+  /api/admin/conversations/{id}/claim:
+    post:
+      tags: [Admin-Conversations]
+      summary: Claim a conversation (assign to self)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Conversation claimed
+        '409':
+          description: Already assigned to another agent
+
+  /api/admin/conversations/{id}/close:
+    post:
+      tags: [Admin-Conversations]
+      summary: Close a conversation
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Closed
+
+  /api/admin/conversations/{id}/messages:
+    post:
+      tags: [Admin-Conversations]
+      summary: Send a message to a conversation
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body:
+                  type: string
+                fileUrl:
+                  type: string
+                replyToId:
+                  type: string
+                replyToBody:
+                  type: string
+                replyToSender:
+                  type: string
+                replyToFileUrl:
+                  type: string
+      responses:
+        '200':
+          description: Message sent
+        '400':
+          description: Body required
+
+  /api/admin/conversations/{id}/messages/{msgId}/react:
+    post:
+      tags: [Admin-Conversations]
+      summary: React to a message
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: msgId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [emoji]
+              properties:
+                emoji:
+                  type: string
+      responses:
+        '200':
+          description: Updated reactions
+        '404':
+          description: Not found
+
+  /api/admin/conversations/{id}/messages/{msgId}:
+    delete:
+      tags: [Admin-Conversations]
+      summary: Delete a message
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: msgId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+        '404':
+          description: Not found
+
+  /api/admin/conversations/{id}/messages/{msgId}/seen:
+    post:
+      tags: [Admin-Conversations]
+      summary: Mark media message as listened/watched/clicked
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: msgId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [type]
+              properties:
+                type:
+                  type: string
+                  enum: [listened, watched, clicked]
+      responses:
+        '200':
+          description: Marked
+        '400':
+          description: Invalid type
+
+  /api/admin/conversations/{id}/notes:
+    get:
+      tags: [Admin-Conversations]
+      summary: List internal notes
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Notes with admin name
+    post:
+      tags: [Admin-Conversations]
+      summary: Add an internal note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body:
+                  type: string
+      responses:
+        '201':
+          description: Note created
+        '400':
+          description: Body required
+
+  /api/admin/conversations/{id}/read:
+    post:
+      tags: [Admin-Conversations]
+      summary: Mark all visitor messages as read
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Marked as read
+
+  /api/admin/conversations/{id}/tags:
+    post:
+      tags: [Admin-Conversations]
+      summary: Add a tag to a conversation
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tagId]
+              properties:
+                tagId:
+                  type: string
+      responses:
+        '200':
+          description: Tag added
+    delete:
+      tags: [Admin-Conversations]
+      summary: Remove a tag from a conversation
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tagId]
+              properties:
+                tagId:
+                  type: string
+      responses:
+        '200':
+          description: Tag removed
+
+  /api/admin/conversations/{id}/typing:
+    post:
+      tags: [Admin-Conversations]
+      summary: Broadcast agent typing indicator
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                typing:
+                  type: boolean
+      responses:
+        '200':
+          description: Broadcast sent
+
+  /api/admin/conversations/{id}/recording:
+    post:
+      tags: [Admin-Conversations]
+      summary: Broadcast agent recording indicator
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recording:
+                  type: boolean
+      responses:
+        '200':
+          description: Broadcast sent
+
+  /api/admin/conversations/bulk:
+    post:
+      tags: [Admin-Conversations]
+      summary: Bulk close, assign, or delete conversations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action, ids]
+              properties:
+                action:
+                  type: string
+                  enum: [close, assign, delete]
+                ids:
+                  type: array
+                  items:
+                    type: string
+                adminId:
+                  type: string
+                  description: Required for assign action
+      responses:
+        '200':
+          description: Bulk action applied
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  affected:
+                    type: integer
+        '400':
+          description: No IDs or unknown action
+
+  /api/admin/chat-upload:
+    post:
+      tags: [Admin-Conversations]
+      summary: Upload a file for use in chat (images, video, audio, docs up to 100MB)
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Uploaded file URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                  name:
+                    type: string
+                  type:
+                    type: string
+                  size:
+                    type: integer
+        '401':
+          description: Unauthorized
+        '413':
+          description: File too large
+        '415':
+          description: Unsupported file type
+
+  # ── Admin: Clients ────────────────────────────────────────────────────────────
+
+  /api/admin/clients:
+    get:
+      tags: [Admin-Clients]
+      summary: List all clients
+      responses:
+        '200':
+          description: Clients with project and invoice counts
+        '401':
+          description: Unauthorized
+    post:
+      tags: [Admin-Clients]
+      summary: Create a client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+                name:
+                  type: string
+                company:
+                  type: string
+      responses:
+        '201':
+          description: Client created
+        '400':
+          description: Email required
+        '409':
+          description: Email already exists
+
+  /api/admin/clients/{id}:
+    get:
+      tags: [Admin-Clients]
+      summary: Get client with projects and invoices
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Client detail
+        '404':
+          description: Not found
+    patch:
+      tags: [Admin-Clients]
+      summary: Update client name, company, or email
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                company:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Updated client
+        '404':
+          description: Not found
+    delete:
+      tags: [Admin-Clients]
+      summary: Delete a client
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+        '404':
+          description: Not found
+
+  /api/admin/clients/{id}/conversations:
+    get:
+      tags: [Admin-Clients]
+      summary: Get conversations linked to a client by email
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Conversation summaries
+        '404':
+          description: Client not found
+
+  /api/admin/clients/{id}/invite:
+    post:
+      tags: [Admin-Clients]
+      summary: Send portal invitation email to client
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invitation sent
+        '404':
+          description: Client not found
+
+  # ── Admin: Projects ───────────────────────────────────────────────────────────
+
+  /api/admin/projects:
+    get:
+      tags: [Admin-Projects]
+      summary: List all projects
+      responses:
+        '200':
+          description: Projects list
+        '401':
+          description: Unauthorized
+    post:
+      tags: [Admin-Projects]
+      summary: Create a project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [clientId, title]
+              properties:
+                clientId:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: string
+                startDate:
+                  type: string
+                  format: date-time
+                dueDate:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Project created
+
+  /api/admin/projects/{id}:
+    get:
+      tags: [Admin-Projects]
+      summary: Get project detail
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project with milestones, updates, files, comments
+        '404':
+          description: Not found
+    patch:
+      tags: [Admin-Projects]
+      summary: Update project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: Updated project
+    delete:
+      tags: [Admin-Projects]
+      summary: Delete project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/projects/{id}/milestones:
+    get:
+      tags: [Admin-Projects]
+      summary: List milestones
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Milestones
+    post:
+      tags: [Admin-Projects]
+      summary: Create milestone
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title]
+              properties:
+                title:
+                  type: string
+                dueDate:
+                  type: string
+                  format: date-time
+                order:
+                  type: integer
+      responses:
+        '201':
+          description: Milestone created
+
+  /api/admin/projects/{id}/milestones/{milestoneId}:
+    put:
+      tags: [Admin-Projects]
+      summary: Update milestone
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: milestoneId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                completed:
+                  type: boolean
+                dueDate:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-Projects]
+      summary: Delete milestone
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: milestoneId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/projects/{id}/updates:
+    get:
+      tags: [Admin-Projects]
+      summary: List project updates
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updates
+    post:
+      tags: [Admin-Projects]
+      summary: Post a project update
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body:
+                  type: string
+                internal:
+                  type: boolean
+      responses:
+        '201':
+          description: Update created
+
+  /api/admin/projects/{id}/updates/{updateId}:
+    put:
+      tags: [Admin-Projects]
+      summary: Edit a project update
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: updateId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-Projects]
+      summary: Delete a project update
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: updateId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/projects/{id}/files:
+    get:
+      tags: [Admin-Projects]
+      summary: List project files
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Files
+    post:
+      tags: [Admin-Projects]
+      summary: Upload a project file
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: File uploaded
+
+  /api/admin/projects/{id}/files/{fileId}:
+    delete:
+      tags: [Admin-Projects]
+      summary: Delete a project file
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: fileId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  # ── Admin: Invoices ───────────────────────────────────────────────────────────
+
+  /api/admin/invoices:
+    get:
+      tags: [Admin-Invoices]
+      summary: List all invoices
+      responses:
+        '200':
+          description: Invoices with client info
+        '401':
+          description: Unauthorized
+    post:
+      tags: [Admin-Invoices]
+      summary: Create an invoice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [clientId, amount, currency, lineItems]
+              properties:
+                clientId:
+                  type: string
+                projectId:
+                  type: string
+                amount:
+                  type: integer
+                currency:
+                  type: string
+                usdRate:
+                  type: number
+                dueDate:
+                  type: string
+                  format: date-time
+                lineItems:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        '201':
+          description: Invoice created
+
+  /api/admin/invoices/{id}:
+    get:
+      tags: [Admin-Invoices]
+      summary: Get invoice detail
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invoice with client and project
+        '404':
+          description: Not found
+    patch:
+      tags: [Admin-Invoices]
+      summary: Update invoice
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated invoice
+        '404':
+          description: Not found
+
+  /api/admin/invoices/{id}/send:
+    post:
+      tags: [Admin-Invoices]
+      summary: Send invoice email to client
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Email sent
+        '404':
+          description: Not found
+
+  /api/admin/invoices/{id}/disputes:
+    get:
+      tags: [Admin-Invoices]
+      summary: List disputes for an invoice
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Disputes
+    put:
+      tags: [Admin-Invoices]
+      summary: Update dispute status and admin note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [disputeId, status]
+              properties:
+                disputeId:
+                  type: string
+                status:
+                  type: string
+                  enum: [open, reviewing, resolved]
+                adminNote:
+                  type: string
+      responses:
+        '200':
+          description: Updated dispute
+
+  # ── Admin: Leads ─────────────────────────────────────────────────────────────
+
+  /api/admin/leads:
+    get:
+      tags: [Admin-Leads]
+      summary: List all leads
+      responses:
+        '200':
+          description: Leads
+        '401':
+          description: Unauthorized
+    post:
+      tags: [Admin-Leads]
+      summary: Create a lead
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+                name:
+                  type: string
+                source:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Lead created
+
+  /api/admin/leads/{id}:
+    get:
+      tags: [Admin-Leads]
+      summary: Get lead
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lead
+    patch:
+      tags: [Admin-Leads]
+      summary: Update lead
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+      responses:
+        '200':
+          description: Updated lead
+    delete:
+      tags: [Admin-Leads]
+      summary: Delete lead
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  # ── Admin: CMS ────────────────────────────────────────────────────────────────
+
+  /api/admin/cms/posts:
+    get:
+      tags: [Admin-CMS]
+      summary: List all blog posts
+      responses:
+        '200':
+          description: Blog posts
+        '401':
+          description: Unauthorized
+    post:
+      tags: [Admin-CMS]
+      summary: Create blog post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [slug, title, excerpt, category, date]
+              properties:
+                slug:
+                  type: string
+                title:
+                  type: string
+                excerpt:
+                  type: string
+                category:
+                  type: string
+                author:
+                  type: string
+                date:
+                  type: string
+                dateSort:
+                  type: string
+                readMin:
+                  type: integer
+                imageUrl:
+                  type: string
+                featured:
+                  type: boolean
+                published:
+                  type: boolean
+                tags:
+                  type: array
+                  items:
+                    type: string
+                body:
+                  type: string
+      responses:
+        '201':
+          description: Post created
+        '409':
+          description: Slug already exists
+
+  /api/admin/cms/posts/{id}:
+    patch:
+      tags: [Admin-CMS]
+      summary: Update blog post
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated post
+        '404':
+          description: Not found
+    delete:
+      tags: [Admin-CMS]
+      summary: Delete blog post
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/cms/portfolio:
+    get:
+      tags: [Admin-CMS]
+      summary: List portfolio projects
+      responses:
+        '200':
+          description: Portfolio projects (id, slug, title, client, vertical, service, published, featured)
+    post:
+      tags: [Admin-CMS]
+      summary: Create portfolio project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [slug, title, client, vertical, service, description]
+              properties:
+                slug:
+                  type: string
+                title:
+                  type: string
+                client:
+                  type: string
+                vertical:
+                  type: string
+                category:
+                  type: string
+                service:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Created
+        '409':
+          description: Slug already exists
+
+  /api/admin/cms/portfolio/{id}:
+    get:
+      tags: [Admin-CMS]
+      summary: Get portfolio project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Portfolio project
+        '404':
+          description: Not found
+    patch:
+      tags: [Admin-CMS]
+      summary: Update portfolio project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-CMS]
+      summary: Delete portfolio project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/cms/jobs:
+    get:
+      tags: [Admin-CMS]
+      summary: List all jobs
+      responses:
+        '200':
+          description: Jobs
+    post:
+      tags: [Admin-CMS]
+      summary: Create job listing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, department, description]
+              properties:
+                title:
+                  type: string
+                department:
+                  type: string
+                type:
+                  type: string
+                  default: Full-Time
+                location:
+                  type: string
+                  default: Remote
+                description:
+                  type: string
+                body:
+                  type: string
+                active:
+                  type: boolean
+      responses:
+        '201':
+          description: Job created
+
+  /api/admin/cms/jobs/{id}:
+    patch:
+      tags: [Admin-CMS]
+      summary: Update job
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+        '404':
+          description: Not found
+    delete:
+      tags: [Admin-CMS]
+      summary: Delete job
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/cms/events:
+    get:
+      tags: [Admin-CMS]
+      summary: List all events
+      responses:
+        '200':
+          description: Events
+    post:
+      tags: [Admin-CMS]
+      summary: Create event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [slug, title, description, date]
+              properties:
+                slug:
+                  type: string
+                type:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                date:
+                  type: string
+                time:
+                  type: string
+                location:
+                  type: string
+                attendees:
+                  type: integer
+                featured:
+                  type: boolean
+                published:
+                  type: boolean
+                registrationUrl:
+                  type: string
+                imageUrl:
+                  type: string
+      responses:
+        '201':
+          description: Event created
+        '409':
+          description: Slug already exists
+
+  /api/admin/cms/events/{id}:
+    patch:
+      tags: [Admin-CMS]
+      summary: Update event
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-CMS]
+      summary: Delete event
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/cms/resources:
+    get:
+      tags: [Admin-CMS]
+      summary: List all resources
+      responses:
+        '200':
+          description: Resources
+    post:
+      tags: [Admin-CMS]
+      summary: Create resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [slug, title, description]
+              properties:
+                slug:
+                  type: string
+                type:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                pages:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+                downloadUrl:
+                  type: string
+                imageUrl:
+                  type: string
+      responses:
+        '201':
+          description: Resource created
+        '409':
+          description: Slug already exists
+
+  /api/admin/cms/resources/{id}:
+    patch:
+      tags: [Admin-CMS]
+      summary: Update resource
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-CMS]
+      summary: Delete resource
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/cms/announcements:
+    get:
+      tags: [Admin-CMS]
+      summary: List all announcements
+      responses:
+        '200':
+          description: Announcements
+    post:
+      tags: [Admin-CMS]
+      summary: Create announcement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [slug, title, summary, date]
+              properties:
+                slug:
+                  type: string
+                type:
+                  type: string
+                title:
+                  type: string
+                summary:
+                  type: string
+                body:
+                  type: string
+                date:
+                  type: string
+                source:
+                  type: string
+                url:
+                  type: string
+                tag:
+                  type: string
+                featured:
+                  type: boolean
+                published:
+                  type: boolean
+      responses:
+        '201':
+          description: Announcement created
+        '409':
+          description: Slug already exists
+
+  /api/admin/cms/announcements/{id}:
+    patch:
+      tags: [Admin-CMS]
+      summary: Update announcement
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-CMS]
+      summary: Delete announcement
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/cms/news:
+    get:
+      tags: [Admin-CMS]
+      summary: List all news articles (admin)
+      responses:
+        '200':
+          description: News articles (id, slug, title, source, type, publishedAt, image, fetchedAt)
+
+  /api/admin/cms/news/{id}:
+    get:
+      tags: [Admin-CMS]
+      summary: Get full news article
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Article
+        '404':
+          description: Not found
+    patch:
+      tags: [Admin-CMS]
+      summary: Update news article
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-CMS]
+      summary: Delete article and add to blocklist
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted and blocklisted
+
+  /api/admin/cms/news/sync:
+    post:
+      tags: [Admin-CMS]
+      summary: Manually trigger news sync
+      responses:
+        '200':
+          description: Sync result
+        '401':
+          description: Unauthorized
+
+  /api/admin/cms/news/sync-linked:
+    post:
+      tags: [Admin-CMS]
+      summary: Scrape and sync linked TechCrunch articles from an article's content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [articleId]
+              properties:
+                articleId:
+                  type: string
+      responses:
+        '200':
+          description: Sync result with scraped/failed counts
+        '404':
+          description: Article not found
+
+  /api/admin/cms/news/unsynced-links:
+    get:
+      tags: [Admin-CMS]
+      summary: List articles that contain unsynced TechCrunch links
+      responses:
+        '200':
+          description: Articles with unsynced link counts
+
+  /api/admin/cms/upload:
+    post:
+      tags: [Admin-CMS]
+      summary: Upload image for CMS content (max 5MB, JPEG/PNG/GIF/WebP only). Returns base64 data URL.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Base64 data URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+        '413':
+          description: File too large
+        '415':
+          description: Invalid file type
+
+  # ── Admin: Knowledge Base ─────────────────────────────────────────────────────
+
+  /api/admin/knowledge-base:
+    get:
+      tags: [Admin-Knowledge-Base]
+      summary: List knowledge base articles
+      responses:
+        '200':
+          description: Articles
+        '401':
+          description: Unauthorized
+    post:
+      tags: [Admin-Knowledge-Base]
+      summary: Create knowledge base article
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, slug, content]
+              properties:
+                title:
+                  type: string
+                slug:
+                  type: string
+                content:
+                  type: string
+                category:
+                  type: string
+                published:
+                  type: boolean
+                order:
+                  type: integer
+      responses:
+        '201':
+          description: Article created
+
+  /api/admin/knowledge-base/{id}:
+    put:
+      tags: [Admin-Knowledge-Base]
+      summary: Update knowledge base article
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-Knowledge-Base]
+      summary: Delete knowledge base article
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  # ── Admin: Automation ─────────────────────────────────────────────────────────
+
+  /api/admin/automation:
+    get:
+      tags: [Admin-Automation]
+      summary: List automation rules
+      responses:
+        '200':
+          description: Rules ordered by priority
+        '401':
+          description: Unauthorized
+    post:
+      tags: [Admin-Automation]
+      summary: Create automation rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, trigger, action]
+              properties:
+                name:
+                  type: string
+                trigger:
+                  type: string
+                  enum: [new-conversation, offline, keyword, no-response]
+                conditions:
+                  type: object
+                action:
+                  type: string
+                  enum: [send-message, assign, tag, close]
+                actionData:
+                  type: object
+                enabled:
+                  type: boolean
+                priority:
+                  type: integer
+      responses:
+        '201':
+          description: Rule created
+
+  /api/admin/automation/{id}:
+    put:
+      tags: [Admin-Automation]
+      summary: Update automation rule
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationRule'
+      responses:
+        '200':
+          description: Updated rule
+    delete:
+      tags: [Admin-Automation]
+      summary: Delete automation rule
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/assignment-rules:
+    get:
+      tags: [Admin-Automation]
+      summary: List assignment rules
+      responses:
+        '200':
+          description: Rules
+    post:
+      tags: [Admin-Automation]
+      summary: Create assignment rule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, type]
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                  enum: [round-robin, topic-based, load-balance]
+                criteria:
+                  type: object
+                adminIds:
+                  type: array
+                  items:
+                    type: string
+                enabled:
+                  type: boolean
+                priority:
+                  type: integer
+      responses:
+        '201':
+          description: Rule created
+
+  /api/admin/assignment-rules/{id}:
+    put:
+      tags: [Admin-Automation]
+      summary: Update assignment rule
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignmentRule'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-Automation]
+      summary: Delete assignment rule
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  # ── Admin: Config ─────────────────────────────────────────────────────────────
+
+  /api/admin/widget-config:
+    get:
+      tags: [Admin-Config]
+      summary: Get widget configuration
+      responses:
+        '200':
+          description: Widget config
+        '401':
+          description: Unauthorized
+    put:
+      tags: [Admin-Config]
+      summary: Update widget configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                primaryColor:
+                  type: string
+                position:
+                  type: string
+                welcomeMessage:
+                  type: string
+                offlineMessage:
+                  type: string
+                preChatForm:
+                  type: boolean
+                preChatFields:
+                  type: array
+                  items:
+                    type: object
+                showBranding:
+                  type: boolean
+                autoOpenDelay:
+                  type: integer
+                  nullable: true
+      responses:
+        '200':
+          description: Updated config
+
+  /api/admin/business-hours:
+    get:
+      tags: [Admin-Config]
+      summary: Get business hours (seeds defaults if none exist)
+      responses:
+        '200':
+          description: 7 entries, one per day of week
+        '401':
+          description: Unauthorized
+    put:
+      tags: [Admin-Config]
+      summary: Update business hours
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [hours]
+              properties:
+                hours:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      day:
+                        type: integer
+                      startTime:
+                        type: string
+                      endTime:
+                        type: string
+                      enabled:
+                        type: boolean
+                      timezone:
+                        type: string
+      responses:
+        '200':
+          description: Updated
+
+  /api/admin/sla:
+    get:
+      tags: [Admin-Config]
+      summary: Get SLA configuration
+      responses:
+        '200':
+          description: SLA config
+    put:
+      tags: [Admin-Config]
+      summary: Update SLA configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                maxFirstResponseMins:
+                  type: integer
+                maxResolutionMins:
+                  type: integer
+                breachNotify:
+                  type: boolean
+      responses:
+        '200':
+          description: Updated
+
+  /api/admin/tags:
+    get:
+      tags: [Admin-Config]
+      summary: List conversation tags
+      responses:
+        '200':
+          description: Tags
+    post:
+      tags: [Admin-Config]
+      summary: Create conversation tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                color:
+                  type: string
+      responses:
+        '201':
+          description: Tag created
+
+  /api/admin/tags/{id}:
+    patch:
+      tags: [Admin-Config]
+      summary: Update conversation tag
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-Config]
+      summary: Delete conversation tag
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/canned-responses:
+    get:
+      tags: [Admin-Config]
+      summary: List canned responses
+      parameters:
+        - in: query
+          name: category
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Canned responses
+    post:
+      tags: [Admin-Config]
+      summary: Create canned response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, content]
+              properties:
+                title:
+                  type: string
+                shortcut:
+                  type: string
+                content:
+                  type: string
+                category:
+                  type: string
+      responses:
+        '201':
+          description: Response created
+
+  /api/admin/canned-responses/{id}:
+    put:
+      tags: [Admin-Config]
+      summary: Update canned response
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin-Config]
+      summary: Delete canned response
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/notifications/send:
+    post:
+      tags: [Admin-Config]
+      summary: Send push notification to admins or clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, body]
+              properties:
+                title:
+                  type: string
+                body:
+                  type: string
+                url:
+                  type: string
+                target:
+                  type: string
+                  enum: [admins, clients, all]
+      responses:
+        '200':
+          description: Notification sent
+
+  # ── Admin: Export ─────────────────────────────────────────────────────────────
+
+  /api/admin/export/conversations:
+    get:
+      tags: [Admin-Export]
+      summary: Export conversations as CSV or TXT
+      parameters:
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum: [csv, txt]
+            default: csv
+        - in: query
+          name: ids
+          schema:
+            type: string
+          description: Comma-separated IDs, or "all"
+      responses:
+        '200':
+          description: CSV or TXT file download
+          content:
+            text/csv:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+
+  /api/admin/export/invoices:
+    get:
+      tags: [Admin-Export]
+      summary: Export all invoices as CSV
+      responses:
+        '200':
+          description: CSV download
+          content:
+            text/csv:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+
+  /api/admin/export/revenue:
+    get:
+      tags: [Admin-Export]
+      summary: Export paid invoices as CSV with USD amounts
+      responses:
+        '200':
+          description: CSV download
+          content:
+            text/csv:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+
+  /api/admin/revenue:
+    get:
+      tags: [Admin-Export]
+      summary: Revenue data (monthly charts, recent payments)
+      responses:
+        '200':
+          description: Revenue analytics
+        '401':
+          description: Unauthorized
+
+  /api/admin/search:
+    get:
+      tags: [Admin-Conversations]
+      summary: Global admin search
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results across conversations, clients, leads
+        '401':
+          description: Unauthorized
+
+  /api/admin/submissions/{id}:
+    patch:
+      tags: [Admin-Leads]
+      summary: Update form submission status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [new, reviewed, actioned]
+      responses:
+        '200':
+          description: Updated submission
+
+  # ── Chat (widget-facing) ──────────────────────────────────────────────────────
+
+  /api/chat/conversations:
+    post:
+      tags: [Chat]
+      summary: Start a new chat conversation (widget)
+      description: Rate-limited to 5 conversations per IP per hour.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [visitorId]
+              properties:
+                visitorId:
+                  type: string
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                topic:
+                  type: string
+                pageUrl:
+                  type: string
+      responses:
+        '200':
+          description: Conversation created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversationId:
+                    type: string
+                  visitorToken:
+                    type: string
+        '400':
+          description: visitorId required
+        '429':
+          description: Rate limited
+
+  /api/chat/conversations/{id}/messages:
+    get:
+      tags: [Chat]
+      summary: Get messages for a conversation (visitor)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: visitorId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Messages and conversation status
+        '400':
+          description: visitorId required
+        '404':
+          description: Not found
+    post:
+      tags: [Chat]
+      summary: Send a message (visitor)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [visitorId, body]
+              properties:
+                visitorId:
+                  type: string
+                body:
+                  type: string
+                fileUrl:
+                  type: string
+                replyToId:
+                  type: string
+                replyToBody:
+                  type: string
+                replyToSender:
+                  type: string
+                replyToFileUrl:
+                  type: string
+      responses:
+        '200':
+          description: Message sent
+        '400':
+          description: Conversation closed or missing fields
+
+  /api/chat/conversations/{id}/heartbeat:
+    post:
+      tags: [Chat]
+      summary: Visitor heartbeat (updates last seen, triggers presence event)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [visitorId]
+              properties:
+                visitorId:
+                  type: string
+      responses:
+        '200':
+          description: Ok
+
+  /api/chat/conversations/{id}/presence:
+    post:
+      tags: [Chat]
+      summary: Broadcast visitor online/offline presence
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [visitorId, online]
+              properties:
+                visitorId:
+                  type: string
+                online:
+                  type: boolean
+      responses:
+        '200':
+          description: Broadcast sent
+
+  /api/chat/conversations/{id}/read:
+    post:
+      tags: [Chat]
+      summary: Visitor marks agent messages as read
+      description: Requires `x-visitor-token` header.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Marked as read
+        '401':
+          description: Missing visitor token
+        '403':
+          description: Invalid visitor token
+
+  /api/chat/conversations/{id}/typing:
+    post:
+      tags: [Chat]
+      summary: Broadcast visitor typing indicator
+      description: Requires `x-visitor-token` header.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                typing:
+                  type: boolean
+      responses:
+        '200':
+          description: Broadcast sent
+
+  /api/chat/conversations/{id}/recording:
+    post:
+      tags: [Chat]
+      summary: Broadcast visitor recording indicator
+      description: Requires `x-visitor-token` header.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recording:
+                  type: boolean
+      responses:
+        '200':
+          description: Broadcast sent
+
+  /api/chat/conversations/{id}/messages/{msgId}/react:
+    post:
+      tags: [Chat]
+      summary: Visitor reacts to a message
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: msgId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [emoji]
+              properties:
+                emoji:
+                  type: string
+                reactorId:
+                  type: string
+      responses:
+        '200':
+          description: Updated reactions
+
+  /api/chat/conversations/{id}/messages/{msgId}/seen:
+    post:
+      tags: [Chat]
+      summary: Mark media message as listened/watched/clicked (visitor)
+      description: Requires `x-visitor-token` header.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: msgId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [type]
+              properties:
+                type:
+                  type: string
+                  enum: [listened, watched, clicked]
+      responses:
+        '200':
+          description: Marked
+
+  /api/chat/status:
+    get:
+      tags: [Chat]
+      summary: Check if any admin is online (within last 2 minutes)
+      responses:
+        '200':
+          description: Online status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  online:
+                    type: boolean
+
+  /api/chat/heartbeat:
+    post:
+      tags: [Chat]
+      summary: Admin heartbeat — updates lastHeartbeat and broadcasts presence
+      responses:
+        '200':
+          description: Ok
+        '401':
+          description: Unauthorized
+
+  /api/chat/presence:
+    post:
+      tags: [Chat]
+      summary: Admin presence update (online/offline on Pusher connect/disconnect)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                online:
+                  type: boolean
+      responses:
+        '200':
+          description: Ok
+
+  /api/chat/link-preview:
+    get:
+      tags: [Chat]
+      summary: Fetch OG metadata for a URL (SSRF-protected)
+      parameters:
+        - in: query
+          name: url
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OG metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    nullable: true
+                  description:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    nullable: true
+                  siteName:
+                    type: string
+                    nullable: true
+                  url:
+                    type: string
+        '400':
+          description: Invalid or private URL
+
+  /api/chat/upload:
+    post:
+      tags: [Chat]
+      summary: Upload a file for use in widget chat
+      description: Requires valid conversationId and visitorToken. Rate-limited to 10 per IP per minute.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file, conversationId, visitorToken]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                conversationId:
+                  type: string
+                visitorToken:
+                  type: string
+      responses:
+        '200':
+          description: File URL
+        '403':
+          description: Invalid conversation or token
+        '413':
+          description: File too large
+        '415':
+          description: Unsupported file type
+        '429':
+          description: Rate limited
+
+  # ── Portal: Auth ──────────────────────────────────────────────────────────────
+
+  /api/portal/auth/send-otp:
+    post:
+      tags: [Portal-Auth]
+      summary: Send OTP login code to client email
+      description: Rate-limited to 3 OTPs per client per 10 minutes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: OTP sent
+        '400':
+          description: Email required
+        '404':
+          description: No client account for this email
+        '429':
+          description: Rate limited
+
+  /api/portal/auth/has-password:
+    post:
+      tags: [Portal-Auth]
+      summary: Check if a client has a password set
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Password check result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hasPassword:
+                    type: boolean
+
+  /api/portal/auth/set-password:
+    post:
+      tags: [Portal-Auth]
+      summary: Set or update client portal password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [password]
+              properties:
+                password:
+                  type: string
+                  minLength: 8
+                currentPassword:
+                  type: string
+                  description: Required if password already set
+      responses:
+        '200':
+          description: Password updated
+        '400':
+          description: Password too short or incorrect current password
+        '401':
+          description: Unauthorized
+
+  # ── Portal: Projects ──────────────────────────────────────────────────────────
+
+  /api/portal/projects:
+    get:
+      tags: [Portal-Projects]
+      summary: List client's projects
+      responses:
+        '200':
+          description: Projects with milestones and file counts
+        '401':
+          description: Unauthorized
+
+  /api/portal/projects/{id}:
+    get:
+      tags: [Portal-Projects]
+      summary: Get project detail
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project with full detail
+        '403':
+          description: Access denied
+        '404':
+          description: Not found
+
+  /api/portal/projects/{id}/milestones/{milestoneId}:
+    patch:
+      tags: [Portal-Projects]
+      summary: Approve a milestone
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: milestoneId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                approved:
+                  type: boolean
+      responses:
+        '200':
+          description: Milestone updated
+        '403':
+          description: Access denied
+
+  /api/portal/projects/{id}/comments:
+    get:
+      tags: [Portal-Projects]
+      summary: List project comments
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Comments
+    post:
+      tags: [Portal-Projects]
+      summary: Post a comment on a project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body:
+                  type: string
+      responses:
+        '201':
+          description: Comment posted
+
+  /api/portal/projects/{id}/files:
+    get:
+      tags: [Portal-Projects]
+      summary: List project files
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Files
+        '403':
+          description: Access denied
+
+  # ── Portal: Invoices ──────────────────────────────────────────────────────────
+
+  /api/portal/invoices:
+    get:
+      tags: [Portal-Invoices]
+      summary: List client's invoices
+      responses:
+        '200':
+          description: Invoices
+        '401':
+          description: Unauthorized
+
+  /api/portal/invoices/{id}/pay:
+    post:
+      tags: [Portal-Invoices]
+      summary: Record Paystack payment reference after successful payment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reference]
+              properties:
+                reference:
+                  type: string
+      responses:
+        '200':
+          description: Payment recorded
+        '403':
+          description: Access denied
+        '404':
+          description: Not found
+
+  /api/portal/invoices/{id}/dispute:
+    post:
+      tags: [Portal-Invoices]
+      summary: Raise a dispute on an invoice
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason]
+              properties:
+                reason:
+                  type: string
+      responses:
+        '201':
+          description: Dispute created
+        '403':
+          description: Access denied
+        '409':
+          description: Dispute already exists
+
+  # ── Portal: Chat ──────────────────────────────────────────────────────────────
+
+  /api/portal/chat:
+    get:
+      tags: [Portal-Chat]
+      summary: Get active open conversation and messages
+      parameters:
+        - in: query
+          name: after
+          schema:
+            type: string
+          description: Message ID for delta fetch (only newer messages returned)
+      responses:
+        '200':
+          description: Conversation with messages (null if no active conversation)
+        '401':
+          description: Unauthorized
+    put:
+      tags: [Portal-Chat]
+      summary: Send a message (creates conversation if needed)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body:
+                  type: string
+                conversationId:
+                  type: string
+                fileUrl:
+                  type: string
+                replyToId:
+                  type: string
+                replyToBody:
+                  type: string
+                replyToSender:
+                  type: string
+                replyToFileUrl:
+                  type: string
+      responses:
+        '200':
+          description: Message sent with conversation ID
+
+  /api/portal/chat/upload:
+    post:
+      tags: [Portal-Chat]
+      summary: Upload file for portal chat
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: File URL
+
+  # ── Portal: Notifications ─────────────────────────────────────────────────────
+
+  /api/portal/notifications:
+    get:
+      tags: [Portal-Notifications]
+      summary: List notifications
+      responses:
+        '200':
+          description: Notifications
+        '401':
+          description: Unauthorized
+    patch:
+      tags: [Portal-Notifications]
+      summary: Mark notifications as read
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: string
+                  description: Omit to mark all as read
+      responses:
+        '200':
+          description: Marked as read
+
+  /api/portal/notifications/count:
+    get:
+      tags: [Portal-Notifications]
+      summary: Get unread notification count
+      responses:
+        '200':
+          description: Unread count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+
+  /api/portal/notification-preferences:
+    get:
+      tags: [Portal-Notifications]
+      summary: Get notification preferences
+      responses:
+        '200':
+          description: Preferences by category
+    put:
+      tags: [Portal-Notifications]
+      summary: Update notification preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  category:
+                    type: string
+                  push:
+                    type: boolean
+                  email:
+                    type: boolean
+      responses:
+        '200':
+          description: Updated preferences
+
+  /api/portal/presence:
+    post:
+      tags: [Portal-Chat]
+      summary: Portal client presence update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                online:
+                  type: boolean
+      responses:
+        '200':
+          description: Ok
+
+  # ── Portal: Config ────────────────────────────────────────────────────────────
+
+  /api/portal/settings:
+    get:
+      tags: [Portal-Config]
+      summary: Get client profile settings
+      responses:
+        '200':
+          description: Client profile
+        '401':
+          description: Unauthorized
+    patch:
+      tags: [Portal-Config]
+      summary: Update client profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                company:
+                  type: string
+      responses:
+        '200':
+          description: Updated profile
+
+  /api/portal/team:
+    get:
+      tags: [Portal-Config]
+      summary: List client team members
+      responses:
+        '200':
+          description: Team members
+    post:
+      tags: [Portal-Config]
+      summary: Invite a team member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+                name:
+                  type: string
+                role:
+                  type: string
+                  enum: [viewer, admin]
+      responses:
+        '201':
+          description: Member invited
+        '409':
+          description: Already a team member
+    delete:
+      tags: [Portal-Config]
+      summary: Remove a team member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [memberId]
+              properties:
+                memberId:
+                  type: string
+      responses:
+        '200':
+          description: Removed
+
+  /api/portal/analytics:
+    get:
+      tags: [Portal-Config]
+      summary: Client analytics (monthly spend, project status breakdown)
+      responses:
+        '200':
+          description: Analytics data
+        '401':
+          description: Unauthorized
+
+  /api/portal/knowledge-base:
+    get:
+      tags: [Portal-Config]
+      summary: List published knowledge base articles (portal view)
+      responses:
+        '200':
+          description: Articles
+
+  /api/portal/search:
+    get:
+      tags: [Portal-Config]
+      summary: Search projects, invoices, files, and messages
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results
+        '401':
+          description: Unauthorized
+
+  # ── Public ────────────────────────────────────────────────────────────────────
+
+  /api/cms/posts:
+    get:
+      tags: [Public]
+      summary: List published blog posts
+      responses:
+        '200':
+          description: Published posts (id, slug, title, excerpt, category, author, date, readMin, imageUrl, featured, tags)
+
+  /api/cms/posts/{slug}:
+    get:
+      tags: [Public]
+      summary: Get a published blog post by slug
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Blog post
+        '404':
+          description: Not found
+
+  /api/cms/portfolio:
+    get:
+      tags: [Public]
+      summary: List published portfolio projects
+      responses:
+        '200':
+          description: Portfolio projects
+
+  /api/cms/portfolio/{slug}:
+    get:
+      tags: [Public]
+      summary: Get a published portfolio project by slug
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Portfolio project
+        '404':
+          description: Not found
+
+  /api/cms/jobs:
+    get:
+      tags: [Public]
+      summary: List active job listings
+      responses:
+        '200':
+          description: Active jobs
+
+  /api/news:
+    get:
+      tags: [Public]
+      summary: List news articles (paginated, filterable)
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 30
+            maximum: 50
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum: [guardian, techcrunch]
+          description: Filter by source
+        - in: query
+          name: category
+          schema:
+            type: string
+            enum: [ai, startups, fintech, security, software, enterprise]
+          description: Filter by keyword category
+      responses:
+        '200':
+          description: Articles with pagination
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NewsArticle'
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                      total:
+                        type: integer
+                      pages:
+                        type: integer
+
+  /api/news/{slug}:
+    get:
+      tags: [Public]
+      summary: Get a news article by slug (sanitized HTML content)
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: News article
+        '404':
+          description: Not found
+
+  /api/news/sync:
+    get:
+      tags: [Public]
+      summary: Trigger news sync (cron or manual)
+      description: Requires `Authorization: Bearer <CRON_SECRET>` header.
+      parameters:
+        - in: query
+          name: source
+          schema:
+            type: string
+          description: Specific source to sync, or omit for all
+      responses:
+        '200':
+          description: Sync result
+        '401':
+          description: Unauthorized
+
+  /api/contact/start:
+    post:
+      tags: [Public]
+      summary: Submit a project brief or enquiry
+      description: Rate-limited per email. Sends email to team and confirmation to submitter.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, service, description]
+              properties:
+                name:
+                  type: string
+                company:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                phone:
+                  type: string
+                service:
+                  type: string
+                budget:
+                  type: string
+                timeline:
+                  type: string
+                description:
+                  type: string
+                source:
+                  type: string
+      responses:
+        '200':
+          description: Submitted
+        '400':
+          description: Missing required fields
+        '429':
+          description: Rate limited
+
+  /api/contact/consultation:
+    post:
+      tags: [Public]
+      summary: Submit a consultation request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, timezone, message]
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                company:
+                  type: string
+                timezone:
+                  type: string
+                timeOfDay:
+                  type: string
+                message:
+                  type: string
+      responses:
+        '200':
+          description: Submitted
+        '400':
+          description: Missing required fields
+        '429':
+          description: Rate limited
+
+  /api/contact/press:
+    post:
+      tags: [Public]
+      summary: Submit a press or speaking inquiry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, organisation, requestType, details]
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                organisation:
+                  type: string
+                requestType:
+                  type: string
+                eventDate:
+                  type: string
+                details:
+                  type: string
+      responses:
+        '200':
+          description: Submitted
+        '400':
+          description: Missing required fields
+        '429':
+          description: Rate limited
+
+  /api/contact/careers:
+    post:
+      tags: [Public]
+      summary: Submit a job application with CV
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [fullName, email, role, linkedin, github, experience, coverLetter, cv]
+              properties:
+                fullName:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                role:
+                  type: string
+                linkedin:
+                  type: string
+                  description: Must be a valid linkedin.com URL
+                github:
+                  type: string
+                  description: Must be a valid github.com URL
+                experience:
+                  type: string
+                coverLetter:
+                  type: string
+                cv:
+                  type: string
+                  format: binary
+                  description: PDF or Word document, max 5MB
+      responses:
+        '200':
+          description: Application submitted
+        '400':
+          description: Missing fields or invalid LinkedIn/GitHub URL
+        '413':
+          description: CV too large
+        '415':
+          description: Invalid CV format
+        '429':
+          description: Rate limited
+
+  /api/csat:
+    post:
+      tags: [Public]
+      summary: Submit a CSAT rating for a conversation
+      description: Requires `x-visitor-token` header matching the conversation's visitor token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [conversationId, rating]
+              properties:
+                conversationId:
+                  type: string
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                feedback:
+                  type: string
+      responses:
+        '201':
+          description: Rating submitted
+        '400':
+          description: Missing fields or invalid rating
+        '403':
+          description: Invalid visitor token
+        '404':
+          description: Conversation not found
+        '409':
+          description: Already rated
+
+  /api/events/register:
+    post:
+      tags: [Public]
+      summary: Register for an event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, eventTitle]
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                company:
+                  type: string
+                eventTitle:
+                  type: string
+                eventDate:
+                  type: string
+                eventLocation:
+                  type: string
+      responses:
+        '200':
+          description: Registration confirmed
+        '400':
+          description: Missing required fields
+
+  /api/newsletter/subscribe:
+    post:
+      tags: [Public]
+      summary: Subscribe to newsletter
+      description: Sends 4-email onboarding sequence via Resend.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Subscribed
+        '400':
+          description: Email required
+        '429':
+          description: Rate limited
+
+  /api/resources/download:
+    get:
+      tags: [Public]
+      summary: Proxy download for a resource file
+      parameters:
+        - in: query
+          name: url
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File download
+        '400':
+          description: URL required
+
+  /api/widget-config:
+    get:
+      tags: [Public]
+      summary: Get public widget configuration (used by the embeddable chat widget)
+      responses:
+        '200':
+          description: Widget config (colors, position, messages)
+
+  # ── Webhooks ──────────────────────────────────────────────────────────────────
+
+  /api/webhooks/paystack:
+    post:
+      tags: [Webhooks]
+      summary: Paystack webhook (admin invoices)
+      description: Verifies `x-paystack-signature` HMAC-SHA512. Marks invoice as paid on `charge.success`.
+      responses:
+        '200':
+          description: Processed
+        '400':
+          description: Invalid signature or unhandled event
+
+  /api/portal/webhooks/paystack:
+    post:
+      tags: [Webhooks]
+      summary: Paystack webhook (portal invoices)
+      description: Verifies `x-paystack-signature`. Updates invoice status on `charge.success`.
+      responses:
+        '200':
+          description: Processed
+        '400':
+          description: Invalid signature
+
+  # ── Push Notifications ────────────────────────────────────────────────────────
+
+  /api/push/subscribe:
+    post:
+      tags: [Push]
+      summary: Subscribe a device to push notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [endpoint, p256dh, auth, ownerType, ownerId]
+              properties:
+                endpoint:
+                  type: string
+                p256dh:
+                  type: string
+                auth:
+                  type: string
+                ownerType:
+                  type: string
+                  enum: [admin, client]
+                ownerId:
+                  type: string
+      responses:
+        '200':
+          description: Subscribed
+
+  /api/push/unsubscribe:
+    post:
+      tags: [Push]
+      summary: Unsubscribe a device from push notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [endpoint]
+              properties:
+                endpoint:
+                  type: string
+      responses:
+        '200':
+          description: Unsubscribed
+
+  /api/pusher/auth:
+    post:
+      tags: [Push]
+      summary: Authenticate Pusher private/presence channels
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [socket_id, channel_name]
+              properties:
+                socket_id:
+                  type: string
+                channel_name:
+                  type: string
+      responses:
+        '200':
+          description: Pusher auth token
+        '403':
+          description: Unauthorized
