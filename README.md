@@ -488,6 +488,16 @@ erDiagram
 
 ---
 
+## API Reference
+
+<div align="center">
+  <a href="https://cirostackdev.github.io/cirostack/" target="_blank">
+    <img src="https://img.shields.io/badge/API_Docs-Click_to_view_interactive_docs-0d1117?style=for-the-badge&logo=swagger&logoColor=85EA2D" alt="API Docs" />
+  </a>
+</div>
+
+---
+
 ## Getting Started
 
 ### Prerequisites
